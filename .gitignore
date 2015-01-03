@@ -1,0 +1,7 @@
+.idea
+.sass-cache
+/vendor
+/node_modules
+.bundle/
+Gemfile.lock
+npm-debug.log
