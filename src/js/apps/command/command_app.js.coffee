@@ -17,6 +17,3 @@
 
   ## Startup tasks.
   App.addInitializer ->
-    ## Bind to the keyboard inputs
-    inputController = new CommandApp.Kodi.Input('kodi')
-    inputController.initKeyBind()
