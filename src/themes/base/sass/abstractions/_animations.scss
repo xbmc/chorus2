@@ -1,0 +1,31 @@
+// =============================================================================
+// Name:            Animations
+// Description:     Animation variables.
+// =============================================================================
+
+
+/**
+ * Loading box.
+ */
+@keyframes wave {
+  0% { background-position: 0% bottom; }
+  100% { background-position: 100% bottom;  }
+}
+@-webkit-keyframes wave {
+  0% { background-position: 0 bottom; }
+  100% { background-position: 100% bottom;  }
+}
+#files-container {
+  .loading-box {
+    animation: none;
+    -webkit-animation: none;
+  }
+}
+
+$animation-loading-background: $color-greyscale-alabaster image-url('loading-box-bg.jpg') 0 bottom repeat-x;
+
+@mixin loading-box-background {
+  background: $animation-loading-background;
+  @include animation(wave 16s infinite linear);
+}
+

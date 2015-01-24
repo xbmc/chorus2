@@ -22,12 +22,17 @@ sass_dir        = "src/themes/base/sass"
 images_dir      = "dist/themes/base/images"
 extensions_dir  = "sass-extensions"
 javascripts_dir = "src/js"
+fonts_dir = "dist/themes/base/fonts"
 
 
 # Require any additional compass plugins installed on your system.
-require 'breakpoint'
+require 'compass-normalize'
+require 'rgbapng'
+require 'toolkit'
 require 'susy'
-
+require 'breakpoint'
+require 'sass-globbing'
+require 'bootstrap-sass'
 
 ##
 ## You probably don't need to edit anything below this.

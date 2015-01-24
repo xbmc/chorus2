@@ -15,6 +15,7 @@ group :development do
   gem 'breakpoint'                   # Manages CSS media queries.
   gem 'oily_png'                     # Faster Compass sprite generation.
   gem 'css_parser'                   # Helps `compass stats` output statistics.
+  gem 'bootstrap-sass', '~> 3.3.1.0' # Twitter bootstrap theme.
 
   # Dependency to prevent polling. Setup for multiple OS environments.
   # Optionally remove the lines not specific to your OS.

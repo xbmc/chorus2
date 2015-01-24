@@ -1,0 +1,88 @@
+$width-nav-bar: 250px;
+$width-nav-bar-closed: 50px;
+
+#nav-bar {
+  background: $color-white;
+  width: $width-nav-bar-closed;
+  padding: 0;
+  position: fixed;
+  @include reset-position;
+  @include reset-edges;
+  right: auto;
+  overflow-y: auto;
+  @include transition(all 0.3s linear);
+
+
+  #nav-header {
+    height: 50px;
+    background: $color-greyscale-outer-space image-url('logo.png') 0 0 no-repeat;
+  }
+
+  nav {
+    padding: $spacing-base-unit 0;
+    ul {
+      @include reset-list;
+      a {
+        display: block;
+        padding: $spacing-half-unit 0;
+        color: $color-greyscale-outer-space;
+        text-align: center;
+        &:hover {
+          background: $color-greyscale-alto;
+          color: $color-greyscale-outer-space;
+        }
+        font-size: 110%;
+        span {
+          display: none;
+        }
+        i {
+          font-size: 130%;
+        }
+      }
+      i {
+        margin-right: $spacing-quater-unit;
+      }
+      ul {
+        display: none;
+      }
+    }
+
+  }
+
+  // Open style.
+  &:hover,
+  &.nav-open {
+    @extend .shadow-z-2;
+    width: $width-nav-bar;
+    overflow-x: hidden;
+    ul {
+      li {
+        width: $width-nav-bar;
+        &:hover {
+          ul {
+            display: block;
+          }
+        }
+      }
+      a {
+        padding: $spacing-half-unit #{$spacing-half-unit + $spacing-base-unit};
+        text-align: left;
+        white-space: nowrap;
+        i {
+          color: $color-greyscale-gray;
+        }
+        span {
+          display: inline-block;
+        }
+      }
+      ul {
+        padding-bottom: $spacing-half-unit;
+        a {
+          padding-left: $spacing-double-unit * 2;
+          color: $color-greyscale-gray;
+          font-size: 90%;
+        }
+      }
+    }
+  }
+}

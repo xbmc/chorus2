@@ -1,0 +1,8 @@
+
+#playlists-bar {
+  position: fixed;
+  background: $color-white;
+  @include reset-position;
+  left: auto;
+  width: 500px;
+}

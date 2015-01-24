@@ -1,4 +1,23 @@
-body {
-	background: red;
-	
-}
+// Import external libraries.
+@import "compass";
+@import "breakpoint";
+@import "susy";
+@import "toolkit";
+@import "bootstrap-compass";
+@import "bootstrap";
+
+// Import the legacy variables (relevant for controlling compass-normalize).
+@import "variables/**/*";
+
+// Generate normalize.css.
+// @import "normalize";
+
+@import "libs/bootstrap-material-design/material.scss";
+
+// Use 'border-box' for the box model.
+@import "toolkit/kickstart";
+
+// The theme components.
+@import "abstractions/**/*";
+@import "base/**/*";
+@import "components/**/*";

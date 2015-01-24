@@ -1,0 +1,9 @@
+// =============================================================================
+// Name:            Layout
+// Description:     Layout abstractions.
+// =============================================================================
+
+@mixin constrained-container($width: $width-container-max) {
+  @include container($width);
+  width: $width-containter;
+}

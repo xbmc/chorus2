@@ -1,0 +1,13 @@
+// =============================================================================
+// Name:            Typography
+// Description:     Typography base.
+// =============================================================================
+
+a {
+  @include transition(all 0.3s linear);
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    outline: none;
+  }
+}

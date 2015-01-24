@@ -1,0 +1,43 @@
+// =============================================================================
+// Name:            Reset
+// Description:     Reset abstractions.
+// =============================================================================
+
+/**
+ * Remove padding and margin from an element.
+ */
+@mixin reset-edges(){
+  margin: 0;
+  padding: 0;
+}
+%reset-edges {
+  @include reset-edges;
+}
+
+/**
+ * Remove standard styles from a list.
+ * Call on ul or ol
+ */
+@mixin reset-list(){
+  @include reset-edges;
+  li {
+    @include reset-edges;
+    list-style: none;
+  }
+}
+%reset-list {
+  @include reset-list;
+}
+
+/**
+ * Reset position sets all edges to zero.
+ */
+@mixin reset-position(){
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+%reset-position {
+  @include reset-edges;
+}

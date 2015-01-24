@@ -18,6 +18,42 @@ module.exports = function (grunt) {
   var jsDistFolder = distFolder + jsFolder;
   var jsLibFolder = srcFolder + 'lib/{,**/}';
 
+  // JS Stack.
+  function getJsStack(type) {
+    var jsStack = [
+      // Libs Core.
+      srcFolder + 'lib/core/jquery.js',
+      srcFolder + 'lib/core/underscore.js',
+      srcFolder + 'lib/core/backbone.js',
+      srcFolder + 'lib/core/json2.js',
+      // Libs required.
+      srcFolder + 'lib/required/*.js',
+      // Libs ui.
+      srcFolder + 'lib/ui/*.js',
+      // App.
+      jsSrcFolder + 'app.js',
+      // Mixins
+      jsSrcFolder + 'mixins/{,**/}*.js',
+      // Base extends
+      jsSrcFolder + 'base/{,**/}*.js',
+      // Components
+      jsSrcFolder + 'components/{,**/}*.js',
+      // Config
+      jsSrcFolder + 'config/{,**/}*.js',
+      // Entities
+      jsSrcFolder + 'entities/{,**/}*.js',
+      // Apps/Modules
+      jsSrcFolder + 'apps/{,**/}*.js'
+    ];
+    // Add exclusions based on type.
+    if (type !== undefined) {
+      if (type == 'jshint') {
+        jsStack.push('!' + srcFolder + 'lib/{,**/}*.js');
+      }
+    }
+    return jsStack;
+  }
+
   // Grunt Config.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -81,7 +117,6 @@ module.exports = function (grunt) {
 
     jshint: {
       options: {
-        jshintrc: jsSrcFolder + '.jshintrc',
         globals: {
           jQuery: true,
           console: true,
@@ -89,7 +124,7 @@ module.exports = function (grunt) {
           document: true
         }
       },
-      all: [jsSrcFolder + '{,**/}*.js', '!' + jsSrcFolder + '{,**/}*.min.js']
+      all: getJsStack('jshint')
     },
 
     concat: {
@@ -97,12 +132,7 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: [
-          // Libs. 
-          srcFolder + 'lib/required/*.js',
-          // App.
-          jsSrcFolder + '*.js',
-        ],
+        src: getJsStack(),
         dest: jsDistFolder + '<%= pkg.name %>.js'
       }
     },

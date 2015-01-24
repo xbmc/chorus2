@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Kodi.</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Kodi.</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- Icons -->
-    <link rel="shortcut icon" href="dist/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="dist/icon.png">
-    <link rel="icon" href="dist/icon.png">
+        <!-- Icons -->
+        <link rel="shortcut icon" href="dist/favicon.png" type="image/png">
+        <link rel="apple-touch-icon" href="dist/icon.png">
+        <link rel="icon" href="dist/icon.png">
 
-  </head>
-  <body>
 
-  <div id="init-loading">
-      <div class="loading-box">Loading Application</div>
-  </div>
+        <!-- Styles-->
+        <link href="dist/themes/base/css/base.css" rel="stylesheet">
 
-  </body>
+    </head>
+    <body>
+
+          <div id="init-loading" class="box-loading">
+              <div class="loading-box">Loading Application</div>
+          </div>
+
+          <!-- Libs / Depends -->
+          <script src="dist/js/kodi-webinterface.js"></script>
+
+          <script type='text/javascript'>//<![CDATA[
+          document.write("<script async src='//HOST:3102/browser-sync-client.1.1.2.js'><\/script>".replace(/HOST/g, location.hostname));
+          //]]></script>
+
+    </body>
 </html>

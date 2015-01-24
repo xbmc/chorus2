@@ -1,0 +1,14 @@
+// =============================================================================
+// Name:            System
+// Description:     Core system components.
+// =============================================================================
+
+.box-loading {
+  @extend .jumbotron;
+  @include constrained-container;
+  @include loading-box-background;
+  margin-top: $spacing-base-unit;
+  padding: $spacing-base-unit;
+  text-align: center;
+  font-size: $font-size-large;
+}
