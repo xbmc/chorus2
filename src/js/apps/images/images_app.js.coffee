@@ -1,10 +1,10 @@
-@Kodi.module "Fanart", (Shell, App, Backbone, Marionette, $, _) ->
+@Kodi.module "Images", (Images, App, Backbone, Marionette, $, _) ->
 
   API =
 
-    defaultsPath: 'dist/images/fanart_default/'
+    defaultFanartPath: 'dist/images/fanart_default/'
 
-    defaultFiles: [
+    defaultFanartFiles: [
       'wallpaper-443657.jpg'
       'wallpaper-45040.jpg'
       'wallpaper-765190.jpg'
@@ -12,12 +12,23 @@
     ]
 
     getRandomFanart: ->
-      rand = helpers.global.getRandomInt(0, API.defaultFiles.length)
-      file = API.defaultFiles[rand]
-      API.defaultsPath + file
+      rand = helpers.global.getRandomInt(0, API.defaultFanartFiles.length - 1)
+      file = API.defaultFanartFiles[rand]
+      path = API.defaultFanartPath + file
+      path
 
-    setBackground: (path) ->
+    setFanartBackground: (path, region) ->
       $body = App.getRegion(region).$el
-      $body.css('background-image', path)
+      $body.css('background-image', 'url(' +  path + ')')
+
+    getImageUrl: (rawPath, type = 'default') ->
+      if not rawPath? or rawPath is ''
+        path = API.getRandomFanart()
+      else
+        path = 'image/' + encodeURIComponent(rawPath)
+      path
 
 
+  App.commands.setHandler "images:fanart:set", (rawPath, region = 'regionFanart') ->
+    path = API.getImageUrl(rawPath)
+    API.setFanartBackground path, region

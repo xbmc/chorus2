@@ -1,0 +1,29 @@
+
+#header {
+  background: rgba($color-greyscale-outer-space, 0.8);
+  position: fixed;
+  top: 0;
+  left: $size-region-unit;
+  right: 0;
+  height: $size-region-unit;
+  z-index: $z-index-beta;
+  @include set-layout('width-playlist', 'right');
+
+  // Sidebar is hidden.
+  .shell-playlist-closed & {
+    @include set-layout('width-playlist-closed', 'right');
+  }
+}
+
+#page-title {
+  .context a,
+  .title {
+    padding: 0.5em 1em;
+  }
+}
+
+#search-region {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

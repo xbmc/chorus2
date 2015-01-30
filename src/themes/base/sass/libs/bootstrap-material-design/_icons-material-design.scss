@@ -9,18 +9,22 @@
     font-style: normal;
 }
 
-[class^="mdi-"], [class*=" mdi-"] {
-    font-family: "Material-Design-Icons";
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
+%mdi-icon {
+  font-family: "Material-Design-Icons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
 
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="mdi-"], [class*=" mdi-"] {
+  @extend %mdi-icon;
 }
 
 .mdi-action-3d-rotation:before {

@@ -16,42 +16,42 @@ module.exports = function (grunt) {
   var jsFolder = 'js/';
   var jsSrcFolder = srcFolder + jsFolder;
   var jsDistFolder = distFolder + jsFolder;
-  var jsLibFolder = srcFolder + 'lib/{,**/}';
 
-  // JS Stack.
-  function getJsStack(type) {
-    var jsStack = [
+  // Js Dist files.
+  var jsDistApp = jsDistFolder + 'app.js';
+  var jsDistTpl = jsDistFolder + 'tpl.js';
+
+  // The order of concat files.
+  function getConcatStack() {
+    return [
       // Libs Core.
       srcFolder + 'lib/core/jquery.js',
-      srcFolder + 'lib/core/underscore.js',
+      srcFolder + 'lib/core/lodash.js',
       srcFolder + 'lib/core/backbone.js',
       srcFolder + 'lib/core/json2.js',
       // Libs required.
       srcFolder + 'lib/required/*.js',
       // Libs ui.
       srcFolder + 'lib/ui/*.js',
-      // App.
-      jsSrcFolder + 'app.js',
-      // Mixins
-      jsSrcFolder + 'mixins/{,**/}*.js',
-      // Base extends
-      jsSrcFolder + 'base/{,**/}*.js',
-      // Components
-      jsSrcFolder + 'components/{,**/}*.js',
-      // Config
-      jsSrcFolder + 'config/{,**/}*.js',
-      // Entities
-      jsSrcFolder + 'entities/{,**/}*.js',
-      // Apps/Modules
-      jsSrcFolder + 'apps/{,**/}*.js'
+      // Templates.
+      jsSrcFolder + 'tpl/js/jst.js',
+      jsDistTpl,
+      // The app.
+      jsDistApp
     ];
-    // Add exclusions based on type.
-    if (type !== undefined) {
-      if (type == 'jshint') {
-        jsStack.push('!' + srcFolder + 'lib/{,**/}*.js');
-      }
-    }
-    return jsStack;
+  }
+
+  // The order of coffee files.
+  function getCoffeeStack() {
+    return [
+      '*.coffee',
+      'helpers/{,**}/*.coffee',
+      'config/{,**}/*.coffee',
+      'entities/{,**}/*.coffee',
+      // 'controllers/{,**}/*.coffee',
+      'views/{,**}/*.coffee',
+      'apps/{,**}/*.coffee'
+    ];
   }
 
   // Grunt Config.
@@ -75,9 +75,13 @@ module.exports = function (grunt) {
       css: {
         files: [themeDistFolder + 'css/{,**/}*.css']
       },
-      js: {
-        files: ['Gruntfile.js', jsSrcFolder + '{,**/}*.js', '!' + jsSrcFolder + '{,**/}*.min.js', jsLibFolder + '*.js', '!' + jsLibFolder + '*.min.js'],
-        tasks: ['jshint', 'concat', 'uglify:dev']
+      eco: {
+        files: [jsSrcFolder + '/**/*.eco'],
+        tasks: ['eco', 'concat', 'uglify:dev']
+      },
+      coffee: {
+        files: [jsSrcFolder + '{,**/}*.coffee'],
+        tasks: ['coffee', 'concat', 'uglify:dev']
       }
     },
 
@@ -96,6 +100,35 @@ module.exports = function (grunt) {
         options: {
           environment: 'production'
         }
+      }
+    },
+
+    coffee: {
+      options: {
+        bare: true,
+        join: true
+      },
+      files: {
+        expand: true,
+        flatten: true,
+        cwd: jsSrcFolder,
+        src: getCoffeeStack(),
+        dest: jsDistFolder,
+        rename: function (dest, src) {
+          return dest + 'app.js';
+        }
+      }
+    },
+
+    eco: {
+      app: {
+        options: {
+          basePath: jsSrcFolder + 'apps/',
+          jstGlobalCheck: false
+        },
+        files: [{
+          'dist/js/tpl.js': [jsSrcFolder + '**/*.eco']
+        }]
       }
     },
 
@@ -121,10 +154,13 @@ module.exports = function (grunt) {
           jQuery: true,
           console: true,
           module: true,
-          document: true
-        }
+          document: true,
+        },
+        unused: false,
+        eqnull: true,
+        boss: true
       },
-      all: getJsStack('jshint')
+      all: [jsDistApp]
     },
 
     concat: {
@@ -132,7 +168,7 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: getJsStack(),
+        src: getConcatStack(),
         dest: jsDistFolder + '<%= pkg.name %>.js'
       }
     },
@@ -183,6 +219,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-browser-sync');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-eco');
 
   /**
    * Tasks

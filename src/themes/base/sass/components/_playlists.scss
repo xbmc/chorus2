@@ -1,8 +1,44 @@
 
-#playlists-bar {
-  position: fixed;
-  background: $color-white;
-  @include reset-position;
-  left: auto;
-  width: 500px;
+#sidebar-two {
+  @include set-position-fixed(top 0 left $size-region-unit right 0 bottom 0);
+  background: rgba($color-white, 0.9);
+  @include at-bp(medium) {
+    left: auto;
+  }
+  @include set-layout('width-playlist', 'width');
+  @include set-layout('height-player', 'bottom');
+
+  #playlist-summary {
+    display: none;
+  }
+
+  .playlist-toggle-open {
+    @include set-position-fixed(top 0 right 0);
+    position: absolute;
+    width: $size-region-unit;
+    height: $size-region-unit;
+    @include icon('hardware-keyboard-arrow-right');
+    @include vertical-align-wrapper();
+    cursor: pointer;
+    &:before {
+      @include transition(all 0.4s linear);
+      @include vertical-align-element();
+      text-align: center;
+      font-size: 150%;
+    }
+  }
+
+  // Sidebar is hidden.
+  .shell-playlist-closed & {
+    .playlist-toggle-open:before {
+      @include transform(rotate(-180deg));
+    }
+    @include set-layout('width-playlist-closed', 'width');
+    #playlist-bar {
+      display: none;
+    }
+    #playlist-summary {
+      display: block;
+    }
+  }
 }

@@ -3,10 +3,53 @@
 // Description:     Layout variables.
 // =============================================================================
 
-$width-containter: 95%;
-$width-container-max: 50em;
-
+// Spacing units
 $spacing-base-unit: 1em;
 $spacing-double-unit: 2em;
 $spacing-half-unit: 0.5em;
 $spacing-quater-unit: 0.25em;
+
+// Size units
+$size-region-unit: 50px;
+
+// Width container
+$width-containter: 95%;
+$width-container-max: 50em;
+
+// Width playlist
+$width-playlist-small: $size-region-unit * 5;
+$width-playlist: $size-region-unit * 8;
+$width-playlist-large: $size-region-unit * 12;
+
+// Heights
+$height-player-small: $size-region-unit;
+$height-player: $size-region-unit * 1.5;
+
+// Z-indexes
+$z-index-below: -10;
+$z-index-base: 0;
+$z-index-alpha: 10;
+$z-index-beta: 20;
+$z-index-gamma: 50;
+$z-index-delta: 100;
+$z-index-above: 500;
+
+// Layout map - used with set-layout().
+$layouts: (
+  smallest: (
+    height-player: $height-player-small,
+    width-search: $size-region-unit * 3,
+    height-header: $size-region-unit,
+    width-nav: $size-region-unit
+  ),
+  medium: (
+    width-playlist: $width-playlist-small,
+    width-playlist-closed: $size-region-unit
+  ),
+  large: (
+    height-player: $height-player,
+    width-playlist: $width-playlist,
+    width-playlist-closed: $size-region-unit,
+    width-search: $size-region-unit * 4
+  )
+)

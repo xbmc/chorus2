@@ -1,0 +1,19 @@
+// =============================================================================
+// Name:            Vertical align
+// Description:     Vertical align an el.
+// =============================================================================
+
+/**
+ * The wrapper surrounding the element to align.
+ */
+@mixin vertical-align-wrapper() {
+  display: table;
+}
+
+/**
+ * The element to align
+ */
+@mixin vertical-align-element($align: middle) {
+  display: table-cell;
+  vertical-align: $align;
+}

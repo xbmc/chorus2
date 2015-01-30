@@ -10,7 +10,7 @@
  * Example:
  *
  * Position an element absolutely 50% from the top and 1em from the left:
- * @include duk-position(absolute, top 50% left 1em);
+ * @include set-position(absolute, top 50% left 1em);
  *
  * This generates the CSS:
  *
@@ -23,7 +23,7 @@
  * @param {list} $args
  *   The direction and amount, e.g top 1em left 5em.
  */
-@mixin duk-position($position, $args) {
+@mixin set-position($position, $args) {
   @each $o in top right bottom left {
     $i: index($args, $o);
 
@@ -43,8 +43,8 @@
  * @param {list} $args
  *   The direction and amount, e.g top 1em left 5em.
  */
-@mixin duk-position-absolute($args) {
-  @include duk-position(absolute, $args);
+@mixin set-position-absolute($args) {
+  @include set-position(absolute, $args);
 }
 
 
@@ -55,8 +55,8 @@
  * @param {list} $args
  *   The direction and amount, e.g top 1em left 5em.
  */
-@mixin duk-position-relative($args) {
-  @include duk-position(relative, $args);
+@mixin set-position-relative($args) {
+  @include set-position(relative, $args);
 }
 
 
@@ -67,6 +67,6 @@
  * @param {list} $args
  *   The direction and amount, e.g top 1em left 5em.
  */
-@mixin duk-position-fixed($args) {
-  @include duk-position(fixed, $args);
+@mixin set-position-fixed($args) {
+  @include set-position(fixed, $args);
 }

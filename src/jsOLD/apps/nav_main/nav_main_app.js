@@ -12,7 +12,7 @@ app.NavMain.Object = Marionette.Object.extend({
   structureDefault: [
     {
       title: 'Music',
-      path: '#',
+      path: '#music',
       icon: 'mdi-av-my-library-music',
       classes: 'nav-music',
       children: [
@@ -45,7 +45,7 @@ app.NavMain.Object = Marionette.Object.extend({
     },
     {
       title: 'Movies',
-      path: '#',
+      path: '#movies',
       icon: 'mdi-av-movie',
       classes: 'nav-movies',
       children: [
@@ -73,7 +73,7 @@ app.NavMain.Object = Marionette.Object.extend({
     },
     {
       title: 'TV Shows',
-      path: '#',
+      path: '#tv',
       icon: 'mdi-hardware-tv',
       classes: 'nav-tv-shows',
       children: [
@@ -101,7 +101,7 @@ app.NavMain.Object = Marionette.Object.extend({
     },
     {
       title: 'Browser',
-      path: '#',
+      path: '#browser',
       icon: 'mdi-action-view-list',
       classes: 'nav-browser',
       children: [
@@ -119,7 +119,7 @@ app.NavMain.Object = Marionette.Object.extend({
     },
     {
       title: 'Thumbs Up',
-      path: '#',
+      path: '#thumbsup',
       icon: 'mdi-action-thumb-up',
       classes: 'nav-thumbs-up'
     }

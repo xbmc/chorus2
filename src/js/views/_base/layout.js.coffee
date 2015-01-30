@@ -1,3 +1,3 @@
-@PlanetExpress.module "Views", (Views, App, Backbone, Marionette, $, _) ->
-	
-	class Views.Layout extends Marionette.Layout
+@Kodi.module "Views", (Views, App, Backbone, Marionette, $, _) ->
+
+	class Views.LayoutView extends Backbone.Marionette.LayoutView

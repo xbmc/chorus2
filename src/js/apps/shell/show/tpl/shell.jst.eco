@@ -20,12 +20,18 @@
 
         <div id="sidebar-one"></div>
 
-        <div id="content"></div>
+        <div id="content">Loading things...</div>
 
     </div>
 
-    <div id="sidebar-2"></div>
+    <div id="sidebar-two">
+        <div class="playlist-toggle-open"></div>
+        <div id="playlist-summary"></div>
+        <div id="playlist-bar"></div>
+    </div>
 
     <footer id="player"></footer>
 
 </div>
+
+<div id="fanart"></div>

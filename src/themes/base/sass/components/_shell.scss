@@ -1,0 +1,19 @@
+
+#fanart {
+  background-size: cover;
+  background-position: 50% 50%;
+  @include set-position-fixed(top $size-region-unit left $size-region-unit right 0 bottom 0);
+  @include set-layout('height-player', 'bottom');
+  z-index: $z-index-below;
+}
+
+#main {
+  margin: $size-region-unit 0 0 $size-region-unit;
+  @include set-layout('width-playlist', 'margin-right');
+  @include set-layout('height-player', 'margin-bottom');
+
+  // Sidebar is hidden.
+  .shell-playlist-closed & {
+    @include set-layout('width-playlist-closed', 'margin-right');
+  }
+}

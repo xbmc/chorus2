@@ -1,17 +1,16 @@
-$width-nav-bar: 250px;
-$width-nav-bar-closed: 50px;
+$width-nav-bar: $size-region-unit * 5;
+$width-nav-bar-closed: $size-region-unit;
 
 #nav-bar {
   background: $color-white;
   width: $width-nav-bar-closed;
   padding: 0;
-  position: fixed;
-  @include reset-position;
+  @include set-position-fixed(top 0 left 0 right auto bottom 0);
   @include reset-edges;
-  right: auto;
   overflow-y: auto;
   @include transition(all 0.3s linear);
-
+  z-index: $z-index-gamma;
+  @include set-layout('height-player', 'bottom');
 
   #nav-header {
     height: 50px;

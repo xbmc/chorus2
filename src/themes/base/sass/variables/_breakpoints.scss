@@ -3,8 +3,10 @@
 // Description:     Breakpoint variables.
 // =============================================================================
 
-$breakpoint-xsmall: 25em;
-$breakpoint-small: 37em;
-$breakpoint-medium: 45em;
-$breakpoint-large: 57em;
-$breakpoint-xlarge: 75em;
+$breakpoints: (
+  xsmall: 25em,
+  small: 37em,
+  medium: 45em,
+  large: 57em,
+  xlarge: 75em
+);

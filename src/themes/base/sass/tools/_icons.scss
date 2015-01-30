@@ -1,0 +1,109 @@
+// =============================================================================
+// Name:            Icon
+// Description:     Defines icon tools
+// =============================================================================
+
+// Variables
+// =============================================================================
+
+// The default set to use (mdi = material-design-icons)
+$default-set-name: 'mdi';
+
+
+// Functions
+// =============================================================================
+
+
+/* ==========================================================================
+ Returns the icon set based on the key.
+ ============================================================================ */
+@function icon-get-set($set-name: $default-set-name, $icon-sets: $icon-sets) {
+  @return  map-get($icon-sets, $set-name);
+}
+
+
+/* ==========================================================================
+ Returns a property of an icon set.
+ ============================================================================ */
+
+@function icon-get-property($property, $set-name: $default-set-name) {
+  $icon-mappings: icon-get-set($set-name);
+  @return map-get($icon-mappings, $property);
+}
+
+/* ==========================================================================
+ Returns the code of an icon.
+ ============================================================================ */
+
+@function icon-code($icon-name, $set-name: $default-set-name) {
+  $icon-mappings: icon-get-set($set-name);
+  @return map-deep-get($icon-mappings, codes, $icon-name);
+}
+
+
+// Mixins and Placeholders
+// =============================================================================
+
+/* ==========================================================================
+ Load an icon font.
+ ============================================================================ */
+
+@mixin load-icon-font($set-name: $default-set-name) {
+  $family: icon-get-property(font-family, $set-name);
+  $path: icon-get-property(path, $set-name);
+  $filename: icon-get-property(filename, $set-name);
+  @include load-font($family, $path, $filename);
+}
+
+/* ==========================================================================
+ Icon style config.
+ ============================================================================ */
+
+@mixin icon-style($set-name: $default-set-name) {
+  display: inline-block;
+  font-family: icon-get-property(font-family, $set-name);
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+
+
+/* ==========================================================================
+ Component: Icon
+ ============================================================================ */
+
+@mixin icon($icon-name: nil, $set-name: $default-set-name, $pseudo: 'before') {
+  $icon-code: icon-code($icon-name, $set-name);
+  @if $icon-code {
+    &:#{$pseudo} {
+      content: $icon-code;
+      @include icon-style($set-name);
+    }
+  }
+  @else {
+    @warn "Unknown icon code: #{$icon-name}";
+  }
+}
+
+/* ==========================================================================
+ Create classes for all icons in a set.
+ ============================================================================ */
+
+@mixin icon-create-css($set-name: $default-set-name, $prefix: $default-set-name) {
+  // Include a class for every icon code.
+  $codes: icon-get-property(codes, $set-name);
+  @each $name, $code in $codes {
+    .#{$prefix}-#{$name}:before {
+      content: $code;
+    }
+  }
+  // Include the base properties for this prefix.
+  [class^="#{$prefix}-"], [class*=" #{$prefix}-"] {
+    @include icon-style($set-name)
+  }
+}

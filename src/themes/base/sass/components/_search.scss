@@ -1,0 +1,27 @@
+
+#search-region {
+  background: rgba($color-white, 0.9);
+  @include set-layout('height-header', 'height');
+}
+#search {
+  background: none;
+  font-size: 150%;
+  border: none;
+  @include set-layout('height-header', 'height');
+  @include set-layout('height-header', 'margin-left');
+  @include set-layout('width-search', 'width');
+  outline: none;
+  padding: 0 $spacing-half-unit 0 0;
+}
+#do-search {
+  @include set-layout('height-header', 'width');
+  @include set-layout('height-header', 'height');
+  @include vertical-align-wrapper();
+  @include icon(action-search);
+  @include set-position-absolute(top 0 left 0);
+  &:before {
+    font-size: 150%;
+    @include vertical-align-element();
+    text-align: center;
+  }
+}

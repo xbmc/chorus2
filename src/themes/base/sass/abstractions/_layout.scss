@@ -3,7 +3,28 @@
 // Description:     Layout abstractions.
 // =============================================================================
 
+/**
+ * Standard centered container.
+ */
 @mixin constrained-container($width: $width-container-max) {
   @include container($width);
   width: $width-containter;
+}
+
+/**
+ * Set a property based on its layout for all breakpoints.
+ *
+ * @param $key
+ *  The item you want the value for. eg. height-footer
+ * @param $property
+ *   The property you want to assign that to eg. margin-right or width
+ */
+@mixin set-layout($key, $property, $layouts: $layouts) {
+  @each $size, $layout in $layouts {
+    @if map-has-key($layout, $key) {
+      @include at-bp($size) {
+        #{$property}: map-get($layout, $key);
+      }
+    }
+  }
 }

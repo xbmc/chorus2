@@ -1,0 +1,19 @@
+// =============================================================================
+// Name:            Icon
+// Description:     Defines icon base
+// =============================================================================
+
+
+/**
+ * Material fonts.
+ */
+
+$material-set-name: 'mdi';
+
+// Font-face
+@include load-icon-font($material-set-name);
+
+// Create classes for all Material icons.
+// @TODO: possibly change this to only icons in use.
+ @include icon-create-css($material-set-name, $material-set-name);
+

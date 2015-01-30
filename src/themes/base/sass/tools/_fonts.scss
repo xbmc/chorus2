@@ -1,0 +1,21 @@
+// =============================================================================
+// Name:            Fonts
+// Description:     Font tools
+// =============================================================================
+
+
+/* ==========================================================================
+ Load a font-face.
+ ============================================================================ */
+
+@mixin load-font($fontname, $path, $filename, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $fontname;
+    src: url("#{$path}/#{$filename}.eot");
+    src: url("#{$path}/#{$filename}.eot?#iefix") format("embedded-opentype"),
+    url("#{$path}/#{$filename}.woff") format("woff"),
+    url("#{$path}/#{$filename}.ttf") format("truetype");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}

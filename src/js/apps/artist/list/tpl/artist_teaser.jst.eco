@@ -1,0 +1,9 @@
+<div class="artist artist-teaser">
+    <div class="artwork">
+        <a href="#music/artist/id" class="thumbnail"></a>
+    </div>
+    <div class="meta">
+        <div class="title"><a href="#music/artist/id" class="title">placeholder</a></div>
+        <div class="subtitle"></div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-@PlanetExpress.module "Views", (Views, App, Backbone, Marionette, $, _) ->
+@Kodi.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 	
-	class Views.CompositeView extends Marionette.CompositeView
+	class Views.CompositeView extends Backbone.Marionette.CompositeView
 		itemViewEventPrefix: "childview"

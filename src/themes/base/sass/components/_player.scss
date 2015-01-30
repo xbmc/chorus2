@@ -1,0 +1,6 @@
+
+#player {
+  @include set-position-fixed(top auto left 0 right 0 bottom 0);
+  @include set-layout('height-player', 'height');
+  background: $color-background-kodi;
+}

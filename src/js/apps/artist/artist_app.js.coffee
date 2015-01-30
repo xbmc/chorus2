@@ -11,8 +11,9 @@
 			new ArtistApp.List.Controller
 
 		view: (id) ->
-			new ArtistApp.View.Controller
-				id: id
+      foo = 'bar'
+			# new ArtistApp.Show.Controller
+			# 	id: id
 
 	
 	App.addInitializer ->

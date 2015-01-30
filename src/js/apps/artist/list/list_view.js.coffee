@@ -1,38 +1,26 @@
-@PlanetExpress.module "CrewApp.List", (List, App, Backbone, Marionette, $, _) ->
+@Kodi.module "ArtistApp.List", (List, App, Backbone, Marionette, $, _) ->
 	
-	class List.Layout extends App.Views.Layout
-		template: "crew/list/list_layout"
-		
+	class List.Layout extends App.Views.LayoutView
+		template: "artist/list/list_layout"
+
 		regions:
-			titleRegion: 	"#title-region"
-			panelRegion:	"#panel-region"
-			newRegion:		"#new-region"
-			crewRegion:		"#crew-region"
-	
-	class List.Title extends App.Views.ItemView
-		template: "crew/list/_title"
-	
-	class List.Panel extends App.Views.ItemView
-		template: "crew/list/_panel"
-		
-		triggers:
-			"click #new-crew" : "new:crew:button:clicked"
-	
-	class List.CrewMember extends App.Views.ItemView
-		template: "crew/list/_crew_member"
+			filtersRegion: 	".region-filters"
+			contentRegion:	".region-content"
+
+	class List.ArtistTeaser extends App.Views.ItemView
+		template: "artist/list/artist_teaser"
 		tagName: "li"
-		className: "crew-member"
-			
+		className: "card"
 		triggers:
-			"click .crew-delete button" : "crew:delete:clicked"
-			"click" 										: "crew:member:clicked"
-	
+			"click .menu" : "artist-menu:clicked"
+
+
 	class List.Empty extends App.Views.ItemView
-		template: "crew/list/_empty"
-		tagName: "li"
-	
-	class List.Crew extends App.Views.CompositeView
-		template: "crew/list/_crew"
-		itemView: List.CrewMember
+    template: "artist/list/empty"
+    tagName: "li"
+    className: "empty-result"
+
+
+	class List.Artists extends App.Views.CollectionView
+		itemView: List.ArtistTeaser
 		emptyView: List.Empty
-		itemViewContainer: "ul"

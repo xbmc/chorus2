@@ -6,11 +6,11 @@
 @import "bootstrap-compass";
 @import "bootstrap";
 
-// Import the legacy variables (relevant for controlling compass-normalize).
-@import "variables/**/*";
+// Het our helper tools.
+@import "tools/**/*";
 
-// Generate normalize.css.
-// @import "normalize";
+// Import variables.
+@import "variables/**/*";
 
 @import "libs/bootstrap-material-design/material.scss";
 
