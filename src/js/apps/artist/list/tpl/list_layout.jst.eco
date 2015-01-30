@@ -1,0 +1,12 @@
+<div id="crew-list">
+	<div id="title-region"></div>
+	<section>
+		<div class="row">
+			<div id="panel-region" class="large-12 columns"></div>
+			<div id="new-region" class="large-12 columns"></div>
+		</div>
+	</section>
+	<section>
+		<div id="crew-region" class="large-12 columns"></div>
+	</section>
+</div>

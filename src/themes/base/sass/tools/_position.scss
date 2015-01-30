@@ -1,0 +1,72 @@
+// =============================================================================
+// Name:            Position
+// Description:     Collection of mixins to control element position.
+// =============================================================================
+
+
+/**
+ * This mixin provides an easy way to position an element.
+ *
+ * Example:
+ *
+ * Position an element absolutely 50% from the top and 1em from the left:
+ * @include duk-position(absolute, top 50% left 1em);
+ *
+ * This generates the CSS:
+ *
+ *  position: absolute;
+ *  top: 50%;
+ *  left: 1em;
+ *
+ * @param {string} $position
+ *   The type of positioning, e.g absolute, relative.
+ * @param {list} $args
+ *   The direction and amount, e.g top 1em left 5em.
+ */
+@mixin duk-position($position, $args) {
+  @each $o in top right bottom left {
+    $i: index($args, $o);
+
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number  {
+      #{$o}: nth($args, $i + 1);
+    }
+  }
+
+  position: $position;
+}
+
+
+/**
+ * This mixin provides an easy way to absolutely position an element.
+ * It is a wrapper for @mixin duk-position.
+ *
+ * @param {list} $args
+ *   The direction and amount, e.g top 1em left 5em.
+ */
+@mixin duk-position-absolute($args) {
+  @include duk-position(absolute, $args);
+}
+
+
+/**
+ * This mixin provides an easy way to relatively position an element.
+ * It is a wrapper for @mixin duk-position.
+ *
+ * @param {list} $args
+ *   The direction and amount, e.g top 1em left 5em.
+ */
+@mixin duk-position-relative($args) {
+  @include duk-position(relative, $args);
+}
+
+
+/**
+ * This mixin provides an easy way to fixed position an element.
+ * It is a wrapper for @mixin duk-position.
+ *
+ * @param {list} $args
+ *   The direction and amount, e.g top 1em left 5em.
+ */
+@mixin duk-position-fixed($args) {
+  @include duk-position(fixed, $args);
+}

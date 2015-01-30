@@ -1,10 +1,13 @@
 /**
- * Nav controller.
+ * NavMain
  */
+app.NavMain = {Object: {}, View: {}};
 
-app.NavMain = {Controller: {}, View: {}};
-
-app.NavMain = Marionette.Application.extend( {
+/**
+ * The navigation object, this could be a collection
+ * but using an object for simplicity for now.
+ */
+app.NavMain.Object = Marionette.Object.extend({
 
   structureDefault: [
     {
@@ -122,9 +125,16 @@ app.NavMain = Marionette.Application.extend( {
     }
   ],
 
+  /**
+   * Returns the menu structure.
+   *
+   * Starts with default structure and modifies as per user config.
+   */
   getStructure: function() {
     // Get default structure.
-    return {tree: this.structureDefault};
+    var structure = Marionette.getOption(this, "structureDefault");
+    // Return final structure.
+    return {tree: structure};
   }
 
 });
