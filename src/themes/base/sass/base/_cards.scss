@@ -1,0 +1,125 @@
+// =============================================================================
+// Name:            Cards
+// Description:     A card is our common 'teaser' view.
+// =============================================================================
+
+// Common dimensions.
+$card-width: 160px;
+$card-wide-width: 276px;
+$card-height: 245px;
+$card-spacing: 5px;
+$card-details-spacing: 7px 10px;
+
+// Size map
+$card-layout: (
+  square: (
+    width: $card-width,
+    height: auto,
+    height-image: $card-width,
+    offset-image: 0
+  ),
+  square-medium: (
+    width: $card-width + 40,
+    height: auto,
+    height-image: $card-width + 40,
+    offset-image: 0
+  ),
+  wide: (
+    width: $card-wide-width,
+    height: 170px,
+    height-image: 138px,
+    offset-image: -20%
+  ),
+  tall: (
+    width: $card-width,
+    height: 330px,
+    height-image: $card-height,
+    offset-image: 0
+  )
+);
+
+
+/**
+ * Get a card layout
+ */
+@function get-card-size($size, $property, $card-layout: $card-layout) {
+  @return map-deep-get($card-layout, $size, $property);
+}
+
+
+/**
+ * The card base typography
+ */
+@mixin card-meta-typography ($color-base: $color-greyscale-gray, $color-title: $color-text-dark) {
+  color: $color-base;
+  a {
+    color: $color-base;
+  }
+  .title {
+    a {
+      color: $color-title;
+    }
+  }
+  .subtitle {
+    font-size: 85%;
+    margin-top: 5px;
+  }
+}
+
+/**
+ * The card mixin
+ */
+@mixin card($size: square, $background: $color-white) {
+  @include card-meta-typography();
+  width: get-card-size($size, width);
+  height: get-card-size($size, height);
+  margin: $card-spacing;
+  background: $background;
+  .artwork {
+    @include image-crop(get-card-size($size, height-image), get-card-size($size, width), get-card-size($size, offset-image));
+    a {
+      display: block;
+    }
+  }
+  .meta {
+    padding: $card-details-spacing;
+    width: get-card-size($size, width);
+    .title {
+      @include text-crop($background);
+    }
+    .subtitle {
+      @include text-crop($background);
+    }
+  }
+}
+
+/**
+ * Extendables.
+ */
+%card--square {
+  @include card();
+}
+%card--wide {
+  @include card(wide);
+}
+%card--tall {
+  @include card(tall);
+}
+
+
+/**
+ * The card grids.
+ */
+@mixin cards-grid() {
+  .card {
+    display: inline-block;
+  }
+}
+
+
+/**
+ * Extendables.
+ */
+%cards--grid {
+  @include cards-grid();
+}

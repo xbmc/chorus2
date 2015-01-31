@@ -1,0 +1,8 @@
+<div class="album album--with-songs">
+    <div class="region-album-side">
+        <div class="region-album-meta"></div>
+    </div>
+    <div class="region-album-content">
+        <div class="region-album-songs"></div>
+    </div>
+</div>

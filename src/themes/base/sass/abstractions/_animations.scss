@@ -7,18 +7,14 @@
 /**
  * Loading box.
  */
-@keyframes wave {
+
+@include keyframes(wave) {
   0% { background-position: 0% bottom; }
-  100% { background-position: 100% bottom;  }
-}
-@-webkit-keyframes wave {
-  0% { background-position: 0 bottom; }
   100% { background-position: 100% bottom;  }
 }
 #files-container {
   .loading-box {
-    animation: none;
-    -webkit-animation: none;
+    @include animation(none);
   }
 }
 
@@ -29,3 +25,21 @@ $animation-loading-background: $color-greyscale-alabaster image-url('loading-box
   @include animation(wave 16s infinite linear);
 }
 
+/**
+ * Pulsing logo
+ */
+@include keyframes(pulsate) {
+  0% { }
+  50% {
+    text-shadow: 0 0 25px rgba($color-white, 0.55);
+    color: $color-white;
+  }
+  100% { }
+}
+
+@mixin pulsate() {
+  @include transform(translate3d(0,0,0));
+  @include animation(pulsate 2s linear);
+  @include animation-iteration-count(infinite);
+  -webkit-font-smoothing: subpixel-antialiased;
+}

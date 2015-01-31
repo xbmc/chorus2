@@ -1,0 +1,18 @@
+
+.album--with-songs {
+  position: relative;
+  margin-bottom: 20px;
+  .region-album-side {
+    position: absolute;
+    @include set-layout('width-details-side', 'width');
+  }
+  .region-album-content {
+    @include set-layout('width-details-side', 'margin-left');
+    @include set-layout('width-details-side', 'min-height');
+    padding: 0 20px;
+  }
+  .card-minimal {
+    padding: 0 70px 0 12px;
+  }
+
+}

@@ -12,23 +12,26 @@
 $color-black: #000;
 $color-white: #fff;
 
+// Palette
+$color-cerulean: #12B2E7;
+
 // Greyscale Palette
 $color-greyscale-alabaster: #FAFAFA;
-$color-greyscale-mercury: #e2e2e2;
+$color-greyscale-mercury: #e5e5e5;
 $color-greyscale-alto: #ddd;
 $color-greyscale-cloudy: #a8a7a6;
 $color-greyscale-dove-gray: #666;
 $color-greyscale-gray: #888888;
 $color-greyscale-outer-space: #2B2F30;
 
+// Brand
+$color-brand-primary: $color-cerulean;
+
 // Background colors.
 $color-background-kodi: $color-greyscale-outer-space;
 $color-background-local: $color-greyscale-dove-gray;
 
-/**
- * Text Colours.
- */
-
+// Text Colours.
 $color-text-dark: $color-greyscale-outer-space;
 $color-text-light: $color-greyscale-alabaster;
 

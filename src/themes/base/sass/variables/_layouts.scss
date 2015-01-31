@@ -40,7 +40,9 @@ $layouts: (
     height-player: $height-player-small,
     width-search: $size-region-unit * 3,
     height-header: $size-region-unit,
-    width-nav: $size-region-unit
+    width-nav: $size-region-unit,
+    width-sidebar-first: $size-region-unit * 5,
+    width-details-side: 280px
   ),
   medium: (
     width-playlist: $width-playlist-small,
@@ -48,8 +50,10 @@ $layouts: (
   ),
   large: (
     height-player: $height-player,
-    width-playlist: $width-playlist,
-    width-playlist-closed: $size-region-unit,
     width-search: $size-region-unit * 4
+  ),
+  xlarge: (
+    width-playlist: $width-playlist,
+    width-playlist-closed: $size-region-unit
   )
 )

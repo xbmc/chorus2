@@ -1,0 +1,14 @@
+// =============================================================================
+// Name:            Generic elements
+// Description:     Base element styles
+// =============================================================================
+
+img {
+  width: 100%;
+  max-width: auto;
+  height: auto;
+}
+
+ul, ol {
+  @include reset-list();
+}

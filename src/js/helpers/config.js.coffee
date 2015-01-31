@@ -1,3 +1,6 @@
+###
+  Config Helpers.
+###
 
 ## A wrapper for getting a config value.
 config.get = (type, id, defaultData = '', callback) ->

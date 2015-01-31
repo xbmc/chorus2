@@ -1,5 +1,7 @@
 <div id="shell">
 
+    <a id="logo" href="#"></a>
+
     <div id="nav-bar"></div>
 
     <div id="header">
@@ -35,3 +37,5 @@
 </div>
 
 <div id="fanart"></div>
+<div id="fanart-overlay"></div>
+<div id="fanart-overlay-decal"></div>

@@ -1,0 +1,13 @@
+<div class="card-inner card-<%= @type %>">
+    <div class="artwork">
+        <a href="#<%= @url %>" class="thumb" title="<%= @label %>">
+            <img src="<%= this.thumbnail %>" />
+        </a>
+    </div>
+    <div class="meta">
+        <div class="title"><a href="#<%= @url %>" title="<%= @label %>"><%= @label %></a></div>
+        <% if @subtitle?: %>
+            <div class="subtitle"><%= @subtitle %></div>
+        <% end %>
+    </div>
+</div>

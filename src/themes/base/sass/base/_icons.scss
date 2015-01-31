@@ -17,3 +17,13 @@ $material-set-name: 'mdi';
 // @TODO: possibly change this to only icons in use.
  @include icon-create-css($material-set-name, $material-set-name);
 
+
+
+/**
+ * Icomoon custom fonts.
+ */
+
+$icomoon-set-name: 'icomoon';
+
+// Font-face
+@include load-icon-font($icomoon-set-name);

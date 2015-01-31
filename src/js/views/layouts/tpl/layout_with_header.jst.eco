@@ -1,0 +1,7 @@
+<div class="layout-container with-header">
+
+    <header class="region-header"></header>
+
+    <section class="region-content"></section>
+
+</div>

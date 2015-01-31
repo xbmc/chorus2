@@ -1,0 +1,28 @@
+// =============================================================================
+// Name:            Material
+// Description:     Tweak Material styles.
+// =============================================================================
+
+/**
+ * Lighten the standard shadow.
+ */
+.shadow-z-1, .card, .snackbar {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/**
+ * Tweak tables
+ */
+.table-striped > tbody > tr {
+  &:nth-child(odd) {
+    background-color: rgba($color-white, 0.5);
+  }
+  > td {
+    border: 0;
+  }
+}
+.table-hover > tbody > tr {
+  &:hover {
+    background-color: rgba(195, 195, 195, 0.3);
+  }
+}

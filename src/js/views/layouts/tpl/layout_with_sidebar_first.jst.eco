@@ -1,0 +1,7 @@
+<div class="layout-container with-sidebar-first">
+
+    <section class="region-first"></section>
+
+    <section class="region-content"></section>
+
+</div>

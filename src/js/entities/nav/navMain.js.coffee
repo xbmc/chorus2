@@ -22,6 +22,7 @@
       ## Music.
       nav.push {id: 1, title: "Music", path: '#music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
       nav.push {id: 2, title: "Artists", path: '#music/artists', icon: '', classes: '', parent: 1}
+      nav.push {id: 2, title: "Albums", path: '#music/albums', icon: '', classes: '', parent: 1}
       nav.push {id: 3, title: "Recently Added", path: '#music/added', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: "Recently Played", path: '#music/played', icon: '', classes: '', parent: 1}
       nav.push {id: 5, title: "Genres", path: '#music/genres', icon: '', classes: '', parent: 1}

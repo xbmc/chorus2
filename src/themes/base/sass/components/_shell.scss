@@ -1,16 +1,50 @@
 
-#fanart {
-  background-size: cover;
-  background-position: 50% 50%;
-  @include set-position-fixed(top $size-region-unit left $size-region-unit right 0 bottom 0);
-  @include set-layout('height-player', 'bottom');
-  z-index: $z-index-below;
+// Logo
+#logo {
+  @include icon(kodi-symbol, icomoon);
+  @include set-position-fixed(top 0 left 0);
+  @include set-layout('height-header', 'height');
+  @include set-layout('width-nav', 'width');
+  @include vertical-align-wrapper();
+  z-index: $z-index-delta;
+  -webkit-perspective: 1000;
+  overflow: hidden;
+  &:before {
+    @include vertical-align-element();
+    text-align: center;
+    color: $color-brand-primary;
+    font-size: 2em;
+    z-index: $z-index-delta;
+    .loading & {
+      @include pulsate;
+    }
+  }
 }
 
+// Fanart and its overlay.
+#fanart,
+#fanart-overlay {
+  @include set-position-fixed(top $size-region-unit left $size-region-unit right 0 bottom 0);
+  @include set-layout('height-player', 'bottom');
+
+}
+#fanart {
+  background-color: $color-greyscale-mercury;
+  background-size: cover;
+  background-position: 50% 50%;
+  z-index: $z-index-below;
+}
+#fanart-overlay {
+  z-index: $z-index-below + 1;
+  background-color: rgba($color-greyscale-mercury, 0.7);
+}
+
+// Main region
 #main {
+  @include pie-clearfix();
   margin: $size-region-unit 0 0 $size-region-unit;
   @include set-layout('width-playlist', 'margin-right');
-  @include set-layout('height-player', 'margin-bottom');
+  @include set-layout('height-player', 'padding-bottom');
 
   // Sidebar is hidden.
   .shell-playlist-closed & {

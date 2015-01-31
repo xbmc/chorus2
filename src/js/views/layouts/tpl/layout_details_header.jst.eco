@@ -1,0 +1,17 @@
+<div class="layout-container details-header">
+
+    <div class="region-details-side"></div>
+
+    <div class="region-details-meta">
+
+        <div class="region-details-title"></div>
+
+        <div class="region-details-meta-side-first"></div>
+
+        <div class="region-details-meta-side-second"></div>
+
+        <div class="region-details-meta-below"></div>
+
+    </div>
+
+</div>

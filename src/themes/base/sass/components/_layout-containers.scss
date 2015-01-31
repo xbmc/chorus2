@@ -1,0 +1,89 @@
+
+
+.layout-container {
+
+  &.with-sidebar-first {
+    > .region-first {
+      background: rgba($color-white, 0.5);
+      position: fixed;
+      @include set-layout('height-player', 'bottom');
+      @include set-layout('height-header', 'top');
+      @include set-layout('width-nav', 'left');
+      @include set-layout('width-sidebar-first', 'width');
+      z-index: $z-index-alpha;
+    }
+    > .region-content {
+      @include set-layout('width-sidebar-first', 'margin-left');
+    }
+  }
+
+  &.with-header {
+    // Add the background tint
+    &:after {
+      content: "";
+      z-index: $z-index-below + 2;
+      background-color: rgba($color-white, 0.7);
+      position: absolute;
+      top: $size-region-unit * 3;
+      @include set-layout('width-nav', 'left');
+      @include set-layout('height-player', 'bottom');
+      @include set-layout('width-playlist', 'right');
+      .shell-playlist-closed & {
+        @include set-layout('width-playlist-closed', 'right');
+      }
+    }
+  }
+
+  // Details Header.
+  &.details-header {
+    @include pie-clearfix();
+    padding: $spacing-base-unit;
+
+    // Sides
+    .region-details-side {
+      position: absolute;
+      @include set-layout('width-details-side', 'width');
+      padding: 10px;
+    }
+    .region-details-meta {
+      padding: 0 20px 0 20px;
+      @include set-layout('width-details-side', 'margin-left');
+      @include set-layout('width-details-side', 'min-height');
+    }
+    .region-details-title {
+      padding-top: 17px;
+    }
+    .region-details-title {
+      padding-bottom: $spacing-base-unit;
+    }
+    .region-details-meta-below {
+      clear: both;
+      padding: $spacing-base-unit 0 $spacing-base-unit;
+      border-bottom: 1px solid rgba($color-greyscale-cloudy, 0.6);
+    }
+    .region-details-meta-side-first,
+    .region-details-meta-side-second {
+      padding: $spacing-base-unit 0;
+      font-size: 115%;
+    }
+    .description {
+      height: 85px;
+      overflow: hidden;
+    }
+
+    @include at-bp(medium) {
+      .region-details-meta-side-first {
+        @include span(8 of 12);
+      }
+      .region-details-meta-side-second {
+        @include span(4 of 12 last);
+        text-align: right;
+      }
+    }
+  }
+}
+
+
+.region-content {
+  padding: 12px 5px 30px 12px;
+}

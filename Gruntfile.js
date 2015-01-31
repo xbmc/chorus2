@@ -30,7 +30,7 @@ module.exports = function (grunt) {
       srcFolder + 'lib/core/backbone.js',
       srcFolder + 'lib/core/json2.js',
       // Libs required.
-      srcFolder + 'lib/required/*.js',
+      srcFolder + 'lib/required/{,**}/*.js',
       // Libs ui.
       srcFolder + 'lib/ui/*.js',
       // Templates.
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
       'helpers/{,**}/*.coffee',
       'config/{,**}/*.coffee',
       'entities/{,**}/*.coffee',
-      // 'controllers/{,**}/*.coffee',
+      'controllers/{,**}/*.coffee',
       'views/{,**}/*.coffee',
       'apps/{,**}/*.coffee'
     ];
@@ -123,7 +123,7 @@ module.exports = function (grunt) {
     eco: {
       app: {
         options: {
-          basePath: jsSrcFolder + 'apps/',
+          basePath: jsSrcFolder,
           jstGlobalCheck: false
         },
         files: [{
@@ -140,6 +140,8 @@ module.exports = function (grunt) {
         options: {
           watchTask: true,
           injectChanges: true,
+          hostname: "192.168.0.5",
+          proxy: "192.168.0.92:8080",
           ports: {
             min: 3102,
             max: 3103

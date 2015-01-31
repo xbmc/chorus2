@@ -1,0 +1,46 @@
+// =============================================================================
+// Name:            Cards
+// Description:     Cards components.
+// =============================================================================
+
+.card-grid--square {
+  @extend %cards--grid;
+  .card {
+    @extend %card--square;
+  }
+}
+
+.card-grid--wide {
+  @extend %cards--grid;
+  .card {
+    @extend %card--wide;
+  }
+}
+
+.card-grid--tall {
+  @extend %cards--grid;
+  .card {
+    @extend %card--tall;
+  }
+}
+
+// When a card is displayed in the side of a detail pane.
+.card-detail {
+  .meta {
+    display: none;
+  }
+}
+
+.card-minimal {
+  @include card(square-medium, rgba($color-white, 0));
+  margin: 0;
+  padding: 0;
+  .meta {
+    padding: 10px 0;
+    .title, .subtitle {
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

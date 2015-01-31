@@ -1,0 +1,21 @@
+// =============================================================================
+// Name:            Text
+// Description:     Text abstractions.
+// =============================================================================
+
+@mixin text-crop ($background-color: $color-white) {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  &:after {
+    content: "";
+    @include filter-gradient(rgba($background-color, 0), $background-color, horizontal);
+    @include background-image(linear-gradient(left, rgba($background-color,0) 0%,rgba($background-color,1) 100%));
+    @include set-position-absolute(top 0 right 0 bottom 0);
+    width: 1.5em;
+  }
+}
+
+%text-crop--white {
+  @include text-crop();
+}

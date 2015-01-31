@@ -23188,6 +23188,108 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+;//     (c) 2012 Onsi Fakhouri
+//     Cocktail.js may be freely distributed under the MIT license.
+//     http://github.com/onsi/cocktail
+(function(factory) {
+    if (typeof require === 'function' && typeof module !== 'undefined' && module.exports) {
+        module.exports = factory(require('underscore'));
+    } else if (typeof define === 'function') {
+        define(['underscore'], factory);
+    } else {
+        this.Cocktail = factory(_);
+    }
+}(function (_) {
+
+    var Cocktail = {};
+
+    Cocktail.mixins = {};
+
+    Cocktail.mixin = function mixin(klass) {
+        var mixins = _.chain(arguments).toArray().rest().flatten().value();
+        // Allows mixing into the constructor's prototype or the dynamic instance
+        var obj = klass.prototype || klass;
+
+        var collisions = {};
+
+        _.each(mixins, function(mixin) {
+            if (_.isString(mixin)) {
+                mixin = Cocktail.mixins[mixin];
+            }
+            _.each(mixin, function(value, key) {
+                if (_.isFunction(value)) {
+                    // If the mixer already has that exact function reference
+                    // Note: this would occur on an accidental mixin of the same base
+                    if (obj[key] === value) return;
+
+                    if (obj[key]) {
+                        // Avoid accessing built-in properties like constructor (#39)
+                        collisions[key] = collisions.hasOwnProperty(key) ? collisions[key] : [obj[key]];
+                        collisions[key].push(value);
+                    }
+                    obj[key] = value;
+                } else if (_.isArray(value)) {
+                    obj[key] = _.union(value, obj[key] || []);
+                } else if (_.isObject(value)) {
+                    obj[key] = _.extend({}, value, obj[key] || {});
+                } else if (!(key in obj)) {
+                    obj[key] = value;
+                }
+            });
+        });
+
+        _.each(collisions, function(propertyValues, propertyName) {
+            obj[propertyName] = function() {
+                var that = this,
+                    args = arguments,
+                    returnValue;
+
+                _.each(propertyValues, function(value) {
+                    var returnedValue = _.isFunction(value) ? value.apply(that, args) : value;
+                    returnValue = (typeof returnedValue === 'undefined' ? returnValue : returnedValue);
+                });
+
+                return returnValue;
+            };
+        });
+
+        return klass;
+    };
+
+    var originalExtend;
+
+    Cocktail.patch = function patch(Backbone) {
+        originalExtend = Backbone.Model.extend;
+
+        var extend = function(protoProps, classProps) {
+            var klass = originalExtend.call(this, protoProps, classProps);
+
+            var mixins = klass.prototype.mixins;
+            if (mixins && klass.prototype.hasOwnProperty('mixins')) {
+                Cocktail.mixin(klass, mixins);
+            }
+
+            return klass;
+        };
+
+        _.each([Backbone.Model, Backbone.Collection, Backbone.Router, Backbone.View], function(klass) {
+            klass.mixin = function mixin() {
+                Cocktail.mixin(this, _.toArray(arguments));
+            };
+
+            klass.extend = extend;
+        });
+    };
+
+    Cocktail.unpatch = function unpatch(Backbone) {
+        _.each([Backbone.Model, Backbone.Collection, Backbone.Router, Backbone.View], function(klass) {
+            klass.mixin = undefined;
+            klass.extend = originalExtend;
+        });
+    };
+
+    return Cocktail;
+}));
 ;// Backbone.BabySitter
 // -------------------
 // v0.1.6
@@ -27667,287 +27769,6 @@ return Backbone.LocalStorage;
   }(Rpc));
 
   return Backbone;
-}));;/**
- * RPC2
- * A Backbone plugin that allows Models and Collections to be retrieved and updated over JSON RPC 2.0
- * instead of REST
- */
-
-// universal module definition: https://github.com/umdjs
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-
-        // make jQuery happy
-		if (typeof window == 'undefined')
-			global.window = require('jsdom').jsdom().createWindow();
-
-        define(['backbone', 'underscore', 'jquery', 'jqueryJsonRpcClient'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-
-		// make jQuery happy
-		if (typeof window == 'undefined')
-			global.window = require('jsdom').jsdom().createWindow();
-
-        factory(require('backbone', 'underscore', 'jquery', 'jqueryJsonRpcClient'));
-    } else {
-        // Browser globals
-        factory(Backbone, _, $, $.JsonRpcClient);
-    }
-
-/**
- * The actual plugin
- */
-}(function (Backbone, _, $, JsonRpcClient) {
-
-	/**
-	 * Helpers
-	 */
-	// Fallback to JSON.stringify if $.toJSON is not available
-	if (typeof $.toJSON === 'undefined') {
-		$.toJSON = function(object) {
-			return JSON.stringify(object);
-		};
-	}
-
-	// Define the RPC2 plugin
-	var RPC2 = {};
-
-	// Attach our plugin to Backbone
-	Backbone.RPC2 = RPC2;
-
-	/**
-	 * A custom sync method to use JSON RPC
-	 * @param  {[string]} method – the CRUD method ("create", "read", "update", or "delete")
-	 * @param  {[object]} model – the model to be saved (or collection to be read)
-	 * @param  {[type]} options – success and error callbacks, and all other jQuery request options
-	 */
-	RPC2.sync = function(method, model, options) {
-
-		var client = new JsonRpcClient({
-			ajaxUrl: model.url,
-			headers: model.rpcOptions.headers
-		});
-
-		var success = function(response) {
-
-			// call the success callback
-			if (typeof options.success === 'function') options.success(response);
-			if (typeof options.complete === 'function') options.complete(response);
-
-		};
-
-		var error = function(response) {
-
-			// call the error callback
-			if (typeof options.error === 'function') options.error(response);
-			if (typeof options.complete === 'function') options.complete(response);
-
-		};
-
-		// construct the params based on the rpcOptions
-		var payload = model.constructParams(method);
-
-		// add any data passed in to the payload
-		if (typeof options.data === 'object') {
-			payload = _.extend(payload, options.data);
-		}
-
-		// make the call, passing in our success and error handlers and returning the deferred object that jQuery $.ajax returns
-		var deferred = client.call(model.rpcOptions.methods[method].method, payload, success, error);
-
-		return deferred;
-	};
-
-	/**
-	 * Utility methods used by RPC2.Model and RPC2.Collection
-	 */
-	RPC2.Util = {
-		/**
-		 * Inherits undefined options in the rpcOptions object from the super class
-		 * @param  {[object]} rpcOptions - The rpcOptions to inherit from; defaults to the super class's rpcOptions
-		 */
-		inheritRpcOptions: function(rpcOptions) {
-			if (!rpcOptions) {
-				rpcOptions = this.constructor.__super__.rpcOptions;
-			}
-			this.rpcOptions = this.recursivelyInheritRpcOptions(this.rpcOptions, rpcOptions, 'rpcOptions');
-		},
-		recursivelyInheritRpcOptions: function(rpcOptions, superRpcOptions, parentKey) {
-			// only inherit the following properties if they are undefined
-			var dontRecursivelyInherit = [
-				'rpcOptions.headers',
-				'methods.create', 'methods.read', 'methods.update', 'methods.delete'
-			];
-			var model = this;
-			$.each(superRpcOptions, function(key, value) {
-				if (typeof rpcOptions[key] === 'undefined') {
-					rpcOptions[key] = value;
-
-				// if this key is an object, we'll recursively pull unset options from it
-				// we won't touch anything inside the options defined in the dontRecursivelyInherit array
-				} else if (typeof rpcOptions[key] === 'object' && _.indexOf(dontRecursivelyInherit, parentKey+'.'+key) === -1) {
-					rpcOptions[key] = model.recursivelyInheritRpcOptions(rpcOptions[key], superRpcOptions[key], key);
-
-				}
-			});
-			return rpcOptions;
-		},
-
-		/**
-		 * Create the params object based on the method we're calling
-		 */
-		constructParams: function(method) {
-			// get the params for this method
-			var params = this.rpcOptions.methods[method].params;
-			if (typeof params !== 'function') {
-				// copy params so we aren't modifying the config object
-				params = _.cloneDeep(params);
-			}
-
-			// params might be a function
-			if (typeof params === 'function') {
-				params = params(this);
-			}
-
-			if (!params) {
-				params = [];
-			}
-
-			// params can be deeply nested
-			return this.recursivelySetParams(params);
-		},
-		recursivelySetParams: function(params) {
-
-			var model = this;
-
-			$.each(params, function(param, attribute) {
-				// if this attrbite is an object (or an array), we should recurse into it any update its attributes
-				if (typeof attribute === 'object' && attribute) {
-					attribute = model.recursivelySetParams(attribute);
-
-				} else if (typeof attribute === 'string') {
-					// use a model from the attribute if the string starts with "attributes."
-					if (attribute.indexOf('attributes.') === 0) {
-						var model_attribute = attribute.replace('attributes.', '');
-						if (typeof model.get(model_attribute) !== 'undefined') {
-							params[param] = model.get(model_attribute);
-						} else {
-							// get rid of params which reference undefined model attributes
-							delete params[param];
-						}
-					}
-					// otherwise use the string that was given in configuration
-				}
-
-			});
-
-			return params;
-
-		}
-	};
-
-	/**
-	 * Backbone.RPC2.Model
-	 * An extension of Backbone.Model which uses RPC2.sync instead of the default Backbone.sync
-	 */
-	RPC2.Model = Backbone.Model.extend({
-
-		/**
-		 * Important options for RPC for this model
-		 */
-		url: 'path/to/my/rpc/handler',
-		rpcOptions: {
-			headers: {},
-			methods: {
-				create: {
-					method: 'create', // name of the method to call for CREATE
-					params: { // param_name: 'model_attribute'
-						name: 'attributes.name'
-					}
-				},
-				read: {
-					method: 'read',
-					params: {
-						id: 'attributes.id'
-					}
-				},
-				update: {
-					method: 'update',
-					params: {
-						id: 'attributes.id',
-						name: 'attributes.name'
-					}
-				},
-				'delete': {
-					method: 'delete',
-					params: {
-						id: 'attributes.id'
-					}
-				}
-			}
-		},
-
-		/**
-		 * Utility methods
-		 */
-		inheritRpcOptions:				RPC2.Util.inheritRpcOptions,
-		recursivelyInheritRpcOptions:	RPC2.Util.recursivelyInheritRpcOptions,
-		constructParams:				RPC2.Util.constructParams,
-		recursivelySetParams:			RPC2.Util.recursivelySetParams,
-
-		/**
-		 * Maps to our custom sync method
-		 */
-		sync: function(method, model, options) {
-			return RPC2.sync(method, model, options);
-		}
-
-	});
-
-	/**
-	 * Backbone.RPC2.Collection
-	 * An extension of Backbone.Collection which uses RPC2.sync instead of the default Backbone.sync
-	 */
-	RPC2.Collection = Backbone.Collection.extend({
-
-		/**
-		 * Important options for RPC for this model
-		 */
-		url: 'path/to/my/rpc/handler',
-		rpcOptions: {
-			headers: {},
-			methods: {
-				read: {
-					method: 'readCollection',
-					params: {}
-				},
-				update: {
-					method: 'updateCollection',
-					params: function(collection) { return collection.toJSON(); }
-				}
-			}
-		},
-
-		/**
-		 * Utility methods
-		 */
-		inheritRpcOptions:				RPC2.Util.inheritRpcOptions,
-		recursivelyInheritRpcOptions:	RPC2.Util.recursivelyInheritRpcOptions,
-		constructParams:				RPC2.Util.constructParams,
-		recursivelySetParams:			RPC2.Util.recursivelySetParams,
-
-		/**
-		 * Maps to our custom sync method
-		 */
-		sync: function(method, model, options) {
-			return RPC2.sync(method, model, options);
-		}
-
-	});
-
-	return Backbone.RPC2;
 }));;// Backbone.Wreqr (Backbone.Marionette)
 // ----------------------------------
 // v1.3.2
@@ -28383,6 +28204,139 @@ return Backbone.LocalStorage;
   return Backbone.Wreqr;
 
 }));
+;(function (global) {
+
+  /**
+   * Sorted Mixin
+   */
+  var SortedMixin = {
+    onBeforeRender: function() {
+      this._isRendering = true;
+    },
+
+    onRender: function() {
+      if(this.footer) {
+        this.footerElement = this.$el.find(this.footer)[0];
+      } else {
+        this.footerElement = null;
+      }
+
+      delete this._isRendering;
+    },
+
+    appendHtml: function(collectionView, itemView, index) {
+      var footerElement = this.footerElement;
+      var el = collectionView.itemViewContainer || collectionView.el;
+      var $el = collectionView.itemViewContainer ? $(collectionView.itemViewContainer) : collectionView.$el;
+
+      // Shortcut - just place at the end!
+      if (this._isRendering) {
+        // if this is during rendering, then the views always come in sort order,
+        // so just append
+        if(footerElement) {
+          itemView.$el.insertBefore(footerElement);
+        } else {
+          $el.append(itemView.el);
+        }
+        return;
+      }
+
+      // we are inserting views after rendering, find the adjacent view if there
+      // is one already
+      var adjView;
+
+      if (index === 0) {
+        // find the view that comes after the first one (sometimes there will be a
+        // non view that is the first child so we can't prepend)
+        adjView = findViewAfter(0);
+
+        if (adjView) {
+          itemView.$el.insertBefore(adjView.el);
+        } else {
+          // there are no existing views after the first,
+          // we append (keeping the place of non-view children already present in the
+          // container)
+          if(footerElement) {
+            itemView.$el.insertBefore(footerElement);
+          } else {
+            itemView.$el.appendTo(el);
+          }
+        }
+
+        return;
+      }
+
+      if(index == collectionView.collection.length - 1) {
+        if(footerElement) {
+          itemView.$el.insertBefore(footerElement);
+        } else {
+          itemView.$el.appendTo(el);
+        }
+        return;
+      }
+
+      // find the view that comes before this one
+      adjView = findViewAtPos(index - 1);
+      if(adjView) {
+        itemView.$el.insertAfter(adjView.$el);
+      } else {
+        // It could be the case that n-1 has not yet been inserted,
+        // so we try find whatever is at n+1 and insert before
+        adjView = findViewAfter(index);
+
+        if(adjView) {
+          itemView.$el.insertBefore(adjView.el);
+        } else {
+          // in this case, the itemViews are not coming in any sequential order
+          // We can't find an item before, we can't find an item after,
+          // just give up and insert at the end. (hopefully this will never happen eh?)
+          //
+          if(footerElement) {
+            itemView.$el.insertBefore(footerElement);
+          } else {
+            itemView.$el.appendTo(el);
+          }
+        }
+      }
+
+      function findViewAfter(i) {
+        var nearestI = 1;
+        var adjView = findViewAtPos(i + 1);
+
+        // find the nearest view that comes after this view
+        while (!adjView && ((i + nearestI + 1) < collectionView.collection.length - 1)) {
+          nearestI += 1;
+          adjView = findViewAtPos(i + nearestI);
+        }
+
+        return adjView;
+      }
+
+      function findViewAtPos(i) {
+        if (i >= collectionView.collection.length)
+          return;
+
+        var view = collectionView.children.findByModel(collectionView.collection.at(i));
+        return view;
+      }
+    }
+  };
+
+  global.SortedMixin = SortedMixin;
+
+  if (typeof define === 'function' && define.amd) {
+    define([], function() {
+      return SortedMixin;
+    });
+  }
+
+  return SortedMixin;
+})(window);
+
+
+
+
+
 ;/*
  * jQuery JSON-RPC Plugin
  *
@@ -31352,7 +31306,7 @@ if (!window.JST) {
   };
 
 })(jQuery, window, document);
-;window.JST["artist/list/tpl/artist_teaser.jst"] = function(__obj) {
+;window.JST["apps/album/show/tpl/album_with_songs.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -31373,7 +31327,7 @@ if (!window.JST) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="artist artist-teaser">\n    <div class="artwork">\n        <a href="#music/artist/id" class="thumbnail"></a>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#music/artist/id" class="title">placeholder</a></div>\n        <div class="subtitle"></div>\n    </div>\n</div>'));
+      _print(_safe('<div class="album album--with-songs">\n    <div class="region-album-side">\n        <div class="region-album-meta"></div>\n    </div>\n    <div class="region-album-content">\n        <div class="region-album-songs"></div>\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -31394,7 +31348,7 @@ if (!window.JST) {
   })());
 };
 
-window.JST["artist/list/tpl/empty.jst"] = function(__obj) {
+window.JST["apps/album/show/tpl/details_meta.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -31415,7 +31369,31 @@ window.JST["artist/list/tpl/empty.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="empty-result">\n    <h2>No results found</h2>\n    <p>Have you done a library scan?</p>\n</div>'));
+      _print(_safe('<div class="region-details-title">\n    <h2>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="artist"><a href="#music/artist/'));
+    
+      _print(this.artistid);
+    
+      _print(_safe('">'));
+    
+      _print(this.artist);
+    
+      _print(_safe('</a></div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+    
+      if (this.genre.length > 0) {
+        _print(_safe('\n    <div class="genres">\n        '));
+        _print(this.genre.join(', '));
+        _print(_safe('\n    </div>\n    '));
+      }
+    
+      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</div>\n</div>\n'));
     
     }).call(this);
     
@@ -31436,7 +31414,7 @@ window.JST["artist/list/tpl/empty.jst"] = function(__obj) {
   })());
 };
 
-window.JST["artist/list/tpl/list_layout.jst"] = function(__obj) {
+window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -31457,7 +31435,27 @@ window.JST["artist/list/tpl/list_layout.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="artists-list" class="with-side">\n\n\t<section class="region-first region-filters"></section>\n\n\t<section class="region-content region-list"></section>\n\n</div>'));
+      _print(_safe('<div class="region-details-title">\n    <h2>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+    
+      _print(this.formed);
+    
+      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+    
+      if (this.genre.length > 0) {
+        _print(_safe('\n    <div class="genres">\n        '));
+        _print(this.genre.join(', '));
+        _print(_safe('\n    </div>\n    '));
+      }
+    
+      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</div>\n</div>\n'));
     
     }).call(this);
     
@@ -31478,7 +31476,7 @@ window.JST["artist/list/tpl/list_layout.jst"] = function(__obj) {
   })());
 };
 
-window.JST["navMain/show/tpl/navMain.jst"] = function(__obj) {
+window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -31558,7 +31556,7 @@ window.JST["navMain/show/tpl/navMain.jst"] = function(__obj) {
   })());
 };
 
-window.JST["shell/show/tpl/shell.jst"] = function(__obj) {
+window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -31579,7 +31577,307 @@ window.JST["shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <footer id="player"></footer>\n\n</div>\n\n<div id="fanart"></div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <footer id="player"></footer>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<td class="cell-first">'));
+    
+      _print(this.track);
+    
+      _print(_safe('</td>\n<td class="cell-label">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</td>\n<td class="cell-last">'));
+    
+      _print(this.duration);
+    
+      _print(_safe('</td>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/card/tpl/card.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="card-inner card-'));
+    
+      _print(this.type);
+    
+      _print(_safe('">\n    <div class="artwork">\n        <a href="#'));
+    
+      _print(this.url);
+    
+      _print(_safe('" class="thumb" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">\n            <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n        </a>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+    
+      _print(this.url);
+    
+      _print(_safe('" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</a></div>\n        '));
+    
+      if (this.subtitle != null) {
+        _print(_safe('\n            <div class="subtitle">'));
+        _print(this.subtitle);
+        _print(_safe('</div>\n        '));
+      }
+    
+      _print(_safe('\n    </div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/empty/tpl/empty.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="empty-result">\n    <h2>No results found</h2>\n    <p>Have you done a library scan?</p>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/layouts/tpl/layout_details_header.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="layout-container details-header">\n\n    <div class="region-details-side"></div>\n\n    <div class="region-details-meta">\n\n        <div class="region-details-title"></div>\n\n        <div class="region-details-meta-side-first"></div>\n\n        <div class="region-details-meta-side-second"></div>\n\n        <div class="region-details-meta-below"></div>\n\n    </div>\n\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/layouts/tpl/layout_with_header.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="layout-container with-header">\n\n    <header class="region-header"></header>\n\n    <section class="region-content"></section>\n\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/layouts/tpl/layout_with_sidebar_first.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="layout-container with-sidebar-first">\n\n    <section class="region-first"></section>\n\n    <section class="region-content"></section>\n\n</div>'));
     
     }).call(this);
     
@@ -31601,7 +31899,8 @@ window.JST["shell/show/tpl/shell.jst"] = function(__obj) {
 };
 ;var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __slice = [].slice;
 
 this.helpers = {};
 
@@ -31617,15 +31916,64 @@ this.Kodi = (function(Backbone, Marionette) {
   App.addRegions({
     root: "body"
   });
-  App.on("initialize:after", function(options) {
-    if (Backbone.history) {
+  App.vent.on("shell:ready", (function(_this) {
+    return function(options) {
       return Backbone.history.start();
-    }
-  });
+    };
+  })(this));
   return App;
 })(Backbone, Marionette);
 
 this.Kodi.start();
+
+
+/*
+  Our cache storage, persists only for app lifycle
+  Eg. gets wiped when page reloaded.
+ */
+
+helpers.cache = {
+  store: {},
+  defaultExpiry: 406800
+};
+
+helpers.cache.set = function(key, data, expires) {
+  if (expires == null) {
+    expires = helpers.cache.defaultExpiry;
+  }
+  helpers.cache.store[key] = {
+    data: data,
+    expires: expires + helpers.global.time(),
+    key: key
+  };
+  return data;
+};
+
+helpers.cache.get = function(key, fallback) {
+  if (fallback == null) {
+    fallback = false;
+  }
+  if ((helpers.cache.store[key] != null) && helpers.cache.store[key].expires <= helpers.global.time()) {
+    return helpers.cache.store[key].data;
+  } else {
+    return fallback;
+  }
+};
+
+helpers.cache.del = function(key) {
+  if (helpers.cache.store[key] != null) {
+    return delete helpers.cache.store[key];
+  }
+};
+
+helpers.cache.clear = function() {
+  return helpers.cache.store = {};
+};
+
+
+/*
+  Config Helpers.
+ */
 
 config.get = function(type, id, defaultData, callback) {
   var data;
@@ -31726,23 +32074,121 @@ helpers.debug.rpcError = function(obj) {
   Our generic global helpers so we dont have add complexity to our app.
  */
 
-helpers.global = {
-  shuffle: function(array) {
-    var i, j, temp;
-    i = array.length - 1;
-    while (i > 0) {
-      j = Math.floor(Math.random() * (i + 1));
-      temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-      i--;
+helpers.global = {};
+
+helpers.global.shuffle = function(array) {
+  var i, j, temp;
+  i = array.length - 1;
+  while (i > 0) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+    i--;
+  }
+  return array;
+};
+
+helpers.global.getRandomInt = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+helpers.global.time = function() {
+  var timestamp;
+  timestamp = new Date().getTime();
+  return timestamp / 1000;
+};
+
+helpers.global.loading = (function(_this) {
+  return function(state) {
+    var op;
+    if (state == null) {
+      state = 'start';
     }
-    return array;
-  },
-  getRandomInt: function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    op = state === 'start' ? 'add' : 'remove';
+    if (_this.Kodi != null) {
+      return _this.Kodi.execute("body:state", op, "loading");
+    }
+  };
+})(this);
+
+helpers.global.numPad = function(num, size) {
+  var s;
+  s = "000000000" + num;
+  return s.substr(s.length - size);
+};
+
+helpers.global.secToTime = function(totalSec) {
+  var hours, minutes, seconds;
+  if (totalSec == null) {
+    totalSec = 0;
+  }
+  hours = parseInt(totalSec / 3600) % 24;
+  minutes = parseInt(totalSec / 60) % 60;
+  seconds = totalSec % 60;
+  return {
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds
+  };
+};
+
+helpers.global.timeToSec = function(time) {
+  var hours, minutes;
+  hours = parseInt(time.hours) * (60 * 60);
+  minutes = parseInt(time.minutes) * 60;
+  return parseInt(hours) + parseInt(minutes) + parseInt(time.seconds);
+};
+
+helpers.global.formatTime = function(time) {
+  var timeStr;
+  if (time == null) {
+    return 0;
+  } else {
+    timeStr = (time.hours > 0 ? time.hours + ":" : "") + (time.hours > 0 && time.minutes < 10 ? "0" : "") + (time.minutes > 0 ? time.minutes + ":" : "") + ((time.minutes > 0 || time.hours > 0) && time.seconds < 10 ? "0" : "") + time.seconds;
+    return timeStr;
   }
 };
+
+
+/*
+  Handle urls.
+ */
+
+helpers.url = {};
+
+helpers.url.map = {
+  artist: 'music/artist/:id',
+  album: 'music/album/:id',
+  song: 'music/song/:id',
+  movie: 'movie/:id',
+  tvshow: 'tvshow/:id',
+  tvseason: 'tvshow/:tvshowid/:id',
+  tvepisode: 'tvshow/:tvshowid/:tvseason/:id',
+  file: 'browser/file/:id'
+};
+
+helpers.url.get = function(type, id, replacements) {
+  var path, token;
+  if (id == null) {
+    id = '';
+  }
+  if (replacements == null) {
+    replacements = {};
+  }
+  path = '';
+  if (helpers.url.map[type] != null) {
+    path = helpers.url.map[type];
+  }
+  replacements[':id'] = id;
+  for (token in replacements) {
+    id = replacements[token];
+    path = path.replace(token, id);
+  }
+  return path;
+};
+
+Cocktail.patch(Backbone);
 
 (function(Backbone) {
   var methods, _sync;
@@ -31769,6 +32215,58 @@ helpers.global = {
       return this.trigger("sync:stop", this);
     }
   };
+})(Backbone);
+
+(function(Backbone) {
+  return _.extend(Backbone.Marionette.Application.prototype, {
+    navigate: function(route, options) {
+      if (options == null) {
+        options = {};
+      }
+      return Backbone.history.navigate(route, options);
+    },
+    getCurrentRoute: function() {
+      var frag;
+      frag = Backbone.history.fragment;
+      if (_.isEmpty(frag)) {
+        return null;
+      } else {
+        return frag;
+      }
+    },
+    startHistory: function() {
+      if (Backbone.history) {
+        return Backbone.history.start();
+      }
+    },
+    register: function(instance, id) {
+      if (this._registry == null) {
+        this._registry = {};
+      }
+      return this._registry[id] = instance;
+    },
+    unregister: function(instance, id) {
+      return delete this._registry[id];
+    },
+    resetRegistry: function() {
+      var controller, key, msg, oldCount, _ref;
+      oldCount = this.getRegistrySize();
+      _ref = this._registry;
+      for (key in _ref) {
+        controller = _ref[key];
+        controller.region.close();
+      }
+      msg = "There were " + oldCount + " controllers in the registry, there are now " + (this.getRegistrySize());
+      if (this.getRegistrySize() > 0) {
+        return console.warn(msg, this._registry);
+      } else {
+        return console.log(msg);
+      }
+    },
+    getRegistrySize: function() {
+      return _.size(this._registry);
+    }
+  });
 })(Backbone);
 
 (function(Marionette) {
@@ -31804,6 +32302,19 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     function Collection() {
       return Collection.__super__.constructor.apply(this, arguments);
     }
+
+    Collection.prototype.getRawCollection = function() {
+      var model, objs, _i, _len, _ref;
+      objs = [];
+      if (this.models.length > 0) {
+        _ref = this.models;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          model = _ref[_i];
+          objs.push(model.attributes);
+        }
+      }
+      return objs;
+    };
 
     return Collection;
 
@@ -32037,8 +32548,10 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   });
   return App.commands.setHandler("when:entity:fetched", function(entities, callback) {
     var xhrs;
+    helpers.global.loading("start");
     xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
     return $.when.apply($, xhrs).done(function() {
+      helpers.global.loading("end");
       return callback();
     });
   });
@@ -32107,7 +32620,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     Collection.prototype.argFilter = function(name, value) {
       var arg;
       arg = {};
-      arg[name] = value;
+      if (name != null) {
+        arg[name] = value;
+      }
       return this.argCheckOption('filter', arg);
     };
 
@@ -32137,6 +32652,26 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       thumbsUp: false
     };
 
+    Model.prototype.parseModel = function(type, model, id) {
+      model.id = id;
+      model = App.request("images:path:entity", model);
+      model.url = helpers.url.get(type, id);
+      model.type = type;
+      return model;
+    };
+
+    Model.prototype.parseFieldsToDefaults = function(fields, defaults) {
+      var field, _i, _len;
+      if (defaults == null) {
+        defaults = {};
+      }
+      for (_i = 0, _len = fields.length; _i < _len; _i++) {
+        field = fields[_i];
+        defaults[field] = '';
+      }
+      return defaults;
+    };
+
     return Model;
 
   })(App.Entities.Model);
@@ -32145,7 +32680,133 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    getFields: function(type) {
+    getAlbumFields: function(type) {
+      var baseFields, extraFields, fields;
+      if (type == null) {
+        type = 'small';
+      }
+      baseFields = ['thumbnail', 'playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year'];
+      extraFields = ['fanart', 'style', 'mood', 'description', 'genreid', 'rating'];
+      if (type === 'full') {
+        fields = baseFields.concat(extraFields);
+        return fields;
+      } else {
+        return baseFields;
+      }
+    },
+    getAlbum: function(id, options) {
+      var album;
+      album = new App.KodiEntities.Album();
+      album.set({
+        albumid: parseInt(id),
+        properties: API.getAlbumFields('full')
+      });
+      album.fetch(options);
+      return album;
+    },
+    getAlbums: function(options) {
+      var albums, defaultOptions;
+      defaultOptions = {
+        reset: false
+      };
+      options = _.extend(defaultOptions, options);
+      albums = helpers.cache.get("album:entities");
+      if (albums === false || options.reset === true) {
+        albums = new KodiEntities.AlbumCollection();
+        albums.fetch(options);
+      }
+      helpers.cache.set("album:entities", albums);
+      return albums;
+    }
+  };
+  KodiEntities.Album = (function(_super) {
+    __extends(Album, _super);
+
+    function Album() {
+      return Album.__super__.constructor.apply(this, arguments);
+    }
+
+    Album.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        albumid: 1,
+        album: ''
+      });
+      return this.parseFieldsToDefaults(API.getAlbumFields('full'), fields);
+    };
+
+    Album.prototype.methods = {
+      read: ['AudioLibrary.GetAlbumDetails', 'albumid', 'properties']
+    };
+
+    Album.prototype.arg2 = API.getAlbumFields('full');
+
+    Album.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.albumdetails != null ? resp.albumdetails : resp;
+      if (resp.albumdetails != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('album', obj, obj.albumid);
+    };
+
+    return Album;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.AlbumCollection = (function(_super) {
+    __extends(AlbumCollection, _super);
+
+    function AlbumCollection() {
+      return AlbumCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    AlbumCollection.prototype.model = KodiEntities.Album;
+
+    AlbumCollection.prototype.methods = {
+      read: ['AudioLibrary.GetAlbums', 'arg1', 'arg2', 'arg3', 'arg4']
+    };
+
+    AlbumCollection.prototype.arg1 = function() {
+      return API.getAlbumFields('small');
+    };
+
+    AlbumCollection.prototype.arg2 = function() {
+      return this.argLimit();
+    };
+
+    AlbumCollection.prototype.arg3 = function() {
+      return this.argSort("album", "ascending");
+    };
+
+    AlbumCollection.prototype.arg3 = function() {
+      return this.argFilter();
+    };
+
+    AlbumCollection.prototype.parse = function(resp, xhr) {
+      return resp.albums;
+    };
+
+    return AlbumCollection;
+
+  })(App.KodiEntities.Collection);
+  App.reqres.setHandler("album:entity", function(id, options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getAlbum(id, options);
+  });
+  return App.reqres.setHandler("album:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getAlbums(options);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getArtistFields: function(type) {
       var baseFields, extraFields, fields;
       if (type == null) {
         type = 'small';
@@ -32163,22 +32824,25 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       var artist;
       artist = new App.KodiEntities.Artist();
       artist.set({
-        artistid: id,
-        properties: API.getFields('full')
+        artistid: parseInt(id),
+        properties: API.getArtistFields('full')
       });
-      return artist.fetch(options);
+      artist.fetch(options);
+      return artist;
     },
     getArtists: function(options) {
       var artists, defaultOptions;
-      artists = new KodiEntities.ArtistCollection();
       defaultOptions = {
-        reset: true
+        reset: false
       };
       options = _.extend(defaultOptions, options);
-      if (typeof callback !== "undefined" && callback !== null) {
-        options(callback);
+      artists = helpers.cache.get("artist:entities");
+      if (artists === false || options.reset === true) {
+        artists = new KodiEntities.ArtistCollection();
+        artists.fetch(options);
       }
-      return artists.fetch(options);
+      helpers.cache.set("artist:entities", artists);
+      return artists;
     }
   };
   KodiEntities.Artist = (function(_super) {
@@ -32189,24 +32853,19 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
 
     Artist.prototype.defaults = function() {
-      var field, fields, _i, _len, _ref;
+      var fields;
       fields = _.extend(this.modelDefaults, {
         artistid: 1,
         artist: ''
       });
-      _ref = API.getFields('full');
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        field = _ref[_i];
-        fields[field] = '';
-      }
-      return fields;
+      return this.parseFieldsToDefaults(API.getArtistFields('full'), fields);
     };
 
     Artist.prototype.methods = {
       read: ['AudioLibrary.GetArtistDetails', 'artistid', 'properties']
     };
 
-    Artist.prototype.arg2 = API.getFields('full');
+    Artist.prototype.arg2 = API.getArtistFields('full');
 
     Artist.prototype.parse = function(resp, xhr) {
       var obj;
@@ -32214,8 +32873,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       if (resp.artistdetails != null) {
         obj.fullyloaded = true;
       }
-      obj.id = obj.artistid;
-      return obj;
+      return this.parseModel('artist', obj, obj.artistid);
     };
 
     return Artist;
@@ -32235,12 +32893,11 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     ArtistCollection.prototype.arg1 = function() {
-      console.log(this);
       return true;
     };
 
     ArtistCollection.prototype.arg2 = function() {
-      return API.getFields('small');
+      return API.getArtistFields('small');
     };
 
     ArtistCollection.prototype.arg3 = function() {
@@ -32248,7 +32905,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     ArtistCollection.prototype.arg4 = function() {
-      return this.argSort("artist", "descending");
+      return this.argSort("artist", "ascending");
     };
 
     ArtistCollection.prototype.parse = function(resp, xhr) {
@@ -32258,17 +32915,176 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     return ArtistCollection;
 
   })(App.KodiEntities.Collection);
-  App.commands.setHandler("artist:entity", function(id, options) {
+  App.reqres.setHandler("artist:entity", function(id, options) {
     if (options == null) {
       options = {};
     }
     return API.getArtist(id, options);
   });
-  return App.commands.setHandler("artist:entities", function(options) {
+  return App.reqres.setHandler("artist:entities", function(options) {
     if (options == null) {
       options = {};
     }
+    console.log('fetching');
     return API.getArtists(options);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getSongFields: function(type) {
+      var baseFields, extraFields, fields, minimalFields;
+      if (type == null) {
+        type = 'small';
+      }
+      minimalFields = ['title', 'file'];
+      baseFields = ['thumbnail', 'artist', 'artistid', 'album', 'albumid', 'lastplayed', 'track', 'year', 'duration'];
+      extraFields = ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description', 'lyrics'];
+      if (type === 'full') {
+        fields = minimalFields.concat(baseFields).concat(extraFields);
+        return fields;
+      } else if (type === 'minimal') {
+        return minimalFields;
+      } else {
+        return baseFields;
+      }
+    },
+    getSong: function(id, options) {
+      var artist;
+      artist = new App.KodiEntities.Song();
+      artist.set({
+        songid: parseInt(id),
+        properties: API.getSongFields('full')
+      });
+      artist.fetch(options);
+      return artist;
+    },
+    getFilteredSongs: function(options) {
+      var defaultOptions, songs;
+      defaultOptions = {
+        reset: false
+      };
+      options = _.extend(defaultOptions, options);
+      songs = new KodiEntities.SongFilteredCollection();
+      songs.fetch(options);
+      return songs;
+    },
+    parseSongsToAlbumSongs: function(songs) {
+      var albumid, collections, parsedRaw, song, songSet, songsRaw, _i, _len;
+      songsRaw = songs.getRawCollection();
+      parsedRaw = {};
+      collections = {};
+      for (_i = 0, _len = songsRaw.length; _i < _len; _i++) {
+        song = songsRaw[_i];
+        if (!parsedRaw[song.albumid]) {
+          parsedRaw[song.albumid] = [];
+        }
+        parsedRaw[song.albumid].push(song);
+      }
+      for (albumid in parsedRaw) {
+        songSet = parsedRaw[albumid];
+        collections[albumid] = new KodiEntities.SongCustomCollection(songSet);
+      }
+      return collections;
+    }
+  };
+  KodiEntities.Song = (function(_super) {
+    __extends(Song, _super);
+
+    function Song() {
+      return Song.__super__.constructor.apply(this, arguments);
+    }
+
+    Song.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        songid: 1,
+        artist: ''
+      });
+      return this.parseFieldsToDefaults(API.getSongFields('full'), fields);
+    };
+
+    Song.prototype.methods = {
+      read: ['AudioLibrary.GetSongDetails', 'songidid', 'properties']
+    };
+
+    Song.prototype.arg2 = API.getSongFields('full');
+
+    Song.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.songdetails != null ? resp.songdetails : resp;
+      if (resp.songdetails != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('song', obj, obj.songid);
+    };
+
+    return Song;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.SongFilteredCollection = (function(_super) {
+    __extends(SongFilteredCollection, _super);
+
+    function SongFilteredCollection() {
+      return SongFilteredCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SongFilteredCollection.prototype.model = KodiEntities.Song;
+
+    SongFilteredCollection.prototype.methods = {
+      read: ['AudioLibrary.GetSongs', 'arg1', 'arg2', 'arg3', 'arg4']
+    };
+
+    SongFilteredCollection.prototype.arg1 = function() {
+      return API.getSongFields('small');
+    };
+
+    SongFilteredCollection.prototype.arg2 = function() {
+      return this.argLimit();
+    };
+
+    SongFilteredCollection.prototype.arg3 = function() {
+      return this.argSort("track", "ascending");
+    };
+
+    SongFilteredCollection.prototype.arg4 = function() {
+      return this.argFilter();
+    };
+
+    SongFilteredCollection.prototype.parse = function(resp, xhr) {
+      return resp.songs;
+    };
+
+    return SongFilteredCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.SongCustomCollection = (function(_super) {
+    __extends(SongCustomCollection, _super);
+
+    function SongCustomCollection() {
+      return SongCustomCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SongCustomCollection.prototype.model = KodiEntities.Song;
+
+    return SongCustomCollection;
+
+  })(App.KodiEntities.Collection);
+  App.reqres.setHandler("song:entity", function(id, options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getSong(id, options);
+  });
+  App.reqres.setHandler("song:filtered:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getFilteredSongs(options);
+  });
+  return App.reqres.setHandler("song:albumparse:entities", function(songs) {
+    return API.parseSongsToAlbumSongs(songs);
   });
 });
 
@@ -32322,6 +33138,14 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         id: 2,
         title: "Artists",
         path: '#music/artists',
+        icon: '',
+        classes: '',
+        parent: 1
+      });
+      nav.push({
+        id: 2,
+        title: "Albums",
+        path: '#music/albums',
         icon: '',
         classes: '',
         parent: 1
@@ -32508,6 +33332,39 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
   });
 });
 
+this.Kodi.module("Controllers", function(Controllers, App, Backbone, Marionette, $, _) {
+  return Controllers.Base = (function(_super) {
+    __extends(Base, _super);
+
+    function Base(options) {
+      if (options == null) {
+        options = {};
+      }
+      this.region = options.region || App.request("default:region");
+      Base.__super__.constructor.call(this, options);
+      this._instance_id = _.uniqueId("controller");
+      App.execute("register:instance", this, this._instance_id);
+    }
+
+    Base.prototype.close = function() {
+      var args;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      delete this.region;
+      delete this.options;
+      Base.__super__.close.call(this, args);
+      return App.execute("unregister:instance", this, this._instance_id);
+    };
+
+    Base.prototype.show = function(view) {
+      this.listenTo(view, "close", this.close);
+      return this.region.show(view);
+    };
+
+    return Base;
+
+  })(Backbone.Marionette.Controller);
+});
+
 this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return Views.CollectionView = (function(_super) {
     __extends(CollectionView, _super);
@@ -32566,6 +33423,473 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
 this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {});
 
+this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+  return Views.CardView = (function(_super) {
+    __extends(CardView, _super);
+
+    function CardView() {
+      return CardView.__super__.constructor.apply(this, arguments);
+    }
+
+    CardView.prototype.template = "views/card/card";
+
+    CardView.prototype.tagName = "li";
+
+    CardView.prototype.className = "card";
+
+    CardView.prototype.triggers = {
+      "click .menu": "artist-menu:clicked"
+    };
+
+    return CardView;
+
+  })(App.Views.ItemView);
+});
+
+this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+  return Views.EmptyView = (function(_super) {
+    __extends(EmptyView, _super);
+
+    function EmptyView() {
+      return EmptyView.__super__.constructor.apply(this, arguments);
+    }
+
+    EmptyView.prototype.template = "views/empty/empty";
+
+    EmptyView.prototype.regions = {
+      regionEmptyContent: ".region-empty-content"
+    };
+
+    return EmptyView;
+
+  })(App.Views.ItemView);
+});
+
+this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+  Views.LayoutWithSidebarFirstView = (function(_super) {
+    __extends(LayoutWithSidebarFirstView, _super);
+
+    function LayoutWithSidebarFirstView() {
+      return LayoutWithSidebarFirstView.__super__.constructor.apply(this, arguments);
+    }
+
+    LayoutWithSidebarFirstView.prototype.template = "views/layouts/layout_with_sidebar_first";
+
+    LayoutWithSidebarFirstView.prototype.regions = {
+      regionSidebarFirst: ".region-first",
+      regionContent: ".region-content"
+    };
+
+    return LayoutWithSidebarFirstView;
+
+  })(App.Views.LayoutView);
+  Views.LayoutWithHeaderView = (function(_super) {
+    __extends(LayoutWithHeaderView, _super);
+
+    function LayoutWithHeaderView() {
+      return LayoutWithHeaderView.__super__.constructor.apply(this, arguments);
+    }
+
+    LayoutWithHeaderView.prototype.template = "views/layouts/layout_with_header";
+
+    LayoutWithHeaderView.prototype.regions = {
+      regionHeader: ".region-header",
+      regionContent: ".region-content"
+    };
+
+    return LayoutWithHeaderView;
+
+  })(App.Views.LayoutView);
+  return Views.LayoutDetailsHeaderView = (function(_super) {
+    __extends(LayoutDetailsHeaderView, _super);
+
+    function LayoutDetailsHeaderView() {
+      return LayoutDetailsHeaderView.__super__.constructor.apply(this, arguments);
+    }
+
+    LayoutDetailsHeaderView.prototype.template = "views/layouts/layout_details_header";
+
+    LayoutDetailsHeaderView.prototype.regions = {
+      regionSide: ".region-details-side",
+      regionTitle: ".region-details-title",
+      regionMeta: ".region-details-meta",
+      regionMetaSideFirst: ".region-details-meta-side-first",
+      regionMetaSideSecond: ".region-details-meta-side-second",
+      regionMetaBelow: ".region-details-meta-below"
+    };
+
+    return LayoutDetailsHeaderView;
+
+  })(App.Views.LayoutView);
+});
+
+this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _) {
+  var API;
+  AlbumApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "music/albums": "list",
+      "music/album/:id": "view"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
+  API = {
+    list: function() {
+      return new AlbumApp.List.Controller();
+    },
+    view: function(id) {
+      return new AlbumApp.Show.Controller({
+        id: id
+      });
+    }
+  };
+  return App.addInitializer(function() {
+    return new AlbumApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var albums;
+      albums = App.request("album:entities");
+      return App.execute("when:entity:fetched", albums, (function(_this) {
+        return function() {
+          _this.layout = _this.getLayoutView(albums);
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.albumsRegion(albums);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(albums) {
+      return new List.ListLayout({
+        collection: albums
+      });
+    };
+
+    Controller.prototype.albumsRegion = function(albums) {
+      var albumsView;
+      albumsView = this.getAlbumsView(albums);
+      return this.layout.regionContent.show(albumsView);
+    };
+
+    Controller.prototype.getAlbumsView = function(albums) {
+      return new List.Albums({
+        collection: albums
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "album-list";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.AlbumTeaser = (function(_super) {
+    __extends(AlbumTeaser, _super);
+
+    function AlbumTeaser() {
+      return AlbumTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    AlbumTeaser.prototype.triggers = {
+      "click .menu": "album-menu:clicked"
+    };
+
+    return AlbumTeaser;
+
+  })(App.Views.CardView);
+  List.Empty = (function(_super) {
+    __extends(Empty, _super);
+
+    function Empty() {
+      return Empty.__super__.constructor.apply(this, arguments);
+    }
+
+    Empty.prototype.tagName = "li";
+
+    Empty.prototype.className = "album-empty-result";
+
+    return Empty;
+
+  })(App.Views.EmptyView);
+  return List.Albums = (function(_super) {
+    __extends(Albums, _super);
+
+    function Albums() {
+      return Albums.__super__.constructor.apply(this, arguments);
+    }
+
+    Albums.prototype.childView = List.AlbumTeaser;
+
+    Albums.prototype.emptyView = List.Empty;
+
+    Albums.prototype.tagName = "ul";
+
+    Albums.prototype.className = "card-grid--square";
+
+    return Albums;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getAlbumsFromSongs: function(songs) {
+      var album, albumid, albumsCollectionView, songCollection;
+      albumsCollectionView = new Show.WithSongsCollection();
+      albumsCollectionView.on("add:child", function(albumView) {
+        return App.execute("when:entity:fetched", album, (function(_this) {
+          return function() {
+            var model, songView, teaser;
+            model = albumView.model;
+            teaser = new Show.AlbumTeaser({
+              model: model
+            });
+            albumView.regionMeta.show(teaser);
+            songView = App.request("song:list:view", songs[model.get('albumid')]);
+            return albumView.regionSongs.show(songView);
+          };
+        })(this));
+      });
+      for (albumid in songs) {
+        songCollection = songs[albumid];
+        album = App.request("album:entity", albumid, {
+          success: function(album) {
+            return albumsCollectionView.addChild(album, Show.WithSongsLayout);
+          }
+        });
+      }
+      return albumsCollectionView;
+    }
+  };
+  Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var album, id;
+      id = parseInt(options.id);
+      console.log(id);
+      album = App.request("album:entity", id);
+      return App.execute("when:entity:fetched", album, (function(_this) {
+        return function() {
+          App.execute("images:fanart:set", album.get('fanart'));
+          _this.layout = _this.getLayoutView(album);
+          _this.listenTo(_this.layout, "destroy", function() {
+            return App.execute("images:fanart:set", '');
+          });
+          _this.listenTo(_this.layout, "show", function() {
+            _this.getMusic(id);
+            return _this.getDetailsLayoutView(album);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(album) {
+      return new Show.PageLayout({
+        model: album
+      });
+    };
+
+    Controller.prototype.getDetailsLayoutView = function(album) {
+      var headerLayout;
+      headerLayout = new Show.HeaderLayout({
+        model: album
+      });
+      this.listenTo(headerLayout, "show", (function(_this) {
+        return function() {
+          var detail, teaser;
+          teaser = new Show.AlbumDetailTeaser({
+            model: album
+          });
+          detail = new Show.Details({
+            model: album
+          });
+          headerLayout.regionSide.show(teaser);
+          return headerLayout.regionMeta.show(detail);
+        };
+      })(this));
+      return this.layout.regionHeader.show(headerLayout);
+    };
+
+    Controller.prototype.getMusic = function(id) {
+      var options, songs;
+      options = {
+        filter: {
+          albumid: id
+        }
+      };
+      songs = App.request("song:filtered:entities", options);
+      return App.execute("when:entity:fetched", songs, (function(_this) {
+        return function() {
+          var albumView, songView;
+          albumView = new Show.WithSongsLayout();
+          songView = App.request("song:list:view", songs);
+          _this.listenTo(albumView, "show", function() {
+            return albumView.regionSongs.show(songView);
+          });
+          return _this.layout.regionContent.show(albumView);
+        };
+      })(this));
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+  return App.reqres.setHandler("albums:withsongs:view", function(songs) {
+    return API.getAlbumsFromSongs(songs);
+  });
+});
+
+this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  Show.WithSongsLayout = (function(_super) {
+    __extends(WithSongsLayout, _super);
+
+    function WithSongsLayout() {
+      return WithSongsLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    WithSongsLayout.prototype.template = 'apps/album/show/album_with_songs';
+
+    WithSongsLayout.prototype.className = 'album-wrapper';
+
+    WithSongsLayout.prototype.regions = {
+      regionMeta: '.region-album-meta',
+      regionSongs: '.region-album-songs'
+    };
+
+    return WithSongsLayout;
+
+  })(App.Views.LayoutView);
+  Show.WithSongsCollection = (function(_super) {
+    __extends(WithSongsCollection, _super);
+
+    function WithSongsCollection() {
+      return WithSongsCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    WithSongsCollection.prototype.childView = Show.WithSongsLayout;
+
+    WithSongsCollection.prototype.tagName = "div";
+
+    WithSongsCollection.prototype.sort = 'year';
+
+    WithSongsCollection.prototype.className = "albums-wrapper";
+
+    return WithSongsCollection;
+
+  })(App.Views.CollectionView);
+  Show.PageLayout = (function(_super) {
+    __extends(PageLayout, _super);
+
+    function PageLayout() {
+      return PageLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    PageLayout.prototype.className = 'album-show detail-container';
+
+    return PageLayout;
+
+  })(App.Views.LayoutWithHeaderView);
+  Show.HeaderLayout = (function(_super) {
+    __extends(HeaderLayout, _super);
+
+    function HeaderLayout() {
+      return HeaderLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    HeaderLayout.prototype.className = 'album-details';
+
+    return HeaderLayout;
+
+  })(App.Views.LayoutDetailsHeaderView);
+  Show.Details = (function(_super) {
+    __extends(Details, _super);
+
+    function Details() {
+      return Details.__super__.constructor.apply(this, arguments);
+    }
+
+    Details.prototype.template = 'apps/album/show/details_meta';
+
+    return Details;
+
+  })(App.Views.ItemView);
+  Show.AlbumTeaser = (function(_super) {
+    __extends(AlbumTeaser, _super);
+
+    function AlbumTeaser() {
+      return AlbumTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    AlbumTeaser.prototype.tagName = "div";
+
+    AlbumTeaser.prototype.className = "card-minimal";
+
+    AlbumTeaser.prototype.initialize = function() {
+      return this.model.set({
+        subtitle: this.model.get('year')
+      });
+    };
+
+    AlbumTeaser.prototype.triggers = {
+      "click .menu": "album-menu:clicked"
+    };
+
+    return AlbumTeaser;
+
+  })(App.Views.CardView);
+  return Show.AlbumDetailTeaser = (function(_super) {
+    __extends(AlbumDetailTeaser, _super);
+
+    function AlbumDetailTeaser() {
+      return AlbumDetailTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    AlbumDetailTeaser.prototype.className = "card-detail";
+
+    return AlbumDetailTeaser;
+
+  })(Show.AlbumTeaser);
+});
+
 this.Kodi.module("ArtistApp", function(ArtistApp, App, Backbone, Marionette, $, _) {
   var API;
   ArtistApp.Router = (function(_super) {
@@ -32585,11 +33909,12 @@ this.Kodi.module("ArtistApp", function(ArtistApp, App, Backbone, Marionette, $, 
   })(Marionette.AppRouter);
   API = {
     list: function() {
-      return new ArtistApp.List.Controller;
+      return new ArtistApp.List.Controller();
     },
     view: function(id) {
-      var foo;
-      return foo = 'bar';
+      return new ArtistApp.Show.Controller({
+        id: id
+      });
     }
   };
   return App.addInitializer(function() {
@@ -32608,17 +33933,173 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     }
 
     Controller.prototype.initialize = function() {
-      var crew;
-      crew = App.request("artist:entities");
-      return App.execute("when:entity:fetched", crew, (function(_this) {
+      var artists;
+      artists = App.request("artist:entities");
+      return App.execute("when:entity:fetched", artists, (function(_this) {
         return function() {
-          _this.layout = _this.getLayoutView(crew);
+          _this.layout = _this.getLayoutView(artists);
           _this.listenTo(_this.layout, "show", function() {
-            _this.titleRegion();
-            _this.panelRegion();
-            return _this.crewRegion(crew);
+            return _this.artistsRegion(artists);
           });
-          return App.mainRegion.show(_this.layout);
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(artists) {
+      return new List.ListLayout({
+        collection: artists
+      });
+    };
+
+    Controller.prototype.artistsRegion = function(artists) {
+      var artistsView;
+      artistsView = this.getArtistsView(artists);
+      return this.layout.regionContent.show(artistsView);
+    };
+
+    Controller.prototype.getArtistsView = function(artists) {
+      return new List.Artists({
+        collection: artists
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "artist-list";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.ArtistTeaser = (function(_super) {
+    __extends(ArtistTeaser, _super);
+
+    function ArtistTeaser() {
+      return ArtistTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    ArtistTeaser.prototype.triggers = {
+      "click .menu": "artist-menu:clicked"
+    };
+
+    return ArtistTeaser;
+
+  })(App.Views.CardView);
+  List.Empty = (function(_super) {
+    __extends(Empty, _super);
+
+    function Empty() {
+      return Empty.__super__.constructor.apply(this, arguments);
+    }
+
+    Empty.prototype.tagName = "li";
+
+    Empty.prototype.className = "artist-empty-result";
+
+    return Empty;
+
+  })(App.Views.EmptyView);
+  return List.Artists = (function(_super) {
+    __extends(Artists, _super);
+
+    function Artists() {
+      return Artists.__super__.constructor.apply(this, arguments);
+    }
+
+    Artists.prototype.childView = List.ArtistTeaser;
+
+    Artists.prototype.emptyView = List.Empty;
+
+    Artists.prototype.tagName = "ul";
+
+    Artists.prototype.className = "card-grid--wide";
+
+    return Artists;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var artist, id;
+      id = parseInt(options.id);
+      artist = App.request("artist:entity", id);
+      return App.execute("when:entity:fetched", artist, (function(_this) {
+        return function() {
+          App.execute("images:fanart:set", artist.get('fanart'));
+          _this.layout = _this.getLayoutView(artist);
+          _this.listenTo(_this.layout, "destroy", function() {
+            return App.execute("images:fanart:set", '');
+          });
+          _this.listenTo(_this.layout, "show", function() {
+            _this.getMusic(id);
+            return _this.getDetailsLayoutView(artist);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(artist) {
+      return new Show.PageLayout({
+        model: artist
+      });
+    };
+
+    Controller.prototype.getDetailsLayoutView = function(artist) {
+      var headerLayout;
+      headerLayout = new Show.HeaderLayout({
+        model: artist
+      });
+      this.listenTo(headerLayout, "show", (function(_this) {
+        return function() {
+          var detail, teaser;
+          teaser = new Show.ArtistTeaser({
+            model: artist
+          });
+          detail = new Show.Details({
+            model: artist
+          });
+          headerLayout.regionSide.show(teaser);
+          return headerLayout.regionMeta.show(detail);
+        };
+      })(this));
+      return this.layout.regionHeader.show(headerLayout);
+    };
+
+    Controller.prototype.getMusic = function(id) {
+      var options, songs;
+      options = {
+        filter: {
+          artistid: id
+        }
+      };
+      songs = App.request("song:filtered:entities", options);
+      return App.execute("when:entity:fetched", songs, (function(_this) {
+        return function() {
+          var albumsCollection, songsCollections;
+          songsCollections = App.request("song:albumparse:entities", songs);
+          console.log(songsCollections);
+          albumsCollection = App.request("albums:withsongs:view", songsCollections);
+          return _this.layout.regionContent.show(albumsCollection);
         };
       })(this));
     };
@@ -32628,36 +34109,53 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
   })(App.Controllers.Base);
 });
 
-this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, _) {
-  List.Layout = (function(_super) {
-    __extends(Layout, _super);
+this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  Show.PageLayout = (function(_super) {
+    __extends(PageLayout, _super);
 
-    function Layout() {
-      return Layout.__super__.constructor.apply(this, arguments);
+    function PageLayout() {
+      return PageLayout.__super__.constructor.apply(this, arguments);
     }
 
-    Layout.prototype.template = "artist/list/list_layout";
+    PageLayout.prototype.className = 'artist-show detail-container';
 
-    Layout.prototype.regions = {
-      filtersRegion: ".region-filters",
-      contentRegion: ".region-content"
-    };
+    return PageLayout;
 
-    return Layout;
+  })(App.Views.LayoutWithHeaderView);
+  Show.HeaderLayout = (function(_super) {
+    __extends(HeaderLayout, _super);
 
-  })(App.Views.LayoutView);
-  List.ArtistTeaser = (function(_super) {
+    function HeaderLayout() {
+      return HeaderLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    HeaderLayout.prototype.className = 'artist-details';
+
+    return HeaderLayout;
+
+  })(App.Views.LayoutDetailsHeaderView);
+  Show.Details = (function(_super) {
+    __extends(Details, _super);
+
+    function Details() {
+      return Details.__super__.constructor.apply(this, arguments);
+    }
+
+    Details.prototype.template = 'apps/artist/show/details_meta';
+
+    return Details;
+
+  })(App.Views.ItemView);
+  return Show.ArtistTeaser = (function(_super) {
     __extends(ArtistTeaser, _super);
 
     function ArtistTeaser() {
       return ArtistTeaser.__super__.constructor.apply(this, arguments);
     }
 
-    ArtistTeaser.prototype.template = "artist/list/artist_teaser";
+    ArtistTeaser.prototype.tagName = "div";
 
-    ArtistTeaser.prototype.tagName = "li";
-
-    ArtistTeaser.prototype.className = "card";
+    ArtistTeaser.prototype.className = "card-detail";
 
     ArtistTeaser.prototype.triggers = {
       "click .menu": "artist-menu:clicked"
@@ -32665,49 +34163,28 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
 
     return ArtistTeaser;
 
-  })(App.Views.ItemView);
-  List.Empty = (function(_super) {
-    __extends(Empty, _super);
-
-    function Empty() {
-      return Empty.__super__.constructor.apply(this, arguments);
-    }
-
-    Empty.prototype.template = "artist/list/empty";
-
-    Empty.prototype.tagName = "li";
-
-    Empty.prototype.className = "empty-result";
-
-    return Empty;
-
-  })(App.Views.ItemView);
-  return List.Artists = (function(_super) {
-    __extends(Artists, _super);
-
-    function Artists() {
-      return Artists.__super__.constructor.apply(this, arguments);
-    }
-
-    Artists.prototype.itemView = List.ArtistTeaser;
-
-    Artists.prototype.emptyView = List.Empty;
-
-    return Artists;
-
-  })(App.Views.CollectionView);
+  })(App.Views.CardView);
 });
 
 this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    defaultFanartPath: 'dist/images/fanart_default/',
+    imagesPath: 'dist/images/',
+    defaultFanartPath: 'fanart_default/',
     defaultFanartFiles: ['wallpaper-443657.jpg', 'wallpaper-45040.jpg', 'wallpaper-765190.jpg', 'wallpaper-84050.jpg'],
+    getDefaultThumbnail: function() {
+      return API.imagesPath + 'thumbnail_default.png';
+    },
     getRandomFanart: function() {
       var file, path, rand;
       rand = helpers.global.getRandomInt(0, API.defaultFanartFiles.length - 1);
       file = API.defaultFanartFiles[rand];
-      path = API.defaultFanartPath + file;
+      path = API.imagesPath + API.defaultFanartPath + file;
+      return path;
+    },
+    parseRawPath: function(rawPath) {
+      var path;
+      path = 'image/' + encodeURIComponent(rawPath);
       return path;
     },
     setFanartBackground: function(path, region) {
@@ -32718,23 +34195,43 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     getImageUrl: function(rawPath, type) {
       var path;
       if (type == null) {
-        type = 'default';
+        type = 'thumbnail';
       }
+      path = '';
       if ((rawPath == null) || rawPath === '') {
-        path = API.getRandomFanart();
+        switch (type) {
+          case 'fanart':
+            path = API.getRandomFanart();
+            break;
+          default:
+            path = API.getDefaultThumbnail();
+        }
       } else {
-        path = 'image/' + encodeURIComponent(rawPath);
+        path = API.parseRawPath(rawPath);
       }
       return path;
     }
   };
-  return App.commands.setHandler("images:fanart:set", function(rawPath, region) {
-    var path;
+  App.commands.setHandler("images:fanart:set", function(path, region) {
     if (region == null) {
       region = 'regionFanart';
     }
-    path = API.getImageUrl(rawPath);
     return API.setFanartBackground(path, region);
+  });
+  App.reqres.setHandler("images:path:get", function(rawPath, type) {
+    if (type == null) {
+      type = 'thumbnail';
+    }
+    return API.getImageUrl(rawPath, type);
+  });
+  return App.reqres.setHandler("images:path:entity", function(model) {
+    if (model.thumbnail != null) {
+      model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail');
+    }
+    if (model.fanart != null) {
+      model.fanart = API.getImageUrl(model.fanart, 'fanart');
+    }
+    return model;
   });
 });
 
@@ -32767,7 +34264,7 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
       return List.__super__.constructor.apply(this, arguments);
     }
 
-    List.prototype.template = "navMain/show/navMain";
+    List.prototype.template = "apps/navMain/show/navMain";
 
     return List;
 
@@ -32776,9 +34273,27 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
 
 this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
   var API;
+  Shell.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "home": "homePage"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
   API = {
+    homePage: function() {
+      var foo;
+      return foo = 'bar';
+    },
     renderLayout: function() {
-      var playlistState, shellLayout;
+      var artist, playlistState, shellLayout;
       shellLayout = new Shell.Layout();
       App.root.show(shellLayout);
       App.addRegions(shellLayout.regions);
@@ -32796,16 +34311,9 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
         };
       })(this));
       App.execute("images:fanart:set");
-      App.execute('artist:entities', {
-        success: function(data) {
-          return console.log(data);
-        }
-      });
-      return App.execute('artist:entity', 171, {
-        success: function(data) {
-          console.log(data);
-          return App.execute("images:fanart:set", data.attributes.fanart);
-        }
+      artist = App.request("artist:entity", 1956);
+      return App.execute("when:entity:fetched", artist, function() {
+        return console.log(artist);
       });
     },
     renderNav: function() {
@@ -32827,7 +34335,13 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
     return App.commands.setHandler("shell:view:ready", function() {
       API.renderLayout();
       API.renderNav();
-      return App.execute("shell:ready");
+      new Shell.Router({
+        controller: API
+      });
+      App.vent.trigger("shell:ready");
+      return App.commands.setHandler("body:state", function(op, state) {
+        return API.alterRegionClasses(op, state);
+      });
     });
   });
 });
@@ -32840,7 +34354,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       return Layout.__super__.constructor.apply(this, arguments);
     }
 
-    Layout.prototype.template = "shell/show/shell";
+    Layout.prototype.template = "apps/shell/show/shell";
 
     Layout.prototype.regions = {
       regionNav: '#nav-bar',
@@ -32861,4 +34375,65 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
 
   })(Backbone.Marionette.LayoutView);
   return App.execute("shell:view:ready");
+});
+
+this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getSongsView: function(songs) {
+      return new List.Songs({
+        collection: songs
+      });
+    }
+  };
+  return App.reqres.setHandler("song:list:view", function(songs) {
+    return API.getSongsView(songs);
+  });
+});
+
+this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.Song = (function(_super) {
+    __extends(Song, _super);
+
+    function Song() {
+      return Song.__super__.constructor.apply(this, arguments);
+    }
+
+    Song.prototype.template = 'apps/song/list/song';
+
+    Song.prototype.tagName = "tr";
+
+    Song.prototype.className = 'song table-row';
+
+    Song.prototype.initialize = function() {
+      var duration;
+      duration = helpers.global.secToTime(this.model.get('duration'));
+      return this.model.set({
+        duration: helpers.global.formatTime(duration)
+      });
+    };
+
+    Song.prototype.triggers = {
+      "click .menu": "song-menu:clicked"
+    };
+
+    return Song;
+
+  })(App.Views.ItemView);
+  return List.Songs = (function(_super) {
+    __extends(Songs, _super);
+
+    function Songs() {
+      return Songs.__super__.constructor.apply(this, arguments);
+    }
+
+    Songs.prototype.childView = List.Song;
+
+    Songs.prototype.tagName = "table";
+
+    Songs.prototype.className = "songs-table table table-striped table-hover";
+
+    return Songs;
+
+  })(App.Views.CollectionView);
 });

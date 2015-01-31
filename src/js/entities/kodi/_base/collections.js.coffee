@@ -37,6 +37,7 @@
     ## Filter.
     argFilter: (name, value) ->
       arg = {}
-      arg[name] = value
+      if name?
+        arg[name] = value
       @argCheckOption 'filter', arg
 

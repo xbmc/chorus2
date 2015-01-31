@@ -7,13 +7,13 @@
 
 
 	API =
+
 		list: ->
-			new ArtistApp.List.Controller
+			new ArtistApp.List.Controller()
 
 		view: (id) ->
-      foo = 'bar'
-			# new ArtistApp.Show.Controller
-			# 	id: id
+		  new ArtistApp.Show.Controller
+		    id: id
 
 	
 	App.addInitializer ->

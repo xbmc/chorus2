@@ -48,6 +48,8 @@
 
   ## When entity fetched.
   App.commands.setHandler "when:entity:fetched", (entities, callback) ->
+    helpers.global.loading "start"
     xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
     $.when(xhrs...).done ->
+      helpers.global.loading "end"
       callback()

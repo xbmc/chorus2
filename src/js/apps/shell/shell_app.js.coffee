@@ -1,6 +1,13 @@
 @Kodi.module "Shell", (Shell, App, Backbone, Marionette, $, _) ->
 
+  class Shell.Router extends Marionette.AppRouter
+    appRoutes:
+      "home"   	: "homePage"
+
   API =
+
+    homePage: ->
+      foo = 'bar'
 
     ## Render the shell.
     renderLayout: ->
@@ -28,16 +35,13 @@
 
 
       ## TESTINGS!
-      ## Get an artist collection.
-      App.execute 'artist:entities', success: (data) ->
-        console.log data
 
-      ## Get an artist!
-      App.execute 'artist:entity', 171, success: (data) ->
-        console.log data
-        App.execute "images:fanart:set", data.attributes.fanart
-
-
+#      ## Get an artist!
+      artist = App.request "artist:entity", 1956
+      App.execute "when:entity:fetched", artist, ->
+        console.log artist
+#        App.execute "images:fanart:set", artist.get('fanart')
+#        App.execute "images:fanart:set", ''
 
     ## Add the main menu.
     renderNav: ->
@@ -50,6 +54,7 @@
       action = "#{op}Class"
       $body[action](classes)
 
+
   App.addInitializer ->
 
     App.commands.setHandler "shell:view:ready", ->
@@ -58,5 +63,13 @@
       API.renderLayout()
       API.renderNav()
 
+      ## Shell Router
+      new Shell.Router
+        controller: API
+
       ## Tell everyone, shell is ready.
-      App.execute("shell:ready");
+      App.vent.trigger "shell:ready"
+
+      ## Add, Remove, Toggle classes on body.
+      App.commands.setHandler "body:state", (op, state) ->
+        API.alterRegionClasses op, state

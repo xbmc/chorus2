@@ -1,7 +1,7 @@
 @Kodi.module "Shell", (Shell, App, Backbone, Marionette, $, _) ->
 
   class Shell.Layout extends Backbone.Marionette.LayoutView
-    template: "shell/show/shell"
+    template: "apps/shell/show/shell"
 
     regions:
       regionNav: '#nav-bar'

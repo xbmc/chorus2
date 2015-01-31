@@ -12,9 +12,8 @@
   App.addRegions
     root: "body"
 
-  App.on "initialize:after", (options) ->
-    if Backbone.history
-      Backbone.history.start()
+  App.vent.on "shell:ready", (options) =>
+    Backbone.history.start();
 
   App
 

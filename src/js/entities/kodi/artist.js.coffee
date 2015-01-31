@@ -3,7 +3,7 @@
   API =
 
     ## Get an artists fields.
-    getFields: (type = 'small')->
+    getArtistFields: (type = 'small')->
       baseFields = ['thumbnail']
       extraFields = ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description']
       if type is 'full'
@@ -15,38 +15,39 @@
     ## Fetch a single artist
     getArtist: (id, options) ->
       artist = new App.KodiEntities.Artist()
-      artist.set({artistid: id, properties:  API.getFields('full')})
+      artist.set({artistid: parseInt(id), properties:  API.getArtistFields('full')})
       artist.fetch options
+      artist
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      artists = new KodiEntities.ArtistCollection()
-      defaultOptions = reset: true
+      defaultOptions = {reset: false} ## reset: true
       options = _.extend defaultOptions, options
-      if callback?
-        options callback
-      artists.fetch options
+      ## try cache first.
+      artists = helpers.cache.get "artist:entities"
+      if artists is false or options.reset is true
+        artists = new KodiEntities.ArtistCollection()
+        artists.fetch options
+      helpers.cache.set "artist:entities", artists
+      artists
 
 
   ## Single artist model.
   class KodiEntities.Artist extends App.KodiEntities.Model
     defaults: ->
       fields = _.extend(@modelDefaults, {artistid: 1, artist: ''})
-      for field in API.getFields('full')
-        fields[field] = ''
-      fields
+      @parseFieldsToDefaults API.getArtistFields('full'), fields
 
     methods: {
       read: ['AudioLibrary.GetArtistDetails', 'artistid', 'properties']
     }
-    arg2: API.getFields('full')
+    arg2: API.getArtistFields('full')
     parse: (resp, xhr) ->
       ## If fetched directly, look in artist details and mark as fully loaded
       obj = if resp.artistdetails? then resp.artistdetails else resp
       if resp.artistdetails?
         obj.fullyloaded = true
-      obj.id = obj.artistid
-      obj
+      @parseModel 'artist', obj, obj.artistid
 
 
   ## artists collection
@@ -56,23 +57,23 @@
       read: ['AudioLibrary.GetArtists', 'arg1', 'arg2', 'arg3', 'arg4']
     }
     arg1: ->
-      console.log this
       true
     arg2: ->
-      API.getFields('small')
+      API.getArtistFields('small')
     arg3: ->
       @argLimit()
     arg4: ->
-      @argSort("artist", "descending")
+      @argSort("artist", "ascending")
     parse: (resp, xhr) ->
       resp.artists
 
 
   ## Get a single artist
-  App.commands.setHandler "artist:entity", (id, options = {}) ->
+  App.reqres.setHandler "artist:entity", (id, options = {}) ->
     API.getArtist id, options
 
 
   ## Get an artist collection
-  App.commands.setHandler "artist:entities", (options = {}) ->
+  App.reqres.setHandler "artist:entities", (options = {}) ->
+    console.log 'fetching'
     API.getArtists options
