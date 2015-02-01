@@ -36,11 +36,11 @@
       nav.push {id: 15, title: "Years", path: '#movies/years', icon: '', classes: '', parent: 11}
 
       ## TV.
-      nav.push {id: 21, title: "TV Shows", path: '#tv', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
-      nav.push {id: 22, title: "Recently Added", path: '#tv/added', icon: '', classes: '', parent: 21}
-      nav.push {id: 23, title: "All", path: '#tv/all', icon: '', classes: '', parent: 21}
-      nav.push {id: 24, title: "Genres", path: '#tv/genres', icon: '', classes: '', parent: 21}
-      nav.push {id: 25, title: "Years", path: '#tv/years', icon: '', classes: '', parent: 21}
+      nav.push {id: 21, title: "TV Shows", path: '#tvshows', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
+      nav.push {id: 22, title: "Recently Added", path: '#tvshows/added', icon: '', classes: '', parent: 21}
+      nav.push {id: 23, title: "All", path: '#tvshows/all', icon: '', classes: '', parent: 21}
+      nav.push {id: 24, title: "Genres", path: '#tvshows/genres', icon: '', classes: '', parent: 21}
+      nav.push {id: 25, title: "Years", path: '#tvshows/years', icon: '', classes: '', parent: 21}
 
       ## Browser.
       nav.push {id: 31, title: "Browser", path: '#browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}

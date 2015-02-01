@@ -31998,6 +31998,229 @@ config.set = function(type, id, data, callback) {
 
 
 /*
+  Entities mixins, all the common things we do/need on almost every collection
+
+  example of usage:
+
+  collection = new KodiCollection()
+    .setEntityType 'collection'
+    .setEntityKey 'movie'
+    .setEntityFields 'small', ['thumbnail', 'title']
+    .setEntityFields 'full', ['fanart', 'genre']
+    .setMethod 'VideoLibrary.GetMovies'
+    .setArgHelper 'fields'
+    .setArgHelper 'limit'
+    .setArgHelper 'sort'
+    .applySettings()
+ */
+
+if (this.KodiMixins == null) {
+  this.KodiMixins = {};
+}
+
+KodiMixins.Entities = {
+  url: config.get('static', 'jsonRpcEndpoint'),
+  rpc: new Backbone.Rpc({
+    useNamedParameters: true,
+    namespaceDelimiter: ''
+  }),
+
+  /*
+    Overrides!
+   */
+
+  /*
+    Apply all the defined settings.
+   */
+  applySettings: function() {
+    if (this.entityType === 'model') {
+      return this.setModelDefaultFields();
+    }
+  },
+
+  /*
+    What kind of entity are we dealing with. collection or model
+   */
+  entityType: 'model',
+  setEntityType: function(type) {
+    this.entityType = type;
+    return this;
+  },
+
+  /*
+    Entity Keys, properties that change between the entities
+   */
+  entityKeys: {
+    type: '',
+    modelResponseProperty: '',
+    collectionResponseProperty: '',
+    idProperty: ''
+  },
+  setEntityKey: function(key, value) {
+    this.entityKeys[key] = value;
+    return this;
+  },
+  getEntityKey: function(key) {
+    var ret, type;
+    type = this.entityKeys.type;
+    switch (key) {
+      case 'modelResponseProperty':
+        ret = this.entityKeys[key] != null ? this.entityKeys[key] : type + 'details';
+        break;
+      case 'collectionResponseProperty':
+        ret = this.entityKeys[key] != null ? this.entityKeys[key] : type + 's';
+        break;
+      case 'idProperty':
+        ret = this.entityKeys[key] != null ? this.entityKeys[key] : type + 'id';
+        break;
+      default:
+        ret = type;
+    }
+    return ret;
+  },
+
+  /*
+    The types of fields we request, minimal for search, small for list, full for page.
+   */
+  entitiyFields: {
+    minimal: [],
+    small: [],
+    full: []
+  },
+  setEntityFields: function(type, fields) {
+    if (fields == null) {
+      fields = [];
+    }
+    this.entitiyFields[type] = fields;
+    return this;
+  },
+  getEntityFields: function(type) {
+    var fields;
+    fields = this.entitiyFields.minimal;
+    if (type === 'full') {
+      return fields.concat(this.entitiyFields.small).concat(this.entitiyFields.full);
+    } else if (type === 'small') {
+      return fields.concat(this.entitiyFields.small);
+    } else {
+      return fields;
+    }
+  },
+  modelDefaults: {
+    id: 0,
+    fullyloaded: false,
+    thumbnail: '',
+    thumbsUp: false
+  },
+  setModelDefaultFields: function(defaultFields) {
+    var field, _i, _len, _ref, _results;
+    if (defaultFields == null) {
+      defaultFields = {};
+    }
+    defaultFields = _.extend(this.modelDefaults, defaultFields);
+    _ref = this.getEntityFields('full');
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      field = _ref[_i];
+      _results.push(this.defaults[field] = '');
+    }
+    return _results;
+  },
+
+  /*
+    JsonRPC common paterns and helpers.
+   */
+  callMethodName: '',
+  callArgs: [],
+  callIgnoreArticle: true,
+  setMethod: function(method) {
+    this.callMethodName = method;
+    return this;
+  },
+  setArgStatic: function(callback) {
+    this.callArgs.push(callback);
+    return this;
+  },
+  setArgHelper: function(helper, param1, param2) {
+    var func;
+    func = 'argHelper' + helper;
+    this.callArgs.push(this[func](param1, param2));
+    return this;
+  },
+  argCheckOption: function(option, fallback) {
+    if ((this.options != null) && (this.options[option] != null)) {
+      return this.options[option];
+    } else {
+      return fallback;
+    }
+  },
+  argHelperfields: function(type) {
+    var arg;
+    if (type == null) {
+      type = 'small';
+    }
+    arg = this.getEntityFields(type);
+    return this.argCheckOption('fields', arg);
+  },
+  argHelpersort: function(method, order) {
+    var arg;
+    if (order == null) {
+      order = 'ascending';
+    }
+    arg = {
+      method: method,
+      order: order,
+      ignorearticle: this.callIgnoreArticle
+    };
+    return this.argCheckOption('sort', arg);
+  },
+  argHelperlimit: function(start, end) {
+    var arg;
+    if (start == null) {
+      start = 0;
+    }
+    if (end == null) {
+      end = 'all';
+    }
+    arg = {
+      start: start
+    };
+    if (end !== 'all') {
+      arg.end = end;
+    }
+    return this.argCheckOption('limit', arg);
+  },
+  argHelperfilter: function(name, value) {
+    var arg;
+    arg = {};
+    if (name != null) {
+      arg[name] = value;
+    }
+    return this.argCheckOption('filter', arg);
+  },
+  buildRpcRequest: function(type) {
+    var arg, func, key, req, _i, _len, _ref;
+    if (type == null) {
+      type = 'read';
+    }
+    req = [this.callMethodName];
+    _ref = this.callArgs;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      arg = _ref[_i];
+      func = 'argHelper' + arg;
+      if (typeof func === 'function') {
+        key = 'arg' + req.length;
+        req.push(key);
+        this[key] = func;
+      } else {
+        req.push(arg);
+      }
+    }
+    return req;
+  }
+};
+
+
+/*
   Handle errors.
  */
 
@@ -32067,6 +32290,28 @@ helpers.debug.rpcError = function(obj) {
   var caller;
   caller = arguments.callee.caller.toString();
   return helpers.debug.log("jsonRPC Rquequest", obj, 'error', caller);
+};
+
+
+/*
+  Entity Helpers
+ */
+
+helpers.entities = {};
+
+helpers.entities.getFields = function(set, type) {
+  var fields;
+  if (type == null) {
+    type = 'small';
+  }
+  fields = set.minimal;
+  if (type === 'full') {
+    return fields.concat(set.small).concat(set.full);
+  } else if (type === 'small') {
+    return fields.concat(set.small);
+  } else {
+    return fields;
+  }
 };
 
 
@@ -32931,6 +33176,143 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 });
 
 this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: ['title'],
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file'],
+      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'cast', 'imdbnumber', 'runtime', 'streamdetails']
+    },
+    getEntity: function(id, options) {
+      var entity;
+      entity = new App.KodiEntities.Movie();
+      entity.set({
+        movieid: parseInt(id),
+        properties: helpers.entities.getFields(API.fields, 'full')
+      });
+      entity.fetch(options);
+      return entity;
+    },
+    getCollection: function(options) {
+      var collection, defaultOptions;
+      defaultOptions = {
+        reset: false
+      };
+      options = _.extend(defaultOptions, options);
+      collection = new KodiEntities.MovieCollection();
+      collection.fetch(options);
+      return collection;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.Movie = (function(_super) {
+    __extends(Movie, _super);
+
+    function Movie() {
+      return Movie.__super__.constructor.apply(this, arguments);
+    }
+
+    Movie.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        movieid: 1,
+        movie: ''
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    };
+
+    Movie.prototype.methods = {
+      read: ['VideoLibrary.GetMovieDetails', 'movieid', 'properties']
+    };
+
+    Movie.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.moviedetails != null ? resp.moviedetails : resp;
+      if (resp.moviedetails != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('movie', obj, obj.movieid);
+    };
+
+    return Movie;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.MovieCollection = (function(_super) {
+    __extends(MovieCollection, _super);
+
+    function MovieCollection() {
+      return MovieCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    MovieCollection.prototype.model = KodiEntities.Movie;
+
+    MovieCollection.prototype.methods = {
+      read: ['VideoLibrary.GetMovies', 'arg1', 'arg2', 'arg3']
+    };
+
+    MovieCollection.prototype.arg1 = function() {
+      return helpers.entities.getFields(API.fields, 'small');
+    };
+
+    MovieCollection.prototype.arg2 = function() {
+      return this.argLimit();
+    };
+
+    MovieCollection.prototype.arg3 = function() {
+      return this.argSort("title", "ascending");
+    };
+
+    MovieCollection.prototype.parse = function(resp, xhr) {
+      return resp.movies;
+    };
+
+    return MovieCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.MovieFilteredCollection = (function(_super) {
+    __extends(MovieFilteredCollection, _super);
+
+    function MovieFilteredCollection() {
+      return MovieFilteredCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    MovieFilteredCollection.prototype.methods = {
+      read: ['VideoLibrary.GetMovies', 'arg1', 'arg2', 'arg3', 'arg4']
+    };
+
+    MovieFilteredCollection.prototype.arg4 = function() {
+      return this.argFilter();
+    };
+
+    return MovieFilteredCollection;
+
+  })(KodiEntities.MovieCollection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("movie:entity", function(id, options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getEntity(id, options);
+  });
+  return App.reqres.setHandler("movie:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getCollection(options);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     getSongFields: function(type) {
@@ -33088,6 +33470,143 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   });
 });
 
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: ['title'],
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file'],
+      full: ['fanart', 'studio', 'mpaa', 'cast', 'imdbnumber', 'episodeguide', 'watchedepisodes']
+    },
+    getEntity: function(id, options) {
+      var entity;
+      entity = new App.KodiEntities.TVShow();
+      entity.set({
+        tvshowid: parseInt(id),
+        properties: helpers.entities.getFields(API.fields, 'full')
+      });
+      entity.fetch(options);
+      return entity;
+    },
+    getCollection: function(options) {
+      var collection, defaultOptions;
+      defaultOptions = {
+        reset: false
+      };
+      options = _.extend(defaultOptions, options);
+      collection = new KodiEntities.TVShowCollection();
+      collection.fetch(options);
+      return collection;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.TVShow = (function(_super) {
+    __extends(TVShow, _super);
+
+    function TVShow() {
+      return TVShow.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShow.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        tvshowid: 1,
+        tvshow: ''
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    };
+
+    TVShow.prototype.methods = {
+      read: ['VideoLibrary.GetTVShowDetails', 'tvshowid', 'properties']
+    };
+
+    TVShow.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.tvshowdetails != null ? resp.tvshowdetails : resp;
+      if (resp.tvshowdetails != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('tvshow', obj, obj.tvshowid);
+    };
+
+    return TVShow;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.TVShowCollection = (function(_super) {
+    __extends(TVShowCollection, _super);
+
+    function TVShowCollection() {
+      return TVShowCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShowCollection.prototype.model = KodiEntities.TVShow;
+
+    TVShowCollection.prototype.methods = {
+      read: ['VideoLibrary.GetTVShows', 'arg1', 'arg2', 'arg3']
+    };
+
+    TVShowCollection.prototype.arg1 = function() {
+      return helpers.entities.getFields(API.fields, 'small');
+    };
+
+    TVShowCollection.prototype.arg2 = function() {
+      return this.argLimit();
+    };
+
+    TVShowCollection.prototype.arg3 = function() {
+      return this.argSort("title", "ascending");
+    };
+
+    TVShowCollection.prototype.parse = function(resp, xhr) {
+      return resp.tvshows;
+    };
+
+    return TVShowCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.TVShowFilteredCollection = (function(_super) {
+    __extends(TVShowFilteredCollection, _super);
+
+    function TVShowFilteredCollection() {
+      return TVShowFilteredCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShowFilteredCollection.prototype.methods = {
+      read: ['VideoLibrary.GetTVShowss', 'arg1', 'arg2', 'arg3', 'arg4']
+    };
+
+    TVShowFilteredCollection.prototype.arg4 = function() {
+      return this.argFilter();
+    };
+
+    return TVShowFilteredCollection;
+
+  })(KodiEntities.TVShowCollection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("tvshow:entity", function(id, options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getEntity(id, options);
+  });
+  return App.reqres.setHandler("tvshow:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getCollection(options);
+  });
+});
+
 this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   var API;
   Entities.NavMain = (function(_super) {
@@ -33225,7 +33744,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       nav.push({
         id: 21,
         title: "TV Shows",
-        path: '#tv',
+        path: '#tvshows',
         icon: 'mdi-hardware-tv',
         classes: 'nav-tv',
         parent: 0
@@ -33233,7 +33752,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       nav.push({
         id: 22,
         title: "Recently Added",
-        path: '#tv/added',
+        path: '#tvshows/added',
         icon: '',
         classes: '',
         parent: 21
@@ -33241,7 +33760,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       nav.push({
         id: 23,
         title: "All",
-        path: '#tv/all',
+        path: '#tvshows/all',
         icon: '',
         classes: '',
         parent: 21
@@ -33249,7 +33768,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       nav.push({
         id: 24,
         title: "Genres",
-        path: '#tv/genres',
+        path: '#tvshows/genres',
         icon: '',
         classes: '',
         parent: 21
@@ -33257,7 +33776,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       nav.push({
         id: 25,
         title: "Years",
-        path: '#tv/years',
+        path: '#tvshows/years',
         icon: '',
         classes: '',
         parent: 21
@@ -34235,6 +34754,262 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
   });
 });
 
+this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var movies;
+      movies = App.request("movie:entities");
+      return App.execute("when:entity:fetched", movies, (function(_this) {
+        return function() {
+          _this.layout = _this.getLayoutView(movies);
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.moviesRegion(movies);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(movies) {
+      return new List.ListLayout({
+        collection: movies
+      });
+    };
+
+    Controller.prototype.moviesRegion = function(movies) {
+      var moviesView;
+      moviesView = this.getMoviesView(movies);
+      return this.layout.regionContent.show(moviesView);
+    };
+
+    Controller.prototype.getMoviesView = function(movies) {
+      return new List.Movies({
+        collection: movies
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "movie-list";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.MovieTeaser = (function(_super) {
+    __extends(MovieTeaser, _super);
+
+    function MovieTeaser() {
+      return MovieTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    MovieTeaser.prototype.triggers = {
+      "click .menu": "movie-menu:clicked"
+    };
+
+    return MovieTeaser;
+
+  })(App.Views.CardView);
+  List.Empty = (function(_super) {
+    __extends(Empty, _super);
+
+    function Empty() {
+      return Empty.__super__.constructor.apply(this, arguments);
+    }
+
+    Empty.prototype.tagName = "li";
+
+    Empty.prototype.className = "movie-empty-result";
+
+    return Empty;
+
+  })(App.Views.EmptyView);
+  return List.Movies = (function(_super) {
+    __extends(Movies, _super);
+
+    function Movies() {
+      return Movies.__super__.constructor.apply(this, arguments);
+    }
+
+    Movies.prototype.childView = List.MovieTeaser;
+
+    Movies.prototype.emptyView = List.Empty;
+
+    Movies.prototype.tagName = "ul";
+
+    Movies.prototype.className = "card-grid--tall";
+
+    return Movies;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _) {
+  var API;
+  MovieApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "movies": "list",
+      "movie/:id": "view"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
+  API = {
+    list: function() {
+      return new MovieApp.List.Controller();
+    },
+    view: function(id) {
+      return new MovieApp.Show.Controller({
+        id: id
+      });
+    }
+  };
+  return App.addInitializer(function() {
+    return new MovieApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var id, movie;
+      id = parseInt(options.id);
+      movie = App.request("movie:entity", id);
+      return App.execute("when:entity:fetched", movie, (function(_this) {
+        return function() {
+          App.execute("images:fanart:set", movie.get('fanart'));
+          _this.layout = _this.getLayoutView(movie);
+          _this.listenTo(_this.layout, "destroy", function() {
+            return App.execute("images:fanart:set", '');
+          });
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.getDetailsLayoutView(movie);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(movie) {
+      return new Show.PageLayout({
+        model: movie
+      });
+    };
+
+    Controller.prototype.getDetailsLayoutView = function(movie) {
+      var headerLayout;
+      headerLayout = new Show.HeaderLayout({
+        model: movie
+      });
+      this.listenTo(headerLayout, "show", (function(_this) {
+        return function() {
+          var detail, teaser;
+          teaser = new Show.MovieTeaser({
+            model: movie
+          });
+          detail = new Show.Details({
+            model: movie
+          });
+          headerLayout.regionSide.show(teaser);
+          return headerLayout.regionMeta.show(detail);
+        };
+      })(this));
+      return this.layout.regionHeader.show(headerLayout);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  Show.PageLayout = (function(_super) {
+    __extends(PageLayout, _super);
+
+    function PageLayout() {
+      return PageLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    PageLayout.prototype.className = 'movie-show detail-container';
+
+    return PageLayout;
+
+  })(App.Views.LayoutWithHeaderView);
+  Show.HeaderLayout = (function(_super) {
+    __extends(HeaderLayout, _super);
+
+    function HeaderLayout() {
+      return HeaderLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    HeaderLayout.prototype.className = 'movie-details';
+
+    return HeaderLayout;
+
+  })(App.Views.LayoutDetailsHeaderView);
+  Show.Details = (function(_super) {
+    __extends(Details, _super);
+
+    function Details() {
+      return Details.__super__.constructor.apply(this, arguments);
+    }
+
+    Details.prototype.template = 'apps/movie/show/details_meta';
+
+    return Details;
+
+  })(App.Views.ItemView);
+  return Show.MovieTeaser = (function(_super) {
+    __extends(MovieTeaser, _super);
+
+    function MovieTeaser() {
+      return MovieTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    MovieTeaser.prototype.tagName = "div";
+
+    MovieTeaser.prototype.className = "card-detail";
+
+    MovieTeaser.prototype.triggers = {
+      "click .menu": "movie-menu:clicked"
+    };
+
+    return MovieTeaser;
+
+  })(App.Views.CardView);
+});
+
 this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
   var API;
   API = {
@@ -34293,7 +35068,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       return foo = 'bar';
     },
     renderLayout: function() {
-      var artist, playlistState, shellLayout;
+      var playlistState, shellLayout;
       shellLayout = new Shell.Layout();
       App.root.show(shellLayout);
       App.addRegions(shellLayout.regions);
@@ -34310,11 +35085,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
           return _this.alterRegionClasses('toggle', "shell-playlist-closed");
         };
       })(this));
-      App.execute("images:fanart:set");
-      artist = App.request("artist:entity", 1956);
-      return App.execute("when:entity:fetched", artist, function() {
-        return console.log(artist);
-      });
+      return App.execute("images:fanart:set");
     },
     renderNav: function() {
       var navView;
@@ -34436,4 +35207,260 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     return Songs;
 
   })(App.Views.CollectionView);
+});
+
+this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var tvshows;
+      tvshows = App.request("tvshow:entities");
+      return App.execute("when:entity:fetched", tvshows, (function(_this) {
+        return function() {
+          _this.layout = _this.getLayoutView(tvshows);
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.tvshowsRegion(tvshows);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(tvshows) {
+      return new List.ListLayout({
+        collection: tvshows
+      });
+    };
+
+    Controller.prototype.tvshowsRegion = function(tvshows) {
+      var tvshowsView;
+      tvshowsView = this.getTVShowsView(tvshows);
+      return this.layout.regionContent.show(tvshowsView);
+    };
+
+    Controller.prototype.getTVShowsView = function(tvshows) {
+      return new List.TVShows({
+        collection: tvshows
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "tvshow-list";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.TVShowTeaser = (function(_super) {
+    __extends(TVShowTeaser, _super);
+
+    function TVShowTeaser() {
+      return TVShowTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShowTeaser.prototype.triggers = {
+      "click .menu": "tvshow-menu:clicked"
+    };
+
+    return TVShowTeaser;
+
+  })(App.Views.CardView);
+  List.Empty = (function(_super) {
+    __extends(Empty, _super);
+
+    function Empty() {
+      return Empty.__super__.constructor.apply(this, arguments);
+    }
+
+    Empty.prototype.tagName = "li";
+
+    Empty.prototype.className = "tvshow-empty-result";
+
+    return Empty;
+
+  })(App.Views.EmptyView);
+  return List.TVShows = (function(_super) {
+    __extends(TVShows, _super);
+
+    function TVShows() {
+      return TVShows.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShows.prototype.childView = List.TVShowTeaser;
+
+    TVShows.prototype.emptyView = List.Empty;
+
+    TVShows.prototype.tagName = "ul";
+
+    TVShows.prototype.className = "card-grid--tall";
+
+    return TVShows;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("TVShowApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var id, tvshow;
+      id = parseInt(options.id);
+      tvshow = App.request("tvshow:entity", id);
+      return App.execute("when:entity:fetched", tvshow, (function(_this) {
+        return function() {
+          App.execute("images:fanart:set", tvshow.get('fanart'));
+          _this.layout = _this.getLayoutView(tvshow);
+          _this.listenTo(_this.layout, "destroy", function() {
+            return App.execute("images:fanart:set", '');
+          });
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.getDetailsLayoutView(tvshow);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(tvshow) {
+      return new Show.PageLayout({
+        model: tvshow
+      });
+    };
+
+    Controller.prototype.getDetailsLayoutView = function(tvshow) {
+      var headerLayout;
+      headerLayout = new Show.HeaderLayout({
+        model: tvshow
+      });
+      this.listenTo(headerLayout, "show", (function(_this) {
+        return function() {
+          var detail, teaser;
+          teaser = new Show.TVShowTeaser({
+            model: tvshow
+          });
+          detail = new Show.Details({
+            model: tvshow
+          });
+          headerLayout.regionSide.show(teaser);
+          return headerLayout.regionMeta.show(detail);
+        };
+      })(this));
+      return this.layout.regionHeader.show(headerLayout);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("TVShowApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  Show.PageLayout = (function(_super) {
+    __extends(PageLayout, _super);
+
+    function PageLayout() {
+      return PageLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    PageLayout.prototype.className = 'tvshow-show detail-container';
+
+    return PageLayout;
+
+  })(App.Views.LayoutWithHeaderView);
+  Show.HeaderLayout = (function(_super) {
+    __extends(HeaderLayout, _super);
+
+    function HeaderLayout() {
+      return HeaderLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    HeaderLayout.prototype.className = 'tvshow-details';
+
+    return HeaderLayout;
+
+  })(App.Views.LayoutDetailsHeaderView);
+  Show.Details = (function(_super) {
+    __extends(Details, _super);
+
+    function Details() {
+      return Details.__super__.constructor.apply(this, arguments);
+    }
+
+    Details.prototype.template = 'apps/tvshow/show/details_meta';
+
+    return Details;
+
+  })(App.Views.ItemView);
+  return Show.TVShowTeaser = (function(_super) {
+    __extends(TVShowTeaser, _super);
+
+    function TVShowTeaser() {
+      return TVShowTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShowTeaser.prototype.tagName = "div";
+
+    TVShowTeaser.prototype.className = "card-detail";
+
+    TVShowTeaser.prototype.triggers = {
+      "click .menu": "tvshow-menu:clicked"
+    };
+
+    return TVShowTeaser;
+
+  })(App.Views.CardView);
+});
+
+this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, _) {
+  var API;
+  TVShowApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "tvshows": "list",
+      "tvshow/:id": "view"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
+  API = {
+    list: function() {
+      return new TVShowApp.List.Controller();
+    },
+    view: function(id) {
+      return new TVShowApp.Show.Controller({
+        id: id
+      });
+    }
+  };
+  return App.addInitializer(function() {
+    return new TVShowApp.Router({
+      controller: API
+    });
+  });
 });

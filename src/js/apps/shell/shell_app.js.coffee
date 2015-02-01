@@ -36,12 +36,11 @@
 
       ## TESTINGS!
 
-#      ## Get an artist!
-      artist = App.request "artist:entity", 1956
-      App.execute "when:entity:fetched", artist, ->
-        console.log artist
-#        App.execute "images:fanart:set", artist.get('fanart')
-#        App.execute "images:fanart:set", ''
+      ## Get data
+#      entity = App.request "tvshow:entities"
+#      App.execute "when:entity:fetched", entity, ->
+#        console.log entity
+
 
     ## Add the main menu.
     renderNav: ->

@@ -6,7 +6,6 @@
 // Common dimensions.
 $card-width: 160px;
 $card-wide-width: 276px;
-$card-height: 245px;
 $card-spacing: 5px;
 $card-details-spacing: 7px 10px;
 
@@ -32,8 +31,8 @@ $card-layout: (
   ),
   tall: (
     width: $card-width,
-    height: 330px,
-    height-image: $card-height,
+    height: 300px,
+    height-image: 235px,
     offset-image: 0
   )
 );
