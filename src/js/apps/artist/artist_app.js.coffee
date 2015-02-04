@@ -1,21 +1,20 @@
 @Kodi.module "ArtistApp", (ArtistApp, App, Backbone, Marionette, $, _) ->
 	
-	class ArtistApp.Router extends Marionette.AppRouter
-		appRoutes:
-			"music/artists"   	: "list"
-			"music/artist/:id"	: "view"
+  class ArtistApp.Router extends App.Router.Base
+    appRoutes:
+      "music/artists"   	: "list"
+      "music"   	        : "list"
+      "music/artist/:id"	: "view"
 
+  API =
 
-	API =
+    list: ->
+      new ArtistApp.List.Controller()
 
-		list: ->
-			new ArtistApp.List.Controller()
+    view: (id) ->
+      new ArtistApp.Show.Controller
+        id: id
 
-		view: (id) ->
-		  new ArtistApp.Show.Controller
-		    id: id
-
-	
-	App.addInitializer ->
-		new ArtistApp.Router
-			controller: API
+  App.on "before:start", ->
+    new ArtistApp.Router
+      controller: API

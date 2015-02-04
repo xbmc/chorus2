@@ -10,15 +10,18 @@
       fullyloaded: false
       thumbnail: ''
       thumbsUp: false
+      parsed: false
 
     ## This is our generic way of updating things that need to be
     ## added or changed on all models prior to creation, should be
     ## called during model.parse()
     parseModel: (type, model, id) ->
-      model.id = id
-      model = App.request "images:path:entity", model
-      model.url = helpers.url.get type, id
-      model.type = type
+      if not model.parsed
+        model.id = id
+        model = App.request "images:path:entity", model
+        model.url = helpers.url.get type, id
+        model.type = type
+        model.parsed = true
       model
 
     ## Parse fields into defaults. Sets all to null.

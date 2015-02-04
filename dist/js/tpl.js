@@ -168,6 +168,218 @@ window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current">\n        <div class="nav-section">\n            <h3>'));
+    
+      _print(t.gettext('sections'));
+    
+      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3>'));
+    
+      _print(t.gettext('Filters'));
+    
+      _print(_safe('</h3>\n        <div class="filters-active"></div>\n\n        <h3>'));
+    
+      _print(t.gettext('Sort'));
+    
+      _print(_safe('</h3>\n        <div class="list sort-options"></div>\n    </div>\n\n    <div class="filters-page">\n        <h3>'));
+    
+      _print(t.gettext('Select a filter'));
+    
+      _print(_safe('</h3>\n        <div class="list filters-list"></div>\n    </div>\n\n    <div class="filters-options">\n        <h3>'));
+    
+      _print(t.gettext('Select an option'));
+    
+      _print(_safe('</h3>\n        <div class="list filter-options-list"></div>\n    </div>\n\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/filter/show/tpl/list_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe(this.title));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/loading/show/tpl/loading_page.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div id="loading-page">\n    <div class="spinner-double-section-far"></div>\n    <h2>'));
+    
+      _print(t.gettext("Just a sec..."));
+    
+      _print(_safe('</h2>\n</div>\n\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="region-details-title">\n    <h2>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+    
+      _print(this.formed);
+    
+      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+    
+      if (this.genre.length > 0) {
+        _print(_safe('\n    <div class="genres">\n        '));
+        _print(this.genre.join(', '));
+        _print(_safe('\n    </div>\n    '));
+      }
+    
+      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</div>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -201,7 +413,7 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
         }
         _print(_safe('\n            <li class="'));
         _print(item["class"]);
-        _print(_safe('">\n                <a href="'));
+        _print(_safe('">\n                <a href="#'));
         _print(item.path);
         _print(_safe('">\n                    <i class="'));
         _print(item.icon);
@@ -216,7 +428,7 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
             if (!(child.path !== 'undefined')) {
               continue;
             }
-            _print(_safe('\n                      <li><a href="'));
+            _print(_safe('\n                      <li><a href="#'));
             _print(child.path);
             _print(_safe('">'));
             _print(child.title);
@@ -228,6 +440,90 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
       }
     
       _print(_safe('\n    </ul>\n</nav>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/navMain/show/tpl/nav_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe(this.link));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/player/show/tpl/player.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress"></div>\n            <div class="playing-time">\n                <div class="playing-time-current"></div>\n                <div class="playing-time-duration"></div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title"></div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
     
     }).call(this);
     
@@ -269,7 +565,7 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <footer id="player"></footer>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>'));
     
     }).call(this);
     
@@ -344,6 +640,68 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/tvshow/show/tpl/details_meta.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="region-details-title">\n    <h2>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+    
+      _print(this.formed);
+    
+      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+    
+      if (this.genre.length > 0) {
+        _print(_safe('\n    <div class="genres">\n        '));
+        _print(this.genre.join(', '));
+        _print(_safe('\n    </div>\n    '));
+      }
+    
+      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</div>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["views/card/tpl/card.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -397,7 +755,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       if (this.subtitle != null) {
         _print(_safe('\n            <div class="subtitle">'));
-        _print(this.subtitle);
+        _print(_safe(this.subtitle));
         _print(_safe('</div>\n        '));
       }
     

@@ -3,7 +3,7 @@
     <ul>
         <% for item in @items when item.path isnt 'undefined' and item.parent is 0: %>
             <li class="<%= item.class %>">
-                <a href="<%= item.path %>">
+                <a href="#<%= item.path %>">
                     <i class="<%= item.icon %>"></i>
                     <span><%= item.title %></span>
                 </a>
@@ -11,7 +11,7 @@
                 <% if item.children.length isnt 0: %>
                 <ul>
                     <% for child in item.children when child.path isnt 'undefined': %>
-                      <li><a href="<%= child.path %>"><%= child.title %></a></li>
+                      <li><a href="#<%= child.path %>"><%= child.title %></a></li>
                     <% end %>
                 </ul>
                 <% end %>

@@ -1,0 +1,83 @@
+
+.filters-container {
+  padding: $spacing-base-unit $spacing-base-unit + $spacing-half-unit;
+  h3 {
+    font-size: $font-size-base + 1;
+    text-transform: uppercase;
+    margin: $spacing-base-unit 0;
+    color: $color-greyscale-gray;
+    font-weight: bold;
+  }
+  .nav-list,
+  .selection-list,
+  .active-list {
+    margin-bottom: $spacing-double-unit;
+  }
+  .nav-list,
+  .selection-list {
+    padding-left: $spacing-base-unit;
+    li {
+      padding-bottom: $spacing-half-unit;
+      @include text-crop(#f1f1f1);
+    }
+    a, .option {
+      color: $color-greyscale-outer-space;
+      cursor: pointer;
+      &.active {
+        color: $color-brand-primary;
+        font-weight: bold;
+      }
+    }
+  }
+  .sortable.active {
+    position: relative;
+    &.order-asc {
+      @include icon(navigation-expand-more, $pseudo: 'after');
+    }
+    &.order-desc {
+      @include icon(navigation-expand-less, $pseudo: 'after');
+    }
+    &:after {
+      font-size: 130%;
+      padding-left: $spacing-quater-unit;
+      position: absolute;
+      margin-top: 1px;
+    }
+  }
+  .filter-btn {
+    display: block;
+    @extend %transition--all;
+    background: $color-brand-primary;
+    padding: $spacing-half-unit $spacing-base-unit;
+    padding-right: $spacing-double-unit + $spacing-half-unit;
+    color: $color-white;
+    @include icon(navigation-cancel);
+    position: relative;
+    cursor: pointer;
+    margin-bottom: $spacing-half-unit;
+    &:before {
+      @include set-position-absolute(top $spacing-half-unit right $spacing-half-unit);
+      color: rgba($color-white, 0.5);
+      font-size: 110%;
+      @extend %transition--all;
+    }
+    &:hover {
+      &:before {
+        color: rgba($color-white, 1);
+      }
+    }
+    .text {
+      @include text-crop($color-brand-primary);
+      display: block;
+    }
+    &.filterable-add {
+      display: inline-block;
+      background-color: $color-greyscale-cloudy;
+      &:hover {
+        background-color: $color-brand-primary;
+      }
+      @include icon(content-add-circle);
+    }
+  }
+}
+

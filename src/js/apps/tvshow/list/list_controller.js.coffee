@@ -3,25 +3,51 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      tvshows = App.request "tvshow:entities"
+      collection = App.request "tvshow:entities"
 
-      App.execute "when:entity:fetched", tvshows, =>
+      ## Set available filters
+      collection.availableFilters = @getAvailableFilters()
+      collection.sectionId = 21
 
-        @layout = @getLayoutView tvshows
+      ## When fetched.
+      App.execute "when:entity:fetched", collection, =>
 
+        ## Get and setup the layout
+        @layout = @getLayoutView collection
         @listenTo @layout, "show", =>
-          @tvshowsRegion tvshows
+          @getFiltersView collection
+          @renderList collection
 
+        ## Render the layout
         App.regionContent.show @layout
 
     getLayoutView: (tvshows) ->
       new List.ListLayout
         collection: tvshows
 
-    tvshowsRegion: (tvshows) ->
-      tvshowsView = @getTVShowsView tvshows
-      @layout.regionContent.show tvshowsView
-
     getTVShowsView: (tvshows) ->
       new List.TVShows
         collection: tvshows
+
+
+    ## Available sort and filter options
+    ## See filter_app.js for available options
+    getAvailableFilters: ->
+      sort: ['title', 'year', 'dateadded', 'rating']
+      filter: ['year', 'genre', 'unwatchedShows']
+
+    ## Apply filter view and provide a handler for applying changes
+    getFiltersView: (collection) ->
+      filters = App.request 'filter:show', collection
+      @layout.regionSidebarFirst.show filters
+      ## Listen to when the filters change and re-render.
+      @listenTo filters, "filter:changed", =>
+        @renderList collection
+
+    ## Get the list view with filters applied.
+    renderList: (collection) ->
+      App.execute "loading:show:view", @layout.regionContent
+      filteredCollection = App.request 'filter:apply:entites', collection
+      view = @getTVShowsView filteredCollection
+      @layout.regionContent.show view
+

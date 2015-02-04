@@ -1,21 +1,19 @@
 @Kodi.module "MovieApp", (MovieApp, App, Backbone, Marionette, $, _) ->
-	
-	class MovieApp.Router extends Marionette.AppRouter
-		appRoutes:
-			"movies"   	: "list"
-			"movie/:id"	: "view"
 
+  class MovieApp.Router extends App.Router.Base
+    appRoutes:
+      "movies"   	: "list"
+      "movie/:id"	: "view"
 
-	API =
+  API =
 
-		list: ->
-			new MovieApp.List.Controller()
+    list: ->
+      new MovieApp.List.Controller()
 
-		view: (id) ->
-		  new MovieApp.Show.Controller
-		    id: id
+    view: (id) ->
+      new MovieApp.Show.Controller
+        id: id
 
-	
-	App.addInitializer ->
-		new MovieApp.Router
-			controller: API
+  App.on "before:start", ->
+    new MovieApp.Router
+      controller: API

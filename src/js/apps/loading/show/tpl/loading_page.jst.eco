@@ -1,0 +1,5 @@
+<div id="loading-page">
+    <div class="spinner-double-section-far"></div>
+    <h2><%= t.gettext("Just a sec...") %></h2>
+</div>
+

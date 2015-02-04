@@ -1,7 +1,9 @@
 ###
   Handle errors.
 ###
-helpers.debug = {}
+helpers.debug = {
+  verbose: false
+}
 
 
 ###
@@ -10,7 +12,7 @@ helpers.debug = {}
   @param severity
   The severity level: info, success, warning, error
 ###
-helpers.debug.consoleStyle = (severity) ->
+helpers.debug.consoleStyle = (severity = 'error') ->
   defaults =
     background: "#ccc"
     padding: "0 5px"
@@ -25,7 +27,7 @@ helpers.debug.consoleStyle = (severity) ->
     warning: "#FFFDD9"
     error: "#FFCECD"
 
-  defaults.background = mods[severity]  if style?
+  defaults.background = mods[severity]
   for prop of defaults
     styles.push prop + ": " + defaults[prop]
   styles.join "; "
@@ -39,14 +41,22 @@ helpers.debug.log = (msg, data = 'No data provided', severity = 'error', caller)
 
   if data[0]? and data[0].error is "Internal server error"
     ## Dont log anything
-    msg
   else
-    console.log "%c Bam! Error occurred in: #{caller}", helpers.debug.consoleStyle(severity), data
+    if console?
+      console.log "%c Error in: #{msg}", helpers.debug.consoleStyle(severity), data
+      if helpers.debug.verbose
+        console.log caller
 
 
 ###
   Request Error.
 ###
-helpers.debug.rpcError = (obj) ->
-  caller = arguments.callee.caller.toString()
-  helpers.debug.log "jsonRPC Rquequest", obj, 'error', caller
+helpers.debug.rpcError = (commands, data) ->
+  detail = called: commands
+  msg = ''
+  if data.error and data.error.message
+    msg = '"' + data.error.message + '"'
+    detail.error = data.error
+  else
+    detail.error = data
+  helpers.debug.log "jsonRPC Rquequest - #{msg}", detail, 'error'

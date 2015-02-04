@@ -22,7 +22,6 @@
   ## The config model
   class Entities.ConfigApp extends Entities.Model
     defaults:
-      id: 0
       data: {}
 
   ## The config collection

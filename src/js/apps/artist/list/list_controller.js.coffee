@@ -3,25 +3,47 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      artists = App.request "artist:entities"
+      collection = App.request "artist:entities"
+      App.execute "when:entity:fetched", collection, =>
 
-      App.execute "when:entity:fetched", artists, =>
+        ## Set available filters
+        collection.availableFilters = @getAvailableFilters()
+        collection.sectionId = 1
 
-        @layout = @getLayoutView artists
+        @layout = @getLayoutView collection
 
         @listenTo @layout, "show", =>
-          @artistsRegion artists
+          @renderList collection
+          @getFiltersView collection
 
         App.regionContent.show @layout
 
-    getLayoutView: (artists) ->
+    getLayoutView: (collection) ->
       new List.ListLayout
-        collection: artists
+        collection: collection
 
-    artistsRegion: (artists) ->
-      artistsView = @getArtistsView artists
-      @layout.regionContent.show artistsView
-
-    getArtistsView: (artists) ->
+    getArtistsView: (collection) ->
       new List.Artists
-        collection: artists
+        collection: collection
+
+
+    ## Available sort and filter options
+    ## See filter_app.js for available options
+    getAvailableFilters: ->
+      sort: ['artist']
+      filter: ['mood', 'genre', 'style']
+
+    ## Apply filter view and provide a handler for applying changes
+    getFiltersView: (collection) ->
+      filters = App.request 'filter:show', collection
+      @layout.regionSidebarFirst.show filters
+      ## Listen to when the filters change and re-render.
+      @listenTo filters, "filter:changed", =>
+        @renderList collection
+
+    ## Get the list view with filters applied.
+    renderList: (collection) ->
+      App.execute "loading:show:view", @layout.regionContent
+      filteredCollection = App.request 'filter:apply:entites', collection
+      view = @getArtistsView filteredCollection
+      @layout.regionContent.show view

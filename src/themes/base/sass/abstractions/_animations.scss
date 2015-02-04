@@ -5,9 +5,19 @@
 
 
 /**
+ * Standard transitions
+ */
+@mixin standard-transition($prop: all) {
+  @include transition(0.3s $prop linear);
+}
+%transition--all {
+  @include standard-transition();
+}
+
+
+/**
  * Loading box.
  */
-
 @include keyframes(wave) {
   0% { background-position: 0% bottom; }
   100% { background-position: 100% bottom;  }

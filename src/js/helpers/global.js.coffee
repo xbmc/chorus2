@@ -27,6 +27,11 @@ helpers.global.time = ->
   timestamp / 1000;
 
 
+## Boolean check for a needle in a haystack (like php in_array)
+helpers.global.inArray = (needle, haystack) ->
+  _.indexOf(haystack, needle) > -1
+
+
 ## Set loading state
 helpers.global.loading = (state = 'start') =>
   op = if state is 'start' then 'add' else 'remove'

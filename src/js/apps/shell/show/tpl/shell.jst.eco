@@ -32,7 +32,10 @@
         <div id="playlist-bar"></div>
     </div>
 
-    <footer id="player"></footer>
+    <div id="player-wrapper">
+        <footer id="player-kodi"></footer>
+        <footer id="player-local"></footer>
+    </div>
 
 </div>
 

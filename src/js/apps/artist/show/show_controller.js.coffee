@@ -5,6 +5,7 @@
     ## The Artist page.
     initialize: (options) ->
       id = parseInt options.id
+      console.log 'contr..', id
       artist = App.request "artist:entity", id
       ## Fetch the artist
       App.execute "when:entity:fetched", artist, =>
@@ -45,7 +46,6 @@
       songs = App.request "song:filtered:entities", options
       App.execute "when:entity:fetched", songs, =>
         songsCollections = App.request "song:albumparse:entities", songs
-        console.log songsCollections
         albumsCollection = App.request "albums:withsongs:view", songsCollections
         @layout.regionContent.show albumsCollection
 

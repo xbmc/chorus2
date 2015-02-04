@@ -1,6 +1,6 @@
 @Kodi.module "AlbumApp", (AlbumApp, App, Backbone, Marionette, $, _) ->
 
-  class AlbumApp.Router extends Marionette.AppRouter
+  class AlbumApp.Router extends App.Router.Base
     appRoutes:
       "music/albums"      : "list"
       "music/album/:id"   : "view"
@@ -15,7 +15,7 @@
         id: id
 
 
-  App.addInitializer ->
+  App.on "before:start", ->
     new AlbumApp.Router
       controller: API
       

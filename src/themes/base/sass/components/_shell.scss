@@ -1,4 +1,21 @@
 
+/**
+ * Webkit scrollbars!
+ */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  border: 2px solid rgba($color-black, 0);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba($color-black, 0.05);
+  &:hover {
+    background: rgba($color-black, 0.3);
+  }
+}
+
+
 // Logo
 #logo {
   @include icon(kodi-symbol, icomoon);

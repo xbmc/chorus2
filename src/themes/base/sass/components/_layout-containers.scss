@@ -10,6 +10,7 @@
       @include set-layout('height-header', 'top');
       @include set-layout('width-nav', 'left');
       @include set-layout('width-sidebar-first', 'width');
+      overflow-y: auto;
       z-index: $z-index-alpha;
     }
     > .region-content {

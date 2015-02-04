@@ -13,8 +13,11 @@
     root: "body"
 
   App.vent.on "shell:ready", (options) =>
-    Backbone.history.start();
+    App.startHistory()
 
   App
 
-@Kodi.start()
+$(document).ready =>
+  @Kodi.start()
+
+

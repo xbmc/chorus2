@@ -1,6 +1,8 @@
 @Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
 
-	class KodiEntities.Collection extends App.Entities.Collection
+  Backbone.fetchCache.localStorage = false
+
+  class KodiEntities.Collection extends App.Entities.Collection
 
     ## Common jsonrpc settings.
     url: config.get 'static', 'jsonRpcEndpoint'
@@ -14,6 +16,21 @@
       if method is 'read'
         this.options = options
       Backbone.sync method, model, options
+
+    ## Set our custom cache keys.
+    getCacheKey: (options) ->
+      key = this.constructor.name
+      for k in ['filter', 'sort', 'limit']
+        if options[k]
+          for prop, val of options[k]
+            key += ':' + prop + ':' + val
+      key
+
+    ## When using cache, it doesn't respect the jsonrpc parsing
+    ## so we use this to parse all collection results using cache.
+    getResult: (response, key) ->
+      result = if response.jsonrpc and response.result then response.result else response
+      result[key]
 
     ## Common arg patterns all checking if the params exist in options first.
     argCheckOption: (option, fallback) ->

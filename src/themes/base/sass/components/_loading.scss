@@ -1,0 +1,212 @@
+//colors
+$color_woodsmoke_approx: #111;
+$color_royal_blue_approx: #3369e8;
+$color_monza_approx: #d50f25;
+$color_forest_green_approx: #009925;
+$color_buttercup_approx: #eeb211;
+
+$base-color: $color-greyscale-cloudy;
+$front-color: $color-brand-primary;
+$orbit-color: #ddd;
+
+#loading-page {
+  @include set-position-fixed(top 0 left 0 right 0 bottom 150px);
+  h2 {
+    text-align: center;
+    margin-top: 33rem;
+    font-size: 1.5em;
+    color: $color-greyscale-cloudy;
+  }
+}
+
+.loader {
+  position: absolute;
+  margin: 5rem auto 3rem auto;
+  overflow: hidden;
+}
+
+.loader > div {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.orbit {
+  height: 20rem;
+  width: 20rem;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  overflow: visible;
+  background-color: $orbit-color;
+  @include border-radius(50%);
+  > {
+    div {
+      top: 2.5rem;
+      left: 2.5rem;
+      font-size: 1rem;
+      height: 15rem;
+      width: 15rem;
+      @include transform-origin(center center);
+    }
+    div::before {
+      position: absolute;
+      left: calc(50% - .5em);
+      display: block;
+      content: '';
+      height: 1em;
+      width: 1em;
+      @include border-radius(50%);
+      @include transform(scale(1));
+    }
+    div:nth-child(1)::before {
+      background-color: $base-color;
+    }
+    div:nth-child(2)::before {
+      background-color: $base-color;
+    }
+    div:nth-child(3)::before {
+      background-color: $base-color;
+    }
+    div:nth-child(4)::before {
+      background-color: $base-color;
+    }
+  }
+}
+@include keyframes(loading-orbit){
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(360deg));
+  }
+}
+@include keyframes(loading-orbit-before) {
+  0% {
+    height: 1em;
+    width: 1em;
+    @include transform(translate3d(0,0,0));
+    z-index: 5;
+  }
+  5% {
+    height: 1.25em;
+    width: 1.25em;
+  }
+  25% {
+    height: 2em;
+    width: 2em;
+    z-index: 10;
+    background-color: $front-color;
+  }
+  50% {
+    @include transform(translate3d(1rem,15rem,0));
+    z-index: 0;
+    height: 1em;
+    width: 1em;
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+    z-index: 0;
+    height: 1em;
+    width: 1em;
+  }
+}
+.loader.orbit > {
+  div {
+    @include animation(loading-orbit 6s infinite linear);
+  }
+  div::before {
+    @include animation(loading-orbit-before 2s infinite ease-in-out);
+  }
+}
+.loader.orbit > {
+  div {
+    &:nth-child(1) {
+      @include animation-delay(0s);
+    }
+    &:nth-child(2) {
+      @include animation-delay(-.75s);
+    }
+    &:nth-child(3) {
+      @include animation-delay(-1.5s);
+    }
+    &:nth-child(4) {
+      @include animation-delay(-2.25s);
+    }
+  }
+  div:nth-child(1)::before {
+    @include animation-delay(0s);
+  }
+  div:nth-child(2)::before {
+    @include animation-delay(-.5s);
+  }
+  div:nth-child(3)::before {
+    @include animation-delay(-1s);
+  }
+  div:nth-child(4)::before {
+    @include animation-delay(-1.5s);
+  }
+}
+
+
+$inactive: #aaa;
+$active: $front-color;
+$speed: 3s;
+$size: 80px;
+$unit: $size / 20;
+
+%spinner {
+  @include set-position-absolute(left 0 right 0 top 20em bottom 0);
+  margin: auto;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  border: $unit solid rgba($inactive, 0.2);
+  //background-color: rgba($color-white, 0.1);
+  @include animation(spinner $speed linear infinite);
+}
+@include keyframes(spinner) {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Sections */
+%spinner-double-section,
+.spinner-double-section {
+  @extend %spinner;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: -$unit * 5;
+    left: -$unit * 5;
+    display: block;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    border: $unit solid transparent;
+    border-top-color: $active;
+  }
+  &:after {
+    border-top-color: transparent;
+    border-bottom-color: $active;
+  }
+}
+
+%spinner-double-section-far,
+.spinner-double-section-far {
+  @extend %spinner-double-section;
+
+  &:before,
+  &:after {
+    top: ($unit*-3);
+    left: ($unit*-3);
+    width: ($size + $unit*4);
+    height: ($size + $unit*4);
+  }
+}

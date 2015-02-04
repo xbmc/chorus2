@@ -12,6 +12,8 @@
       regionTitle: '#page-title .title'
       regionTitleContext: '#page-title .context'
       regionFanart: '#fanart'
+      regionPlayerKodi: '#player-kodi'
+      regionPlayerLocal: '#player-local'
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"

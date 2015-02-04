@@ -1,6 +1,69 @@
 
-#player {
+#player-wrapper {
   @include set-position-fixed(top auto left 0 right 0 bottom 0);
   @include set-layout('height-player', 'height');
   background: $color-background-kodi;
 }
+
+#player-local {
+  display: none;
+  .player-local & {
+    display: block;
+  }
+}
+
+#player-kodi {
+  display: block;
+  .player-local & {
+    display: none;
+  }
+}
+
+.player {
+  .controls-primary,
+  .controls-secondary {
+    background: rgba($color-white, 0.1);
+    @include set-layout('height-player', 'height');
+    .control {
+      @extend %transition--all;
+      cursor: pointer;
+      @include set-layout('height-player', 'height');
+      @include vertical-align-wrapper();
+      font-size: $font-size-player-control-primary;
+      color: $color-white;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+      &:before {
+        @include icon-style(mdi);
+        text-align: center;
+        @include vertical-align-element();
+      }
+    }
+  }
+  .controls-primary {
+    @include set-layout('width-player-controls-primary', 'width');
+    float: left;
+    .control {
+      @include span(33.33%);
+    }
+  }
+  .controls-secondary {
+    @include set-layout('width-player-controls-secondary', 'width');
+    float: right;
+    .control {
+      font-size: $font-size-player-control-secondary;
+      @include span(25%);
+    }
+  }
+}
+
+// Control icons.
+.control-prev:before { content: icon-code(av-fast-rewind); }
+.control-play:before { content: icon-code(av-play-arrow); font-size: 150%; }
+.control-next:before { content: icon-code(av-fast-forward); }
+.control-mute:before { content: icon-code(av-volume-down); }
+.control-repeat:before { content: icon-code(av-repeat); }
+.control-shuffle:before { content: icon-code(av-shuffle); }
+.control-menu:before { content: icon-code(navigation-more-vert); }

@@ -4,8 +4,8 @@
 
     ## Get an artists fields.
     getArtistFields: (type = 'small')->
-      baseFields = ['thumbnail']
-      extraFields = ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description']
+      baseFields = ['thumbnail', 'mood', 'genre', 'style']
+      extraFields = ['fanart', 'born', 'formed', 'description']
       if type is 'full'
         fields = baseFields.concat( extraFields )
         fields
@@ -21,7 +21,7 @@
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      defaultOptions = {reset: false} ## reset: true
+      defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
       ## try cache first.
       artists = helpers.cache.get "artist:entities"
@@ -58,14 +58,10 @@
     }
     arg1: ->
       true
-    arg2: ->
-      API.getArtistFields('small')
-    arg3: ->
-      @argLimit()
-    arg4: ->
-      @argSort("artist", "ascending")
-    parse: (resp, xhr) ->
-      resp.artists
+    arg2: -> API.getArtistFields('small')
+    arg3: -> @argLimit()
+    arg4: -> @argSort("artist", "ascending")
+    parse: (resp, xhr) -> @getResult resp, 'artists'
 
 
   ## Get a single artist
@@ -75,5 +71,4 @@
 
   ## Get an artist collection
   App.reqres.setHandler "artist:entities", (options = {}) ->
-    console.log 'fetching'
     API.getArtists options

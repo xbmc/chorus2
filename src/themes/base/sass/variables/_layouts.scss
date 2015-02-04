@@ -23,7 +23,7 @@ $width-playlist-large: $size-region-unit * 12;
 
 // Heights
 $height-player-small: $size-region-unit;
-$height-player: $size-region-unit * 1.5;
+$height-player: 70px;
 
 // Z-indexes
 $z-index-below: -10;
@@ -42,7 +42,10 @@ $layouts: (
     height-header: $size-region-unit,
     width-nav: $size-region-unit,
     width-sidebar-first: $size-region-unit * 5,
-    width-details-side: 280px
+    width-details-side: 280px,
+    width-player-controls-primary: 220px,
+    width-player-controls-secondary: 220px,
+    width-player-thumb: $height-player-small
   ),
   medium: (
     width-playlist: $width-playlist-small,
@@ -50,10 +53,21 @@ $layouts: (
   ),
   large: (
     height-player: $height-player,
-    width-search: $size-region-unit * 4
+    width-search: $size-region-unit * 4,
+    width-player-controls-primary: 330px,
+    width-player-controls-secondary: 330px,
   ),
   xlarge: (
     width-playlist: $width-playlist,
     width-playlist-closed: $size-region-unit
   )
-)
+);
+
+// Susy:
+$susy: (
+  columns: 12,
+  gutter-position: inside,
+  gutters: 0,
+  math: fluid,
+  output: float,
+);

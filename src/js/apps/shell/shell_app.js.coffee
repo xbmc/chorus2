@@ -1,8 +1,9 @@
 @Kodi.module "Shell", (Shell, App, Backbone, Marionette, $, _) ->
 
-  class Shell.Router extends Marionette.AppRouter
+  class Shell.Router extends App.Router.Base
     appRoutes:
       "home"   	: "homePage"
+
 
   API =
 
@@ -16,6 +17,9 @@
       shellLayout = new Shell.Layout()
       App.root.show( shellLayout )
       App.addRegions shellLayout.regions
+
+      ## Kick of loading.
+      App.execute "loading:show:page"
 
       ## Get playlist state.
       playlistState = config.get 'app', 'shell:playlist:state', 'open'
@@ -42,11 +46,6 @@
 #        console.log entity
 
 
-    ## Add the main menu.
-    renderNav: ->
-      navView = App.request 'navMain:view';
-      App.regionNav.show( navView )
-
     ## Alter region classes.
     alterRegionClasses: (op, classes, region = 'root') ->
       $body = App.getRegion(region).$el
@@ -58,9 +57,8 @@
 
     App.commands.setHandler "shell:view:ready", ->
 
-      ## Render components.
+        ## Render components.
       API.renderLayout()
-      API.renderNav()
 
       ## Shell Router
       new Shell.Router

@@ -2,29 +2,21 @@
 
   API =
 
-    ## Get song fields.
-    getSongFields: (type = 'small')->
-      minimalFields = ['title', 'file']
-      baseFields = ['thumbnail', 'artist', 'artistid', 'album', 'albumid', 'lastplayed', 'track', 'year', 'duration']
-      extraFields = ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description', 'lyrics']
-      if type is 'full'
-        fields = minimalFields.concat(baseFields).concat(extraFields)
-        fields
-      else if type is 'minimal'
-        minimalFields
-      else
-        baseFields
+    fields:
+      minimal: ['title', 'file']
+      small: ['thumbnail', 'artist', 'artistid', 'album', 'albumid', 'lastplayed', 'track', 'year', 'duration']
+      full: ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description', 'lyrics']
 
     ## Fetch a single song
     getSong: (id, options) ->
       artist = new App.KodiEntities.Song()
-      artist.set({songid: parseInt(id), properties: API.getSongFields('full')})
+      artist.set({songid: parseInt(id), properties: helpers.entities.getFields(API.fields, 'full')})
       artist.fetch options
       artist
 
     ## Fetch an song collection.
     getFilteredSongs: (options) ->
-      defaultOptions = {reset: false} ## reset: true
+      defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
       songs = new KodiEntities.SongFilteredCollection()
       songs.fetch options
@@ -51,12 +43,8 @@
   class KodiEntities.Song extends App.KodiEntities.Model
     defaults: ->
       fields = _.extend(@modelDefaults, {songid: 1, artist: ''})
-      @parseFieldsToDefaults API.getSongFields('full'), fields
-
-    methods: {
-      read: ['AudioLibrary.GetSongDetails', 'songidid', 'properties']
-    }
-    arg2: API.getSongFields('full')
+      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
+    methods: read: ['AudioLibrary.GetSongDetails', 'songidid', 'properties']
     parse: (resp, xhr) ->
       ## If fetched directly, look in artist details and mark as fully loaded
       obj = if resp.songdetails? then resp.songdetails else resp
@@ -68,20 +56,12 @@
   ## Song Filtered collection
   class KodiEntities.SongFilteredCollection extends App.KodiEntities.Collection
     model: KodiEntities.Song
-    methods: {
-      read: ['AudioLibrary.GetSongs', 'arg1', 'arg2', 'arg3', 'arg4']
-    }
-    arg1: ->
-      API.getSongFields('small')
-    arg2: ->
-      @argLimit()
-    arg3: ->
-      @argSort("track", "ascending")
-     arg4: ->
-      ## Must pass filter in options else request will fail.
-      @argFilter()
-    parse: (resp, xhr) ->
-      resp.songs
+    methods: read: ['AudioLibrary.GetSongs', 'arg1', 'arg2', 'arg3', 'arg4']
+    arg1: -> helpers.entities.getFields(API.fields, 'small')
+    arg2: -> @argLimit()
+    arg3: -> @argSort("track", "ascending")
+    arg4: -> @argFilter()
+    parse: (resp, xhr) -> @getResult resp, 'songs'
 
 
   ## Song Custom collection, assumed passed an array of raw entity data.

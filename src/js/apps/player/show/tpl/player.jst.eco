@@ -1,0 +1,38 @@
+<div class="player">
+
+    <div class="controls-primary">
+        <div class="controls-primary-buttons">
+            <div class="control control-prev"></div>
+            <div class="control control-play"></div>
+            <div class="control control-next"></div>
+        </div>
+    </div>
+
+    <div class="controls-secondary">
+        <div class="volume"></div>
+        <div class="controls-secondary-buttons">
+            <div class="control control-mute"></div>
+            <div class="control control-repeat"></div>
+            <div class="control control-shuffle"></div>
+            <div class="control control-menu"></div>
+        </div>
+    </div>
+
+    <div class="now-playing">
+        <div class="playing-thumb">
+            <img src="" />
+        </div>
+        <div class="playing-info">
+            <div class="playing-progress"></div>
+            <div class="playing-time">
+                <div class="playing-time-current"></div>
+                <div class="playing-time-duration"></div>
+            </div>
+            <div class="playing-meta">
+                <div class="playing-title"></div>
+                <div class="playing-subtitle"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

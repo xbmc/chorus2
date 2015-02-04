@@ -18,7 +18,7 @@ helpers.cache.set = (key, data, expires) ->
 ## Get a cached object
 helpers.cache.get = (key, fallback) ->
   fallback ?= false
-  if helpers.cache.store[key]? and helpers.cache.store[key].expires <= helpers.global.time()
+  if helpers.cache.store[key]? and helpers.cache.store[key].expires >= helpers.global.time()
     helpers.cache.store[key].data
   else
     fallback

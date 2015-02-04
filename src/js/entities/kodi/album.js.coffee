@@ -21,14 +21,10 @@
 
     ## Fetch an album collection.
     getAlbums: (options) ->
-      defaultOptions = {reset: false} ## reset: true
+      defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
-      ## try cache first.
-      albums = helpers.cache.get "album:entities"
-      if albums is false or options.reset is true
-        albums = new KodiEntities.AlbumCollection()
-        albums.fetch options
-      helpers.cache.set "album:entities", albums
+      albums = new KodiEntities.AlbumCollection()
+      albums.fetch options
       albums
 
 
@@ -56,16 +52,11 @@
     methods: {
       read: ['AudioLibrary.GetAlbums', 'arg1', 'arg2', 'arg3', 'arg4']
     }
-    arg1: ->
-      API.getAlbumFields('small')
-    arg2: ->
-      @argLimit()
-    arg3: ->
-      @argSort("album", "ascending")
-    arg3: ->
-      @argFilter()
-    parse: (resp, xhr) ->
-      resp.albums
+    arg1: -> API.getAlbumFields('small')
+    arg2: -> @argLimit()
+    arg3: -> @argSort("title", "ascending")
+    arg3: -> @argFilter()
+    parse: (resp, xhr) -> @getResult resp, 'albums'
 
 
   ## Get a single album

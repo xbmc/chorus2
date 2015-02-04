@@ -4,7 +4,6 @@
 // =============================================================================
 
 .box-loading {
-  @extend .jumbotron;
   @include constrained-container;
   @include loading-box-background;
   margin-top: $spacing-base-unit;

@@ -1,4 +1,4 @@
-$width-nav-bar: $size-region-unit * 5;
+$width-nav-bar: $size-region-unit * 4;
 $width-nav-bar-closed: $size-region-unit;
 
 #nav-bar {
@@ -27,10 +27,12 @@ $width-nav-bar-closed: $size-region-unit;
         color: $color-greyscale-outer-space;
         text-align: center;
         &:hover {
-          background: $color-greyscale-alto;
-          color: $color-greyscale-outer-space;
+          background: rgba($color-greyscale-alto, 0.5);
+          color: $color-brand-primary;
+          i {
+            color: $color-brand-primary;
+          }
         }
-        font-size: 110%;
         span {
           display: none;
         }
@@ -57,19 +59,11 @@ $width-nav-bar-closed: $size-region-unit;
     ul {
       li {
         width: $width-nav-bar;
-        &:hover {
-          ul {
-            display: block;
-          }
-        }
       }
       a {
         padding: $spacing-half-unit #{$spacing-half-unit + $spacing-base-unit};
         text-align: left;
         white-space: nowrap;
-        i {
-          color: $color-greyscale-gray;
-        }
         span {
           display: inline-block;
         }

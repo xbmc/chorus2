@@ -8,7 +8,7 @@
 
     fields:
       minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes']
       full: ['fanart', 'studio', 'mpaa', 'cast', 'imdbnumber', 'episodeguide', 'watchedepisodes']
 
     ## Fetch a single entity
@@ -20,7 +20,7 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {reset: false} ## reset: true
+      defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
       collection = new KodiEntities.TVShowCollection()
       collection.fetch options
@@ -40,6 +40,7 @@
       obj = if resp.tvshowdetails? then resp.tvshowdetails else resp
       if resp.tvshowdetails?
         obj.fullyloaded = true
+      obj.unwatched = obj.episode - obj.watchedepisodes
       @parseModel 'tvshow', obj, obj.tvshowid
 
   ## TVShowss collection
@@ -49,7 +50,7 @@
     arg1: -> helpers.entities.getFields(API.fields, 'small')
     arg2: -> @argLimit()
     arg3: -> @argSort("title", "ascending")
-    parse: (resp, xhr) -> resp.tvshows
+    parse: (resp, xhr) -> @getResult resp, 'tvshows'
 
 
   ## Filtered TVShows collection

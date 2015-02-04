@@ -32,7 +32,6 @@
     ## The Album page.
     initialize: (options) ->
       id = parseInt options.id
-      console.log id
       album = App.request "album:entity", id
       ## Fetch the artist
       App.execute "when:entity:fetched", album, =>
