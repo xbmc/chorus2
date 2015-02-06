@@ -34,7 +34,17 @@ helpers.debug.consoleStyle = (severity = 'error') ->
 
 
 ###
-  Log a deubg message.
+  Basic debug message
+###
+helpers.debug.msg = (msg, severity = 'info', data) ->
+  if console?
+    console.log "%c #{msg}", helpers.debug.consoleStyle(severity)
+    if data?
+      console.log data
+
+
+###
+  Log a deubg error message.
 ###
 helpers.debug.log = (msg, data = 'No data provided', severity = 'error', caller) ->
   caller ?= arguments.callee.caller.toString()
@@ -44,7 +54,7 @@ helpers.debug.log = (msg, data = 'No data provided', severity = 'error', caller)
   else
     if console?
       console.log "%c Error in: #{msg}", helpers.debug.consoleStyle(severity), data
-      if helpers.debug.verbose
+      if helpers.debug.verbose and caller isnt false
         console.log caller
 
 

@@ -1,7 +1,11 @@
 ## Our global objects
 @helpers = {}
 @config = {
-  static: jsonRpcEndpoint: 'jsonrpc'
+  static:
+    jsonRpcEndpoint: 'jsonrpc'
+    socketsHost: location.hostname
+    socketsPort: 9090
+    ajaxTimeout: 5000
 }
 
 ## The App Inance

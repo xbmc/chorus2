@@ -10,7 +10,12 @@ $front-color: $color-brand-primary;
 $orbit-color: #ddd;
 
 #loading-page {
-  @include set-position-fixed(top 0 left 0 right 0 bottom 150px);
+  @include set-position-fixed(top 0 left 0 bottom 150px);
+  @include set-layout('width-nav', 'left');
+  @include set-layout('width-playlist', 'right');
+  .shell-playlist-closed & {
+    @include set-layout('width-playlist-closed', 'right');
+  }
   h2 {
     text-align: center;
     margin-top: 33rem;

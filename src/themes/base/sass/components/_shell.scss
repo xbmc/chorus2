@@ -6,12 +6,12 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  border: 2px solid rgba($color-black, 0);
+  border: $color-scrollbar;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba($color-black, 0.05);
+  background: $color-scrollbar-handle;
   &:hover {
-    background: rgba($color-black, 0.3);
+    background: $color-scrollbar-hover-handle;
   }
 }
 
@@ -46,17 +46,20 @@
 
 }
 #fanart {
-  background-color: $color-greyscale-mercury;
+  background-color: $color-background;
   background-size: cover;
   background-position: 50% 50%;
   z-index: $z-index-below;
 }
 #fanart-overlay {
   z-index: $z-index-below + 1;
-  background-color: rgba($color-greyscale-mercury, 0.7);
+  background-color: rgba($color-background, 0.7);
+  .section-home & {
+    display: none;
+  }
 }
 
-// Main region
+// Main region.
 #main {
   @include pie-clearfix();
   margin: $size-region-unit 0 0 $size-region-unit;
@@ -66,5 +69,52 @@
   // Sidebar is hidden.
   .shell-playlist-closed & {
     @include set-layout('width-playlist-closed', 'margin-right');
+  }
+}
+
+
+// Playlist region.
+#sidebar-two {
+  @include set-position-fixed(top 0 left $size-region-unit right 0 bottom 0);
+  background: $color-playlist-background;
+  @include at-bp(medium) {
+    left: auto;
+  }
+  @include set-layout('width-playlist', 'width');
+  @include set-layout('height-player', 'bottom');
+
+  #playlist-summary {
+    display: none;
+  }
+
+  .playlist-toggle-open {
+    @include set-position-fixed(top 0 right 0);
+    position: absolute;
+    width: $size-region-unit;
+    height: $size-region-unit;
+    @include icon('hardware-keyboard-arrow-right');
+    @include vertical-align-wrapper();
+    cursor: pointer;
+    &:before {
+      @include transition(all 0.4s linear);
+      @include vertical-align-element();
+      text-align: center;
+      font-size: 150%;
+      color: $color-playlist-toggle-icon;
+    }
+  }
+
+  // Sidebar is hidden.
+  .shell-playlist-closed & {
+    .playlist-toggle-open:before {
+      @include transform(rotate(-180deg));
+    }
+    @include set-layout('width-playlist-closed', 'width');
+    #playlist-bar {
+      display: none;
+    }
+    #playlist-summary {
+      display: block;
+    }
   }
 }

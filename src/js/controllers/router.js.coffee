@@ -15,6 +15,9 @@
       $body = App.getRegion('root').$el
       $body.removeClassRegex(/^section-/)
       $body.removeClassRegex(/^page-/)
-      $body.addClass('section-' + helpers.url.arg(0))
+      section = helpers.url.arg(0)
+      if section is ''
+        section = 'home'
+      $body.addClass('section-' + section)
       $body.addClass('page-' + helpers.url.arg().join('-'))
 

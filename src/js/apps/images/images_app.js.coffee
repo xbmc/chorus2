@@ -26,9 +26,15 @@
       path = 'image/' + encodeURIComponent(rawPath)
       path
 
+    ## set background fanart, stting to 'none' removes fanart
     setFanartBackground: (path, region) ->
       $body = App.getRegion(region).$el
-      $body.css('background-image', 'url(' +  path + ')')
+      if path isnt 'none'
+        if not path
+          path = @getRandomFanart()
+        $body.css('background-image', 'url(' +  path + ')')
+      else
+        $body.removeAttr('style')
 
     getImageUrl: (rawPath, type = 'thumbnail') ->
       path = ''

@@ -4,7 +4,7 @@
 
   &.with-sidebar-first {
     > .region-first {
-      background: rgba($color-white, 0.5);
+      background: $color-sidebar;
       position: fixed;
       @include set-layout('height-player', 'bottom');
       @include set-layout('height-header', 'top');

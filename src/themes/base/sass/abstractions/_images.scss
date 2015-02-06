@@ -6,7 +6,7 @@
 /**
  * A mixin to scale and crop an image. Called on its parent wrapper.
  */
-@mixin image-crop ($height, $width: 100%, $offset-image: 0, $background-color: $color-greyscale-alto) {
+@mixin image-crop ($height, $width: 100%, $offset-image: 0, $background-color: transparent) {
   background: $background-color;
   overflow: hidden;
   letter-spacing: -0.31em;

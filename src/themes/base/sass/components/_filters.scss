@@ -1,6 +1,4 @@
-
 .filters-container {
-  padding: $spacing-base-unit $spacing-base-unit + $spacing-half-unit;
   h3 {
     font-size: $font-size-base + 1;
     text-transform: uppercase;
@@ -18,7 +16,7 @@
     padding-left: $spacing-base-unit;
     li {
       padding-bottom: $spacing-half-unit;
-      @include text-crop(#f1f1f1);
+      @include text-crop($color-sidebar);
     }
     a, .option {
       color: $color-greyscale-outer-space;
@@ -77,6 +75,61 @@
         background-color: $color-brand-primary;
       }
       @include icon(content-add-circle);
+    }
+  }
+  .filters-page,
+  .filters-options {
+    h3 {
+      cursor: pointer;
+      @include icon(navigation-chevron-left);
+      padding-left: $spacing-base-unit;
+      position: relative;
+      &:before {
+        font-size: 140%;
+        position: absolute;
+        left: -12px;
+        top: -3px;
+      }
+      &:hover {
+        &:before {
+          color: $color-brand-primary;
+        }
+      }
+    }
+  }
+}
+
+// The filters slide action stuff.
+$sidebar-width: 240px;
+.filter-pane {
+  @include set-position-absolute(top 0 left 0 right 0 bottom 0);
+  padding: $spacing-base-unit $spacing-base-unit + $spacing-half-unit;
+  @include transition(0.2s all ease-out);
+  &.filters-current {
+    @include transform(translate(0,0));
+    .show-filters & {
+      @include transform(translate(-$sidebar-width,0));
+    }
+    .show-options & {
+      @include transform(translate(-$sidebar-width * 2, 0));
+    }
+  }
+  &.filters-page {
+    @include transform(translate($sidebar-width,0));
+    .show-filters & {
+      @include transform(translate(0,0));
+    }
+    .show-options & {
+      @include transform(translate(-$sidebar-width, 0));
+    }
+  }
+  &.filters-options {
+    @include transform(translate($sidebar-width * 2,0));
+    .show-filters & {
+      @include transform(translate($sidebar-width, 0));
+    }
+    .show-options & {
+      @include transform(translate(0, 0));
     }
   }
 }

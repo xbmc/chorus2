@@ -1,0 +1,15 @@
+<div class="item-inner item-<%= @type %>">
+    <div class="artwork">
+        <div class="thumb" title="<%= @label %>">
+            <img src="<%= this.thumbnail %>" />
+            <div class="play"></div>
+        </div>
+    </div>
+    <div class="meta">
+        <div class="title"><a href="#<%= @url %>" title="<%= @label %>"><%= @label %></a></div>
+        <% if @subtitle?: %>
+        <div class="subtitle"><%- @subtitle %></div>
+        <% end %>
+    </div>
+    <div class="remove"></div>
+</div>

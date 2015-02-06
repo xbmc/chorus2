@@ -1,6 +1,7 @@
 
 #header {
-  background: rgba($color-greyscale-outer-space, 0.8);
+  background: $color-header-background;
+  color: $color-header-text;
   position: fixed;
   top: 0;
   left: $size-region-unit;

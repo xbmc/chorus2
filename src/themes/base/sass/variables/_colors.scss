@@ -20,19 +20,77 @@ $color-greyscale-alabaster: #FAFAFA;
 $color-greyscale-mercury: #e5e5e5;
 $color-greyscale-alto: #ddd;
 $color-greyscale-cloudy: #a8a7a6;
+$color-greyscale-loblolly: #BAC1C8;
 $color-greyscale-dove-gray: #666;
 $color-greyscale-gray: #888888;
+$color-greyscale-dust-gray: #999;
 $color-greyscale-outer-space: #2B2F30;
 
 // Brand
 $color-brand-primary: $color-cerulean;
+$color-kodi: $color-brand-primary;
 
-// Background colors.
+  // Background colors.
 $color-background-kodi: $color-greyscale-outer-space;
 $color-background-local: $color-greyscale-dove-gray;
 
 // Text Colours.
 $color-text-dark: $color-greyscale-outer-space;
 $color-text-light: $color-greyscale-alabaster;
+
+
+/**
+* Components
+*/
+
+// Shell
+$color-background: #E0DFDF;
+$color-sidebar: #F2F2F2;
+$color-scrollbar: $color-greyscale-alto;
+$color-scrollbar-handle: rgba($color-black, 0.05);
+$color-scrollbar-hover-handle: rgba($color-black, 0.3);
+
+// Playlist
+$color-playlist-background: #1b1c1d;
+$color-playlist-header-background: #313233;
+$color-playlist-sub-header-background: rgba($color-white, 0.1);
+$color-playlist-sub-header-active-background: rgba($color-white, 0.1);
+$color-playlist-active-background: #0b0c0c;
+$color-playlist-title-text: #bdc1c2;
+$color-playlist-title-hover-text: rgba($color-white, 0.95);
+$color-playlist-text: #999999;
+$color-playlist-remove: darkred;
+$color-playlist-item-border: rgba($color-white, 0.1);
+$color-playlist-header-text: rgba($color-white, 0.8);
+$color-playlist-header-active-text: $color-white;
+$color-playlist-sub-header-text: $color-playlist-text;
+$color-playlist-sub-header-active-text: $color-white;
+$color-playlist-toggle-icon: rgba($color-white, 0.5);
+
+// Player
+$color-player-background: #18191A;
+$color-player-side-background: rgba($color-white, 0.05);
+$color-player-text: #bac1c8;
+$color-player-primary-text: $color-white;
+$color-player-control: rgba($color-white, 0.5);
+$color-player-control-hover: $color-white;
+$color-player-control-active: $color-white;
+$color-player-slider-background: #1F1F20;
+$color-player-slider-range-background: rgba($color-white, 0.1);
+
+// Header
+$color-header-background: #1e2122;
+$color-header-search-background: rgba($color-white, 0.9);
+$color-header-text: rgba($color-white, 0.6);
+$color-header-search-text: rgba($color-black, 0.4);
+$color-header-search-icon: rgba($color-black, 0.6);
+
+// Nav
+$color-nav-header-background: #1e2122;
+$color-nav-background: $color-white;
+$color-nav-hover-background: rgba($color-black, 0.05);
+$color-nav-text: $color-greyscale-outer-space;
+$color-nav-text-hover: $color-kodi;
+
 
 

@@ -1,3 +1,12 @@
-<td class="cell-first"><%= @track %></td>
-<td class="cell-label"><%= @label %></td>
-<td class="cell-last"><%= @duration %></td>
+<td class="cell-first">
+    <div class="track"><%= @track %></div>
+    <div class="play"></div>
+</td>
+<td class="cell-label song-title"><%= @label %></td>
+<td class="cell-last">
+    <div class="duration"><%= @duration %></div>
+    <ul class="actions">
+        <li class="add"></li>
+        <li class="menu"></li>
+    </ul>
+</td>

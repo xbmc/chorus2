@@ -14,6 +14,10 @@
       regionFiltersOptions: '.filter-options-list'
       regionNavSection: '.nav-section'
       regionNavItems: '.nav-items'
+    triggers:
+      'click .close-filters' : 'filter:layout:close:filters'
+      'click .close-options' : 'filter:layout:close:options'
+      'click .open-filters' : 'filter:layout:open:filters'
 
   class Show.ListItem extends App.Views.ItemView
     template: 'apps/filter/show/list_item'

@@ -189,11 +189,11 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current">\n        <div class="nav-section">\n            <h3>'));
+      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current filter-pane">\n        <div class="nav-section">\n            <h3>'));
     
       _print(t.gettext('sections'));
     
-      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3>'));
+      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3 class="open-filters">'));
     
       _print(t.gettext('Filters'));
     
@@ -201,11 +201,11 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
     
       _print(t.gettext('Sort'));
     
-      _print(_safe('</h3>\n        <div class="list sort-options"></div>\n    </div>\n\n    <div class="filters-page">\n        <h3>'));
+      _print(_safe('</h3>\n        <div class="list sort-options"></div>\n    </div>\n\n    <div class="filters-page filter-pane">\n        <h3 class="close-filters">'));
     
       _print(t.gettext('Select a filter'));
     
-      _print(_safe('</h3>\n        <div class="list filters-list"></div>\n    </div>\n\n    <div class="filters-options">\n        <h3>'));
+      _print(_safe('</h3>\n        <div class="list filters-list"></div>\n    </div>\n\n    <div class="filters-options filter-pane">\n        <h3 class="close-options">'));
     
       _print(t.gettext('Select an option'));
     
@@ -523,7 +523,177 @@ window.JST["apps/player/show/tpl/player.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress"></div>\n            <div class="playing-time">\n                <div class="playing-time-current"></div>\n                <div class="playing-time-duration"></div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title"></div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
+      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
+    
+      _print(t.gettext('Nothing playing'));
+    
+      _print(_safe('</div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/playlist/list/tpl/playlist_bar.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="playlist-header">\n    <ul class="player-toggle">\n        <li class="kodi">'));
+    
+      _print(t.gettext('Kodi'));
+    
+      _print(_safe('</li>\n        <li class="local">'));
+    
+      _print(t.gettext('Local'));
+    
+      _print(_safe('</li>\n    </ul>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/playlist/list/tpl/playlist_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="item-inner item-'));
+    
+      _print(this.type);
+    
+      _print(_safe('">\n    <div class="artwork">\n        <div class="thumb" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">\n            <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n            <div class="play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+    
+      _print(this.url);
+    
+      _print(_safe('" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</a></div>\n        '));
+    
+      if (this.subtitle != null) {
+        _print(_safe('\n        <div class="subtitle">'));
+        _print(_safe(this.subtitle));
+        _print(_safe('</div>\n        '));
+      }
+    
+      _print(_safe('\n    </div>\n    <div class="remove"></div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/shell/show/tpl/homepage.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div id="homepage"></div>'));
     
     }).call(this);
     
@@ -607,19 +777,19 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<td class="cell-first">'));
+      _print(_safe('<td class="cell-first">\n    <div class="track">'));
     
       _print(this.track);
     
-      _print(_safe('</td>\n<td class="cell-label">'));
+      _print(_safe('</div>\n    <div class="play"></div>\n</td>\n<td class="cell-label song-title">'));
     
       _print(this.label);
     
-      _print(_safe('</td>\n<td class="cell-last">'));
+      _print(_safe('</td>\n<td class="cell-last">\n    <div class="duration">'));
     
       _print(this.duration);
     
-      _print(_safe('</td>'));
+      _print(_safe('</div>\n    <ul class="actions">\n        <li class="add"></li>\n        <li class="menu"></li>\n    </ul>\n</td>'));
     
     }).call(this);
     

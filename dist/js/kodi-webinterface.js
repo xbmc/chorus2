@@ -30207,6 +30207,8 @@ return parser;
 ;/*
  * jQuery JSON-RPC Plugin
  *
+ * https://github.com/hagino3000/jquery-jsonrpc2.0
+ *
  * @version: 1.0(2014-08-31)
  * @author hagino3000 <http://twitter.com/hagino3000> (Takashi Nishibayashi)
  * @author alanjds <http://twitter.com/alanjds> (Alan Justino da Silva)
@@ -30319,7 +30321,1447 @@ return parser;
   });
   $.jsonrpc.defaultUrl = '/jsonrpc';
 
-})(jQuery);;/**
+})(jQuery);;/*! noUiSlider - 7.0.10 - 2014-12-27 14:50:46 */
+
+/*jslint browser: true */
+/*jslint white: true */
+
+(function( $ ){
+
+	'use strict';
+
+
+	// Removes duplicates from an array.
+	function unique(array) {
+		return $.grep(array, function(el, index) {
+			return index === $.inArray(el, array);
+		});
+	}
+
+	// Round a value to the closest 'to'.
+	function closest ( value, to ) {
+		return Math.round(value / to) * to;
+	}
+
+	// Checks whether a value is numerical.
+	function isNumeric ( a ) {
+		return typeof a === 'number' && !isNaN( a ) && isFinite( a );
+	}
+
+	// Rounds a number to 7 supported decimals.
+	function accurateNumber( number ) {
+		var p = Math.pow(10, 7);
+		return Number((Math.round(number*p)/p).toFixed(7));
+	}
+
+	// Sets a class and removes it after [duration] ms.
+	function addClassFor ( element, className, duration ) {
+		element.addClass(className);
+		setTimeout(function(){
+			element.removeClass(className);
+		}, duration);
+	}
+
+	// Limits a value to 0 - 100
+	function limit ( a ) {
+		return Math.max(Math.min(a, 100), 0);
+	}
+
+	// Wraps a variable as an array, if it isn't one yet.
+	function asArray ( a ) {
+		return $.isArray(a) ? a : [a];
+	}
+
+	// Counts decimals
+	function countDecimals ( numStr ) {
+		var pieces = numStr.split(".");
+		return pieces.length > 1 ? pieces[1].length : 0;
+	}
+
+
+	var
+	// Cache the document selector;
+	/** @const */
+	doc = $(document),
+	// Make a backup of the original jQuery/Zepto .val() method.
+	/** @const */
+	$val = $.fn.val,
+	// Namespace for binding and unbinding slider events;
+	/** @const */
+	namespace = '.nui',
+	// Determine the events to bind. IE11 implements pointerEvents without
+	// a prefix, which breaks compatibility with the IE10 implementation.
+	/** @const */
+	actions = window.navigator.pointerEnabled ? {
+		start: 'pointerdown',
+		move: 'pointermove',
+		end: 'pointerup'
+	} : window.navigator.msPointerEnabled ? {
+		start: 'MSPointerDown',
+		move: 'MSPointerMove',
+		end: 'MSPointerUp'
+	} : {
+		start: 'mousedown touchstart',
+		move: 'mousemove touchmove',
+		end: 'mouseup touchend'
+	},
+	// Re-usable list of classes;
+	/** @const */
+	Classes = [
+/*  0 */  'noUi-target'
+/*  1 */ ,'noUi-base'
+/*  2 */ ,'noUi-origin'
+/*  3 */ ,'noUi-handle'
+/*  4 */ ,'noUi-horizontal'
+/*  5 */ ,'noUi-vertical'
+/*  6 */ ,'noUi-background'
+/*  7 */ ,'noUi-connect'
+/*  8 */ ,'noUi-ltr'
+/*  9 */ ,'noUi-rtl'
+/* 10 */ ,'noUi-dragable'
+/* 11 */ ,''
+/* 12 */ ,'noUi-state-drag'
+/* 13 */ ,''
+/* 14 */ ,'noUi-state-tap'
+/* 15 */ ,'noUi-active'
+/* 16 */ ,''
+/* 17 */ ,'noUi-stacking'
+	];
+
+
+// Value calculation
+
+	// Determine the size of a sub-range in relation to a full range.
+	function subRangeRatio ( pa, pb ) {
+		return (100 / (pb - pa));
+	}
+
+	// (percentage) How many percent is this value of this range?
+	function fromPercentage ( range, value ) {
+		return (value * 100) / ( range[1] - range[0] );
+	}
+
+	// (percentage) Where is this value on this range?
+	function toPercentage ( range, value ) {
+		return fromPercentage( range, range[0] < 0 ?
+			value + Math.abs(range[0]) :
+				value - range[0] );
+	}
+
+	// (value) How much is this percentage on this range?
+	function isPercentage ( range, value ) {
+		return ((value * ( range[1] - range[0] )) / 100) + range[0];
+	}
+
+
+// Range conversion
+
+	function getJ ( value, arr ) {
+
+		var j = 1;
+
+		while ( value >= arr[j] ){
+			j += 1;
+		}
+
+		return j;
+	}
+
+	// (percentage) Input a value, find where, on a scale of 0-100, it applies.
+	function toStepping ( xVal, xPct, value ) {
+
+		if ( value >= xVal.slice(-1)[0] ){
+			return 100;
+		}
+
+		var j = getJ( value, xVal ), va, vb, pa, pb;
+
+		va = xVal[j-1];
+		vb = xVal[j];
+		pa = xPct[j-1];
+		pb = xPct[j];
+
+		return pa + (toPercentage([va, vb], value) / subRangeRatio (pa, pb));
+	}
+
+	// (value) Input a percentage, find where it is on the specified range.
+	function fromStepping ( xVal, xPct, value ) {
+
+		// There is no range group that fits 100
+		if ( value >= 100 ){
+			return xVal.slice(-1)[0];
+		}
+
+		var j = getJ( value, xPct ), va, vb, pa, pb;
+
+		va = xVal[j-1];
+		vb = xVal[j];
+		pa = xPct[j-1];
+		pb = xPct[j];
+
+		return isPercentage([va, vb], (value - pa) * subRangeRatio (pa, pb));
+	}
+
+	// (percentage) Get the step that applies at a certain value.
+	function getStep ( xPct, xSteps, snap, value ) {
+
+		if ( value === 100 ) {
+			return value;
+		}
+
+		var j = getJ( value, xPct ), a, b;
+
+		// If 'snap' is set, steps are used as fixed points on the slider.
+		if ( snap ) {
+
+			a = xPct[j-1];
+			b = xPct[j];
+
+			// Find the closest position, a or b.
+			if ((value - a) > ((b-a)/2)){
+				return b;
+			}
+
+			return a;
+		}
+
+		if ( !xSteps[j-1] ){
+			return value;
+		}
+
+		return xPct[j-1] + closest(
+			value - xPct[j-1],
+			xSteps[j-1]
+		);
+	}
+
+
+// Entry parsing
+
+	function handleEntryPoint ( index, value, that ) {
+
+		var percentage;
+
+		// Wrap numerical input in an array.
+		if ( typeof value === "number" ) {
+			value = [value];
+		}
+
+		// Reject any invalid input, by testing whether value is an array.
+		if ( Object.prototype.toString.call( value ) !== '[object Array]' ){
+			throw new Error("noUiSlider: 'range' contains invalid value.");
+		}
+
+		// Covert min/max syntax to 0 and 100.
+		if ( index === 'min' ) {
+			percentage = 0;
+		} else if ( index === 'max' ) {
+			percentage = 100;
+		} else {
+			percentage = parseFloat( index );
+		}
+
+		// Check for correct input.
+		if ( !isNumeric( percentage ) || !isNumeric( value[0] ) ) {
+			throw new Error("noUiSlider: 'range' value isn't numeric.");
+		}
+
+		// Store values.
+		that.xPct.push( percentage );
+		that.xVal.push( value[0] );
+
+		// NaN will evaluate to false too, but to keep
+		// logging clear, set step explicitly. Make sure
+		// not to override the 'step' setting with false.
+		if ( !percentage ) {
+			if ( !isNaN( value[1] ) ) {
+				that.xSteps[0] = value[1];
+			}
+		} else {
+			that.xSteps.push( isNaN(value[1]) ? false : value[1] );
+		}
+	}
+
+	function handleStepPoint ( i, n, that ) {
+
+		// Ignore 'false' stepping.
+		if ( !n ) {
+			return true;
+		}
+
+		// Factor to range ratio
+		that.xSteps[i] = fromPercentage([
+			 that.xVal[i]
+			,that.xVal[i+1]
+		], n) / subRangeRatio (
+			that.xPct[i],
+			that.xPct[i+1] );
+	}
+
+
+// Interface
+
+	// The interface to Spectrum handles all direction-based
+	// conversions, so the above values are unaware.
+
+	function Spectrum ( entry, snap, direction, singleStep ) {
+
+		this.xPct = [];
+		this.xVal = [];
+		this.xSteps = [ singleStep || false ];
+		this.xNumSteps = [ false ];
+
+		this.snap = snap;
+		this.direction = direction;
+
+		var index, ordered = [ /* [0, 'min'], [1, '50%'], [2, 'max'] */ ];
+
+		// Map the object keys to an array.
+		for ( index in entry ) {
+			if ( entry.hasOwnProperty(index) ) {
+				ordered.push([entry[index], index]);
+			}
+		}
+
+		// Sort all entries by value (numeric sort).
+		ordered.sort(function(a, b) { return a[0] - b[0]; });
+
+		// Convert all entries to subranges.
+		for ( index = 0; index < ordered.length; index++ ) {
+			handleEntryPoint(ordered[index][1], ordered[index][0], this);
+		}
+
+		// Store the actual step values.
+		// xSteps is sorted in the same order as xPct and xVal.
+		this.xNumSteps = this.xSteps.slice(0);
+
+		// Convert all numeric steps to the percentage of the subrange they represent.
+		for ( index = 0; index < this.xNumSteps.length; index++ ) {
+			handleStepPoint(index, this.xNumSteps[index], this);
+		}
+	}
+
+	Spectrum.prototype.getMargin = function ( value ) {
+		return this.xPct.length === 2 ? fromPercentage(this.xVal, value) : false;
+	};
+
+	Spectrum.prototype.toStepping = function ( value ) {
+
+		value = toStepping( this.xVal, this.xPct, value );
+
+		// Invert the value if this is a right-to-left slider.
+		if ( this.direction ) {
+			value = 100 - value;
+		}
+
+		return value;
+	};
+
+	Spectrum.prototype.fromStepping = function ( value ) {
+
+		// Invert the value if this is a right-to-left slider.
+		if ( this.direction ) {
+			value = 100 - value;
+		}
+
+		return accurateNumber(fromStepping( this.xVal, this.xPct, value ));
+	};
+
+	Spectrum.prototype.getStep = function ( value ) {
+
+		// Find the proper step for rtl sliders by search in inverse direction.
+		// Fixes issue #262.
+		if ( this.direction ) {
+			value = 100 - value;
+		}
+
+		value = getStep(this.xPct, this.xSteps, this.snap, value );
+
+		if ( this.direction ) {
+			value = 100 - value;
+		}
+
+		return value;
+	};
+
+	Spectrum.prototype.getApplicableStep = function ( value ) {
+
+		// If the value is 100%, return the negative step twice.
+		var j = getJ(value, this.xPct), offset = value === 100 ? 2 : 1;
+		return [this.xNumSteps[j-2], this.xVal[j-offset], this.xNumSteps[j-offset]];
+	};
+
+	// Outside testing
+	Spectrum.prototype.convert = function ( value ) {
+		return this.getStep(this.toStepping(value));
+	};
+
+/*	Every input option is tested and parsed. This'll prevent
+	endless validation in internal methods. These tests are
+	structured with an item for every option available. An
+	option can be marked as required by setting the 'r' flag.
+	The testing function is provided with three arguments:
+		- The provided value for the option;
+		- A reference to the options object;
+		- The name for the option;
+
+	The testing function returns false when an error is detected,
+	or true when everything is OK. It can also modify the option
+	object, to make sure all values can be correctly looped elsewhere. */
+
+	/** @const */
+	var defaultFormatter = { 'to': function( value ){
+		return value.toFixed(2);
+	}, 'from': Number };
+
+	function testStep ( parsed, entry ) {
+
+		if ( !isNumeric( entry ) ) {
+			throw new Error("noUiSlider: 'step' is not numeric.");
+		}
+
+		// The step option can still be used to set stepping
+		// for linear sliders. Overwritten if set in 'range'.
+		parsed.singleStep = entry;
+	}
+
+	function testRange ( parsed, entry ) {
+
+		// Filter incorrect input.
+		if ( typeof entry !== 'object' || $.isArray(entry) ) {
+			throw new Error("noUiSlider: 'range' is not an object.");
+		}
+
+		// Catch missing start or end.
+		if ( entry.min === undefined || entry.max === undefined ) {
+			throw new Error("noUiSlider: Missing 'min' or 'max' in 'range'.");
+		}
+
+		parsed.spectrum = new Spectrum(entry, parsed.snap, parsed.dir, parsed.singleStep);
+	}
+
+	function testStart ( parsed, entry ) {
+
+		entry = asArray(entry);
+
+		// Validate input. Values aren't tested, as the public .val method
+		// will always provide a valid location.
+		if ( !$.isArray( entry ) || !entry.length || entry.length > 2 ) {
+			throw new Error("noUiSlider: 'start' option is incorrect.");
+		}
+
+		// Store the number of handles.
+		parsed.handles = entry.length;
+
+		// When the slider is initialized, the .val method will
+		// be called with the start options.
+		parsed.start = entry;
+	}
+
+	function testSnap ( parsed, entry ) {
+
+		// Enforce 100% stepping within subranges.
+		parsed.snap = entry;
+
+		if ( typeof entry !== 'boolean' ){
+			throw new Error("noUiSlider: 'snap' option must be a boolean.");
+		}
+	}
+
+	function testAnimate ( parsed, entry ) {
+
+		// Enforce 100% stepping within subranges.
+		parsed.animate = entry;
+
+		if ( typeof entry !== 'boolean' ){
+			throw new Error("noUiSlider: 'animate' option must be a boolean.");
+		}
+	}
+
+	function testConnect ( parsed, entry ) {
+
+		if ( entry === 'lower' && parsed.handles === 1 ) {
+			parsed.connect = 1;
+		} else if ( entry === 'upper' && parsed.handles === 1 ) {
+			parsed.connect = 2;
+		} else if ( entry === true && parsed.handles === 2 ) {
+			parsed.connect = 3;
+		} else if ( entry === false ) {
+			parsed.connect = 0;
+		} else {
+			throw new Error("noUiSlider: 'connect' option doesn't match handle count.");
+		}
+	}
+
+	function testOrientation ( parsed, entry ) {
+
+		// Set orientation to an a numerical value for easy
+		// array selection.
+		switch ( entry ){
+		  case 'horizontal':
+			parsed.ort = 0;
+			break;
+		  case 'vertical':
+			parsed.ort = 1;
+			break;
+		  default:
+			throw new Error("noUiSlider: 'orientation' option is invalid.");
+		}
+	}
+
+	function testMargin ( parsed, entry ) {
+
+		if ( !isNumeric(entry) ){
+			throw new Error("noUiSlider: 'margin' option must be numeric.");
+		}
+
+		parsed.margin = parsed.spectrum.getMargin(entry);
+
+		if ( !parsed.margin ) {
+			throw new Error("noUiSlider: 'margin' option is only supported on linear sliders.");
+		}
+	}
+
+	function testLimit ( parsed, entry ) {
+
+		if ( !isNumeric(entry) ){
+			throw new Error("noUiSlider: 'limit' option must be numeric.");
+		}
+
+		parsed.limit = parsed.spectrum.getMargin(entry);
+
+		if ( !parsed.limit ) {
+			throw new Error("noUiSlider: 'limit' option is only supported on linear sliders.");
+		}
+	}
+
+	function testDirection ( parsed, entry ) {
+
+		// Set direction as a numerical value for easy parsing.
+		// Invert connection for RTL sliders, so that the proper
+		// handles get the connect/background classes.
+		switch ( entry ) {
+		  case 'ltr':
+			parsed.dir = 0;
+			break;
+		  case 'rtl':
+			parsed.dir = 1;
+			parsed.connect = [0,2,1,3][parsed.connect];
+			break;
+		  default:
+			throw new Error("noUiSlider: 'direction' option was not recognized.");
+		}
+	}
+
+	function testBehaviour ( parsed, entry ) {
+
+		// Make sure the input is a string.
+		if ( typeof entry !== 'string' ) {
+			throw new Error("noUiSlider: 'behaviour' must be a string containing options.");
+		}
+
+		// Check if the string contains any keywords.
+		// None are required.
+		var tap = entry.indexOf('tap') >= 0,
+			drag = entry.indexOf('drag') >= 0,
+			fixed = entry.indexOf('fixed') >= 0,
+			snap = entry.indexOf('snap') >= 0;
+
+		parsed.events = {
+			tap: tap || snap,
+			drag: drag,
+			fixed: fixed,
+			snap: snap
+		};
+	}
+
+	function testFormat ( parsed, entry ) {
+
+		parsed.format = entry;
+
+		// Any object with a to and from method is supported.
+		if ( typeof entry.to === 'function' && typeof entry.from === 'function' ) {
+			return true;
+		}
+
+		throw new Error( "noUiSlider: 'format' requires 'to' and 'from' methods.");
+	}
+
+	// Test all developer settings and parse to assumption-safe values.
+	function testOptions ( options ) {
+
+		var parsed = {
+			margin: 0,
+			limit: 0,
+			animate: true,
+			format: defaultFormatter
+		}, tests;
+
+		// Tests are executed in the order they are presented here.
+		tests = {
+			'step': { r: false, t: testStep },
+			'start': { r: true, t: testStart },
+			'connect': { r: true, t: testConnect },
+			'direction': { r: true, t: testDirection },
+			'snap': { r: false, t: testSnap },
+			'animate': { r: false, t: testAnimate },
+			'range': { r: true, t: testRange },
+			'orientation': { r: false, t: testOrientation },
+			'margin': { r: false, t: testMargin },
+			'limit': { r: false, t: testLimit },
+			'behaviour': { r: true, t: testBehaviour },
+			'format': { r: false, t: testFormat }
+		};
+
+		// Set defaults where applicable.
+		options = $.extend({
+			'connect': false,
+			'direction': 'ltr',
+			'behaviour': 'tap',
+			'orientation': 'horizontal'
+		}, options);
+
+		// Run all options through a testing mechanism to ensure correct
+		// input. It should be noted that options might get modified to
+		// be handled properly. E.g. wrapping integers in arrays.
+		$.each( tests, function( name, test ){
+
+			// If the option isn't set, but it is required, throw an error.
+			if ( options[name] === undefined ) {
+
+				if ( test.r ) {
+					throw new Error("noUiSlider: '" + name + "' is required.");
+				}
+
+				return true;
+			}
+
+			test.t( parsed, options[name] );
+		});
+
+		// Pre-define the styles.
+		parsed.style = parsed.ort ? 'top' : 'left';
+
+		return parsed;
+	}
+
+// Class handling
+
+	// Delimit proposed values for handle positions.
+	function getPositions ( a, b, delimit ) {
+
+		// Add movement to current position.
+		var c = a + b[0], d = a + b[1];
+
+		// Only alter the other position on drag,
+		// not on standard sliding.
+		if ( delimit ) {
+			if ( c < 0 ) {
+				d += Math.abs(c);
+			}
+			if ( d > 100 ) {
+				c -= ( d - 100 );
+			}
+
+			// Limit values to 0 and 100.
+			return [limit(c), limit(d)];
+		}
+
+		return [c,d];
+	}
+
+
+// Event handling
+
+	// Provide a clean event with standardized offset values.
+	function fixEvent ( e ) {
+
+		// Prevent scrolling and panning on touch events, while
+		// attempting to slide. The tap event also depends on this.
+		e.preventDefault();
+
+		// Filter the event to register the type, which can be
+		// touch, mouse or pointer. Offset changes need to be
+		// made on an event specific basis.
+		var  touch = e.type.indexOf('touch') === 0
+			,mouse = e.type.indexOf('mouse') === 0
+			,pointer = e.type.indexOf('pointer') === 0
+			,x,y, event = e;
+
+		// IE10 implemented pointer events with a prefix;
+		if ( e.type.indexOf('MSPointer') === 0 ) {
+			pointer = true;
+		}
+
+		// Get the originalEvent, if the event has been wrapped
+		// by jQuery. Zepto doesn't wrap the event.
+		if ( e.originalEvent ) {
+			e = e.originalEvent;
+		}
+
+		if ( touch ) {
+			// noUiSlider supports one movement at a time,
+			// so we can select the first 'changedTouch'.
+			x = e.changedTouches[0].pageX;
+			y = e.changedTouches[0].pageY;
+		}
+
+		if ( mouse || pointer ) {
+
+			// Polyfill the pageXOffset and pageYOffset
+			// variables for IE7 and IE8;
+			if( !pointer && window.pageXOffset === undefined ){
+				window.pageXOffset = document.documentElement.scrollLeft;
+				window.pageYOffset = document.documentElement.scrollTop;
+			}
+
+			x = e.clientX + window.pageXOffset;
+			y = e.clientY + window.pageYOffset;
+		}
+
+		event.points = [x, y];
+		event.cursor = mouse;
+
+		return event;
+	}
+
+
+// DOM additions
+
+	// Append a handle to the base.
+	function addHandle ( direction, index ) {
+
+		var handle = $('<div><div/></div>').addClass( Classes[2] ),
+			additions = [ '-lower', '-upper' ];
+
+		if ( direction ) {
+			additions.reverse();
+		}
+
+		handle.children().addClass(
+			Classes[3] + " " + Classes[3]+additions[index]
+		);
+
+		return handle;
+	}
+
+	// Add the proper connection classes.
+	function addConnection ( connect, target, handles ) {
+
+		// Apply the required connection classes to the elements
+		// that need them. Some classes are made up for several
+		// segments listed in the class list, to allow easy
+		// renaming and provide a minor compression benefit.
+		switch ( connect ) {
+			case 1:	target.addClass( Classes[7] );
+					handles[0].addClass( Classes[6] );
+					break;
+			case 3: handles[1].addClass( Classes[6] );
+					/* falls through */
+			case 2: handles[0].addClass( Classes[7] );
+					/* falls through */
+			case 0: target.addClass(Classes[6]);
+					break;
+		}
+	}
+
+	// Add handles to the slider base.
+	function addHandles ( nrHandles, direction, base ) {
+
+		var index, handles = [];
+
+		// Append handles.
+		for ( index = 0; index < nrHandles; index += 1 ) {
+
+			// Keep a list of all added handles.
+			handles.push( addHandle( direction, index ).appendTo(base) );
+		}
+
+		return handles;
+	}
+
+	// Initialize a single slider.
+	function addSlider ( direction, orientation, target ) {
+
+		// Apply classes and data to the target.
+		target.addClass([
+			Classes[0],
+			Classes[8 + direction],
+			Classes[4 + orientation]
+		].join(' '));
+
+		return $('<div/>').appendTo(target).addClass( Classes[1] );
+	}
+
+function closure ( target, options, originalOptions ){
+
+// Internal variables
+
+	// All variables local to 'closure' are marked $.
+	var $Target = $(target),
+		$Locations = [-1, -1],
+		$Base,
+		$Handles,
+		$Spectrum = options.spectrum,
+		$Values = [],
+	// libLink. For rtl sliders, 'lower' and 'upper' should not be inverted
+	// for one-handle sliders, so trim 'upper' it that case.
+		triggerPos = ['lower', 'upper'].slice(0, options.handles);
+
+	// Invert the libLink connection for rtl sliders.
+	if ( options.dir ) {
+		triggerPos.reverse();
+	}
+
+// Helpers
+
+	// Shorthand for base dimensions.
+	function baseSize ( ) {
+		return $Base[['width', 'height'][options.ort]]();
+	}
+
+	// External event handling
+	function fireEvents ( events ) {
+
+		// Use the external api to get the values.
+		// Wrap the values in an array, as .trigger takes
+		// only one additional argument.
+		var index, values = [ $Target.val() ];
+
+		for ( index = 0; index < events.length; index += 1 ){
+			$Target.trigger(events[index], values);
+		}
+	}
+
+	// Returns the input array, respecting the slider direction configuration.
+	function inSliderOrder ( values ) {
+
+		// If only one handle is used, return a single value.
+		if ( values.length === 1 ){
+			return values[0];
+		}
+
+		if ( options.dir ) {
+			return values.reverse();
+		}
+
+		return values;
+	}
+
+// libLink integration
+
+	// Create a new function which calls .val on input change.
+	function createChangeHandler ( trigger ) {
+		return function ( ignore, value ){
+			// Determine which array position to 'null' based on 'trigger'.
+			$Target.val( [ trigger ? null : value, trigger ? value : null ], true );
+		};
+	}
+
+	// Called by libLink when it wants a set of links updated.
+	function linkUpdate ( flag ) {
+
+		var trigger = $.inArray(flag, triggerPos);
+
+		// The API might not have been set yet.
+		if ( $Target[0].linkAPI && $Target[0].linkAPI[flag] ) {
+			$Target[0].linkAPI[flag].change(
+				$Values[trigger],
+				$Handles[trigger].children(),
+				$Target
+			);
+		}
+	}
+
+	// Called by libLink to append an element to the slider.
+	function linkConfirm ( flag, element ) {
+
+		// Find the trigger for the passed flag.
+		var trigger = $.inArray(flag, triggerPos);
+
+		// If set, append the element to the handle it belongs to.
+		if ( element ) {
+			element.appendTo( $Handles[trigger].children() );
+		}
+
+		// The public API is reversed for rtl sliders, so the changeHandler
+		// should not be aware of the inverted trigger positions.
+		// On rtl slider with one handle, 'lower' should be used.
+		if ( options.dir && options.handles > 1 ) {
+			trigger = trigger === 1 ? 0 : 1;
+		}
+
+		return createChangeHandler( trigger );
+	}
+
+	// Place elements back on the slider.
+	function reAppendLink ( ) {
+
+		var i, flag;
+
+		// The API keeps a list of elements: we can re-append them on rebuild.
+		for ( i = 0; i < triggerPos.length; i += 1 ) {
+			if ( this.linkAPI && this.linkAPI[(flag = triggerPos[i])] ) {
+				this.linkAPI[flag].reconfirm(flag);
+			}
+		}
+	}
+
+	target.LinkUpdate = linkUpdate;
+	target.LinkConfirm = linkConfirm;
+	target.LinkDefaultFormatter = options.format;
+	target.LinkDefaultFlag = 'lower';
+
+	target.reappend = reAppendLink;
+
+
+	// Handler for attaching events trough a proxy.
+	function attach ( events, element, callback, data ) {
+
+		// This function can be used to 'filter' events to the slider.
+
+		// Add the noUiSlider namespace to all events.
+		events = events.replace( /\s/g, namespace + ' ' ) + namespace;
+
+		// Bind a closure on the target.
+		return element.on( events, function( e ){
+
+			// jQuery and Zepto (1) handle unset attributes differently,
+			// but always falsy; #208
+			if ( !!$Target.attr('disabled') ) {
+				return false;
+			}
+
+			// Stop if an active 'tap' transition is taking place.
+			if ( $Target.hasClass( Classes[14] ) ) {
+				return false;
+			}
+
+			e = fixEvent(e);
+			e.calcPoint = e.points[ options.ort ];
+
+			// Call the event handler with the event [ and additional data ].
+			callback ( e, data );
+		});
+	}
+
+	// Handle movement on document for handle and range drag.
+	function move ( event, data ) {
+
+		var handles = data.handles || $Handles, positions, state = false,
+			proposal = ((event.calcPoint - data.start) * 100) / baseSize(),
+			h = handles[0][0] !== $Handles[0][0] ? 1 : 0;
+
+		// Calculate relative positions for the handles.
+		positions = getPositions( proposal, data.positions, handles.length > 1);
+
+		state = setHandle ( handles[0], positions[h], handles.length === 1 );
+
+		if ( handles.length > 1 ) {
+			state = setHandle ( handles[1], positions[h?0:1], false ) || state;
+		}
+
+		// Fire the 'slide' event if any handle moved.
+		if ( state ) {
+			fireEvents(['slide']);
+		}
+	}
+
+	// Unbind move events on document, call callbacks.
+	function end ( event ) {
+
+		// The handle is no longer active, so remove the class.
+		$('.' + Classes[15]).removeClass(Classes[15]);
+
+		// Remove cursor styles and text-selection events bound to the body.
+		if ( event.cursor ) {
+			$('body').css('cursor', '').off( namespace );
+		}
+
+		// Unbind the move and end events, which are added on 'start'.
+		doc.off( namespace );
+
+		// Remove dragging class.
+		$Target.removeClass(Classes[12]);
+
+		// Fire the change and set events.
+		fireEvents(['set', 'change']);
+	}
+
+	// Bind move events on document.
+	function start ( event, data ) {
+
+		// Mark the handle as 'active' so it can be styled.
+		if( data.handles.length === 1 ) {
+			data.handles[0].children().addClass(Classes[15]);
+		}
+
+		// A drag should never propagate up to the 'tap' event.
+		event.stopPropagation();
+
+		// Attach the move event.
+		attach ( actions.move, doc, move, {
+			start: event.calcPoint,
+			handles: data.handles,
+			positions: [
+				$Locations[0],
+				$Locations[$Handles.length - 1]
+			]
+		});
+
+		// Unbind all movement when the drag ends.
+		attach ( actions.end, doc, end, null );
+
+		// Text selection isn't an issue on touch devices,
+		// so adding cursor styles can be skipped.
+		if ( event.cursor ) {
+
+			// Prevent the 'I' cursor and extend the range-drag cursor.
+			$('body').css('cursor', $(event.target).css('cursor'));
+
+			// Mark the target with a dragging state.
+			if ( $Handles.length > 1 ) {
+				$Target.addClass(Classes[12]);
+			}
+
+			// Prevent text selection when dragging the handles.
+			$('body').on('selectstart' + namespace, false);
+		}
+	}
+
+	// Move closest handle to tapped location.
+	function tap ( event ) {
+
+		var location = event.calcPoint, total = 0, to;
+
+		// The tap event shouldn't propagate up and cause 'edge' to run.
+		event.stopPropagation();
+
+		// Add up the handle offsets.
+		$.each( $Handles, function(){
+			total += this.offset()[ options.style ];
+		});
+
+		// Find the handle closest to the tapped position.
+		total = ( location < total/2 || $Handles.length === 1 ) ? 0 : 1;
+
+		location -= $Base.offset()[ options.style ];
+
+		// Calculate the new position.
+		to = ( location * 100 ) / baseSize();
+
+		if ( !options.events.snap ) {
+			// Flag the slider as it is now in a transitional state.
+			// Transition takes 300 ms, so re-enable the slider afterwards.
+			addClassFor( $Target, Classes[14], 300 );
+		}
+
+		// Find the closest handle and calculate the tapped point.
+		// The set handle to the new position.
+		setHandle( $Handles[total], to );
+
+		fireEvents(['slide', 'set', 'change']);
+
+		if ( options.events.snap ) {
+			start(event, { handles: [$Handles[total]] });
+		}
+	}
+
+	// Attach events to several slider parts.
+	function events ( behaviour ) {
+
+		var i, drag;
+
+		// Attach the standard drag event to the handles.
+		if ( !behaviour.fixed ) {
+
+			for ( i = 0; i < $Handles.length; i += 1 ) {
+
+				// These events are only bound to the visual handle
+				// element, not the 'real' origin element.
+				attach ( actions.start, $Handles[i].children(), start, {
+					handles: [ $Handles[i] ]
+				});
+			}
+		}
+
+		// Attach the tap event to the slider base.
+		if ( behaviour.tap ) {
+
+			attach ( actions.start, $Base, tap, {
+				handles: $Handles
+			});
+		}
+
+		// Make the range dragable.
+		if ( behaviour.drag ){
+
+			drag = $Base.find( '.' + Classes[7] ).addClass( Classes[10] );
+
+			// When the range is fixed, the entire range can
+			// be dragged by the handles. The handle in the first
+			// origin will propagate the start event upward,
+			// but it needs to be bound manually on the other.
+			if ( behaviour.fixed ) {
+				drag = drag.add($Base.children().not( drag ).children());
+			}
+
+			attach ( actions.start, drag, start, {
+				handles: $Handles
+			});
+		}
+	}
+
+
+	// Test suggested values and apply margin, step.
+	function setHandle ( handle, to, noLimitOption ) {
+
+		var trigger = handle[0] !== $Handles[0][0] ? 1 : 0,
+			lowerMargin = $Locations[0] + options.margin,
+			upperMargin = $Locations[1] - options.margin,
+			lowerLimit = $Locations[0] + options.limit,
+			upperLimit = $Locations[1] - options.limit;
+
+		// For sliders with multiple handles,
+		// limit movement to the other handle.
+		// Apply the margin option by adding it to the handle positions.
+		if ( $Handles.length > 1 ) {
+			to = trigger ? Math.max( to, lowerMargin ) : Math.min( to, upperMargin );
+		}
+
+		// The limit option has the opposite effect, limiting handles to a
+		// maximum distance from another. Limit must be > 0, as otherwise
+		// handles would be unmoveable. 'noLimitOption' is set to 'false'
+		// for the .val() method, except for pass 4/4.
+		if ( noLimitOption !== false && options.limit && $Handles.length > 1 ) {
+			to = trigger ? Math.min ( to, lowerLimit ) : Math.max( to, upperLimit );
+		}
+
+		// Handle the step option.
+		to = $Spectrum.getStep( to );
+
+		// Limit to 0/100 for .val input, trim anything beyond 7 digits, as
+		// JavaScript has some issues in its floating point implementation.
+		to = limit(parseFloat(to.toFixed(7)));
+
+		// Return false if handle can't move.
+		if ( to === $Locations[trigger] ) {
+			return false;
+		}
+
+		// Set the handle to the new position.
+		handle.css( options.style, to + '%' );
+
+		// Force proper handle stacking
+		if ( handle.is(':first-child') ) {
+			handle.toggleClass(Classes[17], to > 50 );
+		}
+
+		// Update locations.
+		$Locations[trigger] = to;
+
+		// Convert the value to the slider stepping/range.
+		$Values[trigger] = $Spectrum.fromStepping( to );
+
+		linkUpdate(triggerPos[trigger]);
+
+		return true;
+	}
+
+	// Loop values from value method and apply them.
+	function setValues ( count, values ) {
+
+		var i, trigger, to;
+
+		// With the limit option, we'll need another limiting pass.
+		if ( options.limit ) {
+			count += 1;
+		}
+
+		// If there are multiple handles to be set run the setting
+		// mechanism twice for the first handle, to make sure it
+		// can be bounced of the second one properly.
+		for ( i = 0; i < count; i += 1 ) {
+
+			trigger = i%2;
+
+			// Get the current argument from the array.
+			to = values[trigger];
+
+			// Setting with null indicates an 'ignore'.
+			// Inputting 'false' is invalid.
+			if ( to !== null && to !== false ) {
+
+				// If a formatted number was passed, attemt to decode it.
+				if ( typeof to === 'number' ) {
+					to = String(to);
+				}
+
+				to = options.format.from( to );
+
+				// Request an update for all links if the value was invalid.
+				// Do so too if setting the handle fails.
+				if ( to === false || isNaN(to) || setHandle( $Handles[trigger], $Spectrum.toStepping( to ), i === (3 - options.dir) ) === false ) {
+
+					linkUpdate(triggerPos[trigger]);
+				}
+			}
+		}
+	}
+
+	// Set the slider value.
+	function valueSet ( input ) {
+
+		// LibLink: don't accept new values when currently emitting changes.
+		if ( $Target[0].LinkIsEmitting ) {
+			return this;
+		}
+
+		var count, values = asArray( input );
+
+		// The RTL settings is implemented by reversing the front-end,
+		// internal mechanisms are the same.
+		if ( options.dir && options.handles > 1 ) {
+			values.reverse();
+		}
+
+		// Animation is optional.
+		// Make sure the initial values where set before using animated
+		// placement. (no report, unit testing);
+		if ( options.animate && $Locations[0] !== -1 ) {
+			addClassFor( $Target, Classes[14], 300 );
+		}
+
+		// Determine how often to set the handles.
+		count = $Handles.length > 1 ? 3 : 1;
+
+		if ( values.length === 1 ) {
+			count = 1;
+		}
+
+		setValues ( count, values );
+
+		// Fire the 'set' event. As of noUiSlider 7,
+		// this is no longer optional.
+		fireEvents(['set']);
+
+		return this;
+	}
+
+	// Get the slider value.
+	function valueGet ( ) {
+
+		var i, retour = [];
+
+		// Get the value from all handles.
+		for ( i = 0; i < options.handles; i += 1 ){
+			retour[i] = options.format.to( $Values[i] );
+		}
+
+		return inSliderOrder( retour );
+	}
+
+	// Destroy the slider and unbind all events.
+	function destroyTarget ( ) {
+
+		// Unbind events on the slider, remove all classes and child elements.
+		$(this).off(namespace)
+			.removeClass(Classes.join(' '))
+			.empty();
+
+		delete this.LinkUpdate;
+		delete this.LinkConfirm;
+		delete this.LinkDefaultFormatter;
+		delete this.LinkDefaultFlag;
+		delete this.reappend;
+		delete this.vGet;
+		delete this.vSet;
+		delete this.getCurrentStep;
+		delete this.getInfo;
+		delete this.destroy;
+
+		// Return the original options from the closure.
+		return originalOptions;
+	}
+
+	// Get the current step size for the slider.
+	function getCurrentStep ( ) {
+
+		// Check all locations, map them to their stepping point.
+		// Get the step point, then find it in the input list.
+		var retour = $.map($Locations, function( location, index ){
+
+			var step = $Spectrum.getApplicableStep( location ),
+
+				// As per #391, the comparison for the decrement step can have some rounding issues.
+				// Round the value to the precision used in the step.
+				stepDecimals = countDecimals(String(step[2])),
+
+				// Get the current numeric value
+				value = $Values[index],
+
+				// To move the slider 'one step up', the current step value needs to be added.
+				// Use null if we are at the maximum slider value.
+				increment = location === 100 ? null : step[2],
+
+				// Going 'one step down' might put the slider in a different sub-range, so we
+				// need to switch between the current or the previous step.
+				prev = Number((value - step[2]).toFixed(stepDecimals)),
+
+				// If the value fits the step, return the current step value. Otherwise, use the
+				// previous step. Return null if the slider is at its minimum value.
+				decrement = location === 0 ? null : (prev >= step[1]) ? step[2] : (step[0] || false);
+
+			return [[decrement, increment]];
+		});
+
+		// Return values in the proper order.
+		return inSliderOrder( retour );
+	}
+
+	// Get the original set of options.
+	function getOriginalOptions ( ) {
+		return originalOptions;
+	}
+
+
+// Initialize slider
+
+	// Throw an error if the slider was already initialized.
+	if ( $Target.hasClass(Classes[0]) ) {
+		throw new Error('Slider was already initialized.');
+	}
+
+	// Create the base element, initialise HTML and set classes.
+	// Add handles and links.
+	$Base = addSlider( options.dir, options.ort, $Target );
+	$Handles = addHandles( options.handles, options.dir, $Base );
+
+	// Set the connect classes.
+	addConnection ( options.connect, $Target, $Handles );
+
+	// Attach user events.
+	events( options.events );
+
+// Methods
+
+	target.vSet = valueSet;
+	target.vGet = valueGet;
+	target.destroy = destroyTarget;
+
+	target.getCurrentStep = getCurrentStep;
+	target.getOriginalOptions = getOriginalOptions;
+
+	target.getInfo = function(){
+		return [
+			$Spectrum,
+			options.style,
+			options.ort
+		];
+	};
+
+	// Use the public value method to set the start values.
+	$Target.val( options.start );
+
+}
+
+
+	// Run the standard initializer
+	function initialize ( originalOptions ) {
+
+		// Test the options once, not for every slider.
+		var options = testOptions( originalOptions, this );
+
+		// Loop all items, and provide a new closed-scope environment.
+		return this.each(function(){
+			closure(this, options, originalOptions);
+		});
+	}
+
+	// Destroy the slider, then re-enter initialization.
+	function rebuild ( options ) {
+
+		return this.each(function(){
+
+			// The rebuild flag can be used if the slider wasn't initialized yet.
+			if ( !this.destroy ) {
+				$(this).noUiSlider( options );
+				return;
+			}
+
+			// Get the current values from the slider,
+			// including the initialization options.
+			var values = $(this).val(), originalOptions = this.destroy(),
+
+				// Extend the previous options with the newly provided ones.
+				newOptions = $.extend( {}, originalOptions, options );
+
+			// Run the standard initializer.
+			$(this).noUiSlider( newOptions );
+
+			// Place Link elements back.
+			this.reappend();
+
+			// If the start option hasn't changed,
+			// reset the previous values.
+			if ( originalOptions.start === newOptions.start ) {
+				$(this).val(values);
+			}
+		});
+	}
+
+	// Access the internal getting and setting methods based on argument count.
+	function value ( ) {
+		return this[0][ !arguments.length ? 'vGet' : 'vSet' ].apply(this[0], arguments);
+	}
+
+	// Override the .val() method. Test every element. Is it a slider? Go to
+	// the slider value handling. No? Use the standard method.
+	// Note how $.fn.val expects 'this' to be an instance of $. For convenience,
+	// the above 'value' function does too.
+	$.fn.val = function ( arg ) {
+
+		// this === instanceof $
+
+		function valMethod( a ){
+			return a.hasClass(Classes[0]) ? value : $val;
+		}
+
+		// If no value is passed, this is 'get'.
+		if ( !arguments.length ) {
+			var first = $(this[0]);
+			return valMethod(first).call(first);
+		}
+
+		var isFunction = $.isFunction(arg);
+
+		// Return the set so it remains chainable. Make sure not to break
+		// jQuery's .val(function( index, value ){}) signature.
+		return this.each(function( i ){
+
+			var val = arg, $t = $(this);
+
+			if ( isFunction ) {
+				val = arg.call(this, i, $t.val());
+			}
+
+			valMethod($t).call($t, val);
+		});
+	};
+
+// Extend jQuery/Zepto with the noUiSlider method.
+	$.fn.noUiSlider = function ( options, rebuildFlag ) {
+
+		switch ( options ) {
+			case 'step': return this[0].getCurrentStep();
+			case 'options': return this[0].getOriginalOptions();
+		}
+
+		return ( rebuildFlag ? rebuild : initialize ).call(this, options);
+	};
+
+}( window.jQuery || window.Zepto ));
+;/**
  * Templates are compiled into javascript using JST and ECO.
  *
  * @see https://www.npmjs.com/package/universal-jst
@@ -33364,11 +34806,11 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current">\n        <div class="nav-section">\n            <h3>'));
+      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current filter-pane">\n        <div class="nav-section">\n            <h3>'));
     
       _print(t.gettext('sections'));
     
-      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3>'));
+      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3 class="open-filters">'));
     
       _print(t.gettext('Filters'));
     
@@ -33376,11 +34818,11 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
     
       _print(t.gettext('Sort'));
     
-      _print(_safe('</h3>\n        <div class="list sort-options"></div>\n    </div>\n\n    <div class="filters-page">\n        <h3>'));
+      _print(_safe('</h3>\n        <div class="list sort-options"></div>\n    </div>\n\n    <div class="filters-page filter-pane">\n        <h3 class="close-filters">'));
     
       _print(t.gettext('Select a filter'));
     
-      _print(_safe('</h3>\n        <div class="list filters-list"></div>\n    </div>\n\n    <div class="filters-options">\n        <h3>'));
+      _print(_safe('</h3>\n        <div class="list filters-list"></div>\n    </div>\n\n    <div class="filters-options filter-pane">\n        <h3 class="close-options">'));
     
       _print(t.gettext('Select an option'));
     
@@ -33698,7 +35140,177 @@ window.JST["apps/player/show/tpl/player.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress"></div>\n            <div class="playing-time">\n                <div class="playing-time-current"></div>\n                <div class="playing-time-duration"></div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title"></div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
+      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
+    
+      _print(t.gettext('Nothing playing'));
+    
+      _print(_safe('</div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/playlist/list/tpl/playlist_bar.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="playlist-header">\n    <ul class="player-toggle">\n        <li class="kodi">'));
+    
+      _print(t.gettext('Kodi'));
+    
+      _print(_safe('</li>\n        <li class="local">'));
+    
+      _print(t.gettext('Local'));
+    
+      _print(_safe('</li>\n    </ul>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/playlist/list/tpl/playlist_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="item-inner item-'));
+    
+      _print(this.type);
+    
+      _print(_safe('">\n    <div class="artwork">\n        <div class="thumb" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">\n            <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n            <div class="play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+    
+      _print(this.url);
+    
+      _print(_safe('" title="'));
+    
+      _print(this.label);
+    
+      _print(_safe('">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</a></div>\n        '));
+    
+      if (this.subtitle != null) {
+        _print(_safe('\n        <div class="subtitle">'));
+        _print(_safe(this.subtitle));
+        _print(_safe('</div>\n        '));
+      }
+    
+      _print(_safe('\n    </div>\n    <div class="remove"></div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/shell/show/tpl/homepage.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div id="homepage"></div>'));
     
     }).call(this);
     
@@ -33782,19 +35394,19 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<td class="cell-first">'));
+      _print(_safe('<td class="cell-first">\n    <div class="track">'));
     
       _print(this.track);
     
-      _print(_safe('</td>\n<td class="cell-label">'));
+      _print(_safe('</div>\n    <div class="play"></div>\n</td>\n<td class="cell-label song-title">'));
     
       _print(this.label);
     
-      _print(_safe('</td>\n<td class="cell-last">'));
+      _print(_safe('</td>\n<td class="cell-last">\n    <div class="duration">'));
     
       _print(this.duration);
     
-      _print(_safe('</td>'));
+      _print(_safe('</div>\n    <ul class="actions">\n        <li class="add"></li>\n        <li class="menu"></li>\n    </ul>\n</td>'));
     
     }).call(this);
     
@@ -34132,7 +35744,10 @@ this.helpers = {};
 
 this.config = {
   "static": {
-    jsonRpcEndpoint: 'jsonrpc'
+    jsonRpcEndpoint: 'jsonrpc',
+    socketsHost: location.hostname,
+    socketsPort: 9090,
+    ajaxTimeout: 5000
   }
 };
 
@@ -34494,7 +36109,24 @@ helpers.debug.consoleStyle = function(severity) {
 
 
 /*
-  Log a deubg message.
+  Basic debug message
+ */
+
+helpers.debug.msg = function(msg, severity, data) {
+  if (severity == null) {
+    severity = 'info';
+  }
+  if (typeof console !== "undefined" && console !== null) {
+    console.log("%c " + msg, helpers.debug.consoleStyle(severity));
+    if (data != null) {
+      return console.log(data);
+    }
+  }
+};
+
+
+/*
+  Log a deubg error message.
  */
 
 helpers.debug.log = function(msg, data, severity, caller) {
@@ -34512,7 +36144,7 @@ helpers.debug.log = function(msg, data, severity, caller) {
   } else {
     if (typeof console !== "undefined" && console !== null) {
       console.log("%c Error in: " + msg, helpers.debug.consoleStyle(severity), data);
-      if (helpers.debug.verbose) {
+      if (helpers.debug.verbose && caller !== false) {
         return console.log(caller);
       }
     }
@@ -34559,6 +36191,22 @@ helpers.entities.getFields = function(set, type) {
   } else {
     return fields;
   }
+};
+
+helpers.entities.getSubtitle = function(model) {
+  var subtitle;
+  switch (model.type) {
+    case 'song':
+      subtitle = model.artist.join(',');
+      break;
+    default:
+      subtitle = '';
+  }
+  return subtitle;
+};
+
+helpers.entities.playingLink = function(model) {
+  return "<a href='#" + model.url + "'>" + model.label + "</a>";
 };
 
 
@@ -34659,6 +36307,12 @@ $.fn.removeClassRegex = function(regex) {
   });
 };
 
+$.fn.removeClassStartsWith = function(startsWith) {
+  var regex;
+  regex = new RegExp('^' + startsWith, 'g');
+  return $(this).removeClassRegex(regex);
+};
+
 
 /*
   For everything translatable.
@@ -34715,6 +36369,17 @@ helpers.url.get = function(type, id, replacements) {
     path = path.replace(token, id);
   }
   return path;
+};
+
+helpers.url.playlistUrl = function(item) {
+  if (item.type === 'song') {
+    if (item.albumid !== '') {
+      item.url = helpers.url.get('album', item.albumid);
+    } else {
+      item.url('music/albums');
+    }
+  }
+  return item.url;
 };
 
 helpers.url.arg = function(arg) {
@@ -35475,7 +37140,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 
     Model.prototype.parseModel = function(type, model, id) {
       if (!model.parsed) {
-        model.id = id;
+        if (id !== 'mixed') {
+          model.id = id;
+        }
         model = App.request("images:path:entity", model);
         model.url = helpers.url.get(type, id);
         model.type = type;
@@ -35883,6 +37550,158 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       options = {};
     }
     return API.getCollection(options);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: ['title', 'thumbnail', 'file'],
+      small: ['artist', 'genre', 'year', 'rating', 'album', 'track', 'duration', 'playcount', 'dateadded', 'episode', 'artistid', 'albumid', 'tvshowid'],
+      full: ['fanart']
+    },
+    getCollection: function(options) {
+      var collection, defaultOptions;
+      defaultOptions = {
+        cache: false
+      };
+      options = _.extend(defaultOptions, options);
+      collection = new KodiEntities.PlaylistCollection();
+      collection.fetch(options);
+      return collection;
+    },
+    getType: function(item, media) {
+      var type;
+      type = 'file';
+      if (item.id !== '') {
+        if (media === 'audio') {
+          type = 'song';
+        } else if (media === 'video') {
+          if (item.episode !== '') {
+            type = 'episode';
+          } else {
+            type = 'movie';
+          }
+        }
+      }
+      return type;
+    },
+    parseItems: function(items, options) {
+      var i, item;
+      for (i in items) {
+        item = items[i];
+        item.position = parseInt(i);
+        items[i] = this.parseItem(item, options);
+      }
+      return items;
+    },
+    parseItem: function(item, options) {
+      item.playlistid = options.playlistid;
+      item.media = options.media;
+      item.player = 'kodi';
+      if (!item.type) {
+        item.type = API.getType(items, options.media);
+      }
+      if (item.type === 'file') {
+        item.id = 'mixed';
+      }
+      return item;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.PlaylistItem = (function(_super) {
+    __extends(PlaylistItem, _super);
+
+    function PlaylistItem() {
+      return PlaylistItem.__super__.constructor.apply(this, arguments);
+    }
+
+    PlaylistItem.prototype.idAttribute = "position";
+
+    PlaylistItem.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        position: 0
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    };
+
+    PlaylistItem.prototype.parse = function(resp, xhr) {
+      var model;
+      resp.fullyloaded = true;
+      model = this.parseModel(resp.type, resp, resp.id);
+      model.url = helpers.url.playlistUrl(model);
+      return model;
+    };
+
+    return PlaylistItem;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.PlaylistCollection = (function(_super) {
+    __extends(PlaylistCollection, _super);
+
+    function PlaylistCollection() {
+      return PlaylistCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    PlaylistCollection.prototype.model = KodiEntities.PlaylistItem;
+
+    PlaylistCollection.prototype.methods = {
+      read: ['Playlist.GetItems', 'arg1', 'arg2', 'arg3']
+    };
+
+    PlaylistCollection.prototype.arg1 = function() {
+      return this.argCheckOption('playlistid', 0);
+    };
+
+    PlaylistCollection.prototype.arg2 = function() {
+      return helpers.entities.getFields(API.fields, 'small');
+    };
+
+    PlaylistCollection.prototype.arg3 = function() {
+      return this.argLimit();
+    };
+
+    PlaylistCollection.prototype.arg4 = function() {
+      return this.argSort("position", "ascending");
+    };
+
+    PlaylistCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, 'items');
+      return API.parseItems(items, this.options);
+    };
+
+    return PlaylistCollection;
+
+  })(App.KodiEntities.Collection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("playlist:kodi:entities", function(media) {
+    var collection, options, playlist;
+    if (media == null) {
+      media = 'audio';
+    }
+    playlist = App.request("command:kodi:controller", media, 'PlayList');
+    options = {};
+    options.media = media;
+    options.playlistid = playlist.getPlayer();
+    collection = API.getCollection(options);
+    collection.sortCollection('position', 'asc');
+    return collection;
+  });
+  return App.reqres.setHandler("playlist:kodi:entity:api", function() {
+    return API;
   });
 });
 
@@ -36435,11 +38254,15 @@ this.Kodi.module("Router", function(Router, App, Backbone, Marionette, $, _) {
     };
 
     Base.prototype.setBodyClasses = function() {
-      var $body;
+      var $body, section;
       $body = App.getRegion('root').$el;
       $body.removeClassRegex(/^section-/);
       $body.removeClassRegex(/^page-/);
-      $body.addClass('section-' + helpers.url.arg(0));
+      section = helpers.url.arg(0);
+      if (section === '') {
+        section = 'home';
+      }
+      $body.addClass('section-' + section);
       return $body.addClass('page-' + helpers.url.arg().join('-'));
     };
 
@@ -36862,7 +38685,7 @@ this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _
           App.execute("images:fanart:set", album.get('fanart'));
           _this.layout = _this.getLayoutView(album);
           _this.listenTo(_this.layout, "destroy", function() {
-            return App.execute("images:fanart:set", '');
+            return App.execute("images:fanart:set", 'none');
           });
           _this.listenTo(_this.layout, "show", function() {
             _this.getMusic(id);
@@ -37216,14 +39039,13 @@ this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, 
     Controller.prototype.initialize = function(options) {
       var artist, id;
       id = parseInt(options.id);
-      console.log('contr..', id);
       artist = App.request("artist:entity", id);
       return App.execute("when:entity:fetched", artist, (function(_this) {
         return function() {
           App.execute("images:fanart:set", artist.get('fanart'));
           _this.layout = _this.getLayoutView(artist);
           _this.listenTo(_this.layout, "destroy", function() {
-            return App.execute("images:fanart:set", '');
+            return App.execute("images:fanart:set", 'none');
           });
           _this.listenTo(_this.layout, "show", function() {
             _this.getMusic(id);
@@ -37341,15 +39163,76 @@ this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, 
   })(App.Views.CardView);
 });
 
-this.Kodi.module("Command", function(Command, App, Backbone, Marionette, $, _) {
-  return App.reqres.setHandler("command:kodi:player", function(method, params, callback) {
-    var commander;
-    commander = new Command.Kodi.Player();
-    return commander.sendCommand(method, params, callback);
+this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $, _) {
+  var API;
+  BrowserApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "browser": "list",
+      "browser/:type/:id": "view"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    list: function() {
+      return new BrowserApp.List.Controller;
+    },
+    view: function(type, id) {
+      return new BrowserApp.List.Controller({
+        type: id,
+        id: id
+      });
+    }
+  };
+  return App.on("before:start", function() {
+    return new BrowserApp.Router({
+      controller: API
+    });
   });
 });
 
-this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {};
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $, _) {
+
+  /*
+    Kodi.
+   */
+  App.reqres.setHandler("command:kodi:player", function(method, params, callback) {
+    var commander;
+    commander = new CommandApp.Kodi.Player();
+    return commander.sendCommand(method, params, callback);
+  });
+  App.reqres.setHandler("command:kodi:controller", function(media, controller) {
+    if (media == null) {
+      media = 'auto';
+    }
+    return new CommandApp.Kodi[controller](media);
+  });
+  return App.addInitializer(function() {});
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   return Api.Base = (function(_super) {
     __extends(Base, _super);
 
@@ -37357,13 +39240,23 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
       return Base.__super__.constructor.apply(this, arguments);
     }
 
-    Base.prototype.initialize = function() {
-      return $.jsonrpc.defaultUrl = config.get('static', 'jsonRpcEndpoint');
+    Base.prototype.ajaxOptions = {};
+
+    Base.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      $.jsonrpc.defaultUrl = config.get('static', 'jsonRpcEndpoint');
+      return this.setOptions(options);
+    };
+
+    Base.prototype.setOptions = function(options) {
+      return this.ajaxOptions = options;
     };
 
     Base.prototype.multipleCommands = function(commands, callback) {
       var obj;
-      obj = $.jsonrpc(commands);
+      obj = $.jsonrpc(commands, this.ajaxOptions);
       obj.fail((function(_this) {
         return function(error) {
           return _this.onError(commands, error);
@@ -37398,16 +39291,23 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
       results = [];
       for (i in response) {
         result = response[i];
-        if (result.result) {
+        if (result.result || result.result === false) {
           results.push(result.result);
         } else {
           this.onError(commands[i], result);
         }
       }
       if (commands.length === 1 && results.length === 1) {
-        results = response[0];
+        results = results[0];
       }
       return results;
+    };
+
+    Base.prototype.paramObj = function(key, val) {
+      var obj;
+      obj = {};
+      obj[key] = val;
+      return obj;
     };
 
     Base.prototype.doCallback = function(callback, response) {
@@ -37425,7 +39325,7 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
   })(Marionette.Object);
 });
 
-this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   Api.Commander = (function(_super) {
     __extends(Commander, _super);
 
@@ -37434,6 +39334,8 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
     }
 
     Commander.prototype.playerActive = 0;
+
+    Commander.prototype.playerName = 'music';
 
     Commander.prototype.playerForced = false;
 
@@ -37444,36 +39346,70 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
 
     Commander.prototype.setPlayer = function(player) {
       if (player === 'audio' || player === 'video') {
-        this.activePlayer = this.playerIds[player];
+        this.playerActive = this.playerIds[player];
+        this.playerName = player;
         return this.playerForced = true;
       }
     };
 
     Commander.prototype.getPlayer = function() {
-      return this.activePlayer;
+      return this.playerActive;
+    };
+
+    Commander.prototype.getPlayerName = function() {
+      return this.playerName;
+    };
+
+    Commander.prototype.playerIdToName = function(playerId) {
+      playerName;
+      var id, name, playerName, _ref;
+      _ref = this.playerIds;
+      for (name in _ref) {
+        id = _ref[name];
+        if (id === playerId) {
+          playerName = name;
+        }
+      }
+      return playerName;
+    };
+
+    Commander.prototype.commandNameSpace = 'JSONRPC';
+
+    Commander.prototype.getCommand = function(command, namespace) {
+      if (namespace == null) {
+        namespace = this.commandNameSpace;
+      }
+      return namespace + '.' + command;
+    };
+
+    Commander.prototype.sendCommand = function(command, params, callback) {
+      return this.singleCommand(this.getCommand(command), params, (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
     };
 
     return Commander;
 
-  })(App.Command.Kodi.Base);
-  return Api.Player = (function(_super) {
+  })(Api.Base);
+  Api.Player = (function(_super) {
     __extends(Player, _super);
 
     function Player() {
       return Player.__super__.constructor.apply(this, arguments);
     }
 
-    Player.prototype.commandNameSpace = 'Player.';
+    Player.prototype.commandNameSpace = 'Player';
 
-    Player.prototype.initialize = function(player) {
-      if (player == null) {
-        player = 'audio';
+    Player.prototype.playlistApi = {};
+
+    Player.prototype.initialize = function(media) {
+      if (media == null) {
+        media = 'audio';
       }
-      return this.setPlayer(player);
-    };
-
-    Player.prototype.getCommand = function(command) {
-      return this.commandNameSpace + command;
+      this.setPlayer(media);
+      return this.playlistApi = App.request("playlist:kodi:entity:api");
     };
 
     Player.prototype.getParams = function(params, callback) {
@@ -37499,6 +39435,7 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
         return function(resp) {
           if (resp.length > 0) {
             _this.playerActive = resp[0].playerid;
+            _this.playerName = _this.playerIdToName(_this.playerActive);
             _this.triggerMethod("player:ready", _this.playerActive);
             return _this.doCallback(callback, _this.playerActive);
           } else {
@@ -37521,9 +39458,206 @@ this.Kodi.module("Command.Kodi", function(Api, App, Backbone, Marionette, $, _) 
       })(this));
     };
 
+    Player.prototype.playEntity = function(type, value, options, callback) {
+      var data, params;
+      if (options == null) {
+        options = {};
+      }
+      params = [];
+      data = this.paramObj(type, value);
+      if (type === 'position') {
+        data.playlistid = this.getPlayer();
+      }
+      params.push(data);
+      if (options.length > 0) {
+        params.push(options);
+      }
+      return this.singleCommand(this.getCommand('Open', 'Player'), params, (function(_this) {
+        return function(resp) {
+          if (!App.request('sockets:active')) {
+            App.request('player:kodi:timer', 'start');
+            App.request('state:kodi:update');
+          }
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    Player.prototype.getPlaying = function(callback) {
+      var obj;
+      obj = {
+        active: false,
+        properties: false,
+        item: false
+      };
+      return this.singleCommand(this.getCommand('GetActivePlayers'), {}, (function(_this) {
+        return function(resp) {
+          var commands, itemFields, playerFields;
+          if (resp.length > 0) {
+            obj.active = resp[0];
+            commands = [];
+            itemFields = helpers.entities.getFields(_this.playlistApi.fields, 'full');
+            playerFields = ["playlistid", "speed", "position", "totaltime", "time", "percentage", "shuffled", "repeat", "canrepeat", "canshuffle", "canseek", "partymode"];
+            commands.push({
+              method: _this.getCommand('GetProperties'),
+              params: [obj.active.playerid, playerFields]
+            });
+            commands.push({
+              method: _this.getCommand('GetItem'),
+              params: [obj.active.playerid, itemFields]
+            });
+            return _this.multipleCommands(commands, function(playing) {
+              obj.properties = playing[0];
+              obj.item = playing[1].item;
+              return _this.doCallback(callback, obj);
+            });
+          } else {
+            return _this.doCallback(callback, false);
+          }
+        };
+      })(this));
+    };
+
     return Player;
 
   })(Api.Commander);
+  return Api.Application = (function(_super) {
+    __extends(Application, _super);
+
+    function Application() {
+      return Application.__super__.constructor.apply(this, arguments);
+    }
+
+    Application.prototype.commandNameSpace = 'Application';
+
+    Application.prototype.getProperties = function(callback) {
+      return this.singleCommand(this.getCommand('GetProperties'), [["volume", "muted"]], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    Application.prototype.setVolume = function(volume, callback) {
+      return this.singleCommand(this.getCommand('SetVolume'), [volume], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    Application.prototype.toggleMute = function(callback) {
+      var stateObj;
+      stateObj = App.request("state:kodi");
+      return this.singleCommand(this.getCommand('SetMute'), [!stateObj.getState('muted')], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    return Application;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.PlayList = (function(_super) {
+    __extends(PlayList, _super);
+
+    function PlayList() {
+      return PlayList.__super__.constructor.apply(this, arguments);
+    }
+
+    PlayList.prototype.commandNameSpace = 'Playlist';
+
+    PlayList.prototype.play = function(type, value) {
+      return this.playlistSize((function(_this) {
+        return function(size) {
+          return _this.insertAndPlay(type, value, size);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.add = function(type, value) {
+      return this.playlistSize((function(_this) {
+        return function(size) {
+          return _this.insert(type, value, size);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.remove = function(position, callback) {
+      return this.singleCommand(this.getCommand('Remove'), [this.getPlayer(), parseInt(position)], (function(_this) {
+        return function(resp) {
+          _this.refreshPlaylistView();
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.clear = function(callback) {
+      return this.singleCommand(this.getCommand('Clear'), [this.getPlayer()], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.insert = function(type, value, position, callback) {
+      if (position == null) {
+        position = 0;
+      }
+      return this.singleCommand(this.getCommand('Insert'), [this.getPlayer(), parseInt(position), this.paramObj(type, value)], (function(_this) {
+        return function(resp) {
+          _this.refreshPlaylistView();
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.getItems = function(callback) {
+      return this.singleCommand(this.getCommand('GetItems'), [this.getPlayer(), ['title']], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.insertAndPlay = function(type, value, position, callback) {
+      if (position == null) {
+        position = 0;
+      }
+      return this.insert(type, value, position, (function(_this) {
+        return function(resp) {
+          return _this.playEntity('position', parseInt(position), {}, function() {
+            return _this.doCallback(callback, resp);
+          });
+        };
+      })(this));
+    };
+
+    PlayList.prototype.playlistSize = function(callback) {
+      return this.getItems((function(_this) {
+        return function(resp) {
+          var position;
+          position = resp.items != null ? resp.items.length : 0;
+          return _this.doCallback(callback, position);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.refreshPlaylistView = function() {
+      var wsActive;
+      wsActive = App.request("sockets:active");
+      if (!wsActive) {
+        return App.execute("playlist:refresh", 'kodi', this.playerName);
+      }
+    };
+
+    return PlayList;
+
+  })(Api.Player);
 });
 
 this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, _) {
@@ -37903,6 +40037,26 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
           return _this.getSections();
         };
       })(this));
+      this.listenTo(this.layoutFilters, 'filter:layout:close:filters', (function(_this) {
+        return function() {
+          return _this.stateChange('normal');
+        };
+      })(this));
+      this.listenTo(this.layoutFilters, 'filter:layout:close:options', (function(_this) {
+        return function() {
+          return _this.stateChange('filters');
+        };
+      })(this));
+      this.listenTo(this.layoutFilters, 'filter:layout:open:filters', (function(_this) {
+        return function() {
+          return _this.stateChange('filters');
+        };
+      })(this));
+      this.listenTo(this.layoutFilters, 'filter:layout:open:options', (function(_this) {
+        return function() {
+          return _this.stateChange('options');
+        };
+      })(this));
       return this.layoutFilters;
     };
 
@@ -37945,7 +40099,8 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
             App.request('filter:store:key:toggle', key, childview.model.get('alias'));
             return _this.triggerChange();
           } else {
-            return _this.getFilterOptions(key);
+            _this.getFilterOptions(key);
+            return _this.stateChange('options');
           }
         };
       })(this));
@@ -37962,12 +40117,17 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
         collection: activeCollection
       });
       this.layoutFilters.regionFiltersActive.show(optionsView);
-      return App.listenTo(optionsView, "childview:filter:option:remove", (function(_this) {
+      App.listenTo(optionsView, "childview:filter:option:remove", (function(_this) {
         return function(parentview, childview) {
           var key;
           key = childview.model.get('key');
           App.request('filter:store:key:update', key, []);
           return _this.triggerChange();
+        };
+      })(this));
+      return App.listenTo(optionsView, "childview:filter:add", (function(_this) {
+        return function(parentview, childview) {
+          return _this.stateChange('filters');
         };
       })(this));
     };
@@ -37997,6 +40157,22 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       this.getFilters(clearOptions);
       this.getActive();
       return this.layoutFilters.trigger('filter:changed');
+    };
+
+    Controller.prototype.stateChange = function(state) {
+      var $wrapper;
+      if (state == null) {
+        state = 'normal';
+      }
+      $wrapper = this.layoutFilters.$el.find('.filters-container');
+      switch (state) {
+        case 'filters':
+          return $wrapper.removeClass('show-options').addClass('show-filters');
+        case 'options':
+          return $wrapper.addClass('show-options').removeClass('show-filters');
+        default:
+          return $wrapper.removeClass('show-options').removeClass('show-filters');
+      }
     };
 
     Controller.prototype.getSections = function() {
@@ -38040,6 +40216,12 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       regionFiltersOptions: '.filter-options-list',
       regionNavSection: '.nav-section',
       regionNavItems: '.nav-items'
+    };
+
+    FilterLayout.prototype.triggers = {
+      'click .close-filters': 'filter:layout:close:filters',
+      'click .close-options': 'filter:layout:close:options',
+      'click .open-filters': 'filter:layout:open:filters'
     };
 
     return FilterLayout;
@@ -38297,7 +40479,14 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     setFanartBackground: function(path, region) {
       var $body;
       $body = App.getRegion(region).$el;
-      return $body.css('background-image', 'url(' + path + ')');
+      if (path !== 'none') {
+        if (!path) {
+          path = this.getRandomFanart();
+        }
+        return $body.css('background-image', 'url(' + path + ')');
+      } else {
+        return $body.removeAttr('style');
+      }
     },
     getImageUrl: function(rawPath, type) {
       var path;
@@ -38339,6 +40528,12 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
       model.fanart = API.getImageUrl(model.fanart, 'fanart');
     }
     return model;
+  });
+});
+
+this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _) {
+  return App.commands.setHandler("input:textbox", function(msg) {
+    return App.trigger("ui:textinput:show", "Input required", msg, function(text) {});
   });
 });
 
@@ -38550,7 +40745,7 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
           App.execute("images:fanart:set", movie.get('fanart'));
           _this.layout = _this.getLayoutView(movie);
           _this.listenTo(_this.layout, "destroy", function() {
-            return App.execute("images:fanart:set", '');
+            return App.execute("images:fanart:set", 'none');
           });
           _this.listenTo(_this.layout, "show", function() {
             return _this.getDetailsLayoutView(movie);
@@ -38740,33 +40935,181 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
   })(App.Views.CollectionView);
 });
 
+this.Kodi.module("NotificationsApp", function(NotificationApp, App, Backbone, Marionette, $, _) {
+  return App.commands.setHandler("notification:show", function(msg, severity) {
+    if (severity == null) {
+      severity = 'normal';
+    }
+  });
+});
+
 this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     getKodiPlayer: function() {
       return new PlayerApp.Show.Player();
     },
-    doPlayerCommand: function(command, params, callback) {
-      return App.request("command:kodi:player", command, params, callback);
-    },
-    initKodiPlayer: function(player) {
-      return App.listenTo(player, "conrol:play", (function(_this) {
+    doKodiCommand: function(command, params, callback) {
+      return App.request('command:kodi:player', command, params, (function(_this) {
         return function() {
-          console.log('play');
-          return _this.doPlayerCommand('PlayPause', 'toggle');
+          return _this.pollingUpdate(callback);
         };
       })(this));
+    },
+    getAppController: function() {
+      return App.request("command:kodi:controller", 'auto', 'Application');
+    },
+    pollingUpdate: function(callback) {
+      if (!App.request('sockets:active')) {
+        return App.request('state:kodi:update', callback);
+      }
+    },
+    initKodiPlayer: function(player) {
+      var $playerCtx, $progress, $volume, appController;
+      this.initProgress('kodi');
+      this.initVolume('kodi');
+      App.vent.trigger("state:player:updated", 'kodi');
+      appController = this.getAppController();
+      App.listenTo(player, "control:play", (function(_this) {
+        return function() {
+          return _this.doKodiCommand('PlayPause', 'toggle');
+        };
+      })(this));
+      App.listenTo(player, "control:prev", (function(_this) {
+        return function() {
+          return _this.doKodiCommand('GoTo', 'previous');
+        };
+      })(this));
+      App.listenTo(player, "control:next", (function(_this) {
+        return function() {
+          return _this.doKodiCommand('GoTo', 'next');
+        };
+      })(this));
+      App.listenTo(player, "control:repeat", (function(_this) {
+        return function() {
+          return _this.doKodiCommand('SetRepeat', 'cycle');
+        };
+      })(this));
+      App.listenTo(player, "control:shuffle", (function(_this) {
+        return function() {
+          console.log('suff');
+          return _this.doKodiCommand('SetShuffle', 'toggle');
+        };
+      })(this));
+      App.listenTo(player, "control:mute", (function(_this) {
+        return function() {
+          return appController.toggleMute(function() {
+            return _this.pollingUpdate();
+          });
+        };
+      })(this));
+      $playerCtx = $('#player-kodi');
+      $progress = $('.playing-progress', $playerCtx);
+      $progress.on('change', function() {
+        API.timerStop();
+        return API.doKodiCommand('Seek', Math.round(this.vGet()), function() {
+          return API.timerStart();
+        });
+      });
+      $progress.on('slide', function() {
+        return API.timerStop();
+      });
+      $volume = $('.volume', $playerCtx);
+      return $volume.on('change', function() {
+        appController.setVolume(Math.round(this.vGet()));
+        return API.pollingUpdate();
+      });
+    },
+    timerStart: function() {
+      return App.playingTimerInterval = setTimeout(((function(_this) {
+        return function() {
+          return _this.timerUpdate();
+        };
+      })(this)), 1000);
+    },
+    timerStop: function() {
+      return clearTimeout(App.playingTimerInterval);
+    },
+    timerUpdate: function() {
+      var cur, curTimeObj, dur, percent, stateObj;
+      stateObj = App.request("state:kodi");
+      this.timerStop();
+      if (stateObj.isPlaying() && (stateObj.getPlaying('time') != null)) {
+        cur = helpers.global.timeToSec(stateObj.getPlaying('time')) + 1;
+        dur = helpers.global.timeToSec(stateObj.getPlaying('totaltime'));
+        percent = Math.ceil(cur / dur * 100);
+        curTimeObj = helpers.global.secToTime(cur);
+        stateObj.setPlaying('time', curTimeObj);
+        this.setProgress('kodi', percent, curTimeObj);
+        return this.timerStart();
+      }
+    },
+    setProgress: function(player, percent, currentTime) {
+      var $cur, $playerCtx;
+      if (percent == null) {
+        percent = 0;
+      }
+      $playerCtx = $('#player-' + player);
+      $cur = $('.playing-time-current', $playerCtx);
+      $cur.html(helpers.global.formatTime(currentTime));
+      return $('.playing-progress', $playerCtx).val(percent);
+    },
+    initProgress: function(player, percent) {
+      var $playerCtx;
+      if (percent == null) {
+        percent = 0;
+      }
+      $playerCtx = $('#player-' + player);
+      return $('.playing-progress', $playerCtx).noUiSlider({
+        start: percent,
+        connect: 'upper',
+        step: 1,
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    },
+    initVolume: function(player, percent) {
+      var $playerCtx;
+      if (percent == null) {
+        percent = 50;
+      }
+      $playerCtx = $('#player-' + player);
+      return $('.volume', $playerCtx).noUiSlider({
+        start: percent,
+        connect: 'upper',
+        step: 1,
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
     }
   };
   return this.onStart = function(options) {
-    return App.vent.on("shell:ready", (function(_this) {
+    App.vent.on("shell:ready", (function(_this) {
       return function(options) {
-        var kodiPlayer;
-        kodiPlayer = API.getKodiPlayer();
-        App.regionPlayerKodi.show(kodiPlayer);
-        return API.initKodiPlayer(kodiPlayer);
+        App.kodiPlayer = API.getKodiPlayer();
+        App.listenTo(App.kodiPlayer, "show", function() {
+          API.initKodiPlayer(App.kodiPlayer);
+          return App.execute("player:kodi:timer", 'start');
+        });
+        return App.regionPlayerKodi.show(App.kodiPlayer);
       };
     })(this));
+    return App.commands.setHandler('player:kodi:timer', function(state) {
+      if (state == null) {
+        state = 'start';
+      }
+      if (state === 'start') {
+        return API.timerStart();
+      } else if (state === 'stop') {
+        return API.timerStop();
+      } else if (state === 'update') {
+        return API.timerUpdate();
+      }
+    });
   };
 });
 
@@ -38791,19 +41134,223 @@ this.Kodi.module("PlayerApp.Show", function(Show, App, Backbone, Marionette, $, 
     };
 
     Player.prototype.triggers = {
-      'click .control-prev': 'conrol:prev',
-      'click .control-play': 'conrol:play',
-      'click .control-next': 'conrol:next',
-      'click .control-stop': 'conrol:stop',
-      'click .control-mute': 'conrol:mute',
-      'click .control-shuffle': 'conrol:shuffle',
-      'click .control-repeat': 'conrol:repeat',
-      'click .control-menu': 'conrol:menu'
+      'click .control-prev': 'control:prev',
+      'click .control-play': 'control:play',
+      'click .control-next': 'control:next',
+      'click .control-stop': 'control:stop',
+      'click .control-mute': 'control:mute',
+      'click .control-shuffle': 'control:shuffle',
+      'click .control-repeat': 'control:repeat',
+      'click .control-menu': 'control:menu'
     };
 
     return Player;
 
   })(App.Views.ItemView);
+});
+
+this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      return App.vent.on("shell:ready", (function(_this) {
+        return function(options) {
+          return _this.getPlaylistBar();
+        };
+      })(this));
+    };
+
+    Controller.prototype.getPlaylistBar = function() {
+      this.layout = this.getLayout();
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          return _this.renderList('kodi', 'audio');
+        };
+      })(this));
+      return App.regionPlaylist.show(this.layout);
+    };
+
+    Controller.prototype.getLayout = function() {
+      return new List.Layout();
+    };
+
+    Controller.prototype.getList = function(collection) {
+      return new List.Items({
+        collection: collection
+      });
+    };
+
+    Controller.prototype.renderList = function(type, media) {
+      var collection;
+      collection = App.request("playlist:list", type, media);
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          var listView;
+          listView = _this.getList(collection);
+          if (type === 'kodi') {
+            _this.layout.kodiPlayList.show(listView);
+          } else {
+            _this.layout.localPlayList.show(listView);
+          }
+          return _this.bindActions(listView, type, media);
+        };
+      })(this));
+    };
+
+    Controller.prototype.bindActions = function(listView, type, media) {
+      var playlist;
+      playlist = App.request("command:" + type + ":controller", media, 'PlayList');
+      this.listenTo(listView, "childview:playlist:item:remove", function(playlistView, item) {
+        return playlist.remove(item.model.get('position'));
+      });
+      return this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
+        return playlist.playEntity('position', parseInt(item.model.get('position')));
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.template = "apps/playlist/list/playlist_bar";
+
+    Layout.prototype.tagName = "div";
+
+    Layout.prototype.className = "playlist-bar";
+
+    Layout.prototype.regions = {
+      kodiPlayList: '.kodi-playlist',
+      localPlayList: '.local-playlist'
+    };
+
+    return Layout;
+
+  })(App.Views.LayoutView);
+  List.Item = (function(_super) {
+    __extends(Item, _super);
+
+    function Item() {
+      return Item.__super__.constructor.apply(this, arguments);
+    }
+
+    Item.prototype.template = "apps/playlist/list/playlist_item";
+
+    Item.prototype.tagName = "li";
+
+    Item.prototype.initialize = function() {
+      var subtitle;
+      subtitle = '';
+      switch (this.model.get('type')) {
+        case 'song':
+          subtitle = this.model.get('artist').join(', ');
+          break;
+        default:
+          subtitle = '';
+      }
+      return this.model.set({
+        subtitle: subtitle
+      });
+    };
+
+    Item.prototype.triggers = {
+      "click .remove": "playlist:item:remove",
+      "click .play": "playlist:item:play"
+    };
+
+    Item.prototype.attributes = function() {
+      return {
+        "class": 'item pos-' + this.model.get('position')
+      };
+    };
+
+    return Item;
+
+  })(App.Views.ItemView);
+  return List.Items = (function(_super) {
+    __extends(Items, _super);
+
+    function Items() {
+      return Items.__super__.constructor.apply(this, arguments);
+    }
+
+    Items.prototype.childView = List.Item;
+
+    Items.prototype.tagName = "ul";
+
+    Items.prototype.className = "playlist-items";
+
+    return Items;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette, $, _) {
+  var API;
+  PlaylistApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "playlist": "list"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    list: function() {},
+    type: 'kodi',
+    media: 'audio',
+    setContext: function(type, media) {
+      if (type == null) {
+        type = 'kodi';
+      }
+      if (media == null) {
+        media = 'audio';
+      }
+      this.type = type;
+      return this.media = media;
+    },
+    getController: function() {
+      return App.request("command:" + this.type + ":controller", this.media, 'PlayList');
+    },
+    getPlaylistItems: function() {
+      return App.request("playlist:" + this.type + ":entities", this.media);
+    }
+  };
+  App.reqres.setHandler("playlist:list", function(type, media) {
+    API.setContext(type, media);
+    return API.getPlaylistItems();
+  });
+  App.on("before:start", function() {
+    return new PlaylistApp.Router({
+      controller: API
+    });
+  });
+  return App.addInitializer(function() {
+    var controller;
+    controller = new PlaylistApp.List.Controller();
+    return App.commands.setHandler("playlist:refresh", function(type, media) {
+      return controller.renderList(type, media);
+    });
+  });
 });
 
 this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
@@ -38816,6 +41363,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
     }
 
     Router.prototype.appRoutes = {
+      "": "homePage",
       "home": "homePage"
     };
 
@@ -38824,8 +41372,23 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
   })(App.Router.Base);
   API = {
     homePage: function() {
-      var foo;
-      return foo = 'bar';
+      var home;
+      home = new Shell.HomepageLayout();
+      App.regionContent.show(home);
+      App.execute("images:fanart:set");
+      App.vent.on("state:changed", function(state) {
+        var playingItem, stateObj;
+        stateObj = App.request("state:current");
+        if (stateObj.isPlayingItemChanged()) {
+          playingItem = stateObj.getPlaying('item');
+          return App.execute("images:fanart:set", playingItem.fanart);
+        }
+      });
+      return App.listenTo(home, "destroy", (function(_this) {
+        return function() {
+          return App.execute("images:fanart:set", 'none');
+        };
+      })(this));
     },
     renderLayout: function() {
       var playlistState, shellLayout;
@@ -38837,7 +41400,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       if (playlistState === 'closed') {
         this.alterRegionClasses('add', "shell-playlist-closed");
       }
-      App.listenTo(shellLayout, "shell:playlist:toggle", (function(_this) {
+      return App.listenTo(shellLayout, "shell:playlist:toggle", (function(_this) {
         return function(child, args) {
           var state;
           playlistState = config.get('app', 'shell:playlist:state', 'open');
@@ -38846,7 +41409,6 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
           return _this.alterRegionClasses('toggle', "shell-playlist-closed");
         };
       })(this));
-      return App.execute("images:fanart:set");
     },
     alterRegionClasses: function(op, classes, region) {
       var $body, action;
@@ -38887,7 +41449,6 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       regionContent: '#content',
       regionSidebarFirst: '#sidebar-first',
       regionPlaylist: '#playlist-bar',
-      regionPlaylistSummary: '#playlist-summary',
       regionTitle: '#page-title .title',
       regionTitleContext: '#page-title .context',
       regionFanart: '#fanart',
@@ -38902,6 +41463,18 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
     return Layout;
 
   })(Backbone.Marionette.LayoutView);
+  Shell.HomepageLayout = (function(_super) {
+    __extends(HomepageLayout, _super);
+
+    function HomepageLayout() {
+      return HomepageLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    HomepageLayout.prototype.template = "apps/shell/show/homepage";
+
+    return HomepageLayout;
+
+  })(Backbone.Marionette.LayoutView);
   return App.execute("shell:view:ready");
 });
 
@@ -38909,9 +41482,33 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
   var API;
   API = {
     getSongsView: function(songs) {
-      return new List.Songs({
+      this.songsView = new List.Songs({
         collection: songs
       });
+      App.listenTo(this.songsView, 'childview:song:play', (function(_this) {
+        return function(list, item) {
+          return _this.playSong(item.model.get('songid'));
+        };
+      })(this));
+      App.listenTo(this.songsView, 'childview:song:add', (function(_this) {
+        return function(list, item) {
+          return _this.addSong(item.model.get('songid'));
+        };
+      })(this));
+      App.listenTo(this.songsView, "show", function() {
+        return App.vent.trigger("state:content:updated");
+      });
+      return this.songsView;
+    },
+    playSong: function(songId) {
+      var playlist;
+      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
+      return playlist.play('songid', songId);
+    },
+    addSong: function(songId) {
+      var playlist;
+      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
+      return playlist.add('songid', songId);
     }
   };
   return App.reqres.setHandler("song:list:view", function(songs) {
@@ -38931,8 +41528,6 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
 
     Song.prototype.tagName = "tr";
 
-    Song.prototype.className = 'song table-row';
-
     Song.prototype.initialize = function() {
       var duration;
       duration = helpers.global.secToTime(this.model.get('duration'));
@@ -38942,7 +41537,15 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     };
 
     Song.prototype.triggers = {
-      "click .menu": "song-menu:clicked"
+      "click .play": "song:play",
+      "dblclick .song-title": "song:play",
+      "click .add": "song:add"
+    };
+
+    Song.prototype.attributes = function() {
+      return {
+        "class": 'song table-row can-play item-song-' + this.model.get('songid')
+      };
     };
 
     return Song;
@@ -38964,6 +41567,624 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     return Songs;
 
   })(App.Views.CollectionView);
+});
+
+this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _) {
+  return StateApp.Base = (function(_super) {
+    __extends(Base, _super);
+
+    function Base() {
+      return Base.__super__.constructor.apply(this, arguments);
+    }
+
+    Base.prototype.state = {
+      player: 'kodi',
+      media: 'audio',
+      volume: 50,
+      muted: false,
+      shuffled: false,
+      repeat: 'off'
+    };
+
+    Base.prototype.playing = {
+      playing: false,
+      paused: false,
+      playState: '',
+      item: {},
+      position: {},
+      media: 'audio',
+      itemChanged: false,
+      latPlaying: '',
+      canrepeat: true,
+      canseek: true,
+      canshuffle: true,
+      partymode: false,
+      percentage: 0,
+      playlistid: 0,
+      position: 0,
+      speed: 0,
+      time: {
+        hours: 0,
+        milliseconds: 0,
+        minutes: 0,
+        seconds: 0
+      },
+      time: {
+        hours: 0,
+        milliseconds: 0,
+        minutes: 0,
+        seconds: 0
+      }
+    };
+
+    Base.prototype.defaultPlayingItem = {
+      thumbnail: '',
+      fanart: '',
+      id: 0,
+      songid: 0,
+      episodeid: 0,
+      album: '',
+      albumid: '',
+      duration: 0,
+      type: 'song'
+    };
+
+    Base.prototype.getState = function(key) {
+      if (key == null) {
+        key = 'all';
+      }
+      if (key === 'all') {
+        return this.state;
+      } else {
+        return this.state[key];
+      }
+    };
+
+    Base.prototype.setState = function(key, value) {
+      return this.state[key] = value;
+    };
+
+    Base.prototype.getPlaying = function(key) {
+      var ret;
+      if (key == null) {
+        key = 'all';
+      }
+      ret = this.playing;
+      if (ret.item.length === 0) {
+        ret.item = this.defaultPlayingItem;
+      }
+      if (key === 'all') {
+        return this.playing;
+      } else {
+        return this.playing[key];
+      }
+    };
+
+    Base.prototype.setPlaying = function(key, value) {
+      return this.playing[key] = value;
+    };
+
+    Base.prototype.isPlaying = function() {
+      return this.getPlaying('playing');
+    };
+
+    Base.prototype.isPlayingItemChanged = function() {
+      return this.getPlaying('itemChanged');
+    };
+
+    Base.prototype.doCallback = function(callback, resp) {
+      if (typeof callback === 'function') {
+        return callback(resp);
+      }
+    };
+
+    Base.prototype.getCurrentState = function(callback) {};
+
+    Base.prototype.getCachedState = function() {
+      return {
+        state: this.state,
+        playing: this.playing
+      };
+    };
+
+    Base.prototype.setPlayer = function(player) {
+      var $body;
+      if (player == null) {
+        player = 'kodi';
+      }
+      $body = App.getRegion('root').$el;
+      $body.removeClassStartsWith('active-player-').addClass('active-player-' + player);
+      return config.set('state', 'lastplayer', player);
+    };
+
+    Base.prototype.getPlayer = function() {
+      var $body, player;
+      $body = App.getRegion('root').$el;
+      return player = $body.hasClass('active-player-kodi') ? 'kodi' : 'local';
+    };
+
+    return Base;
+
+  })(Marionette.Object);
+});
+
+this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, $, _) {
+  return StateApp.State = (function(_super) {
+    __extends(State, _super);
+
+    function State() {
+      return State.__super__.constructor.apply(this, arguments);
+    }
+
+    State.prototype.playerController = {};
+
+    State.prototype.applicationController = {};
+
+    State.prototype.playlistApi = {};
+
+    State.prototype.initialize = function() {
+      this.setState('player', 'kodi');
+      this.playerController = App.request("command:kodi:controller", 'auto', 'Player');
+      this.applicationController = App.request("command:kodi:controller", 'auto', 'Application');
+      this.playlistApi = App.request("playlist:kodi:entity:api");
+      App.reqres.setHandler("state:kodi:update", (function(_this) {
+        return function(callback) {
+          return _this.getCurrentState(callback);
+        };
+      })(this));
+      return App.reqres.setHandler("state:kodi:get", (function(_this) {
+        return function() {
+          return _this.getCachedState();
+        };
+      })(this));
+    };
+
+    State.prototype.getCurrentState = function(callback) {
+      return this.applicationController.getProperties((function(_this) {
+        return function(properties) {
+          _this.setState('volume', properties.volume);
+          _this.setState('muted', properties.muted);
+          App.reqres.setHandler('player:kodi:timer', 'stop');
+          return _this.playerController.getPlaying(function(playing) {
+            var autoMap, key, media, _i, _len;
+            if (playing) {
+              _this.setPlaying('playing', true);
+              _this.setPlaying('paused', playing.properties.speed === 0);
+              _this.setPlaying('playState', (playing.properties.speed === 0 ? 'paused' : 'playing'));
+              autoMap = ['canrepeat', 'canseek', 'canshuffle', 'partymode', 'percentage', 'playlistid', 'position', 'speed', 'time', 'totaltime'];
+              for (_i = 0, _len = autoMap.length; _i < _len; _i++) {
+                key = autoMap[_i];
+                if (playing.properties[key]) {
+                  _this.setPlaying(key, playing.properties[key]);
+                }
+              }
+              _this.setState('shuffled', playing.properties.shuffled);
+              _this.setState('repeat', playing.properties.repeat);
+              media = _this.playerController.playerIdToName(playing.properties.playlistid);
+              if (media) {
+                _this.setState('media', media);
+              }
+              if (playing.item.file !== _this.getPlaying('lastPlaying')) {
+                _this.setPlaying('itemChanged', true);
+                App.vent.trigger("state:kodi:itemchanged", _this.getCachedState());
+              } else {
+                _this.setPlaying('itemChanged', false);
+              }
+              _this.setPlaying('lastPlaying', playing.item.file);
+              _this.setPlaying('item', _this.parseItem(playing.item, {
+                media: media,
+                playlistid: playing.properties.playlistid
+              }));
+              App.reqres.setHandler('player:kodi:timer', 'start');
+            } else {
+              _this.setPlaying('playing', false);
+              _this.setPlaying('paused', false);
+              _this.setPlaying('item', _this.defaultPlayingItem);
+              _this.setPlaying('lstPlaying', '');
+            }
+            App.vent.trigger("state:kodi:changed", _this.getCachedState());
+            App.vent.trigger("state:changed");
+            return _this.doCallback(callback, _this.getCachedState());
+          });
+        };
+      })(this));
+    };
+
+    State.prototype.parseItem = function(model, options) {
+      model = this.playlistApi.parseItem(model, options);
+      model = App.request("images:path:entity", model);
+      model.url = helpers.url.get(model.type, model.id);
+      model.url = helpers.url.playlistUrl(model);
+      return model;
+    };
+
+    return State;
+
+  })(App.StateApp.Base);
+});
+
+this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, $, _) {
+  return StateApp.Notifications = (function(_super) {
+    __extends(Notifications, _super);
+
+    function Notifications() {
+      return Notifications.__super__.constructor.apply(this, arguments);
+    }
+
+    Notifications.prototype.socketPort = config.get('static', 'socketsPort');
+
+    Notifications.prototype.socketPath = config.get('static', 'jsonRpcEndpoint');
+
+    Notifications.prototype.socketHost = config.get('static', 'socketsHost');
+
+    Notifications.prototype.wsActive = false;
+
+    Notifications.prototype.wsObj = {};
+
+    Notifications.prototype.getConnection = function() {
+      return "ws://" + this.socketHost + ":" + this.socketPort + "/" + this.socketPath + "?kodi";
+    };
+
+    Notifications.prototype.initialize = function() {
+      var msg, ws;
+      if (window.WebSocket) {
+        ws = new WebSocket(this.getConnection());
+        ws.onopen = (function(_this) {
+          return function(e) {
+            helpers.debug.msg("Websockets Active");
+            _this.wsActive = true;
+            return App.vent.trigger("sockets:available");
+          };
+        })(this);
+        ws.onerror = (function(_this) {
+          return function(resp) {
+            helpers.debug.msg(_this.socketConnectionErrorMsg(), "warning", resp);
+            _this.wsActive = false;
+            return App.vent.trigger("sockets:unavailable");
+          };
+        })(this);
+        ws.onmessage = (function(_this) {
+          return function(resp) {
+            return _this.messageRecieved(resp);
+          };
+        })(this);
+        ws.onclose = (function(_this) {
+          return function(resp) {
+            helpers.debug.msg("Websockets Closed", "warning", resp);
+            return _this.wsActive = false;
+          };
+        })(this);
+      } else {
+        msg = "Your browser doesn't support websockets! Get with the times and update your browser.";
+        helpers.debug.msg(t.gettext(msg), "warning", resp);
+        App.vent.trigger("sockets:unavailable");
+      }
+      return App.reqres.setHandler("sockets:active", function() {
+        return this.wsActive;
+      });
+    };
+
+    Notifications.prototype.parseResponse = function(resp) {
+      return jQuery.parseJSON(resp.data);
+    };
+
+    Notifications.prototype.messageRecieved = function(resp) {
+      var data;
+      data = this.parseResponse(resp);
+      this.onMessage(data);
+      return console.log(data);
+    };
+
+    Notifications.prototype.socketConnectionErrorMsg = function() {
+      var msg;
+      msg = "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and " + "uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED " + "in the Kodi settings (System > Services > Remote control).  You may also get this if you are using proxies or " + "accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to " + "refresh your browser.";
+      return t.gettext(msg);
+    };
+
+    Notifications.prototype.refreshStateNow = function(callback) {
+      App.vent.trigger("state:kodi:changed", this.getCachedState());
+      return setTimeout(((function(_this) {
+        return function() {
+          return App.request("state:kodi:update", function(state) {
+            if (callback) {
+              return callback(state);
+            }
+          });
+        };
+      })(this)), 1000);
+    };
+
+    Notifications.prototype.onMessage = function(data) {
+      var playerController, wait;
+      switch (data.method) {
+        case 'Player.OnPlay':
+          this.setPlaying('paused', false);
+          this.setPlaying('playState', 'playing');
+          App.execute("player:kodi:timer", 'start');
+          this.refreshStateNow();
+          break;
+        case 'Player.OnStop':
+          this.setPlaying('playing', false);
+          App.execute("player:kodi:timer", 'stop');
+          this.refreshStateNow();
+          break;
+        case 'Player.OnPropertyChanged':
+          this.refreshStateNow();
+          break;
+        case 'Player.OnPause':
+          this.setPlaying('paused', true);
+          this.setPlaying('playState', 'paused');
+          App.execute("player:kodi:timer", 'stop');
+          this.refreshStateNow();
+          break;
+        case 'Player.OnSeek':
+          App.execute("player:kodi:timer", 'stop');
+          this.refreshStateNow(function() {
+            return App.execute("player:kodi:timer", 'start');
+          });
+          break;
+        case 'Playlist.OnClear':
+        case 'Playlist.OnAdd':
+        case 'Playlist.OnRemove':
+          playerController = App.request("command:kodi:controller", 'auto', 'Player');
+          App.execute("playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid));
+          break;
+        case 'Application.OnVolumeChanged':
+          this.setState('volume', data.params.data.volume);
+          this.setState('muted', data.params.data.muted);
+          this.refreshStateNow();
+          break;
+        case 'VideoLibrary.OnScanStarted':
+          App.execute("notification:show", t.gettext("Video library scan started"));
+          break;
+        case 'VideoLibrary.OnScanFinished':
+          App.execute("notification:show", t.gettext("Video library scan complete"));
+          break;
+        case 'AudioLibrary.OnScanStarted':
+          App.execute("notification:show", t.gettext("Audio library scan started"));
+          break;
+        case 'AudioLibrary.OnScanFinished':
+          App.execute("notification:show", t.gettext("Audio library scan complete"));
+          break;
+        case 'Input.OnInputRequested':
+          App.execute("input:textbox", '');
+          wait = 60;
+          App.inputTimeout = setTimeout((function() {
+            var msg;
+            msg = wait + t.gettext(' seconds ago, an input dialog opened on xbmc and it is still open! To prevent ' + 'a mainframe implosion, you should probably give me some text. I don\'t really care what it is at this point, ' + 'why not be creative? Do you have a ') + '<a href="http://goo.gl/PGE7wg" target="_blank">' + t.gettext('word of the day') + '</a>? ' + t.gettext('I won\'t tell...');
+            App.execute("input:textbox", msg);
+          }), 1000 * wait);
+          break;
+        case 'Input.OnInputFinished':
+          clearTimeout(App.inputTimeout);
+          App.vent.trigger('input:textbox:complete');
+          break;
+        case 'System.OnQuit':
+          App.execute("notification:show", t.gettext("Kodi has quit"));
+          break;
+      }
+    };
+
+    return Notifications;
+
+  })(App.StateApp.Base);
+});
+
+this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, $, _) {
+  return StateApp.Polling = (function(_super) {
+    __extends(Polling, _super);
+
+    function Polling() {
+      return Polling.__super__.constructor.apply(this, arguments);
+    }
+
+    Polling.prototype.commander = {};
+
+    Polling.prototype.checkInterval = 5000;
+
+    Polling.prototype.currentInterval = '';
+
+    Polling.prototype.timeoutObj = {};
+
+    Polling.prototype.failures = 0;
+
+    Polling.prototype.maxFailures = 100;
+
+    Polling.prototype.initialize = function() {
+      return this.currentInterval = this.checkInterval;
+    };
+
+    Polling.prototype.startPolling = function() {
+      return this.update();
+    };
+
+    Polling.prototype.updateState = function() {
+      var stateObj;
+      stateObj = App.request("state:kodi");
+      return stateObj.getCurrentState();
+    };
+
+    Polling.prototype.update = function() {
+      if (App.kodiPolling.failures < App.kodiPolling.maxFailures) {
+        App.kodiPolling.updateState();
+        return App.kodiPolling.timeout = setTimeout(App.kodiPolling.ping, App.kodiPolling.currentInterval);
+      } else {
+        return App.execute("notification:show", t.gettext("Unable to communicate with Kodi in a long time. I think it's dead Jim!"));
+      }
+    };
+
+    Polling.prototype.ping = function() {
+      var commander;
+      commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      commander.setOptions({
+        timeout: 5000,
+        error: function() {
+          return App.kodiPolling.failure();
+        }
+      });
+      commander.onError = function() {};
+      return commander.sendCommand('Ping', [], function() {
+        return App.kodiPolling.alive();
+      });
+    };
+
+    Polling.prototype.alive = function() {
+      App.kodiPolling.failures = 0;
+      App.kodiPolling.currentInterval = App.kodiPolling.checkInterval;
+      return App.kodiPolling.update();
+    };
+
+    Polling.prototype.failure = function() {
+      App.kodiPolling.failures++;
+      if (App.kodiPolling.failures > 10) {
+        App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 5;
+      }
+      if (App.kodiPolling.failures > 20) {
+        App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 10;
+      }
+      if (App.kodiPolling.failures > 30) {
+        App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 30;
+      }
+      return App.kodiPolling.update();
+    };
+
+    return Polling;
+
+  })(App.StateApp.Base);
+});
+
+this.Kodi.module("StateApp.Local", function(StateApp, App, Backbone, Marionette, $, _) {
+  return StateApp.State = (function(_super) {
+    __extends(State, _super);
+
+    function State() {
+      return State.__super__.constructor.apply(this, arguments);
+    }
+
+    return State;
+
+  })(App.StateApp.Base);
+});
+
+this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    setState: function(player) {
+      if (player == null) {
+        player = 'kodi';
+      }
+      this.setBodyClasses(player);
+      this.setPlayingContent(player);
+      this.setPlayerPlaying(player);
+      return this.setAppProperties(player);
+    },
+    playerClass: function(className, player) {
+      return player + '-' + className;
+    },
+    setBodyClasses: function(player) {
+      var $body, c, newClasses, stateObj, _i, _len, _results;
+      stateObj = App.request("state:" + player);
+      $body = App.getRegion('root').$el;
+      $body.removeClassStartsWith(player + '-');
+      newClasses = [];
+      newClasses.push('shuffled-' + (stateObj.getState('shuffled') ? 'on' : 'off'));
+      newClasses.push('partymode-' + (stateObj.getPlaying('partymode') ? 'on' : 'off'));
+      newClasses.push('mute-' + (stateObj.getState('muted') ? 'on' : 'off'));
+      newClasses.push('repeat-' + stateObj.getState('repeat'));
+      newClasses.push('media-' + stateObj.getState('media'));
+      if (stateObj.isPlaying()) {
+        newClasses.push(stateObj.getPlaying('playState'));
+      } else {
+        newClasses.push('not-playing');
+      }
+      _results = [];
+      for (_i = 0, _len = newClasses.length; _i < _len; _i++) {
+        c = newClasses[_i];
+        _results.push($body.addClass(this.playerClass(c, player)));
+      }
+      return _results;
+    },
+    setPlayingContent: function(player) {
+      var $playlistCtx, className, item, playState, stateObj;
+      stateObj = App.request("state:" + player);
+      $playlistCtx = $('.' + player + '-playlist');
+      $('.can-play').removeClassStartsWith(player + '-row-');
+      $('.item', $playlistCtx).removeClassStartsWith('row-');
+      if (stateObj.isPlaying()) {
+        item = stateObj.getPlaying('item');
+        if (item.type !== 'file') {
+          playState = stateObj.getPlaying('playState');
+          className = '.item-' + item.type + '-' + item.id;
+          $(className).addClass(this.playerClass('row-' + playState, player));
+          return $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass('row-' + playState);
+        }
+      }
+    },
+    setPlayerPlaying: function(player) {
+      var $dur, $img, $playerCtx, $subtitle, $title, item, stateObj;
+      stateObj = App.request("state:" + player);
+      $playerCtx = $('#player-' + player);
+      $title = $('.playing-title', $playerCtx);
+      $subtitle = $('.playing-subtitle', $playerCtx);
+      $dur = $('.playing-time-duration', $playerCtx);
+      $img = $('.playing-thumb img', $playerCtx);
+      if (stateObj.isPlaying()) {
+        item = stateObj.getPlaying('item');
+        $title.html(helpers.entities.playingLink(item));
+        $subtitle.html(helpers.entities.getSubtitle(item));
+        $dur.html(helpers.global.formatTime(stateObj.getPlaying('totaltime')));
+        return $img.attr("src", item.thumbnail);
+      } else {
+        $title.html(t.gettext('Nothing Playing'));
+        $subtitle.html('');
+        $dur.html('0');
+        return $img.attr('src', App.request("images:path:get"));
+      }
+    },
+    setAppProperties: function(player) {
+      var $playerCtx, stateObj;
+      stateObj = App.request("state:" + player);
+      $playerCtx = $('#player-' + player);
+      return $('.volume', $playerCtx).val(stateObj.getState('volume'));
+    },
+    initKodiState: function() {
+      App.kodiState = new StateApp.Kodi.State();
+      App.localState = new StateApp.Local.State();
+      App.kodiState.setPlayer(config.get('state', 'lastplayer', 'kodi'));
+      App.kodiState.getCurrentState(function(state) {
+        API.setState('kodi');
+        App.kodiSockets = new StateApp.Kodi.Notifications();
+        App.kodiPolling = new StateApp.Kodi.Polling();
+        App.vent.on("sockets:unavailable", function() {
+          return App.kodiPolling.startPolling();
+        });
+        App.vent.on("state:content:updated", function() {
+          return API.setPlayingContent('kodi');
+        });
+        App.vent.on("state:kodi:changed", function(state) {
+          return API.setState('kodi');
+        });
+        return App.vent.on("state:player:updated", function(player) {
+          return API.setPlayerPlaying(player);
+        });
+      });
+      App.reqres.setHandler("state:kodi", function() {
+        return App.kodiState;
+      });
+      App.reqres.setHandler("state:local", function() {
+        return App.localState;
+      });
+      App.reqres.setHandler("state:current", function() {
+        var stateObj;
+        stateObj = App.kodiState.getPlayer() === 'kodi' ? App.kodiState : App.localState;
+        return stateObj;
+      });
+      return App.vent.trigger("state:changed");
+    }
+  };
+  return App.addInitializer(function() {
+    return API.initKodiState();
+  });
 });
 
 this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, _) {
@@ -39121,7 +42342,7 @@ this.Kodi.module("TVShowApp.Show", function(Show, App, Backbone, Marionette, $, 
           App.execute("images:fanart:set", tvshow.get('fanart'));
           _this.layout = _this.getLayoutView(tvshow);
           _this.listenTo(_this.layout, "destroy", function() {
-            return App.execute("images:fanart:set", '');
+            return App.execute("images:fanart:set", 'none');
           });
           _this.listenTo(_this.layout, "show", function() {
             return _this.getDetailsLayoutView(tvshow);
@@ -39251,5 +42472,13 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
     return new TVShowApp.Router({
       controller: API
     });
+  });
+});
+
+this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
+  return App.commands.setHandler("ui:textinput:show", function(title, msg, callback) {
+    if (msg == null) {
+      msg = '';
+    }
   });
 });

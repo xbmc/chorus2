@@ -5,7 +5,6 @@
     ## The Artist page.
     initialize: (options) ->
       id = parseInt options.id
-      console.log 'contr..', id
       artist = App.request "artist:entity", id
       ## Fetch the artist
       App.execute "when:entity:fetched", artist, =>
@@ -15,7 +14,7 @@
         @layout = @getLayoutView artist
         ## Ensure background removed when we leave.
         @listenTo @layout, "destroy", =>
-          App.execute "images:fanart:set", ''
+          App.execute "images:fanart:set", 'none'
         ## Listen to the show of our layout.
         @listenTo @layout, "show", =>
           @getMusic id

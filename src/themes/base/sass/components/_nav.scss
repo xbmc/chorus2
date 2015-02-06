@@ -2,7 +2,7 @@ $width-nav-bar: $size-region-unit * 4;
 $width-nav-bar-closed: $size-region-unit;
 
 #nav-bar {
-  background: $color-white;
+  background: $color-nav-background;
   width: $width-nav-bar-closed;
   padding: 0;
   @include set-position-fixed(top 0 left 0 right auto bottom 0);
@@ -14,7 +14,7 @@ $width-nav-bar-closed: $size-region-unit;
 
   #nav-header {
     height: 50px;
-    background: $color-greyscale-outer-space image-url('logo.png') 0 0 no-repeat;
+    background: $color-nav-header-background image-url('logo.png') 0 0 no-repeat;
   }
 
   nav {
@@ -24,13 +24,13 @@ $width-nav-bar-closed: $size-region-unit;
       a {
         display: block;
         padding: $spacing-half-unit 0;
-        color: $color-greyscale-outer-space;
+        color: $color-nav-text;
         text-align: center;
         &:hover {
-          background: rgba($color-greyscale-alto, 0.5);
-          color: $color-brand-primary;
+          background: $color-nav-hover-background;
+          color: $color-nav-text-hover;
           i {
-            color: $color-brand-primary;
+            color: $color-nav-text-hover;
           }
         }
         span {

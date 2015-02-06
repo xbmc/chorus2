@@ -1,0 +1,133 @@
+@Kodi.module "StateApp", (StateApp, App, Backbone, Marionette, $, _) ->
+
+
+  API =
+
+    setState: (player = 'kodi') ->
+      @setBodyClasses player
+      @setPlayingContent player
+      @setPlayerPlaying player
+      @setAppProperties player
+
+    playerClass: (className, player) ->
+      player + '-' + className
+
+    ## Set app level body state classes
+    setBodyClasses: (player) ->
+      stateObj = App.request "state:" + player
+      $body = App.getRegion('root').$el
+      ## Remove All
+      $body.removeClassStartsWith(player + '-');
+      ## Add based on state properties
+      newClasses = []
+      newClasses.push ( 'shuffled-' + (if stateObj.getState('shuffled') then 'on' else 'off')  )
+      newClasses.push ( 'partymode-' + (if stateObj.getPlaying('partymode') then 'on' else 'off')  )
+      newClasses.push ( 'mute-' + (if stateObj.getState('muted') then 'on' else 'off')  )
+      newClasses.push ( 'repeat-' + stateObj.getState('repeat') )
+      newClasses.push ( 'media-' + stateObj.getState('media') )
+
+      if stateObj.isPlaying()
+        newClasses.push ( stateObj.getPlaying('playState') )
+      else
+        newClasses.push ('not-playing')
+      for c in newClasses
+        $body.addClass @playerClass(c, player)
+
+    ## Set playing rows in content.
+    setPlayingContent: (player) ->
+      stateObj = App.request "state:" + player
+      $playlistCtx = $('.' + player + '-playlist')
+      $('.can-play').removeClassStartsWith(player + '-row-')
+      $('.item', $playlistCtx).removeClassStartsWith('row-')
+      if stateObj.isPlaying()
+        item = stateObj.getPlaying('item')
+        if item.type isnt 'file'
+          playState = stateObj.getPlaying('playState')
+          ## library item
+          className = '.item-' + item.type + '-' + item.id
+          $(className).addClass( @playerClass('row-' + playState, player) )
+          ## playlist item
+          $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+
+    ## Set the now playing info in the player
+    setPlayerPlaying: (player) ->
+      stateObj = App.request "state:" + player
+      $playerCtx = $('#player-' + player)
+      $title = $('.playing-title', $playerCtx)
+      $subtitle = $('.playing-subtitle', $playerCtx)
+      $dur = $('.playing-time-duration', $playerCtx)
+      $img = $('.playing-thumb img', $playerCtx)
+      if stateObj.isPlaying()
+        item = stateObj.getPlaying('item')
+        $title.html helpers.entities.playingLink(item)
+        $subtitle.html helpers.entities.getSubtitle(item)
+        $dur.html helpers.global.formatTime(stateObj.getPlaying('totaltime'))
+        $img.attr "src", item.thumbnail
+      else
+        $title.html t.gettext('Nothing Playing')
+        $subtitle.html ''
+        $dur.html '0'
+        $img.attr 'src', App.request("images:path:get")
+
+    setAppProperties: (player) ->
+      stateObj = App.request "state:" + player
+      $playerCtx = $('#player-' + player)
+      $('.volume', $playerCtx).val stateObj.getState('volume')
+
+
+    ## Kick off all things kodi statewise
+    initKodiState: ->
+
+      ## Set initial state
+      App.kodiState = new StateApp.Kodi.State()
+      App.localState = new StateApp.Local.State()
+
+
+      ## Set the initial active player
+      App.kodiState.setPlayer config.get('state', 'lastplayer', 'kodi')
+
+      ## Load up the Kodi state
+      App.kodiState.getCurrentState (state) ->
+        API.setState 'kodi'
+
+        ## Attach sockets and polling (if req).
+        App.kodiSockets = new StateApp.Kodi.Notifications()
+        App.kodiPolling =  new StateApp.Kodi.Polling()
+
+        ## Sockets unavailable, start polling.
+        App.vent.on "sockets:unavailable", ->
+          App.kodiPolling.startPolling()
+
+        ## Some new content has been renderd with a potential to be playing
+        App.vent.on "state:content:updated", ->
+          API.setPlayingContent 'kodi'
+
+        ## Some data has changed or needs updating.
+        App.vent.on "state:kodi:changed", (state) ->
+          API.setState 'kodi'
+
+        ## Player data requires updating
+        App.vent.on "state:player:updated", (player) ->
+          API.setPlayerPlaying player
+
+
+      ## Everything should use the state object.
+      App.reqres.setHandler "state:kodi", ->
+        App.kodiState
+      App.reqres.setHandler "state:local", ->
+        App.localState
+
+      ## Everything should use the state object.
+      App.reqres.setHandler "state:current", ->
+        stateObj = if App.kodiState.getPlayer() is 'kodi' then App.kodiState else App.localState
+        stateObj
+
+      ## Let things know the state object is now available
+      App.vent.trigger "state:changed"
+
+
+
+  ## Startup tasks.
+  App.addInitializer ->
+    ## Kodi state.
+    API.initKodiState()

@@ -1,0 +1,83 @@
+$row-height: 40px;
+
+.songs-table {
+  tr.song {
+    // Row defaults.
+    cursor: pointer;
+    td {
+      vertical-align: middle;
+      position: relative;
+    }
+    .play,
+    .play:before,
+    .cell-first {
+      width: $row-height;
+      height: $row-height;
+    }
+    .play {
+      @include icon(av-play-arrow);
+      @include set-position-absolute(top 0 left 0);
+      @include vertical-align-element();
+      text-align: center;
+      cursor: pointer;
+      display: none;
+      &:before {
+        @include vertical-align-element();
+        font-size: 200%;
+      }
+      &:hover {
+        color: $color-greyscale-outer-space;
+      }
+    }
+    .add {
+      @include icon(content-add-box);
+      font-size: 150%;
+    }
+    .menu {
+      @include icon(navigation-more-horiz);
+      font-size: 250%;
+    }
+    .actions {
+      @include set-position-absolute(top 0 right 5px bottom 0);
+      display: none;
+      width: $row-height * 2;
+      li {
+        width: $row-height;
+        text-align: center;
+        float: left;
+        &:before {
+          @include vertical-align-element();
+          width: $row-height;
+          height: $row-height;
+        }
+      }
+    }
+    // Row hover.
+    &:hover {
+      .duration,
+      .track {
+        display: none;
+      }
+      .play,
+      .actions {
+        display: block;
+      }
+    }
+  }
+}
+
+
+.track {
+
+  .local-row-playing &,
+  .local-row-paused &,
+  .kodi-row-playing &,
+  .kodi-row-paused & {
+    background: image-url('row-pause.png') 50% 50% no-repeat;
+    text-indent: -99999px;
+  }
+  .local-row-playing &,
+  .kodi-row-playing & {
+    background-image: image-url('row-playing.gif')
+  }
+}

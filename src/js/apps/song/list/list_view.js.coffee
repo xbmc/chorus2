@@ -3,12 +3,17 @@
   class List.Song extends App.Views.ItemView
     template: 'apps/song/list/song'
     tagName: "tr"
-    className: 'song table-row'
     initialize: ->
       duration = helpers.global.secToTime this.model.get('duration')
       this.model.set duration: helpers.global.formatTime duration
     triggers:
-      "click .menu" : "song-menu:clicked"
+      "click .play"           : "song:play"
+      "dblclick .song-title"  : "song:play"
+      "click .add"           : "song:add"
+    attributes: ->
+      {
+      class: 'song table-row can-play item-song-' + @model.get('songid')
+      }
 
   class List.Songs extends App.Views.CollectionView
     childView: List.Song

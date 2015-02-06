@@ -1,12 +1,18 @@
-@Kodi.module "Command.Kodi", (Api, App, Backbone, Marionette, $, _) ->
+@Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
 
   class Api.Base extends Marionette.Object
 
-    initialize: ->
+    ajaxOptions: {}
+
+    initialize: (options = {}) ->
       $.jsonrpc.defaultUrl = config.get 'static', 'jsonRpcEndpoint'
+      @setOptions(options)
+
+    setOptions: (options) ->
+      @ajaxOptions = options
 
     multipleCommands: (commands, callback) ->
-      obj = $.jsonrpc commands
+      obj = $.jsonrpc commands, @ajaxOptions
       obj.fail (error) =>
         @onError commands, error
       obj.done (response) =>
@@ -26,14 +32,18 @@
     parseResponse: (commands, response) ->
       results = []
       for i, result of response
-        if result.result
+        if result.result or result.result is false
           results.push result.result
         else
           @onError commands[i], result
       if commands.length is 1 and results.length is 1
-        results = response[0]
+        results = results[0]
       results
 
+    paramObj: (key, val) ->
+      obj = {}
+      obj[key] = val
+      obj
 
     doCallback: (callback, response) ->
       if callback?

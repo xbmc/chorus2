@@ -13,6 +13,16 @@
         @getActive()
         @getSections()
 
+      ## Change panes.
+      @listenTo @layoutFilters, 'filter:layout:close:filters', =>
+        @stateChange('normal')
+      @listenTo @layoutFilters, 'filter:layout:close:options', =>
+        @stateChange('filters')
+      @listenTo @layoutFilters, 'filter:layout:open:filters', =>
+        @stateChange('filters')
+      @listenTo @layoutFilters, 'filter:layout:open:options', =>
+        @stateChange('options')
+
       ## Return layout view.
       @layoutFilters
 
@@ -22,8 +32,8 @@
       new Show.FilterLayout
         collection: collection
 
-    getSort: ->
 
+    getSort: ->
       sortCollection = App.request 'filter:sortable:entities'
       sortView = new Show.SortList
         collection: sortCollection
@@ -33,6 +43,7 @@
         App.request 'filter:sort:store:set', childview.model.get('key'), childview.model.get('order')
         @layoutFilters.trigger 'filter:changed'
         @getSort()
+
 
     getFilters: (clearOptions = true) ->
       filterCollection = App.request 'filter:filterable:entities'
@@ -46,11 +57,13 @@
           @triggerChange()
         else
           @getFilterOptions key
+          @stateChange('options')
       ## Render the filters.
       @layoutFilters.regionFiltersList.show filtersView
       ## Empty the options ready for a change.
       if clearOptions
         @layoutFilters.regionFiltersOptions.empty()
+
 
     getActive: ->
       activeCollection = App.request 'filter:active'
@@ -62,6 +75,10 @@
         key = childview.model.get('key')
         App.request 'filter:store:key:update', key, []
         @triggerChange()
+      ## Bind to new and open filter pane
+      App.listenTo optionsView, "childview:filter:add", (parentview, childview) =>
+        @stateChange('filters')
+
 
     getFilterOptions: (key) ->
       ## Create the options list view and add to dom
@@ -76,11 +93,24 @@
         App.request 'filter:store:key:toggle', key, value
         @triggerChange(false) ## dont clear options.
 
+
     ## When something has changed. rerender the actives and notify other watchers.
     triggerChange: (clearOptions = true) ->
       @getFilters(clearOptions)
       @getActive()
       @layoutFilters.trigger 'filter:changed'
+
+
+    ## state changes (slide the filter panes in and out)
+    stateChange: (state = 'normal') ->
+      $wrapper = @layoutFilters.$el.find('.filters-container')
+      switch state
+        when 'filters'
+          $wrapper.removeClass('show-options').addClass('show-filters')
+        when 'options'
+          $wrapper.addClass('show-options').removeClass('show-filters')
+        else
+          $wrapper.removeClass('show-options').removeClass('show-filters')
 
 
     ## Populate the sections with structure from mainNav.

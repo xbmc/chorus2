@@ -1,25 +1,25 @@
 <div class="filters-container">
 
-    <div class="filters-current">
+    <div class="filters-current filter-pane">
         <div class="nav-section">
             <h3><%= t.gettext('sections') %></h3>
             <div class="list nav-items"></div>
         </div>
 
-        <h3><%= t.gettext('Filters') %></h3>
+        <h3 class="open-filters"><%= t.gettext('Filters') %></h3>
         <div class="filters-active"></div>
 
         <h3><%= t.gettext('Sort') %></h3>
         <div class="list sort-options"></div>
     </div>
 
-    <div class="filters-page">
-        <h3><%= t.gettext('Select a filter') %></h3>
+    <div class="filters-page filter-pane">
+        <h3 class="close-filters"><%= t.gettext('Select a filter') %></h3>
         <div class="list filters-list"></div>
     </div>
 
-    <div class="filters-options">
-        <h3><%= t.gettext('Select an option') %></h3>
+    <div class="filters-options filter-pane">
+        <h3 class="close-options"><%= t.gettext('Select an option') %></h3>
         <div class="list filter-options-list"></div>
     </div>
 

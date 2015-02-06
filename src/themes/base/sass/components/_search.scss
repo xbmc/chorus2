@@ -12,6 +12,7 @@
   @include set-layout('width-search', 'width');
   outline: none;
   padding: 0 $spacing-half-unit 0 0;
+  color: $color-header-search-text;
 }
 #do-search {
   @include set-layout('height-header', 'width');
@@ -23,5 +24,6 @@
     font-size: 150%;
     @include vertical-align-element();
     text-align: center;
+    color: $color-header-search-icon;
   }
 }

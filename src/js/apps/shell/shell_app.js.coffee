@@ -2,13 +2,25 @@
 
   class Shell.Router extends App.Router.Base
     appRoutes:
+      ""      	: "homePage"
       "home"   	: "homePage"
 
 
   API =
 
     homePage: ->
-      foo = 'bar'
+      home = new Shell.HomepageLayout()
+      App.regionContent.show home
+      App.execute "images:fanart:set"
+      ## Change the famart when the state changes.
+      App.vent.on "state:changed", (state) ->
+        stateObj = App.request "state:current"
+        if stateObj.isPlayingItemChanged()
+          playingItem = stateObj.getPlaying 'item'
+          App.execute "images:fanart:set", playingItem.fanart
+      ## Ensure background removed when we leave.
+      App.listenTo home, "destroy", =>
+        App.execute "images:fanart:set", 'none'
 
     ## Render the shell.
     renderLayout: ->
@@ -33,15 +45,11 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
-      ## Set a background
-      App.execute("images:fanart:set")
-
-
 
       ## TESTINGS!
 
       ## Get data
-#      entity = App.request "tvshow:entities"
+#      entity = App.request "playlist:kodi:entities", 'audio'
 #      App.execute "when:entity:fetched", entity, ->
 #        console.log entity
 

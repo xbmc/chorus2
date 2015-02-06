@@ -12,3 +12,15 @@ helpers.entities.getFields = (set, type = 'small') ->
     fields.concat(set.small)
   else
     fields
+
+## Build a subtitle based on the content.
+helpers.entities.getSubtitle = (model) ->
+  switch model.type
+    when 'song'
+      subtitle = model.artist.join(',')
+    else
+      subtitle = ''
+  subtitle
+
+helpers.entities.playingLink = (model) ->
+  "<a href='##{model.url}'>#{model.label}</a>"

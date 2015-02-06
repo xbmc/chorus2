@@ -41,7 +41,7 @@
         @layout = @getLayoutView album
         ## Ensure background removed when we leave.
         @listenTo @layout, "destroy", =>
-          App.execute "images:fanart:set", ''
+          App.execute "images:fanart:set", 'none'
         ## Listen to the show of our layout.
         @listenTo @layout, "show", =>
           @getMusic id

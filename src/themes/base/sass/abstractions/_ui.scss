@@ -1,0 +1,25 @@
+// =============================================================================
+// Name:            Ui elements
+// Description:     ui abstractions.
+// =============================================================================
+
+@mixin icon-button ($icon-code, $width, $height) {
+  @include vertical-align-wrapper;
+  @include icon($icon-code);
+  width: $width;
+  text-align: center;
+  cursor: pointer;
+  &:before {
+    @include vertical-align-element();
+    height: $height;
+  }
+}
+
+@mixin icon-button-square ($icon-code, $width) {
+  @include icon-button ($icon-code, $width, $width);
+}
+
+@mixin overlay {
+  background: rgba($color-black, 0.6);
+  @include set-position-absolute(top 0 right 0 bottom 0 left 0);
+}

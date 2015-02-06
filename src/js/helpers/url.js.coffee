@@ -28,6 +28,15 @@ helpers.url.get = (type, id = '', replacements = {}) ->
   path
 
 
+## For a mixed style entity (playlist, now playing), tweak the url
+helpers.url.playlistUrl = (item) ->
+  if item.type is 'song'
+    if item.albumid isnt ''
+      item.url = helpers.url.get 'album', item.albumid
+    else
+      item.url 'music/albums'
+  item.url
+
 ## Get url args
 helpers.url.arg = (arg = 'none') ->
   hash = location.hash

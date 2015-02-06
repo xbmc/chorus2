@@ -17,7 +17,8 @@
     ## called during model.parse()
     parseModel: (type, model, id) ->
       if not model.parsed
-        model.id = id
+        if id isnt 'mixed'
+          model.id = id
         model = App.request "images:path:entity", model
         model.url = helpers.url.get type, id
         model.type = type

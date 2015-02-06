@@ -1,0 +1,18 @@
+<div class="playlist-header">
+    <ul class="player-toggle">
+        <li class="kodi"><%= t.gettext('Kodi') %></li>
+        <li class="local"><%= t.gettext('Local') %></li>
+    </ul>
+</div>
+<div class="playlists-wrapper">
+    <div class="kodi-playlists">
+        <ul class="media-toggle">
+            <li class="audio">Audio</li>
+            <li class="video">Video</li>
+        </ul>
+        <div class="kodi-playlist"></div>
+    </div>
+    <div class="local-playlists">
+        <div class="local-playlist"></div>
+    </div>
+</div>

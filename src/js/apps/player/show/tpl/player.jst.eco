@@ -9,7 +9,7 @@
     </div>
 
     <div class="controls-secondary">
-        <div class="volume"></div>
+        <div class="volume slider-bar"></div>
         <div class="controls-secondary-buttons">
             <div class="control control-mute"></div>
             <div class="control control-repeat"></div>
@@ -23,13 +23,13 @@
             <img src="" />
         </div>
         <div class="playing-info">
-            <div class="playing-progress"></div>
+            <div class="playing-progress slider-bar"></div>
             <div class="playing-time">
-                <div class="playing-time-current"></div>
-                <div class="playing-time-duration"></div>
+                <div class="playing-time-current">0</div>
+                <div class="playing-time-duration">0:00</div>
             </div>
             <div class="playing-meta">
-                <div class="playing-title"></div>
+                <div class="playing-title"><%= t.gettext('Nothing playing') %></div>
                 <div class="playing-subtitle"></div>
             </div>
         </div>

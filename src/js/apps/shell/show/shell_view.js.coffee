@@ -8,7 +8,6 @@
       regionContent: '#content'
       regionSidebarFirst: '#sidebar-first'
       regionPlaylist: '#playlist-bar'
-      regionPlaylistSummary: '#playlist-summary'
       regionTitle: '#page-title .title'
       regionTitleContext: '#page-title .context'
       regionFanart: '#fanart'
@@ -17,5 +16,8 @@
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"
+
+  class Shell.HomepageLayout extends Backbone.Marionette.LayoutView
+    template: "apps/shell/show/homepage"
 
   App.execute "shell:view:ready"
