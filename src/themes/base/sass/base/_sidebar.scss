@@ -1,0 +1,51 @@
+// =============================================================================
+// Name:            Sidebar
+// Description:     Sidebar base abstractions.
+// =============================================================================
+
+@mixin sidebar-padding() {
+  padding: $spacing-base-unit $spacing-base-unit + $spacing-half-unit;
+}
+%sidebar--padding {
+  @include sidebar-padding();
+}
+
+@mixin sidebar-heading () {
+  font-size: $font-size-base + 1;
+  text-transform: uppercase;
+  margin: $spacing-base-unit 0;
+  color: $color-greyscale-gray;
+  font-weight: bold;
+}
+%sidebar--heading {
+  @include sidebar-heading()
+}
+
+@mixin sidebar-section () {
+  margin-bottom: $spacing-double-unit;
+}
+%sidebar--section {
+  @include sidebar-section();
+}
+
+@mixin sidebar-list () {
+  padding-left: $spacing-base-unit;
+  li {
+    padding-bottom: $spacing-half-unit;
+    @include text-crop($color-sidebar);
+    cursor: pointer;
+    &:hover {
+      color: $color-kodi;
+    }
+    a {
+      color: $color-greyscale-outer-space;
+      &.active {
+        color: $color-kodi;
+        font-weight: bold;
+      }
+    }
+  }
+}
+%sidebar--list {
+  @include sidebar-list();
+}

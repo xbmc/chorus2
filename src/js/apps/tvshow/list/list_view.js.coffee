@@ -5,6 +5,7 @@
 
   class List.TVShowTeaser extends App.Views.CardView
     triggers:
+      "click .play" : "tvshow:play"
       "click .menu" : "tvshow-menu:clicked"
     initialize: ->
       subtitle = ''

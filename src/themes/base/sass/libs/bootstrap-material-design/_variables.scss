@@ -1,6 +1,9 @@
 // material icons path
 $material-font-path: "../fonts/material" !default;
 
+// Import custom colors
+@import '../../variables/colors';
+
 // Material colors palette
 $red: #F44336 !default;
 $pink: #E91E63 !default;
@@ -21,7 +24,7 @@ $brown: #795548 !default;
 $lightgrey: #ECECEC !default;
 
 // Bootstrap shades
-$primary: #4285F4 !default;
+$primary: $color-kodi !default;
 $success: #0F9D58 !default;
 $info: $lightblue !default;
 $warning: $deeporange !default;

@@ -50,6 +50,7 @@ module.exports = function (grunt) {
       'entities/{,**}/*.coffee',
       'controllers/{,**}/*.coffee',
       'views/{,**}/*.coffee',
+      'components/{,**}/*.coffee',
       'apps/{,**}/*.coffee'
     ];
   }

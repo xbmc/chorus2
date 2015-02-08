@@ -13,6 +13,7 @@ helpers.url.map =
   tvseason: 'tvshow/:tvshowid/:id'
   tvepisode: 'tvshow/:tvshowid/:tvseason/:id'
   file: 'browser/file/:id'
+  playlist: 'playlist/:id'
 
 
 ## Get a url for a given model type.

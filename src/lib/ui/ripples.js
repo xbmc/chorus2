@@ -214,12 +214,14 @@
    * Get the ripple color
    */
   Ripples.prototype.getRipplesColor = function() {
-    var $element = this.element;
+    var $element = this.element, color;
 
-    console.log($element);
-
-    var color = $element.data("ripple-color") ? $element.data("ripple-color") : window.getComputedStyle($element[0]).color;
-    console.log(color);
+    // Hacked for custom color
+    if(this.options && this.options.color) {
+      color = this.options.color
+    } else {
+      color = $element.data("ripple-color") ? $element.data("ripple-color") : window.getComputedStyle($element[0]).color;
+    }
 
     return color;
   };

@@ -57,7 +57,7 @@
       read: ['AudioLibrary.GetArtists', 'arg1', 'arg2', 'arg3', 'arg4']
     }
     arg1: ->
-      true
+      config.get 'static', 'albumAtristsOnly', true
     arg2: -> API.getArtistFields('small')
     arg3: -> @argLimit()
     arg4: -> @argSort("artist", "ascending")

@@ -2,17 +2,26 @@
 
   API =
 
+    bindTriggers: (view) ->
+      App.listenTo view, 'album:play', (item) ->
+        App.execute 'album:action', 'play', item.model
+      App.listenTo view, 'album:add', (item) ->
+        App.execute 'album:action', 'add', item.model
+      App.listenTo view, 'album:localadd', (item) ->
+        App.execute 'album:action', 'localadd', item.model
+
     ## Return a set of albums with songs.
     ## Songs is expected to be an array of song collections
     ## keyed by albumid. The only thing that should be calling this is artists.
     getAlbumsFromSongs: (songs) ->
       albumsCollectionView = new Show.WithSongsCollection()
       ## What happens when we add a child to this mofo
-      albumsCollectionView.on "add:child", (albumView) ->
+      albumsCollectionView.on "add:child", (albumView) =>
         App.execute "when:entity:fetched", album, =>
           model = albumView.model
           ## Add the teaser.
           teaser = new Show.AlbumTeaser model: model
+          API.bindTriggers teaser
           albumView.regionMeta.show teaser
           ## Add the songs.
           songView = App.request "song:list:view", songs[model.get('albumid')]
@@ -59,10 +68,12 @@
       headerLayout = new Show.HeaderLayout model: album
       @listenTo headerLayout, "show", =>
         teaser = new Show.AlbumDetailTeaser model: album
+        API.bindTriggers teaser
         detail = new Show.Details model: album
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
+
 
     ## Get a list of all the music for this artist parsed into albums.
     getMusic: (id) ->

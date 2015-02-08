@@ -1,10 +1,7 @@
 <div class="filters-container">
 
     <div class="filters-current filter-pane">
-        <div class="nav-section">
-            <h3><%= t.gettext('sections') %></h3>
-            <div class="list nav-items"></div>
-        </div>
+        <div class="nav-section"></div>
 
         <h3 class="open-filters"><%= t.gettext('Filters') %></h3>
         <div class="filters-active"></div>

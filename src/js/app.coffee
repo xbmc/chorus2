@@ -6,6 +6,11 @@
     socketsHost: location.hostname
     socketsPort: 9090
     ajaxTimeout: 5000
+    hashKey: 'kodi'
+    defaultPlayer: 'auto'
+    ignoreArticle: true
+    pollInterval: 10000
+    albumAtristsOnly: true
 }
 
 ## The App Inance
@@ -16,6 +21,11 @@
   App.addRegions
     root: "body"
 
+  ## Load custom config settings.
+  App.on "before:start", ->
+    config.static = _.extend config.static, config.get('app', 'config:local', config.static)
+    console.log config.static
+
   App.vent.on "shell:ready", (options) =>
     App.startHistory()
 
@@ -23,5 +33,6 @@
 
 $(document).ready =>
   @Kodi.start()
+  $.material.init()
 
 

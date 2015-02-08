@@ -1,0 +1,2 @@
+<div class="thumb"><img src="<%= @thumbnail %>" onerror="Kodi.request('images:path:get')" /><div class="play"></div></div>
+<div class="title"><%= @label %></div>

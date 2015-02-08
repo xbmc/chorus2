@@ -1,8 +1,9 @@
-<div class="card-inner card-<%= @type %>">
+<div class="card-<%= @type %>">
     <div class="artwork">
         <a href="#<%= @url %>" class="thumb" title="<%= @label %>">
             <img src="<%= this.thumbnail %>" />
         </a>
+        <div class="play"></div>
     </div>
     <div class="meta">
         <div class="title"><a href="#<%= @url %>" title="<%= @label %>"><%= @label %></a></div>
@@ -10,4 +11,17 @@
             <div class="subtitle"><%- @subtitle %></div>
         <% end %>
     </div>
+    <% if @actions: %>
+        <ul class="actions">
+            <% for key, val of @actions: %><li class="<%= key %>" title="<%= val %>"></li><% end %>
+        </ul>
+    <% end %>
+    <% if @menu: %>
+        <div class="dropdown">
+            <i data-toggle="dropdown"></i>
+            <ul class="dropdown-menu">
+
+            </ul>
+        </div>
+    <% end %>
 </div>

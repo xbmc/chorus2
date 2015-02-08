@@ -5,7 +5,10 @@
 
   class List.MovieTeaser extends App.Views.CardView
     triggers:
+      "click .play" : "movie:play"
       "click .menu" : "movie-menu:clicked"
+    initialize: ->
+      @model.set subtitle: @model.get('year')
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"

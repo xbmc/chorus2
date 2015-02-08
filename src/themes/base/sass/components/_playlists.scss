@@ -67,13 +67,7 @@ $playlist-item-open-height: 80px;
     }
   }
   .play {
-    @include overlay;
-    @include icon-button-square(av-play-arrow, $playlist-item-hover-height);
-    display: none;
-    &:before {
-      color: $color-white;
-      font-size: 200%;
-    }
+    @include overlay-icon($height: $playlist-item-hover-height, $font-size: 200%)
   }
   .meta {
     margin: 0 30px 0 0px;
@@ -125,13 +119,13 @@ $playlist-item-open-height: 80px;
     color: $color-playlist-sub-header-text;
     cursor: pointer;
   }
-  .kodi-media-audio & {
+  .playlist-bar.media-audio & {
     li.audio {
       color: $color-playlist-sub-header-active-text;
       background: $color-playlist-sub-header-active-background;
     }
   }
-  .kodi-media-video & {
+  .playlist-bar.media-video & {
     li.video {
       color: $color-playlist-sub-header-active-text;
       background: $color-playlist-sub-header-active-background;

@@ -51,7 +51,7 @@
     API.setFanartBackground path, region
 
   ## Handler to return a parsed image path.
-  App.reqres.setHandler "images:path:get", (rawPath, type = 'thumbnail') ->
+  App.reqres.setHandler "images:path:get", (rawPath = '', type = 'thumbnail') ->
     API.getImageUrl(rawPath, type)
 
   ## Handler to apply correct paths to a model, expects to be called

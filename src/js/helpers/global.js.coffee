@@ -73,3 +73,30 @@ helpers.global.formatTime = (time) ->
     ((if (time.minutes > 0 or time.hours > 0) and time.seconds < 10 then "0" else "")) +
     time.seconds
     timeStr
+
+
+## Basic helper that returns a new object with a key/value set
+helpers.global.paramObj = (key, value) ->
+  obj = {}
+  obj[key] = value
+  obj
+
+
+## Check if a string starts with a given string
+helpers.global.stringStartsWith = (start, data) ->
+  new RegExp('^' + start).test(data)
+
+
+## Strip a string from the begining of another string
+helpers.global.stringStripStartsWith = (start, data) ->
+  data.substring(start.length)
+
+
+## Used for url stubs so we can pass long strings like files and folders
+## via a url. op = 'encode' or 'decode'. value is the thing you want to encode/decode
+## @see https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
+helpers.global.hash = (op, value) ->
+  if op is 'encode'
+    encodeURIComponent(value)
+  else
+    decodeURIComponent(value)

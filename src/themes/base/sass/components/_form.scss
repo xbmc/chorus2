@@ -1,0 +1,28 @@
+form .form-control-wrapper {
+  .form-control:focus,
+  .form-control {
+    padding: $spacing-half-unit $spacing-half-unit / 2;
+    height: auto;
+    margin-bottom: $spacing-half-unit;
+  }
+}
+
+.help-block {
+  margin-top: 8px;
+  font-size: 90%;
+  color: #C0C0C0;
+}
+
+form {
+  .inline-list {
+    @include pie-clearfix();
+    li {
+      display: inline-block;
+      margin-right: $spacing-double-unit;
+      float: left;
+    }
+    .response {
+      padding-top: 18px;
+    }
+  }
+}

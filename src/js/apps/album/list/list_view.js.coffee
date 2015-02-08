@@ -5,8 +5,13 @@
 
   class List.AlbumTeaser extends App.Views.CardView
     triggers:
-      "click .menu" : "album-menu:clicked"
+      "click .play"               : "album:play"
+      "click .dropdown .add"      : "album:add"
+      "click .dropdown .localadd" : "album:localadd"
+
     initialize: ->
+      @model.set({actions: {thumbs: 'Thumbs up'}})
+      @model.set({menu: {add: 'Add to Kodi playlist', localadd: 'Add to local playlist', divider: '', localplay: 'Play in browser'}})
       artistLink = @themeLink @model.get('artist'), helpers.url.get('artist', @model.get('artistid'))
       @model.set subtitle: artistLink
 

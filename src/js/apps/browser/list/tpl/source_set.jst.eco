@@ -1,0 +1,2 @@
+<h3><%= @label %></h3>
+<ul class="sources"></ul>

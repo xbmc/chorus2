@@ -41,6 +41,12 @@
 
       ## Thumbs up.
       nav.push {id: 41, title: "Thumbs Up", path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
+
+      ## Settings.
+      nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-browser', parent: 0}
+      nav.push {id: 52, title: "Web Settings", path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 53, title: "Kodi Settings", path: 'settings/kodi', icon: '', classes: '', parent: 51}
+
       nav
 
     getDefaultStructure: ->
@@ -50,9 +56,10 @@
 
     getChildStructure: (parentId) ->
       nav = @getItems()
+      parent = _.findWhere nav, {id: parentId}
       childItems = _.where(nav, {parent: parentId})
-      navCollection = new Entities.NavMainCollection childItems
-      navCollection
+      parent.items = new Entities.NavMainCollection childItems
+      new Entities.NavMain parent
 
     ## Sort the structure into a heirachy.
     sortStructure: (structure) ->

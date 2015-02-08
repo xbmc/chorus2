@@ -5,7 +5,11 @@
 
   class List.ArtistTeaser extends App.Views.CardView
     triggers:
-      "click .menu" : "artist-menu:clicked"
+      "click .play" : "artist:play"
+      "click .dropdown .add" : "artist:add"
+    initialize: ->
+      @model.set({actions: {thumbs: 'Thumbs up'}})
+      @model.set({menu: {add: 'Add to Kodi playlist', savelist: 'Add to local playlist', divider: '', localplay: 'Play in browser'}})
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"

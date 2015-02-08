@@ -20,6 +20,17 @@
 }
 
 @mixin overlay {
-  background: rgba($color-black, 0.6);
+  background: rgba($color-black, 0.75);
   @include set-position-absolute(top 0 right 0 bottom 0 left 0);
+}
+
+@mixin overlay-icon($icon: av-play-arrow, $height: 100px, $font-size: 200%) {
+  @include overlay;
+  @include icon-button-square($icon, $height);
+  display: none;
+  &:before {
+    color: $color-white;
+    font-size: $font-size;
+    padding-right: 5px;
+  }
 }

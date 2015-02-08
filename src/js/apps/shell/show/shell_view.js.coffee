@@ -13,6 +13,10 @@
       regionFanart: '#fanart'
       regionPlayerKodi: '#player-kodi'
       regionPlayerLocal: '#player-local'
+      regionModal: '#modal-window'
+      regionModalTitle: '.modal-title'
+      regionModalBody: '.modal-body'
+      regionModalFooter: '.modal-footer'
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"

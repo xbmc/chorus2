@@ -25,8 +25,8 @@
 
     ## Change sort comparator.
     sortCollection: (property, order = 'asc') ->
-      @comparator = (model) ->
-        model.get property
+      @comparator = (model) =>
+        @ignoreArticleParse model.get(property)
       if order is 'desc'
         @comparator = @reverseSortBy @comparator
       @sort()
@@ -43,3 +43,17 @@
         if r == undefined
           return 1
         if l < r then 1 else if l > r then -1 else 0
+
+    ## Ignore article in list sorting.
+    ignoreArticleParse: (string) ->
+      articles = ["'", '"', 'the ', 'a ']
+      if typeof string is 'string' and config.get('static', 'ignoreArticle', true)
+        string = string.toLowerCase()
+        parsed = false
+        for s in articles
+          if parsed
+            continue
+          if helpers.global.stringStartsWith s, string
+            string = helpers.global.stringStripStartsWith s, string
+            parsed = true
+      string

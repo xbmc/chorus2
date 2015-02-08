@@ -23,9 +23,16 @@
         collection: collection
 
     getArtistsView: (collection) ->
-      new List.Artists
+      view = new List.Artists
         collection: collection
+      @bindTriggers view
+      view
 
+    bindTriggers: (view) ->
+      @listenTo view, 'childview:artist:play', (list, item) ->
+        App.execute 'artist:action', 'play', item.model
+      @listenTo view, 'childview:artist:add', (list, item) ->
+        App.execute 'artist:action', 'add', item.model
 
     ## Available sort and filter options
     ## See filter_app.js for available options

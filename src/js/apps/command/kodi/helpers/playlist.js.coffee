@@ -7,10 +7,14 @@
 
     commandNameSpace: 'Playlist'
 
-    ## Play an item (adding it to the end of the playlist first)
+    ## Play an item. If currently playing, insert it next, else clear playlist and add.
     play: (type, value) ->
-      @playlistSize (size) =>
-        @insertAndPlay type, value, size
+      stateObj = App.request "state:kodi"
+      if stateObj.isPlaying()
+        @insertAndPlay type, value, (stateObj.getPlaying('position') + 1)
+      else
+        @clear =>
+          @insertAndPlay type, value, 0
 
     ## Add a item to the end of the playlist
     add: (type, value) ->

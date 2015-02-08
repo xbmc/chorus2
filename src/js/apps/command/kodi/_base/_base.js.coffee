@@ -41,9 +41,7 @@
       results
 
     paramObj: (key, val) ->
-      obj = {}
-      obj[key] = val
-      obj
+      helpers.global.paramObj key, val
 
     doCallback: (callback, response) ->
       if callback?

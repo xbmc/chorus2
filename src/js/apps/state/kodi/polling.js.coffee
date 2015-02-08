@@ -5,7 +5,7 @@
   class StateApp.Polling extends App.StateApp.Base
 
     commander: {}
-    checkInterval: 5000 ## 10 sec
+    checkInterval: 10000 ## 10 sec
     currentInterval: ''
     timeoutObj: {}
     failures: 0
@@ -13,6 +13,8 @@
 
     initialize: ->
       ## Set the current interval to default
+      interval = config.get 'static', 'pollInterval'
+      @checkInterval = parseInt interval
       @currentInterval = @checkInterval
 
     startPolling: ->

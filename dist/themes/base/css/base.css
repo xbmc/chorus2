@@ -8237,6 +8237,12 @@ button.close {
 /**
  * Add all the sets to our $icon-sets map.
  */
+/**
+ * Palettes.
+ */
+/**
+* Components
+*/
 /* line 1, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_shadows.scss */
 .shadow-z-1, .card, .snackbar {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -8258,12 +8264,12 @@ button.close {
 }
 
 /* line 20, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_shadows.scss */
-.shadow-z-4 {
+.shadow-z-4, .btn-raised:hover, .btn-group:hover, .btn-group-vertical:hover, .btn-group.btn-group-raised:hover, .btn-group-vertical.btn-group-raised:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 /* line 25, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_shadows.scss */
-.shadow-z-5, .btn-raised:hover, .btn-group:hover, .btn-group-vertical:hover, .btn-group.btn-group-raised:hover, .btn-group-vertical.btn-group-raised:hover {
+.shadow-z-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
@@ -8356,7 +8362,7 @@ body.inverse, body.inverse .form-control {
   border: 0;
   margin: 10px 1px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 2px;
   text-transform: uppercase;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.84);
@@ -8397,36 +8403,42 @@ body.inverse, body.inverse .form-control {
 }
 
 /* line 65, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus {
+  background: #10a0cf;
+  border-color: #10a0cf;
+}
+
+/* line 70, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group, .btn-group-vertical {
   position: relative;
   border-radius: 4px;
   margin: 10px 1px;
   transition: box-shadow transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* line 71, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 76, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group.open .dropdown-toggle, .btn-group-vertical.open .dropdown-toggle {
   box-shadow: none;
 }
-/* line 74, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 79, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group.btn-group-raised, .btn-group-vertical.btn-group-raised {
   transition: box-shadow transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* line 77, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 82, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group .btn, .btn-group .btn:active, .btn-group .btn-group, .btn-group-vertical .btn, .btn-group-vertical .btn:active, .btn-group-vertical .btn-group {
   box-shadow: none !important;
   margin: 0;
 }
-/* line 81, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 86, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group .btn:active .caret, .btn-group-vertical .btn:active .caret {
   margin-left: -1px;
 }
 
-/* line 83, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 88, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-group-flat {
   box-shadow: none !important;
 }
 
-/* line 89, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 94, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-fab {
   margin: 0;
   padding: 15px;
@@ -8434,11 +8446,11 @@ body.inverse, body.inverse .form-control {
   width: 56px;
   height: 56px;
 }
-/* line 98, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 103, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-fab, .btn-fab .ripple-wrapper {
   border-radius: 100%;
 }
-/* line 101, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 106, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-fab.btn-mini {
   width: 40px;
   height: 40px;
@@ -8446,117 +8458,117 @@ body.inverse, body.inverse .form-control {
   font-size: 15px;
 }
 
-/* line 112, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 117, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-default {
   background-color: white;
 }
 
-/* line 115, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 120, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-primary {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 
-/* line 119, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 124, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-success {
   background-color: #0f9d58;
 }
 
-/* line 123, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 128, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-info {
   background-color: #03a9f4;
 }
 
-/* line 127, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 132, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-warning {
   background-color: #ff5722;
 }
 
-/* line 131, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 136, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-danger {
   background-color: #f44336;
 }
 
-/* line 136, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 141, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-red {
   background-color: #f44336;
 }
 
-/* line 139, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 144, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-pink {
   background-color: #e91e63;
 }
 
-/* line 142, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 147, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-purple {
   background-color: #9c27b0;
 }
 
-/* line 145, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 150, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-deeppurple {
   background-color: #673ab7;
 }
 
-/* line 148, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 153, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-indigo {
   background-color: #3f51b5;
 }
 
-/* line 151, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 156, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-lightblue {
   background-color: #03a9f4;
 }
 
-/* line 154, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 159, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-cyan {
   background-color: #00bcd4;
 }
 
-/* line 157, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 162, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-teal {
   background-color: #009688;
 }
 
-/* line 160, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 165, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-lightgreen {
   background-color: #8bc34a;
 }
 
-/* line 163, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 168, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-lime {
   background-color: #cddc39;
 }
 
-/* line 166, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 171, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-lightyellow {
   background-color: #ffeb3b;
 }
 
-/* line 169, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 174, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-orange {
   background-color: #ff9800;
 }
 
-/* line 172, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 177, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-deeporange {
   background-color: #ff5722;
 }
 
-/* line 175, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 180, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-grey {
   background-color: #9e9e9e;
 }
 
-/* line 178, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 183, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-bluegrey {
   background-color: #607d8b;
 }
 
-/* line 181, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 186, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-brown {
   background-color: #795548;
 }
 
-/* line 184, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
+/* line 189, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_buttons.scss */
 .btn-material-lightgrey {
   background-color: #ececec;
 }
@@ -8771,6 +8783,94 @@ body.inverse, body.inverse .form-control {
     opacity: 0;
   }
 }
+/* line 191, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton {
+  vertical-align: middle;
+}
+
+/* line 194, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton,
+.togglebutton * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* line 201, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label {
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* line 205, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* line 210, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child:checked + .toggle {
+  background-color: rgba(18, 178, 231, 0.5);
+}
+
+/* line 213, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child:checked + .toggle:after {
+  background-color: #12b2e7;
+}
+
+/* line 216, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label .toggle,
+.togglebutton label input[type=checkbox][disabled]:first-child + .toggle {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+  background-color: rgba(80, 80, 80, 0.7);
+  border-radius: 15px;
+  margin-right: 10px;
+  transition: background 0.3s ease;
+  vertical-align: middle;
+}
+
+/* line 228, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label .toggle:after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #F1F1F1;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+  left: -5px;
+  top: -2px;
+  transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+}
+
+/* line 241, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox][disabled]:first-child + .toggle:after,
+.togglebutton label input[type=checkbox][disabled]:checked:first-child + .toggle:after {
+  background-color: #BDBDBD;
+}
+
+/* line 245, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child:checked ~ .toggle:active:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 149, 135, 0.1);
+}
+
+/* line 248, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child ~ .toggle:active:after,
+.togglebutton label input[type=checkbox][disabled]:first-child ~ .toggle:active:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* line 252, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_checkboxes.scss */
+.togglebutton label input[type=checkbox]:first-child:checked + .toggle:after {
+  left: 15px;
+}
+
 /* line 1, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_radios.scss */
 .form-horizontal .radio {
   margin-bottom: 10px;
@@ -8944,7 +9044,7 @@ select[multiple].form-control, select[multiple].form-control:focus, select[multi
 }
 /* line 52, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_inputs.scss */
 .form-control-wrapper .form-control:focus ~ .material-input:after, .form-control-wrapper .form-control.focus ~ .material-input:after {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 /* line 56, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_inputs.scss */
 .form-control-wrapper .form-control:focus:invalid ~ .material-input:before, .form-control-wrapper .form-control:focus:invalid ~ .material-input:after, .form-control-wrapper .form-control.focus:invalid ~ .material-input:before, .form-control-wrapper .form-control.focus:invalid ~ .material-input:after {
@@ -8961,7 +9061,7 @@ select[multiple].form-control, select[multiple].form-control:focus, select[multi
   width: 100%;
   left: 0;
   height: 2px;
-  background-color: #4285f4;
+  background-color: #12b2e7;
   bottom: -1px;
   transform: scaleX(0);
   transition: transform 0s;
@@ -9231,7 +9331,7 @@ legend {
 
 /* line 1, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_navbar.scss */
 .navbar {
-  background-color: #4285f4;
+  background-color: #12b2e7;
   border: 0;
   border-radius: 0;
 }
@@ -9416,12 +9516,12 @@ legend {
 
 /* line 211, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_navbar.scss */
 .navbar-default {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 
 /* line 214, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_navbar.scss */
 .navbar-primary {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 
 /* line 218, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_navbar.scss */
@@ -9570,7 +9670,7 @@ legend {
 /* line 20, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_alerts.scss */
 .alert-primary {
   color: #FFFFFF;
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 
 /* line 25, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_alerts.scss */
@@ -9694,11 +9794,11 @@ legend {
 }
 /* line 13, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_progress.scss */
 .progress .progress-bar-default {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 /* line 16, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_progress.scss */
 .progress .progress-bar-primary {
-  background-color: #4285f4;
+  background-color: #12b2e7;
 }
 /* line 20, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_progress.scss */
 .progress .progress-bar-success {
@@ -9855,7 +9955,7 @@ legend {
 
 /* line 59, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_cards.scss */
 .card-primary {
-  background-color: #4285f4;
+  background-color: #12b2e7;
   color: white;
 }
 /* line 5, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_mixins.scss */
@@ -10168,7 +10268,7 @@ legend {
 
 /* line 87, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_material.scss */
 .text-primary {
-  color: #4285f4;
+  color: #12b2e7;
 }
 
 /* line 90, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_material.scss */
@@ -10188,7 +10288,7 @@ legend {
 
 /* line 1, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_tabs.scss */
 .nav-tabs {
-  background: #4285f4;
+  background: #12b2e7;
 }
 /* line 4, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_tabs.scss */
 .nav-tabs > li > a {
@@ -10249,7 +10349,7 @@ legend {
 
 /* line 9, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_icons.scss */
 .icon-primary {
-  color: #4285f4;
+  color: #12b2e7;
 }
 
 /* line 13, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_icons.scss */
@@ -10555,6 +10655,141 @@ legend {
   opacity: 0;
 }
 
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+/* line 6, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-target,
+.noUi-target * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 16, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-target {
+  position: relative;
+  direction: ltr;
+}
+
+/* line 20, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* line 25, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+/* line 32, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-handle {
+  position: relative;
+  z-index: 1;
+}
+
+/* line 36, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-stacking .noUi-handle {
+  /* This class is applied to the lower origin when
+     its values is > 50%. */
+  z-index: 10;
+}
+
+/* line 41, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-stacking + .noUi-origin {
+  /* Fix stacking order in IE7, which incorrectly
+     creates a new context for the origins. */
+  *z-index: -1;
+}
+
+/* line 46, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-state-tap .noUi-origin {
+  -webkit-transition: left 0.3s, top 0.3s;
+  transition: left 0.3s, top 0.3s;
+}
+
+/* line 50, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+/* Painting and performance;
+ * Browsers can paint handles in their own layer.
+ */
+/* line 57, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-base {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Slider size and handle placement;
+ */
+/* line 64, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-horizontal {
+  height: 18px;
+}
+
+/* line 67, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-horizontal .noUi-handle {
+  width: 34px;
+  height: 28px;
+  left: -17px;
+  top: -6px;
+}
+
+/* line 73, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-vertical {
+  width: 18px;
+}
+
+/* line 76, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-vertical .noUi-handle {
+  width: 28px;
+  height: 34px;
+  left: -6px;
+  top: -17px;
+}
+
+/* Styling;
+ */
+/* line 89, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-connect {
+  -webkit-transition: background 450ms;
+  transition: background 450ms;
+}
+
+/* Handles and cursors;
+ */
+/* line 109, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-dragable {
+  cursor: w-resize;
+}
+
+/* line 112, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+.noUi-vertical .noUi-dragable {
+  cursor: n-resize;
+}
+
+/* Handle stripes;
+ */
+/* Disabled state;
+ */
+/* line 163, ../../../../src/themes/base/sass/libs/misc/_jquery.nouislider.scss */
+[disabled] .noUi-handle {
+  cursor: not-allowed;
+}
+
 /* line 1, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/toolkit-2.6.0/stylesheets/toolkit/_kickstart.scss */
 *, *:before, *:after {
   -webkit-box-sizing: "border-box";
@@ -10670,6 +10905,15 @@ img, video {
 /**
  * Reset position sets all edges to zero.
  */
+/* line 13, ../../../../src/themes/base/sass/abstractions/_typography.scss */
+.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .region-first .nav-sub h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  color: #888888;
+  font-weight: bold;
+}
+
 /**
  * Get a card layout
  */
@@ -10679,16 +10923,45 @@ img, video {
 /**
  * The card mixin
  */
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.dropdown-menu {
+  padding: 0.5em 0;
+  background: #1b1c1d;
+  color: #999999;
+  border-radius: 0;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.dropdown-menu li {
+  padding: 0.25em 1em;
+}
+/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
+.dropdown-menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+}
+/* line 152, ../../../../src/themes/base/sass/base/_cards.scss */
+.dropdown-menu li:hover.divider {
+  cursor: none;
+  background: none;
+}
+/* line 157, ../../../../src/themes/base/sass/base/_cards.scss */
+.dropdown-menu li.divider {
+  padding: 0;
+  margin: 0.25em 0;
+}
+
 /**
  * Extendables.
  */
-/* line 98, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card {
   color: #888888;
   width: 160px;
   height: auto;
   margin: 5px;
   background: white;
+  position: relative;
 }
 /* line 54, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card a {
@@ -10703,13 +10976,14 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 77, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .artwork {
   background: transparent;
   overflow: hidden;
   letter-spacing: -0.31em;
   width: 160px;
   height: 160px;
+  position: relative;
 }
 /* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
 .card-grid--square .card .artwork img {
@@ -10718,16 +10992,35 @@ img, video {
   width: 160px;
   margin-top: 0;
 }
-/* line 79, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .artwork a {
   display: block;
 }
-/* line 83, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .artwork:after {
+  content: "";
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  height: auto;
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: 0.1s all linear;
+  -o-transition: 0.1s all linear;
+  transition: 0.1s all linear;
+}
+/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta {
   padding: 7px 10px;
   width: 160px;
 }
-/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -10750,7 +11043,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -10773,14 +11066,106 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
+/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .play {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 220%;
+  display: none;
+  z-index: 20;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .card .play:before {
+  content: "\e6b9";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--square .card .play:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .play:hover {
+  color: white;
+}
+/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .dropdown {
+  top: 5px;
+  right: 0;
+  position: absolute;
+}
+/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .dropdown i {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  z-index: 20;
+  font-size: 180%;
+  color: white;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .card .dropdown i:before {
+  content: "\e8a3";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--square .card .dropdown i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card:hover .artwork:after {
+  opacity: 1;
+}
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card:hover .actions,
+.card-grid--square .card:hover .dropdown i,
+.card-grid--square .card:hover .play {
+  display: table;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .dropdown-menu {
+  left: auto;
+  right: 0px;
+  top: -7px;
+}
 
-/* line 101, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 170, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card {
   color: #888888;
   width: 276px;
   height: 170px;
   margin: 5px;
   background: white;
+  position: relative;
 }
 /* line 54, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card a {
@@ -10795,13 +11180,14 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 77, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .artwork {
   background: transparent;
   overflow: hidden;
   letter-spacing: -0.31em;
   width: 276px;
   height: 138px;
+  position: relative;
 }
 /* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
 .card-grid--wide .card .artwork img {
@@ -10810,16 +11196,35 @@ img, video {
   width: 276px;
   margin-top: -20%;
 }
-/* line 79, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .artwork a {
   display: block;
 }
-/* line 83, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .artwork:after {
+  content: "";
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  height: 170px;
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: 0.1s all linear;
+  -o-transition: 0.1s all linear;
+  transition: 0.1s all linear;
+}
+/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta {
   padding: 7px 10px;
   width: 276px;
 }
-/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -10842,7 +11247,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -10865,14 +11270,106 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
+/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .play {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 220%;
+  display: none;
+  z-index: 20;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .card .play:before {
+  content: "\e6b9";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--wide .card .play:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .play:hover {
+  color: white;
+}
+/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .dropdown {
+  top: 5px;
+  right: 0;
+  position: absolute;
+}
+/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .dropdown i {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  z-index: 20;
+  font-size: 180%;
+  color: white;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .card .dropdown i:before {
+  content: "\e8a3";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--wide .card .dropdown i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card:hover .artwork:after {
+  opacity: 1;
+}
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card:hover .actions,
+.card-grid--wide .card:hover .dropdown i,
+.card-grid--wide .card:hover .play {
+  display: table;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .dropdown-menu {
+  left: auto;
+  right: 0px;
+  top: -7px;
+}
 
-/* line 104, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 173, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card {
   color: #888888;
   width: 160px;
   height: 300px;
   margin: 5px;
   background: white;
+  position: relative;
 }
 /* line 54, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card a {
@@ -10887,13 +11384,14 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 77, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .artwork {
   background: transparent;
   overflow: hidden;
   letter-spacing: -0.31em;
   width: 160px;
   height: 235px;
+  position: relative;
 }
 /* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
 .card-grid--tall .card .artwork img {
@@ -10902,16 +11400,35 @@ img, video {
   width: 160px;
   margin-top: 0;
 }
-/* line 79, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .artwork a {
   display: block;
 }
-/* line 83, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .artwork:after {
+  content: "";
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  height: 300px;
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: 0.1s all linear;
+  -o-transition: 0.1s all linear;
+  transition: 0.1s all linear;
+}
+/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta {
   padding: 7px 10px;
   width: 160px;
 }
-/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -10934,7 +11451,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -10957,6 +11474,97 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
+/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .play {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 220%;
+  display: none;
+  z-index: 20;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .card .play:before {
+  content: "\e6b9";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--tall .card .play:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .play:hover {
+  color: white;
+}
+/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .dropdown {
+  top: 5px;
+  right: 0;
+  position: absolute;
+}
+/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .dropdown i {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  z-index: 20;
+  font-size: 180%;
+  color: white;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .card .dropdown i:before {
+  content: "\e8a3";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--tall .card .dropdown i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card:hover .artwork:after {
+  opacity: 1;
+}
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card:hover .actions,
+.card-grid--tall .card:hover .dropdown i,
+.card-grid--tall .card:hover .play {
+  display: table;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .dropdown-menu {
+  left: auto;
+  right: 0px;
+  top: -7px;
+}
 
 /**
  * The card grids.
@@ -10964,7 +11572,7 @@ img, video {
 /**
  * Extendables.
  */
-/* line 113, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 182, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card, .card-grid--wide .card, .card-grid--tall .card {
   display: inline-block;
 }
@@ -14735,21 +15343,96 @@ ul li, ol li {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+/* line 12, ../../../../src/themes/base/sass/base/_marterial.scss */
+.shadow-z-2-hover, .btn:hover:not(.btn-link), .btn:hover:not(.btn-link) {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.13);
+}
+
 /**
  * Tweak tables
  */
-/* line 17, ../../../../src/themes/base/sass/base/_marterial.scss */
+/* line 20, ../../../../src/themes/base/sass/base/_marterial.scss */
 .table-striped > tbody > tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 20, ../../../../src/themes/base/sass/base/_marterial.scss */
+/* line 23, ../../../../src/themes/base/sass/base/_marterial.scss */
 .table-striped > tbody > tr > td {
   border: 0;
 }
 
-/* line 25, ../../../../src/themes/base/sass/base/_marterial.scss */
+/* line 28, ../../../../src/themes/base/sass/base/_marterial.scss */
 .table-hover > tbody > tr:hover {
   background-color: rgba(195, 195, 195, 0.3);
+}
+
+/* line 9, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first, .filter-pane, .local-playlist-list .region-first, .settings-page .region-first {
+  padding: 1em 1.5em;
+}
+
+/* line 20, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .region-first .nav-sub h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  color: #888888;
+  font-weight: bold;
+}
+
+/* line 27, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .source-set, .filters-container .nav-list,
+.filters-container .selection-list,
+.filters-container .active-list, .region-first .nav-sub {
+  margin-bottom: 2em;
+}
+
+/* line 49, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .sources, .filters-container .nav-list,
+.filters-container .selection-list, .local-playlist-list .region-first .lists, .region-first .nav-sub .items {
+  padding-left: 1em;
+}
+/* line 33, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .sources li, .filters-container .nav-list li,
+.filters-container .selection-list li, .local-playlist-list .region-first .lists li, .region-first .nav-sub .items li {
+  padding-bottom: 0.5em;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+/* line 10, ../../../../src/themes/base/sass/abstractions/_text.scss */
+.browser-page .region-first .sources li:after, .filters-container .nav-list li:after,
+.filters-container .selection-list li:after, .local-playlist-list .region-first .lists li:after, .region-first .nav-sub .items li:after {
+  content: "";
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#00F2F2F2', endColorstr='#FFF2F2F2');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YyZjJmMiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMmYyZjIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(242, 242, 242, 0)), color-stop(100%, #f2f2f2));
+  background-image: -moz-linear-gradient(left, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
+  background-image: -webkit-linear-gradient(left, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
+  background-image: linear-gradient(to right, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 1.5em;
+}
+/* line 37, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .sources li:hover, .filters-container .nav-list li:hover,
+.filters-container .selection-list li:hover, .local-playlist-list .region-first .lists li:hover, .region-first .nav-sub .items li:hover {
+  color: #12b2e7;
+}
+/* line 40, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .sources li a, .filters-container .nav-list li a,
+.filters-container .selection-list li a, .local-playlist-list .region-first .lists li a, .region-first .nav-sub .items li a {
+  color: #2b2f30;
+}
+/* line 42, ../../../../src/themes/base/sass/base/_sidebar.scss */
+.browser-page .region-first .sources li a.active, .filters-container .nav-list li a.active,
+.filters-container .selection-list li a.active, .local-playlist-list .region-first .lists li a.active, .region-first .nav-sub .items li a.active {
+  color: #12b2e7;
+  font-weight: bold;
 }
 
 /* line 6, ../../../../src/themes/base/sass/base/_typography.scss */
@@ -14785,6 +15468,236 @@ a:focus, a:hover {
   padding: 0 70px 0 12px;
 }
 
+/* line 18, ../../../../src/themes/base/sass/components/_browser.scss */
+.browser-page .region-content {
+  padding: 0;
+}
+
+/* line 24, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar,
+.folder-layout .path {
+  height: 3em;
+  background: white;
+}
+/* line 28, ../../../../src/themes/base/sass/components/_browser.scss */
+.loading .folder-layout .loading-bar, .loading
+.folder-layout .path {
+  display: none;
+}
+/* line 31, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar ul,
+.folder-layout .path ul {
+  display: table;
+}
+/* line 33, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar ul li,
+.folder-layout .path ul li {
+  display: table-cell;
+  vertical-align: middle;
+  height: 3em;
+  padding: 0 1em;
+  cursor: pointer;
+  border-right: 1px dotted rgba(0, 0, 0, 0.05);
+}
+/* line 39, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar ul li:last-child,
+.folder-layout .path ul li:last-child {
+  border: none;
+  font-weight: bold;
+}
+/* line 42, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar ul li:last-child:hover,
+.folder-layout .path ul li:last-child:hover {
+  background: none;
+}
+/* line 46, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar ul li:hover,
+.folder-layout .path ul li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+/* line 52, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar {
+  display: none;
+}
+/* line 54, ../../../../src/themes/base/sass/components/_browser.scss */
+.loading .folder-layout .loading-bar {
+  display: block;
+}
+/* line 57, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar .inner {
+  display: table;
+}
+/* line 59, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .loading-bar .inner span {
+  display: table-cell;
+  vertical-align: middle;
+  height: 3em;
+  padding: 0 1em;
+}
+/* line 66, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder-container {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+.folder-layout .folder-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 68, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder-container .folders-pane, .folder-layout .folder-container .files {
+  padding: 1em;
+}
+/* line 71, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder-container .folders-pane {
+  background: #f9f9f9;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 41.6666666667%;
+  float: left;
+}
+/* line 75, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder-container .files {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 58.3333333333%;
+  float: right;
+}
+/* line 79, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder, .folder-layout .file, .folder-layout .back-button {
+  height: 37px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+/* line 83, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder .thumb, .folder-layout .file .thumb, .folder-layout .back-button .thumb {
+  background: transparent;
+  overflow: hidden;
+  letter-spacing: -0.31em;
+  width: 35px;
+  height: 35px;
+  top: 1px;
+  bottom: 1px;
+  left: 0;
+  position: absolute;
+}
+/* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
+.folder-layout .folder .thumb img, .folder-layout .file .thumb img, .folder-layout .back-button .thumb img {
+  display: block;
+  vertical-align: middle;
+  width: 35px;
+  margin-top: 0;
+}
+/* line 87, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder .thumb:hover .play, .folder-layout .file .thumb:hover .play, .folder-layout .back-button .thumb:hover .play {
+  display: table;
+}
+/* line 92, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder .title, .folder-layout .file .title, .folder-layout .back-button .title {
+  padding: 7px;
+  padding-left: 45px;
+  cursor: pointer;
+}
+/* line 97, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder .play, .folder-layout .file .play, .folder-layout .back-button .play {
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  display: table;
+  width: 35px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.folder-layout .folder .play:before, .folder-layout .file .play:before, .folder-layout .back-button .play:before {
+  content: "\e6b9";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.folder-layout .folder .play:before, .folder-layout .file .play:before, .folder-layout .back-button .play:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 35px;
+}
+/* line 31, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.folder-layout .folder .play:before, .folder-layout .file .play:before, .folder-layout .back-button .play:before {
+  color: white;
+  font-size: 150%;
+  padding-right: 5px;
+}
+/* line 101, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .folder {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* line 10, ../../../../src/themes/base/sass/abstractions/_text.scss */
+.folder-layout .folder:after {
+  content: "";
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#00F9F9F9', endColorstr='#FFF9F9F9');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y5ZjlmOSIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOWY5ZjkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(249, 249, 249, 0)), color-stop(100%, #f9f9f9));
+  background-image: -moz-linear-gradient(left, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+  background-image: -webkit-linear-gradient(left, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+  background-image: linear-gradient(to right, rgba(249, 249, 249, 0) 0%, #f9f9f9 100%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 1.5em;
+}
+/* line 105, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .back-button i {
+  display: table;
+  width: 34px;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.folder-layout .back-button i:before {
+  content: "\e89a";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.folder-layout .back-button i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 34px;
+}
+/* line 107, ../../../../src/themes/base/sass/components/_browser.scss */
+.folder-layout .back-button i:before {
+  background: #DBDBDB;
+  font-size: 150%;
+  color: #B5B5B5;
+  padding-right: 5px;
+}
+
 /* line 29, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-detail .meta {
   display: none;
@@ -14797,6 +15710,7 @@ a:focus, a:hover {
   height: auto;
   margin: 5px;
   background: rgba(255, 255, 255, 0);
+  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -14813,13 +15727,14 @@ a:focus, a:hover {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 77, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .artwork {
   background: transparent;
   overflow: hidden;
   letter-spacing: -0.31em;
   width: 200px;
   height: 200px;
+  position: relative;
 }
 /* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
 .card-minimal .artwork img {
@@ -14828,16 +15743,35 @@ a:focus, a:hover {
   width: 200px;
   margin-top: 0;
 }
-/* line 79, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .artwork a {
   display: block;
 }
-/* line 83, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .artwork:after {
+  content: "";
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  height: auto;
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: 0.1s all linear;
+  -o-transition: 0.1s all linear;
+  transition: 0.1s all linear;
+}
+/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta {
   padding: 7px 10px;
   width: 200px;
 }
-/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .title {
   position: relative;
   white-space: nowrap;
@@ -14860,7 +15794,7 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
-/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -14883,6 +15817,97 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
+/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .play {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 220%;
+  display: none;
+  z-index: 20;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal .play:before {
+  content: "\e6b9";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-minimal .play:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .play:hover {
+  color: white;
+}
+/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .dropdown {
+  top: 5px;
+  right: 0;
+  position: absolute;
+}
+/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .dropdown i {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  z-index: 20;
+  font-size: 180%;
+  color: white;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal .dropdown i:before {
+  content: "\e8a3";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-minimal .dropdown i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal:hover .artwork:after {
+  opacity: 1;
+}
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal:hover .actions,
+.card-minimal:hover .dropdown i,
+.card-minimal:hover .play {
+  display: table;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .dropdown-menu {
+  left: auto;
+  right: 0px;
+  top: -7px;
+}
 /* line 38, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal .meta {
   padding: 10px 0;
@@ -14892,66 +15917,21 @@ a:focus, a:hover {
   display: none;
 }
 
-/* line 2, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container h3 {
-  font-size: 15px;
-  text-transform: uppercase;
-  margin: 1em 0;
-  color: #888888;
-  font-weight: bold;
-}
-/* line 9, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container .nav-list,
-.filters-container .selection-list,
-.filters-container .active-list {
-  margin-bottom: 2em;
-}
-/* line 14, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container .nav-list,
-.filters-container .selection-list {
-  padding-left: 1em;
-}
-/* line 17, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container .nav-list li,
-.filters-container .selection-list li {
-  padding-bottom: 0.5em;
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-}
-/* line 10, ../../../../src/themes/base/sass/abstractions/_text.scss */
-.filters-container .nav-list li:after,
-.filters-container .selection-list li:after {
-  content: "";
-  *zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#00F2F2F2', endColorstr='#FFF2F2F2');
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YyZjJmMiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMmYyZjIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(242, 242, 242, 0)), color-stop(100%, #f2f2f2));
-  background-image: -moz-linear-gradient(left, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
-  background-image: -webkit-linear-gradient(left, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
-  background-image: linear-gradient(to right, rgba(242, 242, 242, 0) 0%, #f2f2f2 100%);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  width: 1.5em;
-}
-/* line 21, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 13, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .nav-list a, .filters-container .nav-list .option,
 .filters-container .selection-list a,
 .filters-container .selection-list .option {
   color: #2b2f30;
   cursor: pointer;
 }
-/* line 24, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 16, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .nav-list a.active, .filters-container .nav-list .option.active,
 .filters-container .selection-list a.active,
 .filters-container .selection-list .option.active {
   color: #12b2e7;
   font-weight: bold;
 }
-/* line 30, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 22, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .sortable.active {
   position: relative;
 }
@@ -14983,14 +15963,14 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 38, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 30, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .sortable.active:after {
   font-size: 130%;
   padding-left: 0.25em;
   position: absolute;
   margin-top: 1px;
 }
-/* line 45, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 37, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn {
   display: block;
   background: #12b2e7;
@@ -15015,7 +15995,7 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 56, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 48, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn:before {
   top: 0.5em;
   right: 0.5em;
@@ -15023,11 +16003,11 @@ a:focus, a:hover {
   color: rgba(255, 255, 255, 0.5);
   font-size: 110%;
 }
-/* line 63, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 55, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn:hover:before {
   color: white;
 }
-/* line 67, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 59, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn .text {
   position: relative;
   white-space: nowrap;
@@ -15051,12 +16031,12 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
-/* line 71, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 63, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn.filterable-add {
   display: inline-block;
   background-color: #a8a7a6;
 }
-/* line 74, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 66, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn.filterable-add:hover {
   background-color: #12b2e7;
 }
@@ -15074,7 +16054,7 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 82, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 74, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3,
 .filters-container .filters-options h3 {
   cursor: pointer;
@@ -15096,7 +16076,7 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 87, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 79, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3:before,
 .filters-container .filters-options h3:before {
   font-size: 140%;
@@ -15104,86 +16084,121 @@ a:focus, a:hover {
   left: -12px;
   top: -3px;
 }
-/* line 94, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 86, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3:hover:before,
 .filters-container .filters-options h3:hover:before {
   color: #12b2e7;
 }
 
-/* line 104, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 96, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   position: absolute;
-  padding: 1em 1.5em;
   -webkit-transition: 0.2s all ease-out;
   -o-transition: 0.2s all ease-out;
   transition: 0.2s all ease-out;
 }
-/* line 108, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 100, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-current {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-/* line 110, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 102, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-current {
   -moz-transform: translate(-240px, 0);
   -ms-transform: translate(-240px, 0);
   -webkit-transform: translate(-240px, 0);
   transform: translate(-240px, 0);
 }
-/* line 113, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 105, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-current {
   -moz-transform: translate(-480px, 0);
   -ms-transform: translate(-480px, 0);
   -webkit-transform: translate(-480px, 0);
   transform: translate(-480px, 0);
 }
-/* line 117, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 109, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-page {
   -moz-transform: translate(240px, 0);
   -ms-transform: translate(240px, 0);
   -webkit-transform: translate(240px, 0);
   transform: translate(240px, 0);
 }
-/* line 119, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 111, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-page {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-/* line 122, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 114, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-page {
   -moz-transform: translate(-240px, 0);
   -ms-transform: translate(-240px, 0);
   -webkit-transform: translate(-240px, 0);
   transform: translate(-240px, 0);
 }
-/* line 126, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 118, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-options {
   -moz-transform: translate(480px, 0);
   -ms-transform: translate(480px, 0);
   -webkit-transform: translate(480px, 0);
   transform: translate(480px, 0);
 }
-/* line 128, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 120, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-options {
   -moz-transform: translate(240px, 0);
   -ms-transform: translate(240px, 0);
   -webkit-transform: translate(240px, 0);
   transform: translate(240px, 0);
 }
-/* line 131, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 123, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-options {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
+}
+
+/* line 2, ../../../../src/themes/base/sass/components/_form.scss */
+form .form-control-wrapper .form-control:focus,
+form .form-control-wrapper .form-control {
+  padding: 0.5em 0.25em;
+  height: auto;
+  margin-bottom: 0.5em;
+}
+
+/* line 10, ../../../../src/themes/base/sass/components/_form.scss */
+.help-block {
+  margin-top: 8px;
+  font-size: 90%;
+  color: #C0C0C0;
+}
+
+/* line 17, ../../../../src/themes/base/sass/components/_form.scss */
+form .inline-list {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+form .inline-list:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 19, ../../../../src/themes/base/sass/components/_form.scss */
+form .inline-list li {
+  display: inline-block;
+  margin-right: 2em;
+  float: left;
+}
+/* line 24, ../../../../src/themes/base/sass/components/_form.scss */
+form .inline-list .response {
+  padding-top: 18px;
 }
 
 /* line 2, ../../../../src/themes/base/sass/components/_header.scss */
@@ -15366,7 +16381,7 @@ a:focus, a:hover {
 
 /* line 88, ../../../../src/themes/base/sass/components/_layout-containers.scss */
 .region-content {
-  padding: 12px 5px 30px 12px;
+  padding: 12px 12px 30px 12px;
 }
 
 /* line 12, ../../../../src/themes/base/sass/components/_loading.scss */
@@ -15917,6 +16932,7 @@ a:focus, a:hover {
   position: fixed;
   height: 50px;
   background: #18191a;
+  z-index: 100;
 }
 @media (min-width: 57em) {
   /* line 1, ../../../../src/themes/base/sass/components/_player.scss */
@@ -15925,38 +16941,38 @@ a:focus, a:hover {
   }
 }
 
-/* line 7, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 8, ../../../../src/themes/base/sass/components/_player.scss */
 #player-local {
   display: none;
 }
-/* line 9, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 10, ../../../../src/themes/base/sass/components/_player.scss */
 .player-local #player-local {
   display: block;
 }
 
-/* line 14, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 15, ../../../../src/themes/base/sass/components/_player.scss */
 #player-kodi {
   display: block;
 }
-/* line 16, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 17, ../../../../src/themes/base/sass/components/_player.scss */
 .player-local #player-kodi {
   display: none;
 }
 
-/* line 22, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 23, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary,
 .player .controls-secondary {
   background: rgba(255, 255, 255, 0.05);
   height: 50px;
 }
 @media (min-width: 57em) {
-  /* line 22, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 23, ../../../../src/themes/base/sass/components/_player.scss */
   .player .controls-primary,
   .player .controls-secondary {
     height: 70px;
   }
 }
-/* line 26, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 27, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary .control,
 .player .controls-secondary .control {
   cursor: pointer;
@@ -15966,18 +16982,18 @@ a:focus, a:hover {
   color: rgba(255, 255, 255, 0.5);
 }
 @media (min-width: 57em) {
-  /* line 26, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 27, ../../../../src/themes/base/sass/components/_player.scss */
   .player .controls-primary .control,
   .player .controls-secondary .control {
     height: 70px;
   }
 }
-/* line 33, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 34, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary .control:hover,
 .player .controls-secondary .control:hover {
   color: white;
 }
-/* line 36, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 37, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary .control:before,
 .player .controls-secondary .control:before {
   display: inline-block;
@@ -15994,18 +17010,18 @@ a:focus, a:hover {
   display: table-cell;
   vertical-align: middle;
 }
-/* line 43, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 44, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary {
   width: 220px;
   float: left;
 }
 @media (min-width: 57em) {
-  /* line 43, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 44, ../../../../src/themes/base/sass/components/_player.scss */
   .player .controls-primary {
     width: 300px;
   }
 }
-/* line 46, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 47, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-primary .control {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -16013,18 +17029,18 @@ a:focus, a:hover {
   width: 33.33%;
   float: left;
 }
-/* line 50, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 51, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-secondary {
   width: 220px;
   float: right;
 }
 @media (min-width: 57em) {
-  /* line 50, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 51, ../../../../src/themes/base/sass/components/_player.scss */
   .player .controls-secondary {
     width: 300px;
   }
 }
-/* line 53, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 54, ../../../../src/themes/base/sass/components/_player.scss */
 .player .controls-secondary .control {
   margin-top: -9px;
   font-size: 30px;
@@ -16034,7 +17050,7 @@ a:focus, a:hover {
   width: 25%;
   float: left;
 }
-/* line 59, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 60, ../../../../src/themes/base/sass/components/_player.scss */
 .player .now-playing {
   margin-right: 220px;
   margin-left: 220px;
@@ -16045,28 +17061,28 @@ a:focus, a:hover {
   color: #bac1c8;
 }
 @media (min-width: 57em) {
-  /* line 59, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 60, ../../../../src/themes/base/sass/components/_player.scss */
   .player .now-playing {
     margin-right: 300px;
   }
 }
 @media (min-width: 57em) {
-  /* line 59, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 60, ../../../../src/themes/base/sass/components/_player.scss */
   .player .now-playing {
     margin-left: 300px;
   }
 }
 @media (min-width: 57em) {
-  /* line 59, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 60, ../../../../src/themes/base/sass/components/_player.scss */
   .player .now-playing {
     height: 70px;
   }
 }
-/* line 67, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 68, ../../../../src/themes/base/sass/components/_player.scss */
 .player .now-playing a {
   color: #bac1c8;
 }
-/* line 71, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 72, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-thumb {
   top: 0;
   bottom: 0;
@@ -16081,39 +17097,39 @@ a:focus, a:hover {
   background-position: 50% 50%;
 }
 @media (min-width: 57em) {
-  /* line 71, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 72, ../../../../src/themes/base/sass/components/_player.scss */
   .player .playing-thumb {
     width: 70px;
   }
 }
 @media (min-width: 57em) {
-  /* line 71, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 72, ../../../../src/themes/base/sass/components/_player.scss */
   .player .playing-thumb {
     height: 70px;
   }
 }
-/* line 80, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 81, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-thumb img {
   width: 50px;
   height: auto;
 }
 @media (min-width: 57em) {
-  /* line 80, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 81, ../../../../src/themes/base/sass/components/_player.scss */
   .player .playing-thumb img {
     width: 70px;
   }
 }
-/* line 85, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 86, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-info {
   margin-left: 50px;
 }
 @media (min-width: 57em) {
-  /* line 85, ../../../../src/themes/base/sass/components/_player.scss */
+  /* line 86, ../../../../src/themes/base/sass/components/_player.scss */
   .player .playing-info {
     margin-left: 70px;
   }
 }
-/* line 88, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 89, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-time {
   right: 0;
   bottom: 0;
@@ -16122,17 +17138,17 @@ a:focus, a:hover {
   margin: 7px 10px 0 0;
   text-align: right;
 }
-/* line 94, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 95, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-meta {
   margin: 7px 0 0 10px;
 }
-/* line 97, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 98, ../../../../src/themes/base/sass/components/_player.scss */
 .player .playing-title a,
 .player .playing-time-current {
   color: white;
   font-size: 14px;
 }
-/* line 102, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 103, ../../../../src/themes/base/sass/components/_player.scss */
 .player .slider-bar {
   height: 20px;
   background: rgba(255, 255, 255, 0.1);
@@ -16140,7 +17156,7 @@ a:focus, a:hover {
   margin: 0;
   cursor: pointer;
 }
-/* line 109, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 110, ../../../../src/themes/base/sass/components/_player.scss */
 .player .slider-bar .noUi-base,
 .player .slider-bar .noUi-handle,
 .player .slider-bar .noUi-origin {
@@ -16151,103 +17167,103 @@ a:focus, a:hover {
   top: 0;
   border: none;
 }
-/* line 117, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 118, ../../../../src/themes/base/sass/components/_player.scss */
 .player .slider-bar .noUi-origin {
   background: #1f1f20;
   top: -4px;
 }
-/* line 121, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 122, ../../../../src/themes/base/sass/components/_player.scss */
 .player .slider-bar .noUi-handle {
   background: none;
   width: 7px;
   left: -5px;
 }
-/* line 127, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 128, ../../../../src/themes/base/sass/components/_player.scss */
 .player .slider-bar:hover .noUi-handle {
   background: #6B6B6B;
 }
-/* line 132, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 133, ../../../../src/themes/base/sass/components/_player.scss */
 .player .volume {
   background: #36393a;
 }
 
-/* line 138, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 139, ../../../../src/themes/base/sass/components/_player.scss */
 .control-prev:before {
   content: "\e6a8";
 }
 
-/* line 139, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 140, ../../../../src/themes/base/sass/components/_player.scss */
 .control-play:before {
   content: "\e6b9";
   font-size: 150%;
 }
 
-/* line 140, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 141, ../../../../src/themes/base/sass/components/_player.scss */
 .control-next:before {
   content: "\e6a7";
 }
 
-/* line 141, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 142, ../../../../src/themes/base/sass/components/_player.scss */
 .control-mute:before {
   content: "\e6d2";
 }
 
-/* line 142, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 143, ../../../../src/themes/base/sass/components/_player.scss */
 .control-repeat:before {
   content: "\e6c2";
 }
 
-/* line 143, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 144, ../../../../src/themes/base/sass/components/_player.scss */
 .control-shuffle:before {
   content: "\e6c5";
 }
 
-/* line 144, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 145, ../../../../src/themes/base/sass/components/_player.scss */
 .control-menu:before {
   content: "\e8a3";
 }
 
-/* line 150, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 151, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-playing #player-kodi .control-play:before {
   content: "\e6b6";
 }
-/* line 151, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 152, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-playing #player-kodi .playing-progress {
   border-top-color: #12b2e7;
 }
-/* line 157, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 158, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-mute-on #player-kodi .control-mute:hover {
   color: #12b2e7;
 }
-/* line 160, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 161, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-mute-on #player-kodi .control-mute:before {
   content: "\e6d0";
 }
-/* line 164, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 165, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat {
   color: white;
 }
-/* line 166, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 167, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat:before {
   content: "\e6c3";
 }
-/* line 167, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 168, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat:hover {
   color: #12b2e7;
 }
-/* line 173, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 174, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-all #player-kodi .control-repeat {
   color: white;
 }
-/* line 175, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 176, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-all #player-kodi .control-repeat:hover {
   color: #12b2e7;
 }
-/* line 181, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 182, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-shuffled-on #player-kodi .control-shuffle {
   color: white;
 }
-/* line 183, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 184, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-shuffled-on #player-kodi .control-shuffle:hover {
   color: #12b2e7;
 }
@@ -16353,7 +17369,7 @@ a:focus, a:hover {
 }
 /* line 69, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .play {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   top: 0;
   right: 0;
   bottom: 0;
@@ -16385,34 +17401,35 @@ a:focus, a:hover {
   vertical-align: middle;
   height: 50px;
 }
-/* line 73, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 31, ../../../../src/themes/base/sass/abstractions/_ui.scss */
 .playlist-items .play:before {
   color: white;
   font-size: 200%;
+  padding-right: 5px;
 }
-/* line 78, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 72, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .meta {
   margin: 0 30px 0 0px;
   padding: 9px 10px 5px 15px;
 }
-/* line 82, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 76, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .title,
 .playlist-items .subtitle {
   display: block;
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 88, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 82, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .title, .playlist-items .title a {
   color: #bdc1c2;
 }
-/* line 91, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 85, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .subtitle {
   display: none;
   font-size: 95%;
   margin-top: 2px;
 }
-/* line 96, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 90, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .remove {
   top: 0;
   right: 0;
@@ -16444,17 +17461,17 @@ a:focus, a:hover {
   vertical-align: middle;
   height: 50px;
 }
-/* line 100, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 94, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .remove:hover {
   font-size: 120%;
   color: darkred;
 }
-/* line 105, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 99, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li:hover .remove {
   display: table;
 }
 
-/* line 110, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 104, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlists-wrapper {
   padding: 1em;
   font-size: 85%;
@@ -16466,7 +17483,7 @@ a:focus, a:hover {
   top: 50px;
 }
 
-/* line 118, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 112, ../../../../src/themes/base/sass/components/_playlists.scss */
 .media-toggle {
   *zoom: 1;
   background: rgba(255, 255, 255, 0.1);
@@ -16478,34 +17495,34 @@ a:focus, a:hover {
   display: table;
   clear: both;
 }
-/* line 122, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 116, ../../../../src/themes/base/sass/components/_playlists.scss */
 .media-toggle li {
   float: left;
   padding: 5px 15px;
   color: #999999;
   cursor: pointer;
 }
-/* line 129, ../../../../src/themes/base/sass/components/_playlists.scss */
-.kodi-media-audio .media-toggle li.audio {
+/* line 123, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-bar.media-audio .media-toggle li.audio {
   color: white;
   background: rgba(255, 255, 255, 0.1);
 }
-/* line 135, ../../../../src/themes/base/sass/components/_playlists.scss */
-.kodi-media-video .media-toggle li.video {
+/* line 129, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-bar.media-video .media-toggle li.video {
   color: white;
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* line 142, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 136, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header {
   background: #313233;
   height: 50px;
 }
-/* line 145, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 139, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header .player-toggle {
   display: table;
 }
-/* line 147, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 141, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header .player-toggle li {
   height: 50px;
   display: table-cell;
@@ -16514,12 +17531,12 @@ a:focus, a:hover {
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
-/* line 155, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 149, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-kodi .playlist-header .player-toggle li.kodi {
   color: white;
   background: #1b1c1d;
 }
-/* line 161, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 155, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-local .playlist-header .player-toggle li.local {
   color: white;
   background: #1b1c1d;
@@ -16580,6 +17597,100 @@ a:focus, a:hover {
   vertical-align: middle;
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
+}
+
+/* line 5, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-page .region-content {
+  padding: 0;
+  padding-bottom: 50px;
+}
+@media (min-width: 57em) {
+  /* line 5, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-page .region-content {
+    padding-bottom: 70px;
+  }
+}
+
+/* line 11, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form {
+  background: white;
+  max-width: 800px;
+}
+/* line 14, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form .form-content-region {
+  padding: 1em;
+}
+@media (min-width: 57em) {
+  /* line 14, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-form .form-content-region {
+    padding: 2em;
+    padding-left: 3em;
+  }
+}
+/* line 21, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form .form-group {
+  margin-bottom: 1.5em;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+.settings-form .form-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 45em) {
+  /* line 25, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-form .form-group .control-label {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 28.5714285714%;
+    float: left;
+    padding: 5px 0 0.5em;
+  }
+  /* line 29, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-form .form-group .element {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 71.4285714286%;
+    float: right;
+  }
+}
+/* line 34, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form .group-title {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  color: #12b2e7;
+  display: inline-block;
+}
+@media (min-width: 57em) {
+  /* line 41, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-form .form-items {
+    margin: 0 4em 0 2em;
+  }
+}
+/* line 46, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form footer {
+  color: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid #C8C8C8;
+  background: #2B2E2F;
+  padding: 1em;
+}
+@media (min-width: 57em) {
+  /* line 46, ../../../../src/themes/base/sass/components/_settings.scss */
+  .settings-form footer {
+    padding: 1em 2em;
+  }
+}
+/* line 55, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form .togglebutton {
+  margin-top: 4px;
+}
+/* line 57, ../../../../src/themes/base/sass/components/_settings.scss */
+.settings-form .togglebutton label .toggle:after {
+  top: -3px;
 }
 
 /**
@@ -16832,6 +17943,121 @@ a:focus, a:hover {
 /* line 116, ../../../../src/themes/base/sass/components/_shell.scss */
 .shell-playlist-closed #sidebar-two #playlist-summary {
   display: block;
+}
+
+/* line 123, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window .close, #modal-window .close:hover, #modal-window .close:focus {
+  color: white;
+}
+@media (min-width: 45em) {
+  /* line 126, ../../../../src/themes/base/sass/components/_shell.scss */
+  #modal-window .modal-dialog {
+    width: 500px;
+  }
+}
+/* line 131, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window .modal-header {
+  background: #2F3334;
+  color: white;
+}
+/* line 135, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window .modal-header, #modal-window .modal-body {
+  padding: 15px 20px;
+}
+
+/* line 1, ../../../../src/themes/base/sass/components/_snackbar.scss */
+#snackbar-container {
+  position: fixed;
+  z-index: 50;
+  right: 0;
+  bottom: 50px;
+  margin-bottom: -10px;
+}
+@media (min-width: 57em) {
+  /* line 1, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  #snackbar-container {
+    bottom: 70px;
+  }
+}
+
+/* line 8, ../../../../src/themes/base/sass/components/_snackbar.scss */
+.snackbar {
+  overflow: hidden;
+  clear: both;
+  cursor: pointer;
+  opacity: 0;
+  max-width: 600px;
+}
+@media (min-width: 45em) {
+  /* line 8, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  .snackbar {
+    min-width: 250px;
+  }
+}
+@media (min-width: 75em) {
+  /* line 8, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  .snackbar {
+    min-width: 400px;
+  }
+}
+
+/* line 16, ../../../../src/themes/base/sass/components/_snackbar.scss */
+.snackbar.snackbar-opened {
+  height: auto;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  /* line 21, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  #snackbar-container {
+    left: 0px !important;
+    right: 0px;
+    width: 100%;
+  }
+
+  /* line 26, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  #snackbar-container .snackbar {
+    min-width: 100%;
+  }
+
+  /* line 29, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  #snackbar-container [class="snackbar snackbar-opened"] ~ .snackbar.toast {
+    margin-top: 20px;
+  }
+
+  /* line 32, ../../../../src/themes/base/sass/components/_snackbar.scss */
+  #snackbar-container [class="snackbar snackbar-opened"] {
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+}
+/* line 38, ../../../../src/themes/base/sass/components/_snackbar.scss */
+.snackbar {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #2b2f30;
+  font-size: 14px;
+  border-radius: 0px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 0;
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: translateY(200%);
+  -webkit-transform: translateY(200%);
+  transform: translateY(200%);
+}
+
+/* line 52, ../../../../src/themes/base/sass/components/_snackbar.scss */
+.snackbar.snackbar-opened {
+  padding: 14px 15px;
+  margin: 0 0 10px 0;
+  height: auto;
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: none;
+  -webkit-transform: none;
+  transform: none;
 }
 
 /* line 4, ../../../../src/themes/base/sass/components/_songs.scss */

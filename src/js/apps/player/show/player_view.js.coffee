@@ -2,6 +2,7 @@
 
   class Show.Player extends App.Views.ItemView
     template: "apps/player/show/player"
+
     regions:
       regionProgress  : '.playing-progress'
       regionVolume    : '.volume'
@@ -11,6 +12,7 @@
       regionTimeCur   : '.playing-time-current'
       regionTimeDur   : '.playing-time-duration'
     triggers:
+
       'click .control-prev'     : 'control:prev'
       'click .control-play'     : 'control:play'
       'click .control-next'     : 'control:next'

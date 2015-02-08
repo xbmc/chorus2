@@ -118,3 +118,21 @@
     }
   }
 }
+
+#modal-window {
+  .close, .close:hover, .close:focus {
+    color: $color-white;
+  }
+  .modal-dialog {
+    @include at-bp(medium) {
+      width: 500px;
+    }
+  }
+  .modal-header {
+    background: #2F3334;
+    color: $color-white;
+  }
+  .modal-header, .modal-body {
+    padding: 15px 20px;
+  }
+}

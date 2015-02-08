@@ -1,0 +1,11 @@
+<div class="folder-layout">
+    <div class="loading-bar"><div class="inner"><span><%= t.gettext('Loading folder...') %></span></div></div>
+    <div class="path"></div>
+    <div class="folder-container">
+        <div class="folders-pane">
+            <div class="back"></div>
+            <div class="folders"></div>
+        </div>
+        <div class="files"></div>
+    </div>
+</div>

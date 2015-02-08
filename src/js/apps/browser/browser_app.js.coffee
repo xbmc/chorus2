@@ -3,16 +3,16 @@
   class BrowserApp.Router extends App.Router.Base
     appRoutes:
       "browser"   	      : "list"
-      "browser/:type/:id"	: "view"
+      "browser/:media/:id"	: "view"
 
   API =
 
     list: ->
       new BrowserApp.List.Controller
 
-    view: (type, id) ->
+    view: (media, id) ->
       new BrowserApp.List.Controller
-        type: id
+        media: media
         id: id
 
 

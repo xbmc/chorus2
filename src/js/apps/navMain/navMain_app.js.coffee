@@ -7,15 +7,17 @@
       new NavMain.List
         collection: navStructure
 
-    getNavChildren: (parentId) ->
+    getNavChildren: (parentId, title = 'default') ->
       navStructure = App.request 'navMain:entities', parentId
+      if title isnt 'default'
+        navStructure.set({title: title})
       new NavMain.ItemList
-        collection: navStructure
+        model: navStructure
 
   @onStart = (options) ->
     App.vent.on "shell:ready", (options) =>
       nav = API.getNav()
       App.regionNav.show nav
 
-  App.reqres.setHandler "navMain:children:show", (parentId) ->
-    API.getNavChildren(parentId)
+  App.reqres.setHandler "navMain:children:show", (parentId, title = 'default') ->
+    API.getNavChildren(parentId, title)

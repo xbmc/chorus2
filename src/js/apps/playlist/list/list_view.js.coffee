@@ -7,6 +7,9 @@
     regions:
       kodiPlayList: '.kodi-playlist'
       localPlayList: '.local-playlist'
+    triggers:
+      'click .kodi-playlists .media-toggle .video' :  'playlist:kodi:video'
+      'click .kodi-playlists .media-toggle .audio' :  'playlist:kodi:audio'
 
   class List.Item extends App.Views.ItemView
     template: "apps/playlist/list/playlist_item"

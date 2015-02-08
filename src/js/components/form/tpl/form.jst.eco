@@ -1,0 +1,13 @@
+<div class="form-inner">
+	<div class="form-content-region"></div>
+    <footer>
+        <ul class="inline-list">
+            <li>
+                <button type="submit" data-form-button="submit" class="btn btn-primary form-save">Save</button>
+            </li>
+            <li class="response">
+
+            </li>
+        </ul>
+    </footer>
+</div>

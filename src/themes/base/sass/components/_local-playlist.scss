@@ -1,0 +1,11 @@
+.local-playlist-list {
+  .region-first {
+    @extend %sidebar--padding;
+    h3 {
+      @extend %sidebar--heading;
+    }
+    .lists {
+      @extend %sidebar--list;
+    }
+  }
+}

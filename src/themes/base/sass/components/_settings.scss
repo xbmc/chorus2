@@ -1,0 +1,61 @@
+.settings-page {
+  .region-first {
+    @extend %sidebar--padding;
+  }
+  .region-content {
+    padding: 0;
+    @include set-layout('height-player', 'padding-bottom');
+  }
+}
+
+.settings-form {
+  background: $color-white;
+  max-width: 800px;
+  .form-content-region {
+    padding: $spacing-base-unit;
+    @include at-bp(large) {
+      padding: $spacing-double-unit;
+      padding-left: $spacing-base-unit * 3;
+    }
+  }
+  .form-group {
+    margin-bottom: $spacing-half-unit * 3;
+    @include pie-clearfix();
+    @include at-bp(medium) {
+      .control-label {
+        @include span(2 of 7);
+        padding: 5px 0 $spacing-half-unit;
+      }
+      .element {
+        @include span(5 of 7 last);
+      }
+    }
+  }
+  .group-title {
+    margin-top: $spacing-half-unit;
+    margin-bottom: $spacing-base-unit;
+    padding-bottom: $spacing-half-unit;
+    color: $color-kodi;
+    display: inline-block;
+  }
+  .form-items {
+    @include at-bp(large) {
+      margin: 0 $spacing-base-unit * 4 0 $spacing-double-unit
+    }
+  }
+  footer {
+    color: rgba($color-white, 0.7);
+    border-top: 1px solid #C8C8C8;
+    background: #2B2E2F;
+    padding: $spacing-base-unit;
+    @include at-bp(large) {
+      padding: $spacing-base-unit $spacing-double-unit;
+    }
+  }
+  .togglebutton {
+    margin-top: 4px;
+    label .toggle:after {
+      top: -3px;
+    }
+  }
+}

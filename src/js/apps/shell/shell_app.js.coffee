@@ -49,9 +49,19 @@
       ## TESTINGS!
 
       ## Get data
-#      entity = App.request "playlist:kodi:entities", 'audio'
+
+       ## save a list..
+      ## App.request "localplaylist:remove:entity", 1
+      ## App.request "localplaylist:add:entity", 'Test list 1', 'song', 'list'
+#      lists = App.request "localplaylist:entities"
+#      lists.reset []
+#      lists.set []
+#       console.log 'my lists: ', lists
+#      entity = App.request "localplaylist:item:entities", 'listname'
+#      console.log entity
 #      App.execute "when:entity:fetched", entity, ->
-#        console.log entity
+#        sets = App.request "file:source:media:entities", entity
+#        console.log sets
 
 
     ## Alter region classes.

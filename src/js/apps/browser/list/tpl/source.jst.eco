@@ -1,0 +1,3 @@
+<div class="source source-<%= @media %>">
+    <%= @label %>
+</div>

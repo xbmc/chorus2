@@ -19,8 +19,9 @@
 
     ## Set our custom cache keys.
     getCacheKey: (options) ->
+      this.options = options
       key = this.constructor.name
-      for k in ['filter', 'sort', 'limit']
+      for k in ['filter', 'sort', 'limit', 'file']
         if options[k]
           for prop, val of options[k]
             key += ':' + prop + ':' + val
@@ -41,7 +42,7 @@
 
     ## Sort.
     argSort: (method, order = 'ascending') ->
-      arg = {method: method, order: order, ignorearticle: true}
+      arg = {method: method, order: order, ignorearticle: @isIgnoreArticle()}
       @argCheckOption 'sort', arg
 
     ## Limit.
@@ -58,3 +59,6 @@
         arg[name] = value
       @argCheckOption 'filter', arg
 
+    ## Should we ignore article when sorting?
+    isIgnoreArticle: ->
+      config.get 'static', 'ignoreArticle', true

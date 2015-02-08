@@ -90,7 +90,7 @@
         params.push options
       @singleCommand @getCommand('Open', 'Player'), params, (resp) =>
         if not App.request 'sockets:active'
-          App.request 'player:kodi:timer', 'start'
+          # App.request 'player:kodi:timer', 'start'
           App.request 'state:kodi:update'
         @doCallback callback, resp
 

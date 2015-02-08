@@ -95,5 +95,8 @@
       config.set 'state', 'lastplayer', player
 
     getPlayer: ->
+      player = 'kodi'
       $body = App.getRegion('root').$el
-      player = if $body.hasClass('active-player-kodi') then 'kodi' else 'local'
+      if $body.hasClass('active-player-lcal')
+        player = 'local'
+      player

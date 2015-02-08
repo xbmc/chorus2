@@ -1,23 +1,15 @@
 .filters-container {
   h3 {
-    font-size: $font-size-base + 1;
-    text-transform: uppercase;
-    margin: $spacing-base-unit 0;
-    color: $color-greyscale-gray;
-    font-weight: bold;
+    @extend %sidebar--heading;
   }
   .nav-list,
   .selection-list,
   .active-list {
-    margin-bottom: $spacing-double-unit;
+    @extend %sidebar--section;
   }
   .nav-list,
   .selection-list {
-    padding-left: $spacing-base-unit;
-    li {
-      padding-bottom: $spacing-half-unit;
-      @include text-crop($color-sidebar);
-    }
+    @extend %sidebar--list;
     a, .option {
       color: $color-greyscale-outer-space;
       cursor: pointer;
@@ -103,7 +95,7 @@
 $sidebar-width: 240px;
 .filter-pane {
   @include set-position-absolute(top 0 left 0 right 0 bottom 0);
-  padding: $spacing-base-unit $spacing-base-unit + $spacing-half-unit;
+  @extend %sidebar--padding;
   @include transition(0.2s all ease-out);
   &.filters-current {
     @include transform(translate(0,0));

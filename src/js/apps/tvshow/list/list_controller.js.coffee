@@ -26,8 +26,12 @@
         collection: tvshows
 
     getTVShowsView: (tvshows) ->
-      new List.TVShows
+      view = new List.TVShows
         collection: tvshows
+      @listenTo view, 'childview:tvshow:play', (list, item) ->
+        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+        playlist.play 'tvshowid', item.model.get('tvshowid')
+      view
 
 
     ## Available sort and filter options

@@ -36,7 +36,7 @@
     ## Set playing rows in content.
     setPlayingContent: (player) ->
       stateObj = App.request "state:" + player
-      $playlistCtx = $('.' + player + '-playlist')
+      $playlistCtx = $('.media-' + stateObj.getState('media') + ' .' + player + '-playlist')
       $('.can-play').removeClassStartsWith(player + '-row-')
       $('.item', $playlistCtx).removeClassStartsWith('row-')
       if stateObj.isPlaying()
@@ -82,13 +82,12 @@
       App.kodiState = new StateApp.Kodi.State()
       App.localState = new StateApp.Local.State()
 
-
       ## Set the initial active player
       App.kodiState.setPlayer config.get('state', 'lastplayer', 'kodi')
 
       ## Load up the Kodi state
       App.kodiState.getCurrentState (state) ->
-        API.setState 'kodi'
+        API.setState App.kodiState.getState('player')
 
         ## Attach sockets and polling (if req).
         App.kodiSockets = new StateApp.Kodi.Notifications()
@@ -97,6 +96,10 @@
         ## Sockets unavailable, start polling.
         App.vent.on "sockets:unavailable", ->
           App.kodiPolling.startPolling()
+
+        ## Playlist is available, set its state
+        App.vent.on "playlist:rendered", ->
+          App.request "playlist:refresh", App.kodiState.getState('player'), App.kodiState.getState('media')
 
         ## Some new content has been renderd with a potential to be playing
         App.vent.on "state:content:updated", ->
@@ -109,6 +112,8 @@
         ## Player data requires updating
         App.vent.on "state:player:updated", (player) ->
           API.setPlayerPlaying player
+
+        App.vent.trigger "state:initialized"
 
 
       ## Everything should use the state object.

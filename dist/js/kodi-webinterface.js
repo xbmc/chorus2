@@ -28614,7 +28614,490 @@ return Backbone.LocalStorage;
   }(Rpc));
 
   return Backbone;
-}));;// Backbone.Wreqr (Backbone.Marionette)
+}));;(function(root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
+      return factory(_, Backbone, $);
+    });
+  } else if (typeof exports !== 'undefined') {
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var $ = require('jquery');
+    module.exports = factory(_, Backbone, $);
+  } else {
+    factory(root._, root.Backbone, root.jQuery);
+  }
+
+}(this, function(_, Backbone, $) {
+  'use strict';
+
+  var previousSyphon = Backbone.Syphon;
+
+  var Syphon = Backbone.Syphon = {};
+
+  Syphon.VERSION = '0.5.0';
+
+  Syphon.noConflict = function() {
+    Backbone.Syphon = previousSyphon;
+    return this;
+  };
+
+  /* jshint maxstatements: 13, maxlen: 102, maxcomplexity: 8, latedef: false */
+  
+  // Ignore Element Types
+  // --------------------
+  
+  // Tell Syphon to ignore all elements of these types. You can
+  // push new types to ignore directly in to this array.
+  Syphon.ignoredTypes = ['button', 'submit', 'reset', 'fieldset'];
+  
+  // Syphon
+  // ------
+  
+  // Get a JSON object that represents
+  // all of the form inputs, in this view.
+  // Alternately, pass a form element directly
+  // in place of the view.
+  Syphon.serialize = function(view, options){
+    var data = {};
+  
+    // Build the configuration
+    var config = buildConfig(options);
+  
+    // Get all of the elements to process
+    var elements = getInputElements(view, config);
+  
+    // Process all of the elements
+    _.each(elements, function(el){
+      var $el = $(el);
+      var type = getElementType($el);
+  
+      // Get the key for the input
+      var keyExtractor = config.keyExtractors.get(type);
+      var key = keyExtractor($el);
+  
+      // Get the value for the input
+      var inputReader = config.inputReaders.get(type);
+      var value = inputReader($el);
+  
+      // Get the key assignment validator and make sure
+      // it's valid before assigning the value to the key
+      var validKeyAssignment = config.keyAssignmentValidators.get(type);
+      if (validKeyAssignment($el, key, value)){
+        var keychain = config.keySplitter(key);
+        data = assignKeyValue(data, keychain, value);
+      }
+    });
+  
+    // Done; send back the results.
+    return data;
+  };
+  
+  // Use the given JSON object to populate
+  // all of the form inputs, in this view.
+  // Alternately, pass a form element directly
+  // in place of the view.
+  Syphon.deserialize = function(view, data, options){
+    // Build the configuration
+    var config = buildConfig(options);
+  
+    // Get all of the elements to process
+    var elements = getInputElements(view, config);
+  
+    // Flatten the data structure that we are deserializing
+    var flattenedData = flattenData(config, data);
+  
+    // Process all of the elements
+    _.each(elements, function(el){
+      var $el = $(el);
+      var type = getElementType($el);
+  
+      // Get the key for the input
+      var keyExtractor = config.keyExtractors.get(type);
+      var key = keyExtractor($el);
+  
+      // Get the input writer and the value to write
+      var inputWriter = config.inputWriters.get(type);
+      var value = flattenedData[key];
+  
+      // Write the value to the input
+      inputWriter($el, value);
+    });
+  };
+  
+  // Helpers
+  // -------
+  
+  // Retrieve all of the form inputs
+  // from the form
+  var getInputElements = function(view, config){
+    var form = getForm(view);
+    var elements = form.elements;
+  
+    elements = _.reject(elements, function(el){
+      var reject;
+      var type = getElementType(el);
+      var extractor = config.keyExtractors.get(type);
+      var identifier = extractor($(el));
+  
+      var foundInIgnored = _.include(config.ignoredTypes, type);
+      var foundInInclude = _.include(config.include, identifier);
+      var foundInExclude = _.include(config.exclude, identifier);
+  
+      if (foundInInclude){
+        reject = false;
+      } else {
+        if (config.include){
+          reject = true;
+        } else {
+          reject = (foundInExclude || foundInIgnored);
+        }
+      }
+  
+      return reject;
+    });
+  
+    return elements;
+  };
+  
+  // Determine what type of element this is. It
+  // will either return the `type` attribute of
+  // an `<input>` element, or the `tagName` of
+  // the element when the element is not an `<input>`.
+  var getElementType = function(el){
+    var typeAttr;
+    var $el = $(el);
+    var tagName = $el[0].tagName;
+    var type = tagName;
+  
+    if (tagName.toLowerCase() === 'input'){
+      typeAttr = $el.attr('type');
+      if (typeAttr){
+        type = typeAttr;
+      } else {
+        type = 'text';
+      }
+    }
+  
+    // Always return the type as lowercase
+    // so it can be matched to lowercase
+    // type registrations.
+    return type.toLowerCase();
+  };
+  
+  // If a form element is given, just return it.
+  // Otherwise, get the form element from the view.
+  var getForm = function(viewOrForm){
+    if (_.isUndefined(viewOrForm.$el) && viewOrForm.tagName.toLowerCase() === 'form'){
+      return viewOrForm;
+    } else {
+      return viewOrForm.$el.is('form') ? viewOrForm.el : viewOrForm.$('form')[0];
+    }
+  };
+  
+  // Build a configuration object and initialize
+  // default values.
+  var buildConfig = function(options){
+    var config = _.clone(options) || {};
+  
+    config.ignoredTypes = _.clone(Syphon.ignoredTypes);
+    config.inputReaders = config.inputReaders || Syphon.InputReaders;
+    config.inputWriters = config.inputWriters || Syphon.InputWriters;
+    config.keyExtractors = config.keyExtractors || Syphon.KeyExtractors;
+    config.keySplitter = config.keySplitter || Syphon.KeySplitter;
+    config.keyJoiner = config.keyJoiner || Syphon.KeyJoiner;
+    config.keyAssignmentValidators = config.keyAssignmentValidators || Syphon.KeyAssignmentValidators;
+  
+    return config;
+  };
+  
+  // Assigns `value` to a parsed JSON key.
+  //
+  // The first parameter is the object which will be
+  // modified to store the key/value pair.
+  //
+  // The second parameter accepts an array of keys as a
+  // string with an option array containing a
+  // single string as the last option.
+  //
+  // The third parameter is the value to be assigned.
+  //
+  // Examples:
+  //
+  // `['foo', 'bar', 'baz'] => {foo: {bar: {baz: 'value'}}}`
+  //
+  // `['foo', 'bar', ['baz']] => {foo: {bar: {baz: ['value']}}}`
+  //
+  // When the final value is an array with a string, the key
+  // becomes an array, and values are pushed in to the array,
+  // allowing multiple fields with the same name to be
+  // assigned to the array.
+  var assignKeyValue = function(obj, keychain, value) {
+    if (!keychain){ return obj; }
+  
+    var key = keychain.shift();
+  
+    // build the current object we need to store data
+    if (!obj[key]){
+      obj[key] = _.isArray(key) ? [] : {};
+    }
+  
+    // if it's the last key in the chain, assign the value directly
+    if (keychain.length === 0){
+      if (_.isArray(obj[key])){
+        obj[key].push(value);
+      } else {
+        obj[key] = value;
+      }
+    }
+  
+    // recursive parsing of the array, depth-first
+    if (keychain.length > 0){
+      assignKeyValue(obj[key], keychain, value);
+    }
+  
+    return obj;
+  };
+  
+  // Flatten the data structure in to nested strings, using the
+  // provided `KeyJoiner` function.
+  //
+  // Example:
+  //
+  // This input:
+  //
+  // ```js
+  // {
+  //   widget: 'wombat',
+  //   foo: {
+  //     bar: 'baz',
+  //     baz: {
+  //       quux: 'qux'
+  //     },
+  //     quux: ['foo', 'bar']
+  //   }
+  // }
+  // ```
+  //
+  // With a KeyJoiner that uses [ ] square brackets,
+  // should produce this output:
+  //
+  // ```js
+  // {
+  //  'widget': 'wombat',
+  //  'foo[bar]': 'baz',
+  //  'foo[baz][quux]': 'qux',
+  //  'foo[quux]': ['foo', 'bar']
+  // }
+  // ```
+  var flattenData = function(config, data, parentKey){
+    var flatData = {};
+  
+    _.each(data, function(value, keyName){
+      var hash = {};
+  
+      // If there is a parent key, join it with
+      // the current, child key.
+      if (parentKey){
+        keyName = config.keyJoiner(parentKey, keyName);
+      }
+  
+      if (_.isArray(value)){
+        keyName += '[]';
+        hash[keyName] = value;
+      } else if (_.isObject(value)){
+        hash = flattenData(config, value, keyName);
+      } else {
+        hash[keyName] = value;
+      }
+  
+      // Store the resulting key/value pairs in the
+      // final flattened data object
+      _.extend(flatData, hash);
+    });
+  
+    return flatData;
+  };
+  
+  // Type Registry
+  // -------------
+  
+  // Type Registries allow you to register something to
+  // an input type, and retrieve either the item registered
+  // for a specific type or the default registration
+  var TypeRegistry = Syphon.TypeRegistry = function() {
+    this.registeredTypes = {};
+  };
+  
+  // Borrow Backbone's `extend` keyword for our TypeRegistry
+  TypeRegistry.extend = Backbone.Model.extend;
+  
+  _.extend(TypeRegistry.prototype, {
+  
+    // Get the registered item by type. If nothing is
+    // found for the specified type, the default is
+    // returned.
+    get: function(type){
+      return this.registeredTypes[type] || this.registeredTypes['default'];
+    },
+  
+    // Register a new item for a specified type
+    register: function(type, item) {
+      this.registeredTypes[type] = item;
+    },
+  
+    // Register a default item to be used when no
+    // item for a specified type is found
+    registerDefault: function(item) {
+      this.registeredTypes['default'] = item;
+    },
+  
+    // Remove an item from a given type registration
+    unregister: function(type) {
+      if (this.registeredTypes[type]) {
+        delete this.registeredTypes[type];
+      }
+    }
+  });
+  
+  // Key Extractors
+  // --------------
+  
+  // Key extractors produce the "key" in `{key: "value"}`
+  // pairs, when serializing.
+  var KeyExtractorSet = Syphon.KeyExtractorSet = TypeRegistry.extend();
+  
+  // Built-in Key Extractors
+  var KeyExtractors = Syphon.KeyExtractors = new KeyExtractorSet();
+  
+  // The default key extractor, which uses the
+  // input element's "name" attribute
+  KeyExtractors.registerDefault(function($el) {
+    return $el.prop('name') || '';
+  });
+  
+  // Input Readers
+  // -------------
+  
+  // Input Readers are used to extract the value from
+  // an input element, for the serialized object result
+  var InputReaderSet = Syphon.InputReaderSet = TypeRegistry.extend();
+  
+  // Built-in Input Readers
+  var InputReaders = Syphon.InputReaders = new InputReaderSet();
+  
+  // The default input reader, which uses an input
+  // element's "value"
+  InputReaders.registerDefault(function($el){
+    return $el.val();
+  });
+  
+  // Checkbox reader, returning a boolean value for
+  // whether or not the checkbox is checked.
+  InputReaders.register('checkbox', function($el) {
+    return $el.prop('checked');
+  });
+  
+  // Input Writers
+  // -------------
+  
+  // Input Writers are used to insert a value from an
+  // object into an input element.
+  var InputWriterSet = Syphon.InputWriterSet = TypeRegistry.extend();
+  
+  // Built-in Input Writers
+  var InputWriters = Syphon.InputWriters = new InputWriterSet();
+  
+  // The default input writer, which sets an input
+  // element's "value"
+  InputWriters.registerDefault(function($el, value) {
+    $el.val(value);
+  });
+  
+  // Checkbox writer, set whether or not the checkbox is checked
+  // depending on the boolean value.
+  InputWriters.register('checkbox', function($el, value) {
+    $el.prop('checked', value);
+  });
+  
+  // Radio button writer, set whether or not the radio button is
+  // checked.  The button should only be checked if it's value
+  // equals the given value.
+  InputWriters.register('radio', function($el, value) {
+    $el.prop('checked', $el.val() === value.toString());
+  });
+  
+  // Key Assignment Validators
+  // -------------------------
+  
+  // Key Assignment Validators are used to determine whether or not a
+  // key should be assigned to a value, after the key and value have been
+  // extracted from the element. This is the last opportunity to prevent
+  // bad data from getting serialized to your object.
+  
+  var KeyAssignmentValidatorSet = Syphon.KeyAssignmentValidatorSet = TypeRegistry.extend();
+  
+  // Build-in Key Assignment Validators
+  var KeyAssignmentValidators = Syphon.KeyAssignmentValidators = new KeyAssignmentValidatorSet();
+  
+  // Everything is valid by default
+  KeyAssignmentValidators.registerDefault(function() {
+    return true;
+  });
+  
+  // But only the "checked" radio button for a given
+  // radio button group is valid
+  KeyAssignmentValidators.register('radio', function($el, key, value) {
+    return $el.prop('checked');
+  });
+  
+  // Backbone.Syphon.KeySplitter
+  // ---------------------------
+  
+  // This function is used to split DOM element keys in to an array
+  // of parts, which are then used to create a nested result structure.
+  // returning `["foo", "bar"]` results in `{foo: { bar: "value" }}`.
+  //
+  // Override this method to use a custom key splitter, such as:
+  // `<input name="foo.bar.baz">`, `return key.split(".")`
+  Syphon.KeySplitter = function(key) {
+    var matches = key.match(/[^\[\]]+/g);
+    var lastKey;
+  
+    if (key.indexOf('[]') === key.length - 2) {
+      lastKey = matches.pop();
+      matches.push([lastKey]);
+    }
+  
+    return matches;
+  };
+  
+  // Backbone.Syphon.KeyJoiner
+  // -------------------------
+  
+  // Take two segments of a key and join them together, to create the
+  // de-normalized key name, when deserializing a data structure back
+  // in to a form.
+  //
+  // Example:
+  //
+  // With this data strucutre `{foo: { bar: {baz: "value", quux: "another"} } }`,
+  // the key joiner will be called with these parameters, and assuming the
+  // join happens with "[ ]" square brackets, the specified output:
+  //
+  // `KeyJoiner("foo", "bar")` //=> "foo[bar]"
+  // `KeyJoiner("foo[bar]", "baz")` //=> "foo[bar][baz]"
+  // `KeyJoiner("foo[bar]", "quux")` //=> "foo[bar][quux]"
+  
+  Syphon.KeyJoiner = function(parentKey, childKey) {
+    return parentKey + '[' + childKey + ']';
+  };
+  
+
+  return Backbone.Syphon;
+}));
+;// Backbone.Wreqr (Backbone.Marionette)
 // ----------------------------------
 // v1.3.2
 //
@@ -34501,12 +34984,14 @@ if (!window.JST) {
    * Get the ripple color
    */
   Ripples.prototype.getRipplesColor = function() {
-    var $element = this.element;
+    var $element = this.element, color;
 
-    console.log($element);
-
-    var color = $element.data("ripple-color") ? $element.data("ripple-color") : window.getComputedStyle($element[0]).color;
-    console.log(color);
+    // Hacked for custom color
+    if(this.options && this.options.color) {
+      color = this.options.color
+    } else {
+      color = $element.data("ripple-color") ? $element.data("ripple-color") : window.getComputedStyle($element[0]).color;
+    }
 
     return color;
   };
@@ -34615,6 +35100,143 @@ if (!window.JST) {
   };
 
 })(jQuery, window, document);
+;/* SnackbarJS - MIT LICENSE (https://github.com/FezVrasta/snackbarjs/blob/master/LICENSE.md) */
+
+(function( $ ){
+
+    $(document).ready(function() {
+        $("body").append("<div id=snackbar-container/>");
+    });
+
+    function isset(variable) {
+        if (typeof variable !== "undefined" && variable !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $(document)
+    .on("click", "[data-toggle=snackbar]", function() {
+        $(this).snackbar("toggle");
+    })
+    .on("click", "#snackbar-container .snackbar", function() {
+        $(this).snackbar("hide");
+    });
+
+    $.snackbar = function(options) {
+
+        if (isset(options) && options === Object(options)) {
+            var $snackbar;
+
+            if (!isset(options.id)) {
+                $snackbar = $("<div/>").attr("id", "snackbar" + Date.now()).attr("class", "snackbar");
+            } else {
+                $snackbar = $("#" + options.id);
+            }
+
+            var snackbarStatus = $snackbar.hasClass("snackbar-opened");
+
+            if (isset(options.style)) {
+                $snackbar.attr("class", "snackbar " + options.style);
+            } else {
+                $snackbar.attr("class", "snackbar");
+            }
+
+            options.timeout = (isset(options.timeout)) ? options.timeout : 3000;
+
+            if (isset(options.content)) {
+                if ($snackbar.find(".snackbar-content").length) {
+                    $snackbar.find(".snackbar-content").text(options.content);
+                } else {
+                    $snackbar.prepend("<span class=snackbar-content>" + options.content + "</span>");
+                }
+            }
+
+            if (!isset(options.id)) {
+                $snackbar.appendTo("#snackbar-container");
+            } else {
+                $snackbar.insertAfter("#snackbar-container .snackbar:last-child");
+            }
+
+            // Show or hide item
+            if (isset(options.action) && options.action == "toggle") {
+                if (snackbarStatus) {
+                    options.action = "hide";
+                } else {
+                    options.action = "show";
+                }
+            }
+
+            var animationId1 = Date.now();
+            $snackbar.data("animationId1", animationId1);
+            setTimeout(function() {
+                if ($snackbar.data("animationId1") === animationId1) {
+                    if (!isset(options.action) || options.action == "show") {
+                        $snackbar.addClass("snackbar-opened");
+                    } else if (isset(options.action) && options.action == "hide") {
+                        $snackbar.removeClass("snackbar-opened");
+                    }
+                }
+            }, 50);
+
+            // Set timer for item autohide
+            var animationId2 = Date.now();
+            $snackbar.data("animationId2", animationId2);
+
+            if (options.timeout !== 0) {
+                setTimeout(function() {
+                    if ($snackbar.data("animationId2") === animationId2) {
+                        $snackbar.removeClass("snackbar-opened");
+                    }
+                }, options.timeout);
+            }
+
+            return $snackbar;
+
+        } else {
+            return false;
+        }
+    };
+
+    $.fn.snackbar = function(action) {
+
+        var options = {};
+
+        if (!this.hasClass("snackbar")) {
+
+            if (!isset(action) || action === "show" || action === "hide" || action == "toggle") {
+                options = {
+                    content: $(this).attr("data-content"),
+                    style: $(this).attr("data-style"),
+                    timeout: $(this).attr("data-timeout")
+                };
+            }
+
+            if (isset(action)) {
+                options.id = this.attr("data-snackbar-id");
+
+                if(action === "show" || action === "hide" || action == "toggle") {
+                    options.action = action;
+                }
+            }
+
+            var $snackbar = $.snackbar(options);
+            this.attr("data-snackbar-id", $snackbar.attr("id"));
+
+            return $snackbar;
+
+        } else {
+
+            options.id = this.attr("id");
+            if(action === "show" || action === "hide" || action == "toggle") {
+                options.action = action;
+            }
+            return $.snackbar(options);
+        }
+
+    };
+})( jQuery );
 ;window.JST["apps/album/show/tpl/album_with_songs.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -34785,6 +35407,290 @@ window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/browser/list/tpl/back_button.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<i class="thumb"></i><div class="title">'));
+    
+      _print(t.gettext('Back'));
+    
+      _print(_safe('</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="thumb"><img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" onerror="Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/browser/list/tpl/folder_layout.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="folder-layout">\n    <div class="loading-bar"><div class="inner"><span>'));
+    
+      _print(t.gettext('Loading folder...'));
+    
+      _print(_safe('</span></div></div>\n    <div class="path"></div>\n    <div class="folder-container">\n        <div class="folders-pane">\n            <div class="back"></div>\n            <div class="folders"></div>\n        </div>\n        <div class="files"></div>\n    </div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/browser/list/tpl/path.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="title">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/browser/list/tpl/source.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="source source-'));
+    
+      _print(this.media);
+    
+      _print(_safe('">\n    '));
+    
+      _print(this.label);
+    
+      _print(_safe('\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/browser/list/tpl/source_set.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</h3>\n<ul class="sources"></ul>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -34806,11 +35712,7 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current filter-pane">\n        <div class="nav-section">\n            <h3>'));
-    
-      _print(t.gettext('sections'));
-    
-      _print(_safe('</h3>\n            <div class="list nav-items"></div>\n        </div>\n\n        <h3 class="open-filters">'));
+      _print(_safe('<div class="filters-container">\n\n    <div class="filters-current filter-pane">\n        <div class="nav-section"></div>\n\n        <h3 class="open-filters">'));
     
       _print(t.gettext('Filters'));
     
@@ -34915,6 +35817,94 @@ window.JST["apps/loading/show/tpl/loading_page.jst"] = function(__obj) {
       _print(t.gettext("Just a sec..."));
     
       _print(_safe('</h2>\n</div>\n\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/localPlaylist/list/tpl/playlist.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<span class="item">'));
+    
+      _print(_safe(this.title));
+    
+      _print(_safe('</span>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/localPlaylist/list/tpl/playlist_list.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>Playlists</h3>\n<ul class="lists"></ul>'));
     
     }).call(this);
     
@@ -35099,6 +36089,52 @@ window.JST["apps/navMain/show/tpl/nav_item.jst"] = function(__obj) {
     };
     (function() {
       _print(_safe(this.link));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/navMain/show/tpl/nav_sub.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>'));
+    
+      _print(t.gettext(this.title));
+    
+      _print(_safe('</h3>\n<ul class="items"></ul>'));
     
     }).call(this);
     
@@ -35352,7 +36388,7 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -35489,6 +36525,164 @@ window.JST["apps/tvshow/show/tpl/details_meta.jst"] = function(__obj) {
   })());
 };
 
+window.JST["components/form/tpl/form.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="form-inner">\n\t<div class="form-content-region"></div>\n    <footer>\n        <ul class="inline-list">\n            <li>\n                <button type="submit" data-form-button="submit" class="btn btn-primary form-save">Save</button>\n            </li>\n            <li class="response">\n\n            </li>\n        </ul>\n    </footer>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["components/form/tpl/form_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      if (this.title) {
+        _print(_safe('\n    <label class="control-label">'));
+        _print(t.gettext(this.title));
+        _print(_safe('</label>\n'));
+      }
+    
+      _print(_safe('\n<div class="element">\n    '));
+    
+      if (this.type !== 'checkbox') {
+        _print(_safe('\n        '));
+        _print(_safe(this.element));
+        _print(_safe('\n    '));
+      } else {
+        _print(_safe('\n        <div class="togglebutton">\n            <label>'));
+        _print(_safe(this.element));
+        _print(_safe('</label>\n        </div>\n    '));
+      }
+    
+      _print(_safe('\n    '));
+    
+      if (this.description) {
+        _print(_safe('\n        <div class="help-block description">'));
+        _print(t.gettext(this.description));
+        _print(_safe('</div>\n    '));
+      }
+    
+      _print(_safe('\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["components/form/tpl/form_item_group.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      if (this.title) {
+        _print(_safe('\n    <h3 class="group-title">'));
+        _print(this.title);
+        _print(_safe('</h3>\n'));
+      }
+    
+      _print(_safe('\n<div class="form-items"></div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["views/card/tpl/card.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -35510,7 +36704,9 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="card-inner card-'));
+      var key, val, _ref;
+    
+      _print(_safe('<div class="card-'));
     
       _print(this.type);
     
@@ -35526,7 +36722,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       _print(this.thumbnail);
     
-      _print(_safe('" />\n        </a>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+      _print(_safe('" />\n        </a>\n        <div class="play"></div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
     
       _print(this.url);
     
@@ -35546,7 +36742,29 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
         _print(_safe('</div>\n        '));
       }
     
-      _print(_safe('\n    </div>\n</div>'));
+      _print(_safe('\n    </div>\n    '));
+    
+      if (this.actions) {
+        _print(_safe('\n        <ul class="actions">\n            '));
+        _ref = this.actions;
+        for (key in _ref) {
+          val = _ref[key];
+          _print(_safe('<li class="'));
+          _print(key);
+          _print(_safe('" title="'));
+          _print(val);
+          _print(_safe('"></li>'));
+        }
+        _print(_safe('\n        </ul>\n    '));
+      }
+    
+      _print(_safe('\n    '));
+    
+      if (this.menu) {
+        _print(_safe('\n        <div class="dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu">\n\n            </ul>\n        </div>\n    '));
+      }
+    
+      _print(_safe('\n</div>'));
     
     }).call(this);
     
@@ -35747,7 +36965,12 @@ this.config = {
     jsonRpcEndpoint: 'jsonrpc',
     socketsHost: location.hostname,
     socketsPort: 9090,
-    ajaxTimeout: 5000
+    ajaxTimeout: 5000,
+    hashKey: 'kodi',
+    defaultPlayer: 'auto',
+    ignoreArticle: true,
+    pollInterval: 10000,
+    albumAtristsOnly: true
   }
 };
 
@@ -35756,6 +36979,10 @@ this.Kodi = (function(Backbone, Marionette) {
   App = new Backbone.Marionette.Application();
   App.addRegions({
     root: "body"
+  });
+  App.on("before:start", function() {
+    config["static"] = _.extend(config["static"], config.get('app', 'config:local', config["static"]));
+    return console.log(config["static"]);
   });
   App.vent.on("shell:ready", (function(_this) {
     return function(options) {
@@ -35767,7 +36994,8 @@ this.Kodi = (function(Backbone, Marionette) {
 
 $(document).ready((function(_this) {
   return function() {
-    return _this.Kodi.start();
+    _this.Kodi.start();
+    return $.material.init();
   };
 })(this));
 
@@ -36294,6 +37522,29 @@ helpers.global.formatTime = function(time) {
   }
 };
 
+helpers.global.paramObj = function(key, value) {
+  var obj;
+  obj = {};
+  obj[key] = value;
+  return obj;
+};
+
+helpers.global.stringStartsWith = function(start, data) {
+  return new RegExp('^' + start).test(data);
+};
+
+helpers.global.stringStripStartsWith = function(start, data) {
+  return data.substring(start.length);
+};
+
+helpers.global.hash = function(op, value) {
+  if (op === 'encode') {
+    return encodeURIComponent(value);
+  } else {
+    return decodeURIComponent(value);
+  }
+};
+
 
 /*
   A collection of small jquery plugin helpers.
@@ -36348,7 +37599,8 @@ helpers.url.map = {
   tvshow: 'tvshow/:id',
   tvseason: 'tvshow/:tvshowid/:id',
   tvepisode: 'tvshow/:tvshowid/:tvseason/:id',
-  file: 'browser/file/:id'
+  file: 'browser/file/:id',
+  playlist: 'playlist/:id'
 };
 
 helpers.url.get = function(type, id, replacements) {
@@ -36603,9 +37855,11 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       if (order == null) {
         order = 'asc';
       }
-      this.comparator = function(model) {
-        return model.get(property);
-      };
+      this.comparator = (function(_this) {
+        return function(model) {
+          return _this.ignoreArticleParse(model.get(property));
+        };
+      })(this);
       if (order === 'desc') {
         this.comparator = this.reverseSortBy(this.comparator);
       }
@@ -36631,6 +37885,26 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
           return 0;
         }
       };
+    };
+
+    Collection.prototype.ignoreArticleParse = function(string) {
+      var articles, parsed, s, _i, _len;
+      articles = ["'", '"', 'the ', 'a '];
+      if (typeof string === 'string' && config.get('static', 'ignoreArticle', true)) {
+        string = string.toLowerCase();
+        parsed = false;
+        for (_i = 0, _len = articles.length; _i < _len; _i++) {
+          s = articles[_i];
+          if (parsed) {
+            continue;
+          }
+          if (helpers.global.stringStartsWith(s, string)) {
+            string = helpers.global.stringStripStartsWith(s, string);
+            parsed = true;
+          }
+        }
+      }
+      return string;
     };
 
     return Collection;
@@ -36990,6 +38264,92 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
   });
 });
 
+this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+  var API;
+  Entities.FormItem = (function(_super) {
+    __extends(FormItem, _super);
+
+    function FormItem() {
+      return FormItem.__super__.constructor.apply(this, arguments);
+    }
+
+    FormItem.prototype.defaults = {
+      id: 0,
+      title: '',
+      type: '',
+      element: '',
+      options: [],
+      defaultValue: '',
+      description: '',
+      children: [],
+      attributes: {}
+    };
+
+    return FormItem;
+
+  })(Entities.Model);
+  Entities.Form = (function(_super) {
+    __extends(Form, _super);
+
+    function Form() {
+      return Form.__super__.constructor.apply(this, arguments);
+    }
+
+    Form.prototype.model = Entities.FormItem;
+
+    return Form;
+
+  })(Entities.Collection);
+  API = {
+    applyState: function(item, formState) {
+      if (formState[item.id] != null) {
+        item.defaultValue = formState[item.id];
+        item.defaultsApplied = true;
+      }
+      return item;
+    },
+    processItems: function(items, formState, isChild) {
+      var collection, item, _i, _len;
+      if (formState == null) {
+        formState = {};
+      }
+      if (isChild == null) {
+        isChild = false;
+      }
+      collection = [];
+      for (_i = 0, _len = items.length; _i < _len; _i++) {
+        item = items[_i];
+        item = this.applyState(item, formState);
+        if (item.children && item.children.length > 0) {
+          item.children = API.processItems(item.children, formState, true);
+        }
+        collection.push(item);
+      }
+      return collection;
+    },
+    toCollection: function(items) {
+      var childCollection, i, item;
+      for (i in items) {
+        item = items[i];
+        if (item.children && item.children.length > 0) {
+          childCollection = new Entities.Form(item.children);
+          items[i].children = childCollection;
+        }
+      }
+      return new Entities.Form(items);
+    }
+  };
+  return App.reqres.setHandler("form:item:entites", function(form, formState) {
+    if (form == null) {
+      form = [];
+    }
+    if (formState == null) {
+      formState = {};
+    }
+    return API.toCollection(API.processItems(form, formState));
+  });
+});
+
 this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
   var API;
   API = {
@@ -37043,8 +38403,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 
     Collection.prototype.getCacheKey = function(options) {
       var k, key, prop, val, _i, _len, _ref, _ref1;
+      this.options = options;
       key = this.constructor.name;
-      _ref = ['filter', 'sort', 'limit'];
+      _ref = ['filter', 'sort', 'limit', 'file'];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         k = _ref[_i];
         if (options[k]) {
@@ -37080,7 +38441,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       arg = {
         method: method,
         order: order,
-        ignorearticle: true
+        ignorearticle: this.isIgnoreArticle()
       };
       return this.argCheckOption('sort', arg);
     };
@@ -37109,6 +38470,10 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         arg[name] = value;
       }
       return this.argCheckOption('filter', arg);
+    };
+
+    Collection.prototype.isIgnoreArticle = function() {
+      return config.get('static', 'ignoreArticle', true);
     };
 
     return Collection;
@@ -37380,7 +38745,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     ArtistCollection.prototype.arg1 = function() {
-      return true;
+      return config.get('static', 'albumAtristsOnly', true);
     };
 
     ArtistCollection.prototype.arg2 = function() {
@@ -37413,6 +38778,427 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       options = {};
     }
     return API.getArtists(options);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: ['title', 'file', 'mimetype'],
+      small: ['thumbnail'],
+      full: ['fanart', 'streamdetails']
+    },
+    addonFields: ['path', 'name'],
+    sources: [
+      {
+        media: 'video',
+        label: 'Video',
+        type: 'source',
+        provides: 'video'
+      }, {
+        media: 'music',
+        label: 'Music',
+        type: 'source',
+        provides: 'audio'
+      }, {
+        media: 'music',
+        label: 'Audio Addons',
+        type: 'addon',
+        provides: 'audio',
+        addonType: 'xbmc.addon.audio',
+        content: 'unknown'
+      }, {
+        media: 'video',
+        label: 'Video Addons',
+        type: 'addon',
+        provides: 'files',
+        addonType: 'xbmc.addon.video',
+        content: 'unknown'
+      }
+    ],
+    directorySeperator: '/',
+    getEntity: function(id, options) {
+      var entity;
+      entity = new App.KodiEntities.File();
+      entity.set({
+        file: id,
+        properties: helpers.entities.getFields(API.fields, 'full')
+      });
+      entity.fetch(options);
+      return entity;
+    },
+    getCollection: function(type, options) {
+      var collection, defaultOptions;
+      defaultOptions = {
+        cache: true
+      };
+      options = _.extend(defaultOptions, options);
+      if (type === 'sources') {
+        collection = new KodiEntities.SourceCollection();
+      } else {
+        collection = new KodiEntities.FileCollection();
+      }
+      collection.fetch(options);
+      return collection;
+    },
+    parseToFilesAndFolders: function(collection) {
+      var all, collections;
+      all = collection.getRawCollection();
+      collections = {};
+      collections.file = new KodiEntities.FileCustomCollection(_.where(all, {
+        filetype: 'file'
+      }));
+      collections.directory = new KodiEntities.FileCustomCollection(_.where(all, {
+        filetype: 'directory'
+      }));
+      return collections;
+    },
+    getSources: function() {
+      var collection, commander, commands, source, _i, _len, _ref;
+      commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      commands = [];
+      collection = new KodiEntities.SourceCollection();
+      _ref = this.sources;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        source = _ref[_i];
+        if (source.type === 'source') {
+          commands.push({
+            method: 'Files.GetSources',
+            params: [source.media]
+          });
+        }
+        if (source.type === 'addon') {
+          commands.push({
+            method: 'Addons.GetAddons',
+            params: [source.addonType, source.content, true, this.addonFields]
+          });
+        }
+      }
+      commander.multipleCommands(commands, (function(_this) {
+        return function(resp) {
+          var i, item, model, repsonseKey, _j, _len1, _ref1;
+          for (i in resp) {
+            item = resp[i];
+            source = _this.sources[i];
+            repsonseKey = source.type + 's';
+            if (item[repsonseKey]) {
+              _ref1 = item[repsonseKey];
+              for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                model = _ref1[_j];
+                model.media = source.media;
+                model.sourcetype = source.type;
+                if (source.type === 'addon') {
+                  model.file = _this.createAddonFile(model);
+                  model.label = model.name;
+                }
+                model.url = _this.createFileUrl(source.media, model.file);
+                collection.add(model);
+              }
+            }
+          }
+          return collection.trigger('cachesync');
+        };
+      })(this));
+      return collection;
+    },
+    parseSourceCollection: function(collection) {
+      var all, items, source, _i, _len, _ref;
+      all = collection.getRawCollection();
+      collection = [];
+      _ref = this.sources;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        source = _ref[_i];
+        items = _.where(all, {
+          media: source.media
+        });
+        if (items.length > 0 && source.type === 'source') {
+          source.sources = new KodiEntities.SourceCollection(items);
+          source.url = 'browser/' + source.media;
+          collection.push(source);
+        }
+      }
+      return new KodiEntities.SourceSetCollection(collection);
+    },
+    createFileUrl: function(media, file) {
+      return 'browser/' + media + '/' + helpers.global.hash('encode', file);
+    },
+    createAddonFile: function(addon) {
+      return 'plugin://' + addon.addonid;
+    },
+    parseFiles: function(items, media) {
+      var i, item;
+      for (i in items) {
+        item = items[i];
+        if (!item.parsed) {
+          item = App.request("images:path:entity", item);
+          items[i] = this.correctFileType(item);
+          items[i].media = media;
+          items[i].player = this.getPlayer(media);
+          items[i].url = this.createFileUrl(media, item.file);
+          items[i].parsed = true;
+        }
+      }
+      return items;
+    },
+    correctFileType: function(item) {
+      var directoryMimeTypes;
+      directoryMimeTypes = ['x-directory/normal'];
+      if (item.mimetype && helpers.global.inArray(item.mimetype, directoryMimeTypes)) {
+        item.filetype = 'directory';
+      }
+      return item;
+    },
+    createPathCollection: function(file, sourcesCollection) {
+      var allSources, basePath, items, parentSource, part, pathParts, source, _i, _j, _len, _len1;
+      items = [];
+      parentSource = {};
+      allSources = sourcesCollection.getRawCollection();
+      for (_i = 0, _len = allSources.length; _i < _len; _i++) {
+        source = allSources[_i];
+        if (parentSource.file) {
+          continue;
+        }
+        if (helpers.global.stringStartsWith(source.file, file)) {
+          parentSource = source;
+        }
+      }
+      if (parentSource.file) {
+        items.push(parentSource);
+        basePath = parentSource.file;
+        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(this.directorySeperator);
+        for (_j = 0, _len1 = pathParts.length; _j < _len1; _j++) {
+          part = pathParts[_j];
+          if (part !== '') {
+            basePath += part + this.directorySeperator;
+            items.push(this.createPathModel(parentSource.media, part, basePath));
+          }
+        }
+      }
+      return new KodiEntities.FileCustomCollection(items);
+    },
+    createPathModel: function(media, label, file) {
+      var model;
+      model = {
+        label: label,
+        file: file,
+        media: media,
+        url: this.createFileUrl(media, file)
+      };
+      console.log(model);
+      return model;
+    },
+    getPlayer: function(media) {
+      if (media === 'music') {
+        'audio';
+      }
+      return media;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.EmptyFile = (function(_super) {
+    __extends(EmptyFile, _super);
+
+    function EmptyFile() {
+      return EmptyFile.__super__.constructor.apply(this, arguments);
+    }
+
+    EmptyFile.prototype.idAttribute = "file";
+
+    EmptyFile.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        filetype: 'directory',
+        media: '',
+        label: '',
+        url: ''
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    };
+
+    return EmptyFile;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.File = (function(_super) {
+    __extends(File, _super);
+
+    function File() {
+      return File.__super__.constructor.apply(this, arguments);
+    }
+
+    File.prototype.methods = {
+      read: ['Files.GetFileDetails', 'file', 'properties']
+    };
+
+    File.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.filedetails != null ? resp.filedetails : resp;
+      if (resp.filedetails != null) {
+        obj.fullyloaded = true;
+      }
+      return obj;
+    };
+
+    return File;
+
+  })(KodiEntities.EmptyFile);
+  KodiEntities.FileCollection = (function(_super) {
+    __extends(FileCollection, _super);
+
+    function FileCollection() {
+      return FileCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    FileCollection.prototype.model = KodiEntities.File;
+
+    FileCollection.prototype.methods = {
+      read: ['Files.GetDirectory', 'arg1', 'arg2', 'arg3', 'arg4']
+    };
+
+    FileCollection.prototype.arg1 = function() {
+      return this.argCheckOption('file', '');
+    };
+
+    FileCollection.prototype.arg2 = function() {
+      return this.argCheckOption('media', '');
+    };
+
+    FileCollection.prototype.arg3 = function() {
+      return helpers.entities.getFields(API.fields, 'small');
+    };
+
+    FileCollection.prototype.arg4 = function() {
+      return this.argSort("label", "ascending");
+    };
+
+    FileCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, 'files');
+      return API.parseFiles(items, this.options.media);
+    };
+
+    return FileCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.FileCustomCollection = (function(_super) {
+    __extends(FileCustomCollection, _super);
+
+    function FileCustomCollection() {
+      return FileCustomCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    FileCustomCollection.prototype.model = KodiEntities.File;
+
+    return FileCustomCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.Source = (function(_super) {
+    __extends(Source, _super);
+
+    function Source() {
+      return Source.__super__.constructor.apply(this, arguments);
+    }
+
+    Source.prototype.idAttribute = "file";
+
+    Source.prototype.defaults = {
+      label: '',
+      file: '',
+      media: '',
+      url: ''
+    };
+
+    return Source;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.SourceCollection = (function(_super) {
+    __extends(SourceCollection, _super);
+
+    function SourceCollection() {
+      return SourceCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SourceCollection.prototype.model = KodiEntities.Source;
+
+    return SourceCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.SourceSet = (function(_super) {
+    __extends(SourceSet, _super);
+
+    function SourceSet() {
+      return SourceSet.__super__.constructor.apply(this, arguments);
+    }
+
+    SourceSet.prototype.idAttribute = "file";
+
+    SourceSet.prototype.defaults = {
+      label: '',
+      sources: ''
+    };
+
+    return SourceSet;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.SourceSetCollection = (function(_super) {
+    __extends(SourceSetCollection, _super);
+
+    function SourceSetCollection() {
+      return SourceSetCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SourceSetCollection.prototype.model = KodiEntities.Source;
+
+    return SourceSetCollection;
+
+  })(App.KodiEntities.Collection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("file:entity", function(id, options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getEntity(id, options);
+  });
+  App.reqres.setHandler("file:url:entity", function(media, hash) {
+    var file;
+    console.log(hash, decodeURIComponent(hash));
+    file = helpers.global.hash('decode', hash);
+    return new KodiEntities.EmptyFile({
+      media: media,
+      file: file,
+      url: API.createFileUrl(media, file)
+    });
+  });
+  App.reqres.setHandler("file:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getCollection('files', options);
+  });
+  App.reqres.setHandler("file:path:entities", function(file, sourceCollection) {
+    return API.createPathCollection(file, sourceCollection);
+  });
+  App.reqres.setHandler("file:parsed:entities", function(collection) {
+    return API.parseToFilesAndFolders(collection);
+  });
+  App.reqres.setHandler("file:source:entities", function(media) {
+    return API.getSources();
+  });
+  App.reqres.setHandler("file:source:media:entities", function(collection) {
+    return API.parseSourceCollection(collection);
+  });
+  return App.reqres.setHandler("file:source:mediatypes", function() {
+    return API.availableSources;
   });
 });
 
@@ -37987,6 +39773,203 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   });
 });
 
+
+/*
+  Custom saved playlists, saved in local storage
+ */
+
+this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track'],
+    playlistKey: 'localplaylist:list',
+    playlistItemNamespace: 'localplaylist:item:',
+    getPlaylistKey: function(key) {
+      return this.playlistItemNamespace + key;
+    },
+    getListCollection: function(type) {
+      var collection;
+      if (type == null) {
+        type = 'list';
+      }
+      collection = new Entities.localPlaylistCollection();
+      collection.fetch();
+      collection.where({
+        type: type
+      });
+      return collection;
+    },
+    addList: function(model) {
+      var collection;
+      collection = this.getListCollection();
+      model.id = this.getNextId();
+      collection.create(model);
+      return collection;
+    },
+    getNextId: function() {
+      var collection, items, lastItem, nextId;
+      collection = API.getListCollection();
+      items = collection.getRawCollection();
+      if (items.length === 0) {
+        nextId = 1;
+      } else {
+        lastItem = _.max(items, function(item) {
+          return item.id;
+        });
+        nextId = lastItem.id + 1;
+      }
+      return nextId;
+    },
+    getItemCollection: function(listId) {
+      var collection;
+      collection = new Entities.localPlaylistItemCollection([], {
+        key: listId
+      });
+      collection.fetch();
+      return collection;
+    },
+    addItemsToPlaylist: function(playlistId, collection) {
+      var fieldName, idfield, item, items, newItem, position, _i, _len, _ref;
+      items = collection.getRawCollection();
+      collection = this.getItemCollection(playlistId);
+      for (position in items) {
+        item = items[position];
+        newItem = {};
+        _ref = this.savedFields;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          fieldName = _ref[_i];
+          if (item[fieldName]) {
+            newItem[fieldName] = item[fieldName];
+          }
+        }
+        newItem.position = position;
+        idfield = item.type + 'id';
+        newItem[idfield] = item[idfield];
+        collection.create(newItem);
+      }
+      return collection;
+    },
+    clearPlaylist: function(playlistId) {
+      var collection, model, _i, _len, _ref;
+      collection = this.getItemCollection(playlistId);
+      _ref = collection.models;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        model = _ref[_i];
+        if (model != null) {
+          model.destroy();
+        }
+      }
+    }
+  };
+  Entities.localPlaylist = (function(_super) {
+    __extends(localPlaylist, _super);
+
+    function localPlaylist() {
+      return localPlaylist.__super__.constructor.apply(this, arguments);
+    }
+
+    localPlaylist.prototype.defaults = {
+      id: 0,
+      name: '',
+      media: '',
+      type: 'list'
+    };
+
+    return localPlaylist;
+
+  })(Entities.Model);
+  Entities.localPlaylistCollection = (function(_super) {
+    __extends(localPlaylistCollection, _super);
+
+    function localPlaylistCollection() {
+      return localPlaylistCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    localPlaylistCollection.prototype.model = Entities.localPlaylist;
+
+    localPlaylistCollection.prototype.localStorage = new Backbone.LocalStorage(API.playlistKey);
+
+    return localPlaylistCollection;
+
+  })(Entities.Collection);
+  Entities.localPlaylistItem = (function(_super) {
+    __extends(localPlaylistItem, _super);
+
+    function localPlaylistItem() {
+      return localPlaylistItem.__super__.constructor.apply(this, arguments);
+    }
+
+    localPlaylistItem.prototype.idAttribute = "position";
+
+    localPlaylistItem.prototype.defaults = function() {
+      var f, fields, _i, _len, _ref;
+      fields = {};
+      _ref = API.savedFields;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        f = _ref[_i];
+        fields[f] = '';
+      }
+      return fields;
+    };
+
+    return localPlaylistItem;
+
+  })(Entities.Model);
+  Entities.localPlaylistItemCollection = (function(_super) {
+    __extends(localPlaylistItemCollection, _super);
+
+    function localPlaylistItemCollection() {
+      return localPlaylistItemCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    localPlaylistItemCollection.prototype.model = Entities.localPlaylistItem;
+
+    localPlaylistItemCollection.prototype.initialize = function(model, options) {
+      return this.localStorage = new Backbone.LocalStorage(API.getPlaylistKey(options.key));
+    };
+
+    return localPlaylistItemCollection;
+
+  })(Entities.Collection);
+  App.reqres.setHandler("localplaylist:add:entity", function(name, media, type) {
+    if (type == null) {
+      type = 'list';
+    }
+    return API.addList({
+      name: name,
+      media: media,
+      type: type
+    });
+  });
+  App.reqres.setHandler("localplaylist:remove:entity", function(id) {
+    var collection, model;
+    collection = API.getListCollection();
+    model = collection.find({
+      id: id
+    });
+    return model.destroy();
+  });
+  App.reqres.setHandler("localplaylist:entities", function() {
+    return API.getListCollection();
+  });
+  App.reqres.setHandler("localplaylist:clear:entities", function(playlistId) {
+    return API.clearPlaylist(playlistId);
+  });
+  App.reqres.setHandler("localplaylist:entity", function(id) {
+    var collection;
+    collection = API.getListCollection();
+    return collection.find({
+      id: id
+    });
+  });
+  App.reqres.setHandler("localplaylist:item:entities", function(key) {
+    return API.getItemCollection(key);
+  });
+  return App.reqres.setHandler("localplaylist:item:add:entities", function(playlistId, collection) {
+    return API.addItemsToPlaylist(playlistId, collection);
+  });
+});
+
 this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   var API;
   Entities.NavMain = (function(_super) {
@@ -38145,6 +40128,30 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         classes: 'nav-thumbs-up',
         parent: 0
       });
+      nav.push({
+        id: 51,
+        title: "Settings",
+        path: 'settings/web',
+        icon: 'mdi-action-settings',
+        classes: 'nav-browser',
+        parent: 0
+      });
+      nav.push({
+        id: 52,
+        title: "Web Settings",
+        path: 'settings/web',
+        icon: '',
+        classes: '',
+        parent: 51
+      });
+      nav.push({
+        id: 53,
+        title: "Kodi Settings",
+        path: 'settings/kodi',
+        icon: '',
+        classes: '',
+        parent: 51
+      });
       return nav;
     },
     getDefaultStructure: function() {
@@ -38154,13 +40161,16 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       return navCollection;
     },
     getChildStructure: function(parentId) {
-      var childItems, nav, navCollection;
+      var childItems, nav, parent;
       nav = this.getItems();
+      parent = _.findWhere(nav, {
+        id: parentId
+      });
       childItems = _.where(nav, {
         parent: parentId
       });
-      navCollection = new Entities.NavMainCollection(childItems);
-      return navCollection;
+      parent.items = new Entities.NavMainCollection(childItems);
+      return new Entities.NavMain(parent);
     },
     sortStructure: function(structure) {
       var children, i, model, newParents, _i, _len, _name;
@@ -38379,8 +40389,23 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     CardView.prototype.className = "card";
 
-    CardView.prototype.triggers = {
-      "click .menu": "artist-menu:clicked"
+    CardView.prototype.events = {
+      "click .dropdown > i": "populateMenu"
+    };
+
+    CardView.prototype.populateMenu = function() {
+      var key, menu, val, _ref;
+      menu = '';
+      if (this.model.get('menu')) {
+        _ref = this.model.get('menu');
+        for (key in _ref) {
+          val = _ref[key];
+          menu += this.themeTag('li', {
+            "class": key
+          }, val);
+        }
+        return this.$el.find('.dropdown-menu').html(menu);
+      }
     };
 
     return CardView;
@@ -38465,6 +40490,313 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   })(App.Views.LayoutView);
 });
 
+this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $, _) {
+  Form.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var config;
+      if (options == null) {
+        options = {};
+      }
+      config = options.config ? options.config : {};
+      this.formLayout = this.getFormLayout(config);
+      this.listenTo(this.formLayout, "show", (function(_this) {
+        return function() {
+          _this.formBuild(options.form, options.formState, config);
+          return $.material.init();
+        };
+      })(this));
+      return this.listenTo(this.formLayout, "form:submit", (function(_this) {
+        return function() {
+          return _this.formSubmit(options);
+        };
+      })(this));
+    };
+
+    Controller.prototype.formSubmit = function(options) {
+      var data;
+      data = Backbone.Syphon.serialize(this.formLayout);
+      return this.processFormSubmit(data, options);
+    };
+
+    Controller.prototype.processFormSubmit = function(data, options) {
+      if (options.config && typeof options.config.callback === 'function') {
+        return options.config.callback(data, this.formLayout);
+      }
+    };
+
+    Controller.prototype.getFormLayout = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      return new Form.FormWrapper({
+        config: options
+      });
+    };
+
+    Controller.prototype.formBuild = function(form, formState, options) {
+      var buildView, collection;
+      if (form == null) {
+        form = [];
+      }
+      if (formState == null) {
+        formState = {};
+      }
+      if (options == null) {
+        options = {};
+      }
+      collection = App.request("form:item:entites", form, formState);
+      buildView = new Form.Groups({
+        collection: collection
+      });
+      return this.formLayout.formContentRegion.show(buildView);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+  return App.reqres.setHandler("form:wrapper", function(options) {
+    var formController;
+    if (options == null) {
+      options = {};
+    }
+    formController = new Form.Controller(options);
+    return formController.formLayout;
+  });
+});
+
+this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $, _) {
+  Form.FormWrapper = (function(_super) {
+    __extends(FormWrapper, _super);
+
+    function FormWrapper() {
+      return FormWrapper.__super__.constructor.apply(this, arguments);
+    }
+
+    FormWrapper.prototype.template = "components/form/form";
+
+    FormWrapper.prototype.tagName = "form";
+
+    FormWrapper.prototype.regions = {
+      formContentRegion: ".form-content-region",
+      formResponse: ".response"
+    };
+
+    FormWrapper.prototype.triggers = {
+      "click .form-save": "form:submit",
+      "click [data-form-button='cancel']": "form:cancel"
+    };
+
+    FormWrapper.prototype.modelEvents = {
+      "change:_errors": "changeErrors",
+      "sync:start": "syncStart",
+      "sync:stop": "syncStop"
+    };
+
+    FormWrapper.prototype.initialize = function() {
+      this.config = this.options.config;
+      return this.on("form:save", (function(_this) {
+        return function(msg) {
+          return _this.addSuccessMsg(msg);
+        };
+      })(this));
+    };
+
+    FormWrapper.prototype.attributes = function() {
+      var attrs;
+      attrs = {
+        "class": 'component-form'
+      };
+      if (this.options.config && this.options.config.attributes) {
+        attrs = _.extend(attrs, this.options.config.attributes);
+      }
+      return attrs;
+    };
+
+    FormWrapper.prototype.onShow = function() {
+      return _.defer((function(_this) {
+        return function() {
+          if (_this.config.focusFirstInput) {
+            _this.focusFirstInput();
+          }
+          return $('.btn').ripples({
+            color: 'rgba(255,255,255,0.1)'
+          });
+        };
+      })(this));
+    };
+
+    FormWrapper.prototype.focusFirstInput = function() {
+      return this.$(":input:visible:enabled:first").focus();
+    };
+
+    FormWrapper.prototype.changeErrors = function(model, errors, options) {
+      if (this.config.errors) {
+        if (_.isEmpty(errors)) {
+          return this.removeErrors();
+        } else {
+          return this.addErrors(errors);
+        }
+      }
+    };
+
+    FormWrapper.prototype.removeErrors = function() {
+      return this.$(".error").removeClass("error").find("small").remove();
+    };
+
+    FormWrapper.prototype.addErrors = function(errors) {
+      var array, name, _results;
+      if (errors == null) {
+        errors = {};
+      }
+      _results = [];
+      for (name in errors) {
+        array = errors[name];
+        _results.push(this.addError(name, array[0]));
+      }
+      return _results;
+    };
+
+    FormWrapper.prototype.addError = function(name, error) {
+      var el, sm;
+      el = this.$("[name='" + name + "']");
+      sm = $("<small>").text(error);
+      return el.after(sm).closest(".row").addClass("error");
+    };
+
+    FormWrapper.prototype.addSuccessMsg = function(msg) {
+      var $el;
+      $el = $(".response", this.$el);
+      $el.html(msg).show();
+      return setTimeout((function() {
+        return $el.fadeOut();
+      }), 5000);
+    };
+
+    return FormWrapper;
+
+  })(App.Views.LayoutView);
+  Form.Item = (function(_super) {
+    __extends(Item, _super);
+
+    function Item() {
+      return Item.__super__.constructor.apply(this, arguments);
+    }
+
+    Item.prototype.template = 'components/form/form_item';
+
+    Item.prototype.tagName = 'div';
+
+    Item.prototype.initialize = function() {
+      var attrs, baseAttrs, el, key, materialBaseAttrs, options, val, _ref;
+      baseAttrs = _.extend({
+        id: 'form-edit-' + this.model.get('id'),
+        name: this.model.get('id')
+      }, this.model.get('attributes'));
+      materialBaseAttrs = _.extend(baseAttrs, {
+        "class": 'form-control'
+      });
+      switch (this.model.get('type')) {
+        case 'checkbox':
+          attrs = {
+            type: 'checkbox',
+            value: 1,
+            "class": 'form-checkbox'
+          };
+          if (this.model.get('defaultValue') === true) {
+            attrs.checked = 'checked';
+          }
+          el = this.themeTag('input', _.extend(baseAttrs, attrs), '');
+          break;
+        case 'textfield':
+          attrs = {
+            type: 'text',
+            value: this.model.get('defaultValue')
+          };
+          el = this.themeTag('input', _.extend(materialBaseAttrs, attrs), '');
+          break;
+        case 'textarea':
+          el = this.themeTag('textarea', materialBaseAttrs, this.model.get('defaultValue'));
+          break;
+        case 'select':
+          options = '';
+          _ref = this.model.get('options');
+          for (key in _ref) {
+            val = _ref[key];
+            attrs = {
+              value: key
+            };
+            if (this.model.get('defaultValue') === key) {
+              attrs.selected = 'selected';
+            }
+            options += this.themeTag('option', attrs, val);
+          }
+          el = this.themeTag('select', _.extend(baseAttrs, {
+            "class": 'form-control'
+          }), options);
+          break;
+        default:
+          el = '';
+      }
+      return this.model.set({
+        element: el
+      });
+    };
+
+    Item.prototype.attributes = function() {
+      return {
+        "class": 'form-item form-group form-type-' + this.model.get('type') + ' form-edit-' + this.model.get('id')
+      };
+    };
+
+    return Item;
+
+  })(App.Views.ItemView);
+  Form.Group = (function(_super) {
+    __extends(Group, _super);
+
+    function Group() {
+      return Group.__super__.constructor.apply(this, arguments);
+    }
+
+    Group.prototype.template = 'components/form/form_item_group';
+
+    Group.prototype.tagName = 'div';
+
+    Group.prototype.className = 'form-group';
+
+    Group.prototype.childView = Form.Item;
+
+    Group.prototype.childViewContainer = '.form-items';
+
+    Group.prototype.initialize = function() {
+      return this.collection = this.model.get('children');
+    };
+
+    return Group;
+
+  })(App.Views.CompositeView);
+  return Form.Groups = (function(_super) {
+    __extends(Groups, _super);
+
+    function Groups() {
+      return Groups.__super__.constructor.apply(this, arguments);
+    }
+
+    Groups.prototype.childView = Form.Group;
+
+    Groups.prototype.className = 'form-groups';
+
+    return Groups;
+
+  })(App.Views.CollectionView);
+});
+
 this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _) {
   var API;
   AlbumApp.Router = (function(_super) {
@@ -38490,12 +40822,27 @@ this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _)
       return new AlbumApp.Show.Controller({
         id: id
       });
+    },
+    action: function(op, model) {
+      var playlist;
+      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
+      switch (op) {
+        case 'play':
+          return playlist.play('albumid', model.get('albumid'));
+        case 'add':
+          return playlist.add('albumid', model.get('albumid'));
+        case 'localadd':
+          return App.execute("playlistlocal:additems", 'albumid', model.get('albumid'));
+      }
     }
   };
-  return App.on("before:start", function() {
+  App.on("before:start", function() {
     return new AlbumApp.Router({
       controller: API
     });
+  });
+  return App.commands.setHandler('album:action', function(op, model) {
+    return API.action(op, model);
   });
 });
 
@@ -38531,8 +40878,23 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     };
 
     Controller.prototype.getAlbumsView = function(collection) {
-      return new List.Albums({
+      var view;
+      view = new List.Albums({
         collection: collection
+      });
+      this.bindTriggers(view);
+      return view;
+    };
+
+    Controller.prototype.bindTriggers = function(view) {
+      this.listenTo(view, 'childview:album:play', function(list, item) {
+        return App.execute('album:action', 'play', item.model);
+      });
+      this.listenTo(view, 'childview:album:add', function(list, item) {
+        return App.execute('album:action', 'add', item.model);
+      });
+      return this.listenTo(view, 'childview:album:localadd', function(list, item) {
+        return App.execute('album:action', 'localadd', item.model);
       });
     };
 
@@ -38588,11 +40950,26 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     }
 
     AlbumTeaser.prototype.triggers = {
-      "click .menu": "album-menu:clicked"
+      "click .play": "album:play",
+      "click .dropdown .add": "album:add",
+      "click .dropdown .localadd": "album:localadd"
     };
 
     AlbumTeaser.prototype.initialize = function() {
       var artistLink;
+      this.model.set({
+        actions: {
+          thumbs: 'Thumbs up'
+        }
+      });
+      this.model.set({
+        menu: {
+          add: 'Add to Kodi playlist',
+          localadd: 'Add to local playlist',
+          divider: '',
+          localplay: 'Play in browser'
+        }
+      });
       artistLink = this.themeLink(this.model.get('artist'), helpers.url.get('artist', this.model.get('artistid')));
       return this.model.set({
         subtitle: artistLink
@@ -38641,23 +41018,35 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
 this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _) {
   var API;
   API = {
+    bindTriggers: function(view) {
+      App.listenTo(view, 'album:play', function(item) {
+        return App.execute('album:action', 'play', item.model);
+      });
+      App.listenTo(view, 'album:add', function(item) {
+        return App.execute('album:action', 'add', item.model);
+      });
+      return App.listenTo(view, 'album:localadd', function(item) {
+        return App.execute('album:action', 'localadd', item.model);
+      });
+    },
     getAlbumsFromSongs: function(songs) {
       var album, albumid, albumsCollectionView, songCollection;
       albumsCollectionView = new Show.WithSongsCollection();
-      albumsCollectionView.on("add:child", function(albumView) {
-        return App.execute("when:entity:fetched", album, (function(_this) {
-          return function() {
+      albumsCollectionView.on("add:child", (function(_this) {
+        return function(albumView) {
+          return App.execute("when:entity:fetched", album, function() {
             var model, songView, teaser;
             model = albumView.model;
             teaser = new Show.AlbumTeaser({
               model: model
             });
+            API.bindTriggers(teaser);
             albumView.regionMeta.show(teaser);
             songView = App.request("song:list:view", songs[model.get('albumid')]);
             return albumView.regionSongs.show(songView);
-          };
-        })(this));
-      });
+          });
+        };
+      })(this));
       for (albumid in songs) {
         songCollection = songs[albumid];
         album = App.request("album:entity", albumid, {
@@ -38713,6 +41102,7 @@ this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _
           teaser = new Show.AlbumDetailTeaser({
             model: album
           });
+          API.bindTriggers(teaser);
           detail = new Show.Details({
             model: album
           });
@@ -38843,13 +41233,9 @@ this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _
       });
     };
 
-    AlbumTeaser.prototype.triggers = {
-      "click .menu": "album-menu:clicked"
-    };
-
     return AlbumTeaser;
 
-  })(App.Views.CardView);
+  })(App.AlbumApp.List.AlbumTeaser);
   return Show.AlbumDetailTeaser = (function(_super) {
     __extends(AlbumDetailTeaser, _super);
 
@@ -38890,12 +41276,25 @@ this.Kodi.module("ArtistApp", function(ArtistApp, App, Backbone, Marionette, $, 
       return new ArtistApp.Show.Controller({
         id: id
       });
+    },
+    action: function(op, model) {
+      var playlist;
+      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
+      switch (op) {
+        case 'play':
+          return playlist.play('artistid', model.get('artistid'));
+        case 'add':
+          return playlist.add('artistid', model.get('artistid'));
+      }
     }
   };
-  return App.on("before:start", function() {
+  App.on("before:start", function() {
     return new ArtistApp.Router({
       controller: API
     });
+  });
+  return App.commands.setHandler('artist:action', function(op, model) {
+    return API.action(op, model);
   });
 });
 
@@ -38931,8 +41330,20 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     };
 
     Controller.prototype.getArtistsView = function(collection) {
-      return new List.Artists({
+      var view;
+      view = new List.Artists({
         collection: collection
+      });
+      this.bindTriggers(view);
+      return view;
+    };
+
+    Controller.prototype.bindTriggers = function(view) {
+      this.listenTo(view, 'childview:artist:play', function(list, item) {
+        return App.execute('artist:action', 'play', item.model);
+      });
+      return this.listenTo(view, 'childview:artist:add', function(list, item) {
+        return App.execute('artist:action', 'add', item.model);
       });
     };
 
@@ -38988,7 +41399,24 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     }
 
     ArtistTeaser.prototype.triggers = {
-      "click .menu": "artist-menu:clicked"
+      "click .play": "artist:play",
+      "click .dropdown .add": "artist:add"
+    };
+
+    ArtistTeaser.prototype.initialize = function() {
+      this.model.set({
+        actions: {
+          thumbs: 'Thumbs up'
+        }
+      });
+      return this.model.set({
+        menu: {
+          add: 'Add to Kodi playlist',
+          savelist: 'Add to local playlist',
+          divider: '',
+          localplay: 'Play in browser'
+        }
+      });
     };
 
     return ArtistTeaser;
@@ -39154,13 +41582,9 @@ this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, 
 
     ArtistTeaser.prototype.className = "card-detail";
 
-    ArtistTeaser.prototype.triggers = {
-      "click .menu": "artist-menu:clicked"
-    };
-
     return ArtistTeaser;
 
-  })(App.Views.CardView);
+  })(App.ArtistApp.List.ArtistTeaser);
 });
 
 this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $, _) {
@@ -39174,7 +41598,7 @@ this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $
 
     Router.prototype.appRoutes = {
       "browser": "list",
-      "browser/:type/:id": "view"
+      "browser/:media/:id": "view"
     };
 
     return Router;
@@ -39184,9 +41608,9 @@ this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $
     list: function() {
       return new BrowserApp.List.Controller;
     },
-    view: function(type, id) {
+    view: function(media, id) {
       return new BrowserApp.List.Controller({
-        type: id,
+        media: media,
         id: id
       });
     }
@@ -39198,7 +41622,7 @@ this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $
   });
 });
 
-this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $, _) {
+this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
     __extends(Controller, _super);
 
@@ -39206,11 +41630,397 @@ this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
-    Controller.prototype.initialize = function(options) {};
+    Controller.prototype.sourceCollection = {};
+
+    Controller.prototype.backButtonModel = {};
+
+    Controller.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      console.log(options);
+      this.layout = this.getLayout();
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          _this.getSources(options);
+          return _this.getFolderLayout();
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayout = function() {
+      return new List.ListLayout();
+    };
+
+    Controller.prototype.getFolderLayout = function() {
+      this.folderLayout = new List.FolderLayout();
+      return this.layout.regionContent.show(this.folderLayout);
+    };
+
+    Controller.prototype.getSources = function(options) {
+      var sources;
+      sources = App.request("file:source:entities", 'video');
+      return App.execute("when:entity:fetched", sources, (function(_this) {
+        return function() {
+          var setView, sets;
+          _this.sourceCollection = sources;
+          sets = App.request("file:source:media:entities", sources);
+          setView = new List.SourcesSet({
+            collection: sets
+          });
+          _this.layout.regionSidebarFirst.show(setView);
+          _this.listenTo(setView, 'childview:childview:source:open', function(set, item) {
+            return _this.getFolder(item.model);
+          });
+          return _this.loadFromUrl(options);
+        };
+      })(this));
+    };
+
+    Controller.prototype.loadFromUrl = function(options) {
+      var model;
+      if (options.media && options.id) {
+        model = App.request("file:url:entity", options.media, options.id);
+        console.log(model);
+        return this.getFolder(model);
+      }
+    };
+
+    Controller.prototype.getFolder = function(model) {
+      var collection, pathCollection;
+      App.navigate(model.get('url'));
+      collection = App.request("file:entities", {
+        file: model.get('file'),
+        media: model.get('media')
+      });
+      pathCollection = App.request("file:path:entities", model.get('file'), this.sourceCollection);
+      this.getPathList(pathCollection);
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          var collections;
+          collections = App.request("file:parsed:entities", collection);
+          console.log(collections);
+          _this.getFolderList(collections.directory);
+          return _this.getFileList(collections.file);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getFolderList = function(collection) {
+      var folderView;
+      folderView = new List.FolderList({
+        collection: collection
+      });
+      this.folderLayout.regionFolders.show(folderView);
+      this.getBackButton();
+      this.listenTo(folderView, 'childview:folder:open', (function(_this) {
+        return function(set, item) {
+          console.log('clicked', item);
+          return _this.getFolder(item.model);
+        };
+      })(this));
+      return this.listenTo(folderView, 'childview:folder:play', (function(_this) {
+        return function(set, item) {
+          var playlist;
+          playlist = App.request("command:kodi:controller", item.model.get('player'), 'PlayList');
+          return playlist.play('directory', item.model.get('file'));
+        };
+      })(this));
+    };
+
+    Controller.prototype.getFileList = function(collection) {
+      var fileView;
+      fileView = new List.FileList({
+        collection: collection
+      });
+      this.folderLayout.regionFiles.show(fileView);
+      return this.listenTo(fileView, 'childview:file:play', (function(_this) {
+        return function(set, item) {
+          var playlist;
+          playlist = App.request("command:kodi:controller", item.model.get('player'), 'PlayList');
+          console.log('playing', item.model.get('player'), item.model.get('file'));
+          return playlist.play('file', item.model.get('file'));
+        };
+      })(this));
+    };
+
+    Controller.prototype.getPathList = function(collection) {
+      var pathView;
+      pathView = new List.PathList({
+        collection: collection
+      });
+      this.folderLayout.regionPath.show(pathView);
+      this.setBackModel(collection);
+      return this.listenTo(pathView, 'childview:folder:open', (function(_this) {
+        return function(set, item) {
+          return _this.getFolder(item.model);
+        };
+      })(this));
+    };
+
+    Controller.prototype.setBackModel = function(pathCollection) {
+      if (pathCollection.length >= 2) {
+        return this.backButtonModel = pathCollection.models[pathCollection.length - 2];
+      } else {
+        return this.backButtonModel = {};
+      }
+    };
+
+    Controller.prototype.getBackButton = function() {
+      var backView;
+      if (this.backButtonModel.attributes) {
+        console.log('back');
+        backView = new List.Back({
+          model: this.backButtonModel
+        });
+        this.folderLayout.regionBack.show(backView);
+        return this.listenTo(backView, 'folder:open', (function(_this) {
+          return function(model) {
+            return _this.getFolder(model.model);
+          };
+        })(this));
+      } else {
+        return this.folderLayout.regionBack.empty();
+      }
+    };
 
     return Controller;
 
   })(App.Controllers.Base);
+});
+
+this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "browser-page";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+
+  /*
+    Sources
+   */
+  List.Source = (function(_super) {
+    __extends(Source, _super);
+
+    function Source() {
+      return Source.__super__.constructor.apply(this, arguments);
+    }
+
+    Source.prototype.template = 'apps/browser/list/source';
+
+    Source.prototype.tagName = 'li';
+
+    Source.prototype.triggers = {
+      'click .source': 'source:open'
+    };
+
+    return Source;
+
+  })(App.Views.ItemView);
+  List.Sources = (function(_super) {
+    __extends(Sources, _super);
+
+    function Sources() {
+      return Sources.__super__.constructor.apply(this, arguments);
+    }
+
+    Sources.prototype.template = 'apps/browser/list/source_set';
+
+    Sources.prototype.childView = List.Source;
+
+    Sources.prototype.tagName = "div";
+
+    Sources.prototype.childViewContainer = 'ul.sources';
+
+    Sources.prototype.className = "source-set";
+
+    Sources.prototype.initialize = function() {
+      return this.collection = this.model.get('sources');
+    };
+
+    return Sources;
+
+  })(App.Views.CompositeView);
+  List.SourcesSet = (function(_super) {
+    __extends(SourcesSet, _super);
+
+    function SourcesSet() {
+      return SourcesSet.__super__.constructor.apply(this, arguments);
+    }
+
+    SourcesSet.prototype.childView = List.Sources;
+
+    SourcesSet.prototype.tagName = "div";
+
+    SourcesSet.prototype.className = "sources-sets";
+
+    return SourcesSet;
+
+  })(App.Views.CollectionView);
+
+  /*
+    Folder
+   */
+  List.FolderLayout = (function(_super) {
+    __extends(FolderLayout, _super);
+
+    function FolderLayout() {
+      return FolderLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    FolderLayout.prototype.template = 'apps/browser/list/folder_layout';
+
+    FolderLayout.prototype.className = "folder-page-wrapper";
+
+    FolderLayout.prototype.regions = {
+      regionPath: '.path',
+      regionFolders: '.folders',
+      regionFiles: '.files',
+      regionBack: '.back'
+    };
+
+    return FolderLayout;
+
+  })(App.Views.LayoutView);
+  List.Item = (function(_super) {
+    __extends(Item, _super);
+
+    function Item() {
+      return Item.__super__.constructor.apply(this, arguments);
+    }
+
+    Item.prototype.template = 'apps/browser/list/file';
+
+    Item.prototype.tagName = 'li';
+
+    return Item;
+
+  })(App.Views.ItemView);
+  List.Folder = (function(_super) {
+    __extends(Folder, _super);
+
+    function Folder() {
+      return Folder.__super__.constructor.apply(this, arguments);
+    }
+
+    Folder.prototype.className = 'folder';
+
+    Folder.prototype.triggers = {
+      'click .title': 'folder:open',
+      'click .play': 'folder:play'
+    };
+
+    return Folder;
+
+  })(List.Item);
+  List.File = (function(_super) {
+    __extends(File, _super);
+
+    function File() {
+      return File.__super__.constructor.apply(this, arguments);
+    }
+
+    File.prototype.className = 'file';
+
+    File.prototype.triggers = {
+      'click .play': 'file:play'
+    };
+
+    return File;
+
+  })(List.Item);
+  List.FolderList = (function(_super) {
+    __extends(FolderList, _super);
+
+    function FolderList() {
+      return FolderList.__super__.constructor.apply(this, arguments);
+    }
+
+    FolderList.prototype.tagName = 'ul';
+
+    FolderList.prototype.childView = List.Folder;
+
+    return FolderList;
+
+  })(App.Views.CollectionView);
+  List.FileList = (function(_super) {
+    __extends(FileList, _super);
+
+    function FileList() {
+      return FileList.__super__.constructor.apply(this, arguments);
+    }
+
+    FileList.prototype.tagName = 'ul';
+
+    FileList.prototype.childView = List.File;
+
+    return FileList;
+
+  })(App.Views.CollectionView);
+
+  /*
+    Path
+   */
+  List.Path = (function(_super) {
+    __extends(Path, _super);
+
+    function Path() {
+      return Path.__super__.constructor.apply(this, arguments);
+    }
+
+    Path.prototype.template = 'apps/browser/list/path';
+
+    Path.prototype.tagName = 'li';
+
+    Path.prototype.triggers = {
+      'click .title': 'folder:open'
+    };
+
+    return Path;
+
+  })(App.Views.ItemView);
+  List.PathList = (function(_super) {
+    __extends(PathList, _super);
+
+    function PathList() {
+      return PathList.__super__.constructor.apply(this, arguments);
+    }
+
+    PathList.prototype.tagName = 'ul';
+
+    PathList.prototype.childView = List.Path;
+
+    return PathList;
+
+  })(App.Views.CollectionView);
+  return List.Back = (function(_super) {
+    __extends(Back, _super);
+
+    function Back() {
+      return Back.__super__.constructor.apply(this, arguments);
+    }
+
+    Back.prototype.template = 'apps/browser/list/back_button';
+
+    Back.prototype.tagName = 'div';
+
+    Back.prototype.className = 'back-button';
+
+    Back.prototype.triggers = {
+      'click .title': 'folder:open'
+    };
+
+    return Back;
+
+  })(App.Views.ItemView);
 });
 
 this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $, _) {
@@ -39220,7 +42030,7 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
    */
   App.reqres.setHandler("command:kodi:player", function(method, params, callback) {
     var commander;
-    commander = new CommandApp.Kodi.Player();
+    commander = new CommandApp.Kodi.Player('auto');
     return commander.sendCommand(method, params, callback);
   });
   App.reqres.setHandler("command:kodi:controller", function(media, controller) {
@@ -39304,10 +42114,7 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     };
 
     Base.prototype.paramObj = function(key, val) {
-      var obj;
-      obj = {};
-      obj[key] = val;
-      return obj;
+      return helpers.global.paramObj(key, val);
     };
 
     Base.prototype.doCallback = function(callback, response) {
@@ -39475,7 +42282,6 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       return this.singleCommand(this.getCommand('Open', 'Player'), params, (function(_this) {
         return function(resp) {
           if (!App.request('sockets:active')) {
-            App.request('player:kodi:timer', 'start');
             App.request('state:kodi:update');
           }
           return _this.doCallback(callback, resp);
@@ -39562,6 +42368,37 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
 });
 
 this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.Input = (function(_super) {
+    __extends(Input, _super);
+
+    function Input() {
+      return Input.__super__.constructor.apply(this, arguments);
+    }
+
+    Input.prototype.commandNameSpace = 'Input';
+
+    Input.prototype.sendText = function(text, callback) {
+      return this.singleCommand(this.getCommand('SendText'), [text], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    Input.prototype.sendInput = function(type) {
+      return this.singleCommand(this.getCommand('type'), [], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    return Input;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   return Api.PlayList = (function(_super) {
     __extends(PlayList, _super);
 
@@ -39572,11 +42409,17 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     PlayList.prototype.commandNameSpace = 'Playlist';
 
     PlayList.prototype.play = function(type, value) {
-      return this.playlistSize((function(_this) {
-        return function(size) {
-          return _this.insertAndPlay(type, value, size);
-        };
-      })(this));
+      var stateObj;
+      stateObj = App.request("state:kodi");
+      if (stateObj.isPlaying()) {
+        return this.insertAndPlay(type, value, stateObj.getPlaying('position') + 1);
+      } else {
+        return this.clear((function(_this) {
+          return function() {
+            return _this.insertAndPlay(type, value, 0);
+          };
+        })(this));
+      }
     };
 
     PlayList.prototype.add = function(type, value) {
@@ -40176,15 +43019,11 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
     };
 
     Controller.prototype.getSections = function() {
-      var $layout, collection, n, nav;
+      var collection, nav;
       collection = this.getOption('refCollection');
-      $layout = this.layoutFilters.$el;
       if (collection.sectionId) {
-        nav = App.request("navMain:children:show", collection.sectionId);
-        n = nav.render();
-        return $layout.find('.nav-items').html(n.$el);
-      } else {
-        return $layout.find('.nav-section').empty();
+        nav = App.request("navMain:children:show", collection.sectionId, 'Sections');
+        return this.layoutFilters.regionNavSection.show(nav);
       }
     };
 
@@ -40214,8 +43053,7 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       regionFiltersActive: '.filters-active',
       regionFiltersList: '.filters-list',
       regionFiltersOptions: '.filter-options-list',
-      regionNavSection: '.nav-section',
-      regionNavItems: '.nav-items'
+      regionNavSection: '.nav-section'
     };
 
     FilterLayout.prototype.triggers = {
@@ -40515,6 +43353,9 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     return API.setFanartBackground(path, region);
   });
   App.reqres.setHandler("images:path:get", function(rawPath, type) {
+    if (rawPath == null) {
+      rawPath = '';
+    }
     if (type == null) {
       type = 'thumbnail';
     }
@@ -40532,8 +43373,20 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
 });
 
 this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getController: function() {
+      return App.request("command:kodi:controller", 'auto', 'Input');
+    }
+  };
   return App.commands.setHandler("input:textbox", function(msg) {
-    return App.trigger("ui:textinput:show", "Input required", msg, function(text) {});
+    App.execute("ui:textinput:show", "Input required", msg, function(text) {
+      API.getController().sendText(text);
+      return App.execute("notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi'));
+    });
+    return App.commands.setHandler("input:textbox:close", function() {
+      return App.execute("ui:modal:close");
+    });
   });
 });
 
@@ -40563,6 +43416,235 @@ this.Kodi.module("LoadingApp.Show", function(Show, App, Backbone, Marionette, $,
     return Page;
 
   })(Backbone.Marionette.ItemView);
+});
+
+this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var id, playlists;
+      id = options.id;
+      playlists = App.request("localplaylist:entities");
+      this.layout = this.getLayoutView(playlists);
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          _this.getListsView(playlists);
+          return _this.getItems(id);
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayoutView = function(collection) {
+      return new List.ListLayout({
+        collection: collection
+      });
+    };
+
+    Controller.prototype.getListsView = function(playlists) {
+      var view;
+      view = new List.Lists({
+        collection: playlists
+      });
+      return this.layout.regionSidebarFirst.show(view);
+    };
+
+    Controller.prototype.getItems = function(id) {
+      var collection, media, playlist, view;
+      playlist = App.request("localplaylist:entity", id);
+      media = 'song';
+      collection = App.request("localplaylist:item:entities", id);
+      view = App.request("" + media + ":list:view", collection);
+      return this.layout.regionContent.show(view);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.className = "local-playlist-list";
+
+    return ListLayout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.List = (function(_super) {
+    __extends(List, _super);
+
+    function List() {
+      return List.__super__.constructor.apply(this, arguments);
+    }
+
+    List.prototype.template = 'apps/localPlaylist/list/playlist';
+
+    List.prototype.tagName = "li";
+
+    List.prototype.initialize = function() {
+      var classes, path, tag;
+      path = helpers.url.get('playlist', this.model.get('id'));
+      classes = [];
+      if (path === helpers.url.path()) {
+        classes.push('active');
+      }
+      tag = this.themeLink(this.model.get('name'), path, {
+        'className': classes.join(' ')
+      });
+      return this.model.set({
+        title: tag
+      });
+    };
+
+    return List;
+
+  })(App.Views.ItemView);
+  List.Lists = (function(_super) {
+    __extends(Lists, _super);
+
+    function Lists() {
+      return Lists.__super__.constructor.apply(this, arguments);
+    }
+
+    Lists.prototype.template = 'apps/localPlaylist/list/playlist_list';
+
+    Lists.prototype.childView = List.List;
+
+    Lists.prototype.tagName = "div";
+
+    Lists.prototype.childViewContainer = 'ul.lists';
+
+    return Lists;
+
+  })(App.Views.CompositeView);
+  List.Selection = (function(_super) {
+    __extends(Selection, _super);
+
+    function Selection() {
+      return Selection.__super__.constructor.apply(this, arguments);
+    }
+
+    Selection.prototype.template = 'apps/localPlaylist/list/playlist';
+
+    Selection.prototype.tagName = "li";
+
+    Selection.prototype.initialize = function() {
+      return this.model.set({
+        title: this.model.get('name')
+      });
+    };
+
+    Selection.prototype.triggers = {
+      'click .item': 'item:selected'
+    };
+
+    return Selection;
+
+  })(App.Views.ItemView);
+  return List.SelectionList = (function(_super) {
+    __extends(SelectionList, _super);
+
+    function SelectionList() {
+      return SelectionList.__super__.constructor.apply(this, arguments);
+    }
+
+    SelectionList.prototype.template = 'apps/localPlaylist/list/playlist_list';
+
+    SelectionList.prototype.childView = List.Selection;
+
+    SelectionList.prototype.tagName = "div";
+
+    SelectionList.prototype.childViewContainer = 'ul.lists';
+
+    return SelectionList;
+
+  })(App.Views.CompositeView);
+});
+
+this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, Marionette, $, _) {
+  var API;
+  localPlaylistApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "playlists": "list",
+      "playlist/:id": "list"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    list: function(id) {
+      var item, items, lists;
+      if (id === null) {
+        lists = App.request("localplaylist:entities");
+        items = lists.getRawCollection();
+        if (_.isEmpty(lists)) {
+          id = 0;
+        } else {
+          item = _.min(items, function(list) {
+            return list.id;
+          });
+          id = item.id;
+          App.navigate(helpers.url.get('playlist', id));
+        }
+      }
+      return new localPlaylistApp.List.Controller({
+        id: id
+      });
+    },
+    addToList: function(entityType, id) {
+      var $content, playlists, view;
+      playlists = App.request("localplaylist:entities");
+      view = new localPlaylistApp.List.SelectionList({
+        collection: playlists
+      });
+      $content = view.render().$el;
+      App.execute("ui:modal:show", 'Select a playlist', $content);
+      return App.listenTo(view, 'childview:item:selected', function(list, item) {
+        var collection, playlistId;
+        playlistId = item.model.get('id');
+        if (helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])) {
+          collection = App.request("song:filtered:entities", {
+            filter: helpers.global.paramObj(entityType, id)
+          });
+          return App.execute("when:entity:fetched", collection, (function(_this) {
+            return function() {
+              App.request("localplaylist:item:add:entities", playlistId, collection);
+              App.execute("ui:modal:close");
+              return App.execute("notification:show", "Added to your playlist");
+            };
+          })(this));
+        } else {
+
+        }
+      });
+    }
+  };
+  App.on("before:start", function() {
+    return new localPlaylistApp.Router({
+      controller: API
+    });
+  });
+  return App.commands.setHandler("playlistlocal:additems", function(entityType, id) {
+    return API.addToList(entityType, id);
+  });
 });
 
 this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _) {
@@ -40597,9 +43679,16 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     };
 
     Controller.prototype.getMoviesView = function(collection) {
-      return new List.Movies({
+      var view;
+      view = new List.Movies({
         collection: collection
       });
+      this.listenTo(view, 'childview:movie:play', function(list, item) {
+        var playlist;
+        playlist = App.request("command:kodi:controller", 'video', 'PlayList');
+        return playlist.play('movieid', item.model.get('movieid'));
+      });
+      return view;
     };
 
     Controller.prototype.getAvailableFilters = function() {
@@ -40654,7 +43743,14 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     }
 
     MovieTeaser.prototype.triggers = {
+      "click .play": "movie:play",
       "click .menu": "movie-menu:clicked"
+    };
+
+    MovieTeaser.prototype.initialize = function() {
+      return this.model.set({
+        subtitle: this.model.get('year')
+      });
     };
 
     return MovieTeaser;
@@ -40854,11 +43950,19 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
         collection: navStructure
       });
     },
-    getNavChildren: function(parentId) {
+    getNavChildren: function(parentId, title) {
       var navStructure;
+      if (title == null) {
+        title = 'default';
+      }
       navStructure = App.request('navMain:entities', parentId);
+      if (title !== 'default') {
+        navStructure.set({
+          title: title
+        });
+      }
       return new NavMain.ItemList({
-        collection: navStructure
+        model: navStructure
       });
     }
   };
@@ -40871,8 +43975,11 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
       };
     })(this));
   };
-  return App.reqres.setHandler("navMain:children:show", function(parentId) {
-    return API.getNavChildren(parentId);
+  return App.reqres.setHandler("navMain:children:show", function(parentId, title) {
+    if (title == null) {
+      title = 'default';
+    }
+    return API.getNavChildren(parentId, title);
   });
 });
 
@@ -40924,22 +44031,41 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
       return ItemList.__super__.constructor.apply(this, arguments);
     }
 
+    ItemList.prototype.template = 'apps/navMain/show/nav_sub';
+
     ItemList.prototype.childView = NavMain.Item;
 
-    ItemList.prototype.tagName = "ul";
+    ItemList.prototype.tagName = "div";
 
-    ItemList.prototype.className = "nav-list";
+    ItemList.prototype.childViewContainer = 'ul.items';
+
+    ItemList.prototype.className = "nav-sub";
+
+    ItemList.prototype.initialize = function() {
+      return this.collection = this.model.get('items');
+    };
 
     return ItemList;
 
-  })(App.Views.CollectionView);
+  })(App.Views.CompositeView);
 });
 
 this.Kodi.module("NotificationsApp", function(NotificationApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    notificationMinTimeOut: 5000
+  };
   return App.commands.setHandler("notification:show", function(msg, severity) {
+    var timeout;
     if (severity == null) {
       severity = 'normal';
     }
+    timeout = msg.length < 50 ? API.notificationMinTimeOut : msg.length * 100;
+    return $.snackbar({
+      content: msg,
+      style: 'type-' + severity,
+      timeout: timeout
+    });
   });
 });
 
@@ -41169,7 +44295,22 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       this.layout = this.getLayout();
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
-          return _this.renderList('kodi', 'audio');
+          _this.renderList('kodi', 'audio');
+          return App.vent.on("state:initialized", function() {
+            var stateObj;
+            stateObj = App.request("state:current");
+            return _this.changePlaylist(stateObj.getState('player'), stateObj.getState('media'));
+          });
+        };
+      })(this));
+      this.listenTo(this.layout, 'playlist:kodi:audio', (function(_this) {
+        return function() {
+          return _this.changePlaylist('kodi', 'audio');
+        };
+      })(this));
+      this.listenTo(this.layout, 'playlist:kodi:video', (function(_this) {
+        return function() {
+          return _this.changePlaylist('kodi', 'video');
         };
       })(this));
       return App.regionPlaylist.show(this.layout);
@@ -41188,6 +44329,7 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
     Controller.prototype.renderList = function(type, media) {
       var collection;
       collection = App.request("playlist:list", type, media);
+      this.layout.$el.removeClassStartsWith('media-').addClass('media-' + media);
       return App.execute("when:entity:fetched", collection, (function(_this) {
         return function() {
           var listView;
@@ -41197,7 +44339,8 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
           } else {
             _this.layout.localPlayList.show(listView);
           }
-          return _this.bindActions(listView, type, media);
+          _this.bindActions(listView, type, media);
+          return App.vent.trigger("state:content:updated");
         };
       })(this));
     };
@@ -41211,6 +44354,10 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       return this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
         return playlist.playEntity('position', parseInt(item.model.get('position')));
       });
+    };
+
+    Controller.prototype.changePlaylist = function(player, media) {
+      return this.renderList(player, media);
     };
 
     return Controller;
@@ -41235,6 +44382,11 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
     Layout.prototype.regions = {
       kodiPlayList: '.kodi-playlist',
       localPlayList: '.local-playlist'
+    };
+
+    Layout.prototype.triggers = {
+      'click .kodi-playlists .media-toggle .video': 'playlist:kodi:video',
+      'click .kodi-playlists .media-toggle .audio': 'playlist:kodi:audio'
     };
 
     return Layout;
@@ -41353,6 +44505,269 @@ this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette,
   });
 });
 
+this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette, $, _) {
+  var API;
+  SettingsApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "settings/web": "local",
+      "settings/kodi": "kodi"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    subNavId: 51,
+    local: function() {
+      return new SettingsApp.Show.Local.Controller();
+    },
+    kodi: function() {
+      return new SettingsApp.Show.Kodi.Controller();
+    },
+    getSubNav: function() {
+      return App.request("navMain:children:show", this.subNavId, 'Sections');
+    }
+  };
+  App.on("before:start", function() {
+    return new SettingsApp.Router({
+      controller: API
+    });
+  });
+  return App.reqres.setHandler('settings:subnav', function() {
+    return API.getSubNav();
+  });
+});
+
+this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionette, $, _) {
+  return Kodi.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      this.layout = this.getLayoutView();
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          _this.getSubNav();
+          return _this.getForm();
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayoutView = function() {
+      return new App.SettingsApp.Show.Layout();
+    };
+
+    Controller.prototype.getSubNav = function() {
+      var subNav;
+      subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getForm = function() {
+      var form, options;
+      options = {
+        form: this.getSructure(),
+        formState: this.getState(),
+        config: {
+          attributes: {
+            "class": 'settings-form'
+          }
+        }
+      };
+      form = App.request("form:wrapper", options);
+      return this.layout.regionContent.show(form);
+    };
+
+    Controller.prototype.getSructure = function() {
+      return [
+        {
+          title: 'List options',
+          id: 'list',
+          children: [
+            {
+              id: 'ignore-article',
+              title: 'Ignore Article',
+              type: 'checkbox',
+              defaultValue: true,
+              description: 'Ignore terms such as "The" and "a" when sorting lists'
+            }
+          ]
+        }
+      ];
+    };
+
+    Controller.prototype.getState = function() {
+      return {
+        'default-player': 'local',
+        'jsonrpc-address': '/jsonrpc',
+        'test-checkbox': false
+      };
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marionette, $, _) {
+  return Local.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      this.layout = this.getLayoutView();
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          _this.getSubNav();
+          return _this.getForm();
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayoutView = function() {
+      return new App.SettingsApp.Show.Layout();
+    };
+
+    Controller.prototype.getSubNav = function() {
+      var subNav;
+      subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getForm = function() {
+      var form, options;
+      options = {
+        form: this.getSructure(),
+        formState: this.getState(),
+        config: {
+          attributes: {
+            "class": 'settings-form'
+          },
+          callback: (function(_this) {
+            return function(data, formView) {
+              return _this.saveCallback(data, formView);
+            };
+          })(this)
+        }
+      };
+      form = App.request("form:wrapper", options);
+      return this.layout.regionContent.show(form);
+    };
+
+    Controller.prototype.getSructure = function() {
+      return [
+        {
+          title: 'General Options',
+          id: 'general',
+          children: [
+            {
+              id: 'defaultPlayer',
+              title: 'Default player',
+              type: 'select',
+              options: {
+                auto: 'Auto',
+                kodi: 'Kodi',
+                local: 'Local'
+              },
+              defaultValue: 'auto',
+              description: 'What player to start with'
+            }
+          ]
+        }, {
+          title: 'List options',
+          id: 'list',
+          children: [
+            {
+              id: 'ignoreArticle',
+              title: 'Ignore article',
+              type: 'checkbox',
+              defaultValue: true,
+              description: 'Ignore terms such as "The" and "a" when sorting lists'
+            }, {
+              id: 'albumAtristsOnly',
+              title: 'Album artists only',
+              type: 'checkbox',
+              defaultValue: true,
+              description: 'When listing artists should we only see arttists with albums or all artists found. Warning: turning this off can impact performance with large libraries'
+            }
+          ]
+        }, {
+          title: 'Advanced Options',
+          id: 'advanced',
+          children: [
+            {
+              id: 'jsonRpcEndpoint',
+              title: 'JsonRPC path',
+              type: 'textfield',
+              defaultValue: 'jsonrpc',
+              description: "Default is 'jsonrpc'"
+            }, {
+              id: 'socketsHost',
+              title: 'Websockets Host',
+              type: 'textfield',
+              defaultValue: 'auto',
+              description: "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
+            }, {
+              id: 'pollInterval',
+              title: 'Poll Interval',
+              type: 'select',
+              defaultValue: '10000',
+              options: {
+                '5000': '5 sec',
+                '10000': '10 sec',
+                '30000': '30 sec',
+                '60000': '1 min'
+              },
+              description: "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
+            }
+          ]
+        }
+      ];
+    };
+
+    Controller.prototype.getState = function() {
+      return config.get('app', 'config:local', config["static"]);
+    };
+
+    Controller.prototype.saveCallback = function(data, formView) {
+      config.set('app', 'config:local', data);
+      return Kodi.execute("notification:show", "Web Settings saved.");
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("SettingsApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "settings-page";
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+});
+
 this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
   var API;
   Shell.Router = (function(_super) {
@@ -41453,7 +44868,11 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       regionTitleContext: '#page-title .context',
       regionFanart: '#fanart',
       regionPlayerKodi: '#player-kodi',
-      regionPlayerLocal: '#player-local'
+      regionPlayerLocal: '#player-local',
+      regionModal: '#modal-window',
+      regionModalTitle: '.modal-title',
+      regionModalBody: '.modal-body',
+      regionModalFooter: '.modal-footer'
     };
 
     Layout.prototype.triggers = {
@@ -41699,8 +45118,12 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
 
     Base.prototype.getPlayer = function() {
       var $body, player;
+      player = 'kodi';
       $body = App.getRegion('root').$el;
-      return player = $body.hasClass('active-player-kodi') ? 'kodi' : 'local';
+      if ($body.hasClass('active-player-lcal')) {
+        player = 'local';
+      }
+      return player;
     };
 
     return Base;
@@ -41815,14 +45238,15 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
 
     Notifications.prototype.socketPath = config.get('static', 'jsonRpcEndpoint');
 
-    Notifications.prototype.socketHost = config.get('static', 'socketsHost');
-
     Notifications.prototype.wsActive = false;
 
     Notifications.prototype.wsObj = {};
 
     Notifications.prototype.getConnection = function() {
-      return "ws://" + this.socketHost + ":" + this.socketPort + "/" + this.socketPath + "?kodi";
+      var host, socketHost;
+      host = config.get('static', 'socketsHost');
+      socketHost = host === 'auto' ? location.hostname : host;
+      return "ws://" + socketHost + ":" + this.socketPort + "/" + this.socketPath + "?kodi";
     };
 
     Notifications.prototype.initialize = function() {
@@ -41928,6 +45352,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
         case 'Playlist.OnRemove':
           playerController = App.request("command:kodi:controller", 'auto', 'Player');
           App.execute("playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid));
+          this.refreshStateNow();
           break;
         case 'Application.OnVolumeChanged':
           this.setState('volume', data.params.data.volume);
@@ -41957,7 +45382,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
           break;
         case 'Input.OnInputFinished':
           clearTimeout(App.inputTimeout);
-          App.vent.trigger('input:textbox:complete');
+          App.execute("inpute:textbox:close");
           break;
         case 'System.OnQuit':
           App.execute("notification:show", t.gettext("Kodi has quit"));
@@ -41980,7 +45405,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
 
     Polling.prototype.commander = {};
 
-    Polling.prototype.checkInterval = 5000;
+    Polling.prototype.checkInterval = 10000;
 
     Polling.prototype.currentInterval = '';
 
@@ -41991,6 +45416,9 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
     Polling.prototype.maxFailures = 100;
 
     Polling.prototype.initialize = function() {
+      var interval;
+      interval = config.get('static', 'pollInterval');
+      this.checkInterval = parseInt(interval);
       return this.currentInterval = this.checkInterval;
     };
 
@@ -42107,7 +45535,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
     setPlayingContent: function(player) {
       var $playlistCtx, className, item, playState, stateObj;
       stateObj = App.request("state:" + player);
-      $playlistCtx = $('.' + player + '-playlist');
+      $playlistCtx = $('.media-' + stateObj.getState('media') + ' .' + player + '-playlist');
       $('.can-play').removeClassStartsWith(player + '-row-');
       $('.item', $playlistCtx).removeClassStartsWith('row-');
       if (stateObj.isPlaying()) {
@@ -42152,11 +45580,14 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       App.localState = new StateApp.Local.State();
       App.kodiState.setPlayer(config.get('state', 'lastplayer', 'kodi'));
       App.kodiState.getCurrentState(function(state) {
-        API.setState('kodi');
+        API.setState(App.kodiState.getState('player'));
         App.kodiSockets = new StateApp.Kodi.Notifications();
         App.kodiPolling = new StateApp.Kodi.Polling();
         App.vent.on("sockets:unavailable", function() {
           return App.kodiPolling.startPolling();
+        });
+        App.vent.on("playlist:rendered", function() {
+          return App.request("playlist:refresh", App.kodiState.getState('player'), App.kodiState.getState('media'));
         });
         App.vent.on("state:content:updated", function() {
           return API.setPlayingContent('kodi');
@@ -42164,9 +45595,10 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         App.vent.on("state:kodi:changed", function(state) {
           return API.setState('kodi');
         });
-        return App.vent.on("state:player:updated", function(player) {
+        App.vent.on("state:player:updated", function(player) {
           return API.setPlayerPlaying(player);
         });
+        return App.vent.trigger("state:initialized");
       });
       App.reqres.setHandler("state:kodi", function() {
         return App.kodiState;
@@ -42219,9 +45651,16 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     };
 
     Controller.prototype.getTVShowsView = function(tvshows) {
-      return new List.TVShows({
+      var view;
+      view = new List.TVShows({
         collection: tvshows
       });
+      this.listenTo(view, 'childview:tvshow:play', function(list, item) {
+        var playlist;
+        playlist = App.request("command:kodi:controller", 'video', 'PlayList');
+        return playlist.play('tvshowid', item.model.get('tvshowid'));
+      });
+      return view;
     };
 
     Controller.prototype.getAvailableFilters = function() {
@@ -42276,6 +45715,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     }
 
     TVShowTeaser.prototype.triggers = {
+      "click .play": "tvshow:play",
       "click .menu": "tvshow-menu:clicked"
     };
 
@@ -42476,9 +45916,81 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
 });
 
 this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
-  return App.commands.setHandler("ui:textinput:show", function(title, msg, callback) {
+  var API;
+  API = {
+    openModal: function(title, msg, callback) {
+      var $body, $modal, $title;
+      this.closeModal();
+      $title = App.getRegion('regionModalTitle').$el;
+      $body = App.getRegion('regionModalBody').$el;
+      $modal = App.getRegion('regionModal').$el;
+      $title.html(title);
+      $body.html(msg);
+      $modal.modal();
+      return $modal;
+    },
+    closeModal: function() {
+      return App.getRegion('regionModal').$el.modal('hide');
+    },
+    closeModalButton: function() {
+      return API.getButton('Close', 'default').on('click', function() {
+        return API.closeModal();
+      });
+    },
+    getModalButtonContainer: function() {
+      return App.getRegion('regionModalFooter').$el.empty();
+    },
+    getButton: function(text, type) {
+      if (type == null) {
+        type = 'primary';
+      }
+      return $('<button>').addClass('btn btn-' + type).html(text);
+    },
+    defaultButtons: function(callback) {
+      var $ok;
+      $ok = API.getButton('Ok', 'primary').on('click', function() {
+        if (callback) {
+          callback();
+        }
+        return API.closeModal();
+      });
+      return API.getModalButtonContainer().append(API.closeModalButton()).append($ok);
+    }
+  };
+  App.commands.setHandler("ui:textinput:show", function(title, msg, callback) {
+    var $input, $msg;
     if (msg == null) {
       msg = '';
     }
+    API.closeModal();
+    $input = $('<input>', {
+      id: 'text-input',
+      "class": 'form-control',
+      type: 'text'
+    }).on('keyup', function(e) {
+      if (e.keyCode === 13 && callback) {
+        callback($('#text-input').val());
+        return API.closeModal();
+      }
+    });
+    $msg = $('<p>').html(msg);
+    API.defaultButtons(function() {
+      return callback($('#text-input').val());
+    });
+    API.openModal(title, $msg, callback);
+    App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>')).find('input').first().focus();
+    return $.material.init();
+  });
+  App.commands.setHandler("ui:modal:close", function() {
+    return API.closeModal();
+  });
+  App.commands.setHandler("ui:modal:show", function(title, msg) {
+    if (msg == null) {
+      msg = '';
+    }
+    return API.openModal(title, msg);
+  });
+  return App.commands.setHandler("ui:modal:close", function() {
+    return API.closeModal();
   });
 });

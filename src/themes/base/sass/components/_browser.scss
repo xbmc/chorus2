@@ -1,0 +1,115 @@
+$file-row-height: 35px;
+$path-height: $spacing-base-unit * 3;
+$color-side: #F9F9F9;
+
+.browser-page {
+  .region-first {
+    @extend %sidebar--padding;
+    h3 {
+      @extend %sidebar--heading;
+    }
+    .source-set {
+      @extend %sidebar--section;
+    }
+    .sources {
+      @extend %sidebar--list;
+    }
+  }
+  .region-content {
+    padding: 0;
+  }
+}
+
+.folder-layout {
+  .loading-bar,
+  .path {
+    height: $path-height;
+    background: $color-white;
+    .loading & {
+      display: none;
+    }
+    ul {
+      @include vertical-align-wrapper();
+      li {
+        @include vertical-align-element();
+        height: $path-height;
+        padding: 0 $spacing-base-unit;
+        cursor: pointer;
+        border-right: 1px dotted rgba($color-black, 0.05);
+        &:last-child {
+          border: none;
+          font-weight: bold;
+          &:hover {
+            background: none;
+          }
+        }
+        &:hover {
+          background: rgba($color-black, 0.05);
+        }
+      }
+    }
+  }
+  .loading-bar {
+    display: none;
+    .loading & {
+      display: block;
+    }
+    .inner {
+      @include vertical-align-wrapper();
+      span {
+        @include vertical-align-element();
+        height: $path-height;
+        padding: 0 $spacing-base-unit;
+      }
+    }
+  }
+  .folder-container {
+    @include pie-clearfix();
+    .folders-pane, .files {
+      padding: $spacing-base-unit;
+    }
+    .folders-pane {
+      background: $color-side;
+      @include span(5 of 12);
+    }
+    .files {
+      @include span(7 of 12 last)
+    }
+  }
+  .folder, .file, .back-button {
+    height: $file-row-height + 2;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    .thumb {
+      @include image-crop($file-row-height, $file-row-height);
+      @include set-position-absolute(top 1px left 0 bottom 1px);
+      &:hover {
+        .play {
+          display: table;
+        }
+      }
+    }
+    .title {
+      padding: 7px;
+      padding-left: $file-row-height + 10;
+      cursor: pointer;
+    }
+    .play {
+      @include overlay-icon($height: $file-row-height, $font-size: 150%)
+    }
+  }
+  .folder {
+    @include text-crop($color-side);
+  }
+  .back-button {
+    i {
+      @include icon-button-square(navigation-chevron-left, $file-row-height - 1);
+      &:before {
+        background: #DBDBDB;
+        font-size: 150%;
+        color: #B5B5B5;
+        padding-right: 5px;
+      }
+    }
+  }
+}

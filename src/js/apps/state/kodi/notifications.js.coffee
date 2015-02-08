@@ -5,12 +5,13 @@
 
     socketPort: config.get 'static', 'socketsPort'
     socketPath: config.get 'static', 'jsonRpcEndpoint'
-    socketHost: config.get 'static', 'socketsHost'
     wsActive: false
     wsObj: {}
 
     getConnection: ->
-      "ws://#{@socketHost}:#{@socketPort}/#{@socketPath}?kodi"
+      host = config.get 'static', 'socketsHost'
+      socketHost = if host is 'auto' then location.hostname else host
+      "ws://#{socketHost}:#{@socketPort}/#{@socketPath}?kodi"
 
     initialize: ->
 
@@ -116,6 +117,7 @@
         when 'Playlist.OnClear', 'Playlist.OnAdd', 'Playlist.OnRemove'
           playerController = App.request "command:kodi:controller", 'auto', 'Player'
           App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
+          @refreshStateNow()
 
        # volume change
         when 'Application.OnVolumeChanged'
@@ -158,7 +160,7 @@
         # input box has closed
         when 'Input.OnInputFinished'
           clearTimeout App.inputTimeout
-          App.vent.trigger 'input:textbox:complete'
+          App.execute "inpute:textbox:close"
 
         # xbmc shutdown
         when 'System.OnQuit'

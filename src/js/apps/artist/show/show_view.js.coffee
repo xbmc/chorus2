@@ -9,8 +9,6 @@
   class Show.Details extends App.Views.ItemView
     template: 'apps/artist/show/details_meta'
 
-  class Show.ArtistTeaser extends App.Views.CardView
+  class Show.ArtistTeaser extends App.ArtistApp.List.ArtistTeaser
     tagName: "div"
     className: "card-detail"
-    triggers:
-      "click .menu" : "artist-menu:clicked"

@@ -79,3 +79,14 @@ $width-nav-bar-closed: $size-region-unit;
     }
   }
 }
+
+// Subnav
+.region-first .nav-sub {
+  @extend %sidebar--section;
+  h3 {
+    @extend %sidebar--heading;
+  }
+  .items {
+    @extend %sidebar--list;
+  }
+}

@@ -116,19 +116,6 @@
     ## Populate the sections with structure from mainNav.
     getSections: ->
       collection = @getOption('refCollection')
-      ## For some annoying reason region manager is not finding the damn region
-      ## in the layout when clearly it exists!! Too much time wasted on this so
-      ## just using jQuery instead
-      $layout = @layoutFilters.$el
       if collection.sectionId
-        ## We have a mainNav parentId, retrieve the view based on that.
-        nav = App.request "navMain:children:show", collection.sectionId
-        n = nav.render()
-        $layout.find('.nav-items').html( n.$el )
-        ## below line doesnt work :(
-        ## @layoutFilters.regionNavItems.show nav
-      else
-        ## Remove the title from the nav section
-        $layout.find('.nav-section').empty()
-        ## below line doesnt work :(
-        ## @layoutFilters.regionNavSection.empty()
+        nav = App.request "navMain:children:show", collection.sectionId, 'Sections'
+        @layoutFilters.regionNavSection.show nav

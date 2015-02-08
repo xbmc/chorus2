@@ -13,7 +13,11 @@
       tag = @themeLink(@model.get('title'), @model.get('path'), {'className': classes.join(' ')})
       @model.set(link: tag)
 
-  class NavMain.ItemList extends App.Views.CollectionView
+  class NavMain.ItemList extends App.Views.CompositeView
+    template: 'apps/navMain/show/nav_sub'
     childView: NavMain.Item
-    tagName: "ul"
-    className: "nav-list"
+    tagName: "div"
+    childViewContainer: 'ul.items'
+    className: "nav-sub"
+    initialize: ->
+      @collection = @model.get('items')

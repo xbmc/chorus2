@@ -4,6 +4,14 @@
     template: "views/card/card"
     tagName: "li"
     className: "card"
-    triggers:
-      "click .menu" : "artist-menu:clicked"
+
+    events:
+      "click .dropdown > i": "populateMenu"
+
+    populateMenu: ->
+      menu = ''
+      if @model.get('menu')
+        for key, val of @model.get('menu')
+          menu += @themeTag 'li', {class: key}, val
+        this.$el.find('.dropdown-menu').html(menu)
 

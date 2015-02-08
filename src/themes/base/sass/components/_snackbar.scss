@@ -1,0 +1,62 @@
+#snackbar-container {
+  position: fixed;
+  z-index: $z-index-gamma;
+  right: 0;
+  @include set-layout('height-player', 'bottom');
+  margin-bottom: -10px;
+}
+.snackbar {
+  overflow: hidden;
+  clear: both;
+  cursor: pointer;
+  opacity: 0;
+  @include set-layout('width-playlist', 'min-width');
+  max-width: 600px;
+}
+.snackbar.snackbar-opened {
+  height: auto;
+  opacity: 1;
+}
+@media (max-width: 767px) {
+  #snackbar-container {
+    left: 0px !important;
+    right: 0px;
+    width: 100%;
+  }
+  #snackbar-container .snackbar {
+    min-width: 100%;
+  }
+  #snackbar-container [class="snackbar snackbar-opened"] ~ .snackbar.toast {
+    margin-top: 20px;
+  }
+  #snackbar-container [class="snackbar snackbar-opened"] {
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+}
+
+.snackbar {
+  background-color: rgba($color-white, 0.95);
+  color: $color-greyscale-outer-space;
+  font-size: 14px;
+  border-radius: 0px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 0;
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: translateY(200%);
+  -webkit-transform: translateY(200%);
+  transform: translateY(200%);
+}
+.snackbar.snackbar-opened {
+  padding: 14px 15px;
+  margin: 0 0 10px 0;
+  height: auto;
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: none;
+  -webkit-transform: none;
+  transform: none;
+}

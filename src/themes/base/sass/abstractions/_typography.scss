@@ -2,3 +2,15 @@
 // Name:            Typography
 // Description:     Typography abstractions.
 // =============================================================================
+
+@mixin sidebar-heading () {
+  font-size: $font-size-base + 1;
+  text-transform: uppercase;
+  margin: $spacing-base-unit 0;
+  color: $color-greyscale-gray;
+  font-weight: bold;
+}
+%sidebar--heading {
+  @include sidebar-heading()
+}
+

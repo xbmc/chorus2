@@ -24,8 +24,12 @@
         collection: collection
 
     getMoviesView: (collection) ->
-      new List.Movies
+      view = new List.Movies
         collection: collection
+      @listenTo view, 'childview:movie:play', (list, item) ->
+        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+        playlist.play 'movieid', item.model.get('movieid')
+      view
 
 
     ## Available sort and filter options

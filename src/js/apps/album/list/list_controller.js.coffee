@@ -24,9 +24,18 @@
         collection: collection
 
     getAlbumsView: (collection) ->
-      new List.Albums
+      view = new List.Albums
         collection: collection
+      @bindTriggers(view)
+      view
 
+    bindTriggers: (view) ->
+      @listenTo view, 'childview:album:play', (list, item) ->
+        App.execute 'album:action', 'play', item.model
+      @listenTo view, 'childview:album:add', (list, item) ->
+        App.execute 'album:action', 'add', item.model
+      @listenTo view, 'childview:album:localadd', (list, item) ->
+        App.execute 'album:action', 'localadd', item.model
 
     ## Available sort and filter options
     ## See filter_app.js for available options

@@ -26,13 +26,11 @@
   class Show.Details extends App.Views.ItemView
     template: 'apps/album/show/details_meta'
 
-  class Show.AlbumTeaser extends App.Views.CardView
+  class Show.AlbumTeaser extends App.AlbumApp.List.AlbumTeaser
     tagName: "div"
     className: "card-minimal"
     initialize: ->
       this.model.set subtitle: this.model.get('year')
-    triggers:
-      "click .menu" : "album-menu:clicked"
 
   class Show.AlbumDetailTeaser extends Show.AlbumTeaser
     className: "card-detail"

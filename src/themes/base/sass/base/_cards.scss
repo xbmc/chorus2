@@ -74,10 +74,20 @@ $card-layout: (
   height: get-card-size($size, height);
   margin: $card-spacing;
   background: $background;
+  position: relative;
   .artwork {
     @include image-crop(get-card-size($size, height-image), get-card-size($size, width), get-card-size($size, offset-image));
+    position: relative;
     a {
       display: block;
+    }
+    &:after {
+      content: "";
+      @include set-position-absolute(top 0 left 0 right 0);
+      height: get-card-size($size, height);
+      @include overlay;
+      opacity: 0;
+      @include transition(0.1s all linear);
     }
   }
   .meta {
@@ -88,6 +98,65 @@ $card-layout: (
     }
     .subtitle {
       @include text-crop($background);
+    }
+  }
+  .play {
+    @include icon-button-square(av-play-arrow, $spacing-half-unit * 3);
+    @include set-position-absolute(bottom 0 left 0);
+    color: rgba($color-white, 0.8);
+    font-size: 220%;
+    display: none;
+    z-index: $z-index-beta;
+    &:hover {
+      color: $color-white;
+    }
+  }
+  .dropdown {
+    @include set-position-absolute(top 5px right 0);
+    i {
+      @include icon-button-square(navigation-more-vert, $spacing-half-unit * 3);
+      z-index: $z-index-beta;
+      font-size: 180%;
+      color: $color-white;
+      display: none;
+    }
+  }
+  &:hover {
+    .artwork:after {
+      opacity: 1;
+    }
+    .actions,
+    .dropdown i,
+    .play {
+      display: table;
+    }
+  }
+  .dropdown-menu {
+    left: auto;
+    right: 0px;
+    top: -7px;
+  }
+}
+
+.dropdown-menu {
+  padding: $spacing-half-unit 0;
+  background: $color-playlist-background;
+  color: $color-playlist-text;
+  border-radius: 0;
+  li {
+    padding: $spacing-half-unit / 2 $spacing-base-unit;
+    &:hover {
+      background: rgba($color-white, 0.1);
+      color: $color-white;
+      cursor: pointer;
+      &.divider {
+        cursor: none;
+        background: none;
+      }
+    }
+    &.divider {
+      padding: 0;
+      margin: $spacing-half-unit /2 0;
     }
   }
 }

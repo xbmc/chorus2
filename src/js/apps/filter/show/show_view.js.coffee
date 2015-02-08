@@ -13,7 +13,6 @@
       regionFiltersList: '.filters-list'
       regionFiltersOptions: '.filter-options-list'
       regionNavSection: '.nav-section'
-      regionNavItems: '.nav-items'
     triggers:
       'click .close-filters' : 'filter:layout:close:filters'
       'click .close-options' : 'filter:layout:close:options'
