@@ -3,9 +3,10 @@
   API =
 
     ## Render the song view and attach to triggers
-    getSongsView: (songs) ->
+    getSongsView: (songs, verbose = false) ->
       @songsView = new List.Songs
         collection: songs
+        verbose: verbose
 
       ## Trigers/Actions on a song
       App.listenTo @songsView, 'childview:song:play', (list, item) =>
@@ -33,5 +34,5 @@
 
 
   ## handler for other modules to get a songs view.
-  App.reqres.setHandler "song:list:view", (songs) ->
-    API.getSongsView songs
+  App.reqres.setHandler "song:list:view", (songs, verbose = false) ->
+    API.getSongsView songs, verbose

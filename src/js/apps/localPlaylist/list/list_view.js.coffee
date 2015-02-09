@@ -19,7 +19,8 @@
     childView: List.List
     tagName: "div"
     childViewContainer: 'ul.lists'
-
+    onRender: ->
+      $('h3', @$el).html( t.gettext('Playlists') )
 
   class List.Selection extends App.Views.ItemView
     template: 'apps/localPlaylist/list/playlist'
@@ -33,4 +34,7 @@
     template: 'apps/localPlaylist/list/playlist_list'
     childView: List.Selection
     tagName: "div"
+    className: 'playlist-selection-list'
     childViewContainer: 'ul.lists'
+    onRender: ->
+      $('h3', @$el).html( t.gettext('Existing playlists') )

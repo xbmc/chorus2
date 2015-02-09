@@ -26,6 +26,6 @@
 }
 .table-hover > tbody > tr {
   &:hover {
-    background-color: rgba(195, 195, 195, 0.3);
+    background-color: rgba($color-white, 0.3);
   }
 }

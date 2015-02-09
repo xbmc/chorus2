@@ -28,7 +28,7 @@
       collection = @getListCollection()
       model.id = @getNextId()
       collection.create(model)
-      collection
+      model.id
 
     getNextId: ->
       collection = API.getListCollection()

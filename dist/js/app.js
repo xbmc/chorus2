@@ -2854,7 +2854,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       collection = this.getListCollection();
       model.id = this.getNextId();
       collection.create(model);
-      return collection;
+      return model.id;
     },
     getNextId: function() {
       var collection, items, lastItem, nextId;
@@ -3214,6 +3214,14 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         path: 'thumbsup',
         icon: 'mdi-action-thumb-up',
         classes: 'nav-thumbs-up',
+        parent: 0
+      });
+      nav.push({
+        id: 42,
+        title: "Playlists",
+        path: 'playlists',
+        icon: 'mdi-action-assignment',
+        classes: 'playlists',
         parent: 0
       });
       nav.push({
@@ -5492,7 +5500,10 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     Input.prototype.sendInput = function(type) {
       return this.singleCommand(this.getCommand('type'), [], (function(_this) {
         return function(resp) {
-          return _this.doCallback(callback, resp);
+          _this.doCallback(callback, resp);
+          if (!App.request('sockets:active')) {
+            return App.request('state:kodi:update', callback);
+          }
         };
       })(this));
     };
@@ -6479,18 +6490,80 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
 this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    getController: function() {
+    initKeyBind: function() {
+      return $(document).keydown((function(_this) {
+        return function(e) {
+          return _this.keyBind(e);
+        };
+      })(this));
+    },
+    inputController: function() {
       return App.request("command:kodi:controller", 'auto', 'Input');
+    },
+    doKodiCommand: function(command, params, callback) {
+      return App.request('command:kodi:player', command, params, (function(_this) {
+        return function() {
+          return _this.pollingUpdate(callback);
+        };
+      })(this));
+    },
+    appController: function() {
+      return App.request("command:kodi:controller", 'auto', 'Application');
+    },
+    pollingUpdate: function(callback) {
+      if (!App.request('sockets:active')) {
+        return App.request('state:kodi:update', callback);
+      }
+    },
+    keyBind: function(e) {
+      var stateObj, vol;
+      if ($(e.target).is("input, textarea")) {
+        return;
+      }
+      stateObj = App.request("state:kodi");
+      switch (e.which) {
+        case 37:
+          return this.inputController().sendInput("Left");
+        case 38:
+          return this.inputController().sendInput("Up");
+        case 39:
+          return this.inputController().sendInput("Right");
+        case 40:
+          return this.inputController().sendInput("Down");
+        case 8:
+          return this.inputController().sendInput("Back");
+        case 13:
+          return this.inputController().sendInput("Select");
+        case 67:
+          return this.inputController().sendInput("ContextMenu");
+        case 107:
+          vol = stateObj.getState('volume') + 5;
+          return this.appController().setVolume((vol > 100 ? 100 : Math.ceil(vol)));
+        case 109:
+          vol = stateObj.getState('volume') - 5;
+          return this.appController().setVolume((vol < 0 ? 0 : Math.ceil(vol)));
+        case 32:
+          return this.doKodiCommand("PlayPause", "toggle");
+        case 88:
+          return this.doKodiCommand("Stop");
+        case 190:
+          return this.doKodiCommand("GoTo", "next");
+        case 188:
+          return this.doKodiCommand("GoTo", "previous");
+      }
     }
   };
-  return App.commands.setHandler("input:textbox", function(msg) {
+  App.commands.setHandler("input:textbox", function(msg) {
     App.execute("ui:textinput:show", "Input required", msg, function(text) {
-      API.getController().sendText(text);
+      API.inputController().sendText(text);
       return App.execute("notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi'));
     });
     return App.commands.setHandler("input:textbox:close", function() {
       return App.execute("ui:modal:close");
     });
+  });
+  return App.addInitializer(function() {
+    return API.initKeyBind();
   });
 });
 
@@ -6559,11 +6632,10 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
     };
 
     Controller.prototype.getItems = function(id) {
-      var collection, media, playlist, view;
-      playlist = App.request("localplaylist:entity", id);
+      var collection, media, view;
       media = 'song';
       collection = App.request("localplaylist:item:entities", id);
-      view = App.request("" + media + ":list:view", collection);
+      view = App.request("" + media + ":list:view", collection, true);
       return this.layout.regionContent.show(view);
     };
 
@@ -6629,6 +6701,10 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
 
     Lists.prototype.childViewContainer = 'ul.lists';
 
+    Lists.prototype.onRender = function() {
+      return $('h3', this.$el).html(t.gettext('Playlists'));
+    };
+
     return Lists;
 
   })(App.Views.CompositeView);
@@ -6669,7 +6745,13 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
 
     SelectionList.prototype.tagName = "div";
 
+    SelectionList.prototype.className = 'playlist-selection-list';
+
     SelectionList.prototype.childViewContainer = 'ul.lists';
+
+    SelectionList.prototype.onRender = function() {
+      return $('h3', this.$el).html(t.gettext('Existing playlists'));
+    };
 
     return SelectionList;
 
@@ -6714,31 +6796,59 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
       });
     },
     addToList: function(entityType, id) {
-      var $content, playlists, view;
+      var $content, $new, playlists, view;
       playlists = App.request("localplaylist:entities");
-      view = new localPlaylistApp.List.SelectionList({
-        collection: playlists
-      });
-      $content = view.render().$el;
-      App.execute("ui:modal:show", 'Select a playlist', $content);
-      return App.listenTo(view, 'childview:item:selected', function(list, item) {
-        var collection, playlistId;
-        playlistId = item.model.get('id');
-        if (helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])) {
-          collection = App.request("song:filtered:entities", {
-            filter: helpers.global.paramObj(entityType, id)
-          });
-          return App.execute("when:entity:fetched", collection, (function(_this) {
-            return function() {
-              App.request("localplaylist:item:add:entities", playlistId, collection);
-              App.execute("ui:modal:close");
-              return App.execute("notification:show", "Added to your playlist");
-            };
-          })(this));
-        } else {
+      if (!playlists || playlists.length === 0) {
+        return this.createNewList(entityType, id);
+      } else {
+        view = new localPlaylistApp.List.SelectionList({
+          collection: playlists
+        });
+        $content = view.render().$el;
+        $new = $('<button>').html(t.gettext('Create a new list')).addClass('btn btn-primary');
+        $new.on('click', (function(_this) {
+          return function() {
+            return _.defer(function() {
+              return API.createNewList(entityType, id);
+            });
+          };
+        })(this));
+        App.execute("ui:modal:show", 'Select a playlist', $content, $new);
+        return App.listenTo(view, 'childview:item:selected', (function(_this) {
+          return function(list, item) {
+            console.log("existing list");
+            return _this.addToExistingList(item.model.get('id'), entityType, id);
+          };
+        })(this));
+      }
+    },
+    addToExistingList: function(playlistId, entityType, id) {
+      var collection;
+      if (helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])) {
+        collection = App.request("song:filtered:entities", {
+          filter: helpers.global.paramObj(entityType, id)
+        });
+        return App.execute("when:entity:fetched", collection, (function(_this) {
+          return function() {
+            App.request("localplaylist:item:add:entities", playlistId, collection);
+            App.execute("ui:modal:close");
+            return App.execute("notification:show", t.gettext("Added to your playlist"));
+          };
+        })(this));
+      } else {
 
-        }
-      });
+      }
+    },
+    createNewList: function(entityType, id) {
+      return App.execute("ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (function(_this) {
+        return function(text) {
+          var playlistId;
+          if (text !== '') {
+            playlistId = App.request("localplaylist:add:entity", text, 'song');
+            return _this.addToExistingList(playlistId, entityType, id);
+          }
+        };
+      })(this), false);
     }
   };
   App.on("before:start", function() {
@@ -8004,9 +8114,13 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
 this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    getSongsView: function(songs) {
+    getSongsView: function(songs, verbose) {
+      if (verbose == null) {
+        verbose = false;
+      }
       this.songsView = new List.Songs({
-        collection: songs
+        collection: songs,
+        verbose: verbose
       });
       App.listenTo(this.songsView, 'childview:song:play', (function(_this) {
         return function(list, item) {
@@ -8034,8 +8148,11 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
       return playlist.add('songid', songId);
     }
   };
-  return App.reqres.setHandler("song:list:view", function(songs) {
-    return API.getSongsView(songs);
+  return App.reqres.setHandler("song:list:view", function(songs, verbose) {
+    if (verbose == null) {
+      verbose = false;
+    }
+    return API.getSongsView(songs, verbose);
   });
 });
 
@@ -8085,7 +8202,13 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
 
     Songs.prototype.tagName = "table";
 
-    Songs.prototype.className = "songs-table table table-striped table-hover";
+    Songs.prototype.attributes = function() {
+      var verbose;
+      verbose = this.options.verbose ? 'verbose' : 'basic';
+      return {
+        "class": 'songs-table table table-hover ' + verbose
+      };
+    };
 
     return Songs;
 
@@ -9022,15 +9145,19 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
 this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    openModal: function(title, msg, callback) {
+    openModal: function(title, msg, open) {
       var $body, $modal, $title;
-      this.closeModal();
+      if (open == null) {
+        open = true;
+      }
       $title = App.getRegion('regionModalTitle').$el;
       $body = App.getRegion('regionModalBody').$el;
       $modal = App.getRegion('regionModal').$el;
       $title.html(title);
       $body.html(msg);
-      $modal.modal();
+      if (open) {
+        $modal.modal();
+      }
       return $modal;
     },
     closeModal: function() {
@@ -9061,12 +9188,14 @@ this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
       return API.getModalButtonContainer().append(API.closeModalButton()).append($ok);
     }
   };
-  App.commands.setHandler("ui:textinput:show", function(title, msg, callback) {
+  App.commands.setHandler("ui:textinput:show", function(title, msg, callback, open) {
     var $input, $msg;
     if (msg == null) {
       msg = '';
     }
-    API.closeModal();
+    if (open == null) {
+      open = true;
+    }
     $input = $('<input>', {
       id: 'text-input',
       "class": 'form-control',
@@ -9081,18 +9210,25 @@ this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
     API.defaultButtons(function() {
       return callback($('#text-input').val());
     });
-    API.openModal(title, $msg, callback);
+    API.openModal(title, $msg, callback, open);
     App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>')).find('input').first().focus();
     return $.material.init();
   });
   App.commands.setHandler("ui:modal:close", function() {
     return API.closeModal();
   });
-  App.commands.setHandler("ui:modal:show", function(title, msg) {
+  App.commands.setHandler("ui:modal:show", function(title, msg, footer, open) {
     if (msg == null) {
       msg = '';
     }
-    return API.openModal(title, msg);
+    if (footer == null) {
+      footer = '';
+    }
+    if (open == null) {
+      open = true;
+    }
+    API.getModalButtonContainer().html(footer);
+    return API.openModal(title, msg, open);
   });
   return App.commands.setHandler("ui:modal:close", function() {
     return API.closeModal();

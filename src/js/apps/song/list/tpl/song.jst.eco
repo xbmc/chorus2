@@ -1,4 +1,7 @@
 <td class="cell-first">
+    <div class="thumb">
+        <img src="<%= @thumbnail %>" />
+    </div>
     <div class="track"><%= @track %></div>
     <div class="play"></div>
 </td>

@@ -665,7 +665,7 @@ window.JST["apps/localPlaylist/list/tpl/playlist_list.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<h3>Playlists</h3>\n<ul class="lists"></ul>'));
+      _print(_safe('<h3></h3>\n<ul class="lists"></ul>'));
     
     }).call(this);
     
@@ -1191,7 +1191,11 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<td class="cell-first">\n    <div class="track">'));
+      _print(_safe('<td class="cell-first">\n    <div class="thumb">\n        <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n    </div>\n    <div class="track">'));
     
       _print(this.track);
     

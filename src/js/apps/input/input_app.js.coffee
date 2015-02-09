@@ -60,13 +60,13 @@
           @doKodiCommand "PlayPause", "toggle"
         when 88 # x (stop)
           @doKodiCommand "Stop"
-        when 84 # t (toggle subtitles)
-        ## TODO: Add this.
+        # when 84 # t (toggle subtitles)
+          ## TODO
         when 190 # > (next)
           @doKodiCommand "GoTo", "next"
         when 188 # < (prev)
           @doKodiCommand "GoTo", "previous"
-        else # return everything else here  
+        else # return everything else here
 
 
   App.commands.setHandler "input:textbox", (msg) ->

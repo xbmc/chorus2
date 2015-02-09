@@ -4,22 +4,12 @@
 
     initialize: (options) ->
       id = options.id
-
-      ## If id is 0 we have no playlists saved.
-
       playlists = App.request "localplaylist:entities"
-#      App.execute "when:entity:fetched", collection, =>
-#
-#        ## Set available filters
-#        collection.availableFilters = @getAvailableFilters()
-#        collection.sectionId = 1
-
       @layout = @getLayoutView playlists
 
       @listenTo @layout, "show", =>
         @getListsView(playlists)
         @getItems(id)
-#          @getFiltersView collection
 
       App.regionContent.show @layout
 
@@ -33,9 +23,9 @@
       @layout.regionSidebarFirst.show view
 
     getItems: (id) ->
-      playlist = App.request "localplaylist:entity", id
+      ## playlist = App.request "localplaylist:entity", id
       ## media = playlist.get('media')
       media = 'song'
       collection = App.request "localplaylist:item:entities", id
-      view = App.request "#{media}:list:view", collection
+      view = App.request "#{media}:list:view", collection, true
       @layout.regionContent.show view

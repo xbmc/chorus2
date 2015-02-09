@@ -2,8 +2,7 @@
 
   API =
 
-    openModal: (title, msg, callback) ->
-      @closeModal()
+    openModal: (title, msg, open = true) ->
       ## Get the modal parts
       $title = App.getRegion('regionModalTitle').$el
       $body = App.getRegion('regionModalBody').$el
@@ -12,7 +11,8 @@
       $title.html(title)
       $body.html(msg)
       ## Open model
-      $modal.modal();
+      if open
+        $modal.modal();
       $modal
 
     closeModal: ->
@@ -39,8 +39,7 @@
 
 
   ## Open a text input modal window, callback recieves the entered text.
-  App.commands.setHandler "ui:textinput:show", (title, msg = '', callback) ->
-    API.closeModal()
+  App.commands.setHandler "ui:textinput:show", (title, msg = '', callback, open = true) ->
     $input = $('<input>', {id: 'text-input', class: 'form-control', type: 'text'}).on('keyup', (e) ->
       if e.keyCode is 13 and callback
         callback( $('#text-input').val() )
@@ -48,7 +47,7 @@
     )
     $msg = $('<p>').html(msg)
     API.defaultButtons -> callback $('#text-input').val()
-    API.openModal(title, $msg, callback)
+    API.openModal(title, $msg, callback, open)
     App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>')).find('input').first().focus()
     $.material.init()
 
@@ -56,8 +55,9 @@
     API.closeModal()
 
   ## Open a modal window
-  App.commands.setHandler "ui:modal:show", (title, msg = '') ->
-    API.openModal(title, msg)
+  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '', open = true) ->
+    API.getModalButtonContainer().html(footer)
+    API.openModal(title, msg, open)
 
   ## Close a modal window
   App.commands.setHandler "ui:modal:close", ->

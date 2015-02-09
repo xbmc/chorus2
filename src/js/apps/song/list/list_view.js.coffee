@@ -12,10 +12,14 @@
       "click .add"           : "song:add"
     attributes: ->
       {
-      class: 'song table-row can-play item-song-' + @model.get('songid')
+        class: 'song table-row can-play item-song-' + @model.get('songid')
       }
 
   class List.Songs extends App.Views.CollectionView
     childView: List.Song
     tagName: "table"
-    className: "songs-table table table-striped table-hover"
+    attributes: ->
+      verbose = if @options.verbose then 'verbose' else 'basic'
+      {
+        class: 'songs-table table table-hover ' + verbose
+      }

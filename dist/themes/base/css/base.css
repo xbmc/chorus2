@@ -10906,7 +10906,7 @@ img, video {
  * Reset position sets all edges to zero.
  */
 /* line 13, ../../../../src/themes/base/sass/abstractions/_typography.scss */
-.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .region-first .nav-sub h3 {
+.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .modal .playlist-selection-list h3, .region-first .nav-sub h3 {
   font-size: 15px;
   text-transform: uppercase;
   margin: 1em 0;
@@ -15500,7 +15500,7 @@ ul li, ol li {
 
 /* line 28, ../../../../src/themes/base/sass/base/_marterial.scss */
 .table-hover > tbody > tr:hover {
-  background-color: rgba(195, 195, 195, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* line 9, ../../../../src/themes/base/sass/base/_sidebar.scss */
@@ -15509,7 +15509,7 @@ ul li, ol li {
 }
 
 /* line 20, ../../../../src/themes/base/sass/base/_sidebar.scss */
-.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .region-first .nav-sub h3 {
+.browser-page .region-first h3, .filters-container h3, .local-playlist-list .region-first h3, .modal .playlist-selection-list h3, .region-first .nav-sub h3 {
   font-size: 15px;
   text-transform: uppercase;
   margin: 1em 0;
@@ -15526,12 +15526,12 @@ ul li, ol li {
 
 /* line 49, ../../../../src/themes/base/sass/base/_sidebar.scss */
 .browser-page .region-first .sources, .filters-container .nav-list,
-.filters-container .selection-list, .local-playlist-list .region-first .lists, .region-first .nav-sub .items {
+.filters-container .selection-list, .local-playlist-list .region-first .lists, .modal .playlist-selection-list .lists, .region-first .nav-sub .items {
   padding-left: 1em;
 }
 /* line 33, ../../../../src/themes/base/sass/base/_sidebar.scss */
 .browser-page .region-first .sources li, .filters-container .nav-list li,
-.filters-container .selection-list li, .local-playlist-list .region-first .lists li, .region-first .nav-sub .items li {
+.filters-container .selection-list li, .local-playlist-list .region-first .lists li, .modal .playlist-selection-list .lists li, .region-first .nav-sub .items li {
   padding-bottom: 0.5em;
   position: relative;
   white-space: nowrap;
@@ -15540,7 +15540,7 @@ ul li, ol li {
 }
 /* line 10, ../../../../src/themes/base/sass/abstractions/_text.scss */
 .browser-page .region-first .sources li:after, .filters-container .nav-list li:after,
-.filters-container .selection-list li:after, .local-playlist-list .region-first .lists li:after, .region-first .nav-sub .items li:after {
+.filters-container .selection-list li:after, .local-playlist-list .region-first .lists li:after, .modal .playlist-selection-list .lists li:after, .region-first .nav-sub .items li:after {
   content: "";
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#00F2F2F2', endColorstr='#FFF2F2F2');
@@ -15558,17 +15558,17 @@ ul li, ol li {
 }
 /* line 37, ../../../../src/themes/base/sass/base/_sidebar.scss */
 .browser-page .region-first .sources li:hover, .filters-container .nav-list li:hover,
-.filters-container .selection-list li:hover, .local-playlist-list .region-first .lists li:hover, .region-first .nav-sub .items li:hover {
+.filters-container .selection-list li:hover, .local-playlist-list .region-first .lists li:hover, .modal .playlist-selection-list .lists li:hover, .region-first .nav-sub .items li:hover {
   color: #12b2e7;
 }
 /* line 40, ../../../../src/themes/base/sass/base/_sidebar.scss */
 .browser-page .region-first .sources li a, .filters-container .nav-list li a,
-.filters-container .selection-list li a, .local-playlist-list .region-first .lists li a, .region-first .nav-sub .items li a {
+.filters-container .selection-list li a, .local-playlist-list .region-first .lists li a, .modal .playlist-selection-list .lists li a, .region-first .nav-sub .items li a {
   color: #2b2f30;
 }
 /* line 42, ../../../../src/themes/base/sass/base/_sidebar.scss */
 .browser-page .region-first .sources li a.active, .filters-container .nav-list li a.active,
-.filters-container .selection-list li a.active, .local-playlist-list .region-first .lists li a.active, .region-first .nav-sub .items li a.active {
+.filters-container .selection-list li a.active, .local-playlist-list .region-first .lists li a.active, .modal .playlist-selection-list .lists li a.active, .region-first .nav-sub .items li a.active {
   color: #12b2e7;
   font-weight: bold;
 }
@@ -17002,6 +17002,11 @@ form .inline-list .response {
   height: 96px;
 }
 
+/* line 20, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.modal .playlist-selection-list .lists li:after {
+  display: none;
+}
+
 /* line 4, ../../../../src/themes/base/sass/components/_nav.scss */
 #nav-bar {
   background: white;
@@ -17899,7 +17904,13 @@ form .inline-list .response {
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* line 20, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 18, ../../../../src/themes/base/sass/components/_shell.scss */
+body,
+body.model-open {
+  overflow-y: scroll;
+}
+
+/* line 24, ../../../../src/themes/base/sass/components/_shell.scss */
 #logo {
   top: 0;
   left: 0;
@@ -17925,7 +17936,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 29, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 33, ../../../../src/themes/base/sass/components/_shell.scss */
 #logo:before {
   display: table-cell;
   vertical-align: middle;
@@ -17934,7 +17945,7 @@ form .inline-list .response {
   font-size: 2em;
   z-index: 100;
 }
-/* line 35, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 39, ../../../../src/themes/base/sass/components/_shell.scss */
 .loading #logo:before {
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -17948,7 +17959,7 @@ form .inline-list .response {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-/* line 42, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 46, ../../../../src/themes/base/sass/components/_shell.scss */
 #fanart,
 #fanart-overlay {
   top: 50px;
@@ -17959,14 +17970,14 @@ form .inline-list .response {
   bottom: 50px;
 }
 @media (min-width: 57em) {
-  /* line 42, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 46, ../../../../src/themes/base/sass/components/_shell.scss */
   #fanart,
   #fanart-overlay {
     bottom: 70px;
   }
 }
 
-/* line 48, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 52, ../../../../src/themes/base/sass/components/_shell.scss */
 #fanart {
   background-color: #e0dfdf;
   background-size: cover;
@@ -17974,17 +17985,17 @@ form .inline-list .response {
   z-index: -10;
 }
 
-/* line 54, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 58, ../../../../src/themes/base/sass/components/_shell.scss */
 #fanart-overlay {
   z-index: -9;
   background-color: rgba(224, 223, 223, 0.7);
 }
-/* line 57, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 61, ../../../../src/themes/base/sass/components/_shell.scss */
 .section-home #fanart-overlay {
   display: none;
 }
 
-/* line 63, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 67, ../../../../src/themes/base/sass/components/_shell.scss */
 #main {
   *zoom: 1;
   margin: 50px 0 0 50px;
@@ -17997,37 +18008,37 @@ form .inline-list .response {
   clear: both;
 }
 @media (min-width: 45em) {
-  /* line 63, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 67, ../../../../src/themes/base/sass/components/_shell.scss */
   #main {
     margin-right: 250px;
   }
 }
 @media (min-width: 75em) {
-  /* line 63, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 67, ../../../../src/themes/base/sass/components/_shell.scss */
   #main {
     margin-right: 400px;
   }
 }
 @media (min-width: 57em) {
-  /* line 63, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 67, ../../../../src/themes/base/sass/components/_shell.scss */
   #main {
     padding-bottom: 70px;
   }
 }
 @media (min-width: 45em) {
-  /* line 70, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 74, ../../../../src/themes/base/sass/components/_shell.scss */
   .shell-playlist-closed #main {
     margin-right: 50px;
   }
 }
 @media (min-width: 75em) {
-  /* line 70, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 74, ../../../../src/themes/base/sass/components/_shell.scss */
   .shell-playlist-closed #main {
     margin-right: 50px;
   }
 }
 
-/* line 77, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 81, ../../../../src/themes/base/sass/components/_shell.scss */
 #sidebar-two {
   top: 0;
   right: 0;
@@ -18038,34 +18049,34 @@ form .inline-list .response {
   bottom: 50px;
 }
 @media (min-width: 45em) {
-  /* line 77, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 81, ../../../../src/themes/base/sass/components/_shell.scss */
   #sidebar-two {
     left: auto;
   }
 }
 @media (min-width: 45em) {
-  /* line 77, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 81, ../../../../src/themes/base/sass/components/_shell.scss */
   #sidebar-two {
     width: 250px;
   }
 }
 @media (min-width: 75em) {
-  /* line 77, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 81, ../../../../src/themes/base/sass/components/_shell.scss */
   #sidebar-two {
     width: 400px;
   }
 }
 @media (min-width: 57em) {
-  /* line 77, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 81, ../../../../src/themes/base/sass/components/_shell.scss */
   #sidebar-two {
     bottom: 70px;
   }
 }
-/* line 86, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 90, ../../../../src/themes/base/sass/components/_shell.scss */
 #sidebar-two #playlist-summary {
   display: none;
 }
-/* line 90, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 94, ../../../../src/themes/base/sass/components/_shell.scss */
 #sidebar-two .playlist-toggle-open {
   top: 0;
   right: 0;
@@ -18090,7 +18101,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 98, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 102, ../../../../src/themes/base/sass/components/_shell.scss */
 #sidebar-two .playlist-toggle-open:before {
   -webkit-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
@@ -18101,7 +18112,7 @@ form .inline-list .response {
   font-size: 150%;
   color: rgba(255, 255, 255, 0.5);
 }
-/* line 109, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 113, ../../../../src/themes/base/sass/components/_shell.scss */
 .shell-playlist-closed #sidebar-two .playlist-toggle-open:before {
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
@@ -18109,42 +18120,42 @@ form .inline-list .response {
   transform: rotate(-180deg);
 }
 @media (min-width: 45em) {
-  /* line 108, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 112, ../../../../src/themes/base/sass/components/_shell.scss */
   .shell-playlist-closed #sidebar-two {
     width: 50px;
   }
 }
 @media (min-width: 75em) {
-  /* line 108, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 112, ../../../../src/themes/base/sass/components/_shell.scss */
   .shell-playlist-closed #sidebar-two {
     width: 50px;
   }
 }
-/* line 113, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 117, ../../../../src/themes/base/sass/components/_shell.scss */
 .shell-playlist-closed #sidebar-two #playlist-bar {
   display: none;
 }
-/* line 116, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 120, ../../../../src/themes/base/sass/components/_shell.scss */
 .shell-playlist-closed #sidebar-two #playlist-summary {
   display: block;
 }
 
-/* line 123, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 127, ../../../../src/themes/base/sass/components/_shell.scss */
 #modal-window .close, #modal-window .close:hover, #modal-window .close:focus {
   color: white;
 }
 @media (min-width: 45em) {
-  /* line 126, ../../../../src/themes/base/sass/components/_shell.scss */
+  /* line 130, ../../../../src/themes/base/sass/components/_shell.scss */
   #modal-window .modal-dialog {
     width: 500px;
   }
 }
-/* line 131, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 135, ../../../../src/themes/base/sass/components/_shell.scss */
 #modal-window .modal-header {
   background: #2F3334;
   color: white;
 }
-/* line 135, ../../../../src/themes/base/sass/components/_shell.scss */
+/* line 139, ../../../../src/themes/base/sass/components/_shell.scss */
 #modal-window .modal-header, #modal-window .modal-body {
   padding: 15px 20px;
 }
@@ -18247,20 +18258,26 @@ form .inline-list .response {
 /* line 4, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song {
   cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-/* line 7, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 9, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song td {
   vertical-align: middle;
   position: relative;
+  border-bottom: 1px solid rgba(139, 139, 139, 0.05);
 }
-/* line 11, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 14, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .play,
 .songs-table tr.song .play:before,
 .songs-table tr.song .cell-first {
   width: 40px;
   height: 40px;
 }
-/* line 17, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 20, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .play {
   top: 0;
   left: 0;
@@ -18285,17 +18302,36 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 24, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 27, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .play:before {
   display: table-cell;
   vertical-align: middle;
   font-size: 200%;
 }
-/* line 28, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 31, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .play:hover {
   color: #2b2f30;
 }
-/* line 32, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 35, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table tr.song .thumb {
+  background: transparent;
+  overflow: hidden;
+  letter-spacing: -0.31em;
+  width: 39px;
+  height: 39px;
+  top: 0px;
+  bottom: 1px;
+  left: 0;
+  position: absolute;
+}
+/* line 16, ../../../../src/themes/base/sass/abstractions/_images.scss */
+.songs-table tr.song .thumb img {
+  display: block;
+  vertical-align: middle;
+  width: 39px;
+  margin-top: 0;
+}
+/* line 39, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .add {
   font-size: 150%;
 }
@@ -18313,7 +18349,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 36, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 43, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .menu {
   font-size: 250%;
 }
@@ -18331,7 +18367,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 40, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 47, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .actions {
   top: 0;
   right: 5px;
@@ -18340,38 +18376,100 @@ form .inline-list .response {
   display: none;
   width: 80px;
 }
-/* line 44, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 51, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .actions li {
   width: 40px;
   text-align: center;
   float: left;
 }
-/* line 48, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 55, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song .actions li:before {
   display: table-cell;
   vertical-align: middle;
   width: 40px;
   height: 40px;
 }
-/* line 57, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 64, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song:hover .duration,
 .songs-table tr.song:hover .track {
   display: none;
 }
-/* line 61, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 68, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table tr.song:hover .play,
 .songs-table tr.song:hover .actions {
   display: block;
 }
-
-/* line 72, ../../../../src/themes/base/sass/components/_songs.scss */
-.local-row-playing .track, .local-row-paused .track, .kodi-row-playing .track, .kodi-row-paused .track {
-  background: url('../images/row-pause.png?1423038951') 50% 50% no-repeat;
+/* line 75, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose .track {
+  margin-left: 47px;
+}
+/* line 78, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose .play {
+  background: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: white;
+}
+/* line 84, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song:hover .play {
+  width: 39px;
+  height: 39px;
+}
+/* line 87, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song:hover .play:hover {
+  color: white;
+}
+/* line 91, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song:hover .track {
+  display: block;
+}
+/* line 99, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .track, .songs-table.verbose tr.song.local-row-paused .track, .songs-table.verbose tr.song.kodi-row-playing .track, .songs-table.verbose tr.song.kodi-row-paused .track {
+  text-indent: 0;
+  background: none;
+}
+/* line 103, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .thumb, .songs-table.verbose tr.song.local-row-paused .thumb, .songs-table.verbose tr.song.kodi-row-playing .thumb, .songs-table.verbose tr.song.kodi-row-paused .thumb {
+  background: url('../images/row-pause-blue.png?1423480412') 0 50% no-repeat;
+}
+/* line 104, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .thumb img, .songs-table.verbose tr.song.local-row-paused .thumb img, .songs-table.verbose tr.song.kodi-row-playing .thumb img, .songs-table.verbose tr.song.kodi-row-paused .thumb img {
+  display: none;
+}
+/* line 109, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .play, .songs-table.verbose tr.song.local-row-paused .play, .songs-table.verbose tr.song.kodi-row-playing .play, .songs-table.verbose tr.song.kodi-row-paused .play {
+  display: none;
+}
+/* line 115, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .thumb, .songs-table.verbose tr.song.kodi-row-playing .thumb {
+  background-image: url('../images/row-playing-blue.gif?1423480525');
+}
+/* line 122, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.basic .thumb {
+  display: none;
+}
+/* line 127, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table .local-row-playing,
+.songs-table .local-row-paused,
+.songs-table .kodi-row-playing,
+.songs-table .kodi-row-paused {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+/* line 132, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table .local-row-playing .track,
+.songs-table .local-row-paused .track,
+.songs-table .kodi-row-playing .track,
+.songs-table .kodi-row-paused .track {
+  background: url('../images/row-pause-blue.png?1423480412') 50% 50% no-repeat;
   text-indent: -99999px;
 }
-/* line 79, ../../../../src/themes/base/sass/components/_songs.scss */
-.local-row-playing .track, .kodi-row-playing .track {
-  background-image: url('../images/row-playing.gif?1423038947');
+/* line 139, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table .local-row-playing .track,
+.songs-table .kodi-row-playing .track {
+  background-image: url('../images/row-playing-blue.gif?1423480525');
 }
 
 /* line 6, ../../../../src/themes/base/sass/components/_system.scss */

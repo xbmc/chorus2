@@ -21,24 +21,44 @@
       new localPlaylistApp.List.Controller
         id: id
 
+    ## Wrapper for adding to a new or existing list.
     addToList: (entityType, id) ->
       playlists = App.request "localplaylist:entities"
-      view = new localPlaylistApp.List.SelectionList
-        collection: playlists
-      $content = view.render().$el
-      App.execute "ui:modal:show", 'Select a playlist', $content
-      App.listenTo view, 'childview:item:selected', (list, item) ->
-        playlistId = item.model.get('id')
-        if helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])
-          collection = App.request "song:filtered:entities", {filter: helpers.global.paramObj(entityType, id)}
-          App.execute "when:entity:fetched", collection, =>
-            App.request "localplaylist:item:add:entities", playlistId, collection
-            App.execute "ui:modal:close"
-            App.execute "notification:show", "Added to your playlist"
-        else
-          ## TODO: movie/episode.
+      if not playlists or playlists.length is 0
+        @createNewList(entityType, id)
+      else
+        view = new localPlaylistApp.List.SelectionList
+          collection: playlists
+        $content = view.render().$el
+        ## New list button
+        $new = $('<button>').html( t.gettext('Create a new list') ).addClass('btn btn-primary')
+        $new.on 'click', =>
+          _.defer ->
+            API.createNewList(entityType, id)
+        ## Show the list of playlists.
+        App.execute "ui:modal:show", 'Select a playlist', $content, $new
+        App.listenTo view, 'childview:item:selected', (list, item) =>
+          console.log "existing list"
+          @addToExistingList item.model.get('id'), entityType, id
 
+    ## Add to a known playlist
+    addToExistingList: (playlistId, entityType, id) ->
+      if helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])
+        collection = App.request "song:filtered:entities", {filter: helpers.global.paramObj(entityType, id)}
+        App.execute "when:entity:fetched", collection, =>
+          App.request "localplaylist:item:add:entities", playlistId, collection
+          App.execute "ui:modal:close"
+          App.execute "notification:show", t.gettext("Added to your playlist")
+      else
+        ## TODO: movie/episode.
 
+    ## Create a new list
+    createNewList: (entityType, id) ->
+      App.execute "ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (text) =>
+        if text isnt ''
+          playlistId = App.request "localplaylist:add:entity", text, 'song'
+          @addToExistingList playlistId, entityType, id
+      , false
 
   App.on "before:start", ->
     new localPlaylistApp.Router

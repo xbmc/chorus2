@@ -4,9 +4,12 @@ $row-height: 40px;
   tr.song {
     // Row defaults.
     cursor: pointer;
+    font-size: 14px;
+    @include user-select(none);
     td {
       vertical-align: middle;
       position: relative;
+      border-bottom: 1px solid rgba(139, 139, 139, 0.05);
     }
     .play,
     .play:before,
@@ -28,6 +31,10 @@ $row-height: 40px;
       &:hover {
         color: $color-greyscale-outer-space;
       }
+    }
+    .thumb {
+      @include image-crop($row-height - 1, $row-height - 1);
+      @include set-position-absolute(top 0px left 0 bottom 1px);
     }
     .add {
       @include icon(content-add-box);
@@ -64,20 +71,73 @@ $row-height: 40px;
       }
     }
   }
-}
-
-
-.track {
-
-  .local-row-playing &,
-  .local-row-paused &,
-  .kodi-row-playing &,
-  .kodi-row-paused & {
-    background: image-url('row-pause.png') 50% 50% no-repeat;
-    text-indent: -99999px;
+  &.verbose {
+    .track {
+      margin-left: $row-height + 7;
+    }
+    .play {
+      @include overlay();
+      color: $color-white;
+    }
+    tr.song {
+      &:hover {
+        .play {
+          width: $row-height - 1;
+          height: $row-height - 1;
+          &:hover {
+            color: $color-white;
+          }
+        }
+        .track {
+          display: block;
+        }
+      }
+      &.local-row-playing,
+      &.local-row-paused,
+      &.kodi-row-playing,
+      &.kodi-row-paused {
+        .track {
+          text-indent: 0;
+          background: none;
+        }
+        .thumb {
+          img {
+            display: none;
+          }
+          background: image-url('row-pause-blue.png') 0 50% no-repeat;
+        }
+        .play {
+          display: none;
+        }
+      }
+      &.local-row-playing,
+      &.kodi-row-playing {
+        .thumb {
+          background-image: image-url('row-playing-blue.gif');
+        }
+      }
+    }
   }
-  .local-row-playing &,
-  .kodi-row-playing & {
-    background-image: image-url('row-playing.gif')
+  &.basic {
+    .thumb {
+      display: none;
+    }
+  }
+  // Playing states
+  .local-row-playing,
+  .local-row-paused,
+  .kodi-row-playing,
+  .kodi-row-paused {
+     background: rgba($color-white, 0.9) !important;
+    .track {
+      background: image-url('row-pause-blue.png') 50% 50% no-repeat;
+      text-indent: -99999px;
+    }
+  }
+  .local-row-playing,
+  .kodi-row-playing {
+    .track {
+      background-image: image-url('row-playing-blue.gif');
+    }
   }
 }
