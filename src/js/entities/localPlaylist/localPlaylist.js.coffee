@@ -5,13 +5,17 @@
 
   API =
 
-    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track']
+    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url']
 
     playlistKey: 'localplaylist:list'
     playlistItemNamespace: 'localplaylist:item:'
+    thumbsUpNamespace: 'thumbs:'
 
     getPlaylistKey: (key) ->
       @playlistItemNamespace + key
+
+    getThumbsKey: (media) ->
+      @thumbsUpNamespace + media
 
     ## Get a collection of lists
     getListCollection: (type = 'list') ->
@@ -47,15 +51,18 @@
       items = collection.getRawCollection()
       collection = @getItemCollection playlistId
       for position, item of items
-        newItem = {}
-        for fieldName in @savedFields
-          if item[fieldName]
-            newItem[fieldName] = item[fieldName]
-        newItem.position = position
-        idfield = item.type + 'id'
-        newItem[idfield] = item[idfield]
-        collection.create(newItem)
+        collection.create API.getSavedModelFromSource(item, position)
       collection
+
+    getSavedModelFromSource: (item, position) ->
+      newItem = {}
+      for fieldName in @savedFields
+        if item[fieldName]
+          newItem[fieldName] = item[fieldName]
+      newItem.position = position
+      idfield = item.type + 'id'
+      newItem[idfield] = item[idfield]
+      newItem
 
     ## remove all items from a list
     clearPlaylist: (playlistId) ->
@@ -96,7 +103,9 @@
       @localStorage = new Backbone.LocalStorage API.getPlaylistKey(options.key)
 
 
-
+  ###
+    Saved Playlists
+  ###
 
   ## Handler to save a new playlist
   App.reqres.setHandler "localplaylist:add:entity", (name, media, type = 'list') ->
@@ -128,3 +137,29 @@
   ## Handler to add items to a playlist
   App.reqres.setHandler "localplaylist:item:add:entities", (playlistId, collection) ->
     API.addItemsToPlaylist playlistId, collection
+
+
+  ###
+    Thumbs up lists
+  ###
+
+  ## Handler togle thumbs up on an entity
+  App.reqres.setHandler "thumbsup:toggle:entity", (model) ->
+    media = model.get('type')
+    collection = API.getItemCollection API.getThumbsKey(media)
+    position = if collection then collection.length + 1 else 1
+    existing = collection.findWhere {id: model.get('id')}
+    if existing
+      existing.destroy()
+    else
+      collection.create(API.getSavedModelFromSource(model.attributes, position))
+    collection
+
+  ## Handler to get a thumbs up collection
+  App.reqres.setHandler "thumbsup:get:entities", (media) ->
+    API.getItemCollection API.getThumbsKey(media)
+
+  App.reqres.setHandler "thumbsup:check", (model) ->
+    collection = API.getItemCollection API.getThumbsKey(model.get('type'))
+    existing = collection.findWhere {id: model.get('id')}
+    _.isObject(existing)

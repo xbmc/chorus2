@@ -3,10 +3,10 @@
   class Views.CardView extends App.Views.ItemView
     template: "views/card/card"
     tagName: "li"
-    className: "card"
 
     events:
       "click .dropdown > i": "populateMenu"
+      "click .thumbs" : "toggleThumbs"
 
     populateMenu: ->
       menu = ''
@@ -14,4 +14,16 @@
         for key, val of @model.get('menu')
           menu += @themeTag 'li', {class: key}, val
         this.$el.find('.dropdown-menu').html(menu)
+
+    toggleThumbs: ->
+      App.request "thumbsup:toggle:entity", @model
+      this.$el.toggleClass 'thumbs-up'
+
+    attributes: ->
+      classes = ['card']
+      if App.request "thumbsup:check", @model
+        classes.push 'thumbs-up'
+      {
+        class: classes.join(' ')
+      }
 

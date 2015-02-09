@@ -31,11 +31,11 @@
 
     bindTriggers: (view) ->
       @listenTo view, 'childview:album:play', (list, item) ->
-        App.execute 'album:action', 'play', item.model
+        App.execute 'album:action', 'play', item
       @listenTo view, 'childview:album:add', (list, item) ->
-        App.execute 'album:action', 'add', item.model
+        App.execute 'album:action', 'add', item
       @listenTo view, 'childview:album:localadd', (list, item) ->
-        App.execute 'album:action', 'localadd', item.model
+        App.execute 'album:action', 'localadd', item
 
     ## Available sort and filter options
     ## See filter_app.js for available options

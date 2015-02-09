@@ -2827,11 +2827,15 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track'],
+    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url'],
     playlistKey: 'localplaylist:list',
     playlistItemNamespace: 'localplaylist:item:',
+    thumbsUpNamespace: 'thumbs:',
     getPlaylistKey: function(key) {
       return this.playlistItemNamespace + key;
+    },
+    getThumbsKey: function(media) {
+      return this.thumbsUpNamespace + media;
     },
     getListCollection: function(type) {
       var collection;
@@ -2875,25 +2879,29 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       return collection;
     },
     addItemsToPlaylist: function(playlistId, collection) {
-      var fieldName, idfield, item, items, newItem, position, _i, _len, _ref;
+      var item, items, position;
       items = collection.getRawCollection();
       collection = this.getItemCollection(playlistId);
       for (position in items) {
         item = items[position];
-        newItem = {};
-        _ref = this.savedFields;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          fieldName = _ref[_i];
-          if (item[fieldName]) {
-            newItem[fieldName] = item[fieldName];
-          }
-        }
-        newItem.position = position;
-        idfield = item.type + 'id';
-        newItem[idfield] = item[idfield];
-        collection.create(newItem);
+        collection.create(API.getSavedModelFromSource(item, position));
       }
       return collection;
+    },
+    getSavedModelFromSource: function(item, position) {
+      var fieldName, idfield, newItem, _i, _len, _ref;
+      newItem = {};
+      _ref = this.savedFields;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        fieldName = _ref[_i];
+        if (item[fieldName]) {
+          newItem[fieldName] = item[fieldName];
+        }
+      }
+      newItem.position = position;
+      idfield = item.type + 'id';
+      newItem[idfield] = item[idfield];
+      return newItem;
     },
     clearPlaylist: function(playlistId) {
       var collection, model, _i, _len, _ref;
@@ -2977,6 +2985,10 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     return localPlaylistItemCollection;
 
   })(Entities.Collection);
+
+  /*
+    Saved Playlists
+   */
   App.reqres.setHandler("localplaylist:add:entity", function(name, media, type) {
     if (type == null) {
       type = 'list';
@@ -3011,8 +3023,38 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
   App.reqres.setHandler("localplaylist:item:entities", function(key) {
     return API.getItemCollection(key);
   });
-  return App.reqres.setHandler("localplaylist:item:add:entities", function(playlistId, collection) {
+  App.reqres.setHandler("localplaylist:item:add:entities", function(playlistId, collection) {
     return API.addItemsToPlaylist(playlistId, collection);
+  });
+
+  /*
+    Thumbs up lists
+   */
+  App.reqres.setHandler("thumbsup:toggle:entity", function(model) {
+    var collection, existing, media, position;
+    media = model.get('type');
+    collection = API.getItemCollection(API.getThumbsKey(media));
+    position = collection ? collection.length + 1 : 1;
+    existing = collection.findWhere({
+      id: model.get('id')
+    });
+    if (existing) {
+      existing.destroy();
+    } else {
+      collection.create(API.getSavedModelFromSource(model.attributes, position));
+    }
+    return collection;
+  });
+  App.reqres.setHandler("thumbsup:get:entities", function(media) {
+    return API.getItemCollection(API.getThumbsKey(media));
+  });
+  return App.reqres.setHandler("thumbsup:check", function(model) {
+    var collection, existing;
+    collection = API.getItemCollection(API.getThumbsKey(model.get('type')));
+    existing = collection.findWhere({
+      id: model.get('id')
+    });
+    return _.isObject(existing);
   });
 });
 
@@ -3433,10 +3475,9 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     CardView.prototype.tagName = "li";
 
-    CardView.prototype.className = "card";
-
     CardView.prototype.events = {
-      "click .dropdown > i": "populateMenu"
+      "click .dropdown > i": "populateMenu",
+      "click .thumbs": "toggleThumbs"
     };
 
     CardView.prototype.populateMenu = function() {
@@ -3452,6 +3493,22 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         }
         return this.$el.find('.dropdown-menu').html(menu);
       }
+    };
+
+    CardView.prototype.toggleThumbs = function() {
+      App.request("thumbsup:toggle:entity", this.model);
+      return this.$el.toggleClass('thumbs-up');
+    };
+
+    CardView.prototype.attributes = function() {
+      var classes;
+      classes = ['card'];
+      if (App.request("thumbsup:check", this.model)) {
+        classes.push('thumbs-up');
+      }
+      return {
+        "class": classes.join(' ')
+      };
     };
 
     return CardView;
@@ -3869,8 +3926,9 @@ this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _)
         id: id
       });
     },
-    action: function(op, model) {
-      var playlist;
+    action: function(op, view) {
+      var model, playlist;
+      model = view.model;
       playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
       switch (op) {
         case 'play':
@@ -3934,13 +3992,13 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
 
     Controller.prototype.bindTriggers = function(view) {
       this.listenTo(view, 'childview:album:play', function(list, item) {
-        return App.execute('album:action', 'play', item.model);
+        return App.execute('album:action', 'play', item);
       });
       this.listenTo(view, 'childview:album:add', function(list, item) {
-        return App.execute('album:action', 'add', item.model);
+        return App.execute('album:action', 'add', item);
       });
       return this.listenTo(view, 'childview:album:localadd', function(list, item) {
-        return App.execute('album:action', 'localadd', item.model);
+        return App.execute('album:action', 'localadd', item);
       });
     };
 
@@ -4066,13 +4124,13 @@ this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _
   API = {
     bindTriggers: function(view) {
       App.listenTo(view, 'album:play', function(item) {
-        return App.execute('album:action', 'play', item.model);
+        return App.execute('album:action', 'play', item);
       });
       App.listenTo(view, 'album:add', function(item) {
-        return App.execute('album:action', 'add', item.model);
+        return App.execute('album:action', 'add', item);
       });
       return App.listenTo(view, 'album:localadd', function(item) {
-        return App.execute('album:action', 'localadd', item.model);
+        return App.execute('album:action', 'localadd', item);
       });
     },
     getAlbumsFromSongs: function(songs) {

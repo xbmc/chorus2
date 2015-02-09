@@ -4,11 +4,11 @@
 
     bindTriggers: (view) ->
       App.listenTo view, 'album:play', (item) ->
-        App.execute 'album:action', 'play', item.model
+        App.execute 'album:action', 'play', item
       App.listenTo view, 'album:add', (item) ->
-        App.execute 'album:action', 'add', item.model
+        App.execute 'album:action', 'add', item
       App.listenTo view, 'album:localadd', (item) ->
-        App.execute 'album:action', 'localadd', item.model
+        App.execute 'album:action', 'localadd', item
 
     ## Return a set of albums with songs.
     ## Songs is expected to be an array of song collections

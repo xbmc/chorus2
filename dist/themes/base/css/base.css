@@ -10923,29 +10923,29 @@ img, video {
 /**
  * The card mixin
  */
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu {
   padding: 0.5em 0;
   background: #1b1c1d;
   color: #999999;
   border-radius: 0;
 }
-/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 165, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li {
   padding: 0.25em 1em;
 }
-/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   cursor: pointer;
 }
-/* line 152, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li:hover.divider {
   cursor: none;
   background: none;
 }
-/* line 157, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 176, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li.divider {
   padding: 0;
   margin: 0.25em 0;
@@ -10954,7 +10954,7 @@ img, video {
 /**
  * Extendables.
  */
-/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 186, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card {
   color: #888888;
   width: 160px;
@@ -10976,7 +10976,19 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 66, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .dropdown i,
+.card-grid--square .card .actions li,
+.card-grid--square .card .play {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* line 70, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .dropdown i:hover,
+.card-grid--square .card .actions li:hover,
+.card-grid--square .card .play:hover {
+  color: white;
+}
+/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .artwork {
   background: transparent;
   overflow: hidden;
@@ -10992,11 +11004,11 @@ img, video {
   width: 160px;
   margin-top: 0;
 }
-/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .artwork a {
   display: block;
 }
-/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .artwork:after {
   content: "";
   top: 0;
@@ -11015,12 +11027,12 @@ img, video {
   -o-transition: 0.1s all linear;
   transition: 0.1s all linear;
 }
-/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 101, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta {
   padding: 7px 10px;
   width: 160px;
 }
-/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 104, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11043,7 +11055,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 107, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11066,7 +11078,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 111, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .play {
   display: table;
   width: 1.5em;
@@ -11075,7 +11087,6 @@ img, video {
   bottom: 0;
   left: 0;
   position: absolute;
-  color: rgba(255, 255, 255, 0.8);
   font-size: 220%;
   display: none;
   z-index: 20;
@@ -11100,17 +11111,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--square .card .play:hover {
-  color: white;
-}
-/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 119, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 121, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11118,7 +11125,6 @@ img, video {
   cursor: pointer;
   z-index: 20;
   font-size: 180%;
-  color: white;
   display: none;
 }
 /* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
@@ -11141,24 +11147,64 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .actions {
+  top: 10px;
+  right: 35px;
+  position: absolute;
+  display: table;
+  display: none;
+}
+/* line 132, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .actions .thumbs {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .card .actions .thumbs:before {
+  content: "\e684";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--square .card .actions .thumbs:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card:hover .artwork:after {
   opacity: 1;
 }
-/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card:hover .actions,
 .card-grid--square .card:hover .dropdown i,
 .card-grid--square .card:hover .play {
   display: table;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .thumbs-up.card .actions .thumbs {
+  color: #12b2e7;
+}
 
-/* line 170, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 189, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card {
   color: #888888;
   width: 276px;
@@ -11180,7 +11226,19 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 66, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .dropdown i,
+.card-grid--wide .card .actions li,
+.card-grid--wide .card .play {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* line 70, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .dropdown i:hover,
+.card-grid--wide .card .actions li:hover,
+.card-grid--wide .card .play:hover {
+  color: white;
+}
+/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .artwork {
   background: transparent;
   overflow: hidden;
@@ -11196,11 +11254,11 @@ img, video {
   width: 276px;
   margin-top: -20%;
 }
-/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .artwork a {
   display: block;
 }
-/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .artwork:after {
   content: "";
   top: 0;
@@ -11219,12 +11277,12 @@ img, video {
   -o-transition: 0.1s all linear;
   transition: 0.1s all linear;
 }
-/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 101, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta {
   padding: 7px 10px;
   width: 276px;
 }
-/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 104, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11247,7 +11305,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 107, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11270,7 +11328,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 111, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .play {
   display: table;
   width: 1.5em;
@@ -11279,7 +11337,6 @@ img, video {
   bottom: 0;
   left: 0;
   position: absolute;
-  color: rgba(255, 255, 255, 0.8);
   font-size: 220%;
   display: none;
   z-index: 20;
@@ -11304,17 +11361,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--wide .card .play:hover {
-  color: white;
-}
-/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 119, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 121, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11322,7 +11375,6 @@ img, video {
   cursor: pointer;
   z-index: 20;
   font-size: 180%;
-  color: white;
   display: none;
 }
 /* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
@@ -11345,24 +11397,64 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .actions {
+  top: 10px;
+  right: 35px;
+  position: absolute;
+  display: table;
+  display: none;
+}
+/* line 132, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .actions .thumbs {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .card .actions .thumbs:before {
+  content: "\e684";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--wide .card .actions .thumbs:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card:hover .artwork:after {
   opacity: 1;
 }
-/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card:hover .actions,
 .card-grid--wide .card:hover .dropdown i,
 .card-grid--wide .card:hover .play {
   display: table;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .thumbs-up.card .actions .thumbs {
+  color: #12b2e7;
+}
 
-/* line 173, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card {
   color: #888888;
   width: 160px;
@@ -11384,7 +11476,19 @@ img, video {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 66, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .dropdown i,
+.card-grid--tall .card .actions li,
+.card-grid--tall .card .play {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* line 70, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .dropdown i:hover,
+.card-grid--tall .card .actions li:hover,
+.card-grid--tall .card .play:hover {
+  color: white;
+}
+/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .artwork {
   background: transparent;
   overflow: hidden;
@@ -11400,11 +11504,11 @@ img, video {
   width: 160px;
   margin-top: 0;
 }
-/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .artwork a {
   display: block;
 }
-/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .artwork:after {
   content: "";
   top: 0;
@@ -11423,12 +11527,12 @@ img, video {
   -o-transition: 0.1s all linear;
   transition: 0.1s all linear;
 }
-/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 101, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta {
   padding: 7px 10px;
   width: 160px;
 }
-/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 104, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11451,7 +11555,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 107, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11474,7 +11578,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 111, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .play {
   display: table;
   width: 1.5em;
@@ -11483,7 +11587,6 @@ img, video {
   bottom: 0;
   left: 0;
   position: absolute;
-  color: rgba(255, 255, 255, 0.8);
   font-size: 220%;
   display: none;
   z-index: 20;
@@ -11508,17 +11611,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--tall .card .play:hover {
-  color: white;
-}
-/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 119, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 121, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11526,7 +11625,6 @@ img, video {
   cursor: pointer;
   z-index: 20;
   font-size: 180%;
-  color: white;
   display: none;
 }
 /* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
@@ -11549,21 +11647,61 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .actions {
+  top: 10px;
+  right: 35px;
+  position: absolute;
+  display: table;
+  display: none;
+}
+/* line 132, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .actions .thumbs {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .card .actions .thumbs:before {
+  content: "\e684";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--tall .card .actions .thumbs:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card:hover .artwork:after {
   opacity: 1;
 }
-/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card:hover .actions,
 .card-grid--tall .card:hover .dropdown i,
 .card-grid--tall .card:hover .play {
   display: table;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .thumbs-up.card .actions .thumbs {
+  color: #12b2e7;
 }
 
 /**
@@ -11572,7 +11710,7 @@ img, video {
 /**
  * Extendables.
  */
-/* line 182, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 201, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card, .card-grid--wide .card, .card-grid--tall .card {
   display: inline-block;
 }
@@ -15727,7 +15865,19 @@ a:focus, a:hover {
   font-size: 85%;
   margin-top: 5px;
 }
-/* line 78, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 66, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .dropdown i,
+.card-minimal .actions li,
+.card-minimal .play {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* line 70, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .dropdown i:hover,
+.card-minimal .actions li:hover,
+.card-minimal .play:hover {
+  color: white;
+}
+/* line 86, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .artwork {
   background: transparent;
   overflow: hidden;
@@ -15743,11 +15893,11 @@ a:focus, a:hover {
   width: 200px;
   margin-top: 0;
 }
-/* line 81, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 89, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .artwork a {
   display: block;
 }
-/* line 84, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .artwork:after {
   content: "";
   top: 0;
@@ -15766,12 +15916,12 @@ a:focus, a:hover {
   -o-transition: 0.1s all linear;
   transition: 0.1s all linear;
 }
-/* line 93, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 101, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta {
   padding: 7px 10px;
   width: 200px;
 }
-/* line 96, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 104, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .title {
   position: relative;
   white-space: nowrap;
@@ -15794,7 +15944,7 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
-/* line 99, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 107, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -15817,7 +15967,7 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
-/* line 103, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 111, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .play {
   display: table;
   width: 1.5em;
@@ -15826,7 +15976,6 @@ a:focus, a:hover {
   bottom: 0;
   left: 0;
   position: absolute;
-  color: rgba(255, 255, 255, 0.8);
   font-size: 220%;
   display: none;
   z-index: 20;
@@ -15851,17 +16000,13 @@ a:focus, a:hover {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 110, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-minimal .play:hover {
-  color: white;
-}
-/* line 114, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 119, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 116, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 121, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown i {
   display: table;
   width: 1.5em;
@@ -15869,7 +16014,6 @@ a:focus, a:hover {
   cursor: pointer;
   z-index: 20;
   font-size: 180%;
-  color: white;
   display: none;
 }
 /* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
@@ -15892,21 +16036,61 @@ a:focus, a:hover {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .actions {
+  top: 10px;
+  right: 35px;
+  position: absolute;
+  display: table;
+  display: none;
+}
+/* line 132, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .actions .thumbs {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal .actions .thumbs:before {
+  content: "\e684";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-minimal .actions .thumbs:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal:hover .artwork:after {
   opacity: 1;
 }
-/* line 128, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal:hover .actions,
 .card-minimal:hover .dropdown i,
 .card-minimal:hover .play {
   display: table;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 148, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal.thumbs-up .actions .thumbs {
+  color: #12b2e7;
 }
 /* line 38, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal .meta {

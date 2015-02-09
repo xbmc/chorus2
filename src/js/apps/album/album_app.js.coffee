@@ -14,7 +14,8 @@
       new AlbumApp.Show.Controller
         id: id
 
-    action: (op, model) ->
+    action: (op, view) ->
+      model = view.model
       playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
       switch op
         when 'play'

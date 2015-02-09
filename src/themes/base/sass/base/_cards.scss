@@ -63,6 +63,14 @@ $card-layout: (
     font-size: 85%;
     margin-top: 5px;
   }
+  .dropdown i,
+  .actions li,
+  .play {
+    color: rgba($color-white, 0.8);
+    &:hover {
+      color: $color-white;
+    }
+  }
 }
 
 /**
@@ -103,13 +111,10 @@ $card-layout: (
   .play {
     @include icon-button-square(av-play-arrow, $spacing-half-unit * 3);
     @include set-position-absolute(bottom 0 left 0);
-    color: rgba($color-white, 0.8);
     font-size: 220%;
     display: none;
     z-index: $z-index-beta;
-    &:hover {
-      color: $color-white;
-    }
+
   }
   .dropdown {
     @include set-position-absolute(top 5px right 0);
@@ -117,8 +122,17 @@ $card-layout: (
       @include icon-button-square(navigation-more-vert, $spacing-half-unit * 3);
       z-index: $z-index-beta;
       font-size: 180%;
-      color: $color-white;
       display: none;
+    }
+  }
+  .actions {
+    @include set-position-absolute(top 10px right 35px);
+    @include vertical-align-wrapper();
+    display: none;
+    .thumbs {
+      @include icon-button-square(action-thumb-up, $spacing-half-unit * 3);
+      font-size: 135%;
+
     }
   }
   &:hover {
@@ -135,6 +149,11 @@ $card-layout: (
     left: auto;
     right: 0px;
     top: -7px;
+  }
+  &.thumbs-up {
+    .actions .thumbs {
+      color: $color-kodi;
+    }
   }
 }
 
