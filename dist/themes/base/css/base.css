@@ -10807,7 +10807,7 @@ img, video {
  * Standard transitions
  */
 /* line 13, ../../../../src/themes/base/sass/abstractions/_animations.scss */
-.filters-container .filter-btn, .filters-container .filter-btn:before, .player .controls-primary .control,
+.filters-container .filter-btn, .filters-container .filter-btn:before, .local-playlist-list .region-first .new-list, .local-playlist-list .region-first .new-list:before, .player .controls-primary .control,
 .player .controls-secondary .control, .player .slider-bar {
   -webkit-transition: 0.3s all linear;
   -o-transition: 0.3s all linear;
@@ -16156,42 +16156,18 @@ a:focus, a:hover {
 }
 /* line 37, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn {
-  display: block;
+  display: inline-block;
   background: #12b2e7;
   padding: 0.5em 1em;
-  padding-right: 2.5em;
-  color: white;
   position: relative;
   cursor: pointer;
   margin-bottom: 0.5em;
-}
-/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
-.filters-container .filter-btn:before {
-  content: "\e898";
-  display: inline-block;
-  font-family: "Material-Design-Icons";
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  speak: none;
-  font-variant: normal;
-  text-transform: none;
-}
-/* line 48, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container .filter-btn:before {
-  top: 0.5em;
-  right: 0.5em;
-  position: absolute;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 110%;
-}
-/* line 55, ../../../../src/themes/base/sass/components/_filters.scss */
-.filters-container .filter-btn:hover:before {
   color: white;
+  cursor: pointer;
+  padding-right: 2.5em;
+  display: block;
 }
-/* line 59, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 48, ../../../../src/themes/base/sass/abstractions/_ui.scss */
 .filters-container .filter-btn .text {
   position: relative;
   white-space: nowrap;
@@ -16215,12 +16191,38 @@ a:focus, a:hover {
   position: absolute;
   width: 1.5em;
 }
-/* line 63, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.filters-container .filter-btn:before {
+  content: "\e898";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 55, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.filters-container .filter-btn:before {
+  top: 0.5em;
+  right: 0.5em;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 110%;
+}
+/* line 62, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.filters-container .filter-btn:hover:before {
+  color: white;
+}
+/* line 40, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn.filterable-add {
   display: inline-block;
   background-color: #a8a7a6;
 }
-/* line 66, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 43, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filter-btn.filterable-add:hover {
   background-color: #12b2e7;
 }
@@ -16238,7 +16240,7 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 74, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 51, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3,
 .filters-container .filters-options h3 {
   cursor: pointer;
@@ -16260,7 +16262,7 @@ a:focus, a:hover {
   font-variant: normal;
   text-transform: none;
 }
-/* line 79, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 56, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3:before,
 .filters-container .filters-options h3:before {
   font-size: 140%;
@@ -16268,13 +16270,13 @@ a:focus, a:hover {
   left: -12px;
   top: -3px;
 }
-/* line 86, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 63, ../../../../src/themes/base/sass/components/_filters.scss */
 .filters-container .filters-page h3:hover:before,
 .filters-container .filters-options h3:hover:before {
   color: #12b2e7;
 }
 
-/* line 96, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 73, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane {
   top: 0;
   right: 0;
@@ -16285,63 +16287,63 @@ a:focus, a:hover {
   -o-transition: 0.2s all ease-out;
   transition: 0.2s all ease-out;
 }
-/* line 100, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 77, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-current {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-/* line 102, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 79, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-current {
   -moz-transform: translate(-240px, 0);
   -ms-transform: translate(-240px, 0);
   -webkit-transform: translate(-240px, 0);
   transform: translate(-240px, 0);
 }
-/* line 105, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 82, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-current {
   -moz-transform: translate(-480px, 0);
   -ms-transform: translate(-480px, 0);
   -webkit-transform: translate(-480px, 0);
   transform: translate(-480px, 0);
 }
-/* line 109, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 86, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-page {
   -moz-transform: translate(240px, 0);
   -ms-transform: translate(240px, 0);
   -webkit-transform: translate(240px, 0);
   transform: translate(240px, 0);
 }
-/* line 111, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 88, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-page {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-/* line 114, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 91, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-page {
   -moz-transform: translate(-240px, 0);
   -ms-transform: translate(-240px, 0);
   -webkit-transform: translate(-240px, 0);
   transform: translate(-240px, 0);
 }
-/* line 118, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 95, ../../../../src/themes/base/sass/components/_filters.scss */
 .filter-pane.filters-options {
   -moz-transform: translate(480px, 0);
   -ms-transform: translate(480px, 0);
   -webkit-transform: translate(480px, 0);
   transform: translate(480px, 0);
 }
-/* line 120, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 97, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-filters .filter-pane.filters-options {
   -moz-transform: translate(240px, 0);
   -ms-transform: translate(240px, 0);
   -webkit-transform: translate(240px, 0);
   transform: translate(240px, 0);
 }
-/* line 123, ../../../../src/themes/base/sass/components/_filters.scss */
+/* line 100, ../../../../src/themes/base/sass/components/_filters.scss */
 .show-options .filter-pane.filters-options {
   -moz-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
@@ -17002,9 +17004,141 @@ form .inline-list .response {
   height: 96px;
 }
 
-/* line 20, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+/* line 10, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist-list .region-first .new-list {
+  display: inline-block;
+  background: #a8a7a6;
+  padding: 0.5em 1em;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+  color: white;
+  cursor: pointer;
+  padding-right: 2.5em;
+  margin: 2em 0;
+}
+/* line 48, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.local-playlist-list .region-first .new-list .text {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+/* line 10, ../../../../src/themes/base/sass/abstractions/_text.scss */
+.local-playlist-list .region-first .new-list .text:after {
+  content: "";
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#00A8A7A6', endColorstr='#FFA8A7A6');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2E4YTdhNiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhOGE3YTYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(168, 167, 166, 0)), color-stop(100%, #a8a7a6));
+  background-image: -moz-linear-gradient(left, rgba(168, 167, 166, 0) 0%, #a8a7a6 100%);
+  background-image: -webkit-linear-gradient(left, rgba(168, 167, 166, 0) 0%, #a8a7a6 100%);
+  background-image: linear-gradient(to right, rgba(168, 167, 166, 0) 0%, #a8a7a6 100%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 1.5em;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.local-playlist-list .region-first .new-list:before {
+  content: "\e6fd";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 55, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.local-playlist-list .region-first .new-list:before {
+  top: 0.5em;
+  right: 0.5em;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 110%;
+}
+/* line 62, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.local-playlist-list .region-first .new-list:hover:before {
+  color: white;
+}
+/* line 15, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist-list .region-content {
+  padding: 0;
+}
+
+/* line 27, ../../../../src/themes/base/sass/components/_local-playlist.scss */
 .modal .playlist-selection-list .lists li:after {
   display: none;
+}
+
+/* line 38, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .local-playlist-header {
+  position: relative;
+  background: white;
+  padding: 1em;
+}
+/* line 42, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .local-playlist-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #888888;
+}
+/* line 47, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .local-playlist-header .dropdown {
+  position: absolute;
+  right: 1em;
+  top: 0.5em;
+}
+/* line 51, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .local-playlist-header .dropdown i {
+  color: #888888;
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 150%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.local-playlist .local-playlist-header .dropdown i:before {
+  content: "\e8a3";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.local-playlist .local-playlist-header .dropdown i:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 56, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .local-playlist-header .dropdown ul {
+  left: auto;
+  right: 0;
+}
+/* line 62, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .item-container {
+  margin: 1em;
+}
+/* line 65, ../../../../src/themes/base/sass/components/_local-playlist.scss */
+.local-playlist .empty-content {
+  color: #888888;
+  text-align: center;
+  font-size: 150%;
+  margin: 2em;
 }
 
 /* line 4, ../../../../src/themes/base/sass/components/_nav.scss */

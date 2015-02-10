@@ -1,0 +1,17 @@
+<div class="local-playlist-header">
+    <h2></h2>
+    <div class="dropdown">
+        <i data-toggle="dropdown"></i>
+        <ul class="dropdown-menu">
+            <li class="play">Play in Kodi</li>
+            <li class="localplay">Play in Browser</li>
+            <li class="lsit">Export List</li>
+            <div class="divider"></div>
+            <li class="clear">Clear Playlist</li>
+            <li class="delete">Delete Playlist</li>
+        </ul>
+    </div>
+</div>
+<div class="item-container">
+    <div class="empty-content"><%= t.gettext('Empty Playlist, you should probably add something to it?') %></div>
+</div>

@@ -7,6 +7,13 @@
     .lists {
       @extend %sidebar--list;
     }
+    .new-list {
+      @include flat-button($color-greyscale-cloudy, content-add-circle);
+      margin: $spacing-double-unit 0;
+    }
+  }
+  .region-content {
+    padding: 0;
   }
 }
 
@@ -24,5 +31,41 @@
     .new-list {
 
     }
+  }
+}
+
+.local-playlist {
+  .local-playlist-header {
+    position: relative;
+    background: $color-white;
+    padding: $spacing-base-unit;
+    h2 {
+      margin: 0;
+      font-size: $font-size-heading;
+      color: $color-greyscale-gray;
+    }
+    .dropdown {
+      position: absolute;
+      right: $spacing-base-unit;
+      top: $spacing-half-unit;
+      i {
+        color:  $color-greyscale-gray;
+        @include icon-button-square(navigation-more-vert, $spacing-half-unit * 3);
+        font-size: 150%;
+      }
+      ul {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+  .item-container {
+    margin: $spacing-base-unit;
+  }
+  .empty-content {
+    color:  $color-greyscale-gray;
+    text-align: center;
+    font-size: 150%;
+    margin: $spacing-double-unit;
   }
 }

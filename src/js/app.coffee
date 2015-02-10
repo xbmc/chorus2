@@ -11,6 +11,7 @@
     ignoreArticle: true
     pollInterval: 10000
     albumAtristsOnly: true
+    searchIndexCacheExpiry: (24 * 60 * 60) # 1 day
 }
 
 ## The App Inance

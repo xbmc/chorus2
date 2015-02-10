@@ -35,31 +35,8 @@
     }
   }
   .filter-btn {
+    @include flat-button($color-brand-primary, navigation-cancel);
     display: block;
-    @extend %transition--all;
-    background: $color-brand-primary;
-    padding: $spacing-half-unit $spacing-base-unit;
-    padding-right: $spacing-double-unit + $spacing-half-unit;
-    color: $color-white;
-    @include icon(navigation-cancel);
-    position: relative;
-    cursor: pointer;
-    margin-bottom: $spacing-half-unit;
-    &:before {
-      @include set-position-absolute(top $spacing-half-unit right $spacing-half-unit);
-      color: rgba($color-white, 0.5);
-      font-size: 110%;
-      @extend %transition--all;
-    }
-    &:hover {
-      &:before {
-        color: rgba($color-white, 1);
-      }
-    }
-    .text {
-      @include text-crop($color-brand-primary);
-      display: block;
-    }
     &.filterable-add {
       display: inline-block;
       background-color: $color-greyscale-cloudy;

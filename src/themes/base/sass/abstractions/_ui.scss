@@ -34,3 +34,34 @@
     padding-right: 5px;
   }
 }
+
+@mixin flat-button($color: $color-greyscale-cloudy, $icon: false) {
+  display: inline-block;
+  @extend %transition--all;
+  background: $color;
+  padding: $spacing-half-unit $spacing-base-unit;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: $spacing-half-unit;
+  color: $color-white;
+  cursor: pointer;
+  .text {
+    @include text-crop($color);
+    display: block;
+  }
+  @if $icon {
+    padding-right: $spacing-double-unit + $spacing-half-unit;
+    @include icon($icon);
+    &:before {
+      @include set-position-absolute(top $spacing-half-unit right $spacing-half-unit);
+      color: rgba($color-white, 0.5);
+      font-size: 110%;
+      @extend %transition--all;
+    }
+    &:hover {
+      &:before {
+        color: rgba($color-white, 1);
+      }
+    }
+  }
+}

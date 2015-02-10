@@ -18,14 +18,31 @@
         collection: collection
 
     getListsView: (playlists) ->
+      @sideLayout = new List.SideLayout()
       view = new List.Lists
         collection: playlists
-      @layout.regionSidebarFirst.show view
+      App.listenTo @sideLayout, "show", =>
+        if playlists.length > 0
+          @sideLayout.regionLists.show view
+      App.listenTo @sideLayout, 'lists:new', ->
+        App.execute "playlistlocal:newlist"
+      @layout.regionSidebarFirst.show @sideLayout
 
     getItems: (id) ->
-      ## playlist = App.request "localplaylist:entity", id
-      ## media = playlist.get('media')
-      media = 'song'
-      collection = App.request "localplaylist:item:entities", id
-      view = App.request "#{media}:list:view", collection, true
-      @layout.regionContent.show view
+      playlist = App.request "localplaylist:entity", id
+      @itemLayout = new List.Layout
+        list: playlist
+      App.listenTo @itemLayout, "show", =>
+        media = playlist.get('media')
+        collection = App.request "localplaylist:item:entities", id
+        if collection.length > 0
+          view = App.request "#{media}:list:view", collection, true
+          @itemLayout.regionListItems.show view
+      App.listenTo @itemLayout, 'list:clear', ->
+        App.execute "localplaylist:clear:entities", id
+        App.execute "playlistlocal:reload", id
+      App.listenTo @itemLayout, 'list:delete', ->
+        App.execute "localplaylist:clear:entities", id
+        App.execute "localplaylist:remove:entity", id
+        App.navigate "playlists", {trigger: true}
+      @layout.regionContent.show @itemLayout

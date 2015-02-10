@@ -60,6 +60,13 @@
           @addToExistingList playlistId, entityType, id
       , false
 
+    createEmptyList: ->
+      console.log 'asdffasf'
+      App.execute "ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (text) =>
+        if text isnt ''
+          playlistId = App.request "localplaylist:add:entity", text, 'song'
+          App.navigate "playlist/#{playlistId}", {trigger: true}
+
   App.on "before:start", ->
     new localPlaylistApp.Router
       controller: API
@@ -67,4 +74,10 @@
 
   App.commands.setHandler "playlistlocal:additems", (entityType, id) ->
     API.addToList(entityType, id)
+
+  App.commands.setHandler "playlistlocal:newlist", ->
+    API.createEmptyList()
+
+  App.commands.setHandler "playlistlocal:reload", (id) ->
+    API.list(id)
 

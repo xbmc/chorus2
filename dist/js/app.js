@@ -16,7 +16,8 @@ this.config = {
     defaultPlayer: 'auto',
     ignoreArticle: true,
     pollInterval: 10000,
-    albumAtristsOnly: true
+    albumAtristsOnly: true,
+    searchIndexCacheExpiry: 24 * 60 * 60
   }
 };
 
@@ -996,6 +997,18 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     Filtered.prototype.filterByUnwatchedShows = function() {
       return this.filterBy('unwatchedShows', function(model) {
         return model.get('unwatched') > 0;
+      });
+    };
+
+    Filtered.prototype.filterByString = function(key, query) {
+      return this.filterBy('search', function(model) {
+        var value;
+        if (query.length < 3) {
+          return false;
+        } else {
+          value = model.get(key).toLowerCase();
+          return value.indexOf(query.toLowerCase()) > -1;
+        }
       });
     };
 
@@ -2561,7 +2574,12 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         cache: true
       };
       options = _.extend(defaultOptions, options);
-      songs = new KodiEntities.SongFilteredCollection();
+      if (options.indexOnly) {
+        options.expires = config.get('static', 'searchIndexCacheExpiry', 86400);
+        songs = new KodiEntities.SongSearchIndexCollection();
+      } else {
+        songs = new KodiEntities.SongFilteredCollection();
+      }
       songs.fetch(options);
       return songs;
     },
@@ -2582,6 +2600,34 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         collections[albumid] = new KodiEntities.SongCustomCollection(songSet);
       }
       return collections;
+    },
+    getSongsByIds: function(songIds) {
+      var collection, commander, commands, id, model, _i, _len;
+      if (songIds == null) {
+        songIds = [];
+      }
+      commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      collection = new KodiEntities.SongCustomCollection();
+      model = new KodiEntities.Song();
+      commands = [];
+      for (_i = 0, _len = songIds.length; _i < _len; _i++) {
+        id = songIds[_i];
+        commands.push({
+          method: 'AudioLibrary.GetSongDetails',
+          params: [id, helpers.entities.getFields(API.fields, 'small')]
+        });
+      }
+      commander.multipleCommands(commands, (function(_this) {
+        return function(resp) {
+          var item, _j, _len1;
+          for (_j = 0, _len1 = resp.length; _j < _len1; _j++) {
+            item = resp[_j];
+            collection.add(model.parseModel('song', item.songdetails, item.songdetails.songid));
+          }
+          return collection.trigger('cachesync');
+        };
+      })(this));
+      return collection;
     }
   };
   KodiEntities.Song = (function(_super) {
@@ -2664,6 +2710,20 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     return SongCustomCollection;
 
   })(App.KodiEntities.Collection);
+  KodiEntities.SongSearchIndexCollection = (function(_super) {
+    __extends(SongSearchIndexCollection, _super);
+
+    function SongSearchIndexCollection() {
+      return SongSearchIndexCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SongSearchIndexCollection.prototype.methods = {
+      read: ['AudioLibrary.GetSongs']
+    };
+
+    return SongSearchIndexCollection;
+
+  })(KodiEntities.SongFilteredCollection);
   App.reqres.setHandler("song:entity", function(id, options) {
     if (options == null) {
       options = {};
@@ -2676,8 +2736,19 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getFilteredSongs(options);
   });
-  return App.reqres.setHandler("song:albumparse:entities", function(songs) {
+  App.reqres.setHandler("song:byid:entities", function(songIds) {
+    if (songIds == null) {
+      songIds = [];
+    }
+    return API.getSongsByIds(songIds);
+  });
+  App.reqres.setHandler("song:albumparse:entities", function(songs) {
     return API.parseSongsToAlbumSongs(songs);
+  });
+  return App.reqres.setHandler("song:searchindex:entities", function(query, callback) {
+    var options;
+    options = helpers.global.paramObj('indexOnly', true);
+    return API.getFilteredSongs(options);
   });
 });
 
@@ -2904,14 +2975,10 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       return newItem;
     },
     clearPlaylist: function(playlistId) {
-      var collection, model, _i, _len, _ref;
+      var collection, model;
       collection = this.getItemCollection(playlistId);
-      _ref = collection.models;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        model = _ref[_i];
-        if (model != null) {
-          model.destroy();
-        }
+      while (model = collection.first()) {
+        model.destroy();
       }
     }
   };
@@ -2999,25 +3066,25 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       type: type
     });
   });
-  App.reqres.setHandler("localplaylist:remove:entity", function(id) {
+  App.commands.setHandler("localplaylist:remove:entity", function(id) {
     var collection, model;
     collection = API.getListCollection();
-    model = collection.find({
-      id: id
+    model = collection.findWhere({
+      id: parseInt(id)
     });
     return model.destroy();
   });
   App.reqres.setHandler("localplaylist:entities", function() {
     return API.getListCollection();
   });
-  App.reqres.setHandler("localplaylist:clear:entities", function(playlistId) {
+  App.commands.setHandler("localplaylist:clear:entities", function(playlistId) {
     return API.clearPlaylist(playlistId);
   });
   App.reqres.setHandler("localplaylist:entity", function(id) {
     var collection;
     collection = API.getListCollection();
-    return collection.find({
-      id: id
+    return collection.findWhere({
+      id: parseInt(id)
     });
   });
   App.reqres.setHandler("localplaylist:item:entities", function(key) {
@@ -6625,18 +6692,52 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
 
     Controller.prototype.getListsView = function(playlists) {
       var view;
+      this.sideLayout = new List.SideLayout();
       view = new List.Lists({
         collection: playlists
       });
-      return this.layout.regionSidebarFirst.show(view);
+      App.listenTo(this.sideLayout, "show", (function(_this) {
+        return function() {
+          if (playlists.length > 0) {
+            return _this.sideLayout.regionLists.show(view);
+          }
+        };
+      })(this));
+      App.listenTo(this.sideLayout, 'lists:new', function() {
+        return App.execute("playlistlocal:newlist");
+      });
+      return this.layout.regionSidebarFirst.show(this.sideLayout);
     };
 
     Controller.prototype.getItems = function(id) {
-      var collection, media, view;
-      media = 'song';
-      collection = App.request("localplaylist:item:entities", id);
-      view = App.request("" + media + ":list:view", collection, true);
-      return this.layout.regionContent.show(view);
+      var playlist;
+      playlist = App.request("localplaylist:entity", id);
+      this.itemLayout = new List.Layout({
+        list: playlist
+      });
+      App.listenTo(this.itemLayout, "show", (function(_this) {
+        return function() {
+          var collection, media, view;
+          media = playlist.get('media');
+          collection = App.request("localplaylist:item:entities", id);
+          if (collection.length > 0) {
+            view = App.request("" + media + ":list:view", collection, true);
+            return _this.itemLayout.regionListItems.show(view);
+          }
+        };
+      })(this));
+      App.listenTo(this.itemLayout, 'list:clear', function() {
+        App.execute("localplaylist:clear:entities", id);
+        return App.execute("playlistlocal:reload", id);
+      });
+      App.listenTo(this.itemLayout, 'list:delete', function() {
+        App.execute("localplaylist:clear:entities", id);
+        App.execute("localplaylist:remove:entity", id);
+        return App.navigate("playlists", {
+          trigger: true
+        });
+      });
+      return this.layout.regionContent.show(this.itemLayout);
     };
 
     return Controller;
@@ -6657,6 +6758,30 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
     return ListLayout;
 
   })(App.Views.LayoutWithSidebarFirstView);
+  List.SideLayout = (function(_super) {
+    __extends(SideLayout, _super);
+
+    function SideLayout() {
+      return SideLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    SideLayout.prototype.template = 'apps/localPlaylist/list/playlist_sidebar_layout';
+
+    SideLayout.prototype.tagName = 'div';
+
+    SideLayout.prototype.className = 'side-inner';
+
+    SideLayout.prototype.regions = {
+      regionLists: '.current-lists'
+    };
+
+    SideLayout.prototype.triggers = {
+      'click .new-list': 'lists:new'
+    };
+
+    return SideLayout;
+
+  })(App.Views.LayoutView);
   List.List = (function(_super) {
     __extends(List, _super);
 
@@ -6732,7 +6857,7 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
     return Selection;
 
   })(App.Views.ItemView);
-  return List.SelectionList = (function(_super) {
+  List.SelectionList = (function(_super) {
     __extends(SelectionList, _super);
 
     function SelectionList() {
@@ -6756,6 +6881,37 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
     return SelectionList;
 
   })(App.Views.CompositeView);
+  return List.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.template = 'apps/localPlaylist/list/playlist_layout';
+
+    Layout.prototype.tagName = 'div';
+
+    Layout.prototype.className = 'local-playlist';
+
+    Layout.prototype.regions = {
+      regionListItems: '.item-container'
+    };
+
+    Layout.prototype.triggers = {
+      'click .local-playlist-header .clear': 'list:clear',
+      'click .local-playlist-header .delete': 'list:delete'
+    };
+
+    Layout.prototype.onRender = function() {
+      if (this.options && this.options.list) {
+        return $('h2', this.$el).html(this.options.list.get('name'));
+      }
+    };
+
+    return Layout;
+
+  })(App.Views.LayoutView);
 });
 
 this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, Marionette, $, _) {
@@ -6849,6 +7005,20 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
           }
         };
       })(this), false);
+    },
+    createEmptyList: function() {
+      console.log('asdffasf');
+      return App.execute("ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (function(_this) {
+        return function(text) {
+          var playlistId;
+          if (text !== '') {
+            playlistId = App.request("localplaylist:add:entity", text, 'song');
+            return App.navigate("playlist/" + playlistId, {
+              trigger: true
+            });
+          }
+        };
+      })(this));
     }
   };
   App.on("before:start", function() {
@@ -6856,8 +7026,14 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
       controller: API
     });
   });
-  return App.commands.setHandler("playlistlocal:additems", function(entityType, id) {
+  App.commands.setHandler("playlistlocal:additems", function(entityType, id) {
     return API.addToList(entityType, id);
+  });
+  App.commands.setHandler("playlistlocal:newlist", function() {
+    return API.createEmptyList();
+  });
+  return App.commands.setHandler("playlistlocal:reload", function(id) {
+    return API.list(id);
   });
 });
 
@@ -7719,6 +7895,102 @@ this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette,
   });
 });
 
+this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {};
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.template = 'apps/search/list/search_layout';
+
+    ListLayout.prototype.className = "search-page";
+
+    ListLayout.prototype.regions = {
+      artistSet: '.search-set-artist',
+      albumSet: '.search-set-album',
+      songSet: '.search-set-song',
+      movieSet: '.search-set-movie',
+      tvshowSet: '.search-set-tvshow'
+    };
+
+    return ListLayout;
+
+  })(App.Views.LayoutView);
+  return List.ListSet = (function(_super) {
+    __extends(ListSet, _super);
+
+    function ListSet() {
+      return ListSet.__super__.constructor.apply(this, arguments);
+    }
+
+    ListSet.prototype.template = 'apps/search/list/search_set';
+
+    ListSet.prototype.className = "search-page";
+
+    ListSet.prototype.onRender = function() {
+      if (this.options && this.options.title) {
+        return $('h2.set-header', this.$el).html(t.gettext(this.options.title));
+      }
+    };
+
+    ListSet.prototype.regions = {
+      regionResult: '.set-results'
+    };
+
+    return ListSet;
+
+  })(App.Views.LayoutView);
+});
+
+this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, _) {
+  var API;
+  SearchApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "search": "view",
+      "search/:query": "list"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    list: function(query) {
+      return new SearchApp.List.Controller({
+        query: query
+      });
+    },
+    view: function() {}
+  };
+  return App.on("before:start", function() {
+    return new SearchApp.Router({
+      controller: API
+    });
+  });
+});
+
 this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette, $, _) {
   var API;
   SettingsApp.Router = (function(_super) {
@@ -8020,7 +8292,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       })(this));
     },
     renderLayout: function() {
-      var playlistState, shellLayout;
+      var entity, playlistState, shellLayout;
       shellLayout = new Shell.Layout();
       App.root.show(shellLayout);
       App.addRegions(shellLayout.regions);
@@ -8029,7 +8301,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       if (playlistState === 'closed') {
         this.alterRegionClasses('add', "shell-playlist-closed");
       }
-      return App.listenTo(shellLayout, "shell:playlist:toggle", (function(_this) {
+      App.listenTo(shellLayout, "shell:playlist:toggle", (function(_this) {
         return function(child, args) {
           var state;
           playlistState = config.get('app', 'shell:playlist:state', 'open');
@@ -8038,6 +8310,17 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
           return _this.alterRegionClasses('toggle', "shell-playlist-closed");
         };
       })(this));
+      entity = App.request("song:searchindex:entities", 'listname');
+      return App.execute("when:entity:fetched", entity, function() {
+        var filtered, ids, loaded;
+        filtered = new App.Entities.Filtered(entity);
+        filtered.filterByString('label', 'diplo');
+        ids = filtered.pluck('songid');
+        loaded = App.request("song:byid:entities", ids);
+        return App.execute("when:entity:fetched", loaded, function() {
+          return console.log(loaded);
+        });
+      });
     },
     alterRegionClasses: function(op, classes, region) {
       var $body, action;

@@ -18,7 +18,11 @@
     getFilteredSongs: (options) ->
       defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
-      songs = new KodiEntities.SongFilteredCollection()
+      if options.indexOnly
+        options.expires = config.get 'static', 'searchIndexCacheExpiry', 86400
+        songs = new KodiEntities.SongSearchIndexCollection()
+      else
+        songs = new KodiEntities.SongFilteredCollection()
       songs.fetch options
       songs
 
@@ -37,6 +41,21 @@
       for albumid, songSet of parsedRaw
         collections[albumid] = new KodiEntities.SongCustomCollection songSet
       collections
+
+    ## Get a list of songs via an array of ids only, we don't use Backbone.jsonrpc for this
+    ## as we are doning multiple commands.
+    getSongsByIds: (songIds = []) ->
+      commander = App.request "command:kodi:controller", 'auto', 'Commander'
+      collection = new KodiEntities.SongCustomCollection()
+      model = new KodiEntities.Song()
+      commands = []
+      for id in songIds
+        commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
+      commander.multipleCommands commands, (resp) =>
+        for item in resp
+          collection.add model.parseModel 'song', item.songdetails, item.songdetails.songid
+        collection.trigger 'cachesync'
+      collection
 
 
   ## Single song model.
@@ -69,6 +88,11 @@
     model: KodiEntities.Song
 
 
+  ## Song search index collection (absolute minimal fields).
+  class KodiEntities.SongSearchIndexCollection extends KodiEntities.SongFilteredCollection
+    methods: read: ['AudioLibrary.GetSongs']
+
+
   ## Get a single song.
   App.reqres.setHandler "song:entity", (id, options = {}) ->
     API.getSong id, options
@@ -77,6 +101,16 @@
   App.reqres.setHandler "song:filtered:entities", (options = {}) ->
     API.getFilteredSongs options
 
+  ## Get a filtered song collection.
+  App.reqres.setHandler "song:byid:entities", (songIds = []) ->
+    API.getSongsByIds songIds
+
   ## Parse a song collection into albums
   App.reqres.setHandler "song:albumparse:entities", (songs) ->
     API.parseSongsToAlbumSongs songs
+
+  ## Get the song search index collection
+  App.reqres.setHandler "song:searchindex:entities", (query, callback) ->
+    options = helpers.global.paramObj 'indexOnly', true
+    API.getFilteredSongs options
+

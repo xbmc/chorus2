@@ -49,19 +49,14 @@
       ## TESTINGS!
 
       ## Get data
-
-       ## save a list..
-      ## App.request "localplaylist:remove:entity", 1
-      ## App.request "localplaylist:add:entity", 'Test list 1', 'song', 'list'
-#      lists = App.request "localplaylist:entities"
-#      lists.reset []
-#      lists.set []
-#       console.log 'my lists: ', lists
-#      entity = App.request "localplaylist:item:entities", 'listname'
-#      console.log entity
-#      App.execute "when:entity:fetched", entity, ->
-#        sets = App.request "file:source:media:entities", entity
-#        console.log sets
+      entity = App.request "song:searchindex:entities", 'listname'
+      App.execute "when:entity:fetched", entity, ->
+        filtered = new App.Entities.Filtered(entity)
+        filtered.filterByString('label', 'diplo')
+        ids = filtered.pluck 'songid'
+        loaded = App.request "song:byid:entities", ids
+        App.execute "when:entity:fetched", loaded, ->
+          console.log loaded
 
 
     ## Alter region classes.

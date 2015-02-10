@@ -67,9 +67,8 @@
     ## remove all items from a list
     clearPlaylist: (playlistId) ->
       collection = @getItemCollection playlistId
-      for model in collection.models
-        if model?
-          model.destroy()
+      while model = collection.first()
+        model.destroy()
       return
 
 
@@ -111,10 +110,10 @@
   App.reqres.setHandler "localplaylist:add:entity", (name, media, type = 'list') ->
     API.addList {name: name, media: media, type: type}
 
-  ## Handler to save a new playlist
-  App.reqres.setHandler "localplaylist:remove:entity", (id) ->
+  ## Handler to remove a playlist
+  App.commands.setHandler "localplaylist:remove:entity", (id) ->
     collection = API.getListCollection()
-    model = collection.find {id: id}
+    model = collection.findWhere {id: parseInt(id)}
     model.destroy()
 
   ## Handler to get saved lists
@@ -122,13 +121,13 @@
     API.getListCollection()
 
   ## Handler to clear all items from a list
-  App.reqres.setHandler "localplaylist:clear:entities", (playlistId) ->
+  App.commands.setHandler "localplaylist:clear:entities", (playlistId) ->
     API.clearPlaylist(playlistId)
 
   ## Handler to get a single saved list
   App.reqres.setHandler "localplaylist:entity", (id) ->
     collection = API.getListCollection()
-    collection.find {id: id}
+    collection.findWhere {id: parseInt(id)}
 
   ## Handler to get list items
   App.reqres.setHandler "localplaylist:item:entities", (key) ->

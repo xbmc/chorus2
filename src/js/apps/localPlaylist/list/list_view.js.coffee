@@ -3,6 +3,15 @@
   class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
     className: "local-playlist-list"
 
+  class List.SideLayout extends App.Views.LayoutView
+    template: 'apps/localPlaylist/list/playlist_sidebar_layout'
+    tagName: 'div'
+    className: 'side-inner'
+    regions:
+      regionLists: '.current-lists'
+    triggers:
+      'click .new-list' : 'lists:new'
+
   class List.List extends App.Views.ItemView
     template: 'apps/localPlaylist/list/playlist'
     tagName: "li"
@@ -38,3 +47,16 @@
     childViewContainer: 'ul.lists'
     onRender: ->
       $('h3', @$el).html( t.gettext('Existing playlists') )
+
+  class List.Layout extends App.Views.LayoutView
+    template: 'apps/localPlaylist/list/playlist_layout'
+    tagName: 'div'
+    className: 'local-playlist'
+    regions:
+      regionListItems: '.item-container'
+    triggers:
+      'click .local-playlist-header .clear' : 'list:clear'
+      'click .local-playlist-header .delete' : 'list:delete'
+    onRender: ->
+      if @options and @options.list
+        $('h2', @$el).html( @options.list.get('name') )
