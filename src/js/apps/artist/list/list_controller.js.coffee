@@ -1,5 +1,21 @@
 @Kodi.module "ArtistApp.List", (List, App, Backbone, Marionette, $, _) ->
 
+  API =
+
+    bindTriggers: (view) ->
+      App.listenTo view, 'childview:artist:play', (list, item) ->
+        App.execute 'artist:action', 'play', item.model
+      App.listenTo view, 'childview:artist:add', (list, item) ->
+        App.execute 'artist:action', 'add', item.model
+
+    getArtistList: (collection) ->
+      view = new List.Artists
+        collection: collection
+      API.bindTriggers view
+      view
+
+
+  ## Main controller
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
@@ -22,18 +38,6 @@
       new List.ListLayout
         collection: collection
 
-    getArtistsView: (collection) ->
-      view = new List.Artists
-        collection: collection
-      @bindTriggers view
-      view
-
-    bindTriggers: (view) ->
-      @listenTo view, 'childview:artist:play', (list, item) ->
-        App.execute 'artist:action', 'play', item.model
-      @listenTo view, 'childview:artist:add', (list, item) ->
-        App.execute 'artist:action', 'add', item.model
-
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
@@ -52,5 +56,10 @@
     renderList: (collection) ->
       App.execute "loading:show:view", @layout.regionContent
       filteredCollection = App.request 'filter:apply:entites', collection
-      view = @getArtistsView filteredCollection
+      view = API.getArtistList filteredCollection
       @layout.regionContent.show view
+
+
+  ## handler for other modules to get a list view.
+  App.reqres.setHandler "artist:list:view", (collection) ->
+    API.getArtistList collection

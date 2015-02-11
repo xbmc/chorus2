@@ -27,3 +27,19 @@
     color: $color-header-search-icon;
   }
 }
+
+.search-page {
+  padding: $spacing-half-unit $spacing-half-unit * 3 $spacing-base-unit;
+  .search-set {
+    .set-header {
+      margin: $spacing-base-unit 0 $spacing-half-unit;
+      text-transform: capitalize;
+      font-size: 22px;
+    }
+  }
+  .search-set-song {
+    .set-results {
+      padding: 5px;
+    }
+  }
+}

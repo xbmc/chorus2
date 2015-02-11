@@ -45,7 +45,6 @@
         obj.fullyloaded = true
       @parseModel 'album', obj, obj.albumid
 
-
   ## albums collection
   class KodiEntities.AlbumCollection extends App.KodiEntities.Collection
     model: KodiEntities.Album
@@ -63,7 +62,15 @@
   App.reqres.setHandler "album:entity", (id, options = {}) ->
     API.getAlbum id, options
 
-
   ## Get an album collection
   App.reqres.setHandler "album:entities", (options = {}) ->
     API.getAlbums options
+
+  ## Get a search collection
+  App.commands.setHandler "album:search:entities", (query, callback) ->
+    collection = API.getAlbums {}
+    App.execute "when:entity:fetched", collection, =>
+      filtered = new App.Entities.Filtered(collection)
+      filtered.filterByString('label', query)
+      if callback
+        callback filtered

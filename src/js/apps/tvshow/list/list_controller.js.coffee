@@ -1,5 +1,17 @@
 @Kodi.module "TVShowApp.List", (List, App, Backbone, Marionette, $, _) ->
 
+  API =
+
+    getTVShowsList: (tvshows) ->
+      view = new List.TVShows
+        collection: tvshows
+      App.listenTo view, 'childview:tvshow:play', (list, item) ->
+        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+        playlist.play 'tvshowid', item.model.get('tvshowid')
+      view
+
+
+  ## Main controller
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
@@ -25,14 +37,6 @@
       new List.ListLayout
         collection: tvshows
 
-    getTVShowsView: (tvshows) ->
-      view = new List.TVShows
-        collection: tvshows
-      @listenTo view, 'childview:tvshow:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        playlist.play 'tvshowid', item.model.get('tvshowid')
-      view
-
 
     ## Available sort and filter options
     ## See filter_app.js for available options
@@ -52,6 +56,10 @@
     renderList: (collection) ->
       App.execute "loading:show:view", @layout.regionContent
       filteredCollection = App.request 'filter:apply:entites', collection
-      view = @getTVShowsView filteredCollection
+      view = API.getTVShowsList filteredCollection
       @layout.regionContent.show view
 
+
+  ## handler for other modules to get a list view.
+  App.reqres.setHandler "tvshow:list:view", (collection) ->
+    API.getTVShowsList collection

@@ -2,6 +2,8 @@
 
   API =
 
+    songsByIdMax: 50 ## Jsonrpc freaks out if too many in the batch!
+
     fields:
       minimal: ['title', 'file']
       small: ['thumbnail', 'artist', 'artistid', 'album', 'albumid', 'lastplayed', 'track', 'year', 'duration']
@@ -43,18 +45,33 @@
       collections
 
     ## Get a list of songs via an array of ids only, we don't use Backbone.jsonrpc for this
-    ## as we are doning multiple commands.
-    getSongsByIds: (songIds = []) ->
+    ## as we are doning multiple commands. Specific sets are stored in cache.
+    getSongsByIds: (songIds = [], max = -1, callback) ->
       commander = App.request "command:kodi:controller", 'auto', 'Commander'
-      collection = new KodiEntities.SongCustomCollection()
-      model = new KodiEntities.Song()
-      commands = []
-      for id in songIds
-        commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
-      commander.multipleCommands commands, (resp) =>
-        for item in resp
-          collection.add model.parseModel 'song', item.songdetails, item.songdetails.songid
-        collection.trigger 'cachesync'
+      cacheKey = 'songs-' + songIds.join('-')
+      max = if max is -1 then @songsByIdMax else max
+      items = []
+      cache = helpers.cache.get cacheKey, false
+      if cache
+        ## Cache hit
+        collection = new KodiEntities.SongCustomCollection cache
+        if callback
+          callback collection
+      else
+        ## No cache
+        model = new KodiEntities.Song()
+        commands = []
+        for i, id of songIds
+          if i < max
+            commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
+        if commands.length > 0
+          commander.multipleCommands commands, (resp) =>
+            for item in resp
+              items.push model.parseModel('song', item.songdetails, item.songdetails.songid)
+            helpers.cache.set cacheKey, items
+            collection = new KodiEntities.SongCustomCollection items
+            if callback
+              callback collection
       collection
 
 
@@ -109,8 +126,15 @@
   App.reqres.setHandler "song:albumparse:entities", (songs) ->
     API.parseSongsToAlbumSongs songs
 
-  ## Get the song search index collection
-  App.reqres.setHandler "song:searchindex:entities", (query, callback) ->
+  ## Get the songs matching a search query.
+  App.commands.setHandler "song:search:entities", (query, callback) ->
     options = helpers.global.paramObj 'indexOnly', true
-    API.getFilteredSongs options
-
+    collection = API.getFilteredSongs options
+    App.execute "when:entity:fetched", collection, =>
+      filtered = new App.Entities.Filtered(collection)
+      filtered.filterByString('label', query)
+      ids = filtered.pluck 'songid'
+      API.getSongsByIds ids, 20, (loaded) ->
+        if callback
+          callback loaded
+    collection

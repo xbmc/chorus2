@@ -12,7 +12,7 @@
 
   class List.ListSet extends App.Views.LayoutView
     template: 'apps/search/list/search_set'
-    className: "search-page"
+    className: "search-set"
     onRender: ->
       if @options and @options.title
         $('h2.set-header', @$el).html( t.gettext( @options.title  ) )

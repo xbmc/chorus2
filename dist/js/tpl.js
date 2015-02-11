@@ -1195,7 +1195,7 @@ window.JST["apps/search/list/tpl/search_layout.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="search-inner">\n    <div class="search-set search-set-artist"></div>\n    <div class="search-set search-set-album"></div>\n    <div class="search-set search-set-song"></div>\n    <div class="search-set search-set-movie"></div>\n    <div class="search-set search-set-tvshow"></div>\n</div>'));
+      _print(_safe('<div class="search-inner">\n    <div class="search-set search-set-movie"></div>\n    <div class="search-set search-set-tvshow"></div>\n    <div class="search-set search-set-artist"></div>\n    <div class="search-set search-set-album"></div>\n    <div class="search-set search-set-song"></div>\n</div>'));
     
     }).call(this);
     

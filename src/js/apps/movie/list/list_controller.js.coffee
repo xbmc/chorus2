@@ -1,5 +1,17 @@
 @Kodi.module "MovieApp.List", (List, App, Backbone, Marionette, $, _) ->
 
+  API =
+
+    getMoviesView: (collection) ->
+      view = new List.Movies
+        collection: collection
+      App.listenTo view, 'childview:movie:play', (list, item) ->
+        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+        playlist.play 'movieid', item.model.get('movieid')
+      view
+
+
+  ## Main controller
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
@@ -23,15 +35,6 @@
       new List.ListLayout
         collection: collection
 
-    getMoviesView: (collection) ->
-      view = new List.Movies
-        collection: collection
-      @listenTo view, 'childview:movie:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        playlist.play 'movieid', item.model.get('movieid')
-      view
-
-
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
@@ -50,6 +53,10 @@
     renderList: (collection) ->
       App.execute "loading:show:view", @layout.regionContent
       filteredCollection = App.request 'filter:apply:entites', collection
-      view = @getMoviesView filteredCollection
+      view = API.getMoviesView filteredCollection
       @layout.regionContent.show view
 
+
+  ## handler for other modules to get a list view.
+  App.reqres.setHandler "movie:list:view", (collection) ->
+    API.getMoviesView collection

@@ -89,7 +89,7 @@ $card-layout: (
     a {
       display: block;
     }
-    &:after {
+    .thumb:after {
       content: "";
       @include set-position-absolute(top 0 left 0 right 0);
       height: get-card-size($size, height);
@@ -136,7 +136,7 @@ $card-layout: (
     }
   }
   &:hover {
-    .artwork:after {
+    .artwork .thumb:after {
       opacity: 1;
     }
     .actions,

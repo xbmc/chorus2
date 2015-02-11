@@ -11009,7 +11009,7 @@ img, video {
   display: block;
 }
 /* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--square .card .artwork:after {
+.card-grid--square .card .artwork .thumb:after {
   content: "";
   top: 0;
   right: 0;
@@ -11184,7 +11184,7 @@ img, video {
   height: 1.5em;
 }
 /* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--square .card:hover .artwork:after {
+.card-grid--square .card:hover .artwork .thumb:after {
   opacity: 1;
 }
 /* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
@@ -11259,7 +11259,7 @@ img, video {
   display: block;
 }
 /* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--wide .card .artwork:after {
+.card-grid--wide .card .artwork .thumb:after {
   content: "";
   top: 0;
   right: 0;
@@ -11434,7 +11434,7 @@ img, video {
   height: 1.5em;
 }
 /* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--wide .card:hover .artwork:after {
+.card-grid--wide .card:hover .artwork .thumb:after {
   opacity: 1;
 }
 /* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
@@ -11509,7 +11509,7 @@ img, video {
   display: block;
 }
 /* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--tall .card .artwork:after {
+.card-grid--tall .card .artwork .thumb:after {
   content: "";
   top: 0;
   right: 0;
@@ -11684,7 +11684,7 @@ img, video {
   height: 1.5em;
 }
 /* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-grid--tall .card:hover .artwork:after {
+.card-grid--tall .card:hover .artwork .thumb:after {
   opacity: 1;
 }
 /* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
@@ -15898,7 +15898,7 @@ a:focus, a:hover {
   display: block;
 }
 /* line 92, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-minimal .artwork:after {
+.card-minimal .artwork .thumb:after {
   content: "";
   top: 0;
   right: 0;
@@ -16073,7 +16073,7 @@ a:focus, a:hover {
   height: 1.5em;
 }
 /* line 139, ../../../../src/themes/base/sass/base/_cards.scss */
-.card-minimal:hover .artwork:after {
+.card-minimal:hover .artwork .thumb:after {
   opacity: 1;
 }
 /* line 142, ../../../../src/themes/base/sass/base/_cards.scss */
@@ -17920,6 +17920,21 @@ form .inline-list .response {
   vertical-align: middle;
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
+}
+
+/* line 31, ../../../../src/themes/base/sass/components/_search.scss */
+.search-page {
+  padding: 0.5em 1.5em 1em;
+}
+/* line 34, ../../../../src/themes/base/sass/components/_search.scss */
+.search-page .search-set .set-header {
+  margin: 1em 0 0.5em;
+  text-transform: capitalize;
+  font-size: 22px;
+}
+/* line 41, ../../../../src/themes/base/sass/components/_search.scss */
+.search-page .search-set-song .set-results {
+  padding: 5px;
 }
 
 /* line 5, ../../../../src/themes/base/sass/components/_settings.scss */

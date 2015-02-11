@@ -1,7 +1,7 @@
 <div class="search-inner">
+    <div class="search-set search-set-movie"></div>
+    <div class="search-set search-set-tvshow"></div>
     <div class="search-set search-set-artist"></div>
     <div class="search-set search-set-album"></div>
     <div class="search-set search-set-song"></div>
-    <div class="search-set search-set-movie"></div>
-    <div class="search-set search-set-tvshow"></div>
 </div>

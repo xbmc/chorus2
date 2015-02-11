@@ -69,3 +69,12 @@
   ## Get an tvshow collection
   App.reqres.setHandler "tvshow:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get a search collection
+  App.commands.setHandler "tvshow:search:entities", (query, callback) ->
+    collection = API.getCollection {}
+    App.execute "when:entity:fetched", collection, =>
+      filtered = new App.Entities.Filtered(collection)
+      filtered.filterByString('label', query)
+      if callback
+        callback filtered

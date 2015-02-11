@@ -72,3 +72,12 @@
   ## Get an artist collection
   App.reqres.setHandler "artist:entities", (options = {}) ->
     API.getArtists options
+
+  ## Get a search collection
+  App.commands.setHandler "artist:search:entities", (query, callback) ->
+    collection = API.getArtists {}
+    App.execute "when:entity:fetched", collection, =>
+      filtered = new App.Entities.Filtered(collection)
+      filtered.filterByString('label', query)
+      if callback
+        callback filtered

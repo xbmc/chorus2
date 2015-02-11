@@ -49,14 +49,14 @@
       ## TESTINGS!
 
       ## Get data
-      entity = App.request "song:searchindex:entities", 'listname'
-      App.execute "when:entity:fetched", entity, ->
-        filtered = new App.Entities.Filtered(entity)
-        filtered.filterByString('label', 'diplo')
-        ids = filtered.pluck 'songid'
-        loaded = App.request "song:byid:entities", ids
-        App.execute "when:entity:fetched", loaded, ->
-          console.log loaded
+#      entity = App.request "song:searchindex:entities", 'listname'
+#      App.execute "when:entity:fetched", entity, ->
+#        filtered = new App.Entities.Filtered(entity)
+#        filtered.filterByString('label', 'diplo')
+#        ids = filtered.pluck 'songid'
+#        loaded = App.request "song:byid:entities", ids
+#        App.execute "when:entity:fetched", loaded, ->
+#          console.log loaded
 
 
     ## Alter region classes.

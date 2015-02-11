@@ -68,3 +68,12 @@
   ## Get an movie collection
   App.reqres.setHandler "movie:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get a search collection
+  App.commands.setHandler "movie:search:entities", (query, callback) ->
+    collection = API.getCollection {}
+    App.execute "when:entity:fetched", collection, =>
+      filtered = new App.Entities.Filtered(collection)
+      filtered.filterByString('label', query)
+      if callback
+        callback filtered
