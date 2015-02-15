@@ -159,3 +159,21 @@ $playlist-item-open-height: 80px;
     }
   }
 }
+
+// Toggle playlist based on player.
+.active-player-kodi {
+  .kodi-playlists {
+    display: block;
+  }
+  .local-playlists {
+    display: none;
+  }
+}
+.active-player-local {
+  .kodi-playlists {
+    display: none;
+  }
+  .local-playlists {
+    display: block;
+  }
+}

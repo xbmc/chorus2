@@ -1,13 +1,14 @@
 @Kodi.module "AlbumApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "album-list"
+    className: "album-list with-filters"
 
   class List.AlbumTeaser extends App.Views.CardView
     triggers:
       "click .play"               : "album:play"
       "click .dropdown .add"      : "album:add"
       "click .dropdown .localadd" : "album:localadd"
+      "click .dropdown .localplay" : "album:localplay"
 
     initialize: ->
       @model.set({actions: {thumbs: 'Thumbs up'}})

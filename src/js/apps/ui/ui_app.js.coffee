@@ -2,21 +2,26 @@
 
   API =
 
-    openModal: (title, msg, open = true) ->
+    openModal: (title, msg, open = true, style = '') ->
       ## Get the modal parts
       $title = App.getRegion('regionModalTitle').$el
       $body = App.getRegion('regionModalBody').$el
       $modal = App.getRegion('regionModal').$el
+      $modal.removeClassStartsWith 'style-'
+      $modal.addClass 'style-' + style
       ## Populate its content
       $title.html(title)
       $body.html(msg)
       ## Open model
       if open
         $modal.modal();
+      $modal.on 'hidden.bs.modal', (e) ->
+        $body.html('')
       $modal
 
     closeModal: ->
       App.getRegion('regionModal').$el.modal('hide')
+      $('.modal-body').html('')
 
     closeModalButton: ->
       API.getButton('Close', 'default').on('click', -> API.closeModal())
@@ -62,3 +67,10 @@
   ## Close a modal window
   App.commands.setHandler "ui:modal:close", ->
     API.closeModal()
+
+  ## Open a youtube video in a model
+  App.commands.setHandler "ui:modal:youtube", (title, videoid) ->
+    API.getModalButtonContainer().html('')
+    msg = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoid + '?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>'
+    API.openModal(title, msg, true, 'video')
+

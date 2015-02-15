@@ -10,12 +10,16 @@
     playlistKey: 'localplaylist:list'
     playlistItemNamespace: 'localplaylist:item:'
     thumbsUpNamespace: 'thumbs:'
+    localPlayerNamespace: 'localplayer:'
 
     getPlaylistKey: (key) ->
       @playlistItemNamespace + key
 
     getThumbsKey: (media) ->
       @thumbsUpNamespace + media
+
+    getlocalPlayerKey: (media = 'audio') ->
+      @localPlayerNamespace + media
 
     ## Get a collection of lists
     getListCollection: (type = 'list') ->
@@ -48,18 +52,22 @@
 
     ## Add a collection to a playlist
     addItemsToPlaylist: (playlistId, collection) ->
-      items = collection.getRawCollection()
+      if _.isArray collection
+        items = collection
+      else
+        items = collection.getRawCollection()
       collection = @getItemCollection playlistId
       for position, item of items
         collection.create API.getSavedModelFromSource(item, position)
       collection
 
+    ## Parse a library item into a model structure to save
     getSavedModelFromSource: (item, position) ->
       newItem = {}
       for fieldName in @savedFields
         if item[fieldName]
           newItem[fieldName] = item[fieldName]
-      newItem.position = position
+      newItem.position = parseInt(position)
       idfield = item.type + 'id'
       newItem[idfield] = item[idfield]
       newItem
@@ -162,3 +170,20 @@
     collection = API.getItemCollection API.getThumbsKey(model.get('type'))
     existing = collection.findWhere {id: model.get('id')}
     _.isObject(existing)
+
+
+  ###
+    Local player lists
+  ###
+
+  ## Handler to get a local player playlist collection
+  App.reqres.setHandler "localplayer:get:entities", (media = 'audio') ->
+    API.getItemCollection API.getlocalPlayerKey(media)
+
+  ## Handler to clear all items from a list
+  App.commands.setHandler "localplayer:clear:entities", (media = 'audio') ->
+    API.clearPlaylist API.getlocalPlayerKey(media)
+
+  ## Handler to add items to a playlist
+  App.reqres.setHandler "localplayer:item:add:entities", (collection, media = 'audio') ->
+    API.addItemsToPlaylist  API.getlocalPlayerKey(media), collection

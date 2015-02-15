@@ -18,6 +18,17 @@
             match = true
         match
 
+    ## Like filterbymultiplearray but allows for key to be an object
+    ## picking out the key from that object.
+    filterByMultipleObject: (key, property, values = []) ->
+      @filterBy key, (model) ->
+        match = false
+        items = _.pluck model.get(key), property
+        for v in items
+          if helpers.global.inArray v, values
+            match = true
+        match
+
     filterByUnwatchedShows: ->
       @filterBy 'unwatchedShows', (model) ->
         model.get('unwatched') > 0

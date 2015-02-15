@@ -32,6 +32,7 @@
     Extends.
   ###
 
+
   ## Sort.
 
   class Show.SortListItem extends Show.ListItem
@@ -47,6 +48,7 @@
 
   class Show.SortList extends Show.List
     childView: Show.SortListItem
+
 
   ## Filter
 
@@ -64,6 +66,7 @@
   class Show.FilterList extends Show.List
     childView: Show.FilterListItem
 
+
   ## Filter option.
 
   class Show.OptionListItem extends Show.ListItem
@@ -76,9 +79,26 @@
       tag = @themeTag('span', {'class': classes.join(' ')}, @model.get('value'))
       @model.set(title: tag)
 
-  class Show.OptionList extends Show.List
+  class Show.OptionList extends App.Views.CompositeView
+    template: 'apps/filter/show/filter_options'
     activeValues: []
     childView: Show.OptionListItem
+    childViewContainer: 'ul.selection-list'
+    onRender: ->
+      ## hide filter search if < 10 items
+      if @collection.length <= 10
+        $('.options-search-wrapper', @$el).addClass('hidden')
+      ## Filter options via search box.
+      $('.options-search', @$el).on 'keyup', ->
+        val = $('.options-search', @$el).val().toLocaleLowerCase()
+        $list = $('.filter-options-list li', @$el).removeClass('hidden')
+        if val.length > 0
+          $list.each (i, d) ->
+            text = $(d).find('.option').text().toLowerCase()
+            if text.indexOf(val) is -1
+              $(d).addClass('hidden')
+    triggers:
+      'click .deselect-all': 'filter:option:deselectall'
 
 
   ## Active Filters.
@@ -103,3 +123,15 @@
     childView: Show.ActiveListItem
     emptyView: Show.ActiveNewListItem
     className: "active-list"
+
+
+  ## Filters bar
+
+  class Show.FilterBar extends App.Views.ItemView
+    template: 'apps/filter/show/filters_bar'
+    className: "filters-active-bar"
+    onRender: ->
+      if @options.filters
+        $('.filters-active-all', @$el).html( @options.filters.join(', ') )
+    triggers:
+      'click .remove': 'filter:remove:all'

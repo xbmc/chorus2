@@ -1,7 +1,7 @@
 @Kodi.module "ArtistApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "artist-list"
+    className: "artist-list with-filters"
 
   class List.ArtistTeaser extends App.Views.CardView
     triggers:

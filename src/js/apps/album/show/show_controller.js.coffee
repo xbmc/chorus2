@@ -44,8 +44,6 @@
       album = App.request "album:entity", id
       ## Fetch the artist
       App.execute "when:entity:fetched", album, =>
-        ## Set background image.
-        App.execute "images:fanart:set", album.get('fanart')
         ## Get the layout.
         @layout = @getLayoutView album
         ## Ensure background removed when we leave.

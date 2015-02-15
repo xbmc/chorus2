@@ -3,7 +3,7 @@
     <div class="filters-current filter-pane">
         <div class="nav-section"></div>
 
-        <h3 class="open-filters"><%= t.gettext('Filters') %></h3>
+        <h3 class="open-filters"><%= t.gettext('Filters') %><i></i></h3>
         <div class="filters-active"></div>
 
         <h3><%= t.gettext('Sort') %></h3>

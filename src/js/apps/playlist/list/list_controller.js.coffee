@@ -15,6 +15,7 @@
       @listenTo @layout, "show", =>
         ## Load the kodi audio list
         @renderList('kodi', 'audio')
+        @renderList('local', 'audio')
         ## Set the initial active playlist
         App.vent.on "state:initialized", =>
           stateObj = App.request "state:current"
@@ -24,6 +25,14 @@
         @changePlaylist('kodi', 'audio')
       @listenTo @layout, 'playlist:kodi:video', =>
         @changePlaylist('kodi', 'video')
+      @listenTo @layout, 'playlist:kodi', =>
+        stateObj = App.request "state:current"
+        stateObj.setPlayer 'kodi'
+        @renderList 'kodi', 'audio'
+      @listenTo @layout, 'playlist:local', =>
+        stateObj = App.request "state:current"
+        stateObj.setPlayer 'local'
+        @renderList 'local', 'audio'
 
       ## Render the layout
       App.regionPlaylist.show @layout
@@ -37,22 +46,27 @@
         collection: collection
 
     renderList: (type, media) ->
-      ## Get the collection and controller for this list
-      collection = App.request "playlist:list", type, media
       @layout.$el.removeClassStartsWith('media-').addClass('media-' + media)
-      ## When fetched.
-      App.execute "when:entity:fetched", collection, =>
-        ## render to layout.
-        listView = @getList collection
-        if type is 'kodi'
+      if type is 'kodi'
+        ## Get the collection and controller for this list
+        collection = App.request "playlist:list", type, media
+        ## When fetched.
+        App.execute "when:entity:fetched", collection, =>
+          ## render to layout.
+          listView = @getList collection
           @layout.kodiPlayList.show listView
-        else
-          @layout.localPlayList.show listView
-        ## Bind actions
+          ## Bind actions
+          @bindActions listView, type, media
+          ## Trigger content update
+          App.vent.trigger "state:content:updated"
+      else
+        ## Get the local playlist collection
+        collection = App.request "localplayer:get:entities"
+        listView = @getList collection
         @bindActions listView, type, media
+        @layout.localPlayList.show listView
         ## Trigger content update
         App.vent.trigger "state:content:updated"
-
 
     bindActions: (listView, type, media) ->
       ## Get the controller for this

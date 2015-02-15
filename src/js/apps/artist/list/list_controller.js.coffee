@@ -41,7 +41,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['artist']
+      sort: ['label']
       filter: ['mood', 'genre', 'style']
 
     ## Apply filter view and provide a handler for applying changes

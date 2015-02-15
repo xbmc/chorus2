@@ -2,16 +2,17 @@
 
     <div class="region-details-side"></div>
 
-    <div class="region-details-meta">
+    <div class="region-details-meta-wrapper"><div class="region-details-meta">
 
-        <div class="region-details-title"></div>
+        <div class="region-details-title"><span class="title"></span> <span class="sub"></span></div>
 
-        <div class="region-details-meta-side-first"></div>
+        <div class="region-details-meta-below">
+            <div class="region-details-subtext"></div>
+            <div class="description"></div>
+        </div>
 
-        <div class="region-details-meta-side-second"></div>
+    </div></div>
 
-        <div class="region-details-meta-below"></div>
-
-    </div>
+    <div class="region-details-fanart"></div>
 
 </div>

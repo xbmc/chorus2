@@ -14,7 +14,12 @@
     template: 'apps/search/list/search_set'
     className: "search-set"
     onRender: ->
-      if @options and @options.title
-        $('h2.set-header', @$el).html( t.gettext( @options.title  ) )
+      if @options
+        if @options.entity
+          $('h2.set-header', @$el).html( t.gettext( @options.entity + 's'  ) )
+          if @options.more and @options.query
+            moreLink = @themeLink t.gettext('Show More'), 'search/' + @options.entity + '/' + @options.query
+            $('.more', @$el).html( moreLink )
+
     regions:
       regionResult: '.set-results'

@@ -104,6 +104,7 @@
         ## Some new content has been renderd with a potential to be playing
         App.vent.on "state:content:updated", ->
           API.setPlayingContent 'kodi'
+          API.setPlayingContent 'local'
 
         ## Some data has changed or needs updating.
         App.vent.on "state:kodi:changed", (state) ->

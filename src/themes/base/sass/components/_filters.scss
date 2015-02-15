@@ -1,3 +1,9 @@
+.with-filters {
+  .layout-container > .region-first {
+    overflow: hidden;
+  }
+}
+
 .filters-container {
   h3 {
     @extend %sidebar--heading;
@@ -66,6 +72,99 @@
       }
     }
   }
+  .open-filters {
+    position: relative;
+    i {
+      @include icon(content-add);
+      @include set-position-absolute(top -3px right 3px);
+      cursor: pointer;
+      font-size: 150%;
+      display: none;
+
+    }
+    &:hover {
+      i {
+        color: $color-greyscale-outer-space;
+      }
+    }
+  }
+  .options-search {
+    color: $color-greyscale-dove-gray;
+    border: none;
+    width: 100%;
+    padding: $spacing-half-unit;
+    padding-left: $spacing-double-unit;
+    background: rgba($color-white, 0.5);
+    margin-bottom: $spacing-base-unit;
+    &:focus {
+      background: rgba($color-white, 0.9);
+      outline: none;
+    }
+  }
+  .options-search-wrapper {
+    position: relative;
+    @include icon(action-search);
+    padding-right: $spacing-base-unit;
+    &:before {
+      @include set-position-absolute(top 8px left 6px);
+      z-index: $z-index-beta;
+      font-size: 130%;
+      opacity: 0.8;
+    }
+  }
+  .deselect-all {
+    margin: 0 0 $spacing-half-unit $spacing-base-unit;
+    cursor: pointer;
+  }
+}
+
+.filters-active-bar {
+  @include box-shadow(0 3px 6px -4px rgba($color-black, 0.15));
+  position: fixed;
+  @include set-layout('width-nav', 'margin-left');
+  @include set-layout('width-sidebar-first', 'left');
+  @include set-layout('height-header', 'top');
+  @include set-layout('width-playlist', 'right');
+  .shell-playlist-closed & {
+    @include set-layout('width-playlist-closed', 'right');
+  }
+  background: $color-white;
+  padding: $spacing-quater-unit * 3;
+  text-align: center;
+  z-index: $z-index-beta;
+  .remove {
+    @include set-position-absolute(right 0 top 0 bottom 0);
+    @include icon-button-square(content-clear, $spacing-double-unit);
+    font-size: 150%;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .filters-active-all {
+    display: block;
+    margin: 0 $spacing-double-unit;
+    @include text-crop($color-white);
+  }
+  display: none;
+}
+
+.layout-container.filters-active {
+  .filters-active-bar {
+    display: block;
+  }
+  .region-content {
+    padding-top: $spacing-half-unit * 7;
+  }
+  .filters-container {
+    .open-filters i {
+      display: block;
+    }
+  }
+}
+
+.is-loading {
+  opacity: 0.5;
 }
 
 // The filters slide action stuff.
@@ -74,6 +173,7 @@ $sidebar-width: 240px;
   @include set-position-absolute(top 0 left 0 right 0 bottom 0);
   @extend %sidebar--padding;
   @include transition(0.2s all ease-out);
+  overflow-y: auto;
   &.filters-current {
     @include transform(translate(0,0));
     .show-filters & {

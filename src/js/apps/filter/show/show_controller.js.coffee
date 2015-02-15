@@ -78,7 +78,8 @@
       ## Bind to new and open filter pane
       App.listenTo optionsView, "childview:filter:add", (parentview, childview) =>
         @stateChange('filters')
-
+      ## Add/remove filter bar
+      @getFilterBar()
 
     getFilterOptions: (key) ->
       ## Create the options list view and add to dom
@@ -92,13 +93,35 @@
         childview.view.$el.find('.option').toggleClass('active')
         App.request 'filter:store:key:toggle', key, value
         @triggerChange(false) ## dont clear options.
-
+      ## Deselect all
+      App.listenTo optionsView, 'filter:option:deselectall', (parentview) =>
+        parentview.view.$el.find('.option').removeClass('active')
+        App.request 'filter:store:key:update', key, []
+        @triggerChange(false) ## dont clear options.
 
     ## When something has changed. rerender the actives and notify other watchers.
     triggerChange: (clearOptions = true) ->
       @getFilters(clearOptions)
       @getActive()
       @layoutFilters.trigger 'filter:changed'
+
+
+    ## Deal with the filters bar showing all active filters
+    getFilterBar: ->
+      currentFilters = App.request 'filter:store:get'
+      list = _.flatten _.values(currentFilters)
+      $wrapper = $('.layout-container')
+      $list = $('.region-content-top', $wrapper)
+      if list.length > 0
+        bar = new Show.FilterBar({filters: list})
+        $list.html bar.render().$el
+        $wrapper.addClass('filters-active')
+        App.listenTo bar, 'filter:remove:all', =>
+          App.request 'filter:store:set', {}
+          @triggerChange()
+          @stateChange('normal')
+      else
+        $wrapper.removeClass('filters-active')
 
 
     ## state changes (slide the filter panes in and out)

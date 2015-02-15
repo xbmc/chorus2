@@ -5,10 +5,16 @@
     getMoviesView: (collection) ->
       view = new List.Movies
         collection: collection
-      App.listenTo view, 'childview:movie:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        playlist.play 'movieid', item.model.get('movieid')
+      API.bindTriggers view
       view
+
+    bindTriggers: (view) ->
+      App.listenTo view, 'childview:movie:play', (parent, viewItem) ->
+        App.execute 'movie:action', 'play', viewItem
+      App.listenTo view, 'childview:movie:add', (parent, viewItem) ->
+        App.execute 'movie:action', 'add', viewItem
+      App.listenTo view, 'childview:movie:stream', (parent, viewItem) ->
+        App.execute 'movie:action', 'stream', viewItem
 
 
   ## Main controller
@@ -22,6 +28,9 @@
         ## Set available filters
         collection.availableFilters = @getAvailableFilters()
         collection.sectionId = 11
+
+        ## If present set initial filter via url
+        App.request 'filter:init', @getAvailableFilters()
 
         @layout = @getLayoutView collection
 
@@ -39,7 +48,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre']
+      filter: ['year', 'genre', 'writer', 'director', 'cast']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->
@@ -55,7 +64,6 @@
       filteredCollection = App.request 'filter:apply:entites', collection
       view = API.getMoviesView filteredCollection
       @layout.regionContent.show view
-
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "movie:list:view", (collection) ->

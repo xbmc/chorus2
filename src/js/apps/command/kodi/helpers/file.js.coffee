@@ -1,0 +1,30 @@
+@Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
+
+
+  ## Input commander
+  class Api.Files extends Api.Commander
+
+    commandNameSpace: 'Files'
+
+    ## Prepare a file for download
+    prepareDownload: (file, callback) ->
+      @singleCommand @getCommand('PrepareDownload'), [file], (resp) =>
+        console.log resp
+        @doCallback callback, resp
+
+    ## Returns a download path for a file
+    downloadPath: (file, callback) ->
+      @prepareDownload file, (resp) =>
+        @doCallback callback, resp.details.path
+
+    ## Callback for a download button, will initiate a download
+    downloadFile: (file) ->
+      dl = window.open('about:blank', 'download')
+      @downloadPath file, (path) ->
+        dl.location = path
+
+    ## Callback for video stream popup
+    videoStream: (file, player = 'html5') ->
+      st = window.open('about:blank', "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=545, top=100, left=100");
+      @downloadPath file, (path) ->
+        st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path)

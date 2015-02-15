@@ -29,3 +29,7 @@
     background-color: rgba($color-white, 0.3);
   }
 }
+
+.table > tbody > tr > td {
+  border-top: none;
+}

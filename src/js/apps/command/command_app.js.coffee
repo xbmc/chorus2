@@ -9,10 +9,13 @@
     commander = new CommandApp.Kodi.Player('auto')
     commander.sendCommand method, params, callback
 
-  ## Get a controller for a specific player type and media
+  ## Kodi: Get a controller for a specific player type and media
   App.reqres.setHandler "command:kodi:controller", (media = 'auto', controller) ->
     new CommandApp.Kodi[controller](media)
 
+  ## Local: Get a controller for a specific player type and media
+  App.reqres.setHandler "command:local:controller", (media = 'auto', controller) ->
+    new CommandApp.Local[controller](media)
 
 
   ## Startup tasks.

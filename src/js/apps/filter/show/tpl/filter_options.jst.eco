@@ -1,0 +1,5 @@
+<div class="options-search-wrapper">
+    <input class="options-search" value="" />
+</div>
+<div class="deselect-all"><%= t.gettext('Deselect All') %></div>
+<ul class="selection-list"></ul>

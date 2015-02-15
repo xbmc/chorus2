@@ -12,3 +12,11 @@ img {
 ul, ol {
   @include reset-list();
 }
+
+a {
+  color: $color-kodi;
+}
+
+.hidden {
+  display: none;
+}

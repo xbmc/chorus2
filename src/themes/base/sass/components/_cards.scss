@@ -33,6 +33,12 @@
 
 .card-minimal {
   @include card(square-medium, rgba($color-white, 0));
+  width: 238px;
+  .artwork,
+  .artwork img {
+    width: 238px;
+    height: 238px;
+  }
   margin: 0;
   padding: 0;
   .meta {

@@ -19,6 +19,14 @@
       if not model.parsed
         if id isnt 'mixed'
           model.id = id
+        if model.rating
+          model.rating = helpers.global.rating model.rating
+        if model.streamdetails and _.isObject model.streamdetails
+          model.streamdetails = helpers.stream.streamFormat model.streamdetails
+        if model.resume
+          model.progress = if model.resume.position is 0 then 0 else Math.round((model.resume.position / model.resume.total) * 100)
+        if model.trailer
+          model.trailer = helpers.url.parseTrailerUrl model.trailer
         model = App.request "images:path:entity", model
         model.url = helpers.url.get type, id
         model.type = type

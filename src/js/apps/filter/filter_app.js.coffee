@@ -15,18 +15,11 @@
         key: 'title'
       }
       {
-        alias: 'Artist'
+        alias: 'Title'
         type: 'string'
         defaultSort: true
         defaultOrder: 'asc'
-        key: 'artist'
-      }
-      {
-        alias: 'Album'
-        type: 'string'
-        defaultSort: true
-        defaultOrder: 'asc'
-        key: 'album'
+        key: 'label'
       }
       {
         alias: 'Year'
@@ -85,6 +78,28 @@
         sortOrder: 'asc',
         filterCallback: 'unwatchedShows'
       }
+      {
+        alias: 'Writer'
+        type: 'array'
+        key: 'writer'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Director'
+        type: 'array'
+        key: 'director'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Actor'
+        type: 'object'
+        property: 'name'
+        key: 'cast'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
     ]
 
     ## Wrapper for returning the available fields for sort/filter
@@ -125,7 +140,11 @@
       store = helpers.cache.get(API.getStoreNameSpace(type), {})
       path = helpers.url.path()
       filters = if store[path] then store[path] else {}
-      filters
+      ret = {}
+      if not _.isEmpty filters
+        for key, val of filters when val.length > 0
+          ret[key] = val
+      ret
 
     ## Update a given key with new values
     updateStoreFiltersKey: (key, values = []) ->
@@ -197,8 +216,22 @@
     ## Extract the available options for a given filter from the attached collection.
     getFilterOptions: (key, collection) ->
       values = App.request 'filter:store:key:get', key
+      ## Filter settings for this key.
+      s = API.getFilterSettings(key)
       items = []
-      _.map _.uniq(_.flatten(collection.pluck(key))), (val) ->
+      ## Get the properties requested
+      collectionItems = collection.pluck(key)
+      ## Deal with more complex nested propeties (eg. cast)
+      if s.filterCallback is 'multiple' and s.type is 'object'
+        ## Limit to first 5 for each otherwise it kills the browser.
+        limited = []
+        for item in collectionItems
+          for i, data of item
+            if i < 5
+              limited.push data[s.property]
+        collectionItems = limited
+      ## Reduce the list to an array of unique items.
+      _.map _.uniq(_.flatten(collectionItems)), (val) ->
         items.push {key: key, value: val, active: helpers.global.inArray(val,values)}
       items
 
@@ -224,10 +257,12 @@
       switch s.filterCallback
         ## If multiple values allowed
         when 'multiple'
-          if s.type isnt 'array'
-            collection.filterByMultiple(key, vals) ## data is not array
-          else
+          if s.type is 'array'
             collection.filterByMultipleArray(key, vals) ## data is an array
+          else if s.type is 'object'
+            collection.filterByMultipleObject(key, s.property, vals) ## data is an array of objects
+          else
+            collection.filterByMultiple(key, vals) ## data is not array
         when 'unwatchedShows'
           collection.filterByUnwatchedShows()
         else
@@ -289,6 +324,20 @@
   App.reqres.setHandler 'filter:filterable:entities', ->
     App.request 'filter:filters:entities', API.parseFilterable(API.getFilterFields('filter'))
 
+  ## Set a filter using a url param eg ?director=name
+  App.reqres.setHandler 'filter:init', (availableFilters) ->
+    params = helpers.url.params()
+    if not _.isEmpty params
+      ## Clear existing filters first
+      API.setStoreFilters {}
+      for key in availableFilters.filter
+        ## is one of the params an available filter
+        if params[key]
+          values = API.getStoreFiltersKey key
+          ## If the filter doesn't exist, add and save.
+          if not helpers.global.inArray params[key], values
+            values.push decodeURIComponent(params[key])
+            API.updateStoreFiltersKey key, values
 
   ## Storage.
 

@@ -11,6 +11,7 @@
     template: "views/layouts/layout_with_header"
     regions:
       regionHeader:  ".region-header"
+      regionContentTop:  ".region-content-top"
       regionContent:  ".region-content"
 
 
@@ -23,4 +24,7 @@
       regionMetaSideFirst:  ".region-details-meta-side-first"
       regionMetaSideSecond:  ".region-details-meta-side-second"
       regionMetaBelow:  ".region-details-meta-below"
-
+      regionFanart:  ".region-details-fanart"
+    onRender: ->
+      console.log @model
+      $('.region-details-fanart', @$el).css('background-image', 'url("' + @model.get('fanart') + '")')

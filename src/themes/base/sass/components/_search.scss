@@ -36,6 +36,11 @@
       text-transform: capitalize;
       font-size: 22px;
     }
+    .more {
+      a {
+        @include flat-button($color-kodi, communication-call-made);
+      }
+    }
   }
   .search-set-song {
     .set-results {

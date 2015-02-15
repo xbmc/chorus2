@@ -132,6 +132,9 @@
         # Video Library scan end
         when 'VideoLibrary.OnScanFinished'
           App.execute "notification:show", t.gettext("Video library scan complete")
+          ## Clear video caches
+          Backbone.fetchCache.clearItem('MovieCollection');
+          Backbone.fetchCache.clearItem('TVShowCollection');
 
         # Audio Library scan
         when 'AudioLibrary.OnScanStarted'
@@ -140,6 +143,9 @@
         # Audio Library scan end
         when 'AudioLibrary.OnScanFinished'
           App.execute "notification:show", t.gettext("Audio library scan complete")
+          ## Clear audio caches
+          Backbone.fetchCache.clearItem('AlbumCollection');
+          Backbone.fetchCache.clearItem('ArtistCollection');
 
         # input box has opened
         when 'Input.OnInputRequested'

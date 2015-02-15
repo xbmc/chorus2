@@ -1,0 +1,34 @@
+
+<div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
+
+<div class="section-content">
+    <h2><%= t.gettext('Synopsis') %></h2>
+    <% if @trailer.source is 'youtube': %>
+        <div class="trailer <%= @trailer.source %>">
+            <img src="<%- @trailer.img %>" />
+        </div>
+    <% end %>
+    <p><%= @plot %></p>
+    <ul class="inline-links">
+        <li><%- helpers.url.imdbUrl @imdbnumber, 'View on imdb' %></li>
+    </ul>
+</div>
+
+<% if @cast.length > 0: %>
+    <div class="section-content">
+        <h2><%= t.gettext('Full Cast') %></h2>
+        <ul class="cast-full">
+            <% for cast in @cast: %>
+                <li><a href="#movies?cast=<%= cast.name %>" title="<%= cast.name %> (<%= cast.role %>)">
+                    <div class="thumb">
+                        <img src="<%= cast.thumbnail %>" />
+                    </div>
+                    <div class="meta">
+                        <strong><%= cast.name %></strong>
+                        <span title="<%= cast.role %>"><%= cast.role %></span>
+                    </div>
+                </a></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>

@@ -100,3 +100,8 @@ helpers.global.hash = (op, value) ->
     encodeURIComponent(value)
   else
     decodeURIComponent(value)
+
+
+## Round the rating
+helpers.global.rating = (rating) ->
+  Math.round(rating * 10) / 10

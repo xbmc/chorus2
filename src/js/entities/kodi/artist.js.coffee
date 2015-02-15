@@ -21,7 +21,7 @@
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
       ## try cache first.
       artists = helpers.cache.get "artist:entities"
@@ -74,7 +74,7 @@
     API.getArtists options
 
   ## Get a search collection
-  App.commands.setHandler "artist:search:entities", (query, callback) ->
+  App.commands.setHandler "artist:search:entities", (query, limit, callback) ->
     collection = API.getArtists {}
     App.execute "when:entity:fetched", collection, =>
       filtered = new App.Entities.Filtered(collection)

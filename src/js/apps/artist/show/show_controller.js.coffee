@@ -8,8 +8,6 @@
       artist = App.request "artist:entity", id
       ## Fetch the artist
       App.execute "when:entity:fetched", artist, =>
-        ## Set background image.
-        App.execute "images:fanart:set", artist.get('fanart')
         ## Get the layout.
         @layout = @getLayoutView artist
         ## Ensure background removed when we leave.

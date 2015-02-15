@@ -131,23 +131,23 @@ window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
     
       _print(this.label);
     
-      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+      _print(_safe(' <span class="sub">'));
     
       _print(this.formed);
     
-      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+      _print(_safe('</span></h2>\n</div>\n\n\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n        '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n    <div class="genres">\n        '));
+        _print(_safe('\n        <div class="genres">\n            '));
         _print(this.genre.join(', '));
-        _print(_safe('\n    </div>\n    '));
+        _print(_safe('\n        </div>\n        '));
       }
     
-      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+      _print(_safe('\n    </div>\n\n    <div class="description">'));
     
       _print(this.description);
     
-      _print(_safe('</div>\n</div>\n'));
+      _print(_safe('</div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -452,6 +452,98 @@ window.JST["apps/browser/list/tpl/source_set.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/filter/show/tpl/filter_options.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="options-search-wrapper">\n    <input class="options-search" value="" />\n</div>\n<div class="deselect-all">'));
+    
+      _print(t.gettext('Deselect All'));
+    
+      _print(_safe('</div>\n<ul class="selection-list"></ul>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/filter/show/tpl/filters_bar.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<span class="filters-active-all">'));
+    
+      _print(this.filters);
+    
+      _print(_safe('</span><i class="remove"></i>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -477,7 +569,7 @@ window.JST["apps/filter/show/tpl/filters_ui.jst"] = function(__obj) {
     
       _print(t.gettext('Filters'));
     
-      _print(_safe('</h3>\n        <div class="filters-active"></div>\n\n        <h3>'));
+      _print(_safe('<i></i></h3>\n        <div class="filters-active"></div>\n\n        <h3>'));
     
       _print(t.gettext('Sort'));
     
@@ -774,6 +866,112 @@ window.JST["apps/localPlaylist/list/tpl/playlist_sidebar_layout.jst"] = function
   })());
 };
 
+window.JST["apps/movie/show/tpl/content.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      var cast, _i, _len, _ref;
+    
+      _print(_safe('\n<div class="entity-progress"><div class="current-progress" style="width: '));
+    
+      _print(this.progress);
+    
+      _print(_safe('%" title="'));
+    
+      _print(this.progress);
+    
+      _print(_safe('% '));
+    
+      _print(t.gettext('complete'));
+    
+      _print(_safe('"></div></div>\n\n<div class="section-content">\n    <h2>'));
+    
+      _print(t.gettext('Synopsis'));
+    
+      _print(_safe('</h2>\n    '));
+    
+      if (this.trailer.source === 'youtube') {
+        _print(_safe('\n        <div class="trailer '));
+        _print(this.trailer.source);
+        _print(_safe('">\n            <img src="'));
+        _print(_safe(this.trailer.img));
+        _print(_safe('" />\n        </div>\n    '));
+      }
+    
+      _print(_safe('\n    <p>'));
+    
+      _print(this.plot);
+    
+      _print(_safe('</p>\n    <ul class="inline-links">\n        <li>'));
+    
+      _print(_safe(helpers.url.imdbUrl(this.imdbnumber, 'View on imdb')));
+    
+      _print(_safe('</li>\n    </ul>\n</div>\n\n'));
+    
+      if (this.cast.length > 0) {
+        _print(_safe('\n    <div class="section-content">\n        <h2>'));
+        _print(t.gettext('Full Cast'));
+        _print(_safe('</h2>\n        <ul class="cast-full">\n            '));
+        _ref = this.cast;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          cast = _ref[_i];
+          _print(_safe('\n                <li><a href="#movies?cast='));
+          _print(cast.name);
+          _print(_safe('" title="'));
+          _print(cast.name);
+          _print(_safe(' ('));
+          _print(cast.role);
+          _print(_safe(')">\n                    <div class="thumb">\n                        <img src="'));
+          _print(cast.thumbnail);
+          _print(_safe('" />\n                    </div>\n                    <div class="meta">\n                        <strong>'));
+          _print(cast.name);
+          _print(_safe('</strong>\n                        <span title="'));
+          _print(cast.role);
+          _print(_safe('">'));
+          _print(cast.role);
+          _print(_safe('</span>\n                    </div>\n                </a></li>\n            '));
+        }
+        _print(_safe('\n        </ul>\n    </div>\n'));
+      }
+    
+      _print(_safe('\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -795,27 +993,101 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="region-details-title">\n    <h2>'));
+      var sub, _i, _len, _ref;
+    
+      _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
     
       _print(this.label);
     
-      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+      _print(_safe('</span> <span class="sub">'));
     
-      _print(this.formed);
+      _print(this.year);
     
-      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+      _print(_safe('</span></h2>\n    </div>\n    <div class="region-details-rating">\n        '));
+    
+      _print(this.rating);
+    
+      _print(_safe(' <i></i>\n    </div>\n</div>\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n\n        <div class="runtime">\n            '));
+    
+      _print(helpers.global.formatTime(helpers.global.secToTime(this.runtime)));
+    
+      _print(_safe('\n        </div>\n\n        '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n    <div class="genres">\n        '));
-        _print(this.genre.join(', '));
-        _print(_safe('\n    </div>\n    '));
+        _print(_safe('\n        <div class="genres">\n            '));
+        _print(_safe(helpers.url.filterLinks('movies', 'genre', this.genre)));
+        _print(_safe('\n        </div>\n        '));
       }
     
-      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+      _print(_safe('\n    </div>\n\n    <div class="description">'));
     
-      _print(this.description);
+      _print(this.plotoutline);
     
-      _print(_safe('</div>\n</div>\n'));
+      _print(_safe('</div>\n\n    <ul class="people">\n        '));
+    
+      if (this.director.length > 0) {
+        _print(_safe('\n            <li><label>Director:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('movies', 'director', this.director)));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n        '));
+    
+      if (this.writer.length > 0) {
+        _print(_safe('\n            <li><label>Writer:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('movies', 'writer', this.writer)));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n        '));
+    
+      if (this.cast.length > 0) {
+        _print(_safe('\n            <li><label>Cast:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('movies', 'cast', _.pluck(this.cast, 'name'))));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n    </ul>\n\n    <ul class="streams">\n        <li><label>Video:</label> <span>'));
+    
+      _print(_.pluck(this.streamdetails.video, 'label').join(', '));
+    
+      _print(_safe('</span></li>\n        <li><label>Audio:</label> <span>'));
+    
+      _print(_.pluck(this.streamdetails.audio, 'label').join(', '));
+    
+      _print(_safe('</span></li>\n        '));
+    
+      if (this.streamdetails.subtitle.length > 0 && this.streamdetails.subtitle[0].label !== '') {
+        _print(_safe('\n            <li><label>Subtitle:</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
+        _print(_.first(_.pluck(this.streamdetails.subtitle, 'label')));
+        _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
+        _ref = this.streamdetails.subtitle;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          sub = _ref[_i];
+          _print(_safe('\n                        <li>'));
+          _print(sub.label);
+          _print(_safe('</li>\n                    '));
+        }
+        _print(_safe('\n                </ul>\n                </span>\n            </li>\n        '));
+      }
+    
+      _print(_safe('\n    </ul>\n\n    <ul class="inline-links">\n        <li class="btn-flat-play play">'));
+    
+      _print(t.gettext('Play'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-add add">'));
+    
+      _print(t.gettext('Queue'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-stream stream">'));
+    
+      _print(t.gettext('Stream'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-download download">'));
+    
+      _print(t.gettext('Download'));
+    
+      _print(_safe('</li>\n    </ul>\n</div>\n'));
     
     }).call(this);
     
@@ -1237,7 +1509,7 @@ window.JST["apps/search/list/tpl/search_set.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<h2 class="set-header"></h2>\n<div class="set-results"></div>'));
+      _print(_safe('<h2 class="set-header"></h2>\n<div class="set-results"></div>\n<div class="more"></div>'));
     
     }).call(this);
     
@@ -1421,27 +1693,39 @@ window.JST["apps/tvshow/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="region-details-title">\n    <h2>'));
+      _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
     
       _print(this.label);
     
-      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="formed">'));
+      _print(_safe('</span> <span class="sub">'));
     
-      _print(this.formed);
+      _print(this.year);
     
-      _print(_safe('</div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+      _print(_safe('</span></h2>\n    </div>\n    <div class="region-details-rating">\n        '));
+    
+      _print(this.rating);
+    
+      _print(_safe(' <i></i>\n    </div>\n</div>\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n        '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n    <div class="genres">\n        '));
-        _print(this.genre.join(', '));
-        _print(_safe('\n    </div>\n    '));
+        _print(_safe('\n        <div class="genres">\n            '));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'genre', this.genre)));
+        _print(_safe('\n        </div>\n        '));
       }
     
-      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+      _print(_safe('\n    </div>\n\n    <ul class="people">\n        '));
     
-      _print(this.description);
+      if (this.cast.length > 0) {
+        _print(_safe('\n        <li><label>Cast:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'cast', _.pluck(this.cast, 'name'))));
+        _print(_safe('</span></li>\n        '));
+      }
     
-      _print(_safe('</div>\n</div>\n'));
+      _print(_safe('\n    </ul>\n\n    <div class="description">'));
+    
+      _print(this.plot);
+    
+      _print(_safe('</div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -1785,7 +2069,7 @@ window.JST["views/layouts/tpl/layout_details_header.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="layout-container details-header">\n\n    <div class="region-details-side"></div>\n\n    <div class="region-details-meta">\n\n        <div class="region-details-title"></div>\n\n        <div class="region-details-meta-side-first"></div>\n\n        <div class="region-details-meta-side-second"></div>\n\n        <div class="region-details-meta-below"></div>\n\n    </div>\n\n</div>'));
+      _print(_safe('<div class="layout-container details-header">\n\n    <div class="region-details-side"></div>\n\n    <div class="region-details-meta-wrapper"><div class="region-details-meta">\n\n        <div class="region-details-title"><span class="title"></span> <span class="sub"></span></div>\n\n        <div class="region-details-meta-below">\n            <div class="region-details-subtext"></div>\n            <div class="description"></div>\n        </div>\n\n    </div></div>\n\n    <div class="region-details-fanart"></div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -1869,7 +2153,7 @@ window.JST["views/layouts/tpl/layout_with_sidebar_first.jst"] = function(__obj) 
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="layout-container with-sidebar-first">\n\n    <section class="region-first"></section>\n\n    <section class="region-content"></section>\n\n</div>'));
+      _print(_safe('<div class="layout-container with-sidebar-first">\n\n    <section class="region-first"></section>\n\n    <section class="region-content-wrapper">\n        <div class="region-content-top"></div>\n        <div class="region-content"></div>\n    </section>\n\n</div>'));
     
     }).call(this);
     

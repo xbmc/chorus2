@@ -21,7 +21,7 @@
 
     ## Fetch an album collection.
     getAlbums: (options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
       albums = new KodiEntities.AlbumCollection()
       albums.fetch options
@@ -67,7 +67,7 @@
     API.getAlbums options
 
   ## Get a search collection
-  App.commands.setHandler "album:search:entities", (query, callback) ->
+  App.commands.setHandler "album:search:entities", (query, limit, callback) ->
     collection = API.getAlbums {}
     App.execute "when:entity:fetched", collection, =>
       filtered = new App.Entities.Filtered(collection)

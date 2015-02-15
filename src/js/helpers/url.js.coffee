@@ -28,6 +28,15 @@ helpers.url.get = (type, id = '', replacements = {}) ->
     path = path.replace(token, id)
   path
 
+## From an array of people, make a set of links to their filter page.
+helpers.url.filterLinks = (entities, key, people, limit = 5) ->
+  baseUrl = '#' + entities + '?' + key + '='
+  links = []
+  for i, person of people
+    if i < limit
+      links.push '<a href="' + baseUrl + encodeURIComponent(person) + '">' + person + '</a>'
+  links.join(', ')
+
 
 ## For a mixed style entity (playlist, now playing), tweak the url
 helpers.url.playlistUrl = (item) ->
@@ -88,3 +97,22 @@ helpers.url.path = ->
   p = document.location.hash
   [path, query] = p.split('?')
   path.substring(1)
+
+
+## Create a Imdb Link, abstraction as imdbid might also be used for tmdb id?
+helpers.url.imdbUrl = (imdbNumber, text) ->
+  url = "http://www.imdb.com/title/#{imdbNumber}/"
+  "<a href='#{url}' class='imdblink' target='_blank'>#{t.gettext(text)}</a>"
+
+
+## Parse trailer url
+helpers.url.parseTrailerUrl = (trailer) ->
+  ret = {source: '', id: '', img: '', url: ''}
+  urlParts = helpers.url.params trailer
+  if trailer.indexOf('youtube') > -1
+    ret.source = 'youtube'
+    ret.id = urlParts.videoid
+    ret.img = "http://img.youtube.com/vi/#{ret.id}/0.jpg"
+    ret.url = "https://www.youtube.com/watch?v=#{ret.id}"
+  ret
+

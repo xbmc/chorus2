@@ -1,7 +1,7 @@
 @Kodi.module "TVShowApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "tvshow-list"
+    className: "tvshow-list with-filters"
 
   class List.TVShowTeaser extends App.Views.CardView
     triggers:

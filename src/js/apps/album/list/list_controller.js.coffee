@@ -9,6 +9,8 @@
         App.execute 'album:action', 'add', item
       App.listenTo view, 'childview:album:localadd', (list, item) ->
         App.execute 'album:action', 'localadd', item
+      App.listenTo view, 'childview:album:localplay', (list, item) ->
+        App.execute 'album:action', 'localplay', item
 
     getAlbumsList: (collection) ->
       view = new List.Albums
@@ -40,7 +42,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['album', 'year', 'rating']
+      sort: ['label', 'year', 'rating']
       filter: ['year', 'genre']
 
     ## Apply filter view and provide a handler for applying changes

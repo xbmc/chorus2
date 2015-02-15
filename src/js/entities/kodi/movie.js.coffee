@@ -8,8 +8,8 @@
 
     fields:
       minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre']
-      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'cast', 'imdbnumber', 'runtime', 'streamdetails']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast']
+      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer']
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -20,7 +20,7 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
       collection = new KodiEntities.MovieCollection()
       collection.fetch options
@@ -70,7 +70,7 @@
     API.getCollection options
 
   ## Get a search collection
-  App.commands.setHandler "movie:search:entities", (query, callback) ->
+  App.commands.setHandler "movie:search:entities", (query, limit, callback) ->
     collection = API.getCollection {}
     App.execute "when:entity:fetched", collection, =>
       filtered = new App.Entities.Filtered(collection)

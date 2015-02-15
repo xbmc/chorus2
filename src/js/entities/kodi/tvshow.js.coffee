@@ -8,8 +8,8 @@
 
     fields:
       minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes']
-      full: ['fanart', 'studio', 'mpaa', 'cast', 'imdbnumber', 'episodeguide', 'watchedepisodes']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes', 'cast']
+      full: ['fanart', 'studio', 'mpaa', 'imdbnumber', 'episodeguide', 'plot']
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -20,7 +20,7 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
       collection = new KodiEntities.TVShowCollection()
       collection.fetch options
@@ -71,7 +71,7 @@
     API.getCollection options
 
   ## Get a search collection
-  App.commands.setHandler "tvshow:search:entities", (query, callback) ->
+  App.commands.setHandler "tvshow:search:entities", (query, limit, callback) ->
     collection = API.getCollection {}
     App.execute "when:entity:fetched", collection, =>
       filtered = new App.Entities.Filtered(collection)

@@ -1,7 +1,7 @@
 @Kodi.module "MovieApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "movie-list"
+    className: "movie-list with-filters"
 
   class List.MovieTeaser extends App.Views.CardView
     triggers:

@@ -21,6 +21,9 @@
       collection.availableFilters = @getAvailableFilters()
       collection.sectionId = 21
 
+      ## If present set initial filter via url
+      App.request 'filter:init', @getAvailableFilters()
+
       ## When fetched.
       App.execute "when:entity:fetched", collection, =>
 
@@ -42,7 +45,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'unwatchedShows']
+      filter: ['year', 'genre', 'unwatchedShows', 'cast']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

@@ -8,8 +8,6 @@
       tvshow = App.request "tvshow:entity", id
       ## Fetch the tvshow
       App.execute "when:entity:fetched", tvshow, =>
-        ## Set background image.
-        App.execute "images:fanart:set", tvshow.get('fanart')
         ## Get the layout.
         @layout = @getLayoutView tvshow
         ## Ensure background removed when we leave.

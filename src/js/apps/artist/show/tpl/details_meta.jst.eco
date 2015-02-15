@@ -1,19 +1,18 @@
 <div class="region-details-title">
-    <h2><%= @label %></h2>
+    <h2><%= @label %> <span class="sub"><%= @formed %></span></h2>
 </div>
 
-<div class="region-details-meta-side-first">
-    <div class="formed"><%= @formed %></div>
-</div>
-
-<div class="region-details-meta-side-second">
-    <% if @genre.length > 0: %>
-    <div class="genres">
-        <%= @genre.join(', ') %>
-    </div>
-    <% end %>
-</div>
 
 <div class="region-details-meta-below">
+
+    <div class="region-details-subtext">
+        <% if @genre.length > 0: %>
+        <div class="genres">
+            <%= @genre.join(', ') %>
+        </div>
+        <% end %>
+    </div>
+
     <div class="description"><%= @description %></div>
+
 </div>

@@ -48,8 +48,8 @@
     ## as we are doning multiple commands. Specific sets are stored in cache.
     getSongsByIds: (songIds = [], max = -1, callback) ->
       commander = App.request "command:kodi:controller", 'auto', 'Commander'
+      songIds = @getLimitIds songIds, max
       cacheKey = 'songs-' + songIds.join('-')
-      max = if max is -1 then @songsByIdMax else max
       items = []
       cache = helpers.cache.get cacheKey, false
       if cache
@@ -61,9 +61,8 @@
         ## No cache
         model = new KodiEntities.Song()
         commands = []
-        for i, id of songIds
-          if i < max
-            commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
+        for id in songIds
+          commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
         if commands.length > 0
           commander.multipleCommands commands, (resp) =>
             for item in resp
@@ -73,6 +72,15 @@
             if callback
               callback collection
       collection
+
+    ## reduce a set of song ids to max allowed
+    getLimitIds: (ids, max) ->
+      max = if max is -1 then @songsByIdMax else max
+      ret = []
+      for i, id of ids
+        if i < max
+          ret.push id
+      ret
 
 
   ## Single song model.
@@ -127,14 +135,18 @@
     API.parseSongsToAlbumSongs songs
 
   ## Get the songs matching a search query.
-  App.commands.setHandler "song:search:entities", (query, callback) ->
+  App.commands.setHandler "song:search:entities", (query, limit, callback) ->
+    allLimit = 20
     options = helpers.global.paramObj 'indexOnly', true
     collection = API.getFilteredSongs options
     App.execute "when:entity:fetched", collection, =>
       filtered = new App.Entities.Filtered(collection)
       filtered.filterByString('label', query)
       ids = filtered.pluck 'songid'
-      API.getSongsByIds ids, 20, (loaded) ->
+      count = if limit is 'limit' then allLimit else -1
+      API.getSongsByIds ids, count, (loaded) ->
+        if ids.length > allLimit and limit is 'limit'
+          loaded.more = true
         if callback
           callback loaded
     collection

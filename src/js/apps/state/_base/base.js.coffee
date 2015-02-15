@@ -17,7 +17,6 @@
       paused: false
       playState: '' # playing or paused
       item: {}
-      position: {}
       media: 'audio'
       itemChanged: false # if the item has changed since last check
       latPlaying: '' # What was playing last time we checked
@@ -97,6 +96,6 @@
     getPlayer: ->
       player = 'kodi'
       $body = App.getRegion('root').$el
-      if $body.hasClass('active-player-lcal')
+      if $body.hasClass('active-player-local')
         player = 'local'
       player

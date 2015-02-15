@@ -61,4 +61,7 @@
       model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail')
     if model.fanart?
       model.fanart = API.getImageUrl(model.fanart, 'fanart')
+    if model.cast? and model.cast.length > 0
+      for i, person of model.cast
+        model.cast[i].thumbnail = API.getImageUrl(person.thumbnail, 'thumbnail')
     model

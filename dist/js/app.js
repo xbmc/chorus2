@@ -17,7 +17,8 @@ this.config = {
     ignoreArticle: true,
     pollInterval: 10000,
     albumAtristsOnly: true,
-    searchIndexCacheExpiry: 24 * 60 * 60
+    searchIndexCacheExpiry: 24 * 60 * 60,
+    collectionCacheExpiry: 7 * 24 * 60 * 60
   }
 };
 
@@ -592,6 +593,10 @@ helpers.global.hash = function(op, value) {
   }
 };
 
+helpers.global.rating = function(rating) {
+  return Math.round(rating * 10) / 10;
+};
+
 
 /*
   A collection of small jquery plugin helpers.
@@ -609,6 +614,160 @@ $.fn.removeClassStartsWith = function(startsWith) {
   var regex;
   regex = new RegExp('^' + startsWith, 'g');
   return $(this).removeClassRegex(regex);
+};
+
+
+/*
+  Stream helpers
+ */
+
+helpers.stream = {};
+
+
+/*
+  Maps.
+ */
+
+helpers.stream.videoSizeMap = [
+  {
+    min: 0,
+    max: 360,
+    label: 'SD'
+  }, {
+    min: 361,
+    max: 480,
+    label: '480'
+  }, {
+    min: 481,
+    max: 720,
+    label: '720p'
+  }, {
+    min: 721,
+    max: 1080,
+    label: '1080p'
+  }, {
+    min: 1081,
+    max: 100000,
+    label: '4K'
+  }
+];
+
+helpers.stream.audioChannelMap = [
+  {
+    channels: 6,
+    label: '5.1'
+  }, {
+    channels: 8,
+    label: '7.1'
+  }, {
+    channels: 2,
+    label: '2.1'
+  }, {
+    channels: 1,
+    label: 'mono'
+  }
+];
+
+helpers.stream.langMap = {
+  'eng': 'English',
+  'und': 'Unknown',
+  'bul': 'Bulgaria',
+  'ara': 'Arabic',
+  'zho': 'Chinese',
+  'ces': 'Czech',
+  'dan': 'Danish',
+  'nld': 'Netherland',
+  'fin': 'Finish',
+  'fra': 'French',
+  'deu': 'German',
+  'nor': 'Norwegian',
+  'pol': 'Polish',
+  'por': 'Portuguese',
+  'ron': 'Romanian',
+  'spa': 'Spanish',
+  'swe': 'Swedish',
+  'tur': 'Turkish',
+  'vie': 'Vietnamese'
+};
+
+
+/*
+  Formatters.
+ */
+
+helpers.stream.videoFormat = function(videoStreams) {
+  var i, match, stream;
+  for (i in videoStreams) {
+    stream = videoStreams[i];
+    match = {
+      label: 'SD'
+    };
+    if (stream.height && stream.height > 0) {
+      match = _.find(helpers.stream.videoSizeMap, function(res) {
+        var _ref;
+        if ((res.min < (_ref = stream.height) && _ref <= res.max)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+    videoStreams[i].label = stream.codec + ' ' + match.label + ' (' + stream.width + ' x ' + stream.height + ')';
+    videoStreams[i].shortlabel = stream.codec + ' ' + match.label;
+    videoStreams[i].res = match.label;
+  }
+  return videoStreams;
+};
+
+helpers.stream.formatLanguage = function(lang) {
+  if (helpers.stream.langMap[lang]) {
+    return helpers.stream.langMap[lang];
+  } else {
+    return lang;
+  }
+};
+
+helpers.stream.audioFormat = function(audioStreams) {
+  var ch, i, lang, stream;
+  for (i in audioStreams) {
+    stream = audioStreams[i];
+    ch = _.findWhere(helpers.stream.audioChannelMap, {
+      channels: stream.channels
+    });
+    ch = ch ? ch.label : stream.channels;
+    lang = '';
+    if (stream.language !== '') {
+      lang = ' (' + helpers.stream.formatLanguage(stream.language) + ')';
+    }
+    audioStreams[i].label = stream.codec + ' ' + ch + lang;
+    audioStreams[i].shortlabel = stream.codec + ' ' + ch;
+    audioStreams[i].ch = ch;
+  }
+  return audioStreams;
+};
+
+helpers.stream.subtitleFormat = function(subtitleStreams) {
+  var i, stream;
+  for (i in subtitleStreams) {
+    stream = subtitleStreams[i];
+    subtitleStreams[i].label = helpers.stream.formatLanguage(stream.language);
+    subtitleStreams[i].shortlabel = helpers.stream.formatLanguage(stream.language);
+  }
+  return subtitleStreams;
+};
+
+helpers.stream.streamFormat = function(streams) {
+  var streamTypes, type, _i, _len;
+  streamTypes = ['audio', 'video', 'subtitle'];
+  for (_i = 0, _len = streamTypes.length; _i < _len; _i++) {
+    type = streamTypes[_i];
+    if (streams[type] && streams[type].length > 0) {
+      streams[type] = helpers.stream[type + 'Format'](streams[type]);
+    } else {
+      streams[type] = [];
+    }
+  }
+  return streams;
 };
 
 
@@ -668,6 +827,22 @@ helpers.url.get = function(type, id, replacements) {
     path = path.replace(token, id);
   }
   return path;
+};
+
+helpers.url.filterLinks = function(entities, key, people, limit) {
+  var baseUrl, i, links, person;
+  if (limit == null) {
+    limit = 5;
+  }
+  baseUrl = '#' + entities + '?' + key + '=';
+  links = [];
+  for (i in people) {
+    person = people[i];
+    if (i < limit) {
+      links.push('<a href="' + baseUrl + encodeURIComponent(person) + '">' + person + '</a>');
+    }
+  }
+  return links.join(', ');
 };
 
 helpers.url.playlistUrl = function(item) {
@@ -754,6 +929,30 @@ helpers.url.path = function() {
   p = document.location.hash;
   _ref = p.split('?'), path = _ref[0], query = _ref[1];
   return path.substring(1);
+};
+
+helpers.url.imdbUrl = function(imdbNumber, text) {
+  var url;
+  url = "http://www.imdb.com/title/" + imdbNumber + "/";
+  return "<a href='" + url + "' class='imdblink' target='_blank'>" + (t.gettext(text)) + "</a>";
+};
+
+helpers.url.parseTrailerUrl = function(trailer) {
+  var ret, urlParts;
+  ret = {
+    source: '',
+    id: '',
+    img: '',
+    url: ''
+  };
+  urlParts = helpers.url.params(trailer);
+  if (trailer.indexOf('youtube') > -1) {
+    ret.source = 'youtube';
+    ret.id = urlParts.videoid;
+    ret.img = "http://img.youtube.com/vi/" + ret.id + "/0.jpg";
+    ret.url = "https://www.youtube.com/watch?v=" + ret.id;
+  }
+  return ret;
 };
 
 Cocktail.patch(Backbone);
@@ -986,6 +1185,24 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         _ref = model.get(key);
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           v = _ref[_i];
+          if (helpers.global.inArray(v, values)) {
+            match = true;
+          }
+        }
+        return match;
+      });
+    };
+
+    Filtered.prototype.filterByMultipleObject = function(key, property, values) {
+      if (values == null) {
+        values = [];
+      }
+      return this.filterBy(key, function(model) {
+        var items, match, v, _i, _len;
+        match = false;
+        items = _.pluck(model.get(key), property);
+        for (_i = 0, _len = items.length; _i < _len; _i++) {
+          v = items[_i];
           if (helpers.global.inArray(v, values)) {
             match = true;
           }
@@ -1567,6 +1784,18 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         if (id !== 'mixed') {
           model.id = id;
         }
+        if (model.rating) {
+          model.rating = helpers.global.rating(model.rating);
+        }
+        if (model.streamdetails && _.isObject(model.streamdetails)) {
+          model.streamdetails = helpers.stream.streamFormat(model.streamdetails);
+        }
+        if (model.resume) {
+          model.progress = model.resume.position === 0 ? 0 : Math.round((model.resume.position / model.resume.total) * 100);
+        }
+        if (model.trailer) {
+          model.trailer = helpers.url.parseTrailerUrl(model.trailer);
+        }
         model = App.request("images:path:entity", model);
         model.url = helpers.url.get(type, id);
         model.type = type;
@@ -1622,7 +1851,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getAlbums: function(options) {
       var albums, defaultOptions;
       defaultOptions = {
-        cache: true
+        cache: true,
+        expires: config.get('static', 'collectionCacheExpiry')
       };
       options = _.extend(defaultOptions, options);
       albums = new KodiEntities.AlbumCollection();
@@ -1712,7 +1942,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getAlbums(options);
   });
-  return App.commands.setHandler("album:search:entities", function(query, callback) {
+  return App.commands.setHandler("album:search:entities", function(query, limit, callback) {
     var collection;
     collection = API.getAlbums({});
     return App.execute("when:entity:fetched", collection, (function(_this) {
@@ -1758,7 +1988,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getArtists: function(options) {
       var artists, defaultOptions;
       defaultOptions = {
-        cache: true
+        cache: true,
+        expires: config.get('static', 'collectionCacheExpiry')
       };
       options = _.extend(defaultOptions, options);
       artists = helpers.cache.get("artist:entities");
@@ -1852,7 +2083,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getArtists(options);
   });
-  return App.commands.setHandler("artist:search:entities", function(query, callback) {
+  return App.commands.setHandler("artist:search:entities", function(query, limit, callback) {
     var collection;
     collection = API.getArtists({});
     return App.execute("when:entity:fetched", collection, (function(_this) {
@@ -2298,8 +2529,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   API = {
     fields: {
       minimal: ['title'],
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre'],
-      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'cast', 'imdbnumber', 'runtime', 'streamdetails']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast'],
+      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer']
     },
     getEntity: function(id, options) {
       var entity;
@@ -2314,7 +2545,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getCollection: function(options) {
       var collection, defaultOptions;
       defaultOptions = {
-        cache: true
+        cache: true,
+        expires: config.get('static', 'collectionCacheExpiry')
       };
       options = _.extend(defaultOptions, options);
       collection = new KodiEntities.MovieCollection();
@@ -2424,7 +2656,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getCollection(options);
   });
-  return App.commands.setHandler("movie:search:entities", function(query, callback) {
+  return App.commands.setHandler("movie:search:entities", function(query, limit, callback) {
     var collection;
     collection = API.getCollection({});
     return App.execute("when:entity:fetched", collection, (function(_this) {
@@ -2645,7 +2877,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       return collections;
     },
     getSongsByIds: function(songIds, max, callback) {
-      var cache, cacheKey, collection, commander, commands, i, id, items, model;
+      var cache, cacheKey, collection, commander, commands, id, items, model, _i, _len;
       if (songIds == null) {
         songIds = [];
       }
@@ -2653,8 +2885,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         max = -1;
       }
       commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      songIds = this.getLimitIds(songIds, max);
       cacheKey = 'songs-' + songIds.join('-');
-      max = max === -1 ? this.songsByIdMax : max;
       items = [];
       cache = helpers.cache.get(cacheKey, false);
       if (cache) {
@@ -2665,21 +2897,19 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       } else {
         model = new KodiEntities.Song();
         commands = [];
-        for (i in songIds) {
-          id = songIds[i];
-          if (i < max) {
-            commands.push({
-              method: 'AudioLibrary.GetSongDetails',
-              params: [id, helpers.entities.getFields(API.fields, 'small')]
-            });
-          }
+        for (_i = 0, _len = songIds.length; _i < _len; _i++) {
+          id = songIds[_i];
+          commands.push({
+            method: 'AudioLibrary.GetSongDetails',
+            params: [id, helpers.entities.getFields(API.fields, 'small')]
+          });
         }
         if (commands.length > 0) {
           commander.multipleCommands(commands, (function(_this) {
             return function(resp) {
-              var item, _i, _len;
-              for (_i = 0, _len = resp.length; _i < _len; _i++) {
-                item = resp[_i];
+              var item, _j, _len1;
+              for (_j = 0, _len1 = resp.length; _j < _len1; _j++) {
+                item = resp[_j];
                 items.push(model.parseModel('song', item.songdetails, item.songdetails.songid));
               }
               helpers.cache.set(cacheKey, items);
@@ -2692,6 +2922,18 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         }
       }
       return collection;
+    },
+    getLimitIds: function(ids, max) {
+      var i, id, ret;
+      max = max === -1 ? this.songsByIdMax : max;
+      ret = [];
+      for (i in ids) {
+        id = ids[i];
+        if (i < max) {
+          ret.push(id);
+        }
+      }
+      return ret;
     }
   };
   KodiEntities.Song = (function(_super) {
@@ -2809,17 +3051,22 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   App.reqres.setHandler("song:albumparse:entities", function(songs) {
     return API.parseSongsToAlbumSongs(songs);
   });
-  return App.commands.setHandler("song:search:entities", function(query, callback) {
-    var collection, options;
+  return App.commands.setHandler("song:search:entities", function(query, limit, callback) {
+    var allLimit, collection, options;
+    allLimit = 20;
     options = helpers.global.paramObj('indexOnly', true);
     collection = API.getFilteredSongs(options);
     App.execute("when:entity:fetched", collection, (function(_this) {
       return function() {
-        var filtered, ids;
+        var count, filtered, ids;
         filtered = new App.Entities.Filtered(collection);
         filtered.filterByString('label', query);
         ids = filtered.pluck('songid');
-        return API.getSongsByIds(ids, 20, function(loaded) {
+        count = limit === 'limit' ? allLimit : -1;
+        return API.getSongsByIds(ids, count, function(loaded) {
+          if (ids.length > allLimit && limit === 'limit') {
+            loaded.more = true;
+          }
           if (callback) {
             return callback(loaded);
           }
@@ -2839,8 +3086,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   API = {
     fields: {
       minimal: ['title'],
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes'],
-      full: ['fanart', 'studio', 'mpaa', 'cast', 'imdbnumber', 'episodeguide', 'watchedepisodes']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes', 'cast'],
+      full: ['fanart', 'studio', 'mpaa', 'imdbnumber', 'episodeguide', 'plot']
     },
     getEntity: function(id, options) {
       var entity;
@@ -2855,7 +3102,8 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getCollection: function(options) {
       var collection, defaultOptions;
       defaultOptions = {
-        cache: true
+        cache: true,
+        expires: config.get('static', 'collectionCacheExpiry')
       };
       options = _.extend(defaultOptions, options);
       collection = new KodiEntities.TVShowCollection();
@@ -2966,7 +3214,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getCollection(options);
   });
-  return App.commands.setHandler("tvshow:search:entities", function(query, callback) {
+  return App.commands.setHandler("tvshow:search:entities", function(query, limit, callback) {
     var collection;
     collection = API.getCollection({});
     return App.execute("when:entity:fetched", collection, (function(_this) {
@@ -2994,11 +3242,18 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     playlistKey: 'localplaylist:list',
     playlistItemNamespace: 'localplaylist:item:',
     thumbsUpNamespace: 'thumbs:',
+    localPlayerNamespace: 'localplayer:',
     getPlaylistKey: function(key) {
       return this.playlistItemNamespace + key;
     },
     getThumbsKey: function(media) {
       return this.thumbsUpNamespace + media;
+    },
+    getlocalPlayerKey: function(media) {
+      if (media == null) {
+        media = 'audio';
+      }
+      return this.localPlayerNamespace + media;
     },
     getListCollection: function(type) {
       var collection;
@@ -3043,7 +3298,11 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     },
     addItemsToPlaylist: function(playlistId, collection) {
       var item, items, position;
-      items = collection.getRawCollection();
+      if (_.isArray(collection)) {
+        items = collection;
+      } else {
+        items = collection.getRawCollection();
+      }
       collection = this.getItemCollection(playlistId);
       for (position in items) {
         item = items[position];
@@ -3061,7 +3320,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
           newItem[fieldName] = item[fieldName];
         }
       }
-      newItem.position = position;
+      newItem.position = parseInt(position);
       idfield = item.type + 'id';
       newItem[idfield] = item[idfield];
       return newItem;
@@ -3207,13 +3466,35 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
   App.reqres.setHandler("thumbsup:get:entities", function(media) {
     return API.getItemCollection(API.getThumbsKey(media));
   });
-  return App.reqres.setHandler("thumbsup:check", function(model) {
+  App.reqres.setHandler("thumbsup:check", function(model) {
     var collection, existing;
     collection = API.getItemCollection(API.getThumbsKey(model.get('type')));
     existing = collection.findWhere({
       id: model.get('id')
     });
     return _.isObject(existing);
+  });
+
+  /*
+    Local player lists
+   */
+  App.reqres.setHandler("localplayer:get:entities", function(media) {
+    if (media == null) {
+      media = 'audio';
+    }
+    return API.getItemCollection(API.getlocalPlayerKey(media));
+  });
+  App.commands.setHandler("localplayer:clear:entities", function(media) {
+    if (media == null) {
+      media = 'audio';
+    }
+    return API.clearPlaylist(API.getlocalPlayerKey(media));
+  });
+  return App.reqres.setHandler("localplayer:item:add:entities", function(collection, media) {
+    if (media == null) {
+      media = 'audio';
+    }
+    return API.addItemsToPlaylist(API.getlocalPlayerKey(media), collection);
   });
 });
 
@@ -3731,6 +4012,7 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     LayoutWithHeaderView.prototype.regions = {
       regionHeader: ".region-header",
+      regionContentTop: ".region-content-top",
       regionContent: ".region-content"
     };
 
@@ -3752,7 +4034,13 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       regionMeta: ".region-details-meta",
       regionMetaSideFirst: ".region-details-meta-side-first",
       regionMetaSideSecond: ".region-details-meta-side-second",
-      regionMetaBelow: ".region-details-meta-below"
+      regionMetaBelow: ".region-details-meta-below",
+      regionFanart: ".region-details-fanart"
+    };
+
+    LayoutDetailsHeaderView.prototype.onRender = function() {
+      console.log(this.model);
+      return $('.region-details-fanart', this.$el).css('background-image', 'url("' + this.model.get('fanart') + '")');
     };
 
     return LayoutDetailsHeaderView;
@@ -4094,7 +4382,7 @@ this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _)
       });
     },
     action: function(op, view) {
-      var model, playlist;
+      var localPlaylist, model, playlist, songs;
       model = view.model;
       playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
       switch (op) {
@@ -4104,6 +4392,18 @@ this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _)
           return playlist.add('albumid', model.get('albumid'));
         case 'localadd':
           return App.execute("playlistlocal:additems", 'albumid', model.get('albumid'));
+        case 'localplay':
+          localPlaylist = App.request("command:local:controller", 'audio', 'PlayList');
+          songs = App.request("song:filtered:entities", {
+            filter: {
+              albumid: model.get('albumid')
+            }
+          });
+          return App.execute("when:entity:fetched", songs, (function(_this) {
+            return function() {
+              return localPlaylist.play(songs.getRawCollection());
+            };
+          })(this));
       }
     }
   };
@@ -4127,8 +4427,11 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
       App.listenTo(view, 'childview:album:add', function(list, item) {
         return App.execute('album:action', 'add', item);
       });
-      return App.listenTo(view, 'childview:album:localadd', function(list, item) {
+      App.listenTo(view, 'childview:album:localadd', function(list, item) {
         return App.execute('album:action', 'localadd', item);
+      });
+      return App.listenTo(view, 'childview:album:localplay', function(list, item) {
+        return App.execute('album:action', 'localplay', item);
       });
     },
     getAlbumsList: function(collection) {
@@ -4172,7 +4475,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
 
     Controller.prototype.getAvailableFilters = function() {
       return {
-        sort: ['album', 'year', 'rating'],
+        sort: ['label', 'year', 'rating'],
         filter: ['year', 'genre']
       };
     };
@@ -4212,7 +4515,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
       return ListLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ListLayout.prototype.className = "album-list";
+    ListLayout.prototype.className = "album-list with-filters";
 
     return ListLayout;
 
@@ -4227,7 +4530,8 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     AlbumTeaser.prototype.triggers = {
       "click .play": "album:play",
       "click .dropdown .add": "album:add",
-      "click .dropdown .localadd": "album:localadd"
+      "click .dropdown .localadd": "album:localadd",
+      "click .dropdown .localplay": "album:localplay"
     };
 
     AlbumTeaser.prototype.initialize = function() {
@@ -4346,7 +4650,6 @@ this.Kodi.module("AlbumApp.Show", function(Show, App, Backbone, Marionette, $, _
       album = App.request("album:entity", id);
       return App.execute("when:entity:fetched", album, (function(_this) {
         return function() {
-          App.execute("images:fanart:set", album.get('fanart'));
           _this.layout = _this.getLayoutView(album);
           _this.listenTo(_this.layout, "destroy", function() {
             return App.execute("images:fanart:set", 'none');
@@ -4625,7 +4928,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
 
     Controller.prototype.getAvailableFilters = function() {
       return {
-        sort: ['artist'],
+        sort: ['label'],
         filter: ['mood', 'genre', 'style']
       };
     };
@@ -4665,7 +4968,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
       return ListLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ListLayout.prototype.className = "artist-list";
+    ListLayout.prototype.className = "artist-list with-filters";
 
     return ListLayout;
 
@@ -4749,7 +5052,6 @@ this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, 
       artist = App.request("artist:entity", id);
       return App.execute("when:entity:fetched", artist, (function(_this) {
         return function() {
-          App.execute("images:fanart:set", artist.get('fanart'));
           _this.layout = _this.getLayoutView(artist);
           _this.listenTo(_this.layout, "destroy", function() {
             return App.execute("images:fanart:set", 'none');
@@ -4864,6 +5166,27 @@ this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, 
     return ArtistTeaser;
 
   })(App.ArtistApp.List.ArtistTeaser);
+});
+
+soundManager.setup({
+  url: 'lib/soundmanager/swf/',
+  flashVersion: 9,
+  preferFlash: true,
+  useHTML5Audio: true,
+  useFlashBlock: false,
+  flashLoadTimeout: 3000,
+  debugMode: true,
+  noSWFCache: true,
+  debugFlash: false,
+  onready: function() {
+    return console.log('sm ready!!');
+  },
+  ontimeout: function() {
+    console.log('sm timout!!');
+    soundManager.flashLoadTimeout = 0;
+    soundManager.onerror = {};
+    return soundManager.reboot();
+  }
 });
 
 this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $, _) {
@@ -5318,6 +5641,12 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
     }
     return new CommandApp.Kodi[controller](media);
   });
+  App.reqres.setHandler("command:local:controller", function(media, controller) {
+    if (media == null) {
+      media = 'auto';
+    }
+    return new CommandApp.Local[controller](media);
+  });
   return App.addInitializer(function() {});
 });
 
@@ -5479,7 +5808,7 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     return Commander;
 
   })(Api.Base);
-  Api.Player = (function(_super) {
+  return Api.Player = (function(_super) {
     __extends(Player, _super);
 
     function Player() {
@@ -5606,6 +5935,9 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     return Player;
 
   })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   return Api.Application = (function(_super) {
     __extends(Application, _super);
 
@@ -5642,6 +5974,57 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     };
 
     return Application;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.Files = (function(_super) {
+    __extends(Files, _super);
+
+    function Files() {
+      return Files.__super__.constructor.apply(this, arguments);
+    }
+
+    Files.prototype.commandNameSpace = 'Files';
+
+    Files.prototype.prepareDownload = function(file, callback) {
+      return this.singleCommand(this.getCommand('PrepareDownload'), [file], (function(_this) {
+        return function(resp) {
+          console.log(resp);
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    Files.prototype.downloadPath = function(file, callback) {
+      return this.prepareDownload(file, (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp.details.path);
+        };
+      })(this));
+    };
+
+    Files.prototype.downloadFile = function(file) {
+      var dl;
+      dl = window.open('about:blank', 'download');
+      return this.downloadPath(file, function(path) {
+        return dl.location = path;
+      });
+    };
+
+    Files.prototype.videoStream = function(file, player) {
+      var st;
+      if (player == null) {
+        player = 'html5';
+      }
+      st = window.open('about:blank', "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=545, top=100, left=100");
+      return this.downloadPath(file, function(path) {
+        return st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path);
+      });
+    };
+
+    return Files;
 
   })(Api.Commander);
 });
@@ -5785,6 +6168,292 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
   })(Api.Player);
 });
 
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.Base = (function(_super) {
+    __extends(Base, _super);
+
+    function Base() {
+      return Base.__super__.constructor.apply(this, arguments);
+    }
+
+    Base.prototype.localLoad = function(model, callback) {
+      var files, stateObj;
+      stateObj = App.request("state:local");
+      stateObj.setState('currentPlaybackId', 'browser-' + model.get('id'));
+      files = App.request("command:kodi:controller", 'video', 'Files');
+      return files.downloadPath(model.get('file'), (function(_this) {
+        return function(path) {
+          var sm;
+          sm = soundManager;
+          _this.localStop();
+          stateObj.setState('localPlay', sm.createSound({
+            id: stateObj.getState('currentPlaybackId'),
+            url: path,
+            autoplay: false,
+            autoLoad: true,
+            stream: true,
+            onerror: function() {
+              return console.log('SM ERROR!');
+            },
+            onplay: function() {
+              stateObj.setPlayer('local');
+              stateObj.setPlaying('playing', true);
+              stateObj.setPlaying('paused', false);
+              stateObj.setPlaying('playState', 'playing');
+              stateObj.setPlaying('position', model.get('position'));
+              stateObj.setPlaying('itemChanged', true);
+              stateObj.setPlaying('item', model.attributes);
+              return _this.localStateUpdate();
+            },
+            onstop: function() {
+              stateObj.setPlaying('playing', false);
+              return _this.localStateUpdate();
+            },
+            onpause: function() {
+              stateObj.setPlaying('paused', true);
+              stateObj.setPlaying('playstate', 'paused');
+              return _this.localStateUpdate();
+            },
+            onresume: function() {
+              stateObj.setPlaying('paused', false);
+              stateObj.setPlaying('playstate', 'playing');
+              return _this.localStateUpdate();
+            },
+            onfinish: function() {
+              return _this.localFinished(model);
+            },
+            whileplaying: function() {}
+          }));
+          return _this.doCallback(callback);
+        };
+      })(this));
+    };
+
+    Base.prototype.localFinished = function(model) {
+      var collection;
+      collection = App.request("localplayer:get:entities");
+      model = collection.findWhere({
+        position: model.get('position') + 1
+      });
+      if (model) {
+        this.localLoad(model, (function(_this) {
+          return function() {
+            return _this.localPlay();
+          };
+        })(this));
+      }
+      return this.localStateUpdate();
+    };
+
+    Base.prototype.localPlay = function() {
+      return this.localCommand('play');
+    };
+
+    Base.prototype.localStop = function() {
+      return this.localCommand('stop');
+    };
+
+    Base.prototype.localStop = function() {
+      return this.localCommand('pause');
+    };
+
+    Base.prototype.localCommand = function(command) {
+      var currentItem, stateObj;
+      stateObj = App.request("state:local");
+      currentItem = stateObj.getState('localPlay');
+      if (currentItem !== false) {
+        return currentItem[command]();
+      }
+    };
+
+    Base.prototype.localStateUpdate = function() {
+      return App.vent.trigger("state:content:updated");
+    };
+
+    Base.prototype.paramObj = function(key, val) {
+      return helpers.global.paramObj(key, val);
+    };
+
+    Base.prototype.doCallback = function(callback, response) {
+      if (typeof callback === 'function') {
+        return callback(response);
+      }
+    };
+
+    Base.prototype.onError = function(commands, error) {
+      return helpers.debug.rpcError(commands, error);
+    };
+
+    return Base;
+
+  })(Marionette.Object);
+});
+
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  Api.Commander = (function(_super) {
+    __extends(Commander, _super);
+
+    function Commander() {
+      return Commander.__super__.constructor.apply(this, arguments);
+    }
+
+    return Commander;
+
+  })(Api.Base);
+  return Api.Player = (function(_super) {
+    __extends(Player, _super);
+
+    function Player() {
+      return Player.__super__.constructor.apply(this, arguments);
+    }
+
+    Player.prototype.playEntity = function(type, position, callback) {
+      var collection, model;
+      if (type == null) {
+        type = 'position';
+      }
+      collection = App.request("localplayer:get:entities");
+      model = collection.findWhere({
+        position: position
+      });
+      return this.localLoad(model, (function(_this) {
+        return function() {
+          _this.localPlay();
+          console.log('playing..', model);
+          return _this.doCallback(callback, position);
+        };
+      })(this));
+    };
+
+    return Player;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.PlayList = (function(_super) {
+    __extends(PlayList, _super);
+
+    function PlayList() {
+      return PlayList.__super__.constructor.apply(this, arguments);
+    }
+
+    PlayList.prototype.play = function(models) {
+      return this.clear((function(_this) {
+        return function() {
+          return _this.insertAndPlay(models, 0);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.add = function(models) {
+      return this.playlistSize((function(_this) {
+        return function(size) {
+          return _this.insert(models, size);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.remove = function(position, callback) {
+      return this.getItems((function(_this) {
+        return function(collection) {
+          var item, pos, raw, ret;
+          raw = collection.getRawCollection();
+          ret = [];
+          for (pos in raw) {
+            item = raw[pos];
+            if (pos !== position) {
+              ret.push(item);
+            }
+          }
+          return _this.clear(function() {
+            collection = _this.addItems(ret);
+            return _this.doCallback(callback, collection);
+          });
+        };
+      })(this));
+    };
+
+    PlayList.prototype.clear = function(callback) {
+      var collection;
+      collection = App.execute("localplayer:clear:entities");
+      this.refreshPlaylistView();
+      return this.doCallback(callback, collection);
+    };
+
+    PlayList.prototype.insert = function(models, position, callback) {
+      if (position == null) {
+        position = 0;
+      }
+      return this.getItems((function(_this) {
+        return function(collection) {
+          var item, model, pos, raw, ret, _i, _len, _ref;
+          raw = collection.getRawCollection();
+          if (raw.length === 0) {
+            ret = _.flatten([models]);
+          } else {
+            ret = [];
+            for (pos in raw) {
+              item = raw[pos];
+              if (pos === position) {
+                _ref = _.flatten([models]);
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                  model = _ref[_i];
+                  ret.push(model);
+                }
+              }
+              ret.push(item);
+            }
+          }
+          return _this.clear(function() {
+            collection = _this.addItems(ret);
+            return _this.doCallback(callback, collection);
+          });
+        };
+      })(this));
+    };
+
+    PlayList.prototype.addItems = function(items) {
+      App.request("localplayer:item:add:entities", items);
+      return this.refreshPlaylistView();
+    };
+
+    PlayList.prototype.getItems = function(callback) {
+      var collection;
+      collection = App.request("localplayer:get:entities");
+      return this.doCallback(callback, collection);
+    };
+
+    PlayList.prototype.insertAndPlay = function(models, position, callback) {
+      if (position == null) {
+        position = 0;
+      }
+      return this.insert(models, position, (function(_this) {
+        return function(resp) {
+          return _this.playEntity('position', parseInt(position), {}, function() {
+            return _this.doCallback(callback, position);
+          });
+        };
+      })(this));
+    };
+
+    PlayList.prototype.playlistSize = function(callback) {
+      return this.getItems((function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp.items.length);
+        };
+      })(this));
+    };
+
+    PlayList.prototype.refreshPlaylistView = function() {
+      return App.execute("playlist:refresh", 'local', 'audio');
+    };
+
+    return PlayList;
+
+  })(Api.Player);
+});
+
 this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
@@ -5800,17 +6469,11 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
         defaultOrder: 'asc',
         key: 'title'
       }, {
-        alias: 'Artist',
+        alias: 'Title',
         type: 'string',
         defaultSort: true,
         defaultOrder: 'asc',
-        key: 'artist'
-      }, {
-        alias: 'Album',
-        type: 'string',
-        defaultSort: true,
-        defaultOrder: 'asc',
-        key: 'album'
+        key: 'label'
       }, {
         alias: 'Year',
         type: 'number',
@@ -5859,6 +6522,25 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
         key: 'unwatchedShows',
         sortOrder: 'asc',
         filterCallback: 'unwatchedShows'
+      }, {
+        alias: 'Writer',
+        type: 'array',
+        key: 'writer',
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }, {
+        alias: 'Director',
+        type: 'array',
+        key: 'director',
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }, {
+        alias: 'Actor',
+        type: 'object',
+        property: 'name',
+        key: 'cast',
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
       }
     ],
     getFilterFields: function(type) {
@@ -5898,14 +6580,23 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
       return App.vent.trigger('filter:changed', filters);
     },
     getStoreFilters: function(type) {
-      var filters, path, store;
+      var filters, key, path, ret, store, val;
       if (type == null) {
         type = 'filters';
       }
       store = helpers.cache.get(API.getStoreNameSpace(type), {});
       path = helpers.url.path();
       filters = store[path] ? store[path] : {};
-      return filters;
+      ret = {};
+      if (!_.isEmpty(filters)) {
+        for (key in filters) {
+          val = filters[key];
+          if (val.length > 0) {
+            ret[key] = val;
+          }
+        }
+      }
+      return ret;
     },
     updateStoreFiltersKey: function(key, values) {
       var filters;
@@ -5991,10 +6682,25 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
       return items;
     },
     getFilterOptions: function(key, collection) {
-      var items, values;
+      var collectionItems, data, i, item, items, limited, s, values, _i, _len;
       values = App.request('filter:store:key:get', key);
+      s = API.getFilterSettings(key);
       items = [];
-      _.map(_.uniq(_.flatten(collection.pluck(key))), function(val) {
+      collectionItems = collection.pluck(key);
+      if (s.filterCallback === 'multiple' && s.type === 'object') {
+        limited = [];
+        for (_i = 0, _len = collectionItems.length; _i < _len; _i++) {
+          item = collectionItems[_i];
+          for (i in item) {
+            data = item[i];
+            if (i < 5) {
+              limited.push(data[s.property]);
+            }
+          }
+        }
+        collectionItems = limited;
+      }
+      _.map(_.uniq(_.flatten(collectionItems)), function(val) {
         return items.push({
           key: key,
           value: val,
@@ -6026,10 +6732,12 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
       s = API.getFilterSettings(key);
       switch (s.filterCallback) {
         case 'multiple':
-          if (s.type !== 'array') {
-            collection.filterByMultiple(key, vals);
-          } else {
+          if (s.type === 'array') {
             collection.filterByMultipleArray(key, vals);
+          } else if (s.type === 'object') {
+            collection.filterByMultipleObject(key, s.property, vals);
+          } else {
+            collection.filterByMultiple(key, vals);
           }
           break;
         case 'unwatchedShows':
@@ -6094,6 +6802,30 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
   });
   App.reqres.setHandler('filter:filterable:entities', function() {
     return App.request('filter:filters:entities', API.parseFilterable(API.getFilterFields('filter')));
+  });
+  App.reqres.setHandler('filter:init', function(availableFilters) {
+    var key, params, values, _i, _len, _ref, _results;
+    params = helpers.url.params();
+    if (!_.isEmpty(params)) {
+      API.setStoreFilters({});
+      _ref = availableFilters.filter;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        key = _ref[_i];
+        if (params[key]) {
+          values = API.getStoreFiltersKey(key);
+          if (!helpers.global.inArray(params[key], values)) {
+            values.push(decodeURIComponent(params[key]));
+            _results.push(API.updateStoreFiltersKey(key, values));
+          } else {
+            _results.push(void 0);
+          }
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    }
   });
   App.reqres.setHandler('filter:store:set', function(filters) {
     API.setStoreFilters(filters);
@@ -6250,11 +6982,12 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
           return _this.triggerChange();
         };
       })(this));
-      return App.listenTo(optionsView, "childview:filter:add", (function(_this) {
+      App.listenTo(optionsView, "childview:filter:add", (function(_this) {
         return function(parentview, childview) {
           return _this.stateChange('filters');
         };
       })(this));
+      return this.getFilterBar();
     };
 
     Controller.prototype.getFilterOptions = function(key) {
@@ -6264,12 +6997,19 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
         collection: optionsCollection
       });
       this.layoutFilters.regionFiltersOptions.show(optionsView);
-      return App.listenTo(optionsView, "childview:filter:option:select", (function(_this) {
+      App.listenTo(optionsView, "childview:filter:option:select", (function(_this) {
         return function(parentview, childview) {
           var value;
           value = childview.model.get('value');
           childview.view.$el.find('.option').toggleClass('active');
           App.request('filter:store:key:toggle', key, value);
+          return _this.triggerChange(false);
+        };
+      })(this));
+      return App.listenTo(optionsView, 'filter:option:deselectall', (function(_this) {
+        return function(parentview) {
+          parentview.view.$el.find('.option').removeClass('active');
+          App.request('filter:store:key:update', key, []);
           return _this.triggerChange(false);
         };
       })(this));
@@ -6282,6 +7022,30 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       this.getFilters(clearOptions);
       this.getActive();
       return this.layoutFilters.trigger('filter:changed');
+    };
+
+    Controller.prototype.getFilterBar = function() {
+      var $list, $wrapper, bar, currentFilters, list;
+      currentFilters = App.request('filter:store:get');
+      list = _.flatten(_.values(currentFilters));
+      $wrapper = $('.layout-container');
+      $list = $('.region-content-top', $wrapper);
+      if (list.length > 0) {
+        bar = new Show.FilterBar({
+          filters: list
+        });
+        $list.html(bar.render().$el);
+        $wrapper.addClass('filters-active');
+        return App.listenTo(bar, 'filter:remove:all', (function(_this) {
+          return function() {
+            App.request('filter:store:set', {});
+            _this.triggerChange();
+            return _this.stateChange('normal');
+          };
+        })(this));
+      } else {
+        return $wrapper.removeClass('filters-active');
+      }
     };
 
     Controller.prototype.stateChange = function(state) {
@@ -6497,13 +7261,41 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       return OptionList.__super__.constructor.apply(this, arguments);
     }
 
+    OptionList.prototype.template = 'apps/filter/show/filter_options';
+
     OptionList.prototype.activeValues = [];
 
     OptionList.prototype.childView = Show.OptionListItem;
 
+    OptionList.prototype.childViewContainer = 'ul.selection-list';
+
+    OptionList.prototype.onRender = function() {
+      if (this.collection.length <= 10) {
+        $('.options-search-wrapper', this.$el).addClass('hidden');
+      }
+      return $('.options-search', this.$el).on('keyup', function() {
+        var $list, val;
+        val = $('.options-search', this.$el).val().toLocaleLowerCase();
+        $list = $('.filter-options-list li', this.$el).removeClass('hidden');
+        if (val.length > 0) {
+          return $list.each(function(i, d) {
+            var text;
+            text = $(d).find('.option').text().toLowerCase();
+            if (text.indexOf(val) === -1) {
+              return $(d).addClass('hidden');
+            }
+          });
+        }
+      });
+    };
+
+    OptionList.prototype.triggers = {
+      'click .deselect-all': 'filter:option:deselectall'
+    };
+
     return OptionList;
 
-  })(Show.List);
+  })(App.Views.CompositeView);
   Show.ActiveListItem = (function(_super) {
     __extends(ActiveListItem, _super);
 
@@ -6557,7 +7349,7 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
     return ActiveNewListItem;
 
   })(Show.ListItem);
-  return Show.ActiveList = (function(_super) {
+  Show.ActiveList = (function(_super) {
     __extends(ActiveList, _super);
 
     function ActiveList() {
@@ -6573,6 +7365,30 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
     return ActiveList;
 
   })(Show.List);
+  return Show.FilterBar = (function(_super) {
+    __extends(FilterBar, _super);
+
+    function FilterBar() {
+      return FilterBar.__super__.constructor.apply(this, arguments);
+    }
+
+    FilterBar.prototype.template = 'apps/filter/show/filters_bar';
+
+    FilterBar.prototype.className = "filters-active-bar";
+
+    FilterBar.prototype.onRender = function() {
+      if (this.options.filters) {
+        return $('.filters-active-all', this.$el).html(this.options.filters.join(', '));
+      }
+    };
+
+    FilterBar.prototype.triggers = {
+      'click .remove': 'filter:remove:all'
+    };
+
+    return FilterBar;
+
+  })(App.Views.ItemView);
 });
 
 this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
@@ -6644,11 +7460,19 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     return API.getImageUrl(rawPath, type);
   });
   return App.reqres.setHandler("images:path:entity", function(model) {
+    var i, person, _ref;
     if (model.thumbnail != null) {
       model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail');
     }
     if (model.fanart != null) {
       model.fanart = API.getImageUrl(model.fanart, 'fanart');
+    }
+    if ((model.cast != null) && model.cast.length > 0) {
+      _ref = model.cast;
+      for (i in _ref) {
+        person = _ref[i];
+        model.cast[i].thumbnail = API.getImageUrl(person.thumbnail, 'thumbnail');
+      }
     }
     return model;
   });
@@ -7145,12 +7969,19 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
       view = new List.Movies({
         collection: collection
       });
-      App.listenTo(view, 'childview:movie:play', function(list, item) {
-        var playlist;
-        playlist = App.request("command:kodi:controller", 'video', 'PlayList');
-        return playlist.play('movieid', item.model.get('movieid'));
-      });
+      API.bindTriggers(view);
       return view;
+    },
+    bindTriggers: function(view) {
+      App.listenTo(view, 'childview:movie:play', function(parent, viewItem) {
+        return App.execute('movie:action', 'play', viewItem);
+      });
+      App.listenTo(view, 'childview:movie:add', function(parent, viewItem) {
+        return App.execute('movie:action', 'add', viewItem);
+      });
+      return App.listenTo(view, 'childview:movie:stream', function(parent, viewItem) {
+        return App.execute('movie:action', 'stream', viewItem);
+      });
     }
   };
   List.Controller = (function(_super) {
@@ -7167,6 +7998,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
         return function() {
           collection.availableFilters = _this.getAvailableFilters();
           collection.sectionId = 11;
+          App.request('filter:init', _this.getAvailableFilters());
           _this.layout = _this.getLayoutView(collection);
           _this.listenTo(_this.layout, "show", function() {
             _this.renderList(collection);
@@ -7186,7 +8018,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     Controller.prototype.getAvailableFilters = function() {
       return {
         sort: ['title', 'year', 'dateadded', 'rating'],
-        filter: ['year', 'genre']
+        filter: ['year', 'genre', 'writer', 'director', 'cast']
       };
     };
 
@@ -7225,7 +8057,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
       return ListLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ListLayout.prototype.className = "movie-list";
+    ListLayout.prototype.className = "movie-list with-filters";
 
     return ListLayout;
 
@@ -7310,8 +8142,27 @@ this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _)
       return new MovieApp.Show.Controller({
         id: id
       });
+    },
+    action: function(op, view) {
+      var files, model, playlist;
+      model = view.model;
+      playlist = App.request("command:kodi:controller", 'video', 'PlayList');
+      files = App.request("command:kodi:controller", 'video', 'Files');
+      switch (op) {
+        case 'play':
+          return playlist.play('movieid', model.get('movieid'));
+        case 'add':
+          return playlist.add('movieid', model.get('movieid'));
+        case 'stream':
+          return files.videoStream(model.get('file'));
+        case 'download':
+          return files.downloadFile(model.get('file'));
+      }
     }
   };
+  App.commands.setHandler('movie:action', function(op, view) {
+    return API.action(op, view);
+  });
   return App.on("before:start", function() {
     return new MovieApp.Router({
       controller: API
@@ -7320,6 +8171,24 @@ this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _)
 });
 
 this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    bindTriggers: function(view) {
+      App.listenTo(view, 'movie:play', function(viewItem) {
+        return App.execute('movie:action', 'play', viewItem);
+      });
+      App.listenTo(view, 'movie:add', function(viewItem) {
+        return App.execute('movie:action', 'add', viewItem);
+      });
+      App.listenTo(view, 'movie:stream', function(viewItem) {
+        return App.execute('movie:action', 'stream', viewItem);
+      });
+      return App.listenTo(view, 'movie:download', function(viewItem) {
+        console.log(viewItem);
+        return App.execute('movie:action', 'download', viewItem);
+      });
+    }
+  };
   return Show.Controller = (function(_super) {
     __extends(Controller, _super);
 
@@ -7333,13 +8202,13 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
       movie = App.request("movie:entity", id);
       return App.execute("when:entity:fetched", movie, (function(_this) {
         return function() {
-          App.execute("images:fanart:set", movie.get('fanart'));
           _this.layout = _this.getLayoutView(movie);
           _this.listenTo(_this.layout, "destroy", function() {
             return App.execute("images:fanart:set", 'none');
           });
           _this.listenTo(_this.layout, "show", function() {
-            return _this.getDetailsLayoutView(movie);
+            _this.getDetailsLayoutView(movie);
+            return _this.getContentView(movie);
           });
           return App.regionContent.show(_this.layout);
         };
@@ -7350,6 +8219,19 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
       return new Show.PageLayout({
         model: movie
       });
+    };
+
+    Controller.prototype.getContentView = function(movie) {
+      var contentLayout;
+      contentLayout = new Show.Content({
+        model: movie
+      });
+      this.listenTo(contentLayout, "movie:youtube", function(view) {
+        var trailer;
+        trailer = movie.get('trailer');
+        return App.execute("ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id);
+      });
+      return this.layout.regionContent.show(contentLayout);
     };
 
     Controller.prototype.getDetailsLayoutView = function(movie) {
@@ -7363,9 +8245,11 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
           teaser = new Show.MovieTeaser({
             model: movie
           });
+          API.bindTriggers(teaser);
           detail = new Show.Details({
             model: movie
           });
+          API.bindTriggers(detail);
           headerLayout.regionSide.show(teaser);
           return headerLayout.regionMeta.show(detail);
         };
@@ -7412,10 +8296,17 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
 
     Details.prototype.template = 'apps/movie/show/details_meta';
 
+    Details.prototype.triggers = {
+      'click .play': 'movie:play',
+      'click .add': 'movie:add',
+      'click .stream': 'movie:stream',
+      'click .download': 'movie:download'
+    };
+
     return Details;
 
   })(App.Views.ItemView);
-  return Show.MovieTeaser = (function(_super) {
+  Show.MovieTeaser = (function(_super) {
     __extends(MovieTeaser, _super);
 
     function MovieTeaser() {
@@ -7427,12 +8318,32 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
     MovieTeaser.prototype.className = "card-detail";
 
     MovieTeaser.prototype.triggers = {
-      "click .menu": "movie-menu:clicked"
+      'click .play': 'movie:play'
     };
 
     return MovieTeaser;
 
   })(App.Views.CardView);
+  return Show.Content = (function(_super) {
+    __extends(Content, _super);
+
+    function Content() {
+      return Content.__super__.constructor.apply(this, arguments);
+    }
+
+    Content.prototype.template = 'apps/movie/show/content';
+
+    Content.prototype.className = "movie-content content-sections";
+
+    Content.prototype.onRender = $('[data-toggle="tooltip"]', Content.$el).tooltip();
+
+    Content.prototype.triggers = {
+      'click .youtube': 'movie:youtube'
+    };
+
+    return Content;
+
+  })(App.Views.LayoutView);
 });
 
 this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
@@ -7791,6 +8702,7 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
           _this.renderList('kodi', 'audio');
+          _this.renderList('local', 'audio');
           return App.vent.on("state:initialized", function() {
             var stateObj;
             stateObj = App.request("state:current");
@@ -7808,6 +8720,22 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
           return _this.changePlaylist('kodi', 'video');
         };
       })(this));
+      this.listenTo(this.layout, 'playlist:kodi', (function(_this) {
+        return function() {
+          var stateObj;
+          stateObj = App.request("state:current");
+          stateObj.setPlayer('kodi');
+          return _this.renderList('kodi', 'audio');
+        };
+      })(this));
+      this.listenTo(this.layout, 'playlist:local', (function(_this) {
+        return function() {
+          var stateObj;
+          stateObj = App.request("state:current");
+          stateObj.setPlayer('local');
+          return _this.renderList('local', 'audio');
+        };
+      })(this));
       return App.regionPlaylist.show(this.layout);
     };
 
@@ -7822,22 +8750,26 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
     };
 
     Controller.prototype.renderList = function(type, media) {
-      var collection;
-      collection = App.request("playlist:list", type, media);
+      var collection, listView;
       this.layout.$el.removeClassStartsWith('media-').addClass('media-' + media);
-      return App.execute("when:entity:fetched", collection, (function(_this) {
-        return function() {
-          var listView;
-          listView = _this.getList(collection);
-          if (type === 'kodi') {
+      if (type === 'kodi') {
+        collection = App.request("playlist:list", type, media);
+        return App.execute("when:entity:fetched", collection, (function(_this) {
+          return function() {
+            var listView;
+            listView = _this.getList(collection);
             _this.layout.kodiPlayList.show(listView);
-          } else {
-            _this.layout.localPlayList.show(listView);
-          }
-          _this.bindActions(listView, type, media);
-          return App.vent.trigger("state:content:updated");
-        };
-      })(this));
+            _this.bindActions(listView, type, media);
+            return App.vent.trigger("state:content:updated");
+          };
+        })(this));
+      } else {
+        collection = App.request("localplayer:get:entities");
+        listView = this.getList(collection);
+        this.bindActions(listView, type, media);
+        this.layout.localPlayList.show(listView);
+        return App.vent.trigger("state:content:updated");
+      }
     };
 
     Controller.prototype.bindActions = function(listView, type, media) {
@@ -7881,7 +8813,9 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
 
     Layout.prototype.triggers = {
       'click .kodi-playlists .media-toggle .video': 'playlist:kodi:video',
-      'click .kodi-playlists .media-toggle .audio': 'playlist:kodi:audio'
+      'click .kodi-playlists .media-toggle .audio': 'playlist:kodi:audio',
+      'click .player-toggle .kodi': 'playlist:kodi',
+      'click .player-toggle .local': 'playlist:local'
     };
 
     return Layout;
@@ -8009,9 +8943,14 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
     }
 
     Controller.prototype.initialize = function() {
-      var entities;
+      var entities, media;
       this.layout = this.getLayout();
-      entities = ['song', 'artist', 'album', 'tvshow', 'movie'];
+      media = this.getOption('media');
+      if (media === 'all') {
+        entities = ['song', 'artist', 'album', 'tvshow', 'movie'];
+      } else {
+        entities = [media];
+      }
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
           var entity, _i, _len, _results;
@@ -8031,15 +8970,18 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
     };
 
     Controller.prototype.getResult = function(entity) {
-      var query;
+      var limit, query;
       query = this.getOption('query');
-      return App.execute("" + entity + ":search:entities", query, (function(_this) {
+      limit = this.getOption('media') === 'all' ? 'limit' : 'all';
+      return App.execute("" + entity + ":search:entities", query, limit, (function(_this) {
         return function(loaded) {
           var setView, view;
           if (loaded.length > 0) {
             view = App.request("" + entity + ":list:view", loaded, true);
             setView = new List.ListSet({
-              title: entity + 's'
+              entity: entity,
+              more: (loaded.more ? true : false),
+              query: query
             });
             App.listenTo(setView, "show", function() {
               return setView.regionResult.show(view);
@@ -8090,8 +9032,15 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
     ListSet.prototype.className = "search-set";
 
     ListSet.prototype.onRender = function() {
-      if (this.options && this.options.title) {
-        return $('h2.set-header', this.$el).html(t.gettext(this.options.title));
+      var moreLink;
+      if (this.options) {
+        if (this.options.entity) {
+          $('h2.set-header', this.$el).html(t.gettext(this.options.entity + 's'));
+          if (this.options.more && this.options.query) {
+            moreLink = this.themeLink(t.gettext('Show More'), 'search/' + this.options.entity + '/' + this.options.query);
+            return $('.more', this.$el).html(moreLink);
+          }
+        }
       }
     };
 
@@ -8115,23 +9064,45 @@ this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, 
 
     Router.prototype.appRoutes = {
       "search": "view",
-      "search/:query": "list"
+      "search/:media/:query": "list"
     };
 
     return Router;
 
   })(App.Router.Base);
   API = {
-    list: function(query) {
+    keyUpTimeout: 2000,
+    list: function(media, query) {
+      App.navigate("search/" + media + "/" + query);
       return new SearchApp.List.Controller({
-        query: query
+        query: query,
+        media: media
       });
     },
-    view: function() {}
+    view: function() {},
+    searchBind: function() {
+      return $('#search').on('keyup', function(e) {
+        var val;
+        val = $('#search').val();
+        clearTimeout(App.searchAllTimeout);
+        if (e.which === 13) {
+          return API.list('all', val);
+        } else {
+          return App.searchAllTimeout = setTimeout((function() {
+            return API.list('all', val);
+          }), API.keyUpTimeout);
+        }
+      });
+    }
   };
-  return App.on("before:start", function() {
+  App.on("before:start", function() {
     return new SearchApp.Router({
       controller: API
+    });
+  });
+  return App.addInitializer(function() {
+    return App.vent.on("shell:ready", function() {
+      return API.searchBind();
     });
   });
 });
@@ -8654,7 +9625,6 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       paused: false,
       playState: '',
       item: {},
-      position: {},
       media: 'audio',
       itemChanged: false,
       latPlaying: '',
@@ -8764,7 +9734,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       var $body, player;
       player = 'kodi';
       $body = App.getRegion('root').$el;
-      if ($body.hasClass('active-player-lcal')) {
+      if ($body.hasClass('active-player-local')) {
         player = 'local';
       }
       return player;
@@ -9008,12 +9978,16 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
           break;
         case 'VideoLibrary.OnScanFinished':
           App.execute("notification:show", t.gettext("Video library scan complete"));
+          Backbone.fetchCache.clearItem('MovieCollection');
+          Backbone.fetchCache.clearItem('TVShowCollection');
           break;
         case 'AudioLibrary.OnScanStarted':
           App.execute("notification:show", t.gettext("Audio library scan started"));
           break;
         case 'AudioLibrary.OnScanFinished':
           App.execute("notification:show", t.gettext("Audio library scan complete"));
+          Backbone.fetchCache.clearItem('AlbumCollection');
+          Backbone.fetchCache.clearItem('ArtistCollection');
           break;
         case 'Input.OnInputRequested':
           App.execute("input:textbox", '');
@@ -9133,6 +10107,26 @@ this.Kodi.module("StateApp.Local", function(StateApp, App, Backbone, Marionette,
       return State.__super__.constructor.apply(this, arguments);
     }
 
+    State.prototype.initialize = function() {
+      this.setState('player', 'local');
+      this.setState('currentPlaybackId', 'browser-none');
+      this.setState('localPlay', false);
+      App.reqres.setHandler("state:local:update", (function(_this) {
+        return function(callback) {
+          return _this.getCurrentState(callback);
+        };
+      })(this));
+      return App.reqres.setHandler("state:local:get", (function(_this) {
+        return function() {
+          return _this.getCachedState();
+        };
+      })(this));
+    };
+
+    State.prototype.getCurrentState = function(callback) {
+      return this.doCallback(callback, this.getCachedState());
+    };
+
     return State;
 
   })(App.StateApp.Base);
@@ -9234,7 +10228,8 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
           return App.request("playlist:refresh", App.kodiState.getState('player'), App.kodiState.getState('media'));
         });
         App.vent.on("state:content:updated", function() {
-          return API.setPlayingContent('kodi');
+          API.setPlayingContent('kodi');
+          return API.setPlayingContent('local');
         });
         App.vent.on("state:kodi:changed", function(state) {
           return API.setState('kodi');
@@ -9291,6 +10286,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
       collection = App.request("tvshow:entities");
       collection.availableFilters = this.getAvailableFilters();
       collection.sectionId = 21;
+      App.request('filter:init', this.getAvailableFilters());
       return App.execute("when:entity:fetched", collection, (function(_this) {
         return function() {
           _this.layout = _this.getLayoutView(collection);
@@ -9312,7 +10308,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     Controller.prototype.getAvailableFilters = function() {
       return {
         sort: ['title', 'year', 'dateadded', 'rating'],
-        filter: ['year', 'genre', 'unwatchedShows']
+        filter: ['year', 'genre', 'unwatchedShows', 'cast']
       };
     };
 
@@ -9351,7 +10347,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
       return ListLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ListLayout.prototype.className = "tvshow-list";
+    ListLayout.prototype.className = "tvshow-list with-filters";
 
     return ListLayout;
 
@@ -9428,7 +10424,6 @@ this.Kodi.module("TVShowApp.Show", function(Show, App, Backbone, Marionette, $, 
       tvshow = App.request("tvshow:entity", id);
       return App.execute("when:entity:fetched", tvshow, (function(_this) {
         return function() {
-          App.execute("images:fanart:set", tvshow.get('fanart'));
           _this.layout = _this.getLayoutView(tvshow);
           _this.listenTo(_this.layout, "destroy", function() {
             return App.execute("images:fanart:set", 'none');
@@ -9567,23 +10562,32 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
 this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    openModal: function(title, msg, open) {
+    openModal: function(title, msg, open, style) {
       var $body, $modal, $title;
       if (open == null) {
         open = true;
       }
+      if (style == null) {
+        style = '';
+      }
       $title = App.getRegion('regionModalTitle').$el;
       $body = App.getRegion('regionModalBody').$el;
       $modal = App.getRegion('regionModal').$el;
+      $modal.removeClassStartsWith('style-');
+      $modal.addClass('style-' + style);
       $title.html(title);
       $body.html(msg);
       if (open) {
         $modal.modal();
       }
+      $modal.on('hidden.bs.modal', function(e) {
+        return $body.html('');
+      });
       return $modal;
     },
     closeModal: function() {
-      return App.getRegion('regionModal').$el.modal('hide');
+      App.getRegion('regionModal').$el.modal('hide');
+      return $('.modal-body').html('');
     },
     closeModalButton: function() {
       return API.getButton('Close', 'default').on('click', function() {
@@ -9652,7 +10656,13 @@ this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
     API.getModalButtonContainer().html(footer);
     return API.openModal(title, msg, open);
   });
-  return App.commands.setHandler("ui:modal:close", function() {
+  App.commands.setHandler("ui:modal:close", function() {
     return API.closeModal();
+  });
+  return App.commands.setHandler("ui:modal:youtube", function(title, videoid) {
+    var msg;
+    API.getModalButtonContainer().html('');
+    msg = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoid + '?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>';
+    return API.openModal(title, msg, true, 'video');
   });
 });

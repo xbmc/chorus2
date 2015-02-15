@@ -1,0 +1,1 @@
+<span class="filters-active-all"><%= @filters %></span><i class="remove"></i>

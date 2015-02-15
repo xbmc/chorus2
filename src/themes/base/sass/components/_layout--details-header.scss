@@ -1,0 +1,151 @@
+// Details Header (Generic across most entities).
+$color-detail-hightlight-text: rgba($color-white, 0.6);
+.details-header {
+  @include pie-clearfix();
+  background: $color-detail-header-background;
+  position: relative;
+  min-height: 283px;
+  padding-bottom: $spacing-double-unit;
+  a {
+    color: $color-detail-hightlight-text;
+    &:hover {
+      color: rgba($color-white, 0.9);
+    }
+  }
+  .region-details-side {
+    position: absolute;
+    @include set-layout('width-details-side', 'width');
+    padding: $spacing-half-unit * 3;
+  }
+  .region-details-meta-wrapper {
+    @include set-layout('width-details-side', 'margin-left');
+    padding: 0 $spacing-base-unit 0 $spacing-half-unit;
+    color: rgba($color-white, 0.4);
+    position: relative;
+    z-index: $z-index-beta;
+    margin-right: 500px;
+    padding-top: $spacing-base-unit;
+  }
+  .region-details-top {
+    @include pie-clearfix;
+  }
+  .region-details-title {
+    color: rgba($color-white, 0.9);
+    margin-bottom: $spacing-half-unit;
+    .sub {
+      font-weight: normal;
+      font-size: $font-size-base;
+      color: rgba($color-white, 0.4);
+    }
+  }
+  .region-details-rating {
+    width: 73px;
+    font-size: 170%;
+    color: rgba($color-white, 0.7);
+    white-space: nowrap;
+    margin-top: 0.8em;
+    padding-right: $spacing-double-unit;
+    position: relative;
+    text-align: right;
+    i {
+      font-size: 150%;
+      @include set-position-absolute(top -5px right 0);
+      @include icon(action-grade);
+    }
+  }
+  .region-details-subtext {
+    color: $color-detail-hightlight-text;
+    @include pie-clearfix();
+  }
+  .region-details-fanart {
+    opacity: 0.8;
+    background-size: cover;
+    background-position: 50% 50%;
+    width: 600px;
+    @include set-position-absolute(top 0 right 0 bottom 0);
+    &:before {
+      content: "";
+      @include set-position-absolute(top 0 left 0 bottom 0 right 50%);
+      @include filter-gradient(rgba($color-detail-header-background, 1), rgba($color-detail-header-background, 0), horizontal);
+      @include background-image(linear-gradient(left, rgba($color-detail-header-background,1) 0%, rgba($color-detail-header-background,0.9) 30%, rgba($color-detail-header-background,0) 100%));
+    }
+  }
+  .region-details-meta-below {
+    height: 136px;
+    overflow: hidden;
+  }
+  .description {
+    margin-top: $spacing-half-unit;
+  }
+  .people {
+    margin: $spacing-base-unit 0;
+  }
+  .runtime {
+    font-size: 120%;
+    margin-bottom: $spacing-half-unit;
+    float: left;
+  }
+  .genres {
+    float: right;
+  }
+  .streams {
+    span {
+      color: $color-detail-hightlight-text;
+      text-transform: uppercase;
+    }
+  }
+  .card-detail {
+    .artwork {
+      position: relative;
+    }
+    .play {
+      @include set-position-absolute(top 0 bottom 0 right 0 left 0);
+      @include overlay();
+      z-index: $z-index-beta;
+      @include icon(av-play-arrow);
+      cursor: pointer;
+      opacity: 0;
+      &:before {
+        font-size: 400%;
+        color: rgba($color-white, 0.8);
+        @include set-position-absolute(top 0 bottom 0 right 0 left 0);
+        margin: auto;
+        width: 55px;
+        height: 55px;
+      }
+    }
+    &:hover {
+      .play {
+        opacity: 1;
+      }
+    }
+  }
+
+  label {
+    font-weight: normal;
+  }
+
+  .dropdown > span {
+    cursor: pointer;
+  }
+
+  // Movie and tv specific.
+  .section-movie &,
+  .section-tvshow & {
+    min-height: 403px;
+    .region-details-meta-below {
+      height: auto;
+      overflow: initial;
+    }
+    @include at-bp(medium) {
+      .region-details-title {
+        @include span(6 of 8);
+      }
+      .region-details-rating {
+        @include span(2 of 8 last);
+      }
+    }
+  }
+
+}
+

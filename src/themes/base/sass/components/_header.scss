@@ -7,7 +7,7 @@
   left: $size-region-unit;
   right: 0;
   height: $size-region-unit;
-  z-index: $z-index-beta;
+  z-index: $z-index-gamma;
   @include set-layout('width-playlist', 'right');
 
   // Sidebar is hidden.

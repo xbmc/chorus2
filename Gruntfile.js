@@ -33,6 +33,8 @@ module.exports = function (grunt) {
       srcFolder + 'lib/required/{,**}/*.js',
       // Libs ui.
       srcFolder + 'lib/ui/*.js',
+      // Sound manager.
+      srcFolder + 'lib/soundmanager/script/soundmanager2.js',
       // Templates.
       jsSrcFolder + 'tpl/js/jst.js',
       jsDistTpl,
@@ -99,7 +101,8 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          environment: 'production'
+          environment: 'production',
+          outputStyle: 'compressed'
         }
       }
     },
@@ -234,7 +237,7 @@ module.exports = function (grunt) {
     'concat',
     'uglify:dist',
     'compass:dist',
-    'jshint'  
+    //'jshint'
   ]);
 
 };

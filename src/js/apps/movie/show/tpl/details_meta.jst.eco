@@ -1,19 +1,60 @@
-<div class="region-details-title">
-    <h2><%= @label %></h2>
-</div>
-
-<div class="region-details-meta-side-first">
-    <div class="formed"><%= @formed %></div>
-</div>
-
-<div class="region-details-meta-side-second">
-    <% if @genre.length > 0: %>
-    <div class="genres">
-        <%= @genre.join(', ') %>
+<div class="region-details-top">
+    <div class="region-details-title">
+        <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
     </div>
-    <% end %>
+    <div class="region-details-rating">
+        <%= @rating %> <i></i>
+    </div>
 </div>
-
 <div class="region-details-meta-below">
-    <div class="description"><%= @description %></div>
+
+    <div class="region-details-subtext">
+
+        <div class="runtime">
+            <%= helpers.global.formatTime helpers.global.secToTime( @runtime ) %>
+        </div>
+
+        <% if @genre.length > 0: %>
+        <div class="genres">
+            <%- helpers.url.filterLinks 'movies', 'genre', @genre %>
+        </div>
+        <% end %>
+    </div>
+
+    <div class="description"><%= @plotoutline %></div>
+
+    <ul class="people">
+        <% if @director.length > 0: %>
+            <li><label>Director:</label> <span><%- helpers.url.filterLinks 'movies', 'director', @director %></span></li>
+        <% end %>
+        <% if @writer.length > 0: %>
+            <li><label>Writer:</label> <span><%- helpers.url.filterLinks 'movies', 'writer', @writer %></span></li>
+        <% end %>
+        <% if @cast.length > 0: %>
+            <li><label>Cast:</label> <span><%- helpers.url.filterLinks 'movies', 'cast', _.pluck(@cast, 'name') %></span></li>
+        <% end %>
+    </ul>
+
+    <ul class="streams">
+        <li><label>Video:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
+        <li><label>Audio:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <% if @streamdetails.subtitle.length > 0 and @streamdetails.subtitle[0].label isnt '': %>
+            <li><label>Subtitle:</label>
+                <span class="dropdown"><span data-toggle="dropdown"><%= _.first _.pluck( @streamdetails.subtitle, 'label' ) %></span>
+                <ul class="dropdown-menu">
+                    <% for sub in @streamdetails.subtitle: %>
+                        <li><%= sub.label %></li>
+                    <% end %>
+                </ul>
+                </span>
+            </li>
+        <% end %>
+    </ul>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
+        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+        <li class="btn-flat-stream stream"><%= t.gettext('Stream') %></li>
+        <li class="btn-flat-download download"><%= t.gettext('Download') %></li>
+    </ul>
 </div>

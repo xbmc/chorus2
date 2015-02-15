@@ -3,11 +3,30 @@
 // Description:     Typography base.
 // =============================================================================
 
+@include load-font('opensans-light', '../fonts/opensans', 'opensans-light-webfont', 'normal');
+@include load-font('opensans', '../fonts/opensans', 'opensans-regular-webfont', 'normal');
+
+html, body {
+  font-family: $font-family-base;
+}
+
 a {
   @include transition(all 0.3s linear);
   &:focus,
   &:hover {
     text-decoration: none;
     outline: none;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-family-heading;
+}
+
+.inline-links {
+  margin-top: $spacing-half-unit * 3;
+  li {
+    display: inline-block;
+    margin-right: $spacing-base-unit;
   }
 }

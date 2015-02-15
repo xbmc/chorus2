@@ -1,0 +1,108 @@
+
+.streams-short {
+  text-align: center;
+  li {
+    display: inline-block;
+    font-size: 170%;
+    color: rgba($color-greyscale-outer-space, 0.4);
+    padding: 0 $spacing-half-unit;
+  }
+}
+
+.trailer {
+  position: relative;
+  cursor: pointer;
+  @include at-bp(medium) {
+    max-width: 238px;
+    float: left;
+    margin-right: $spacing-double-unit;
+  }
+  &:hover {
+    &:after {
+      content: "Watch trailer";
+      @include overlay();
+      @include set-position-absolute(top 0 right 0 bottom 0 left 0);
+      color: $color-white;
+      text-align: center;
+      padding-top: 30%;
+      font-size: 150%;
+    }
+  }
+}
+
+.cast-full {
+  height: 141px;
+  white-space: nowrap;
+  overflow-y: auto;
+  li {
+    width: 80px;
+    display: inline-block;
+    margin: 0 0.6em 0 0;
+    position: relative;
+    a {
+      color: $color-greyscale-outer-space;
+    }
+    img {
+      @include filter(grayscale(100%));
+      opacity: 0.8;
+    }
+    .thumb {
+      @include image-crop(105px, 80px, 0, #CBCBCB);
+    }
+    strong {
+      font-weight: normal;
+    }
+    span {
+      font-size: 85%;
+      color: $color-greyscale-dove-gray;
+    }
+    span, strong {
+       @include text-crop($color-white);
+      display: block;
+    }
+    .meta {
+      position: absolute;
+      bottom: 0;
+      z-index: $z-index-beta;
+      background: $color-white;
+      padding: 4px;
+      right: 0;
+      left: 0;
+      display: none;
+    }
+    &:hover {
+      img {
+        @include filter(grayscale(0%));
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.imdblink {
+  @include flat-button($icon: action-launch);
+}
+
+.btn-flat-play {
+  @include flat-button($color: $color-kodi, $icon: av-play-circle-fill);
+}
+
+.btn-flat-add {
+  @include flat-button($icon: content-add-circle);
+}
+
+.btn-flat-stream {
+  @include flat-button($icon: hardware-cast-connected);
+}
+
+.btn-flat-download {
+  @include flat-button($icon: content-archive);
+}
+
+.entity-progress {
+  @include set-position-absolute(top -2px right 0 left 0);
+  .current-progress {
+    height: 4px;
+    background: $color-kodi;
+  }
+}

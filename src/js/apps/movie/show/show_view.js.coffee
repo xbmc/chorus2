@@ -8,9 +8,22 @@
 
   class Show.Details extends App.Views.ItemView
     template: 'apps/movie/show/details_meta'
+    triggers:
+      'click .play': 'movie:play'
+      'click .add': 'movie:add'
+      'click .stream': 'movie:stream'
+      'click .download': 'movie:download'
 
   class Show.MovieTeaser extends App.Views.CardView
     tagName: "div"
     className: "card-detail"
     triggers:
-      "click .menu" : "movie-menu:clicked"
+      'click .play': 'movie:play'
+
+  class Show.Content extends App.Views.LayoutView
+    template: 'apps/movie/show/content'
+    className: "movie-content content-sections"
+    onRender:
+      $('[data-toggle="tooltip"]', @$el).tooltip()
+    triggers:
+      'click .youtube': 'movie:youtube'

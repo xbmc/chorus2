@@ -1,0 +1,21 @@
+.content-tabs {
+  li {
+    display: inline-block;
+    padding: $spacing-base-unit $spacing-double-unit;
+    &.active {
+      background: rgba($color-greyscale-outer-space, 0.05);
+    }
+    a {
+      color: rgba($color-greyscale-dove-gray, 0.7);
+      &.active {
+        color: $color-greyscale-outer-space;
+      }
+    }
+  }
+}
+.tab-content {
+  background: rgba($color-greyscale-outer-space, 0.05);
+  padding: $spacing-double-unit;
+  margin-right: 20%;
+  color: $color-greyscale-gray;
+}

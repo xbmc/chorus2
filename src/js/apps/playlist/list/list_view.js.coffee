@@ -10,6 +10,8 @@
     triggers:
       'click .kodi-playlists .media-toggle .video' :  'playlist:kodi:video'
       'click .kodi-playlists .media-toggle .audio' :  'playlist:kodi:audio'
+      'click .player-toggle .kodi' :  'playlist:kodi'
+      'click .player-toggle .local' :  'playlist:local'
 
   class List.Item extends App.Views.ItemView
     template: "apps/playlist/list/playlist_item"

@@ -2,6 +2,9 @@
 
     <section class="region-first"></section>
 
-    <section class="region-content"></section>
+    <section class="region-content-wrapper">
+        <div class="region-content-top"></div>
+        <div class="region-content"></div>
+    </section>
 
 </div>
