@@ -3,17 +3,18 @@
   API =
 
     ## Get the kodi play bar
-    getKodiPlayer: ->
-      new PlayerApp.Show.Player()
+    getPlayer: (player) ->
+      new PlayerApp.Show.Player
+        player: player
 
     ## Send a player command.
-    doKodiCommand: (command, params, callback) ->
+    doCommand: (player, command, params, callback) ->
       App.request 'command:kodi:player', command, params, =>
         @pollingUpdate(callback)
 
     ## Get the Kodi application controller
-    getAppController: ->
-      App.request "command:kodi:controller", 'auto', 'Application'
+    getAppController: (player) ->
+      App.request "command:#{player}:controller", 'auto', 'Application'
 
     ## Wrapper for requesting a state update if no sockets
     pollingUpdate: (callback) ->
@@ -21,42 +22,42 @@
         App.request 'state:kodi:update', callback
 
     ## Listen to the player commands
-    initKodiPlayer: (player) ->
-      @initProgress('kodi')
-      @initVolume('kodi')
-      App.vent.trigger "state:player:updated", 'kodi'
-      appController = @getAppController()
+    initPlayer: (player, playerView) ->
+      @initProgress(player)
+      @initVolume(player)
+      App.vent.trigger "state:player:updated", player
+      appController = @getAppController(player)
 
       ## Buttons
-      App.listenTo player, "control:play", =>
-        @doKodiCommand 'PlayPause', 'toggle'
-      App.listenTo player, "control:prev", =>
-        @doKodiCommand 'GoTo', 'previous'
-      App.listenTo player, "control:next", =>
-        @doKodiCommand 'GoTo', 'next'
-      App.listenTo player, "control:repeat", =>
-        @doKodiCommand 'SetRepeat', 'cycle'
-      App.listenTo player, "control:shuffle", =>
-        console.log 'suff'
-        @doKodiCommand 'SetShuffle', 'toggle'
-      App.listenTo player, "control:mute", =>
+      App.listenTo playerView, "control:play", =>
+        @doCommand player, 'PlayPause', 'toggle'
+      App.listenTo playerView, "control:prev", =>
+        @doCommand 'GoTo', 'previous'
+      App.listenTo playerView, "control:next", =>
+        @doCommand  player, 'GoTo', 'next'
+      App.listenTo playerView, "control:repeat", =>
+        @doCommand  player, 'SetRepeat', 'cycle'
+      App.listenTo playerView, "control:shuffle", =>
+        @doCommand  player, 'SetShuffle', 'toggle'
+      App.listenTo playerView, "control:mute", =>
         appController.toggleMute =>
           @pollingUpdate()
 
-      ## Slider Progress
-      $playerCtx = $('#player-kodi')
-      $progress = $('.playing-progress', $playerCtx)
-      $progress.on 'change', ->
-        API.timerStop()
-        API.doKodiCommand 'Seek', Math.round(@vGet()), ->
-          API.timerStart()
-      $progress.on 'slide', ->
-        API.timerStop()
-      ## Slider volume
-      $volume = $('.volume', $playerCtx)
-      $volume.on 'change', ->
-        appController.setVolume Math.round(@vGet())
-        API.pollingUpdate()
+      if player is 'kodi'
+        ## Slider Progress
+        $playerCtx = $('#player-kodi')
+        $progress = $('.playing-progress', $playerCtx)
+        $progress.on 'change', ->
+          API.timerStop()
+          API.doCommand 'Seek', Math.round(@vGet()), ->
+            API.timerStart()
+        $progress.on 'slide', ->
+          API.timerStop()
+        ## Slider volume
+        $volume = $('.volume', $playerCtx)
+        $volume.on 'change', ->
+          appController.setVolume Math.round(@vGet())
+          API.pollingUpdate()
 
 
     ## Start virtual timer
@@ -128,11 +129,19 @@
   @onStart = (options) ->
 
     App.vent.on "shell:ready", (options) =>
-      App.kodiPlayer = API.getKodiPlayer()
+
+      ## Kodi player
+      App.kodiPlayer = API.getPlayer('kodi')
       App.listenTo App.kodiPlayer, "show", ->
-        API.initKodiPlayer App.kodiPlayer
+        API.initPlayer 'kodi', App.kodiPlayer
         App.execute "player:kodi:timer", 'start'
       App.regionPlayerKodi.show App.kodiPlayer
+
+      ## Local player
+      App.localPlayer = API.getPlayer('local')
+      App.listenTo App.localPlayer, "show", ->
+        API.initPlayer 'local', App.localPlayer
+      App.regionPlayerLocal.show App.localPlayer
 
     ## Handler for the virtual timer.
     App.commands.setHandler 'player:kodi:timer', (state = 'start') ->

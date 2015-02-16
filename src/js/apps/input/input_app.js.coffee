@@ -11,7 +11,7 @@
       App.request "command:kodi:controller", 'auto', 'Input'
 
     ## Send a player command.
-    doKodiCommand: (command, params, callback) ->
+    doCommand: (command, params, callback) ->
       App.request 'command:kodi:player', command, params, =>
         @pollingUpdate(callback)
 
@@ -57,15 +57,15 @@
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)
-          @doKodiCommand "PlayPause", "toggle"
+          @doCommand "PlayPause", "toggle"
         when 88 # x (stop)
-          @doKodiCommand "Stop"
+          @doCommand "Stop"
         # when 84 # t (toggle subtitles)
           ## TODO
         when 190 # > (next)
-          @doKodiCommand "GoTo", "next"
+          @doCommand "GoTo", "next"
         when 188 # < (prev)
-          @doKodiCommand "GoTo", "previous"
+          @doCommand "GoTo", "previous"
         else # return everything else here
 
 

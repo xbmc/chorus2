@@ -14,6 +14,7 @@ $color-white: #fff;
 
 // Palette
 $color-cerulean: #12B2E7;
+$color-cerise-red: #DB2464;
 
 // Greyscale Palette
 $color-greyscale-alabaster: #FAFAFA;
@@ -29,8 +30,9 @@ $color-greyscale-outer-space: #2B2F30;
 // Brand
 $color-brand-primary: $color-cerulean;
 $color-kodi: $color-brand-primary;
+$color-local: $color-cerise-red;
 
-  // Background colors.
+// Background colors.
 $color-background-kodi: $color-greyscale-outer-space;
 $color-background-local: $color-greyscale-dove-gray;
 

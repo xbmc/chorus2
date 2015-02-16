@@ -51,7 +51,7 @@
             ## trigger listenters
             @localStateUpdate()
           onfinish: =>
-            @localFinished(model)
+            @localFinished()
           whileplaying: =>
             ## update progress/buffer
 
@@ -60,15 +60,8 @@
 
 
     ## What to do when finished.
-    localFinished: (model) ->
-      ## TODO: random/repeat
-      collection = App.request "localplayer:get:entities"
-      ## Next song in playlist.
-      model = collection.findWhere {position: model.get('position') + 1}
-      if model
-        @localLoad model, =>
-          @localPlay()
-      @localStateUpdate()
+    localFinished: ->
+      @localGoTo('next')
 
     ## Wrapper for playing current item.
     localPlay: ->
@@ -79,8 +72,15 @@
       @localCommand 'stop'
 
     ## Wrapper for pausing current item.
-    localStop: ->
+    localPause: ->
       @localCommand 'pause'
+
+    localPlayPause: ->
+      stateObj = App.request "state:local"
+      if stateObj.getPlaying 'paused'
+        @localCommand 'play'
+      else
+        @localCommand 'pause'
 
     ## Wrapper for calling a command on the current soundmanager sound.
     localCommand: (command) ->
@@ -88,6 +88,78 @@
       currentItem = stateObj.getState 'localPlay'
       if currentItem isnt false
         currentItem[command]()
+
+    ## Go to next/prev item adhering to repeat and shuffle
+    localGoTo: (param) ->
+      ## Get current playlist and state
+      collection = App.request "localplayer:get:entities"
+      stateObj = App.request "state:local"
+      currentPos = stateObj.getPlaying 'position'
+      posToPlay = false
+      ## Need songs to continue.
+      if collection.length > 0
+        ## Repeat this item
+        if stateObj.getState('repeat') is 'one'
+          posToPlay = currentPos
+        else if stateObj.getState('shuffle') is true
+          ## Shuffle
+          ## TODO: store what positions have been played so we dont repeat
+          posToPlay = helpers.global.getRandomInt 0, collection.length - 1
+        else
+          ## Next action
+          if param is 'next'
+            ## repeat all, back to the start
+            if currentPos is collection.length - 1 and stateObj.getState('repeat') is 'all'
+              posToPlay = 0
+            else if currentPos < collection.length
+              ## Standard next
+              posToPlay = currentPos + 1
+          ## Prev action
+          if param is 'prev'
+            ## repeat all, go to the end
+            if currentPos is 0 and stateObj.getState('repeat') is 'all'
+              posToPlay = collection.length - 1
+          else if currentPos > 0
+            ## Standard prev
+            posToPlay = currentPos - 1
+      ## Check we have a position to play, if so, play it.
+      if posToPlay isnt false
+        model = collection.findWhere {position: posToPlay}
+        @localLoad model, =>
+          @localPlay()
+          @localStateUpdate()
+
+    ## Seek to a percentage in the song
+    localSeek: (percent) ->
+      stateObj = App.request "state:local"
+      localPlay = stateObj.getState 'localPlay'
+      if currentItem isnt false
+        newPos = (percent / 100) * localPlay.duration
+        sound = soundManager.getSoundById stateObj.getState('currentPlaybackId')
+        sound.setPosition newPos
+
+    ## Set repeat state (cycle is available).
+    localRepeat: (param) ->
+      stateObj = App.request "state:local"
+      if param isnt 'cycle'
+        stateObj.setState('repeat', param)
+      else
+        newState = false
+        states = ['off', 'all', 'one']
+        for i, state in states
+          if newState
+            continue
+          if stateObj.getState('repeat') is state
+            if i is states.length - 1
+              newState = states[i + 1]
+            else
+              newState = 0
+        stateObj.setState('repeat', newState)
+
+    ## Set shuffle (bool)
+    localShuffle: (param) ->
+      stateObj = App.request "state:local"
+      stateObj.setState 'shuffle', param
 
     ## Triggers when something changes in the player.
     localStateUpdate: ->

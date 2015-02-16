@@ -17730,7 +17730,7 @@ form .inline-list .response {
   display: none;
 }
 /* line 10, ../../../../src/themes/base/sass/components/_player.scss */
-.player-local #player-local {
+.active-player-local #player-local {
   display: block;
 }
 
@@ -17739,7 +17739,7 @@ form .inline-list .response {
   display: block;
 }
 /* line 17, ../../../../src/themes/base/sass/components/_player.scss */
-.player-local #player-kodi {
+.active-player-local #player-kodi {
   display: none;
 }
 
@@ -18007,49 +18007,102 @@ form .inline-list .response {
   content: "\e8a3";
 }
 
-/* line 151, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 149, ../../../../src/themes/base/sass/components/_player.scss */
+#player-kodi {
+  background: #18191a;
+}
+/* line 152, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-playing #player-kodi .control-play:before {
   content: "\e6b6";
 }
-/* line 152, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 153, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-playing #player-kodi .playing-progress {
   border-top-color: #12b2e7;
 }
-/* line 158, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 159, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-mute-on #player-kodi .control-mute:hover {
   color: #12b2e7;
 }
-/* line 161, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 162, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-mute-on #player-kodi .control-mute:before {
   content: "\e6d0";
 }
-/* line 165, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 166, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat {
   color: white;
 }
-/* line 167, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 168, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat:before {
   content: "\e6c3";
 }
-/* line 168, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 169, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-one #player-kodi .control-repeat:hover {
   color: #12b2e7;
 }
-/* line 174, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 175, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-all #player-kodi .control-repeat {
   color: white;
 }
-/* line 176, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 177, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-repeat-all #player-kodi .control-repeat:hover {
   color: #12b2e7;
 }
-/* line 182, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 183, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-shuffled-on #player-kodi .control-shuffle {
   color: white;
 }
-/* line 184, ../../../../src/themes/base/sass/components/_player.scss */
+/* line 185, ../../../../src/themes/base/sass/components/_player.scss */
 .kodi-shuffled-on #player-kodi .control-shuffle:hover {
   color: #12b2e7;
+}
+
+/* line 149, ../../../../src/themes/base/sass/components/_player.scss */
+#player-local {
+  background: #666666;
+}
+/* line 152, ../../../../src/themes/base/sass/components/_player.scss */
+.local-playing #player-local .control-play:before {
+  content: "\e6b6";
+}
+/* line 153, ../../../../src/themes/base/sass/components/_player.scss */
+.local-playing #player-local .playing-progress {
+  border-top-color: #db2464;
+}
+/* line 159, ../../../../src/themes/base/sass/components/_player.scss */
+.local-mute-on #player-local .control-mute:hover {
+  color: #db2464;
+}
+/* line 162, ../../../../src/themes/base/sass/components/_player.scss */
+.local-mute-on #player-local .control-mute:before {
+  content: "\e6d0";
+}
+/* line 166, ../../../../src/themes/base/sass/components/_player.scss */
+.local-repeat-one #player-local .control-repeat {
+  color: white;
+}
+/* line 168, ../../../../src/themes/base/sass/components/_player.scss */
+.local-repeat-one #player-local .control-repeat:before {
+  content: "\e6c3";
+}
+/* line 169, ../../../../src/themes/base/sass/components/_player.scss */
+.local-repeat-one #player-local .control-repeat:hover {
+  color: #db2464;
+}
+/* line 175, ../../../../src/themes/base/sass/components/_player.scss */
+.local-repeat-all #player-local .control-repeat {
+  color: white;
+}
+/* line 177, ../../../../src/themes/base/sass/components/_player.scss */
+.local-repeat-all #player-local .control-repeat:hover {
+  color: #db2464;
+}
+/* line 183, ../../../../src/themes/base/sass/components/_player.scss */
+.local-shuffled-on #player-local .control-shuffle {
+  color: white;
+}
+/* line 185, ../../../../src/themes/base/sass/components/_player.scss */
+.local-shuffled-on #player-local .control-shuffle:hover {
+  color: #db2464;
 }
 
 /* line 6, ../../../../src/themes/base/sass/components/_playlists.scss */

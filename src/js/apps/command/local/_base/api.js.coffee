@@ -3,7 +3,7 @@
 
   ## Base commander with shared functionality.
   class Api.Commander extends Api.Base
-
+    ## See Api.Base for soundmanager abstraction
 
   ## Player commander.
   class Api.Player extends Api.Commander
@@ -16,3 +16,23 @@
         ## Start playback of playlist position x
         console.log 'playing..', model
         @doCallback callback, position
+
+    ## Mimics Kodi Player Commands.
+    sendCommand: (command, param) ->
+      switch command
+        when 'GoTo'
+          @localGoTo param
+        when 'PlayPause'
+          @localPlayPause()
+        when 'Seek'
+          @localSeek param
+        when 'SetRepeat'
+          ## param can be 'cycle', 'off', 'all' or 'one'
+          @localRepeat param
+        when 'SetShuffle'
+          @localShuffle param
+        when 'Stop'
+          @localStop()
+        else
+          ## nothing
+

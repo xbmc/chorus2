@@ -7,14 +7,14 @@
 
 #player-local {
   display: none;
-  .player-local & {
+  .active-player-local & {
     display: block;
   }
 }
 
 #player-kodi {
   display: block;
-  .player-local & {
+  .active-player-local & {
     display: none;
   }
 }
@@ -145,8 +145,9 @@
 .control-menu:before { content: icon-code(navigation-more-vert); }
 
 // State based changes.
-@mixin player-state($player: 'kodi', $brand-color: $color-kodi) {
+@mixin player-state($player: 'kodi', $brand-color: $color-kodi, $background: $color-player-background) {
   #player-#{$player} {
+    background: $background;
     .#{$player}-playing & {
       .control-play:before { content: icon-code(av-pause); }
       .playing-progress {
@@ -189,5 +190,7 @@
   }
 }
 
-// Kodi player
-@include player-state('kodi', $color-kodi);
+// Apply player colors
+@include player-state('kodi', $color-kodi, $color-player-background);
+@include player-state('local', $color-local, $color-background-local);
+
