@@ -166,10 +166,14 @@
   App.reqres.setHandler "thumbsup:get:entities", (media) ->
     API.getItemCollection API.getThumbsKey(media)
 
+  ## Has a model being thumbed up?
   App.reqres.setHandler "thumbsup:check", (model) ->
-    collection = API.getItemCollection API.getThumbsKey(model.get('type'))
-    existing = collection.findWhere {id: model.get('id')}
-    _.isObject(existing)
+    if model?
+      collection = API.getItemCollection API.getThumbsKey(model.get('type'))
+      existing = collection.findWhere {id: model.get('id')}
+      _.isObject(existing)
+    else
+      false
 
 
   ###

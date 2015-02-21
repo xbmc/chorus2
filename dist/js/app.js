@@ -49,6 +49,25 @@ $(document).ready((function(_this) {
 
 
 /*
+  Helper to return you to the same scroll position on the last page.
+ */
+
+helpers.backscroll = {
+  lastPath: '',
+  lastScroll: 0,
+  setLast: function() {
+    this.lastPath = location.hash;
+    return this.lastScroll = document.body.scrollTop;
+  },
+  scrollToLast: function() {
+    var scrollPos;
+    scrollPos = this.lastPath === location.hash ? this.lastScroll : 0;
+    return window.scrollTo(0, scrollPos);
+  }
+};
+
+
+/*
   Our cache storage, persists only for app lifycle
   Eg. gets wiped when page reloaded.
  */
@@ -615,6 +634,30 @@ $.fn.removeClassStartsWith = function(startsWith) {
   var regex;
   regex = new RegExp('^' + startsWith, 'g');
   return $(this).removeClassRegex(regex);
+};
+
+$.fn.scrollStopped = function(callback) {
+  var $this, self;
+  $this = $(this);
+  self = this;
+  return $this.scroll(function() {
+    if ($this.data('scrollTimeout')) {
+      clearTimeout($this.data('scrollTimeout'));
+    }
+    return $this.data('scrollTimeout', setTimeout(callback, 250, self));
+  });
+};
+
+$.fn.resizeStopped = function(callback) {
+  var $this, self;
+  $this = $(this);
+  self = this;
+  return $this.resize(function() {
+    if ($this.data('resizeTimeout')) {
+      clearTimeout($this.data('resizeTimeout'));
+    }
+    return $this.data('resizeTimeout', setTimeout(callback, 250, self));
+  });
 };
 
 
@@ -3469,11 +3512,15 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
   });
   App.reqres.setHandler("thumbsup:check", function(model) {
     var collection, existing;
-    collection = API.getItemCollection(API.getThumbsKey(model.get('type')));
-    existing = collection.findWhere({
-      id: model.get('id')
-    });
-    return _.isObject(existing);
+    if (model != null) {
+      collection = API.getItemCollection(API.getThumbsKey(model.get('type')));
+      existing = collection.findWhere({
+        id: model.get('id')
+      });
+      return _.isObject(existing);
+    } else {
+      return false;
+    }
   });
 
   /*
@@ -3828,6 +3875,12 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     CollectionView.prototype.itemViewEventPrefix = "childview";
 
+    CollectionView.prototype.onShow = function() {
+      return $("img.lazy").lazyload({
+        threshold: 200
+      });
+    };
+
     return CollectionView;
 
   })(Backbone.Marionette.CollectionView);
@@ -3913,7 +3966,124 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 });
 
 this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
-  return Views.CardView = (function(_super) {
+  return Views.VirtualListView = (function(_super) {
+    __extends(VirtualListView, _super);
+
+    function VirtualListView() {
+      return VirtualListView.__super__.constructor.apply(this, arguments);
+    }
+
+    VirtualListView.prototype.originalCollection = {};
+
+    VirtualListView.prototype.preload = 20;
+
+    VirtualListView.prototype.originalChildView = {};
+
+    VirtualListView.prototype.buffer = 30;
+
+    VirtualListView.prototype.isTicking = false;
+
+    VirtualListView.prototype.addChild = function(child, ChildView, index) {
+      if (index > this.preload) {
+        ChildView = App.Views.CardViewPlaceholder;
+      }
+      return Backbone.Marionette.CollectionView.prototype.addChild.apply(this, arguments);
+    };
+
+    VirtualListView.prototype.bindScroll = function() {
+      $(window).scrollStopped((function(_this) {
+        return function() {
+          return _this.requestTick();
+        };
+      })(this));
+      return $(window).resizeStopped((function(_this) {
+        return function() {
+          return _this.requestTick();
+        };
+      })(this));
+    };
+
+    VirtualListView.prototype.initialize = function() {
+      this.originalChildView = this.getOption('childView');
+      this.placeholderChildView = App.Views.CardViewPlaceholder;
+      return this.bindScroll();
+    };
+
+    VirtualListView.prototype.onRender = function() {
+      return this.requestTick();
+    };
+
+    VirtualListView.prototype.requestTick = function() {
+      if (!this.isTicking) {
+        requestAnimationFrame((function(_this) {
+          return function() {
+            return _this.renderItemsInViewport();
+          };
+        })(this));
+      }
+      return this.isTicking = true;
+    };
+
+    VirtualListView.prototype.renderItemsInViewport = function() {
+      var $cards, max, min, visibleIndexes, visibleRange, _i, _results;
+      this.isTicking = false;
+      $cards = $(".card", this.$el);
+      visibleIndexes = [];
+      $cards.each((function(_this) {
+        return function(i, d) {
+          if ($(d).visible(true)) {
+            return visibleIndexes.push(i);
+          }
+        };
+      })(this));
+      min = _.min(visibleIndexes);
+      max = _.max(visibleIndexes);
+      min = (min - this.buffer) < 0 ? 0 : min - this.buffer;
+      max = (max + this.buffer) >= $cards.length ? $cards.length - 1 : max + this.buffer;
+      visibleRange = (function() {
+        _results = [];
+        for (var _i = min; min <= max ? _i <= max : _i >= max; min <= max ? _i++ : _i--){ _results.push(_i); }
+        return _results;
+      }).apply(this);
+      return $cards.each((function(_this) {
+        return function(i, d) {
+          if ($(d).hasClass('ph') && helpers.global.inArray(i, visibleRange)) {
+            return $(d).replaceWith(_this.getRenderedChildView($(d).data('model'), _this.originalChildView, i));
+          } else if (!$(d).hasClass('ph') && !helpers.global.inArray(i, visibleRange)) {
+            return $(d).replaceWith(_this.getRenderedChildView($(d).data('model'), _this.placeholderChildView, i));
+          }
+        };
+      })(this));
+    };
+
+    VirtualListView.prototype.getRenderedChildView = function(child, ChildView, index) {
+      var childViewOptions, view;
+      childViewOptions = this.getOption('childViewOptions');
+      childViewOptions = Marionette._getValue(childViewOptions, this, [child, index]);
+      view = this.buildChildView(child, ChildView, childViewOptions);
+      this.proxyChildEvents(view);
+      return view.render().$el;
+    };
+
+    VirtualListView.prototype.events = {
+      "click a": "storeScroll"
+    };
+
+    VirtualListView.prototype.storeScroll = function() {
+      return helpers.backscroll.setLast();
+    };
+
+    VirtualListView.prototype.onShow = function() {
+      return helpers.backscroll.scrollToLast();
+    };
+
+    return VirtualListView;
+
+  })(Views.CollectionView);
+});
+
+this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+  Views.CardView = (function(_super) {
     __extends(CardView, _super);
 
     function CardView() {
@@ -3951,7 +4121,7 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     CardView.prototype.attributes = function() {
       var classes;
-      classes = ['card'];
+      classes = ['card', 'card-loaded'];
       if (App.request("thumbsup:check", this.model)) {
         classes.push('thumbs-up');
       }
@@ -3960,7 +4130,33 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       };
     };
 
+    CardView.prototype.onRender = function() {
+      return this.$el.data('model', this.model);
+    };
+
     return CardView;
+
+  })(App.Views.ItemView);
+  return Views.CardViewPlaceholder = (function(_super) {
+    __extends(CardViewPlaceholder, _super);
+
+    function CardViewPlaceholder() {
+      return CardViewPlaceholder.__super__.constructor.apply(this, arguments);
+    }
+
+    CardViewPlaceholder.prototype.template = "views/card/card_placeholder";
+
+    CardViewPlaceholder.prototype.attributes = function() {
+      return {
+        "class": 'card ph'
+      };
+    };
+
+    CardViewPlaceholder.prototype.onRender = function() {
+      return this.$el.data('model', this.model);
+    };
+
+    return CardViewPlaceholder;
 
   })(App.Views.ItemView);
 });
@@ -4435,9 +4631,13 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
         return App.execute('album:action', 'localplay', item);
       });
     },
-    getAlbumsList: function(collection) {
-      var view;
-      view = new List.Albums({
+    getAlbumsList: function(collection, set) {
+      var view, viewName;
+      if (set == null) {
+        set = false;
+      }
+      viewName = set ? 'AlbumsSet' : 'Albums';
+      view = new List[viewName]({
         collection: collection
       });
       API.bindTriggers(view);
@@ -4505,7 +4705,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
 
   })(App.Controllers.Base);
   return App.reqres.setHandler("album:list:view", function(collection) {
-    return API.getAlbumsList(collection);
+    return API.getAlbumsList(collection, true);
   });
 });
 
@@ -4537,12 +4737,14 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     };
 
     AlbumTeaser.prototype.initialize = function() {
-      var artistLink;
+      var artist, artistLink;
+      AlbumTeaser.__super__.initialize.apply(this, arguments);
       this.model.set({
         actions: {
           thumbs: 'Thumbs up'
         }
       });
+      artist = this.model.get('artist') !== '' ? this.model.get('artist') : '&nbsp;';
       this.model.set({
         menu: {
           add: 'Add to Kodi playlist',
@@ -4551,7 +4753,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
           localplay: 'Play in browser'
         }
       });
-      artistLink = this.themeLink(this.model.get('artist'), helpers.url.get('artist', this.model.get('artistid')));
+      artistLink = this.themeLink(artist, helpers.url.get('artist', this.model.get('artistid')));
       return this.model.set({
         subtitle: artistLink
       });
@@ -4574,7 +4776,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     return Empty;
 
   })(App.Views.EmptyView);
-  return List.Albums = (function(_super) {
+  List.Albums = (function(_super) {
     __extends(Albums, _super);
 
     function Albums() {
@@ -4592,6 +4794,26 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     Albums.prototype.className = "card-grid--square";
 
     return Albums;
+
+  })(App.Views.VirtualListView);
+  return List.AlbumsSet = (function(_super) {
+    __extends(AlbumsSet, _super);
+
+    function AlbumsSet() {
+      return AlbumsSet.__super__.constructor.apply(this, arguments);
+    }
+
+    AlbumsSet.prototype.childView = List.AlbumTeaser;
+
+    AlbumsSet.prototype.emptyView = List.Empty;
+
+    AlbumsSet.prototype.tagName = "ul";
+
+    AlbumsSet.prototype.sort = 'artist';
+
+    AlbumsSet.prototype.className = "card-grid--square";
+
+    return AlbumsSet;
 
   })(App.Views.CollectionView);
 });
@@ -4889,11 +5111,16 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
         return App.execute('artist:action', 'add', item.model);
       });
     },
-    getArtistList: function(collection) {
-      var view;
-      view = new List.Artists({
+    getArtistList: function(collection, set) {
+      var view, viewName;
+      if (set == null) {
+        set = false;
+      }
+      viewName = set ? 'ArtistsSet' : 'Artists';
+      view = new List[viewName]({
         collection: collection
       });
+      console.log(view);
       API.bindTriggers(view);
       return view;
     }
@@ -4959,7 +5186,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
 
   })(App.Controllers.Base);
   return App.reqres.setHandler("artist:list:view", function(collection) {
-    return API.getArtistList(collection);
+    return API.getArtistList(collection, true);
   });
 });
 
@@ -4989,19 +5216,22 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     };
 
     ArtistTeaser.prototype.initialize = function() {
-      this.model.set({
-        actions: {
-          thumbs: 'Thumbs up'
-        }
-      });
-      return this.model.set({
-        menu: {
-          add: 'Add to Kodi playlist',
-          savelist: 'Add to local playlist',
-          divider: '',
-          localplay: 'Play in browser'
-        }
-      });
+      ArtistTeaser.__super__.initialize.apply(this, arguments);
+      if (this.model != null) {
+        this.model.set({
+          actions: {
+            thumbs: 'Thumbs up'
+          }
+        });
+        return this.model.set({
+          menu: {
+            add: 'Add to Kodi playlist',
+            savelist: 'Add to local playlist',
+            divider: '',
+            localplay: 'Play in browser'
+          }
+        });
+      }
     };
 
     return ArtistTeaser;
@@ -5021,7 +5251,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     return Empty;
 
   })(App.Views.EmptyView);
-  return List.Artists = (function(_super) {
+  List.Artists = (function(_super) {
     __extends(Artists, _super);
 
     function Artists() {
@@ -5037,6 +5267,24 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     Artists.prototype.className = "card-grid--wide";
 
     return Artists;
+
+  })(App.Views.VirtualListView);
+  return List.ArtistsSet = (function(_super) {
+    __extends(ArtistsSet, _super);
+
+    function ArtistsSet() {
+      return ArtistsSet.__super__.constructor.apply(this, arguments);
+    }
+
+    ArtistsSet.prototype.childView = List.ArtistTeaser;
+
+    ArtistsSet.prototype.emptyView = List.Empty;
+
+    ArtistsSet.prototype.tagName = "ul";
+
+    ArtistsSet.prototype.className = "card-grid--wide";
+
+    return ArtistsSet;
 
   })(App.Views.CollectionView);
 });
@@ -7239,6 +7487,7 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       }
       this.getFilters(clearOptions);
       this.getActive();
+      App.navigate(helpers.url.path());
       return this.layoutFilters.trigger('filter:changed');
     };
 
@@ -8182,9 +8431,13 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
 this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    getMoviesView: function(collection) {
-      var view;
-      view = new List.Movies({
+    getMoviesView: function(collection, set) {
+      var view, viewName;
+      if (set == null) {
+        set = false;
+      }
+      viewName = set ? 'MoviesSet' : 'Movies';
+      view = new List[viewName]({
         collection: collection
       });
       API.bindTriggers(view);
@@ -8263,7 +8516,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
 
   })(App.Controllers.Base);
   return App.reqres.setHandler("movie:list:view", function(collection) {
-    return API.getMoviesView(collection);
+    return API.getMoviesView(collection, true);
   });
 });
 
@@ -8293,9 +8546,12 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     };
 
     MovieTeaser.prototype.initialize = function() {
-      return this.model.set({
-        subtitle: this.model.get('year')
-      });
+      MovieTeaser.__super__.initialize.apply(this, arguments);
+      if (this.model != null) {
+        return this.model.set({
+          subtitle: this.model.get('year')
+        });
+      }
     };
 
     return MovieTeaser;
@@ -8315,7 +8571,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     return Empty;
 
   })(App.Views.EmptyView);
-  return List.Movies = (function(_super) {
+  List.Movies = (function(_super) {
     __extends(Movies, _super);
 
     function Movies() {
@@ -8331,6 +8587,24 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     Movies.prototype.className = "card-grid--tall";
 
     return Movies;
+
+  })(App.Views.VirtualListView);
+  return List.MoviesSet = (function(_super) {
+    __extends(MoviesSet, _super);
+
+    function MoviesSet() {
+      return MoviesSet.__super__.constructor.apply(this, arguments);
+    }
+
+    MoviesSet.prototype.childView = List.MovieTeaser;
+
+    MoviesSet.prototype.emptyView = List.Empty;
+
+    MoviesSet.prototype.tagName = "ul";
+
+    MoviesSet.prototype.className = "card-grid--tall";
+
+    return MoviesSet;
 
   })(App.Views.CollectionView);
 });
@@ -9265,14 +9539,14 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
 
     ListLayout.prototype.template = 'apps/search/list/search_layout';
 
-    ListLayout.prototype.className = "search-page";
+    ListLayout.prototype.className = "search-page set-page";
 
     ListLayout.prototype.regions = {
-      artistSet: '.search-set-artist',
-      albumSet: '.search-set-album',
-      songSet: '.search-set-song',
-      movieSet: '.search-set-movie',
-      tvshowSet: '.search-set-tvshow'
+      artistSet: '.entity-set-artist',
+      albumSet: '.entity-set-album',
+      songSet: '.entity-set-song',
+      movieSet: '.entity-set-movie',
+      tvshowSet: '.entity-set-tvshow'
     };
 
     return ListLayout;
@@ -10526,12 +10800,149 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
   });
 });
 
+this.Kodi.module("ThumbsApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var entities;
+      this.layout = this.getLayout();
+      entities = ['song', 'artist', 'album', 'tvshow', 'movie'];
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          var entity, _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = entities.length; _i < _len; _i++) {
+            entity = entities[_i];
+            _results.push(_this.getResult(entity));
+          }
+          return _results;
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayout = function() {
+      return new List.ListLayout();
+    };
+
+    Controller.prototype.getResult = function(entity) {
+      var limit, loaded, query, setView, view;
+      query = this.getOption('query');
+      limit = this.getOption('media') === 'all' ? 'limit' : 'all';
+      loaded = App.request("thumbsup:get:entities", entity);
+      if (loaded.length > 0) {
+        view = App.request("" + entity + ":list:view", loaded, true);
+        setView = new List.ListSet({
+          entity: entity
+        });
+        App.listenTo(setView, "show", (function(_this) {
+          return function() {
+            return setView.regionResult.show(view);
+          };
+        })(this));
+        return this.layout["" + entity + "Set"].show(setView);
+      }
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("ThumbsApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.ListLayout = (function(_super) {
+    __extends(ListLayout, _super);
+
+    function ListLayout() {
+      return ListLayout.__super__.constructor.apply(this, arguments);
+    }
+
+    ListLayout.prototype.template = 'apps/thumbs/list/thumbs_layout';
+
+    ListLayout.prototype.className = "thumbs-page set-page";
+
+    ListLayout.prototype.regions = {
+      artistSet: '.entity-set-artist',
+      albumSet: '.entity-set-album',
+      songSet: '.entity-set-song',
+      movieSet: '.entity-set-movie',
+      tvshowSet: '.entity-set-tvshow'
+    };
+
+    return ListLayout;
+
+  })(App.Views.LayoutView);
+  return List.ListSet = (function(_super) {
+    __extends(ListSet, _super);
+
+    function ListSet() {
+      return ListSet.__super__.constructor.apply(this, arguments);
+    }
+
+    ListSet.prototype.template = 'apps/thumbs/list/thumbs_set';
+
+    ListSet.prototype.className = "thumbs-set";
+
+    ListSet.prototype.onRender = function() {
+      if (this.options) {
+        if (this.options.entity) {
+          return $('h2.set-header', this.$el).html(t.gettext(this.options.entity + 's'));
+        }
+      }
+    };
+
+    ListSet.prototype.regions = {
+      regionResult: '.set-results'
+    };
+
+    return ListSet;
+
+  })(App.Views.LayoutView);
+});
+
+this.Kodi.module("ThumbsApp", function(ThumbsApp, App, Backbone, Marionette, $, _) {
+  var API;
+  ThumbsApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "thumbsup": "list"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    list: function() {
+      return new ThumbsApp.List.Controller();
+    }
+  };
+  return App.on("before:start", function() {
+    return new ThumbsApp.Router({
+      controller: API
+    });
+  });
+});
+
 this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    getTVShowsList: function(tvshows) {
-      var view;
-      view = new List.TVShows({
+    getTVShowsList: function(tvshows, set) {
+      var view, viewName;
+      if (set == null) {
+        set = false;
+      }
+      viewName = set ? 'TVShowsSet' : 'TVShows';
+      view = new List[viewName]({
         collection: tvshows
       });
       App.listenTo(view, 'childview:tvshow:play', function(list, item) {
@@ -10603,7 +11014,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
 
   })(App.Controllers.Base);
   return App.reqres.setHandler("tvshow:list:view", function(collection) {
-    return API.getTVShowsList(collection);
+    return API.getTVShowsList(collection, true);
   });
 });
 
@@ -10634,6 +11045,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
 
     TVShowTeaser.prototype.initialize = function() {
       var subtitle;
+      TVShowTeaser.__super__.initialize.apply(this, arguments);
       subtitle = '';
       subtitle += ' ' + this.model.get('rating');
       return this.model.set({
@@ -10658,7 +11070,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     return Empty;
 
   })(App.Views.EmptyView);
-  return List.TVShows = (function(_super) {
+  List.TVShows = (function(_super) {
     __extends(TVShows, _super);
 
     function TVShows() {
@@ -10674,6 +11086,24 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     TVShows.prototype.className = "card-grid--tall";
 
     return TVShows;
+
+  })(App.Views.VirtualListView);
+  return List.TVShowsSet = (function(_super) {
+    __extends(TVShowsSet, _super);
+
+    function TVShowsSet() {
+      return TVShowsSet.__super__.constructor.apply(this, arguments);
+    }
+
+    TVShowsSet.prototype.childView = List.TVShowTeaser;
+
+    TVShowsSet.prototype.emptyView = List.Empty;
+
+    TVShowsSet.prototype.tagName = "ul";
+
+    TVShowsSet.prototype.className = "card-grid--tall";
+
+    return TVShowsSet;
 
   })(App.Views.CollectionView);
 });

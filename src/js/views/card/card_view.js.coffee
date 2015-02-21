@@ -20,10 +20,22 @@
       this.$el.toggleClass 'thumbs-up'
 
     attributes: ->
-      classes = ['card']
+      classes = ['card', 'card-loaded']
       if App.request "thumbsup:check", @model
         classes.push 'thumbs-up'
       {
         class: classes.join(' ')
       }
 
+    onRender: ->
+      @$el.data('model', @model)
+
+
+  class Views.CardViewPlaceholder extends App.Views.ItemView
+    template: "views/card/card_placeholder"
+    attributes: ->
+      {
+        class: 'card ph'
+      }
+    onRender: ->
+      @$el.data('model', @model)

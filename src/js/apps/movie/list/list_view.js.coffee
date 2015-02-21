@@ -8,13 +8,21 @@
       "click .play" : "movie:play"
       "click .menu" : "movie-menu:clicked"
     initialize: ->
-      @model.set subtitle: @model.get('year')
+      super
+      if @model?
+        @model.set subtitle: @model.get('year')
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"
     className: "movie-empty-result"
 
-  class List.Movies extends App.Views.CollectionView
+  class List.Movies extends App.Views.VirtualListView
+    childView: List.MovieTeaser
+    emptyView: List.Empty
+    tagName: "ul"
+    className: "card-grid--tall"
+
+  class List.MoviesSet extends App.Views.CollectionView
     childView: List.MovieTeaser
     emptyView: List.Empty
     tagName: "ul"

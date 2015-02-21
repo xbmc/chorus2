@@ -2,8 +2,9 @@
 
   API =
 
-    getMoviesView: (collection) ->
-      view = new List.Movies
+    getMoviesView: (collection, set = false) ->
+      viewName = if set then 'MoviesSet' else 'Movies'
+      view = new List[viewName]
         collection: collection
       API.bindTriggers view
       view
@@ -67,4 +68,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "movie:list:view", (collection) ->
-    API.getMoviesView collection
+    API.getMoviesView collection, true

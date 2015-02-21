@@ -1,8 +1,8 @@
-@Kodi.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
+@Kodi.module "ThumbsApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.ListLayout extends App.Views.LayoutView
-    template: 'apps/search/list/search_layout'
-    className: "search-page set-page"
+    template: 'apps/thumbs/list/thumbs_layout'
+    className: "thumbs-page set-page"
     regions:
       artistSet: '.entity-set-artist'
       albumSet:  '.entity-set-album'
@@ -11,15 +11,11 @@
       tvshowSet: '.entity-set-tvshow'
 
   class List.ListSet extends App.Views.LayoutView
-    template: 'apps/search/list/search_set'
-    className: "search-set"
+    template: 'apps/thumbs/list/thumbs_set'
+    className: "thumbs-set"
     onRender: ->
       if @options
         if @options.entity
           $('h2.set-header', @$el).html( t.gettext( @options.entity + 's'  ) )
-          if @options.more and @options.query
-            moreLink = @themeLink t.gettext('Show More'), 'search/' + @options.entity + '/' + @options.query
-            $('.more', @$el).html( moreLink )
-
     regions:
       regionResult: '.set-results'

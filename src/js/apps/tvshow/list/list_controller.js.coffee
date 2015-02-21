@@ -2,8 +2,9 @@
 
   API =
 
-    getTVShowsList: (tvshows) ->
-      view = new List.TVShows
+    getTVShowsList: (tvshows, set = false) ->
+      viewName = if set then 'TVShowsSet' else 'TVShows'
+      view = new List[viewName]
         collection: tvshows
       App.listenTo view, 'childview:tvshow:play', (list, item) ->
         playlist = App.request "command:kodi:controller", 'video', 'PlayList'
@@ -65,4 +66,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "tvshow:list:view", (collection) ->
-    API.getTVShowsList collection
+    API.getTVShowsList collection, true

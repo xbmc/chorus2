@@ -1,0 +1,21 @@
+
+.set-page {
+  padding: $spacing-half-unit $spacing-half-unit * 3 $spacing-base-unit;
+  .entity-set {
+    .set-header {
+      margin: $spacing-base-unit 0 $spacing-half-unit;
+      text-transform: capitalize;
+      font-size: 22px;
+    }
+    .more {
+      a {
+        @include flat-button($color-kodi, communication-call-made);
+      }
+    }
+  }
+  .entity-set-song {
+    .set-results {
+      padding: 5px;
+    }
+  }
+}

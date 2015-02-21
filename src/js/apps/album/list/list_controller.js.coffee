@@ -12,8 +12,9 @@
       App.listenTo view, 'childview:album:localplay', (list, item) ->
         App.execute 'album:action', 'localplay', item
 
-    getAlbumsList: (collection) ->
-      view = new List.Albums
+    getAlbumsList: (collection, set = false) ->
+      viewName = if set then 'AlbumsSet' else 'Albums'
+      view = new List[viewName]
         collection: collection
       API.bindTriggers(view)
       view
@@ -69,4 +70,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "album:list:view", (collection) ->
-    API.getAlbumsList collection
+    API.getAlbumsList collection, true

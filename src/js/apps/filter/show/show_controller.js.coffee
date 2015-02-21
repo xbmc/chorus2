@@ -103,6 +103,7 @@
     triggerChange: (clearOptions = true) ->
       @getFilters(clearOptions)
       @getActive()
+      App.navigate helpers.url.path()
       @layoutFilters.trigger 'filter:changed'
 
 

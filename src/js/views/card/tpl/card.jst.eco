@@ -1,7 +1,7 @@
 <div class="card-<%= @type %>">
     <div class="artwork">
         <a href="#<%= @url %>" class="thumb" title="<%= @label %>">
-            <img src="<%= this.thumbnail %>" />
+            <img src="<%= @thumbnail %>" onerror="this.src = Kodi.request('images:path:get')" />
         </a>
         <div class="play"></div>
     </div>

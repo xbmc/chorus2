@@ -13,7 +13,7 @@ $card-details-spacing: 7px 10px;
 $card-layout: (
   square: (
     width: $card-width,
-    height: auto,
+    height: 216px,
     height-image: $card-width,
     offset-image: 0
   ),
@@ -83,9 +83,16 @@ $card-layout: (
   margin: $card-spacing;
   background: $background;
   position: relative;
+  overflow: hidden;
+  // placeholder invisible
+  &.ph {
+    opacity: 0.1;
+    @include box-shadow(none);
+  }
   .artwork {
     @include image-crop(get-card-size($size, height-image), get-card-size($size, width), get-card-size($size, offset-image));
     position: relative;
+    background: #ccc;
     a {
       display: block;
     }

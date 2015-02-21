@@ -8,6 +8,7 @@
       "click .play" : "tvshow:play"
       "click .menu" : "tvshow-menu:clicked"
     initialize: ->
+      super
       subtitle = ''
       # subtitle += @model.get('year')
       # subtitle += ' ' + @model.get('dateadded')
@@ -19,7 +20,13 @@
     tagName: "li"
     className: "tvshow-empty-result"
 
-  class List.TVShows extends App.Views.CollectionView
+  class List.TVShows extends App.Views.VirtualListView
+    childView: List.TVShowTeaser
+    emptyView: List.Empty
+    tagName: "ul"
+    className: "card-grid--tall"
+
+  class List.TVShowsSet extends App.Views.CollectionView
     childView: List.TVShowTeaser
     emptyView: List.Empty
     tagName: "ul"

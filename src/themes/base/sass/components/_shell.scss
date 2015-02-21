@@ -11,6 +11,7 @@
 }
 ::-webkit-scrollbar-thumb {
   background: $color-scrollbar-handle;
+  cursor: pointer;
   &:hover {
     background: $color-scrollbar-hover-handle;
   }
