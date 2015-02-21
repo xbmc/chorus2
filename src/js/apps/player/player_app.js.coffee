@@ -9,7 +9,7 @@
 
     ## Send a player command.
     doCommand: (player, command, params, callback) ->
-      App.request 'command:kodi:player', command, params, =>
+      App.request "command:#{player}:player", command, params, =>
         @pollingUpdate(callback)
 
     ## Get the Kodi application controller
@@ -18,8 +18,12 @@
 
     ## Wrapper for requesting a state update if no sockets
     pollingUpdate: (callback) ->
-      if not App.request 'sockets:active'
+      stateObj = App.request "state:current"
+      if stateObj.getPlayer() is 'kodi'
+        ## if not App.request 'sockets:active'
         App.request 'state:kodi:update', callback
+      else
+        ## Local player state update.
 
     ## Listen to the player commands
     initPlayer: (player, playerView) ->
@@ -30,9 +34,10 @@
 
       ## Buttons
       App.listenTo playerView, "control:play", =>
+        console.log 'playOn', player
         @doCommand player, 'PlayPause', 'toggle'
       App.listenTo playerView, "control:prev", =>
-        @doCommand 'GoTo', 'previous'
+        @doCommand player, 'GoTo', 'previous'
       App.listenTo playerView, "control:next", =>
         @doCommand  player, 'GoTo', 'next'
       App.listenTo playerView, "control:repeat", =>
@@ -43,22 +48,27 @@
         appController.toggleMute =>
           @pollingUpdate()
 
+
+      $playerCtx = $('#player-' + player)
+      $progress = $('.playing-progress', $playerCtx)
       if player is 'kodi'
-        ## Slider Progress
-        $playerCtx = $('#player-kodi')
-        $progress = $('.playing-progress', $playerCtx)
+        ## Kodi Slider Progress change
         $progress.on 'change', ->
           API.timerStop()
-          API.doCommand 'Seek', Math.round(@vGet()), ->
+          API.doCommand player, 'Seek', Math.round(@vGet()), ->
             API.timerStart()
         $progress.on 'slide', ->
           API.timerStop()
-        ## Slider volume
-        $volume = $('.volume', $playerCtx)
-        $volume.on 'change', ->
-          appController.setVolume Math.round(@vGet())
-          API.pollingUpdate()
+      else
+        ## Local slider progress change
+        $progress.on 'change', ->
+          API.doCommand player, 'Seek', Math.round(@vGet())
 
+      ## Slider volume
+      $volume = $('.volume', $playerCtx)
+      $volume.on 'change', ->
+        appController.setVolume Math.round(@vGet())
+        API.pollingUpdate()
 
     ## Start virtual timer
     timerStart: ->
@@ -151,3 +161,7 @@
         API.timerStop()
       else if state is 'update'
         API.timerUpdate()
+
+    ## Handler for changing the local progress.
+    App.commands.setHandler 'player:local:progress:update', (percent, currentTime) ->
+      API.setProgress 'local', percent, currentTime

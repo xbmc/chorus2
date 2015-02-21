@@ -26,7 +26,7 @@
         raw = collection.getRawCollection()
         ret = []
         for pos, item of raw
-          if pos isnt position
+          if parseInt(pos) isnt parseInt(position)
             ret.push item
         @clear =>
           collection = @addItems ret
@@ -43,11 +43,18 @@
       @getItems (collection) =>
         raw = collection.getRawCollection()
         if raw.length is 0
+          ## Empty list
           ret = _.flatten( [models] )
+        else if parseInt(position) >= raw.length
+          ## Adding to the end of a list
+          ret = raw
+          for model in _.flatten( [models] )
+            ret.push model
         else
+          ## Insert in the middle of a list
           ret = []
           for pos, item of raw
-            if pos is position
+            if parseInt(pos) is parseInt(position)
               for model in _.flatten( [models] )
                 ret.push model
             ret.push item
@@ -79,3 +86,12 @@
     ## Refresh playlist
     refreshPlaylistView: ->
       App.execute "playlist:refresh", 'local', 'audio'
+
+    ## Move Item
+    moveItem: (media, id, position1, position2, callback) ->
+      @getItems (collection) =>
+        raw = collection.getRawCollection()
+        item = raw[position1]
+        @remove position1, =>
+          @insert item, position2, =>
+            @doCallback callback, position2

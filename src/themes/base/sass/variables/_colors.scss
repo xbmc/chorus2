@@ -22,6 +22,7 @@ $color-greyscale-mercury: #e5e5e5;
 $color-greyscale-alto: #ddd;
 $color-greyscale-cloudy: #a8a7a6;
 $color-greyscale-loblolly: #BAC1C8;
+$color-greyscale-shark: #303337;
 $color-greyscale-dove-gray: #666;
 $color-greyscale-gray: #888888;
 $color-greyscale-dust-gray: #999;
@@ -34,7 +35,7 @@ $color-local: $color-cerise-red;
 
 // Background colors.
 $color-background-kodi: $color-greyscale-outer-space;
-$color-background-local: $color-greyscale-dove-gray;
+$color-background-local: $color-greyscale-shark;
 
 // Text Colours.
 $color-text-dark: $color-greyscale-outer-space;
@@ -96,6 +97,7 @@ $color-nav-text-hover: $color-kodi;
 
 // Entity page
 $color-detail-header-background: #323537;
+$color-detail-header-background-local: #222425;
 $color-detail-content-background: #f5f5f5;
 
 

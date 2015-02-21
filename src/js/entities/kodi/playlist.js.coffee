@@ -22,7 +22,7 @@
     ## Attempt to get the type of a playlist item by parsing the properties
     getType: (item, media) ->
       type = 'file'
-      if item.id isnt ''
+      if item.id isnt undefined and item.id isnt ''
         if media is 'audio'
           type = 'song'
         else if media is 'video'
@@ -43,10 +43,10 @@
       item.playlistid = options.playlistid
       item.media = options.media
       item.player = 'kodi'
-      if not item.type
-        item.type = API.getType(items, options.media)
+      if not item.type or item.type is 'unknown'
+        item.type = API.getType(item, options.media)
       if item.type is 'file'
-        item.id = 'mixed'
+        item.id = item.file
       item
 
 

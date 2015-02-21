@@ -33,6 +33,7 @@
             stateObj.setPlaying 'position', model.get('position')
             stateObj.setPlaying 'itemChanged', true
             stateObj.setPlaying 'item', model.attributes
+            stateObj.setPlaying 'totaltime', helpers.global.secToTime( model.get('duration') )
             ## Set volume
             ## Trigger listeners
             @localStateUpdate()
@@ -42,18 +43,23 @@
             @localStateUpdate()
           onpause: =>
             stateObj.setPlaying 'paused', true
-            stateObj.setPlaying 'playstate', 'paused'
+            stateObj.setPlaying 'playState', 'paused'
             ## trigger listenters
             @localStateUpdate()
           onresume: =>
             stateObj.setPlaying 'paused', false
-            stateObj.setPlaying 'playstate', 'playing'
+            stateObj.setPlaying 'playState', 'playing'
             ## trigger listenters
             @localStateUpdate()
           onfinish: =>
             @localFinished()
-          whileplaying: =>
-            ## update progress/buffer
+          whileplaying: ->
+            pos = parseInt(@position) / 1000
+            dur = parseInt( model.get('duration') ) ## @duration is also available (represents loaded not total)
+            percentage = Math.round((pos / dur) * 100)
+            stateObj.setPlaying 'time', helpers.global.secToTime(pos)
+            stateObj.setPlaying 'percentage', percentage
+            App.execute 'player:local:progress:update', percentage, helpers.global.secToTime(pos)
 
         ## stuff after load
         @doCallback callback
@@ -82,15 +88,21 @@
       else
         @localCommand 'pause'
 
+    ## Set volume
+    localSetVolume: (volume) ->
+      @localCommand 'setVolume', volume
+
     ## Wrapper for calling a command on the current soundmanager sound.
-    localCommand: (command) ->
+    localCommand: (command, param) ->
       stateObj = App.request "state:local"
       currentItem = stateObj.getState 'localPlay'
       if currentItem isnt false
-        currentItem[command]()
+        currentItem[command](param)
+      @localStateUpdate()
 
     ## Go to next/prev item adhering to repeat and shuffle
     localGoTo: (param) ->
+      console.log 'localGoto', param
       ## Get current playlist and state
       collection = App.request "localplayer:get:entities"
       stateObj = App.request "state:local"
@@ -101,7 +113,7 @@
         ## Repeat this item
         if stateObj.getState('repeat') is 'one'
           posToPlay = currentPos
-        else if stateObj.getState('shuffle') is true
+        else if stateObj.getState('shuffled') is true
           ## Shuffle
           ## TODO: store what positions have been played so we dont repeat
           posToPlay = helpers.global.getRandomInt 0, collection.length - 1
@@ -115,13 +127,13 @@
               ## Standard next
               posToPlay = currentPos + 1
           ## Prev action
-          if param is 'prev'
+          if param is 'previous'
             ## repeat all, go to the end
             if currentPos is 0 and stateObj.getState('repeat') is 'all'
               posToPlay = collection.length - 1
-          else if currentPos > 0
-            ## Standard prev
-            posToPlay = currentPos - 1
+            else if currentPos > 0
+              ## Standard prev
+              posToPlay = currentPos - 1
       ## Check we have a position to play, if so, play it.
       if posToPlay isnt false
         model = collection.findWhere {position: posToPlay}
@@ -133,7 +145,7 @@
     localSeek: (percent) ->
       stateObj = App.request "state:local"
       localPlay = stateObj.getState 'localPlay'
-      if currentItem isnt false
+      if localPlay isnt false
         newPos = (percent / 100) * localPlay.duration
         sound = soundManager.getSoundById stateObj.getState('currentPlaybackId')
         sound.setPosition newPos
@@ -146,24 +158,27 @@
       else
         newState = false
         states = ['off', 'all', 'one']
-        for i, state in states
-          if newState
+        for i, state of states
+          i = parseInt(i)
+          if newState isnt false
             continue
           if stateObj.getState('repeat') is state
-            if i is states.length - 1
-              newState = states[i + 1]
+            if i isnt (states.length - 1)
+              key = i + 1
+              newState = states[key]
             else
-              newState = 0
+              newState = 'off'
         stateObj.setState('repeat', newState)
 
-    ## Set shuffle (bool)
-    localShuffle: (param) ->
+    ## Toggle shuffle
+    localShuffle: ->
       stateObj = App.request "state:local"
-      stateObj.setState 'shuffle', param
+      currentShuffle = stateObj.getState 'shuffled'
+      stateObj.setState 'shuffled', !currentShuffle
 
     ## Triggers when something changes in the player.
     localStateUpdate: ->
-      App.vent.trigger "state:content:updated"
+      App.vent.trigger "state:local:changed"
 
     paramObj: (key, val) ->
       helpers.global.paramObj key, val

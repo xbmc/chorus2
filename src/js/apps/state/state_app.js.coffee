@@ -87,7 +87,7 @@
 
       ## Load up the Kodi state
       App.kodiState.getCurrentState (state) ->
-        API.setState App.kodiState.getState('player')
+        API.setState 'kodi'
 
         ## Attach sockets and polling (if req).
         App.kodiSockets = new StateApp.Kodi.Notifications()
@@ -106,9 +106,13 @@
           API.setPlayingContent 'kodi'
           API.setPlayingContent 'local'
 
-        ## Some data has changed or needs updating.
+        ## Some kodi data has changed or needs updating.
         App.vent.on "state:kodi:changed", (state) ->
           API.setState 'kodi'
+
+        ## Some local data has changed or needs updating.
+        App.vent.on "state:local:changed", (state) ->
+          API.setState 'local'
 
         ## Player data requires updating
         App.vent.on "state:player:updated", (player) ->

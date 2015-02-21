@@ -134,10 +134,20 @@ $row-height: 40px;
       text-indent: -99999px;
     }
   }
+  .local-row-paused {
+    .track {
+      background: image-url('row-pause-pink.png') 50% 50% no-repeat;
+    }
+  }
   .local-row-playing,
   .kodi-row-playing {
     .track {
       background-image: image-url('row-playing-blue.gif');
+    }
+  }
+  .local-row-playing {
+    .track {
+      background-image: image-url('row-playing-pink.gif');
     }
   }
 }

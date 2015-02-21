@@ -25,10 +25,16 @@
     initialize: ->
       collection = App.request "album:entities"
       App.execute "when:entity:fetched", collection, =>
+
         ## Set available filters
         collection.availableFilters = @getAvailableFilters()
         collection.sectionId = 1
+
+        ## If present set initial filter via url
+        App.request 'filter:init', @getAvailableFilters()
+
         @layout = @getLayoutView collection
+
         ## Render subviews on show
         @listenTo @layout, "show", =>
           @renderList collection

@@ -30,9 +30,10 @@
           ## param can be 'cycle', 'off', 'all' or 'one'
           @localRepeat param
         when 'SetShuffle'
-          @localShuffle param
+          ## Toggles shuffle
+          @localShuffle()
         when 'Stop'
           @localStop()
         else
           ## nothing
-
+      @localStateUpdate()

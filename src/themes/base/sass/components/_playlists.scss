@@ -11,6 +11,7 @@ $playlist-item-open-height: 80px;
     a {
       color: $color-playlist-text;
     }
+    &.sortable-ghost,
     &.row-playing,
     &.row-paused,
     &:hover {
@@ -52,6 +53,11 @@ $playlist-item-open-height: 80px;
     }
     &.row-paused {
       background-image: image-url('row-pause-white.png');
+    }
+    &.sortable-ghost {
+      height: $playlist-item-hover-height;
+      background: rgba($color-white, 0.3);
+      opacity: 0.5;
     }
   }
   .thumb {
@@ -141,19 +147,31 @@ $playlist-item-open-height: 80px;
     li {
       @include set-layout('height-header', 'height');
       @include vertical-align-element();
-      padding: 0 $spacing-double-unit;
+      padding: 0 $spacing-double-unit 0 $spacing-double-unit;
       color: $color-playlist-header-text;
       cursor: pointer;
+      &:before {
+        margin-right: $spacing-half-unit;
+        font-size: 90%;
+      }
+      &.kodi {
+        @include icon(kodi-symbol, icomoon);
+      }
+      &.local {
+        @include icon(hardware-headset);
+      }
     }
     .active-player-kodi & {
       li.kodi {
         color: $color-playlist-header-active-text;
+        color: $color-kodi;
         background: $color-playlist-background;
       }
     }
     .active-player-local & {
       li.local {
         color: $color-playlist-header-active-text;
+        color: $color-local;
         background: $color-playlist-background;
       }
     }

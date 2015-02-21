@@ -4,6 +4,8 @@
   class StateApp.State extends App.StateApp.Base
 
     initialize: ->
+      @state = _.extend {}, @state
+      @playing = _.extend {}, @playing
       @setState 'player', 'local'
       @setState 'currentPlaybackId', 'browser-none'
       @setState 'localPlay', false

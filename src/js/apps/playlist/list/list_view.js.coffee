@@ -20,7 +20,7 @@
       subtitle = ''
       switch @model.get('type')
         when 'song'
-          subtitle = @model.get('artist').join(', ')
+          subtitle = if @model.get('artist') then @model.get('artist').join(', ') else ''
         else
           subtitle = ''
       @model.set({subtitle: subtitle});
@@ -30,6 +30,8 @@
     attributes: ->
       {
         class: 'item pos-' + @model.get('position')
+        'data-type': @model.get('type')
+        'data-id': @model.get('id')
       }
 
   class List.Items extends App.Views.CollectionView

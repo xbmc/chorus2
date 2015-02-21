@@ -15652,7 +15652,7 @@ h1, h2, h3, h4 {
 }
 /* line 14, ../../../../src/themes/base/sass/components/_albums.scss */
 .album--with-songs .card-minimal {
-  padding: 0 32px 0 10px;
+  padding: 0 22px 0 0px;
 }
 
 /* line 18, ../../../../src/themes/base/sass/components/_browser.scss */
@@ -16650,9 +16650,34 @@ form .inline-list .response {
   padding-top: 18px;
 }
 
-/* line 2, ../../../../src/themes/base/sass/components/_header.scss */
-#header {
+/* line 4, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-kodi #header {
   background: #1e2122;
+}
+/* line 8, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-kodi #logo:before {
+  color: #12b2e7;
+}
+/* line 12, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-kodi #nav-bar #nav-header {
+  background: #1e2122;
+}
+
+/* line 4, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-local #header {
+  background: #303337;
+}
+/* line 8, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-local #logo:before {
+  color: #db2464;
+}
+/* line 12, ../../../../src/themes/base/sass/components/_header.scss */
+.active-player-local #nav-bar #nav-header {
+  background: #303337;
+}
+
+/* line 22, ../../../../src/themes/base/sass/components/_header.scss */
+#header {
   color: rgba(255, 255, 255, 0.6);
   position: fixed;
   top: 0;
@@ -16662,47 +16687,78 @@ form .inline-list .response {
   z-index: 50;
 }
 @media (min-width: 45em) {
-  /* line 2, ../../../../src/themes/base/sass/components/_header.scss */
+  /* line 22, ../../../../src/themes/base/sass/components/_header.scss */
   #header {
     right: 250px;
   }
 }
 @media (min-width: 75em) {
-  /* line 2, ../../../../src/themes/base/sass/components/_header.scss */
+  /* line 22, ../../../../src/themes/base/sass/components/_header.scss */
   #header {
     right: 395px;
   }
 }
 @media (min-width: 45em) {
-  /* line 14, ../../../../src/themes/base/sass/components/_header.scss */
+  /* line 33, ../../../../src/themes/base/sass/components/_header.scss */
   .shell-playlist-closed #header {
     right: 50px;
   }
 }
 @media (min-width: 75em) {
-  /* line 14, ../../../../src/themes/base/sass/components/_header.scss */
+  /* line 33, ../../../../src/themes/base/sass/components/_header.scss */
   .shell-playlist-closed #header {
     right: 50px;
   }
 }
 
-/* line 20, ../../../../src/themes/base/sass/components/_header.scss */
+/* line 39, ../../../../src/themes/base/sass/components/_header.scss */
 #page-title .context a,
 #page-title .title {
   padding: 0.5em 1em;
 }
 
-/* line 26, ../../../../src/themes/base/sass/components/_header.scss */
+/* line 45, ../../../../src/themes/base/sass/components/_header.scss */
 #search-region {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-/* line 3, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 7, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+.active-player-kodi .details-header {
+  background: #323537;
+}
+/* line 10, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+.active-player-kodi .details-header .region-details-fanart:before {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FF323537', endColorstr='#00323537');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMyMzUzNyIvPjxzdG9wIG9mZnNldD0iMzAlIiBzdG9wLWNvbG9yPSIjMzIzNTM3IiBzdG9wLW9wYWNpdHk9IjAuOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzMyMzUzNyIgc3RvcC1vcGFjaXR5PSIwLjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #323537), color-stop(30%, rgba(50, 53, 55, 0.9)), color-stop(100%, rgba(50, 53, 55, 0)));
+  background-image: -moz-linear-gradient(left, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
+  background-image: -webkit-linear-gradient(left, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
+  background-image: linear-gradient(to right, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
+}
+
+/* line 7, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+.active-player-local .details-header {
+  background: #222425;
+}
+/* line 10, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+.active-player-local .details-header .region-details-fanart:before {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FF222425', endColorstr='#00222425');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzIyMjQyNSIvPjxzdG9wIG9mZnNldD0iMzAlIiBzdG9wLWNvbG9yPSIjMjIyNDI1IiBzdG9wLW9wYWNpdHk9IjAuOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzIyMjQyNSIgc3RvcC1vcGFjaXR5PSIwLjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #222425), color-stop(30%, rgba(34, 36, 37, 0.9)), color-stop(100%, rgba(34, 36, 37, 0)));
+  background-image: -moz-linear-gradient(left, #222425 0%, rgba(34, 36, 37, 0.9) 30%, rgba(34, 36, 37, 0) 100%);
+  background-image: -webkit-linear-gradient(left, #222425 0%, rgba(34, 36, 37, 0.9) 30%, rgba(34, 36, 37, 0) 100%);
+  background-image: linear-gradient(to right, #222425 0%, rgba(34, 36, 37, 0.9) 30%, rgba(34, 36, 37, 0) 100%);
+}
+
+/* line 22, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header {
   *zoom: 1;
-  background: #323537;
   position: relative;
   min-height: 283px;
   padding-bottom: 2em;
@@ -16713,21 +16769,21 @@ form .inline-list .response {
   display: table;
   clear: both;
 }
-/* line 9, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 27, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header a {
   color: rgba(255, 255, 255, 0.6);
 }
-/* line 11, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 29, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header a:hover {
   color: rgba(255, 255, 255, 0.9);
 }
-/* line 15, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 33, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-side {
   position: absolute;
   width: 280px;
   padding: 1.5em;
 }
-/* line 20, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 38, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-meta-wrapper {
   margin-left: 280px;
   padding: 0 1em 0 0.5em;
@@ -16737,7 +16793,7 @@ form .inline-list .response {
   margin-right: 500px;
   padding-top: 1em;
 }
-/* line 29, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 47, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-top {
   *zoom: 1;
 }
@@ -16747,18 +16803,18 @@ form .inline-list .response {
   display: table;
   clear: both;
 }
-/* line 32, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 50, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-title {
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0.5em;
 }
-/* line 35, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 53, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-title .sub {
   font-weight: normal;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.4);
 }
-/* line 41, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 59, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-rating {
   width: 73px;
   font-size: 170%;
@@ -16769,7 +16825,7 @@ form .inline-list .response {
   position: relative;
   text-align: right;
 }
-/* line 50, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 68, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-rating i {
   font-size: 150%;
   top: -5px;
@@ -16790,7 +16846,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 56, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 74, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-subtext {
   color: rgba(255, 255, 255, 0.6);
   *zoom: 1;
@@ -16801,7 +16857,7 @@ form .inline-list .response {
   display: table;
   clear: both;
 }
-/* line 60, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 78, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-fanart {
   opacity: 0.8;
   background-size: cover;
@@ -16812,56 +16868,48 @@ form .inline-list .response {
   bottom: 0;
   position: absolute;
 }
-/* line 66, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 84, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-fanart:before {
   content: "";
   top: 0;
-  right: 50%;
   bottom: 0;
   left: 0;
   position: absolute;
-  *zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FF323537', endColorstr='#00323537');
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMyMzUzNyIvPjxzdG9wIG9mZnNldD0iMzAlIiBzdG9wLWNvbG9yPSIjMzIzNTM3IiBzdG9wLW9wYWNpdHk9IjAuOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzMyMzUzNyIgc3RvcC1vcGFjaXR5PSIwLjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #323537), color-stop(30%, rgba(50, 53, 55, 0.9)), color-stop(100%, rgba(50, 53, 55, 0)));
-  background-image: -moz-linear-gradient(left, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
-  background-image: -webkit-linear-gradient(left, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
-  background-image: linear-gradient(to right, #323537 0%, rgba(50, 53, 55, 0.9) 30%, rgba(50, 53, 55, 0) 100%);
+  width: 60%;
 }
-/* line 73, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 90, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .region-details-meta-below {
-  height: 136px;
+  height: 146px;
   overflow: hidden;
 }
-/* line 77, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 94, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .description {
   margin-top: 0.5em;
 }
-/* line 80, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 97, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .people {
   margin: 1em 0;
 }
-/* line 83, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 100, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .runtime {
   font-size: 120%;
   margin-bottom: 0.5em;
   float: left;
 }
-/* line 88, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 105, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .genres {
   float: right;
 }
-/* line 92, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 109, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .streams span {
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
 }
-/* line 98, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 115, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .card-detail .artwork {
   position: relative;
 }
-/* line 101, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 118, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .card-detail .play {
   top: 0;
   right: 0;
@@ -16892,7 +16940,7 @@ form .inline-list .response {
   font-variant: normal;
   text-transform: none;
 }
-/* line 108, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 125, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .card-detail .play:before {
   font-size: 400%;
   color: rgba(255, 255, 255, 0.8);
@@ -16905,29 +16953,29 @@ form .inline-list .response {
   width: 55px;
   height: 55px;
 }
-/* line 118, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 135, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .card-detail:hover .play {
   opacity: 1;
 }
-/* line 124, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 141, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header label {
   font-weight: normal;
 }
-/* line 128, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 145, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .details-header .dropdown > span {
   cursor: pointer;
 }
-/* line 133, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 150, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .section-movie .details-header, .section-tvshow .details-header {
   min-height: 403px;
 }
-/* line 136, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+/* line 153, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
 .section-movie .details-header .region-details-meta-below, .section-tvshow .details-header .region-details-meta-below {
   height: auto;
   overflow: initial;
 }
 @media (min-width: 45em) {
-  /* line 141, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+  /* line 158, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
   .section-movie .details-header .region-details-title, .section-tvshow .details-header .region-details-title {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -16935,7 +16983,7 @@ form .inline-list .response {
     width: 75%;
     float: left;
   }
-  /* line 144, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
+  /* line 161, ../../../../src/themes/base/sass/components/_layout--details-header.scss */
   .section-movie .details-header .region-details-rating, .section-tvshow .details-header .region-details-rating {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -18055,10 +18103,18 @@ form .inline-list .response {
 .kodi-shuffled-on #player-kodi .control-shuffle:hover {
   color: #12b2e7;
 }
+/* line 190, ../../../../src/themes/base/sass/components/_player.scss */
+#player-kodi .slider-bar {
+  background: #2a2b2c;
+}
+/* line 192, ../../../../src/themes/base/sass/components/_player.scss */
+#player-kodi .slider-bar .noUi-origin {
+  background: #151617;
+}
 
 /* line 149, ../../../../src/themes/base/sass/components/_player.scss */
 #player-local {
-  background: #666666;
+  background: #303337;
 }
 /* line 152, ../../../../src/themes/base/sass/components/_player.scss */
 .local-playing #player-local .control-play:before {
@@ -18104,6 +18160,14 @@ form .inline-list .response {
 .local-shuffled-on #player-local .control-shuffle:hover {
   color: #db2464;
 }
+/* line 190, ../../../../src/themes/base/sass/components/_player.scss */
+#player-local .slider-bar {
+  background: #404347;
+}
+/* line 192, ../../../../src/themes/base/sass/components/_player.scss */
+#player-local .slider-bar .noUi-origin {
+  background: #2b2d31;
+}
 
 /* line 6, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li {
@@ -18117,33 +18181,34 @@ form .inline-list .response {
   color: #999999;
 }
 /* line 14, ../../../../src/themes/base/sass/components/_playlists.scss */
-.playlist-items li.row-playing, .playlist-items li.row-paused, .playlist-items li:hover {
+.playlist-items li.sortable-ghost, .playlist-items li.row-playing, .playlist-items li.row-paused, .playlist-items li:hover {
   height: 51px;
   background-color: #0b0c0c;
 }
-/* line 19, ../../../../src/themes/base/sass/components/_playlists.scss */
-.playlist-items li.row-playing .subtitle,
+/* line 20, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-items li.sortable-ghost .subtitle,
+.playlist-items li.sortable-ghost .thumb, .playlist-items li.row-playing .subtitle,
 .playlist-items li.row-playing .thumb, .playlist-items li.row-paused .subtitle,
 .playlist-items li.row-paused .thumb, .playlist-items li:hover .subtitle,
 .playlist-items li:hover .thumb {
   display: block;
 }
-/* line 23, ../../../../src/themes/base/sass/components/_playlists.scss */
-.playlist-items li.row-playing .title a, .playlist-items li.row-paused .title a, .playlist-items li:hover .title a {
+/* line 24, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-items li.sortable-ghost .title a, .playlist-items li.row-playing .title a, .playlist-items li.row-paused .title a, .playlist-items li:hover .title a {
   color: rgba(255, 255, 255, 0.95);
 }
-/* line 27, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 28, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing, .playlist-items li.row-paused {
   height: 80px;
   background-image: url('../images/row-playing-white.gif?1423213071');
   background-repeat: no-repeat;
   background-position: 2px 1px;
 }
-/* line 33, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 34, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing .remove, .playlist-items li.row-paused .remove {
   display: none !important;
 }
-/* line 36, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 37, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing .thumb, .playlist-items li.row-paused .thumb {
   top: 0;
   right: 0;
@@ -18163,25 +18228,31 @@ form .inline-list .response {
   width: 80px;
   margin-top: 0;
 }
-/* line 40, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 41, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing .thumb .play, .playlist-items li.row-paused .thumb .play {
   display: none !important;
 }
-/* line 44, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 45, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing .meta, .playlist-items li.row-paused .meta {
   margin-right: 90px;
   margin-left: 27px;
 }
-/* line 47, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 48, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-playing .meta .title, .playlist-items li.row-paused .meta .title {
   margin-top: 5px;
   font-size: 110%;
 }
-/* line 53, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 54, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li.row-paused {
   background-image: url('../images/row-pause-white.png?1423213243');
 }
 /* line 57, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-items li.sortable-ghost {
+  height: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0.5;
+}
+/* line 63, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .thumb {
   background: transparent;
   overflow: hidden;
@@ -18200,11 +18271,11 @@ form .inline-list .response {
   width: 50px;
   margin-top: 0;
 }
-/* line 64, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 70, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .thumb:hover .play {
   display: table;
 }
-/* line 69, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 75, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .play {
   background: rgba(0, 0, 0, 0.55);
   top: 0;
@@ -18244,29 +18315,29 @@ form .inline-list .response {
   font-size: 200%;
   padding-right: 5px;
 }
-/* line 72, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 78, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .meta {
   margin: 0 30px 0 0px;
   padding: 9px 10px 5px 15px;
 }
-/* line 76, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 82, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .title,
 .playlist-items .subtitle {
   display: block;
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 82, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 88, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .title, .playlist-items .title a {
   color: #bdc1c2;
 }
-/* line 85, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 91, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .subtitle {
   display: none;
   font-size: 95%;
   margin-top: 2px;
 }
-/* line 90, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 96, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .remove {
   top: 0;
   right: 0;
@@ -18298,17 +18369,17 @@ form .inline-list .response {
   vertical-align: middle;
   height: 50px;
 }
-/* line 94, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 100, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items .remove:hover {
   font-size: 120%;
   color: darkred;
 }
-/* line 99, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 105, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-items li:hover .remove {
   display: table;
 }
 
-/* line 104, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 110, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlists-wrapper {
   padding: 1em;
   font-size: 85%;
@@ -18320,7 +18391,7 @@ form .inline-list .response {
   top: 50px;
 }
 
-/* line 112, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 118, ../../../../src/themes/base/sass/components/_playlists.scss */
 .media-toggle {
   *zoom: 1;
   background: rgba(255, 255, 255, 0.1);
@@ -18332,67 +18403,102 @@ form .inline-list .response {
   display: table;
   clear: both;
 }
-/* line 116, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 122, ../../../../src/themes/base/sass/components/_playlists.scss */
 .media-toggle li {
   float: left;
   padding: 5px 15px;
   color: #999999;
   cursor: pointer;
 }
-/* line 123, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 129, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-bar.media-audio .media-toggle li.audio {
   color: white;
   background: rgba(255, 255, 255, 0.1);
 }
-/* line 129, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 135, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-bar.media-video .media-toggle li.video {
   color: white;
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* line 136, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 142, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header {
   background: #313233;
   height: 50px;
 }
-/* line 139, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 145, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header .player-toggle {
   display: table;
 }
-/* line 141, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 147, ../../../../src/themes/base/sass/components/_playlists.scss */
 .playlist-header .player-toggle li {
   height: 50px;
   display: table-cell;
   vertical-align: middle;
-  padding: 0 2em;
+  padding: 0 2em 0 2em;
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
-/* line 149, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 153, ../../../../src/themes/base/sass/components/_playlists.scss */
+.playlist-header .player-toggle li:before {
+  margin-right: 0.5em;
+  font-size: 90%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.playlist-header .player-toggle li.kodi:before {
+  content: "\e602";
+  display: inline-block;
+  font-family: "icomoon";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.playlist-header .player-toggle li.local:before {
+  content: "\e7b0";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 165, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-kodi .playlist-header .player-toggle li.kodi {
   color: white;
+  color: #12b2e7;
   background: #1b1c1d;
 }
-/* line 155, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 172, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-local .playlist-header .player-toggle li.local {
   color: white;
+  color: #db2464;
   background: #1b1c1d;
 }
 
-/* line 165, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 183, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-kodi .kodi-playlists {
   display: block;
 }
-/* line 168, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 186, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-kodi .local-playlists {
   display: none;
 }
 
-/* line 173, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 191, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-local .kodi-playlists {
   display: none;
 }
-/* line 176, ../../../../src/themes/base/sass/components/_playlists.scss */
+/* line 194, ../../../../src/themes/base/sass/components/_playlists.scss */
 .active-player-local .local-playlists {
   display: block;
 }
@@ -19245,10 +19351,18 @@ body.model-open {
   background: url('../images/row-pause-blue.png?1423480412') 50% 50% no-repeat;
   text-indent: -99999px;
 }
-/* line 139, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 138, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table .local-row-paused .track {
+  background: url('../images/row-pause-pink.png?1424158216') 50% 50% no-repeat;
+}
+/* line 144, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-playing .track,
 .songs-table .kodi-row-playing .track {
   background-image: url('../images/row-playing-blue.gif?1423480525');
+}
+/* line 149, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table .local-row-playing .track {
+  background-image: url('../images/row-playing-pink.gif?1424158169');
 }
 
 /* line 6, ../../../../src/themes/base/sass/components/_system.scss */

@@ -26,6 +26,9 @@
         collection.availableFilters = @getAvailableFilters()
         collection.sectionId = 1
 
+        ## If present set initial filter via url
+        App.request 'filter:init', @getAvailableFilters()
+
         @layout = @getLayoutView collection
 
         @listenTo @layout, "show", =>

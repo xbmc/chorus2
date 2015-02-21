@@ -543,6 +543,7 @@ helpers.global.secToTime = function(totalSec) {
   if (totalSec == null) {
     totalSec = 0;
   }
+  totalSec = Math.round(totalSec);
   hours = parseInt(totalSec / 3600) % 24;
   minutes = parseInt(totalSec / 60) % 60;
   seconds = totalSec % 60;
@@ -829,17 +830,17 @@ helpers.url.get = function(type, id, replacements) {
   return path;
 };
 
-helpers.url.filterLinks = function(entities, key, people, limit) {
-  var baseUrl, i, links, person;
+helpers.url.filterLinks = function(entities, key, items, limit) {
+  var baseUrl, i, item, links;
   if (limit == null) {
     limit = 5;
   }
   baseUrl = '#' + entities + '?' + key + '=';
   links = [];
-  for (i in people) {
-    person = people[i];
+  for (i in items) {
+    item = items[i];
     if (i < limit) {
-      links.push('<a href="' + baseUrl + encodeURIComponent(person) + '">' + person + '</a>');
+      links.push('<a href="' + baseUrl + encodeURIComponent(item) + '">' + item + '</a>');
     }
   }
   return links.join(', ');
@@ -2697,7 +2698,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getType: function(item, media) {
       var type;
       type = 'file';
-      if (item.id !== '') {
+      if (item.id !== void 0 && item.id !== '') {
         if (media === 'audio') {
           type = 'song';
         } else if (media === 'video') {
@@ -2723,11 +2724,11 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       item.playlistid = options.playlistid;
       item.media = options.media;
       item.player = 'kodi';
-      if (!item.type) {
-        item.type = API.getType(items, options.media);
+      if (!item.type || item.type === 'unknown') {
+        item.type = API.getType(item, options.media);
       }
       if (item.type === 'file') {
-        item.id = 'mixed';
+        item.id = item.file;
       }
       return item;
     }
@@ -4457,6 +4458,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
         return function() {
           collection.availableFilters = _this.getAvailableFilters();
           collection.sectionId = 1;
+          App.request('filter:init', _this.getAvailableFilters());
           _this.layout = _this.getLayoutView(collection);
           _this.listenTo(_this.layout, "show", function() {
             _this.renderList(collection);
@@ -4910,6 +4912,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
         return function() {
           collection.availableFilters = _this.getAvailableFilters();
           collection.sectionId = 1;
+          App.request('filter:init', _this.getAvailableFilters());
           _this.layout = _this.getLayoutView(collection);
           _this.listenTo(_this.layout, "show", function() {
             _this.renderList(collection);
@@ -5178,6 +5181,8 @@ soundManager.setup({
   debugMode: true,
   noSWFCache: true,
   debugFlash: false,
+  flashPollingInterval: 1000,
+  html5PollingInterval: 1000,
   onready: function() {
     return console.log('sm ready!!');
   },
@@ -5647,7 +5652,7 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
    */
   App.reqres.setHandler("command:local:player", function(method, params, callback) {
     var commander;
-    commander = new CommandApp.Kodi.Player('audio');
+    commander = new CommandApp.Local.Player('audio');
     return commander.sendCommand(method, params, callback);
   });
   App.reqres.setHandler("command:local:controller", function(media, controller) {
@@ -6172,6 +6177,18 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       }
     };
 
+    PlayList.prototype.moveItem = function(media, id, position1, position2, callback) {
+      var idProp;
+      idProp = media === 'file' ? 'file' : media + 'id';
+      return this.singleCommand(this.getCommand('Remove'), [this.getPlayer(), parseInt(position1)], (function(_this) {
+        return function(resp) {
+          return _this.insert(idProp, id, position2, function() {
+            return _this.doCallback(callback, position2);
+          });
+        };
+      })(this));
+    };
+
     return PlayList;
 
   })(Api.Player);
@@ -6212,6 +6229,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
               stateObj.setPlaying('position', model.get('position'));
               stateObj.setPlaying('itemChanged', true);
               stateObj.setPlaying('item', model.attributes);
+              stateObj.setPlaying('totaltime', helpers.global.secToTime(model.get('duration')));
               return _this.localStateUpdate();
             },
             onstop: function() {
@@ -6220,18 +6238,26 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
             },
             onpause: function() {
               stateObj.setPlaying('paused', true);
-              stateObj.setPlaying('playstate', 'paused');
+              stateObj.setPlaying('playState', 'paused');
               return _this.localStateUpdate();
             },
             onresume: function() {
               stateObj.setPlaying('paused', false);
-              stateObj.setPlaying('playstate', 'playing');
+              stateObj.setPlaying('playState', 'playing');
               return _this.localStateUpdate();
             },
             onfinish: function() {
               return _this.localFinished();
             },
-            whileplaying: function() {}
+            whileplaying: function() {
+              var dur, percentage, pos;
+              pos = parseInt(this.position) / 1000;
+              dur = parseInt(model.get('duration'));
+              percentage = Math.round((pos / dur) * 100);
+              stateObj.setPlaying('time', helpers.global.secToTime(pos));
+              stateObj.setPlaying('percentage', percentage);
+              return App.execute('player:local:progress:update', percentage, helpers.global.secToTime(pos));
+            }
           }));
           return _this.doCallback(callback);
         };
@@ -6264,17 +6290,23 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
     };
 
-    Base.prototype.localCommand = function(command) {
+    Base.prototype.localSetVolume = function(volume) {
+      return this.localCommand('setVolume', volume);
+    };
+
+    Base.prototype.localCommand = function(command, param) {
       var currentItem, stateObj;
       stateObj = App.request("state:local");
       currentItem = stateObj.getState('localPlay');
       if (currentItem !== false) {
-        return currentItem[command]();
+        currentItem[command](param);
       }
+      return this.localStateUpdate();
     };
 
     Base.prototype.localGoTo = function(param) {
       var collection, currentPos, model, posToPlay, stateObj;
+      console.log('localGoto', param);
       collection = App.request("localplayer:get:entities");
       stateObj = App.request("state:local");
       currentPos = stateObj.getPlaying('position');
@@ -6282,7 +6314,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       if (collection.length > 0) {
         if (stateObj.getState('repeat') === 'one') {
           posToPlay = currentPos;
-        } else if (stateObj.getState('shuffle') === true) {
+        } else if (stateObj.getState('shuffled') === true) {
           posToPlay = helpers.global.getRandomInt(0, collection.length - 1);
         } else {
           if (param === 'next') {
@@ -6292,12 +6324,12 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
               posToPlay = currentPos + 1;
             }
           }
-          if (param === 'prev') {
+          if (param === 'previous') {
             if (currentPos === 0 && stateObj.getState('repeat') === 'all') {
               posToPlay = collection.length - 1;
+            } else if (currentPos > 0) {
+              posToPlay = currentPos - 1;
             }
-          } else if (currentPos > 0) {
-            posToPlay = currentPos - 1;
           }
         }
       }
@@ -6318,7 +6350,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       var localPlay, newPos, sound, stateObj;
       stateObj = App.request("state:local");
       localPlay = stateObj.getState('localPlay');
-      if (currentItem !== false) {
+      if (localPlay !== false) {
         newPos = (percent / 100) * localPlay.duration;
         sound = soundManager.getSoundById(stateObj.getState('currentPlaybackId'));
         return sound.setPosition(newPos);
@@ -6326,23 +6358,25 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     };
 
     Base.prototype.localRepeat = function(param) {
-      var i, newState, state, stateObj, states, _i, _len;
+      var i, key, newState, state, stateObj, states;
       stateObj = App.request("state:local");
       if (param !== 'cycle') {
         return stateObj.setState('repeat', param);
       } else {
         newState = false;
         states = ['off', 'all', 'one'];
-        for (state = _i = 0, _len = states.length; _i < _len; state = ++_i) {
-          i = states[state];
-          if (newState) {
+        for (i in states) {
+          state = states[i];
+          i = parseInt(i);
+          if (newState !== false) {
             continue;
           }
           if (stateObj.getState('repeat') === state) {
-            if (i === states.length - 1) {
-              newState = states[i + 1];
+            if (i !== (states.length - 1)) {
+              key = i + 1;
+              newState = states[key];
             } else {
-              newState = 0;
+              newState = 'off';
             }
           }
         }
@@ -6350,14 +6384,15 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
     };
 
-    Base.prototype.localShuffle = function(param) {
-      var stateObj;
+    Base.prototype.localShuffle = function() {
+      var currentShuffle, stateObj;
       stateObj = App.request("state:local");
-      return stateObj.setState('shuffle', param);
+      currentShuffle = stateObj.getState('shuffled');
+      return stateObj.setState('shuffled', !currentShuffle);
     };
 
     Base.prototype.localStateUpdate = function() {
-      return App.vent.trigger("state:content:updated");
+      return App.vent.trigger("state:local:changed");
     };
 
     Base.prototype.paramObj = function(key, val) {
@@ -6418,21 +6453,75 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     Player.prototype.sendCommand = function(command, param) {
       switch (command) {
         case 'GoTo':
-          return this.localGoTo(param);
+          this.localGoTo(param);
+          break;
         case 'PlayPause':
-          return this.localPlayPause();
+          this.localPlayPause();
+          break;
         case 'Seek':
-          return this.localSeek(param);
+          this.localSeek(param);
+          break;
         case 'SetRepeat':
-          return this.localRepeat(param);
+          this.localRepeat(param);
+          break;
         case 'SetShuffle':
-          return this.localShuffle(param);
+          this.localShuffle();
+          break;
         case 'Stop':
-          return this.localStop();
+          this.localStop();
+          break;
       }
+      return this.localStateUpdate();
     };
 
     return Player;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.Application = (function(_super) {
+    __extends(Application, _super);
+
+    function Application() {
+      return Application.__super__.constructor.apply(this, arguments);
+    }
+
+    Application.prototype.getProperties = function(callback) {
+      var resp, stateObj;
+      stateObj = App.request("state:local");
+      resp = {
+        volume: stateObj.getState('volume'),
+        muted: stateObj.getState('muted')
+      };
+      return this.doCallback(callback, resp);
+    };
+
+    Application.prototype.setVolume = function(volume, callback) {
+      var stateObj;
+      stateObj = App.request("state:local");
+      stateObj.setState('volume', volume);
+      this.localSetVolume(volume);
+      return this.doCallback(callback, volume);
+    };
+
+    Application.prototype.toggleMute = function(callback) {
+      var stateObj, volume;
+      stateObj = App.request("state:local");
+      volume = 0;
+      if (stateObj.getState('muted')) {
+        volume = stateObj.getState('lastVolume');
+        stateObj.setState('muted', false);
+      } else {
+        stateObj.setState('lastVolume', stateObj.getState('volume'));
+        stateObj.setState('muted', true);
+        volume = 0;
+      }
+      this.localSetVolume(volume);
+      return this.doCallback(callback, volume);
+    };
+
+    return Application;
 
   })(Api.Commander);
 });
@@ -6469,7 +6558,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
           ret = [];
           for (pos in raw) {
             item = raw[pos];
-            if (pos !== position) {
+            if (parseInt(pos) !== parseInt(position)) {
               ret.push(item);
             }
           }
@@ -6494,18 +6583,25 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
       return this.getItems((function(_this) {
         return function(collection) {
-          var item, model, pos, raw, ret, _i, _len, _ref;
+          var item, model, pos, raw, ret, _i, _j, _len, _len1, _ref, _ref1;
           raw = collection.getRawCollection();
           if (raw.length === 0) {
             ret = _.flatten([models]);
+          } else if (parseInt(position) >= raw.length) {
+            ret = raw;
+            _ref = _.flatten([models]);
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              model = _ref[_i];
+              ret.push(model);
+            }
           } else {
             ret = [];
             for (pos in raw) {
               item = raw[pos];
-              if (pos === position) {
-                _ref = _.flatten([models]);
-                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                  model = _ref[_i];
+              if (parseInt(pos) === parseInt(position)) {
+                _ref1 = _.flatten([models]);
+                for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                  model = _ref1[_j];
                   ret.push(model);
                 }
               }
@@ -6554,6 +6650,21 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
 
     PlayList.prototype.refreshPlaylistView = function() {
       return App.execute("playlist:refresh", 'local', 'audio');
+    };
+
+    PlayList.prototype.moveItem = function(media, id, position1, position2, callback) {
+      return this.getItems((function(_this) {
+        return function(collection) {
+          var item, raw;
+          raw = collection.getRawCollection();
+          item = raw[position1];
+          return _this.remove(position1, function() {
+            return _this.insert(item, position2, function() {
+              return _this.doCallback(callback, position2);
+            });
+          });
+        };
+      })(this));
     };
 
     return PlayList;
@@ -8591,7 +8702,7 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       });
     },
     doCommand: function(player, command, params, callback) {
-      return App.request('command:kodi:player', command, params, (function(_this) {
+      return App.request("command:" + player + ":player", command, params, (function(_this) {
         return function() {
           return _this.pollingUpdate(callback);
         };
@@ -8601,8 +8712,12 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       return App.request("command:" + player + ":controller", 'auto', 'Application');
     },
     pollingUpdate: function(callback) {
-      if (!App.request('sockets:active')) {
+      var stateObj;
+      stateObj = App.request("state:current");
+      if (stateObj.getPlayer() === 'kodi') {
         return App.request('state:kodi:update', callback);
+      } else {
+
       }
     },
     initPlayer: function(player, playerView) {
@@ -8613,12 +8728,13 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       appController = this.getAppController(player);
       App.listenTo(playerView, "control:play", (function(_this) {
         return function() {
+          console.log('playOn', player);
           return _this.doCommand(player, 'PlayPause', 'toggle');
         };
       })(this));
       App.listenTo(playerView, "control:prev", (function(_this) {
         return function() {
-          return _this.doCommand('GoTo', 'previous');
+          return _this.doCommand(player, 'GoTo', 'previous');
         };
       })(this));
       App.listenTo(playerView, "control:next", (function(_this) {
@@ -8643,24 +8759,28 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
           });
         };
       })(this));
+      $playerCtx = $('#player-' + player);
+      $progress = $('.playing-progress', $playerCtx);
       if (player === 'kodi') {
-        $playerCtx = $('#player-kodi');
-        $progress = $('.playing-progress', $playerCtx);
         $progress.on('change', function() {
           API.timerStop();
-          return API.doCommand('Seek', Math.round(this.vGet()), function() {
+          return API.doCommand(player, 'Seek', Math.round(this.vGet()), function() {
             return API.timerStart();
           });
         });
         $progress.on('slide', function() {
           return API.timerStop();
         });
-        $volume = $('.volume', $playerCtx);
-        return $volume.on('change', function() {
-          appController.setVolume(Math.round(this.vGet()));
-          return API.pollingUpdate();
+      } else {
+        $progress.on('change', function() {
+          return API.doCommand(player, 'Seek', Math.round(this.vGet()));
         });
       }
+      $volume = $('.volume', $playerCtx);
+      return $volume.on('change', function() {
+        appController.setVolume(Math.round(this.vGet()));
+        return API.pollingUpdate();
+      });
     },
     timerStart: function() {
       return App.playingTimerInterval = setTimeout(((function(_this) {
@@ -8745,7 +8865,7 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
         return App.regionPlayerLocal.show(App.localPlayer);
       };
     })(this));
-    return App.commands.setHandler('player:kodi:timer', function(state) {
+    App.commands.setHandler('player:kodi:timer', function(state) {
       if (state == null) {
         state = 'start';
       }
@@ -8756,6 +8876,9 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       } else if (state === 'update') {
         return API.timerUpdate();
       }
+    });
+    return App.commands.setHandler('player:local:progress:update', function(percent, currentTime) {
+      return API.setProgress('local', percent, currentTime);
     });
   };
 });
@@ -8873,15 +8996,21 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
           return function() {
             var listView;
             listView = _this.getList(collection);
+            App.listenTo(listView, "show", function() {
+              return _this.bindActions(listView, type, media);
+            });
             _this.layout.kodiPlayList.show(listView);
-            _this.bindActions(listView, type, media);
             return App.vent.trigger("state:content:updated");
           };
         })(this));
       } else {
         collection = App.request("localplayer:get:entities");
         listView = this.getList(collection);
-        this.bindActions(listView, type, media);
+        App.listenTo(listView, "show", (function(_this) {
+          return function() {
+            return _this.bindActions(listView, type, media);
+          };
+        })(this));
         this.layout.localPlayList.show(listView);
         return App.vent.trigger("state:content:updated");
       }
@@ -8893,13 +9022,25 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       this.listenTo(listView, "childview:playlist:item:remove", function(playlistView, item) {
         return playlist.remove(item.model.get('position'));
       });
-      return this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
+      this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
         return playlist.playEntity('position', parseInt(item.model.get('position')));
       });
+      return this.initSortable(type, media);
     };
 
     Controller.prototype.changePlaylist = function(player, media) {
       return this.renderList(player, media);
+    };
+
+    Controller.prototype.initSortable = function(type, media) {
+      var $ctx, playlist;
+      $ctx = $('.' + type + '-playlist');
+      playlist = App.request("command:" + type + ":controller", media, 'PlayList');
+      return $('ul.playlist-items', $ctx).sortable({
+        onEnd: function(e) {
+          return playlist.moveItem($(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex);
+        }
+      });
     };
 
     return Controller;
@@ -8952,7 +9093,7 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       subtitle = '';
       switch (this.model.get('type')) {
         case 'song':
-          subtitle = this.model.get('artist').join(', ');
+          subtitle = this.model.get('artist') ? this.model.get('artist').join(', ') : '';
           break;
         default:
           subtitle = '';
@@ -8969,7 +9110,9 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
 
     Item.prototype.attributes = function() {
       return {
-        "class": 'item pos-' + this.model.get('position')
+        "class": 'item pos-' + this.model.get('position'),
+        'data-type': this.model.get('type'),
+        'data-id': this.model.get('id')
       };
     };
 
@@ -9726,10 +9869,13 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       return Base.__super__.constructor.apply(this, arguments);
     }
 
+    Base.prototype.instanceSettings = {};
+
     Base.prototype.state = {
       player: 'kodi',
       media: 'audio',
       volume: 50,
+      lastVolume: 50,
       muted: false,
       shuffled: false,
       repeat: 'off'
@@ -9757,7 +9903,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         minutes: 0,
         seconds: 0
       },
-      time: {
+      totaltime: {
         hours: 0,
         milliseconds: 0,
         minutes: 0,
@@ -9875,6 +10021,8 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
     State.prototype.playlistApi = {};
 
     State.prototype.initialize = function() {
+      this.state = _.extend({}, this.state);
+      this.playing = _.extend({}, this.playing);
       this.setState('player', 'kodi');
       this.playerController = App.request("command:kodi:controller", 'auto', 'Player');
       this.applicationController = App.request("command:kodi:controller", 'auto', 'Application');
@@ -10223,6 +10371,8 @@ this.Kodi.module("StateApp.Local", function(StateApp, App, Backbone, Marionette,
     }
 
     State.prototype.initialize = function() {
+      this.state = _.extend({}, this.state);
+      this.playing = _.extend({}, this.playing);
       this.setState('player', 'local');
       this.setState('currentPlaybackId', 'browser-none');
       this.setState('localPlay', false);
@@ -10333,7 +10483,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       App.localState = new StateApp.Local.State();
       App.kodiState.setPlayer(config.get('state', 'lastplayer', 'kodi'));
       App.kodiState.getCurrentState(function(state) {
-        API.setState(App.kodiState.getState('player'));
+        API.setState('kodi');
         App.kodiSockets = new StateApp.Kodi.Notifications();
         App.kodiPolling = new StateApp.Kodi.Polling();
         App.vent.on("sockets:unavailable", function() {
@@ -10348,6 +10498,9 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         });
         App.vent.on("state:kodi:changed", function(state) {
           return API.setState('kodi');
+        });
+        App.vent.on("state:local:changed", function(state) {
+          return API.setState('local');
         });
         App.vent.on("state:player:updated", function(player) {
           return API.setPlayerPlaying(player);

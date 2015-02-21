@@ -7,8 +7,8 @@
 
     <div class="region-details-subtext">
         <% if @genre.length > 0: %>
-        <div class="genres">
-            <%= @genre.join(', ') %>
+        <div class="artist-genres">
+            <%- helpers.url.filterLinks('music/artists', 'genre', @genre) %>
         </div>
         <% end %>
     </div>

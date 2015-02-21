@@ -8,6 +8,8 @@
     playlistApi: {}
 
     initialize: ->
+      @state = _.extend {}, @state
+      @playing = _.extend {}, @playing
       @setState 'player', 'kodi'
       @playerController = App.request "command:kodi:controller", 'auto', 'Player'
       @applicationController = App.request "command:kodi:controller", 'auto', 'Application'

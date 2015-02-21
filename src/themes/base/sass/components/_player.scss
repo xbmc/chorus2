@@ -187,6 +187,12 @@
         }
       }
     }
+    .slider-bar {
+      background: tint($background, 8%);
+      .noUi-origin {
+        background: shade($background, 10%);
+      }
+    }
   }
 }
 

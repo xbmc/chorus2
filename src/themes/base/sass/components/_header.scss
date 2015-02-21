@@ -1,6 +1,25 @@
+// State based changes.
+@mixin header-state($player: 'kodi', $brand-color: $color-kodi, $background: $color-player-background) {
+  .active-player-#{$player} {
+    #header {
+      background: $background;
+    }
+    #logo {
+      &:before {
+        color: $brand-color;
+      }
+    }
+    #nav-bar #nav-header {
+      background: $background;
+    }
+  }
+}
+
+@include header-state('kodi', $color-kodi, $color-header-background);
+@include header-state('local', $color-local, $color-background-local);
+
 
 #header {
-  background: $color-header-background;
   color: $color-header-text;
   position: fixed;
   top: 0;

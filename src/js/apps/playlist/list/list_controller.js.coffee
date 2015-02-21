@@ -54,16 +54,19 @@
         App.execute "when:entity:fetched", collection, =>
           ## render to layout.
           listView = @getList collection
+          App.listenTo listView, "show", =>
+            ## Bind actions
+            @bindActions listView, type, media
           @layout.kodiPlayList.show listView
-          ## Bind actions
-          @bindActions listView, type, media
           ## Trigger content update
           App.vent.trigger "state:content:updated"
       else
         ## Get the local playlist collection
         collection = App.request "localplayer:get:entities"
         listView = @getList collection
-        @bindActions listView, type, media
+        App.listenTo listView, "show", =>
+          ## Bind actions
+          @bindActions listView, type, media
         @layout.localPlayList.show listView
         ## Trigger content update
         App.vent.trigger "state:content:updated"
@@ -76,6 +79,15 @@
         playlist.remove item.model.get('position')
       @listenTo listView, "childview:playlist:item:play", (playlistView, item) ->
         playlist.playEntity 'position', parseInt( item.model.get('position') )
+      @initSortable type, media
 
     changePlaylist: (player, media) ->
       @renderList(player, media)
+
+    initSortable: (type, media) ->
+      $ctx = $('.' + type + '-playlist');
+      playlist = App.request "command:#{type}:controller", media, 'PlayList'
+      $('ul.playlist-items', $ctx).sortable({
+        onEnd: (e) ->
+          playlist.moveItem $(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex
+      });

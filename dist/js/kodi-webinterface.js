@@ -32255,7 +32255,1116 @@ function closure ( target, options, originalOptions ){
  */
 if (!window.JST) {
   window.JST = {};
-};/* ========================================================================
+};/**!
+ * Sortable
+ * @author	RubaXa   <trash@rubaxa.org>
+ * @license MIT
+ */
+
+
+(function (factory) {
+  "use strict";
+
+  if (typeof define === "function" && define.amd) {
+    define(factory);
+  }
+  else if (typeof module != "undefined" && typeof module.exports != "undefined") {
+    module.exports = factory();
+  }
+  else if (typeof Package !== "undefined") {
+    Sortable = factory();  // export for Meteor.js
+  }
+  else {
+    /* jshint sub:true */
+    window["Sortable"] = factory();
+  }
+})(function () {
+  "use strict";
+
+  var dragEl,
+    ghostEl,
+    cloneEl,
+    rootEl,
+    nextEl,
+
+    scrollEl,
+    scrollParentEl,
+
+    lastEl,
+    lastCSS,
+
+    oldIndex,
+    newIndex,
+
+    activeGroup,
+    autoScroll = {},
+
+    tapEvt,
+    touchEvt,
+
+    expando = 'Sortable' + (new Date).getTime(),
+
+    win = window,
+    document = win.document,
+    parseInt = win.parseInt,
+
+    supportDraggable = !!('draggable' in document.createElement('div')),
+
+
+    _silent = false,
+
+    _dispatchEvent = function (rootEl, name, targetEl, fromEl, startIndex, newIndex) {
+      var evt = document.createEvent('Event');
+
+      evt.initEvent(name, true, true);
+
+      evt.item = targetEl || rootEl;
+      evt.from = fromEl || rootEl;
+      evt.clone = cloneEl;
+
+      evt.oldIndex = startIndex;
+      evt.newIndex = newIndex;
+
+      rootEl.dispatchEvent(evt);
+    },
+
+    _customEvents = 'onAdd onUpdate onRemove onStart onEnd onFilter onSort'.split(' '),
+
+    noop = function () {},
+
+    abs = Math.abs,
+    slice = [].slice,
+
+    touchDragOverListeners = [],
+
+    _autoScroll = _throttle(function (/**Event*/evt, /**Object*/options, /**HTMLElement*/rootEl) {
+      // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=505521
+      if (rootEl && options.scroll) {
+        var el,
+          rect,
+          sens = options.scrollSensitivity,
+          speed = options.scrollSpeed,
+
+          x = evt.clientX,
+          y = evt.clientY,
+
+          winWidth = window.innerWidth,
+          winHeight = window.innerHeight,
+
+          vx,
+          vy
+          ;
+
+        // Delect scrollEl
+        if (scrollParentEl !== rootEl) {
+          scrollEl = options.scroll;
+          scrollParentEl = rootEl;
+
+          if (scrollEl === true) {
+            scrollEl = rootEl;
+
+            do {
+              if ((scrollEl.offsetWidth < scrollEl.scrollWidth) ||
+                (scrollEl.offsetHeight < scrollEl.scrollHeight)
+                ) {
+                break;
+              }
+              /* jshint boss:true */
+            } while (scrollEl = scrollEl.parentNode);
+          }
+        }
+
+        if (scrollEl) {
+          el = scrollEl;
+          rect = scrollEl.getBoundingClientRect();
+          vx = (abs(rect.right - x) <= sens) - (abs(rect.left - x) <= sens);
+          vy = (abs(rect.bottom - y) <= sens) - (abs(rect.top - y) <= sens);
+        }
+
+
+        if (!(vx || vy)) {
+          vx = (winWidth - x <= sens) - (x <= sens);
+          vy = (winHeight - y <= sens) - (y <= sens);
+
+          /* jshint expr:true */
+          (vx || vy) && (el = win);
+        }
+
+
+        if (autoScroll.vx !== vx || autoScroll.vy !== vy || autoScroll.el !== el) {
+          autoScroll.el = el;
+          autoScroll.vx = vx;
+          autoScroll.vy = vy;
+
+          clearInterval(autoScroll.pid);
+
+          if (el) {
+            autoScroll.pid = setInterval(function () {
+              if (el === win) {
+                win.scrollTo(win.scrollX + vx * speed, win.scrollY + vy * speed);
+              } else {
+                vy && (el.scrollTop += vy * speed);
+                vx && (el.scrollLeft += vx * speed);
+              }
+            }, 24);
+          }
+        }
+      }
+    }, 30)
+    ;
+
+
+
+  /**
+   * @class  Sortable
+   * @param  {HTMLElement}  el
+   * @param  {Object}       [options]
+   */
+  function Sortable(el, options) {
+    this.el = el; // root element
+    this.options = options = (options || {});
+
+
+    // Default options
+    var defaults = {
+      group: Math.random(),
+      sort: true,
+      disabled: false,
+      store: null,
+      handle: null,
+      scroll: true,
+      scrollSensitivity: 30,
+      scrollSpeed: 10,
+      draggable: /[uo]l/i.test(el.nodeName) ? 'li' : '>*',
+      ghostClass: 'sortable-ghost',
+      ignore: 'a, img',
+      filter: null,
+      animation: 0,
+      setData: function (dataTransfer, dragEl) {
+        dataTransfer.setData('Text', dragEl.textContent);
+      },
+      dropBubble: false,
+      dragoverBubble: false
+    };
+
+
+    // Set default options
+    for (var name in defaults) {
+      !(name in options) && (options[name] = defaults[name]);
+    }
+
+
+    var group = options.group;
+
+    if (!group || typeof group != 'object') {
+      group = options.group = { name: group };
+    }
+
+
+    ['pull', 'put'].forEach(function (key) {
+      if (!(key in group)) {
+        group[key] = true;
+      }
+    });
+
+
+    // Define events
+    _customEvents.forEach(function (name) {
+      options[name] = _bind(this, options[name] || noop);
+      _on(el, name.substr(2).toLowerCase(), options[name]);
+    }, this);
+
+
+    // Export options
+    options.groups = ' ' + group.name + (group.put.join ? ' ' + group.put.join(' ') : '') + ' ';
+    el[expando] = options;
+
+
+    // Bind all private methods
+    for (var fn in this) {
+      if (fn.charAt(0) === '_') {
+        this[fn] = _bind(this, this[fn]);
+      }
+    }
+
+
+    // Bind events
+    _on(el, 'mousedown', this._onTapStart);
+    _on(el, 'touchstart', this._onTapStart);
+
+    _on(el, 'dragover', this);
+    _on(el, 'dragenter', this);
+
+    touchDragOverListeners.push(this._onDragOver);
+
+    // Restore sorting
+    options.store && this.sort(options.store.get(this));
+  }
+
+
+  Sortable.prototype = /** @lends Sortable.prototype */ {
+    constructor: Sortable,
+
+
+    _dragStarted: function () {
+      if (rootEl && dragEl) {
+        // Apply effect
+        _toggleClass(dragEl, this.options.ghostClass, true);
+
+        Sortable.active = this;
+
+        // Drag start event
+        _dispatchEvent(rootEl, 'start', dragEl, rootEl, oldIndex);
+      }
+    },
+
+
+    _onTapStart: function (/**Event|TouchEvent*/evt) {
+      var type = evt.type,
+        touch = evt.touches && evt.touches[0],
+        target = (touch || evt).target,
+        originalTarget = target,
+        options =  this.options,
+        el = this.el,
+        filter = options.filter;
+
+      if (type === 'mousedown' && evt.button !== 0 || options.disabled) {
+        return; // only left button or enabled
+      }
+
+      target = _closest(target, options.draggable, el);
+
+      if (!target) {
+        return;
+      }
+
+      // get the index of the dragged element within its parent
+      oldIndex = _index(target);
+
+      // Check filter
+      if (typeof filter === 'function') {
+        if (filter.call(this, evt, target, this)) {
+          _dispatchEvent(originalTarget, 'filter', target, el, oldIndex);
+          evt.preventDefault();
+          return; // cancel dnd
+        }
+      }
+      else if (filter) {
+        filter = filter.split(',').some(function (criteria) {
+          criteria = _closest(originalTarget, criteria.trim(), el);
+
+          if (criteria) {
+            _dispatchEvent(criteria, 'filter', target, el, oldIndex);
+            return true;
+          }
+        });
+
+        if (filter) {
+          evt.preventDefault();
+          return; // cancel dnd
+        }
+      }
+
+
+      if (options.handle && !_closest(originalTarget, options.handle, el)) {
+        return;
+      }
+
+
+      // Prepare `dragstart`
+      if (target && !dragEl && (target.parentNode === el)) {
+        tapEvt = evt;
+
+        rootEl = this.el;
+        dragEl = target;
+        nextEl = dragEl.nextSibling;
+        activeGroup = this.options.group;
+
+        dragEl.draggable = true;
+
+        // Disable "draggable"
+        options.ignore.split(',').forEach(function (criteria) {
+          _find(target, criteria.trim(), _disableDraggable);
+        });
+
+        if (touch) {
+          // Touch device support
+          tapEvt = {
+            target: target,
+            clientX: touch.clientX,
+            clientY: touch.clientY
+          };
+
+          this._onDragStart(tapEvt, 'touch');
+          evt.preventDefault();
+        }
+
+        _on(document, 'mouseup', this._onDrop);
+        _on(document, 'touchend', this._onDrop);
+        _on(document, 'touchcancel', this._onDrop);
+
+        _on(dragEl, 'dragend', this);
+        _on(rootEl, 'dragstart', this._onDragStart);
+
+        if (!supportDraggable) {
+          this._onDragStart(tapEvt, true);
+        }
+
+        try {
+          if (document.selection) {
+            document.selection.empty();
+          } else {
+            window.getSelection().removeAllRanges();
+          }
+        } catch (err) {
+        }
+      }
+    },
+
+    _emulateDragOver: function () {
+      if (touchEvt) {
+        _css(ghostEl, 'display', 'none');
+
+        var target = document.elementFromPoint(touchEvt.clientX, touchEvt.clientY),
+          parent = target,
+          groupName = ' ' + this.options.group.name + '',
+          i = touchDragOverListeners.length;
+
+        if (parent) {
+          do {
+            if (parent[expando] && parent[expando].groups.indexOf(groupName) > -1) {
+              while (i--) {
+                touchDragOverListeners[i]({
+                  clientX: touchEvt.clientX,
+                  clientY: touchEvt.clientY,
+                  target: target,
+                  rootEl: parent
+                });
+              }
+
+              break;
+            }
+
+            target = parent; // store last element
+          }
+            /* jshint boss:true */
+          while (parent = parent.parentNode);
+        }
+
+        _css(ghostEl, 'display', '');
+      }
+    },
+
+
+    _onTouchMove: function (/**TouchEvent*/evt) {
+      if (tapEvt) {
+        var touch = evt.touches ? evt.touches[0] : evt,
+          dx = touch.clientX - tapEvt.clientX,
+          dy = touch.clientY - tapEvt.clientY,
+          translate3d = evt.touches ? 'translate3d(' + dx + 'px,' + dy + 'px,0)' : 'translate(' + dx + 'px,' + dy + 'px)';
+
+        touchEvt = touch;
+
+        _css(ghostEl, 'webkitTransform', translate3d);
+        _css(ghostEl, 'mozTransform', translate3d);
+        _css(ghostEl, 'msTransform', translate3d);
+        _css(ghostEl, 'transform', translate3d);
+
+        evt.preventDefault();
+      }
+    },
+
+
+    _onDragStart: function (/**Event*/evt, /**boolean*/useFallback) {
+      var dataTransfer = evt.dataTransfer,
+        options = this.options;
+
+      this._offUpEvents();
+
+      if (activeGroup.pull == 'clone') {
+        cloneEl = dragEl.cloneNode(true);
+        _css(cloneEl, 'display', 'none');
+        rootEl.insertBefore(cloneEl, dragEl);
+      }
+
+      if (useFallback) {
+        var rect = dragEl.getBoundingClientRect(),
+          css = _css(dragEl),
+          ghostRect;
+
+        ghostEl = dragEl.cloneNode(true);
+
+        _css(ghostEl, 'top', rect.top - parseInt(css.marginTop, 10));
+        _css(ghostEl, 'left', rect.left - parseInt(css.marginLeft, 10));
+        _css(ghostEl, 'width', rect.width);
+        _css(ghostEl, 'height', rect.height);
+        _css(ghostEl, 'opacity', '0.8');
+        _css(ghostEl, 'position', 'fixed');
+        _css(ghostEl, 'zIndex', '100000');
+
+        rootEl.appendChild(ghostEl);
+
+        // Fixing dimensions.
+        ghostRect = ghostEl.getBoundingClientRect();
+        _css(ghostEl, 'width', rect.width * 2 - ghostRect.width);
+        _css(ghostEl, 'height', rect.height * 2 - ghostRect.height);
+
+        if (useFallback === 'touch') {
+          // Bind touch events
+          _on(document, 'touchmove', this._onTouchMove);
+          _on(document, 'touchend', this._onDrop);
+          _on(document, 'touchcancel', this._onDrop);
+        } else {
+          // Old brwoser
+          _on(document, 'mousemove', this._onTouchMove);
+          _on(document, 'mouseup', this._onDrop);
+        }
+
+        this._loopId = setInterval(this._emulateDragOver, 150);
+      }
+      else {
+        if (dataTransfer) {
+          dataTransfer.effectAllowed = 'move';
+          options.setData && options.setData.call(this, dataTransfer, dragEl);
+        }
+
+        _on(document, 'drop', this);
+      }
+
+      setTimeout(this._dragStarted, 0);
+    },
+
+    _onDragOver: function (/**Event*/evt) {
+      var el = this.el,
+        target,
+        dragRect,
+        revert,
+        options = this.options,
+        group = options.group,
+        groupPut = group.put,
+        isOwner = (activeGroup === group),
+        canSort = options.sort;
+
+      if (!dragEl) {
+        return;
+      }
+
+      if (evt.preventDefault !== void 0) {
+        evt.preventDefault();
+        !options.dragoverBubble && evt.stopPropagation();
+      }
+
+      if (activeGroup && !options.disabled &&
+        (isOwner
+          ? canSort || (revert = !rootEl.contains(dragEl))
+          : activeGroup.pull && groupPut && (
+          (activeGroup.name === group.name) || // by Name
+            (groupPut.indexOf && ~groupPut.indexOf(activeGroup.name)) // by Array
+          )
+          ) &&
+        (evt.rootEl === void 0 || evt.rootEl === this.el)
+        ) {
+        // Smart auto-scrolling
+        _autoScroll(evt, options, this.el);
+
+        if (_silent) {
+          return;
+        }
+
+        target = _closest(evt.target, options.draggable, el);
+        dragRect = dragEl.getBoundingClientRect();
+
+
+        if (revert) {
+          _cloneHide(true);
+
+          if (cloneEl || nextEl) {
+            rootEl.insertBefore(dragEl, cloneEl || nextEl);
+          }
+          else if (!canSort) {
+            rootEl.appendChild(dragEl);
+          }
+
+          return;
+        }
+
+
+        if ((el.children.length === 0) || (el.children[0] === ghostEl) ||
+          (el === evt.target) && (target = _ghostInBottom(el, evt))
+          ) {
+          if (target) {
+            if (target.animated) {
+              return;
+            }
+            targetRect = target.getBoundingClientRect();
+          }
+
+          _cloneHide(isOwner);
+
+          el.appendChild(dragEl);
+          this._animate(dragRect, dragEl);
+          target && this._animate(targetRect, target);
+        }
+        else if (target && !target.animated && target !== dragEl && (target.parentNode[expando] !== void 0)) {
+          if (lastEl !== target) {
+            lastEl = target;
+            lastCSS = _css(target);
+          }
+
+
+          var targetRect = target.getBoundingClientRect(),
+            width = targetRect.right - targetRect.left,
+            height = targetRect.bottom - targetRect.top,
+            floating = /left|right|inline/.test(lastCSS.cssFloat + lastCSS.display),
+            isWide = (target.offsetWidth > dragEl.offsetWidth),
+            isLong = (target.offsetHeight > dragEl.offsetHeight),
+            halfway = (floating ? (evt.clientX - targetRect.left) / width : (evt.clientY - targetRect.top) / height) > 0.5,
+            nextSibling = target.nextElementSibling,
+            after
+            ;
+
+          _silent = true;
+          setTimeout(_unsilent, 30);
+
+          _cloneHide(isOwner);
+
+          if (floating) {
+            after = (target.previousElementSibling === dragEl) && !isWide || halfway && isWide;
+          } else {
+            after = (nextSibling !== dragEl) && !isLong || halfway && isLong;
+          }
+
+          if (after && !nextSibling) {
+            el.appendChild(dragEl);
+          } else {
+            target.parentNode.insertBefore(dragEl, after ? nextSibling : target);
+          }
+
+          this._animate(dragRect, dragEl);
+          this._animate(targetRect, target);
+        }
+      }
+    },
+
+    _animate: function (prevRect, target) {
+      var ms = this.options.animation;
+
+      if (ms) {
+        var currentRect = target.getBoundingClientRect();
+
+        _css(target, 'transition', 'none');
+        _css(target, 'transform', 'translate3d('
+          + (prevRect.left - currentRect.left) + 'px,'
+          + (prevRect.top - currentRect.top) + 'px,0)'
+        );
+
+        target.offsetWidth; // repaint
+
+        _css(target, 'transition', 'all ' + ms + 'ms');
+        _css(target, 'transform', 'translate3d(0,0,0)');
+
+        clearTimeout(target.animated);
+        target.animated = setTimeout(function () {
+          _css(target, 'transition', '');
+          _css(target, 'transform', '');
+          target.animated = false;
+        }, ms);
+      }
+    },
+
+    _offUpEvents: function () {
+      _off(document, 'mouseup', this._onDrop);
+      _off(document, 'touchmove', this._onTouchMove);
+      _off(document, 'touchend', this._onDrop);
+      _off(document, 'touchcancel', this._onDrop);
+    },
+
+    _onDrop: function (/**Event*/evt) {
+      var el = this.el,
+        options = this.options;
+
+      clearInterval(this._loopId);
+      clearInterval(autoScroll.pid);
+
+      // Unbind events
+      _off(document, 'drop', this);
+      _off(document, 'mousemove', this._onTouchMove);
+      _off(el, 'dragstart', this._onDragStart);
+
+      this._offUpEvents();
+
+      if (evt) {
+        evt.preventDefault();
+        !options.dropBubble && evt.stopPropagation();
+
+        ghostEl && ghostEl.parentNode.removeChild(ghostEl);
+
+        if (dragEl) {
+          _off(dragEl, 'dragend', this);
+
+          _disableDraggable(dragEl);
+          _toggleClass(dragEl, this.options.ghostClass, false);
+
+          if (rootEl !== dragEl.parentNode) {
+            newIndex = _index(dragEl);
+
+            // drag from one list and drop into another
+            _dispatchEvent(dragEl.parentNode, 'sort', dragEl, rootEl, oldIndex, newIndex);
+            _dispatchEvent(rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
+
+            // Add event
+            _dispatchEvent(dragEl, 'add', dragEl, rootEl, oldIndex, newIndex);
+
+            // Remove event
+            _dispatchEvent(rootEl, 'remove', dragEl, rootEl, oldIndex, newIndex);
+          }
+          else {
+            // Remove clone
+            cloneEl && cloneEl.parentNode.removeChild(cloneEl);
+
+            if (dragEl.nextSibling !== nextEl) {
+              // Get the index of the dragged element within its parent
+              newIndex = _index(dragEl);
+
+              // drag & drop within the same list
+              _dispatchEvent(rootEl, 'update', dragEl, rootEl, oldIndex, newIndex);
+              _dispatchEvent(rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
+            }
+          }
+
+          // Drag end event
+          Sortable.active && _dispatchEvent(rootEl, 'end', dragEl, rootEl, oldIndex, newIndex);
+        }
+
+        // Nulling
+        rootEl =
+          dragEl =
+            ghostEl =
+              nextEl =
+                cloneEl =
+
+                  scrollEl =
+                    scrollParentEl =
+
+                      tapEvt =
+                        touchEvt =
+
+                          lastEl =
+                            lastCSS =
+
+                              activeGroup =
+                                Sortable.active = null;
+
+        // Save sorting
+        this.save();
+      }
+    },
+
+
+    handleEvent: function (/**Event*/evt) {
+      var type = evt.type;
+
+      if (type === 'dragover' || type === 'dragenter') {
+        this._onDragOver(evt);
+        _globalDragOver(evt);
+      }
+      else if (type === 'drop' || type === 'dragend') {
+        this._onDrop(evt);
+      }
+    },
+
+
+    /**
+     * Serializes the item into an array of string.
+     * @returns {String[]}
+     */
+    toArray: function () {
+      var order = [],
+        el,
+        children = this.el.children,
+        i = 0,
+        n = children.length;
+
+      for (; i < n; i++) {
+        el = children[i];
+        if (_closest(el, this.options.draggable, this.el)) {
+          order.push(el.getAttribute('data-id') || _generateId(el));
+        }
+      }
+
+      return order;
+    },
+
+
+    /**
+     * Sorts the elements according to the array.
+     * @param  {String[]}  order  order of the items
+     */
+    sort: function (order) {
+      var items = {}, rootEl = this.el;
+
+      this.toArray().forEach(function (id, i) {
+        var el = rootEl.children[i];
+
+        if (_closest(el, this.options.draggable, rootEl)) {
+          items[id] = el;
+        }
+      }, this);
+
+      order.forEach(function (id) {
+        if (items[id]) {
+          rootEl.removeChild(items[id]);
+          rootEl.appendChild(items[id]);
+        }
+      });
+    },
+
+
+    /**
+     * Save the current sorting
+     */
+    save: function () {
+      var store = this.options.store;
+      store && store.set(this);
+    },
+
+
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * @param   {HTMLElement}  el
+     * @param   {String}       [selector]  default: `options.draggable`
+     * @returns {HTMLElement|null}
+     */
+    closest: function (el, selector) {
+      return _closest(el, selector || this.options.draggable, this.el);
+    },
+
+
+    /**
+     * Set/get option
+     * @param   {string} name
+     * @param   {*}      [value]
+     * @returns {*}
+     */
+    option: function (name, value) {
+      var options = this.options;
+
+      if (value === void 0) {
+        return options[name];
+      } else {
+        options[name] = value;
+      }
+    },
+
+
+    /**
+     * Destroy
+     */
+    destroy: function () {
+      var el = this.el, options = this.options;
+
+      _customEvents.forEach(function (name) {
+        _off(el, name.substr(2).toLowerCase(), options[name]);
+      });
+
+      _off(el, 'mousedown', this._onTapStart);
+      _off(el, 'touchstart', this._onTapStart);
+
+      _off(el, 'dragover', this);
+      _off(el, 'dragenter', this);
+
+      //remove draggable attributes
+      Array.prototype.forEach.call(el.querySelectorAll('[draggable]'), function (el) {
+        el.removeAttribute('draggable');
+      });
+
+      touchDragOverListeners.splice(touchDragOverListeners.indexOf(this._onDragOver), 1);
+
+      this._onDrop();
+
+      this.el = null;
+    }
+  };
+
+
+  function _cloneHide(state) {
+    if (cloneEl && (cloneEl.state !== state)) {
+      _css(cloneEl, 'display', state ? 'none' : '');
+      !state && cloneEl.state && rootEl.insertBefore(cloneEl, dragEl);
+      cloneEl.state = state;
+    }
+  }
+
+
+  function _bind(ctx, fn) {
+    var args = slice.call(arguments, 2);
+    return	fn.bind ? fn.bind.apply(fn, [ctx].concat(args)) : function () {
+      return fn.apply(ctx, args.concat(slice.call(arguments)));
+    };
+  }
+
+
+  function _closest(/**HTMLElement*/el, /**String*/selector, /**HTMLElement*/ctx) {
+    if (el) {
+      ctx = ctx || document;
+      selector = selector.split('.');
+
+      var tag = selector.shift().toUpperCase(),
+        re = new RegExp('\\s(' + selector.join('|') + ')\\s', 'g');
+
+      do {
+        if (
+          (tag === '>*' && el.parentNode === ctx) || (
+            (tag === '' || el.nodeName.toUpperCase() == tag) &&
+              (!selector.length || ((' ' + el.className + ' ').match(re) || []).length == selector.length)
+            )
+          ) {
+          return el;
+        }
+      }
+      while (el !== ctx && (el = el.parentNode));
+    }
+
+    return null;
+  }
+
+
+  function _globalDragOver(/**Event*/evt) {
+    evt.dataTransfer.dropEffect = 'move';
+    evt.preventDefault();
+  }
+
+
+  function _on(el, event, fn) {
+    el.addEventListener(event, fn, false);
+  }
+
+
+  function _off(el, event, fn) {
+    el.removeEventListener(event, fn, false);
+  }
+
+
+  function _toggleClass(el, name, state) {
+    if (el) {
+      if (el.classList) {
+        el.classList[state ? 'add' : 'remove'](name);
+      }
+      else {
+        var className = (' ' + el.className + ' ').replace(/\s+/g, ' ').replace(' ' + name + ' ', '');
+        el.className = className + (state ? ' ' + name : '');
+      }
+    }
+  }
+
+
+  function _css(el, prop, val) {
+    var style = el && el.style;
+
+    if (style) {
+      if (val === void 0) {
+        if (document.defaultView && document.defaultView.getComputedStyle) {
+          val = document.defaultView.getComputedStyle(el, '');
+        }
+        else if (el.currentStyle) {
+          val = el.currentStyle;
+        }
+
+        return prop === void 0 ? val : val[prop];
+      }
+      else {
+        if (!(prop in style)) {
+          prop = '-webkit-' + prop;
+        }
+
+        style[prop] = val + (typeof val === 'string' ? '' : 'px');
+      }
+    }
+  }
+
+
+  function _find(ctx, tagName, iterator) {
+    if (ctx) {
+      var list = ctx.getElementsByTagName(tagName), i = 0, n = list.length;
+
+      if (iterator) {
+        for (; i < n; i++) {
+          iterator(list[i], i);
+        }
+      }
+
+      return list;
+    }
+
+    return [];
+  }
+
+
+  function _disableDraggable(el) {
+    el.draggable = false;
+  }
+
+
+  function _unsilent() {
+    _silent = false;
+  }
+
+
+  /** @returns {HTMLElement|false} */
+  function _ghostInBottom(el, evt) {
+    var lastEl = el.lastElementChild, rect = lastEl.getBoundingClientRect();
+    return (evt.clientY - (rect.top + rect.height) > 5) && lastEl; // min delta
+  }
+
+
+  /**
+   * Generate id
+   * @param   {HTMLElement} el
+   * @returns {String}
+   * @private
+   */
+  function _generateId(el) {
+    var str = el.tagName + el.className + el.src + el.href + el.textContent,
+      i = str.length,
+      sum = 0;
+
+    while (i--) {
+      sum += str.charCodeAt(i);
+    }
+
+    return sum.toString(36);
+  }
+
+  /**
+   * Returns the index of an element within its parent
+   * @param el
+   * @returns {number}
+   * @private
+   */
+  function _index(/**HTMLElement*/el) {
+    var index = 0;
+    while (el && (el = el.previousElementSibling)) {
+      if (el.nodeName.toUpperCase() !== 'TEMPLATE') {
+        index++;
+      }
+    }
+    return index;
+  }
+
+  function _throttle(callback, ms) {
+    var args, _this;
+
+    return function () {
+      if (args === void 0) {
+        args = arguments;
+        _this = this;
+
+        setTimeout(function () {
+          if (args.length === 1) {
+            callback.call(_this, args[0]);
+          } else {
+            callback.apply(_this, args);
+          }
+
+          args = void 0;
+        }, ms);
+      }
+    };
+  }
+
+
+  // Export utils
+  Sortable.utils = {
+    on: _on,
+    off: _off,
+    css: _css,
+    find: _find,
+    bind: _bind,
+    is: function (el, selector) {
+      return !!_closest(el, selector, el);
+    },
+    throttle: _throttle,
+    closest: _closest,
+    toggleClass: _toggleClass,
+    dispatchEvent: _dispatchEvent,
+    index: _index
+  };
+
+
+  Sortable.version = '1.1.1';
+
+
+  /**
+   * Create sortable instance
+   * @param {HTMLElement}  el
+   * @param {Object}      [options]
+   */
+  Sortable.create = function (el, options) {
+    return new Sortable(el, options);
+  };
+
+  // Export
+  return Sortable;
+});
+
+
+/**
+ * jQuery plugin for Sortable
+ * @author	RubaXa   <trash@rubaxa.org>
+ * @license MIT
+ */
+(function (factory) {
+  "use strict";
+
+  if (typeof define === "function" && define.amd) {
+    define(["jquery"], factory);
+  }
+  else {
+    /* jshint sub:true */
+    factory(jQuery);
+  }
+})(function ($) {
+  "use strict";
+
+
+  /* CODE */
+
+
+  /**
+   * jQuery plugin for Sortable
+   * @param   {Object|String} options
+   * @param   {..*}           [args]
+   * @returns {jQuery|*}
+   */
+  $.fn.sortable = function (options) {
+    var retVal;
+
+    this.each(function () {
+      var $el = $(this),
+        sortable = $el.data('sortable');
+
+      if (!sortable && (options instanceof Object || !options)) {
+        sortable = new Sortable(this, options);
+        $el.data('sortable', sortable);
+      }
+
+      if (sortable) {
+        if (options === 'widget') {
+          return sortable;
+        }
+        else if (options === 'destroy') {
+          sortable.destroy();
+          $el.removeData('sortable');
+        }
+        else if (options in sortable) {
+          retVal = sortable[sortable].apply(sortable, [].slice.call(arguments, 1));
+        }
+      }
+    });
+
+    return (retVal === void 0) ? this : retVal;
+  };
+});;/* ========================================================================
  * Bootstrap: affix.js v3.3.1
  * http://getbootstrap.com/javascript/#affix
  * ========================================================================
@@ -41372,11 +42481,15 @@ window.JST["apps/album/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="region-details-title">\n    <h2>'));
+      _print(_safe('<div class="region-details-title">\n    <h2><span class="title">'));
     
       _print(this.label);
     
-      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="artist"><a href="#music/artist/'));
+      _print(_safe('</span> <span class="sub">'));
+    
+      _print(this.year);
+    
+      _print(_safe('</span></h2>\n</div>\n\n\n\n<div class="region-details-meta-below">\n\n    <div class="artist"><a href="#music/artist/'));
     
       _print(this.artistid);
     
@@ -41384,19 +42497,19 @@ window.JST["apps/album/show/tpl/details_meta.jst"] = function(__obj) {
     
       _print(this.artist);
     
-      _print(_safe('</a></div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+      _print(_safe('</a></div>\n\n    '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n    <div class="genres">\n        '));
-        _print(this.genre.join(', '));
+        _print(_safe('\n    <div class="album-genres">\n        '));
+        _print(_safe(helpers.url.filterLinks('music/albums', 'genre', this.genre)));
         _print(_safe('\n    </div>\n    '));
       }
     
-      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+      _print(_safe('\n\n    <div class="description">'));
     
       _print(this.description);
     
-      _print(_safe('</div>\n</div>\n'));
+      _print(_safe('</div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -41449,8 +42562,8 @@ window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
       _print(_safe('</span></h2>\n</div>\n\n\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n        '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n        <div class="genres">\n            '));
-        _print(this.genre.join(', '));
+        _print(_safe('\n        <div class="artist-genres">\n            '));
+        _print(_safe(helpers.url.filterLinks('music/artists', 'genre', this.genre)));
         _print(_safe('\n        </div>\n        '));
       }
     
@@ -41550,7 +42663,7 @@ window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
     
       _print(this.thumbnail);
     
-      _print(_safe('" onerror="Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
+      _print(_safe('" onerror="this.src = Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
     
       _print(this.label);
     
@@ -44029,6 +45142,7 @@ helpers.global.secToTime = function(totalSec) {
   if (totalSec == null) {
     totalSec = 0;
   }
+  totalSec = Math.round(totalSec);
   hours = parseInt(totalSec / 3600) % 24;
   minutes = parseInt(totalSec / 60) % 60;
   seconds = totalSec % 60;
@@ -44315,17 +45429,17 @@ helpers.url.get = function(type, id, replacements) {
   return path;
 };
 
-helpers.url.filterLinks = function(entities, key, people, limit) {
-  var baseUrl, i, links, person;
+helpers.url.filterLinks = function(entities, key, items, limit) {
+  var baseUrl, i, item, links;
   if (limit == null) {
     limit = 5;
   }
   baseUrl = '#' + entities + '?' + key + '=';
   links = [];
-  for (i in people) {
-    person = people[i];
+  for (i in items) {
+    item = items[i];
     if (i < limit) {
-      links.push('<a href="' + baseUrl + encodeURIComponent(person) + '">' + person + '</a>');
+      links.push('<a href="' + baseUrl + encodeURIComponent(item) + '">' + item + '</a>');
     }
   }
   return links.join(', ');
@@ -46183,7 +47297,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getType: function(item, media) {
       var type;
       type = 'file';
-      if (item.id !== '') {
+      if (item.id !== void 0 && item.id !== '') {
         if (media === 'audio') {
           type = 'song';
         } else if (media === 'video') {
@@ -46209,11 +47323,11 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       item.playlistid = options.playlistid;
       item.media = options.media;
       item.player = 'kodi';
-      if (!item.type) {
-        item.type = API.getType(items, options.media);
+      if (!item.type || item.type === 'unknown') {
+        item.type = API.getType(item, options.media);
       }
       if (item.type === 'file') {
-        item.id = 'mixed';
+        item.id = item.file;
       }
       return item;
     }
@@ -47943,6 +49057,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
         return function() {
           collection.availableFilters = _this.getAvailableFilters();
           collection.sectionId = 1;
+          App.request('filter:init', _this.getAvailableFilters());
           _this.layout = _this.getLayoutView(collection);
           _this.listenTo(_this.layout, "show", function() {
             _this.renderList(collection);
@@ -48396,6 +49511,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
         return function() {
           collection.availableFilters = _this.getAvailableFilters();
           collection.sectionId = 1;
+          App.request('filter:init', _this.getAvailableFilters());
           _this.layout = _this.getLayoutView(collection);
           _this.listenTo(_this.layout, "show", function() {
             _this.renderList(collection);
@@ -48664,6 +49780,8 @@ soundManager.setup({
   debugMode: true,
   noSWFCache: true,
   debugFlash: false,
+  flashPollingInterval: 1000,
+  html5PollingInterval: 1000,
   onready: function() {
     return console.log('sm ready!!');
   },
@@ -49133,7 +50251,7 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
    */
   App.reqres.setHandler("command:local:player", function(method, params, callback) {
     var commander;
-    commander = new CommandApp.Kodi.Player('audio');
+    commander = new CommandApp.Local.Player('audio');
     return commander.sendCommand(method, params, callback);
   });
   App.reqres.setHandler("command:local:controller", function(media, controller) {
@@ -49658,6 +50776,18 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       }
     };
 
+    PlayList.prototype.moveItem = function(media, id, position1, position2, callback) {
+      var idProp;
+      idProp = media === 'file' ? 'file' : media + 'id';
+      return this.singleCommand(this.getCommand('Remove'), [this.getPlayer(), parseInt(position1)], (function(_this) {
+        return function(resp) {
+          return _this.insert(idProp, id, position2, function() {
+            return _this.doCallback(callback, position2);
+          });
+        };
+      })(this));
+    };
+
     return PlayList;
 
   })(Api.Player);
@@ -49698,6 +50828,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
               stateObj.setPlaying('position', model.get('position'));
               stateObj.setPlaying('itemChanged', true);
               stateObj.setPlaying('item', model.attributes);
+              stateObj.setPlaying('totaltime', helpers.global.secToTime(model.get('duration')));
               return _this.localStateUpdate();
             },
             onstop: function() {
@@ -49706,18 +50837,26 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
             },
             onpause: function() {
               stateObj.setPlaying('paused', true);
-              stateObj.setPlaying('playstate', 'paused');
+              stateObj.setPlaying('playState', 'paused');
               return _this.localStateUpdate();
             },
             onresume: function() {
               stateObj.setPlaying('paused', false);
-              stateObj.setPlaying('playstate', 'playing');
+              stateObj.setPlaying('playState', 'playing');
               return _this.localStateUpdate();
             },
             onfinish: function() {
               return _this.localFinished();
             },
-            whileplaying: function() {}
+            whileplaying: function() {
+              var dur, percentage, pos;
+              pos = parseInt(this.position) / 1000;
+              dur = parseInt(model.get('duration'));
+              percentage = Math.round((pos / dur) * 100);
+              stateObj.setPlaying('time', helpers.global.secToTime(pos));
+              stateObj.setPlaying('percentage', percentage);
+              return App.execute('player:local:progress:update', percentage, helpers.global.secToTime(pos));
+            }
           }));
           return _this.doCallback(callback);
         };
@@ -49750,17 +50889,23 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
     };
 
-    Base.prototype.localCommand = function(command) {
+    Base.prototype.localSetVolume = function(volume) {
+      return this.localCommand('setVolume', volume);
+    };
+
+    Base.prototype.localCommand = function(command, param) {
       var currentItem, stateObj;
       stateObj = App.request("state:local");
       currentItem = stateObj.getState('localPlay');
       if (currentItem !== false) {
-        return currentItem[command]();
+        currentItem[command](param);
       }
+      return this.localStateUpdate();
     };
 
     Base.prototype.localGoTo = function(param) {
       var collection, currentPos, model, posToPlay, stateObj;
+      console.log('localGoto', param);
       collection = App.request("localplayer:get:entities");
       stateObj = App.request("state:local");
       currentPos = stateObj.getPlaying('position');
@@ -49768,7 +50913,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       if (collection.length > 0) {
         if (stateObj.getState('repeat') === 'one') {
           posToPlay = currentPos;
-        } else if (stateObj.getState('shuffle') === true) {
+        } else if (stateObj.getState('shuffled') === true) {
           posToPlay = helpers.global.getRandomInt(0, collection.length - 1);
         } else {
           if (param === 'next') {
@@ -49778,12 +50923,12 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
               posToPlay = currentPos + 1;
             }
           }
-          if (param === 'prev') {
+          if (param === 'previous') {
             if (currentPos === 0 && stateObj.getState('repeat') === 'all') {
               posToPlay = collection.length - 1;
+            } else if (currentPos > 0) {
+              posToPlay = currentPos - 1;
             }
-          } else if (currentPos > 0) {
-            posToPlay = currentPos - 1;
           }
         }
       }
@@ -49804,7 +50949,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       var localPlay, newPos, sound, stateObj;
       stateObj = App.request("state:local");
       localPlay = stateObj.getState('localPlay');
-      if (currentItem !== false) {
+      if (localPlay !== false) {
         newPos = (percent / 100) * localPlay.duration;
         sound = soundManager.getSoundById(stateObj.getState('currentPlaybackId'));
         return sound.setPosition(newPos);
@@ -49812,23 +50957,25 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     };
 
     Base.prototype.localRepeat = function(param) {
-      var i, newState, state, stateObj, states, _i, _len;
+      var i, key, newState, state, stateObj, states;
       stateObj = App.request("state:local");
       if (param !== 'cycle') {
         return stateObj.setState('repeat', param);
       } else {
         newState = false;
         states = ['off', 'all', 'one'];
-        for (state = _i = 0, _len = states.length; _i < _len; state = ++_i) {
-          i = states[state];
-          if (newState) {
+        for (i in states) {
+          state = states[i];
+          i = parseInt(i);
+          if (newState !== false) {
             continue;
           }
           if (stateObj.getState('repeat') === state) {
-            if (i === states.length - 1) {
-              newState = states[i + 1];
+            if (i !== (states.length - 1)) {
+              key = i + 1;
+              newState = states[key];
             } else {
-              newState = 0;
+              newState = 'off';
             }
           }
         }
@@ -49836,14 +50983,15 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
     };
 
-    Base.prototype.localShuffle = function(param) {
-      var stateObj;
+    Base.prototype.localShuffle = function() {
+      var currentShuffle, stateObj;
       stateObj = App.request("state:local");
-      return stateObj.setState('shuffle', param);
+      currentShuffle = stateObj.getState('shuffled');
+      return stateObj.setState('shuffled', !currentShuffle);
     };
 
     Base.prototype.localStateUpdate = function() {
-      return App.vent.trigger("state:content:updated");
+      return App.vent.trigger("state:local:changed");
     };
 
     Base.prototype.paramObj = function(key, val) {
@@ -49904,21 +51052,75 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     Player.prototype.sendCommand = function(command, param) {
       switch (command) {
         case 'GoTo':
-          return this.localGoTo(param);
+          this.localGoTo(param);
+          break;
         case 'PlayPause':
-          return this.localPlayPause();
+          this.localPlayPause();
+          break;
         case 'Seek':
-          return this.localSeek(param);
+          this.localSeek(param);
+          break;
         case 'SetRepeat':
-          return this.localRepeat(param);
+          this.localRepeat(param);
+          break;
         case 'SetShuffle':
-          return this.localShuffle(param);
+          this.localShuffle();
+          break;
         case 'Stop':
-          return this.localStop();
+          this.localStop();
+          break;
       }
+      return this.localStateUpdate();
     };
 
     return Player;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.Application = (function(_super) {
+    __extends(Application, _super);
+
+    function Application() {
+      return Application.__super__.constructor.apply(this, arguments);
+    }
+
+    Application.prototype.getProperties = function(callback) {
+      var resp, stateObj;
+      stateObj = App.request("state:local");
+      resp = {
+        volume: stateObj.getState('volume'),
+        muted: stateObj.getState('muted')
+      };
+      return this.doCallback(callback, resp);
+    };
+
+    Application.prototype.setVolume = function(volume, callback) {
+      var stateObj;
+      stateObj = App.request("state:local");
+      stateObj.setState('volume', volume);
+      this.localSetVolume(volume);
+      return this.doCallback(callback, volume);
+    };
+
+    Application.prototype.toggleMute = function(callback) {
+      var stateObj, volume;
+      stateObj = App.request("state:local");
+      volume = 0;
+      if (stateObj.getState('muted')) {
+        volume = stateObj.getState('lastVolume');
+        stateObj.setState('muted', false);
+      } else {
+        stateObj.setState('lastVolume', stateObj.getState('volume'));
+        stateObj.setState('muted', true);
+        volume = 0;
+      }
+      this.localSetVolume(volume);
+      return this.doCallback(callback, volume);
+    };
+
+    return Application;
 
   })(Api.Commander);
 });
@@ -49955,7 +51157,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
           ret = [];
           for (pos in raw) {
             item = raw[pos];
-            if (pos !== position) {
+            if (parseInt(pos) !== parseInt(position)) {
               ret.push(item);
             }
           }
@@ -49980,18 +51182,25 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
       }
       return this.getItems((function(_this) {
         return function(collection) {
-          var item, model, pos, raw, ret, _i, _len, _ref;
+          var item, model, pos, raw, ret, _i, _j, _len, _len1, _ref, _ref1;
           raw = collection.getRawCollection();
           if (raw.length === 0) {
             ret = _.flatten([models]);
+          } else if (parseInt(position) >= raw.length) {
+            ret = raw;
+            _ref = _.flatten([models]);
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              model = _ref[_i];
+              ret.push(model);
+            }
           } else {
             ret = [];
             for (pos in raw) {
               item = raw[pos];
-              if (pos === position) {
-                _ref = _.flatten([models]);
-                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                  model = _ref[_i];
+              if (parseInt(pos) === parseInt(position)) {
+                _ref1 = _.flatten([models]);
+                for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                  model = _ref1[_j];
                   ret.push(model);
                 }
               }
@@ -50040,6 +51249,21 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
 
     PlayList.prototype.refreshPlaylistView = function() {
       return App.execute("playlist:refresh", 'local', 'audio');
+    };
+
+    PlayList.prototype.moveItem = function(media, id, position1, position2, callback) {
+      return this.getItems((function(_this) {
+        return function(collection) {
+          var item, raw;
+          raw = collection.getRawCollection();
+          item = raw[position1];
+          return _this.remove(position1, function() {
+            return _this.insert(item, position2, function() {
+              return _this.doCallback(callback, position2);
+            });
+          });
+        };
+      })(this));
     };
 
     return PlayList;
@@ -52077,7 +53301,7 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       });
     },
     doCommand: function(player, command, params, callback) {
-      return App.request('command:kodi:player', command, params, (function(_this) {
+      return App.request("command:" + player + ":player", command, params, (function(_this) {
         return function() {
           return _this.pollingUpdate(callback);
         };
@@ -52087,8 +53311,12 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       return App.request("command:" + player + ":controller", 'auto', 'Application');
     },
     pollingUpdate: function(callback) {
-      if (!App.request('sockets:active')) {
+      var stateObj;
+      stateObj = App.request("state:current");
+      if (stateObj.getPlayer() === 'kodi') {
         return App.request('state:kodi:update', callback);
+      } else {
+
       }
     },
     initPlayer: function(player, playerView) {
@@ -52099,12 +53327,13 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       appController = this.getAppController(player);
       App.listenTo(playerView, "control:play", (function(_this) {
         return function() {
+          console.log('playOn', player);
           return _this.doCommand(player, 'PlayPause', 'toggle');
         };
       })(this));
       App.listenTo(playerView, "control:prev", (function(_this) {
         return function() {
-          return _this.doCommand('GoTo', 'previous');
+          return _this.doCommand(player, 'GoTo', 'previous');
         };
       })(this));
       App.listenTo(playerView, "control:next", (function(_this) {
@@ -52129,24 +53358,28 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
           });
         };
       })(this));
+      $playerCtx = $('#player-' + player);
+      $progress = $('.playing-progress', $playerCtx);
       if (player === 'kodi') {
-        $playerCtx = $('#player-kodi');
-        $progress = $('.playing-progress', $playerCtx);
         $progress.on('change', function() {
           API.timerStop();
-          return API.doCommand('Seek', Math.round(this.vGet()), function() {
+          return API.doCommand(player, 'Seek', Math.round(this.vGet()), function() {
             return API.timerStart();
           });
         });
         $progress.on('slide', function() {
           return API.timerStop();
         });
-        $volume = $('.volume', $playerCtx);
-        return $volume.on('change', function() {
-          appController.setVolume(Math.round(this.vGet()));
-          return API.pollingUpdate();
+      } else {
+        $progress.on('change', function() {
+          return API.doCommand(player, 'Seek', Math.round(this.vGet()));
         });
       }
+      $volume = $('.volume', $playerCtx);
+      return $volume.on('change', function() {
+        appController.setVolume(Math.round(this.vGet()));
+        return API.pollingUpdate();
+      });
     },
     timerStart: function() {
       return App.playingTimerInterval = setTimeout(((function(_this) {
@@ -52231,7 +53464,7 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
         return App.regionPlayerLocal.show(App.localPlayer);
       };
     })(this));
-    return App.commands.setHandler('player:kodi:timer', function(state) {
+    App.commands.setHandler('player:kodi:timer', function(state) {
       if (state == null) {
         state = 'start';
       }
@@ -52242,6 +53475,9 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       } else if (state === 'update') {
         return API.timerUpdate();
       }
+    });
+    return App.commands.setHandler('player:local:progress:update', function(percent, currentTime) {
+      return API.setProgress('local', percent, currentTime);
     });
   };
 });
@@ -52359,15 +53595,21 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
           return function() {
             var listView;
             listView = _this.getList(collection);
+            App.listenTo(listView, "show", function() {
+              return _this.bindActions(listView, type, media);
+            });
             _this.layout.kodiPlayList.show(listView);
-            _this.bindActions(listView, type, media);
             return App.vent.trigger("state:content:updated");
           };
         })(this));
       } else {
         collection = App.request("localplayer:get:entities");
         listView = this.getList(collection);
-        this.bindActions(listView, type, media);
+        App.listenTo(listView, "show", (function(_this) {
+          return function() {
+            return _this.bindActions(listView, type, media);
+          };
+        })(this));
         this.layout.localPlayList.show(listView);
         return App.vent.trigger("state:content:updated");
       }
@@ -52379,13 +53621,25 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       this.listenTo(listView, "childview:playlist:item:remove", function(playlistView, item) {
         return playlist.remove(item.model.get('position'));
       });
-      return this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
+      this.listenTo(listView, "childview:playlist:item:play", function(playlistView, item) {
         return playlist.playEntity('position', parseInt(item.model.get('position')));
       });
+      return this.initSortable(type, media);
     };
 
     Controller.prototype.changePlaylist = function(player, media) {
       return this.renderList(player, media);
+    };
+
+    Controller.prototype.initSortable = function(type, media) {
+      var $ctx, playlist;
+      $ctx = $('.' + type + '-playlist');
+      playlist = App.request("command:" + type + ":controller", media, 'PlayList');
+      return $('ul.playlist-items', $ctx).sortable({
+        onEnd: function(e) {
+          return playlist.moveItem($(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex);
+        }
+      });
     };
 
     return Controller;
@@ -52438,7 +53692,7 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
       subtitle = '';
       switch (this.model.get('type')) {
         case 'song':
-          subtitle = this.model.get('artist').join(', ');
+          subtitle = this.model.get('artist') ? this.model.get('artist').join(', ') : '';
           break;
         default:
           subtitle = '';
@@ -52455,7 +53709,9 @@ this.Kodi.module("PlaylistApp.List", function(List, App, Backbone, Marionette, $
 
     Item.prototype.attributes = function() {
       return {
-        "class": 'item pos-' + this.model.get('position')
+        "class": 'item pos-' + this.model.get('position'),
+        'data-type': this.model.get('type'),
+        'data-id': this.model.get('id')
       };
     };
 
@@ -53212,10 +54468,13 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       return Base.__super__.constructor.apply(this, arguments);
     }
 
+    Base.prototype.instanceSettings = {};
+
     Base.prototype.state = {
       player: 'kodi',
       media: 'audio',
       volume: 50,
+      lastVolume: 50,
       muted: false,
       shuffled: false,
       repeat: 'off'
@@ -53243,7 +54502,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         minutes: 0,
         seconds: 0
       },
-      time: {
+      totaltime: {
         hours: 0,
         milliseconds: 0,
         minutes: 0,
@@ -53361,6 +54620,8 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
     State.prototype.playlistApi = {};
 
     State.prototype.initialize = function() {
+      this.state = _.extend({}, this.state);
+      this.playing = _.extend({}, this.playing);
       this.setState('player', 'kodi');
       this.playerController = App.request("command:kodi:controller", 'auto', 'Player');
       this.applicationController = App.request("command:kodi:controller", 'auto', 'Application');
@@ -53709,6 +54970,8 @@ this.Kodi.module("StateApp.Local", function(StateApp, App, Backbone, Marionette,
     }
 
     State.prototype.initialize = function() {
+      this.state = _.extend({}, this.state);
+      this.playing = _.extend({}, this.playing);
       this.setState('player', 'local');
       this.setState('currentPlaybackId', 'browser-none');
       this.setState('localPlay', false);
@@ -53819,7 +55082,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
       App.localState = new StateApp.Local.State();
       App.kodiState.setPlayer(config.get('state', 'lastplayer', 'kodi'));
       App.kodiState.getCurrentState(function(state) {
-        API.setState(App.kodiState.getState('player'));
+        API.setState('kodi');
         App.kodiSockets = new StateApp.Kodi.Notifications();
         App.kodiPolling = new StateApp.Kodi.Polling();
         App.vent.on("sockets:unavailable", function() {
@@ -53834,6 +55097,9 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         });
         App.vent.on("state:kodi:changed", function(state) {
           return API.setState('kodi');
+        });
+        App.vent.on("state:local:changed", function(state) {
+          return API.setState('local');
         });
         App.vent.on("state:player:updated", function(player) {
           return API.setPlayerPlaying(player);

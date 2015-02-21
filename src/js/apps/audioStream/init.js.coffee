@@ -3,15 +3,17 @@
 ## Must be run before app init
 
 soundManager.setup({
-  url: 'lib/soundmanager/swf/',
-  flashVersion: 9,
-  preferFlash: true,
-  useHTML5Audio: true,
-  useFlashBlock: false,
-  flashLoadTimeout: 3000,
-  debugMode: true,
-  noSWFCache: true,
-  debugFlash: false,
+  url: 'lib/soundmanager/swf/'
+  flashVersion: 9
+  preferFlash: true
+  useHTML5Audio: true
+  useFlashBlock: false
+  flashLoadTimeout: 3000
+  debugMode: true
+  noSWFCache: true
+  debugFlash: false
+  flashPollingInterval: 1000
+  html5PollingInterval: 1000
   onready: ->
     console.log 'sm ready!!'
   ontimeout: ->

@@ -35,7 +35,7 @@
     }
     &:after {
       font-size: 130%;
-      padding-left: $spacing-quater-unit;
+      padding-left: $spacing-quarter-unit;
       position: absolute;
       margin-top: 1px;
     }
@@ -129,7 +129,7 @@
     @include set-layout('width-playlist-closed', 'right');
   }
   background: $color-white;
-  padding: $spacing-quater-unit * 3;
+  padding: $spacing-quarter-unit * 3;
   text-align: center;
   z-index: $z-index-beta;
   .remove {

@@ -61,11 +61,15 @@ window.JST["apps/album/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="region-details-title">\n    <h2>'));
+      _print(_safe('<div class="region-details-title">\n    <h2><span class="title">'));
     
       _print(this.label);
     
-      _print(_safe('</h2>\n</div>\n\n<div class="region-details-meta-side-first">\n    <div class="artist"><a href="#music/artist/'));
+      _print(_safe('</span> <span class="sub">'));
+    
+      _print(this.year);
+    
+      _print(_safe('</span></h2>\n</div>\n\n\n\n<div class="region-details-meta-below">\n\n    <div class="artist"><a href="#music/artist/'));
     
       _print(this.artistid);
     
@@ -73,19 +77,19 @@ window.JST["apps/album/show/tpl/details_meta.jst"] = function(__obj) {
     
       _print(this.artist);
     
-      _print(_safe('</a></div>\n</div>\n\n<div class="region-details-meta-side-second">\n    '));
+      _print(_safe('</a></div>\n\n    '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n    <div class="genres">\n        '));
-        _print(this.genre.join(', '));
+        _print(_safe('\n    <div class="album-genres">\n        '));
+        _print(_safe(helpers.url.filterLinks('music/albums', 'genre', this.genre)));
         _print(_safe('\n    </div>\n    '));
       }
     
-      _print(_safe('\n</div>\n\n<div class="region-details-meta-below">\n    <div class="description">'));
+      _print(_safe('\n\n    <div class="description">'));
     
       _print(this.description);
     
-      _print(_safe('</div>\n</div>\n'));
+      _print(_safe('</div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -138,8 +142,8 @@ window.JST["apps/artist/show/tpl/details_meta.jst"] = function(__obj) {
       _print(_safe('</span></h2>\n</div>\n\n\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n        '));
     
       if (this.genre.length > 0) {
-        _print(_safe('\n        <div class="genres">\n            '));
-        _print(this.genre.join(', '));
+        _print(_safe('\n        <div class="artist-genres">\n            '));
+        _print(_safe(helpers.url.filterLinks('music/artists', 'genre', this.genre)));
         _print(_safe('\n        </div>\n        '));
       }
     
@@ -239,7 +243,7 @@ window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
     
       _print(this.thumbnail);
     
-      _print(_safe('" onerror="Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
+      _print(_safe('" onerror="this.src = Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
     
       _print(this.label);
     

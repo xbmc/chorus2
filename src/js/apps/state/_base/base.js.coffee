@@ -4,10 +4,13 @@
   ## between the Kodi and local player states.
   class StateApp.Base extends Marionette.Object
 
+    instanceSettings: {}
+
     state:
       player: 'kodi'
       media: 'audio'
       volume: 50
+      lastVolume: 50 ## used for toggling mute
       muted: false
       shuffled: false
       repeat: 'off' # 'off'/'one'/'all'
@@ -33,7 +36,7 @@
         milliseconds: 0
         minutes: 0
         seconds: 0
-      time:
+      totaltime:
         hours: 0
         milliseconds: 0
         minutes: 0
@@ -49,7 +52,6 @@
       albumid: ''
       duration: 0
       type: 'song'
-
 
     getState: (key = 'all') ->
       if key is 'all'

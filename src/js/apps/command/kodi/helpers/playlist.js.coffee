@@ -60,3 +60,14 @@
       wsActive = App.request "sockets:active"
       if not wsActive
         App.execute "playlist:refresh", 'kodi', @playerName
+
+    ## Move Item
+    moveItem: (media, id, position1, position2, callback) ->
+      idProp = if media is 'file' then 'file' else media + 'id'
+      @singleCommand @getCommand('Remove'), [@getPlayer(), parseInt(position1)], (resp) =>
+        @insert idProp, id, position2, =>
+          @doCallback callback, position2
+
+
+
+

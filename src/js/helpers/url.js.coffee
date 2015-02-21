@@ -29,12 +29,12 @@ helpers.url.get = (type, id = '', replacements = {}) ->
   path
 
 ## From an array of people, make a set of links to their filter page.
-helpers.url.filterLinks = (entities, key, people, limit = 5) ->
+helpers.url.filterLinks = (entities, key, items, limit = 5) ->
   baseUrl = '#' + entities + '?' + key + '='
   links = []
-  for i, person of people
+  for i, item of items
     if i < limit
-      links.push '<a href="' + baseUrl + encodeURIComponent(person) + '">' + person + '</a>'
+      links.push '<a href="' + baseUrl + encodeURIComponent(item) + '">' + item + '</a>'
   links.join(', ')
 
 

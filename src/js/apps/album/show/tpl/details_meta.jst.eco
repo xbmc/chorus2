@@ -1,19 +1,19 @@
 <div class="region-details-title">
-    <h2><%= @label %></h2>
+    <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
 </div>
 
-<div class="region-details-meta-side-first">
-    <div class="artist"><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></div>
-</div>
 
-<div class="region-details-meta-side-second">
-    <% if @genre.length > 0: %>
-    <div class="genres">
-        <%= @genre.join(', ') %>
-    </div>
-    <% end %>
-</div>
 
 <div class="region-details-meta-below">
+
+    <div class="artist"><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></div>
+
+    <% if @genre.length > 0: %>
+    <div class="album-genres">
+        <%- helpers.url.filterLinks('music/albums', 'genre', @genre) %>
+    </div>
+    <% end %>
+
     <div class="description"><%= @description %></div>
+
 </div>

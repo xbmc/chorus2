@@ -47,6 +47,7 @@ helpers.global.numPad = (num, size) ->
 
 ## Convert seconds to time
 helpers.global.secToTime = (totalSec = 0) ->
+  totalSec = Math.round(totalSec)
   hours = parseInt(totalSec / 3600) % 24
   minutes = parseInt(totalSec / 60) % 60
   seconds = totalSec % 60

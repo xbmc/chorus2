@@ -19,7 +19,7 @@
 
   ## Local: Execute a command
   App.reqres.setHandler "command:local:player", (method, params, callback) ->
-    commander = new CommandApp.Kodi.Player('audio')
+    commander = new CommandApp.Local.Player('audio')
     commander.sendCommand method, params, callback
 
   ## Local: Get a controller for a specific player type and media

@@ -1,8 +1,26 @@
 // Details Header (Generic across most entities).
 $color-detail-hightlight-text: rgba($color-white, 0.6);
+
+// State based changes.
+@mixin details-header-state($player: 'kodi', $brand-color: $color-kodi, $background: $color-player-background) {
+  .active-player-#{$player} {
+    .details-header {
+      background: $background;
+      .region-details-fanart {
+        &:before {
+          @include filter-gradient(rgba($background, 1), rgba($background, 0), horizontal);
+          @include background-image(linear-gradient(left, rgba($background,1) 0%, rgba($background,0.9) 30%, rgba($background,0) 100%));
+        }
+      }
+    }
+  }
+}
+
+@include details-header-state('kodi', $color-kodi, $color-detail-header-background);
+@include details-header-state('local', $color-kodi, $color-detail-header-background-local);
+
 .details-header {
   @include pie-clearfix();
-  background: $color-detail-header-background;
   position: relative;
   min-height: 283px;
   padding-bottom: $spacing-double-unit;
@@ -65,13 +83,12 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     @include set-position-absolute(top 0 right 0 bottom 0);
     &:before {
       content: "";
-      @include set-position-absolute(top 0 left 0 bottom 0 right 50%);
-      @include filter-gradient(rgba($color-detail-header-background, 1), rgba($color-detail-header-background, 0), horizontal);
-      @include background-image(linear-gradient(left, rgba($color-detail-header-background,1) 0%, rgba($color-detail-header-background,0.9) 30%, rgba($color-detail-header-background,0) 100%));
+      @include set-position-absolute(top 0 left 0 bottom 0);
+      width: 60%;
     }
   }
   .region-details-meta-below {
-    height: 136px;
+    height: 146px;
     overflow: hidden;
   }
   .description {
