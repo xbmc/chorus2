@@ -46,7 +46,8 @@ $layouts: (
     width-player-controls-primary: 220px,
     width-player-controls-secondary: 220px,
     width-player-thumb: $height-player-small,
-    height-player-slider: 20px
+    height-player-slider: 20px,
+    width-remote: auto
   ),
   medium: (
     width-playlist: $width-playlist-small,
@@ -57,6 +58,7 @@ $layouts: (
     width-search: $size-region-unit * 4,
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
+    width-remote: 371px
   ),
   xlarge: (
     width-playlist: $width-playlist,

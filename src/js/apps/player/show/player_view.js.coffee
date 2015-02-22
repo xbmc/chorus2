@@ -12,7 +12,7 @@
       regionTimeCur   : '.playing-time-current'
       regionTimeDur   : '.playing-time-duration'
     triggers:
-
+      'click .remote-toggle'    : 'remote:toggle'
       'click .control-prev'     : 'control:prev'
       'click .control-play'     : 'control:play'
       'click .control-next'     : 'control:next'

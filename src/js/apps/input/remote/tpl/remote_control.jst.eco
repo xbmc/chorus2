@@ -1,0 +1,28 @@
+<div class="remote kodi-remote">
+    <div class="toggle-visibility"></div>
+    <div class="playing-area">
+
+    </div>
+    <div class="main-controls">
+        <div class="direction">
+            <div class="pad">
+                <div class="ibut mdi-hardware-keyboard-arrow-left left input-button" data-type="Left"></div>
+                <div class="ibut mdi-hardware-keyboard-arrow-up up input-button" data-type="Up"></div>
+                <div class="ibut mdi-hardware-keyboard-arrow-down down input-button" data-type="Down"></div>
+                <div class="ibut mdi-hardware-keyboard-arrow-right right input-button" data-type="Right"></div>
+                <div class="ibut mdi-image-brightness-1 ok input-button" data-type="Select"></div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="ibut mdi-action-settings-power power-button"></div>
+            <div class="ibut mdi-navigation-more-vert input-button" data-type="ContextMenu"></div>
+            <div class="ibut mdi-action-info input-button" data-type="Info"></div>
+        </div>
+    </div>
+    <div class="secondary-controls">
+        <div class="ibut mdi-hardware-keyboard-return input-button" data-type="Back"></div>
+        <div class="ibut mdi-av-stop player-button" data-type="Stop"></div>
+        <div class="ibut mdi-maps-store-mall-directory input-button" data-type="Home"></div>
+    </div>
+
+</div>

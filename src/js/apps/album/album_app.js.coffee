@@ -23,7 +23,7 @@
         when 'add'
           playlist.add 'albumid', model.get('albumid')
         when 'localadd'
-          App.execute "playlistlocal:additems", 'albumid', model.get('albumid')
+          App.execute "localplaylist:addentity", 'albumid', model.get('albumid')
         when 'localplay'
           localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
           songs = App.request "song:filtered:entities", {filter: {albumid: model.get('albumid')}}

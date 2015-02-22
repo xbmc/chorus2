@@ -19,8 +19,8 @@
     </div>
 
     <div class="now-playing">
-        <div class="playing-thumb">
-            <img src="" />
+        <div class="playing-thumb thumb">
+            <div class="remote-toggle"></div>
         </div>
         <div class="playing-info">
             <div class="playing-progress slider-bar"></div>

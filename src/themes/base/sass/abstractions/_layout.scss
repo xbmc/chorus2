@@ -24,6 +24,12 @@
     @if map-has-key($layout, $key) {
       @include at-bp($size) {
         #{$property}: map-get($layout, $key);
+        // Playlist width changes state
+        @if $key == 'width-playlist' {
+          .shell-playlist-closed & {
+            #{$property}: map-get($layout, 'width-playlist-closed');
+          }
+        }
       }
     }
   }

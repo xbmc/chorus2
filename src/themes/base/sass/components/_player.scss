@@ -17,6 +17,11 @@
   .active-player-local & {
     display: none;
   }
+  .playing-thumb:hover {
+    .remote-toggle {
+      @include vertical-align-wrapper();
+    }
+  }
 }
 
 .player {
@@ -69,6 +74,7 @@
       color: $color-player-text;
     }
   }
+  @include thumb-crop(70px, 70px);
   .playing-thumb {
     @include set-position-absolute(top 0 bottom 0 left 0);
     @include set-layout('height-player', 'width');
@@ -78,9 +84,19 @@
     background-color: rgba($color-white, 0.2);
     background-size: cover;
     background-position: 50% 50%;
-    img {
+  }
+  .remote-toggle {
+    @include overlay-icon(action-settings-remote);
+    text-align: center;
+    @include set-layout('height-player', 'height');
+    @include set-layout('height-player', 'width');
+    &:before {
+      @include vertical-align-element();
+      @include set-layout('height-player', 'height');
       @include set-layout('height-player', 'width');
-      height: auto;
+      padding: 0;
+      font-size: 300%;
+      opacity: 0.8;
     }
   }
   .playing-info {

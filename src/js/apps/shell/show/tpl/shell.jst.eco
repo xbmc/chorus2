@@ -32,6 +32,8 @@
         <div id="playlist-bar"></div>
     </div>
 
+    <div id="remote"></div>
+
     <div id="player-wrapper">
         <footer id="player-kodi"></footer>
         <footer id="player-local"></footer>
@@ -41,7 +43,6 @@
 
 <div id="fanart"></div>
 <div id="fanart-overlay"></div>
-<div id="fanart-overlay-decal"></div>
 
 <div id="snackbar-container"></div>
 

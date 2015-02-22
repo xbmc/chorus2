@@ -239,11 +239,11 @@ window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="thumb"><img src="'));
+      _print(_safe('<div class="thumb" style="background-image: url(\''));
     
       _print(this.thumbnail);
     
-      _print(_safe('" onerror="this.src = Kodi.request(\'images:path:get\')" /><div class="play"></div></div>\n<div class="title">'));
+      _print(_safe('\')"><div class="play"></div></div>\n<div class="title">'));
     
       _print(this.label);
     
@@ -628,6 +628,48 @@ window.JST["apps/filter/show/tpl/list_item.jst"] = function(__obj) {
     };
     (function() {
       _print(_safe(this.title));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/input/remote/tpl/remote_control.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="remote kodi-remote">\n    <div class="toggle-visibility"></div>\n    <div class="playing-area">\n\n    </div>\n    <div class="main-controls">\n        <div class="direction">\n            <div class="pad">\n                <div class="ibut mdi-hardware-keyboard-arrow-left left input-button" data-type="Left"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-up up input-button" data-type="Up"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-down down input-button" data-type="Down"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-right right input-button" data-type="Right"></div>\n                <div class="ibut mdi-image-brightness-1 ok input-button" data-type="Select"></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <div class="ibut mdi-action-settings-power power-button"></div>\n            <div class="ibut mdi-navigation-more-vert input-button" data-type="ContextMenu"></div>\n            <div class="ibut mdi-action-info input-button" data-type="Info"></div>\n        </div>\n    </div>\n    <div class="secondary-controls">\n        <div class="ibut mdi-hardware-keyboard-return input-button" data-type="Back"></div>\n        <div class="ibut mdi-av-stop player-button" data-type="Stop"></div>\n        <div class="ibut mdi-maps-store-mall-directory input-button" data-type="Home"></div>\n    </div>\n\n</div>'));
     
     }).call(this);
     
@@ -1301,7 +1343,7 @@ window.JST["apps/player/show/tpl/player.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb">\n            <img src="" />\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
+      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb thumb">\n            <div class="remote-toggle"></div>\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
     
       _print(t.gettext('Nothing playing'));
     
@@ -1355,7 +1397,7 @@ window.JST["apps/playlist/list/tpl/playlist_bar.jst"] = function(__obj) {
     
       _print(t.gettext('Local'));
     
-      _print(_safe('</li>\n    </ul>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
+      _print(_safe('</li>\n    </ul>\n    <div class="playlist-menu dropdown">\n        <i data-toggle="dropdown" class="menu-toggle"></i>\n        <ul class="dropdown-menu pull-right">\n            <li class="dropdown-header">Current Playlist</li>\n            <li><a href="#" class="clear-playlist">Clear Playlist</a></li>\n            <li><a href="#" class="refresh-playlist">Refresh Playlist</a></li>\n            <li class="dropdown-header">Kodi</li>\n            <li><a href="#" class="party-mode">Party Mode <i class="mdi-navigation-check"></i></a></li>\n            <li><a href="#" class="save-playlist">Save Kodi Playlist</a></li>\n            </li>\n        </ul>\n    </div>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
     
     }).call(this);
     
@@ -1405,11 +1447,11 @@ window.JST["apps/playlist/list/tpl/playlist_item.jst"] = function(__obj) {
     
       _print(this.label);
     
-      _print(_safe('">\n            <img src="'));
+      _print(_safe('" style="background-image: url(\''));
     
       _print(this.thumbnail);
     
-      _print(_safe('" />\n            <div class="play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+      _print(_safe('\')">\n            <div class="play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
     
       _print(this.url);
     
@@ -1597,7 +1639,7 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n<div id="fanart-overlay-decal"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="remote"></div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -1639,11 +1681,11 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<td class="cell-first">\n    <div class="thumb">\n        <img src="'));
+      _print(_safe('<td class="cell-first">\n    <div class="thumb" style="background-image: url(\''));
     
       _print(this.thumbnail);
     
-      _print(_safe('" />\n    </div>\n    <div class="track">'));
+      _print(_safe('\')">\n    </div>\n    <div class="track">'));
     
       _print(this.track);
     
@@ -1740,6 +1782,308 @@ window.JST["apps/thumbs/list/tpl/thumbs_set.jst"] = function(__obj) {
     };
     (function() {
       _print(_safe('<h2 class="set-header"></h2>\n<div class="set-results"></div>\n<div class="more"></div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/tvshow/episode/tpl/content.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      var cast, _i, _len, _ref;
+    
+      _print(_safe('\n<div class="entity-progress"><div class="current-progress" style="width: '));
+    
+      _print(this.progress);
+    
+      _print(_safe('%" title="'));
+    
+      _print(this.progress);
+    
+      _print(_safe('% '));
+    
+      _print(t.gettext('complete'));
+    
+      _print(_safe('"></div></div>\n\n<div class="section-content">\n    <h2>'));
+    
+      _print(t.gettext('Synopsis'));
+    
+      _print(_safe('</h2>\n    <p>'));
+    
+      _print(this.plot);
+    
+      _print(_safe('</p>\n</div>\n\n'));
+    
+      if (this.cast.length > 0) {
+        _print(_safe('\n    <div class="section-content">\n        <h2>'));
+        _print(t.gettext('Full Cast'));
+        _print(_safe('</h2>\n        <ul class="cast-full">\n            '));
+        _ref = this.cast;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          cast = _ref[_i];
+          _print(_safe('\n                <li><a href="#tvshows?cast='));
+          _print(cast.name);
+          _print(_safe('" title="'));
+          _print(cast.name);
+          _print(_safe(' ('));
+          _print(cast.role);
+          _print(_safe(')">\n                    <div class="thumb">\n                        <img src="'));
+          _print(cast.thumbnail);
+          _print(_safe('" />\n                    </div>\n                    <div class="meta">\n                        <strong>'));
+          _print(cast.name);
+          _print(_safe('</strong>\n                        <span title="'));
+          _print(cast.role);
+          _print(_safe('">'));
+          _print(cast.role);
+          _print(_safe('</span>\n                    </div>\n                </a></li>\n            '));
+        }
+        _print(_safe('\n        </ul>\n    </div>\n'));
+      }
+    
+      _print(_safe('\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      var sub, _i, _len, _ref;
+    
+      _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</span> <span class="sub">S'));
+    
+      _print(this.season);
+    
+      _print(_safe(' E'));
+    
+      _print(this.episode);
+    
+      _print(_safe('</span></h2>\n    </div>\n    <div class="region-details-rating">\n        '));
+    
+      _print(this.rating);
+    
+      _print(_safe(' <i></i>\n    </div>\n</div>\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n\n        <div class="runtime">\n            '));
+    
+      _print(helpers.global.formatTime(helpers.global.secToTime(this.runtime)));
+    
+      _print(_safe('\n        </div>\n\n    </div>\n\n    <ul class="people">\n        '));
+    
+      if (this.director.length > 0) {
+        _print(_safe('\n            <li><label>Director:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'director', this.director)));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n        '));
+    
+      if (this.writer.length > 0) {
+        _print(_safe('\n            <li><label>Writer:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'writer', this.writer)));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n        '));
+    
+      if (this.cast.length > 0) {
+        _print(_safe('\n            <li><label>Cast:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'cast', _.pluck(this.cast, 'name'))));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n    </ul>\n\n    <ul class="streams">\n        <li><label>Video:</label> <span>'));
+    
+      _print(_.pluck(this.streamdetails.video, 'label').join(', '));
+    
+      _print(_safe('</span></li>\n        <li><label>Audio:</label> <span>'));
+    
+      _print(_.pluck(this.streamdetails.audio, 'label').join(', '));
+    
+      _print(_safe('</span></li>\n        '));
+    
+      if (this.streamdetails.subtitle.length > 0 && this.streamdetails.subtitle[0].label !== '') {
+        _print(_safe('\n            <li><label>Subtitle:</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
+        _print(_.first(_.pluck(this.streamdetails.subtitle, 'label')));
+        _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
+        _ref = this.streamdetails.subtitle;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          sub = _ref[_i];
+          _print(_safe('\n                        <li>'));
+          _print(sub.label);
+          _print(_safe('</li>\n                    '));
+        }
+        _print(_safe('\n                </ul>\n                </span>\n            </li>\n        '));
+      }
+    
+      _print(_safe('\n    </ul>\n\n    <ul class="inline-links">\n        <li class="btn-flat-play play">'));
+    
+      _print(t.gettext('Play'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-add add">'));
+    
+      _print(t.gettext('Queue'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-stream stream">'));
+    
+      _print(t.gettext('Stream'));
+    
+      _print(_safe('</li>\n        <li class="btn-flat-download download">'));
+    
+      _print(t.gettext('Download'));
+    
+      _print(_safe('</li>\n    </ul>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/tvshow/season/tpl/details_meta.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2>\n            <span class="title">'));
+    
+      _print(t.gettext('Season'));
+    
+      _print(_safe(' '));
+    
+      _print(this.season);
+    
+      _print(_safe('</span>\n            <span class="sub"><a href="#tvshow/'));
+    
+      _print(this.tvshowid);
+    
+      _print(_safe('">'));
+    
+      _print(this.label);
+    
+      _print(_safe('</a></span>\n        </h2>\n    </div>\n    <div class="region-details-rating">\n        '));
+    
+      _print(this.rating);
+    
+      _print(_safe(' <i></i>\n    </div>\n</div>\n<div class="region-details-meta-below">\n\n    <div class="region-details-subtext">\n        '));
+    
+      if (this.genre.length > 0) {
+        _print(_safe('\n        <div class="genres">\n            '));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'genre', this.genre)));
+        _print(_safe('\n        </div>\n        '));
+      }
+    
+      _print(_safe('\n    </div>\n\n    <ul class="people">\n        '));
+    
+      if (this.cast.length > 0) {
+        _print(_safe('\n        <li><label>Cast:</label> <span>'));
+        _print(_safe(helpers.url.filterLinks('tvshows', 'cast', _.pluck(this.cast, 'name'))));
+        _print(_safe('</span></li>\n        '));
+      }
+    
+      _print(_safe('\n    </ul>\n\n    <div class="description">'));
+    
+      _print(this.plot);
+    
+      _print(_safe('</div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -2027,11 +2371,11 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       _print(this.label);
     
-      _print(_safe('">\n            <img src="'));
+      _print(_safe('" style="background-image: url(\''));
     
       _print(this.thumbnail);
     
-      _print(_safe('" onerror="this.src = Kodi.request(\'images:path:get\')" />\n        </a>\n        <div class="play"></div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+      _print(_safe('\')"></a>\n        <div class="play"></div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
     
       _print(this.url);
     

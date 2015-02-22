@@ -17,6 +17,13 @@
   }
 }
 
+.card-grid--episode {
+  @extend %cards--grid;
+  .card {
+    @extend %card--episode;
+  }
+}
+
 .card-grid--tall {
   @extend %cards--grid;
   .card {
@@ -25,9 +32,26 @@
 }
 
 // When a card is displayed in the side of a detail pane.
+$card-detail-side-width: 238px;
+$card-detail-poster-side-height: 357px;
+$card-detail-episode-side-height: 150px;
 .card-detail {
   .meta {
     display: none;
+  }
+  .thumb {
+    @extend %thumb-base;
+  }
+  .card-album,
+  .card-artist {
+    @include card-artwork-size($card-detail-side-width, $card-detail-side-width);
+  }
+  .card-movie,
+  .card-tvshow {
+    @include card-artwork-size($card-detail-side-width, $card-detail-poster-side-height);
+  }
+  .card-episode {
+    @include card-artwork-size($card-detail-side-width, $card-detail-episode-side-height);
   }
 }
 
@@ -35,7 +59,7 @@
   @include card(square-medium, rgba($color-white, 0));
   width: 238px;
   .artwork,
-  .artwork img {
+  .artwork .thumb {
     width: 238px;
     height: 238px;
   }

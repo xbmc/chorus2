@@ -17,3 +17,7 @@
       stateObj = App.request "state:kodi"
       @singleCommand @getCommand('SetMute'), [!stateObj.getState('muted')], (resp) =>
         @doCallback callback, resp
+
+    quit: (callback) ->
+      @singleCommand @getCommand('Quit'), [], (resp) =>
+        @doCallback callback, resp

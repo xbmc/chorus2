@@ -80,8 +80,8 @@ $color-side: #F9F9F9;
     height: $file-row-height + 2;
     position: relative;
     border-bottom: 1px solid #eee;
+    @include thumb-crop($file-row-height, $file-row-height);
     .thumb {
-      @include image-crop($file-row-height, $file-row-height);
       @include set-position-absolute(top 1px left 0 bottom 1px);
       &:hover {
         .play {
@@ -108,7 +108,7 @@ $color-side: #F9F9F9;
         background: #DBDBDB;
         font-size: 150%;
         color: #B5B5B5;
-        padding-right: 5px;
+        width: $file-row-height;
       }
     }
   }

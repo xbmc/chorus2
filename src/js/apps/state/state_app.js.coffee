@@ -56,13 +56,13 @@
       $title = $('.playing-title', $playerCtx)
       $subtitle = $('.playing-subtitle', $playerCtx)
       $dur = $('.playing-time-duration', $playerCtx)
-      $img = $('.playing-thumb img', $playerCtx)
+      $img = $('.playing-thumb', $playerCtx)
       if stateObj.isPlaying()
         item = stateObj.getPlaying('item')
         $title.html helpers.entities.playingLink(item)
         $subtitle.html helpers.entities.getSubtitle(item)
         $dur.html helpers.global.formatTime(stateObj.getPlaying('totaltime'))
-        $img.attr "src", item.thumbnail
+        $img.css "background-image", "url('" + item.thumbnail + "')"
       else
         $title.html t.gettext('Nothing Playing')
         $subtitle.html ''

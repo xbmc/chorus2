@@ -10,6 +10,10 @@
     inputController: ->
       App.request "command:kodi:controller", 'auto', 'Input'
 
+    ## Do an input command
+    doInput: (action) ->
+      @inputController().sendInput action
+
     ## Send a player command.
     doCommand: (command, params, callback) ->
       App.request 'command:kodi:player', command, params, =>
@@ -24,6 +28,21 @@
       if not App.request 'sockets:active'
         App.request 'state:kodi:update', callback
 
+    ## Toggle remote visiblily and path
+    toggleRemote: (open = 'auto') ->
+      $body = $('body')
+      rClass = 'remote-open'
+      if open is 'auto'
+        open = if ($body.hasClass(rClass)) then true else false
+      if open
+        App.navigate helpers.backscroll.lastPath
+        helpers.backscroll.scrollToLast()
+        $body.removeClass(rClass)
+      else
+        helpers.backscroll.setLast()
+        App.navigate 'remote'
+        $body.addClass(rClass)
+
     ## The input binds
     keyBind: (e) ->
 
@@ -37,19 +56,19 @@
       ## Respond to key code
       switch e.which
         when 37 # left
-          @inputController().sendInput "Left"
+          @doInput "Left"
         when 38 # up
-          @inputController().sendInput "Up"
+          @doInput "Up"
         when 39 # right
-          @inputController().sendInput "Right"
+          @doInput "Right"
         when 40 # down
-          @inputController().sendInput "Down"
+          @doInput "Down"
         when 8 # backspace
-          @inputController().sendInput "Back"
+          @doInput "Back"
         when 13 # enter
-          @inputController().sendInput "Select"
+          @doInput "Select"
         when 67 # c (context)
-          @inputController().sendInput "ContextMenu"
+          @doInput "ContextMenu"
         when 107 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
@@ -77,9 +96,17 @@
     App.commands.setHandler "input:textbox:close", ->
       App.execute "ui:modal:close"
 
+  App.commands.setHandler "input:send", (action) ->
+    API.doInput action
 
+  App.commands.setHandler "input:remote:toggle", ->
+    API.toggleRemote()
 
   ## Startup tasks.
   App.addInitializer ->
+
+    ## Render remote
+    controller = new InputApp.Remote.Controller()
+
     ## Bind to the keyboard inputs
     API.initKeyBind()

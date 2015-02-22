@@ -1,0 +1,30 @@
+<div class="region-details-top">
+    <div class="region-details-title">
+        <h2>
+            <span class="title"><%= t.gettext('Season') %> <%= @season %></span>
+            <span class="sub"><a href="#tvshow/<%= @tvshowid %>"><%= @label %></a></span>
+        </h2>
+    </div>
+    <div class="region-details-rating">
+        <%= @rating %> <i></i>
+    </div>
+</div>
+<div class="region-details-meta-below">
+
+    <div class="region-details-subtext">
+        <% if @genre.length > 0: %>
+        <div class="genres">
+            <%- helpers.url.filterLinks 'tvshows', 'genre', @genre %>
+        </div>
+        <% end %>
+    </div>
+
+    <ul class="people">
+        <% if @cast.length > 0: %>
+        <li><label>Cast:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
+        <% end %>
+    </ul>
+
+    <div class="description"><%= @plot %></div>
+
+</div>

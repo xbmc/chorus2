@@ -36,7 +36,7 @@
           _.defer ->
             API.createNewList(entityType, id)
         ## Show the list of playlists.
-        App.execute "ui:modal:show", 'Select a playlist', $content, $new
+        App.execute "ui:modal:show", t.gettext('Add to playlist'), $content, $new
         App.listenTo view, 'childview:item:selected', (list, item) =>
           console.log "existing list"
           @addToExistingList item.model.get('id'), entityType, id
@@ -44,7 +44,15 @@
     ## Add to a known playlist
     addToExistingList: (playlistId, entityType, id) ->
       if helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])
+        ## Save an audio entity
         collection = App.request "song:filtered:entities", {filter: helpers.global.paramObj(entityType, id)}
+        App.execute "when:entity:fetched", collection, =>
+          App.request "localplaylist:item:add:entities", playlistId, collection
+          App.execute "ui:modal:close"
+          App.execute "notification:show", t.gettext("Added to your playlist")
+      else if entityType is 'playlist'
+        ## Save current audio playlist
+        collection = App.request "playlist:kodi:entities", 'audio'
         App.execute "when:entity:fetched", collection, =>
           App.request "localplaylist:item:add:entities", playlistId, collection
           App.execute "ui:modal:close"
@@ -54,7 +62,7 @@
 
     ## Create a new list
     createNewList: (entityType, id) ->
-      App.execute "ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (text) =>
+      App.execute "ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (text) =>
         if text isnt ''
           playlistId = App.request "localplaylist:add:entity", text, 'song'
           @addToExistingList playlistId, entityType, id
@@ -62,7 +70,7 @@
 
     createEmptyList: ->
       console.log 'asdffasf'
-      App.execute "ui:textinput:show", 'Add a new playlist', 'Give your playlist a name', (text) =>
+      App.execute "ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (text) =>
         if text isnt ''
           playlistId = App.request "localplaylist:add:entity", text, 'song'
           App.navigate "playlist/#{playlistId}", {trigger: true}
@@ -72,12 +80,12 @@
       controller: API
 
 
-  App.commands.setHandler "playlistlocal:additems", (entityType, id) ->
+  App.commands.setHandler "localplaylist:addentity", (entityType, id) ->
     API.addToList(entityType, id)
 
-  App.commands.setHandler "playlistlocal:newlist", ->
+  App.commands.setHandler "localplaylist:newlist", ->
     API.createEmptyList()
 
-  App.commands.setHandler "playlistlocal:reload", (id) ->
+  App.commands.setHandler "localplaylist:reload", (id) ->
     API.list(id)
 

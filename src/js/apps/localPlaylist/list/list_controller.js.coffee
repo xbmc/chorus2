@@ -25,7 +25,7 @@
         if playlists.length > 0
           @sideLayout.regionLists.show view
       App.listenTo @sideLayout, 'lists:new', ->
-        App.execute "playlistlocal:newlist"
+        App.execute "localplaylist:newlist"
       @layout.regionSidebarFirst.show @sideLayout
 
     getItems: (id) ->
@@ -40,7 +40,7 @@
           @itemLayout.regionListItems.show view
       App.listenTo @itemLayout, 'list:clear', ->
         App.execute "localplaylist:clear:entities", id
-        App.execute "playlistlocal:reload", id
+        App.execute "localplaylist:reload", id
       App.listenTo @itemLayout, 'list:delete', ->
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:remove:entity", id

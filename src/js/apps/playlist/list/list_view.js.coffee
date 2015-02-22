@@ -8,10 +8,18 @@
       kodiPlayList: '.kodi-playlist'
       localPlayList: '.local-playlist'
     triggers:
-      'click .kodi-playlists .media-toggle .video' :  'playlist:kodi:video'
-      'click .kodi-playlists .media-toggle .audio' :  'playlist:kodi:audio'
-      'click .player-toggle .kodi' :  'playlist:kodi'
-      'click .player-toggle .local' :  'playlist:local'
+      'click .kodi-playlists .media-toggle .video'  :  'playlist:kodi:video'
+      'click .kodi-playlists .media-toggle .audio'  :  'playlist:kodi:audio'
+      'click .player-toggle .kodi'                  :  'playlist:kodi'
+      'click .player-toggle .local'                 :  'playlist:local'
+      'click .clear-playlist'                       :  'playlist:clear'
+      'click .refresh-playlist'                     :  'playlist:refresh'
+      'click .party-mode'                           :  'playlist:party'
+      'click .save-playlist'                        :  'playlist:save'
+    events:
+      'click .playlist-menu a': 'menuClick'
+    menuClick: (e) ->
+      e.preventDefault()
 
   class List.Item extends App.Views.ItemView
     template: "apps/playlist/list/playlist_item"

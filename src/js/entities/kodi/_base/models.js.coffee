@@ -27,8 +27,11 @@
           model.progress = if model.resume.position is 0 then 0 else Math.round((model.resume.position / model.resume.total) * 100)
         if model.trailer
           model.trailer = helpers.url.parseTrailerUrl model.trailer
+        if type is 'episode'
+          model.url = helpers.url.get type, id, {':tvshowid': model.tvshowid, ':season': model.season}
+        else
+          model.url = helpers.url.get type, id
         model = App.request "images:path:entity", model
-        model.url = helpers.url.get type, id
         model.type = type
         model.parsed = true
       model

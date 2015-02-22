@@ -1,7 +1,6 @@
 <div class="item-inner item-<%= @type %>">
     <div class="artwork">
-        <div class="thumb" title="<%= @label %>">
-            <img src="<%= this.thumbnail %>" />
+        <div class="thumb" title="<%= @label %>" style="background-image: url('<%= @thumbnail %>')">
             <div class="play"></div>
         </div>
     </div>

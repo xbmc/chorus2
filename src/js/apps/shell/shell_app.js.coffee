@@ -11,18 +11,25 @@
     homePage: ->
       home = new Shell.HomepageLayout()
       App.regionContent.show home
-      App.execute "images:fanart:set"
+      @setFanart()
       ## Change the famart when the state changes.
-      App.vent.on "state:changed", (state) ->
+      App.vent.on "state:changed", (state) =>
         stateObj = App.request "state:current"
         if stateObj.isPlayingItemChanged()
-          playingItem = stateObj.getPlaying 'item'
-          App.execute "images:fanart:set", playingItem.fanart
+          @setFanart()
       ## Ensure background removed when we leave.
       App.listenTo home, "destroy", =>
         App.execute "images:fanart:set", 'none'
 
-    ## Render the shell.
+    setFanart: ->
+      stateObj = App.request "state:current"
+      if stateObj?
+        playingItem = stateObj.getPlaying 'item'
+        App.execute "images:fanart:set", playingItem.fanart
+      else
+        App.execute "images:fanart:set"
+
+  ## Render the shell.
     renderLayout: ->
 
       ## Render Shell and assign its regions to the app.

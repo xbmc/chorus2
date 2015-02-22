@@ -16,6 +16,7 @@
         ## Listen to the show of our layout.
         @listenTo @layout, "show", =>
           @getDetailsLayoutView tvshow
+          @getSeasons tvshow
         ## Add the layout to content.
         App.regionContent.show @layout
 
@@ -34,3 +35,8 @@
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
 
+    getSeasons: (tvshow) ->
+      collection = App.request "season:entities", tvshow.get('tvshowid')
+      App.execute "when:entity:fetched", collection, =>
+        view = App.request "season:list:view", collection
+        @layout.regionContent.show view

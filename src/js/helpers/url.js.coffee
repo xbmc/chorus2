@@ -10,8 +10,8 @@ helpers.url.map =
   song: 'music/song/:id'
   movie: 'movie/:id'
   tvshow: 'tvshow/:id'
-  tvseason: 'tvshow/:tvshowid/:id'
-  tvepisode: 'tvshow/:tvshowid/:tvseason/:id'
+  season: 'tvshow/:id'
+  episode: 'tvshow/:tvshowid/:season/:id'
   file: 'browser/file/:id'
   playlist: 'playlist/:id'
 

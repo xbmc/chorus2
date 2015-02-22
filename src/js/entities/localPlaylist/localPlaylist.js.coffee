@@ -57,8 +57,10 @@
       else
         items = collection.getRawCollection()
       collection = @getItemCollection playlistId
-      for position, item of items
-        collection.create API.getSavedModelFromSource(item, position)
+      pos = collection.length
+      for item in items
+        collection.create API.getSavedModelFromSource(item, pos)
+        pos++
       collection
 
     ## Parse a library item into a model structure to save

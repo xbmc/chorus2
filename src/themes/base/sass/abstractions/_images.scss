@@ -3,10 +3,23 @@
 // Description:     image abstractions.
 // =============================================================================
 
+
+@mixin thumb-crop($height, $width: 100%, $offset-image: 50%, $background-color: transparent) {
+  .thumb {
+    width: $width;
+    height: $height;
+    background-position: 50% $offset-image;
+    background-color: $background-color;
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
 /**
  * A mixin to scale and crop an image. Called on its parent wrapper.
  */
-@mixin image-crop ($height, $width: 100%, $offset-image: 0, $background-color: transparent) {
+@mixin image-crop ($height, $width: 100%, $offset-image: 50%, $background-color: transparent) {
   background: $background-color;
   overflow: hidden;
   letter-spacing: -0.31em;
@@ -19,4 +32,15 @@
     width: $width;
     margin-top: $offset-image;
   }
+
+  @include thumb-crop ($height, $width, $offset-image, $background-color);
+}
+
+
+
+%thumb-base {
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }

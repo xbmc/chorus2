@@ -20,8 +20,8 @@
     pollingUpdate: (callback) ->
       stateObj = App.request "state:current"
       if stateObj.getPlayer() is 'kodi'
-        ## if not App.request 'sockets:active'
-        App.request 'state:kodi:update', callback
+        if not App.request 'sockets:active'
+          App.request 'state:kodi:update', callback
       else
         ## Local player state update.
 
@@ -48,6 +48,10 @@
         appController.toggleMute =>
           @pollingUpdate()
 
+      ## Remote toggle
+      if player is 'kodi'
+        App.listenTo playerView, "remote:toggle", =>
+          App.execute "input:remote:toggle"
 
       $playerCtx = $('#player-' + player)
       $progress = $('.playing-progress', $playerCtx)
@@ -67,8 +71,8 @@
       ## Slider volume
       $volume = $('.volume', $playerCtx)
       $volume.on 'change', ->
-        appController.setVolume Math.round(@vGet())
-        API.pollingUpdate()
+        appController.setVolume Math.round(@vGet()), ->
+          API.pollingUpdate()
 
     ## Start virtual timer
     timerStart: ->

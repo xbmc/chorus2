@@ -5,9 +5,17 @@
     initialize: ->
       ## Watch the shell and render when ready.
       App.vent.on "shell:ready", (options) =>
-
         @getPlaylistBar()
 
+    playlistController: (player, media) ->
+      App.request "command:#{player}:controller", media, 'PlayList'
+
+    playerCommand: (player, command, params = []) ->
+      App.request "command:#{player}:player", command, params, ->
+        App.request "state:kodi:update"
+
+    stateObj: ->
+      App.request "state:current"
 
     getPlaylistBar: ->
       @layout = @getLayout()
@@ -18,21 +26,27 @@
         @renderList('local', 'audio')
         ## Set the initial active playlist
         App.vent.on "state:initialized", =>
-          stateObj = App.request "state:current"
-          @changePlaylist(stateObj.getState('player'), stateObj.getState('media'))
+          @changePlaylist(@stateObj().getState('player'), @stateObj().getState('media'))
 
       @listenTo @layout, 'playlist:kodi:audio', =>
         @changePlaylist('kodi', 'audio')
       @listenTo @layout, 'playlist:kodi:video', =>
         @changePlaylist('kodi', 'video')
       @listenTo @layout, 'playlist:kodi', =>
-        stateObj = App.request "state:current"
-        stateObj.setPlayer 'kodi'
+        @stateObj().setPlayer 'kodi'
         @renderList 'kodi', 'audio'
       @listenTo @layout, 'playlist:local', =>
-        stateObj = App.request "state:current"
-        stateObj.setPlayer 'local'
+        @stateObj().setPlayer 'local'
         @renderList 'local', 'audio'
+      @listenTo @layout, 'playlist:clear', =>
+        @playlistController(@stateObj().getPlayer(), @stateObj().getState('media')).clear()
+      @listenTo @layout, 'playlist:refresh', =>
+        @renderList @stateObj().getPlayer(), @stateObj().getState('media')
+        App.execute "notification:show", t.gettext('Playlist refreshed')
+      @listenTo @layout, 'playlist:party', =>
+        @playerCommand 'kodi', 'SetPartymode', ['toggle']
+      @listenTo @layout, 'playlist:save', =>
+        App.execute "localplaylist:addentity", 'playlist'
 
       ## Render the layout
       App.regionPlaylist.show @layout
@@ -73,7 +87,7 @@
 
     bindActions: (listView, type, media) ->
       ## Get the controller for this
-      playlist = App.request "command:#{type}:controller", media, 'PlayList'
+      playlist = @playlistController type, media
       ## Listen to commands
       @listenTo listView, "childview:playlist:item:remove", (playlistView, item) ->
         playlist.remove item.model.get('position')
@@ -86,7 +100,7 @@
 
     initSortable: (type, media) ->
       $ctx = $('.' + type + '-playlist');
-      playlist = App.request "command:#{type}:controller", media, 'PlayList'
+      playlist = @playlistController type, media
       $('ul.playlist-items', $ctx).sortable({
         onEnd: (e) ->
           playlist.moveItem $(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex

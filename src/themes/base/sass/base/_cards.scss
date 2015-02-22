@@ -27,7 +27,13 @@ $card-layout: (
     width: $card-wide-width,
     height: 170px,
     height-image: 138px,
-    offset-image: -20%
+    offset-image: 20%
+  ),
+  episode: (
+    width: $card-wide-width - 1,
+    height: 196px,
+    height-image: 138px,
+    offset-image: 0
   ),
   tall: (
     width: $card-width,
@@ -74,6 +80,17 @@ $card-layout: (
 }
 
 /**
+ * Set artwork size for cards not using the card mixin
+ */
+@mixin card-artwork-size($width, $height) {
+  .artwork,
+  .artwork .thumb {
+    width: $width;
+    height: $height;
+  }
+}
+
+/**
  * The card mixin
  */
 @mixin card($size: square, $background: $color-white) {
@@ -104,6 +121,12 @@ $card-layout: (
       opacity: 0;
       @include transition(0.1s all linear);
     }
+  }
+  .thumb {
+    display: block;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
   }
   .meta {
     padding: $card-details-spacing;
@@ -195,6 +218,9 @@ $card-layout: (
 }
 %card--wide {
   @include card(wide);
+}
+%card--episode {
+  @include card(episode);
 }
 %card--tall {
   @include card(tall);

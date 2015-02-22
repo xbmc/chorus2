@@ -32,8 +32,8 @@ $row-height: 40px;
         color: $color-greyscale-outer-space;
       }
     }
+    @include thumb-crop($row-height - 1, $row-height - 1);
     .thumb {
-      @include image-crop($row-height - 1, $row-height - 1);
       @include set-position-absolute(top 0px left 0 bottom 1px);
     }
     .add {
@@ -101,10 +101,8 @@ $row-height: 40px;
           background: none;
         }
         .thumb {
-          img {
-            display: none;
-          }
-          background: image-url('row-pause-blue.png') 0 50% no-repeat;
+          background: image-url('row-pause-blue.png') 0 50% no-repeat !important;
+          background-size: initial;
         }
         .play {
           display: none;
@@ -113,7 +111,7 @@ $row-height: 40px;
       &.local-row-playing,
       &.kodi-row-playing {
         .thumb {
-          background-image: image-url('row-playing-blue.gif');
+          background-image: image-url('row-playing-blue.gif') !important;
         }
       }
     }
