@@ -1,15 +1,31 @@
 $row-height: 40px;
+$row-action-width: $row-height - 10;
 
 .songs-table {
   tr.song {
     // Row defaults.
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     @include user-select(none);
     td {
       vertical-align: middle;
       position: relative;
       border-bottom: 1px solid rgba(139, 139, 139, 0.05);
+    }
+    .crop {
+      @include text-crop($color-background);
+      display: block;
+      height: 18px;
+      white-space: normal;
+      .region-album-songs & {
+        @include text-fade($color-detail-content-background);
+      }
+    }
+    a {
+      color: rgba($color-text-dark, 0.7);
+      &:hover {
+        color: $color-text-dark;
+      }
     }
     .play,
     .play:before,
@@ -35,32 +51,65 @@ $row-height: 40px;
     @include thumb-crop($row-height - 1, $row-height - 1);
     .thumb {
       @include set-position-absolute(top 0px left 0 bottom 1px);
+      display: none;
     }
     .add {
       @include icon(content-add-box);
-      font-size: 150%;
+      font-size: 140%;
+    }
+    .thumbed-up,
+    .thumbs {
+      @include icon(action-thumb-up);
+      font-size: 140%;
+    }
+    .thumbed-up {
+      @include set-position-absolute(top 0px right $row-action-width * 3);
+      margin-right: -2px;
+      display: none;
+      opacity: 0.4;
+      &:before {
+        @include vertical-align-element();
+        width: $row-height;
+        height: $row-height;
+      }
+    }
+    &.thumbs-up {
+      .thumbed-up {
+        display: table;
+      }
+      .thumbs {
+        color: $color-kodi;
+      }
     }
     .menu {
-      @include icon(navigation-more-horiz);
-      font-size: 250%;
+      i {
+        @include icon(navigation-more-horiz);
+        font-size: 200%;
+      }
+      .dropdown-menu {
+        top: 0;
+      }
     }
     .actions {
-      @include set-position-absolute(top 0 right 5px bottom 0);
+      @include set-position-absolute(top 0 right 0px bottom 0);
       display: none;
-      width: $row-height * 2;
-      li {
-        width: $row-height;
+      width: $row-action-width * 3;
+      > li {
+        width: $row-action-width;
         text-align: center;
         float: left;
+        i:before,
         &:before {
           @include vertical-align-element();
-          width: $row-height;
+          width: $row-action-width;
           height: $row-height;
         }
       }
     }
     // Row hover.
+    &.menu-open,
     &:hover {
+      @extend %table-row-hover;
       .duration,
       .track {
         display: none;
@@ -68,6 +117,9 @@ $row-height: 40px;
       .play,
       .actions {
         display: block;
+      }
+      .thumbed-up {
+        display: none;
       }
     }
   }
@@ -80,6 +132,9 @@ $row-height: 40px;
       color: $color-white;
     }
     tr.song {
+      .thumb {
+        display: block;
+      }
       &:hover {
         .play {
           width: $row-height - 1;
@@ -126,7 +181,12 @@ $row-height: 40px;
   .local-row-paused,
   .kodi-row-playing,
   .kodi-row-paused {
-     background: rgba($color-white, 0.9) !important;
+    background: rgba($color-white, 0.9) !important;
+    td .crop {
+      .region-album-songs & {
+        @include text-fade($color-white);
+      }
+    }
     .track {
       background: image-url('row-pause-blue.png') 50% 50% no-repeat;
       text-indent: -99999px;

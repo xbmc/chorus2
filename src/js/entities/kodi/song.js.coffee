@@ -52,6 +52,7 @@
       cacheKey = 'songs-' + songIds.join('-')
       items = []
       cache = helpers.cache.get cacheKey, false
+      console.log songIds, 'sssonnn'
       if cache
         ## Cache hit
         collection = new KodiEntities.SongCustomCollection cache
@@ -65,7 +66,7 @@
           commands.push {method: 'AudioLibrary.GetSongDetails', params: [id, helpers.entities.getFields(API.fields, 'small')] }
         if commands.length > 0
           commander.multipleCommands commands, (resp) =>
-            for item in resp
+            for item in _.flatten [resp]
               items.push model.parseModel('song', item.songdetails, item.songdetails.songid)
             helpers.cache.set cacheKey, items
             collection = new KodiEntities.SongCustomCollection items
@@ -127,8 +128,8 @@
     API.getFilteredSongs options
 
   ## Get a filtered song collection.
-  App.reqres.setHandler "song:byid:entities", (songIds = []) ->
-    API.getSongsByIds songIds
+  App.reqres.setHandler "song:byid:entities", (songIds = [], callback) ->
+    API.getSongsByIds songIds, -1, callback
 
   ## Parse a song collection into albums
   App.reqres.setHandler "song:albumparse:entities", (songs) ->

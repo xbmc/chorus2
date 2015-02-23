@@ -1689,15 +1689,23 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
     
       _print(this.track);
     
-      _print(_safe('</div>\n    <div class="play"></div>\n</td>\n<td class="cell-label song-title">'));
+      _print(_safe('</div>\n    <div class="play"></div>\n</td>\n<td class="cell-label song-title"><span class="crop">'));
     
       _print(this.label);
     
-      _print(_safe('</td>\n<td class="cell-last">\n    <div class="duration">'));
+      _print(_safe('</span></td>\n<td class="cell-label song-artist"><a class="crop" href="#music/artist/'));
     
-      _print(this.duration);
+      _print(this.artistid);
     
-      _print(_safe('</div>\n    <ul class="actions">\n        <li class="add"></li>\n        <li class="menu"></li>\n    </ul>\n</td>'));
+      _print(_safe('">'));
+    
+      _print(this.artist);
+    
+      _print(_safe('</a></td>\n<td class="cell-last">\n    <li class="thumbed-up"></li>\n    <div class="duration">'));
+    
+      _print(this.displayDuration);
+    
+      _print(_safe('</div>\n    <ul class="actions">\n        <li class="thumbs"></li>\n        <li class="add"></li>\n        <li class="menu dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu pull-right"></ul>\n        </li>\n    </ul>\n</td>'));
     
     }).call(this);
     

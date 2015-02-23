@@ -3194,6 +3194,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       cacheKey = 'songs-' + songIds.join('-');
       items = [];
       cache = helpers.cache.get(cacheKey, false);
+      console.log(songIds, 'sssonnn');
       if (cache) {
         collection = new KodiEntities.SongCustomCollection(cache);
         if (callback) {
@@ -3212,9 +3213,10 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         if (commands.length > 0) {
           commander.multipleCommands(commands, (function(_this) {
             return function(resp) {
-              var item, _j, _len1;
-              for (_j = 0, _len1 = resp.length; _j < _len1; _j++) {
-                item = resp[_j];
+              var item, _j, _len1, _ref;
+              _ref = _.flatten([resp]);
+              for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+                item = _ref[_j];
                 items.push(model.parseModel('song', item.songdetails, item.songdetails.songid));
               }
               helpers.cache.set(cacheKey, items);
@@ -3347,11 +3349,11 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     }
     return API.getFilteredSongs(options);
   });
-  App.reqres.setHandler("song:byid:entities", function(songIds) {
+  App.reqres.setHandler("song:byid:entities", function(songIds, callback) {
     if (songIds == null) {
       songIds = [];
     }
-    return API.getSongsByIds(songIds);
+    return API.getSongsByIds(songIds, -1, callback);
   });
   App.reqres.setHandler("song:albumparse:entities", function(songs) {
     return API.parseSongsToAlbumSongs(songs);
@@ -4499,7 +4501,6 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     LayoutDetailsHeaderView.prototype.onRender = function() {
-      console.log(this.model);
       return $('.region-details-fanart', this.$el).css('background-image', 'url("' + this.model.get('fanart') + '")');
     };
 
@@ -8706,6 +8707,10 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
     return Router;
 
   })(App.Router.Base);
+
+  /*
+    Main functionality.
+   */
   API = {
     list: function(id) {
       var item, items, lists;
@@ -8747,7 +8752,6 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
         App.execute("ui:modal:show", t.gettext('Add to playlist'), $content, $new);
         return App.listenTo(view, 'childview:item:selected', (function(_this) {
           return function(list, item) {
-            console.log("existing list");
             return _this.addToExistingList(item.model.get('id'), entityType, id);
           };
         })(this));
@@ -8755,29 +8759,36 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
     },
     addToExistingList: function(playlistId, entityType, id) {
       var collection;
-      if (helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])) {
+      if (helpers.global.inArray(entityType, ['albumid', 'artistid'])) {
         collection = App.request("song:filtered:entities", {
           filter: helpers.global.paramObj(entityType, id)
         });
         return App.execute("when:entity:fetched", collection, (function(_this) {
           return function() {
-            App.request("localplaylist:item:add:entities", playlistId, collection);
-            App.execute("ui:modal:close");
-            return App.execute("notification:show", t.gettext("Added to your playlist"));
+            return _this.addCollectionToList(collection, playlistId);
+          };
+        })(this));
+      } else if (entityType === 'songid') {
+        return App.request("song:byid:entities", [id], (function(_this) {
+          return function(collection) {
+            return _this.addCollectionToList(collection, playlistId);
           };
         })(this));
       } else if (entityType === 'playlist') {
         collection = App.request("playlist:kodi:entities", 'audio');
         return App.execute("when:entity:fetched", collection, (function(_this) {
           return function() {
-            App.request("localplaylist:item:add:entities", playlistId, collection);
-            App.execute("ui:modal:close");
-            return App.execute("notification:show", t.gettext("Added to your playlist"));
+            return _this.addCollectionToList(collection, playlistId);
           };
         })(this));
       } else {
 
       }
+    },
+    addCollectionToList: function(collection, playlistId) {
+      App.request("localplaylist:item:add:entities", playlistId, collection);
+      App.execute("ui:modal:close");
+      return App.execute("notification:show", t.gettext("Added to your playlist"));
     },
     createNewList: function(entityType, id) {
       return App.execute("ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (function(_this) {
@@ -8791,7 +8802,6 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
       })(this), false);
     },
     createEmptyList: function() {
-      console.log('asdffasf');
       return App.execute("ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (function(_this) {
         return function(text) {
           var playlistId;
@@ -8805,19 +8815,27 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
       })(this));
     }
   };
-  App.on("before:start", function() {
-    return new localPlaylistApp.Router({
-      controller: API
-    });
-  });
+
+  /*
+    Listeners.
+   */
   App.commands.setHandler("localplaylist:addentity", function(entityType, id) {
     return API.addToList(entityType, id);
   });
   App.commands.setHandler("localplaylist:newlist", function() {
     return API.createEmptyList();
   });
-  return App.commands.setHandler("localplaylist:reload", function(id) {
+  App.commands.setHandler("localplaylist:reload", function(id) {
     return API.list(id);
+  });
+
+  /*
+    Init the router
+   */
+  return App.on("before:start", function() {
+    return new localPlaylistApp.Router({
+      controller: API
+    });
   });
 });
 
@@ -10512,6 +10530,21 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
           return _this.addSong(item.model.get('songid'));
         };
       })(this));
+      App.listenTo(this.songsView, 'childview:song:localadd', (function(_this) {
+        return function(list, item) {
+          return _this.localAddSong(item.model.get('songid'));
+        };
+      })(this));
+      App.listenTo(this.songsView, 'childview:song:localplay', (function(_this) {
+        return function(list, item) {
+          return _this.localPlaySong(item.model);
+        };
+      })(this));
+      App.listenTo(this.songsView, 'childview:song:download', (function(_this) {
+        return function(list, item) {
+          return _this.downloadSong(item.model);
+        };
+      })(this));
       App.listenTo(this.songsView, "show", function() {
         return App.vent.trigger("state:content:updated");
       });
@@ -10526,6 +10559,19 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
       var playlist;
       playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
       return playlist.add('songid', songId);
+    },
+    localAddSong: function(songId) {
+      return App.execute("localplaylist:addentity", 'songid', songId);
+    },
+    localPlaySong: function(model) {
+      var localPlaylist;
+      localPlaylist = App.request("command:local:controller", 'audio', 'PlayList');
+      return localPlaylist.play(model.attributes);
+    },
+    downloadSong: function(model) {
+      var files;
+      files = App.request("command:kodi:controller", 'video', 'Files');
+      return files.downloadFile(model.get('file'));
     }
   };
   return App.reqres.setHandler("song:list:view", function(songs, verbose) {
@@ -10549,23 +10595,78 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     Song.prototype.tagName = "tr";
 
     Song.prototype.initialize = function() {
-      var duration;
+      var duration, menu;
       duration = helpers.global.secToTime(this.model.get('duration'));
+      menu = {
+        'song-localadd': 'Add to playlist',
+        'song-download': 'Download Song',
+        'song-localplay': 'Play in browser'
+      };
       return this.model.set({
-        duration: helpers.global.formatTime(duration)
+        displayDuration: helpers.global.formatTime(duration),
+        menu: menu
       });
     };
 
     Song.prototype.triggers = {
       "click .play": "song:play",
       "dblclick .song-title": "song:play",
-      "click .add": "song:add"
+      "click .add": "song:add",
+      "click .song-localadd": "song:localadd",
+      "click .song-download": "song:download",
+      "click .song-localplay": "song:localplay"
+    };
+
+    Song.prototype.events = {
+      "click .dropdown > i": "populateMenu",
+      "click .thumbs": "toggleThumbs"
+    };
+
+    Song.prototype.populateMenu = function() {
+      var key, menu, val, _ref;
+      menu = '';
+      if (this.model.get('menu')) {
+        _ref = this.model.get('menu');
+        for (key in _ref) {
+          val = _ref[key];
+          menu += this.themeTag('li', {
+            "class": key
+          }, val);
+        }
+        return this.$el.find('.dropdown-menu').html(menu);
+      }
+    };
+
+    Song.prototype.toggleThumbs = function() {
+      App.request("thumbsup:toggle:entity", this.model);
+      return this.$el.toggleClass('thumbs-up');
     };
 
     Song.prototype.attributes = function() {
+      var classes;
+      classes = ['song', 'table-row', 'can-play', 'item-song-' + this.model.get('songid')];
+      if (App.request("thumbsup:check", this.model)) {
+        classes.push('thumbs-up');
+      }
       return {
-        "class": 'song table-row can-play item-song-' + this.model.get('songid')
+        "class": classes.join(' ')
       };
+    };
+
+    Song.prototype.onShow = function() {
+      $('.dropdown', this.$el).on('show.bs.dropdown', (function(_this) {
+        return function() {
+          return _this.$el.addClass('menu-open');
+        };
+      })(this));
+      $('.dropdown', this.$el).on('hide.bs.dropdown', (function(_this) {
+        return function() {
+          return _this.$el.removeClass('menu-open');
+        };
+      })(this));
+      return $('.dropdown', this.$el).on('click', function() {
+        return $(this).removeClass('open').trigger('hide.bs.dropdown');
+      });
     };
 
     return Song;

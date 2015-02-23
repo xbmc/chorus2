@@ -70,6 +70,7 @@
         if item[fieldName]
           newItem[fieldName] = item[fieldName]
       newItem.position = parseInt(position)
+
       idfield = item.type + 'id'
       newItem[idfield] = item[idfield]
       newItem

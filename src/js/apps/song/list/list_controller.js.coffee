@@ -11,9 +11,14 @@
       ## Trigers/Actions on a song
       App.listenTo @songsView, 'childview:song:play', (list, item) =>
         @playSong item.model.get('songid')
-
       App.listenTo @songsView, 'childview:song:add', (list, item) =>
         @addSong item.model.get('songid')
+      App.listenTo @songsView, 'childview:song:localadd', (list, item) =>
+        @localAddSong item.model.get('songid')
+      App.listenTo @songsView, 'childview:song:localplay', (list, item) =>
+        @localPlaySong item.model
+      App.listenTo @songsView, 'childview:song:download', (list, item) =>
+        @downloadSong item.model
 
       ## Potentially one of the songs could be playing so trigger a content state update
       App.listenTo @songsView, "show", ->
@@ -31,6 +36,19 @@
       playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
       playlist.add 'songid', songId
 
+    ## Add the song to a local playlist
+    localAddSong: (songId) ->
+      App.execute "localplaylist:addentity", 'songid', songId
+
+    ## play the song locally
+    localPlaySong: (model) ->
+      localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
+      localPlaylist.play model.attributes
+
+    ## Download the song
+    downloadSong: (model) ->
+      files = App.request "command:kodi:controller", 'video', 'Files'
+      files.downloadFile model.get('file')
 
 
   ## handler for other modules to get a songs view.

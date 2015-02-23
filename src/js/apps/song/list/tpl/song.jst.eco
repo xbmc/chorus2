@@ -4,11 +4,17 @@
     <div class="track"><%= @track %></div>
     <div class="play"></div>
 </td>
-<td class="cell-label song-title"><%= @label %></td>
+<td class="cell-label song-title"><span class="crop"><%= @label %></span></td>
+<td class="cell-label song-artist"><a class="crop" href="#music/artist/<%= @artistid %>"><%= @artist %></a></td>
 <td class="cell-last">
-    <div class="duration"><%= @duration %></div>
+    <li class="thumbed-up"></li>
+    <div class="duration"><%= @displayDuration %></div>
     <ul class="actions">
+        <li class="thumbs"></li>
         <li class="add"></li>
-        <li class="menu"></li>
+        <li class="menu dropdown">
+            <i data-toggle="dropdown"></i>
+            <ul class="dropdown-menu pull-right"></ul>
+        </li>
     </ul>
 </td>

@@ -36,7 +36,8 @@ $.fn.resizeStopped = (callback) ->
       clearTimeout $this.data('resizeTimeout')
     $this.data 'resizeTimeout', setTimeout(callback, 250, self)
 
-## Hide dropdowns on click of item - why doesnt it do this already????
+
 $(document).ready ->
+  ## Hide dropdowns on click of item - why doesnt it do this already????
   $('.dropdown li').on 'click', ->
     $(@).closest('.dropdown').removeClass('open')

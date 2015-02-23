@@ -3,6 +3,13 @@
 // Description:     Tweak Material styles.
 // =============================================================================
 
+%table-row-hover {
+  background-color: rgba($color-white, 0.3);
+  .crop {
+    @include text-crop(#E7E7E7);
+  }
+}
+
 /**
  * Lighten the standard shadow.
  */
@@ -24,9 +31,10 @@
     border: 0;
   }
 }
+
 .table-hover > tbody > tr {
   &:hover {
-    background-color: rgba($color-white, 0.3);
+    @extend %table-row-hover;
   }
 }
 

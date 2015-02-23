@@ -3,10 +3,7 @@
 // Description:     Text abstractions.
 // =============================================================================
 
-@mixin text-crop ($background-color: $color-white) {
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
+@mixin text-fade ($background-color: $color-white) {
   &:after {
     content: "";
     @include filter-gradient(rgba($background-color, 0), $background-color, horizontal);
@@ -14,6 +11,13 @@
     @include set-position-absolute(top 0 right 0 bottom 0);
     width: 1.5em;
   }
+}
+
+@mixin text-crop ($background-color: $color-white) {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  @include text-fade($background-color);
 }
 
 %text-crop--white {

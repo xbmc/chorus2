@@ -26,5 +26,4 @@
       regionMetaBelow:  ".region-details-meta-below"
       regionFanart:  ".region-details-fanart"
     onRender: ->
-      console.log @model
       $('.region-details-fanart', @$el).css('background-image', 'url("' + @model.get('fanart') + '")')
