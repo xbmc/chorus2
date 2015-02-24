@@ -24,7 +24,7 @@
 
     singleCommand: (command, params, callback) ->
       command = {method: command}
-      if params? and params.length > 0
+      if params? and (params.length > 0 or _.isObject(params))
         command.params = params
       obj = @multipleCommands [command], callback
       obj

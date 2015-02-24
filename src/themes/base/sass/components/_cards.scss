@@ -36,6 +36,9 @@ $card-detail-side-width: 238px;
 $card-detail-poster-side-height: 357px;
 $card-detail-episode-side-height: 150px;
 .card-detail {
+  .entity-progress {
+    display: none;
+  }
   .meta {
     display: none;
   }

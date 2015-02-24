@@ -5,12 +5,26 @@
 
   class List.MovieTeaser extends App.Views.CardView
     triggers:
-      "click .play" : "movie:play"
-      "click .menu" : "movie-menu:clicked"
+      "click .play"       : "movie:play"
+      "click .watched"    : "movie:watched"
+      "click .add"        : "movie:add"
+      "click .localplay"  : "movie:localplay"
+      "click .download"   : "movie:download"
     initialize: ->
       super
       if @model?
         @model.set subtitle: @model.get('year')
+        @model.set({actions: {watched: 'Watched', thumbs: 'Thumbs up'}})
+        @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
+
+    attributes: ->
+      classes = ['card']
+      if helpers.entities.isWatched @model
+        classes.push 'is-watched'
+      {
+        class: classes.join(' ')
+      }
+
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"

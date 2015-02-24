@@ -110,6 +110,25 @@ helpers.cache.clear = function() {
   return helpers.cache.store = {};
 };
 
+helpers.cache.updateCollection = function(collectionKey, responseKey, modelId, property, value) {
+  var i, item, _ref, _results;
+  if ((Backbone.fetchCache._cache != null) && (Backbone.fetchCache._cache[collectionKey] != null) && (Backbone.fetchCache._cache[collectionKey].value.result != null)) {
+    if (Backbone.fetchCache._cache[collectionKey].value.result[responseKey] != null) {
+      _ref = Backbone.fetchCache._cache[collectionKey].value.result[responseKey];
+      _results = [];
+      for (i in _ref) {
+        item = _ref[i];
+        if (item.id === modelId) {
+          _results.push(Backbone.fetchCache._cache[collectionKey].value.result[responseKey][parseInt(i)][property] = value);
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    }
+  }
+};
+
 
 /*
   Config Helpers.
@@ -502,6 +521,15 @@ helpers.entities.getSubtitle = function(model) {
 
 helpers.entities.playingLink = function(model) {
   return "<a href='#" + model.url + "'>" + model.label + "</a>";
+};
+
+helpers.entities.isWatched = function(model) {
+  var watched;
+  watched = false;
+  if (model.get('playcount')) {
+    watched = model.get('playcount') > 0 ? true : false;
+  }
+  return watched;
 };
 
 
@@ -1261,9 +1289,16 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
     };
 
-    Filtered.prototype.filterByUnwatchedShows = function() {
-      return this.filterBy('unwatchedShows', function(model) {
-        return model.get('unwatched') > 0;
+    Filtered.prototype.filterByUnwatched = function() {
+      return this.filterBy('unwatched', function(model) {
+        var unwatched;
+        unwatched = 1;
+        if (model.get('type') === 'tvshow') {
+          unwatched = model.get('episode') - model.get('watchedepisodes');
+        } else if (model.get('type') === 'movie' || model.get('type') === 'episode') {
+          unwatched = model.get('playcount') > 0 ? 0 : 1;
+        }
+        return unwatched > 0;
       });
     };
 
@@ -2772,6 +2807,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       if (resp.moviedetails != null) {
         obj.fullyloaded = true;
       }
+      obj.unwatched = obj.playcount > 0 ? 0 : 1;
       return this.parseModel('movie', obj, obj.movieid);
     };
 
@@ -4397,6 +4433,12 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     CardView.prototype.onRender = function() {
       return this.$el.data('model', this.model);
+    };
+
+    CardView.prototype.onShow = function() {
+      return $('.dropdown', this.$el).on('click', function() {
+        return $(this).removeClass('open').trigger('hide.bs.dropdown');
+      });
     };
 
     return CardView;
@@ -6223,7 +6265,7 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       command = {
         method: command
       };
-      if ((params != null) && params.length > 0) {
+      if ((params != null) && (params.length > 0 || _.isObject(params))) {
         command.params = params;
       }
       obj = this.multipleCommands([command], callback);
@@ -6712,6 +6754,68 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     return PlayList;
 
   })(Api.Player);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.VideoLibrary = (function(_super) {
+    __extends(VideoLibrary, _super);
+
+    function VideoLibrary() {
+      return VideoLibrary.__super__.constructor.apply(this, arguments);
+    }
+
+    VideoLibrary.prototype.commandNameSpace = 'VideoLibrary';
+
+    VideoLibrary.prototype.setEpisodeDetails = function(tvshowid, id, field, value, callback) {
+      var params;
+      params = {
+        episodeid: id
+      };
+      params[field] = value;
+      return this.singleCommand(this.getCommand('SetEpisodeDetails'), [params], (function(_this) {
+        return function(resp) {
+          helpers.cache.updateCollection('TVShowCollection', 'tvshows', tvshowid, field, value);
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    VideoLibrary.prototype.setMovieDetails = function(id, field, value, callback) {
+      var params;
+      params = {
+        movieid: id
+      };
+      params[field] = value;
+      return this.singleCommand(this.getCommand('SetMovieDetails'), params, (function(_this) {
+        return function(resp) {
+          helpers.cache.updateCollection('MovieCollection', 'movies', id, field, value);
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    VideoLibrary.prototype.toggleWatched = function(model, callback) {
+      var setPlaycount;
+      setPlaycount = model.get('playcount') > 0 ? 0 : 1;
+      if (model.get('type') === 'movie') {
+        this.setMovieDetails(model.get('id'), 'playcount', setPlaycount, (function(_this) {
+          return function() {
+            return _this.doCallback(callback, setPlaycount);
+          };
+        })(this));
+      }
+      if (model.get('type') === 'episode') {
+        return this.setEpisodeDetails(model.get('id'), 'playcount', setPlaycount, (function(_this) {
+          return function() {
+            return _this.doCallback(callback, setPlaycount);
+          };
+        })(this));
+      }
+    };
+
+    return VideoLibrary;
+
+  })(Api.Commander);
 });
 
 this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
@@ -7257,9 +7361,9 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
       }, {
         alias: 'Unwatched',
         type: "boolean",
-        key: 'unwatchedShows',
+        key: 'unwatched',
         sortOrder: 'asc',
-        filterCallback: 'unwatchedShows'
+        filterCallback: 'unwatched'
       }, {
         alias: 'Writer',
         type: 'array',
@@ -7478,8 +7582,8 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
             collection.filterByMultiple(key, vals);
           }
           break;
-        case 'unwatchedShows':
-          collection.filterByUnwatchedShows();
+        case 'unwatched':
+          collection.filterByUnwatched();
           break;
         default:
           collection;
@@ -8861,8 +8965,15 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
       App.listenTo(view, 'childview:movie:add', function(parent, viewItem) {
         return App.execute('movie:action', 'add', viewItem);
       });
-      return App.listenTo(view, 'childview:movie:stream', function(parent, viewItem) {
-        return App.execute('movie:action', 'stream', viewItem);
+      App.listenTo(view, 'childview:movie:localplay', function(parent, viewItem) {
+        return App.execute('movie:action', 'localplay', viewItem);
+      });
+      App.listenTo(view, 'childview:movie:download', function(parent, viewItem) {
+        return App.execute('movie:action', 'download', viewItem);
+      });
+      return App.listenTo(view, 'childview:movie:watched', function(parent, viewItem) {
+        parent.$el.toggleClass('is-watched');
+        return App.execute('movie:action', 'toggleWatched', viewItem);
       });
     }
   };
@@ -8900,7 +9011,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     Controller.prototype.getAvailableFilters = function() {
       return {
         sort: ['title', 'year', 'dateadded', 'rating'],
-        filter: ['year', 'genre', 'writer', 'director', 'cast']
+        filter: ['year', 'genre', 'writer', 'director', 'cast', 'unwatched']
       };
     };
 
@@ -8953,16 +9064,44 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
 
     MovieTeaser.prototype.triggers = {
       "click .play": "movie:play",
-      "click .menu": "movie-menu:clicked"
+      "click .watched": "movie:watched",
+      "click .add": "movie:add",
+      "click .localplay": "movie:localplay",
+      "click .download": "movie:download"
     };
 
     MovieTeaser.prototype.initialize = function() {
       MovieTeaser.__super__.initialize.apply(this, arguments);
       if (this.model != null) {
-        return this.model.set({
+        this.model.set({
           subtitle: this.model.get('year')
         });
+        this.model.set({
+          actions: {
+            watched: 'Watched',
+            thumbs: 'Thumbs up'
+          }
+        });
+        return this.model.set({
+          menu: {
+            add: 'Add to Kodi playlist',
+            divider: '',
+            download: 'Download',
+            localplay: 'Play in browser'
+          }
+        });
       }
+    };
+
+    MovieTeaser.prototype.attributes = function() {
+      var classes;
+      classes = ['card'];
+      if (helpers.entities.isWatched(this.model)) {
+        classes.push('is-watched');
+      }
+      return {
+        "class": classes.join(' ')
+      };
     };
 
     return MovieTeaser;
@@ -9047,19 +9186,22 @@ this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _)
       });
     },
     action: function(op, view) {
-      var files, model, playlist;
+      var files, model, playlist, videoLib;
       model = view.model;
       playlist = App.request("command:kodi:controller", 'video', 'PlayList');
       files = App.request("command:kodi:controller", 'video', 'Files');
+      videoLib = App.request("command:kodi:controller", 'video', 'VideoLibrary');
       switch (op) {
         case 'play':
           return playlist.play('movieid', model.get('movieid'));
         case 'add':
           return playlist.add('movieid', model.get('movieid'));
-        case 'stream':
+        case 'localplay':
           return files.videoStream(model.get('file'));
         case 'download':
           return files.downloadFile(model.get('file'));
+        case 'toggleWatched':
+          return videoLib.toggleWatched(model);
       }
     }
   };
@@ -9083,8 +9225,8 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
       App.listenTo(view, 'movie:add', function(viewItem) {
         return App.execute('movie:action', 'add', viewItem);
       });
-      App.listenTo(view, 'movie:stream', function(viewItem) {
-        return App.execute('movie:action', 'stream', viewItem);
+      App.listenTo(view, 'movie:localplay', function(viewItem) {
+        return App.execute('movie:action', 'localplay', viewItem);
       });
       return App.listenTo(view, 'movie:download', function(viewItem) {
         console.log(viewItem);
@@ -9202,7 +9344,7 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
     Details.prototype.triggers = {
       'click .play': 'movie:play',
       'click .add': 'movie:add',
-      'click .stream': 'movie:stream',
+      'click .stream': 'movie:localplay',
       'click .download': 'movie:download'
     };
 
@@ -11781,7 +11923,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     Controller.prototype.getAvailableFilters = function() {
       return {
         sort: ['title', 'year', 'dateadded', 'rating'],
-        filter: ['year', 'genre', 'unwatchedShows', 'cast']
+        filter: ['year', 'genre', 'unwatched', 'cast']
       };
     };
 

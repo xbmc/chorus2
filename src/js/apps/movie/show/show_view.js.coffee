@@ -11,7 +11,7 @@
     triggers:
       'click .play': 'movie:play'
       'click .add': 'movie:add'
-      'click .stream': 'movie:stream'
+      'click .stream': 'movie:localplay'
       'click .download': 'movie:download'
 
   class Show.MovieTeaser extends App.Views.CardView

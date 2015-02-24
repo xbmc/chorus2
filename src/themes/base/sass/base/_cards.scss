@@ -7,7 +7,7 @@
 $card-width: 160px;
 $card-wide-width: 276px;
 $card-spacing: 5px;
-$card-details-spacing: 7px 10px;
+$card-details-spacing: 8px 10px;
 
 // Size map
 $card-layout: (
@@ -122,6 +122,35 @@ $card-layout: (
       @include transition(0.1s all linear);
     }
   }
+  .entity-progress {
+    @include set-position-absolute(bottom 0 left 0 right 0);
+    top: auto;
+    z-index: $z-index-beta;
+    .current-progress {
+      height: 2px;
+      background: $color-kodi;
+    }
+  }
+  .watched-tick {
+    @include icon(navigation-check);
+    color: $color-kodi;
+    @include set-position-absolute(bottom 3px right 10px);
+    font-size: 125%;
+    display: none;
+  }
+  .watched {
+    @include icon-button-square(toggle-check-box-outline-blank, $spacing-half-unit * 3);
+    font-size: 135%;
+  }
+  &.is-watched {
+    .watched-tick {
+      display: block;
+    }
+    .watched {
+      @include icon(toggle-check-box);
+      color: $color-kodi;
+    }
+  }
   .thumb {
     display: block;
     background-size: cover;
@@ -129,6 +158,7 @@ $card-layout: (
     background-repeat: no-repeat;
   }
   .meta {
+    position: relative;
     padding: $card-details-spacing;
     width: get-card-size($size, width);
     .title {
@@ -162,7 +192,13 @@ $card-layout: (
     .thumbs {
       @include icon-button-square(action-thumb-up, $spacing-half-unit * 3);
       font-size: 135%;
-
+    }
+    li {
+      float: left;
+      margin-left: 3px;
+      &:before {
+        display: table-cell !important;
+      }
     }
   }
   &:hover {

@@ -74,9 +74,9 @@
       {
         alias: 'Unwatched'
         type: "boolean"
-        key: 'unwatchedShows'
+        key: 'unwatched'
         sortOrder: 'asc',
-        filterCallback: 'unwatchedShows'
+        filterCallback: 'unwatched'
       }
       {
         alias: 'Writer'
@@ -263,8 +263,8 @@
             collection.filterByMultipleObject(key, s.property, vals) ## data is an array of objects
           else
             collection.filterByMultiple(key, vals) ## data is not array
-        when 'unwatchedShows'
-          collection.filterByUnwatchedShows()
+        when 'unwatched'
+          collection.filterByUnwatched()
         else
           collection
       collection

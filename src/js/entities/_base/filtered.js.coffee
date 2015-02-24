@@ -29,9 +29,14 @@
             match = true
         match
 
-    filterByUnwatchedShows: ->
-      @filterBy 'unwatchedShows', (model) ->
-        model.get('unwatched') > 0
+    filterByUnwatched: ->
+      @filterBy 'unwatched', (model) ->
+        unwatched = 1
+        if model.get('type') is 'tvshow'
+          unwatched = model.get('episode') - model.get('watchedepisodes')
+        else if model.get('type') is 'movie' or model.get('type') is 'episode'
+          unwatched = if model.get('playcount') > 0 then 0 else 1
+        unwatched > 0
 
     filterByString: (key, query) ->
       @filterBy 'search', (model) ->

@@ -7,8 +7,8 @@
         App.execute 'movie:action', 'play', viewItem
       App.listenTo view, 'movie:add', (viewItem) ->
         App.execute 'movie:action', 'add', viewItem
-      App.listenTo view, 'movie:stream', (viewItem) ->
-        App.execute 'movie:action', 'stream', viewItem
+      App.listenTo view, 'movie:localplay', (viewItem) ->
+        App.execute 'movie:action', 'localplay', viewItem
       App.listenTo view, 'movie:download', (viewItem) ->
         console.log viewItem
         App.execute 'movie:action', 'download', viewItem

@@ -22,5 +22,13 @@ helpers.entities.getSubtitle = (model) ->
       subtitle = ''
   subtitle
 
+## Basic link to entity
 helpers.entities.playingLink = (model) ->
   "<a href='##{model.url}'>#{model.label}</a>"
+
+## Is watched
+helpers.entities.isWatched = (model) ->
+  watched = false
+  if model.get('playcount')
+    watched = if model.get('playcount') > 0 then true else false
+  watched

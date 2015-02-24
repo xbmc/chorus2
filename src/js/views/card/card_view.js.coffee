@@ -30,6 +30,10 @@
     onRender: ->
       @$el.data('model', @model)
 
+    onShow: ->
+      $('.dropdown', @$el).on 'click', ->
+        $(@).removeClass('open').trigger('hide.bs.dropdown')
+
 
   class Views.CardViewPlaceholder extends App.Views.ItemView
     template: "views/card/card_placeholder"

@@ -46,7 +46,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'unwatchedShows', 'cast']
+      filter: ['year', 'genre', 'unwatched', 'cast']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

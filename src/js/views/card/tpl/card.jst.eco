@@ -17,9 +17,11 @@
     <% if @menu: %>
         <div class="dropdown">
             <i data-toggle="dropdown"></i>
-            <ul class="dropdown-menu">
-
-            </ul>
+            <ul class="dropdown-menu"></ul>
         </div>
     <% end %>
+    <% if @progress: %>
+        <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
+    <% end %>
+    <i class="watched-tick"></i>
 </div>

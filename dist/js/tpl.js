@@ -2422,10 +2422,22 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
       _print(_safe('\n    '));
     
       if (this.menu) {
-        _print(_safe('\n        <div class="dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu">\n\n            </ul>\n        </div>\n    '));
+        _print(_safe('\n        <div class="dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu"></ul>\n        </div>\n    '));
       }
     
-      _print(_safe('\n</div>'));
+      _print(_safe('\n    '));
+    
+      if (this.progress) {
+        _print(_safe('\n        <div class="entity-progress"><div class="current-progress" style="width: '));
+        _print(this.progress);
+        _print(_safe('%" title="'));
+        _print(this.progress);
+        _print(_safe('% '));
+        _print(t.gettext('complete'));
+        _print(_safe('"></div></div>\n    '));
+      }
+    
+      _print(_safe('\n    <i class="watched-tick"></i>\n</div>'));
     
     }).call(this);
     

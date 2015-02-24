@@ -31,3 +31,12 @@ helpers.cache.del = (key) ->
 ## Clear all caches
 helpers.cache.clear = ->
   helpers.cache.store = {}
+
+## Update a property of a model in a backbone collection so we don't
+## have to clear the entire collection cache.
+helpers.cache.updateCollection = (collectionKey, responseKey, modelId, property, value) ->
+  if Backbone.fetchCache._cache? and Backbone.fetchCache._cache[collectionKey]? and Backbone.fetchCache._cache[collectionKey].value.result?
+    if Backbone.fetchCache._cache[collectionKey].value.result[responseKey]?
+      for i, item of Backbone.fetchCache._cache[collectionKey].value.result[responseKey]
+        if item.id is modelId
+          Backbone.fetchCache._cache[collectionKey].value.result[responseKey][parseInt(i)][property] = value

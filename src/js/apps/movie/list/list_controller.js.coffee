@@ -14,9 +14,13 @@
         App.execute 'movie:action', 'play', viewItem
       App.listenTo view, 'childview:movie:add', (parent, viewItem) ->
         App.execute 'movie:action', 'add', viewItem
-      App.listenTo view, 'childview:movie:stream', (parent, viewItem) ->
-        App.execute 'movie:action', 'stream', viewItem
-
+      App.listenTo view, 'childview:movie:localplay', (parent, viewItem) ->
+        App.execute 'movie:action', 'localplay', viewItem
+      App.listenTo view, 'childview:movie:download', (parent, viewItem) ->
+        App.execute 'movie:action', 'download', viewItem
+      App.listenTo view, 'childview:movie:watched', (parent, viewItem) ->
+        parent.$el.toggleClass('is-watched')
+        App.execute 'movie:action', 'toggleWatched', viewItem
 
   ## Main controller
   class List.Controller extends App.Controllers.Base
@@ -49,7 +53,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'writer', 'director', 'cast']
+      filter: ['year', 'genre', 'writer', 'director', 'cast', 'unwatched']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

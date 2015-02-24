@@ -10934,29 +10934,29 @@ img, video {
 /**
  * The card mixin
  */
-/* line 190, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 226, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu {
   padding: 0.5em 0;
   background: #1b1c1d;
   color: #999999;
   border-radius: 0;
 }
-/* line 195, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 231, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li {
   padding: 0.25em 1em;
 }
-/* line 197, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 233, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   cursor: pointer;
 }
-/* line 201, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 237, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li:hover.divider {
   cursor: none;
   background: none;
 }
-/* line 206, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 242, ../../../../src/themes/base/sass/base/_cards.scss */
 .dropdown-menu li.divider {
   padding: 0;
   margin: 0.25em 0;
@@ -10965,7 +10965,7 @@ img, video {
 /**
  * Extendables.
  */
-/* line 216, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 252, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card {
   color: #888888;
   width: 160px;
@@ -11057,18 +11057,106 @@ img, video {
   transition: 0.1s all linear;
 }
 /* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .entity-progress {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: auto;
+  z-index: 20;
+}
+/* line 129, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .entity-progress .current-progress {
+  height: 2px;
+  background: #12b2e7;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .watched-tick {
+  color: #12b2e7;
+  right: 10px;
+  bottom: 3px;
+  position: absolute;
+  font-size: 125%;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .card .watched-tick:before {
+  content: "\e899";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .watched {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .card .watched:before {
+  content: "\e8e2";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--square .card .watched:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .is-watched.card .watched-tick {
+  display: block;
+}
+/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .is-watched.card .watched {
+  color: #12b2e7;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--square .is-watched.card .watched:before {
+  content: "\e8e1";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .thumb {
   display: block;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-/* line 131, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta {
-  padding: 7px 10px;
+  position: relative;
+  padding: 8px 10px;
   width: 160px;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 164, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11091,7 +11179,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 137, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11114,7 +11202,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .play {
   display: table;
   width: 1.5em;
@@ -11147,13 +11235,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 179, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 151, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 181, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11183,7 +11271,7 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 158, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 188, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .actions {
   top: 10px;
   right: 35px;
@@ -11191,7 +11279,7 @@ img, video {
   display: table;
   display: none;
 }
-/* line 162, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .actions .thumbs {
   display: table;
   width: 1.5em;
@@ -11219,28 +11307,37 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 169, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 196, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .actions li {
+  float: left;
+  margin-left: 3px;
+}
+/* line 199, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--square .card .actions li:before {
+  display: table-cell !important;
+}
+/* line 205, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card:hover .artwork .thumb:after {
   opacity: 1;
 }
-/* line 172, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 208, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card:hover .actions,
 .card-grid--square .card:hover .dropdown i,
 .card-grid--square .card:hover .play {
   display: table;
 }
-/* line 178, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 214, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
-/* line 184, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 220, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .thumbs-up.card .actions .thumbs {
   color: #12b2e7;
 }
 
-/* line 219, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 255, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card {
   color: #888888;
   width: 276px;
@@ -11332,18 +11429,106 @@ img, video {
   transition: 0.1s all linear;
 }
 /* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .entity-progress {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: auto;
+  z-index: 20;
+}
+/* line 129, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .entity-progress .current-progress {
+  height: 2px;
+  background: #12b2e7;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .watched-tick {
+  color: #12b2e7;
+  right: 10px;
+  bottom: 3px;
+  position: absolute;
+  font-size: 125%;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .card .watched-tick:before {
+  content: "\e899";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .watched {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .card .watched:before {
+  content: "\e8e2";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--wide .card .watched:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .is-watched.card .watched-tick {
+  display: block;
+}
+/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .is-watched.card .watched {
+  color: #12b2e7;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--wide .is-watched.card .watched:before {
+  content: "\e8e1";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .thumb {
   display: block;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-/* line 131, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta {
-  padding: 7px 10px;
+  position: relative;
+  padding: 8px 10px;
   width: 276px;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 164, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11366,7 +11551,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 137, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11389,7 +11574,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .play {
   display: table;
   width: 1.5em;
@@ -11422,13 +11607,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 179, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 151, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 181, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11458,7 +11643,7 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 158, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 188, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .actions {
   top: 10px;
   right: 35px;
@@ -11466,7 +11651,7 @@ img, video {
   display: table;
   display: none;
 }
-/* line 162, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .actions .thumbs {
   display: table;
   width: 1.5em;
@@ -11494,28 +11679,37 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 169, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 196, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .actions li {
+  float: left;
+  margin-left: 3px;
+}
+/* line 199, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--wide .card .actions li:before {
+  display: table-cell !important;
+}
+/* line 205, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card:hover .artwork .thumb:after {
   opacity: 1;
 }
-/* line 172, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 208, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card:hover .actions,
 .card-grid--wide .card:hover .dropdown i,
 .card-grid--wide .card:hover .play {
   display: table;
 }
-/* line 178, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 214, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
-/* line 184, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 220, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--wide .thumbs-up.card .actions .thumbs {
   color: #12b2e7;
 }
 
-/* line 222, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 258, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card {
   color: #888888;
   width: 275px;
@@ -11607,18 +11801,106 @@ img, video {
   transition: 0.1s all linear;
 }
 /* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .entity-progress {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: auto;
+  z-index: 20;
+}
+/* line 129, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .entity-progress .current-progress {
+  height: 2px;
+  background: #12b2e7;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .watched-tick {
+  color: #12b2e7;
+  right: 10px;
+  bottom: 3px;
+  position: absolute;
+  font-size: 125%;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--episode .card .watched-tick:before {
+  content: "\e899";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .watched {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--episode .card .watched:before {
+  content: "\e8e2";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--episode .card .watched:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .is-watched.card .watched-tick {
+  display: block;
+}
+/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .is-watched.card .watched {
+  color: #12b2e7;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--episode .is-watched.card .watched:before {
+  content: "\e8e1";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .thumb {
   display: block;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-/* line 131, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .meta {
-  padding: 7px 10px;
+  position: relative;
+  padding: 8px 10px;
   width: 275px;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 164, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11641,7 +11923,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 137, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11664,7 +11946,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .play {
   display: table;
   width: 1.5em;
@@ -11697,13 +11979,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 179, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 151, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 181, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -11733,7 +12015,7 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 158, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 188, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .actions {
   top: 10px;
   right: 35px;
@@ -11741,7 +12023,7 @@ img, video {
   display: table;
   display: none;
 }
-/* line 162, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .actions .thumbs {
   display: table;
   width: 1.5em;
@@ -11769,28 +12051,37 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 169, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 196, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .actions li {
+  float: left;
+  margin-left: 3px;
+}
+/* line 199, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--episode .card .actions li:before {
+  display: table-cell !important;
+}
+/* line 205, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card:hover .artwork .thumb:after {
   opacity: 1;
 }
-/* line 172, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 208, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card:hover .actions,
 .card-grid--episode .card:hover .dropdown i,
 .card-grid--episode .card:hover .play {
   display: table;
 }
-/* line 178, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 214, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
-/* line 184, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 220, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--episode .thumbs-up.card .actions .thumbs {
   color: #12b2e7;
 }
 
-/* line 225, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 261, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card {
   color: #888888;
   width: 160px;
@@ -11882,18 +12173,106 @@ img, video {
   transition: 0.1s all linear;
 }
 /* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .entity-progress {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: auto;
+  z-index: 20;
+}
+/* line 129, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .entity-progress .current-progress {
+  height: 2px;
+  background: #12b2e7;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .watched-tick {
+  color: #12b2e7;
+  right: 10px;
+  bottom: 3px;
+  position: absolute;
+  font-size: 125%;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .card .watched-tick:before {
+  content: "\e899";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .watched {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .card .watched:before {
+  content: "\e8e2";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-grid--tall .card .watched:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .is-watched.card .watched-tick {
+  display: block;
+}
+/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .is-watched.card .watched {
+  color: #12b2e7;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-grid--tall .is-watched.card .watched:before {
+  content: "\e8e1";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .thumb {
   display: block;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-/* line 131, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta {
-  padding: 7px 10px;
+  position: relative;
+  padding: 8px 10px;
   width: 160px;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 164, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .title {
   position: relative;
   white-space: nowrap;
@@ -11916,7 +12295,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 137, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -11939,7 +12318,7 @@ img, video {
   position: absolute;
   width: 1.5em;
 }
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .play {
   display: table;
   width: 1.5em;
@@ -11972,13 +12351,13 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 179, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 151, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 181, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown i {
   display: table;
   width: 1.5em;
@@ -12008,7 +12387,7 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 158, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 188, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .actions {
   top: 10px;
   right: 35px;
@@ -12016,7 +12395,7 @@ img, video {
   display: table;
   display: none;
 }
-/* line 162, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .actions .thumbs {
   display: table;
   width: 1.5em;
@@ -12044,23 +12423,32 @@ img, video {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 169, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 196, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .actions li {
+  float: left;
+  margin-left: 3px;
+}
+/* line 199, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-grid--tall .card .actions li:before {
+  display: table-cell !important;
+}
+/* line 205, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card:hover .artwork .thumb:after {
   opacity: 1;
 }
-/* line 172, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 208, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card:hover .actions,
 .card-grid--tall .card:hover .dropdown i,
 .card-grid--tall .card:hover .play {
   display: table;
 }
-/* line 178, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 214, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .card .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
-/* line 184, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 220, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--tall .thumbs-up.card .actions .thumbs {
   color: #12b2e7;
 }
@@ -12071,7 +12459,7 @@ img, video {
 /**
  * Extendables.
  */
-/* line 234, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 270, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-grid--square .card, .card-grid--wide .card, .card-grid--episode .card, .card-grid--tall .card {
   display: inline-block;
 }
@@ -16268,6 +16656,10 @@ h1, h2, h3, h4 {
 }
 
 /* line 39, ../../../../src/themes/base/sass/components/_cards.scss */
+.card-detail .entity-progress {
+  display: none;
+}
+/* line 42, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-detail .meta {
   display: none;
 }
@@ -16294,7 +16686,7 @@ h1, h2, h3, h4 {
   height: 150px;
 }
 
-/* line 58, ../../../../src/themes/base/sass/components/_cards.scss */
+/* line 61, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal {
   color: #888888;
   width: 200px;
@@ -16389,18 +16781,106 @@ h1, h2, h3, h4 {
   transition: 0.1s all linear;
 }
 /* line 125, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .entity-progress {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: auto;
+  z-index: 20;
+}
+/* line 129, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .entity-progress .current-progress {
+  height: 2px;
+  background: #12b2e7;
+}
+/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .watched-tick {
+  color: #12b2e7;
+  right: 10px;
+  bottom: 3px;
+  position: absolute;
+  font-size: 125%;
+  display: none;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal .watched-tick:before {
+  content: "\e899";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .watched {
+  display: table;
+  width: 1.5em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 135%;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal .watched:before {
+  content: "\e8e2";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 12, ../../../../src/themes/base/sass/abstractions/_ui.scss */
+.card-minimal .watched:before {
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.5em;
+}
+/* line 146, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal.is-watched .watched-tick {
+  display: block;
+}
+/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal.is-watched .watched {
+  color: #12b2e7;
+}
+/* line 83, ../../../../src/themes/base/sass/tools/_icons.scss */
+.card-minimal.is-watched .watched:before {
+  content: "\e8e1";
+  display: inline-block;
+  font-family: "Material-Design-Icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+}
+/* line 154, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .thumb {
   display: block;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-/* line 131, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 160, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta {
-  padding: 7px 10px;
+  position: relative;
+  padding: 8px 10px;
   width: 200px;
 }
-/* line 134, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 164, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .title {
   position: relative;
   white-space: nowrap;
@@ -16423,7 +16903,7 @@ h1, h2, h3, h4 {
   position: absolute;
   width: 1.5em;
 }
-/* line 137, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 167, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .meta .subtitle {
   position: relative;
   white-space: nowrap;
@@ -16446,7 +16926,7 @@ h1, h2, h3, h4 {
   position: absolute;
   width: 1.5em;
 }
-/* line 141, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 171, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .play {
   display: table;
   width: 1.5em;
@@ -16479,13 +16959,13 @@ h1, h2, h3, h4 {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 149, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 179, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown {
   top: 5px;
   right: 0;
   position: absolute;
 }
-/* line 151, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 181, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown i {
   display: table;
   width: 1.5em;
@@ -16515,7 +16995,7 @@ h1, h2, h3, h4 {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 158, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 188, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .actions {
   top: 10px;
   right: 35px;
@@ -16523,7 +17003,7 @@ h1, h2, h3, h4 {
   display: table;
   display: none;
 }
-/* line 162, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 192, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .actions .thumbs {
   display: table;
   width: 1.5em;
@@ -16551,37 +17031,46 @@ h1, h2, h3, h4 {
   vertical-align: middle;
   height: 1.5em;
 }
-/* line 169, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 196, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .actions li {
+  float: left;
+  margin-left: 3px;
+}
+/* line 199, ../../../../src/themes/base/sass/base/_cards.scss */
+.card-minimal .actions li:before {
+  display: table-cell !important;
+}
+/* line 205, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal:hover .artwork .thumb:after {
   opacity: 1;
 }
-/* line 172, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 208, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal:hover .actions,
 .card-minimal:hover .dropdown i,
 .card-minimal:hover .play {
   display: table;
 }
-/* line 178, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 214, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal .dropdown-menu {
   left: auto;
   right: 0px;
   top: -7px;
 }
-/* line 184, ../../../../src/themes/base/sass/base/_cards.scss */
+/* line 220, ../../../../src/themes/base/sass/base/_cards.scss */
 .card-minimal.thumbs-up .actions .thumbs {
   color: #12b2e7;
 }
-/* line 61, ../../../../src/themes/base/sass/components/_cards.scss */
+/* line 64, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal .artwork,
 .card-minimal .artwork .thumb {
   width: 238px;
   height: 238px;
 }
-/* line 68, ../../../../src/themes/base/sass/components/_cards.scss */
+/* line 71, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal .meta {
   padding: 10px 0;
 }
-/* line 71, ../../../../src/themes/base/sass/components/_cards.scss */
+/* line 74, ../../../../src/themes/base/sass/components/_cards.scss */
 .card-minimal .meta .title:after, .card-minimal .meta .subtitle:after {
   display: none;
 }

@@ -40,6 +40,7 @@
       obj = if resp.moviedetails? then resp.moviedetails else resp
       if resp.moviedetails?
         obj.fullyloaded = true
+      obj.unwatched = if obj.playcount > 0 then 0 else 1
       @parseModel 'movie', obj, obj.movieid
 
   ## Movies collection
