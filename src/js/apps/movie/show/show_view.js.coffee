@@ -27,3 +27,5 @@
       $('[data-toggle="tooltip"]', @$el).tooltip()
     triggers:
       'click .youtube': 'movie:youtube'
+    regions:
+      regionCast: '.region-cast'

@@ -3,10 +3,25 @@
 
   class Episode.EpisodeTeaser extends App.Views.CardView
     triggers:
-      "click .play" : "episode:play"
+      "click .play"       : "episode:play"
+      "click .watched"    : "episode:watched"
+      "click .add"        : "episode:add"
+      "click .localplay"  : "episode:localplay"
+      "click .download"   : "episode:download"
     initialize: ->
       super
-      @model.set({label: @model.get('title'), subtitle: 'Episode ' + @model.get('episode')})
+      if @model?
+        @model.set({label: @model.get('title'), subtitle: 'Episode ' + @model.get('episode')})
+        @model.set({actions: {watched: 'Watched'}})
+        @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
+    attributes: ->
+      classes = ['card']
+      if helpers.entities.isWatched @model
+        classes.push 'is-watched'
+      {
+        class: classes.join(' ')
+      }
+
 
   class Episode.Empty extends App.Views.EmptyView
     tagName: "li"
@@ -30,7 +45,7 @@
     triggers:
       'click .play': 'episode:play'
       'click .add': 'episode:add'
-      'click .stream': 'episode:stream'
+      'click .stream': 'episode:localplay'
       'click .download': 'episode:download'
       
   class Episode.EpisodeDetailTeaser extends App.Views.CardView
@@ -42,3 +57,5 @@
   class Episode.Content extends App.Views.LayoutView
     template: 'apps/tvshow/episode/content'
     className: "episode-content content-sections"
+    regions:
+      regionCast: '.region-cast'

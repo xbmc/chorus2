@@ -31,15 +31,18 @@
       model = view.model
       playlist = App.request "command:kodi:controller", 'video', 'PlayList'
       files = App.request "command:kodi:controller", 'video', 'Files'
+      videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       switch op
         when 'play'
           playlist.play 'episodeid', model.get('episodeid')
         when 'add'
           playlist.add 'episodeid', model.get('episodeid')
-        when 'stream'
+        when 'localplay'
           files.videoStream model.get('file')
         when 'download'
           files.downloadFile model.get('file')
+        when 'toggleWatched'
+          videoLib.toggleWatched model
         else
         ## nothing
 

@@ -7,27 +7,28 @@
     commandNameSpace: 'VideoLibrary'
 
     ## Set a episode value
-    setEpisodeDetails: (tvshowid, id, field, value, callback) ->
+    setEpisodeDetails: (id, fields = {}, callback) ->
       params = {episodeid: id}
-      params[field] = value
-      @singleCommand @getCommand('SetEpisodeDetails'), [params], (resp) =>
-        helpers.cache.updateCollection 'TVShowCollection', 'tvshows', tvshowid, field, value
+      params = _.extend params, fields
+      @singleCommand @getCommand('SetEpisodeDetails'), params, (resp) =>
         @doCallback callback, resp
 
     ## Set a movie value
-    setMovieDetails: (id, field, value, callback) ->
+    setMovieDetails: (id, fields = {}, callback) ->
       params = {movieid: id}
-      params[field] = value
+      params = _.extend params, fields
       @singleCommand @getCommand('SetMovieDetails'), params, (resp) =>
-        helpers.cache.updateCollection 'MovieCollection', 'movies', id, field, value
         @doCallback callback, resp
 
     ## Toggle watched status
     toggleWatched: (model, callback) ->
       setPlaycount = if model.get('playcount') > 0 then 0 else 1
+      fields = helpers.global.paramObj 'playcount', setPlaycount
       if model.get('type') is 'movie'
-        @setMovieDetails model.get('id'), 'playcount', setPlaycount, =>
+        @setMovieDetails model.get('id'), fields, =>
+          helpers.cache.updateCollection 'MovieCollection', 'movies', model.get('id'), 'playcount', setPlaycount
           @doCallback callback, setPlaycount
       if model.get('type') is 'episode'
-        @setEpisodeDetails model.get('id'), 'playcount', setPlaycount, =>
+        @setEpisodeDetails model.get('id'), fields, =>
+          helpers.cache.updateCollection 'TVShowCollection', 'tvshows', model.get('tvshowid'), 'playcount', setPlaycount
           @doCallback callback, setPlaycount

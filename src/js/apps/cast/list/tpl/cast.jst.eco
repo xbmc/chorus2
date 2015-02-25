@@ -1,0 +1,13 @@
+<a href="#<%= @origin %>?cast=<%= @name %>" title="<%= @name %> (<%= @role %>)">
+    <div class="thumb">
+        <img src="<%= @thumbnail %>" />
+    </div>
+    <div class="meta">
+        <strong><%= @name %></strong>
+        <span title="<%= @role %>"><%= @role %></span>
+    </div>
+</a>
+<ul class="actions">
+    <li class="imdb"></li>
+    <li class="google"></li>
+</ul>

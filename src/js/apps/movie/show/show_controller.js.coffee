@@ -43,7 +43,13 @@
       @listenTo contentLayout, "movie:youtube", (view) ->
         trailer = movie.get('trailer')
         App.execute "ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id
+      @listenTo contentLayout, 'show', =>
+        if movie.get('cast').length > 0
+          contentLayout.regionCast.show @getCast(movie)
       @layout.regionContent.show contentLayout
+
+    getCast: (movie) ->
+      App.request 'cast:list:view', movie.get('cast'), 'movies'
 
 
     ## Build the details layout.

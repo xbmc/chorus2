@@ -456,6 +456,80 @@ window.JST["apps/browser/list/tpl/source_set.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/cast/list/tpl/cast.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<a href="#'));
+    
+      _print(this.origin);
+    
+      _print(_safe('?cast='));
+    
+      _print(this.name);
+    
+      _print(_safe('" title="'));
+    
+      _print(this.name);
+    
+      _print(_safe(' ('));
+    
+      _print(this.role);
+    
+      _print(_safe(')">\n    <div class="thumb">\n        <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n    </div>\n    <div class="meta">\n        <strong>'));
+    
+      _print(this.name);
+    
+      _print(_safe('</strong>\n        <span title="'));
+    
+      _print(this.role);
+    
+      _print(_safe('">'));
+    
+      _print(this.role);
+    
+      _print(_safe('</span>\n    </div>\n</a>\n<ul class="actions">\n    <li class="imdb"></li>\n    <li class="google"></li>\n</ul>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/filter/show/tpl/filter_options.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -933,8 +1007,6 @@ window.JST["apps/movie/show/tpl/content.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var cast, _i, _len, _ref;
-    
       _print(_safe('\n<div class="entity-progress"><div class="current-progress" style="width: '));
     
       _print(this.progress);
@@ -974,27 +1046,7 @@ window.JST["apps/movie/show/tpl/content.jst"] = function(__obj) {
       if (this.cast.length > 0) {
         _print(_safe('\n    <div class="section-content">\n        <h2>'));
         _print(t.gettext('Full Cast'));
-        _print(_safe('</h2>\n        <ul class="cast-full">\n            '));
-        _ref = this.cast;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          cast = _ref[_i];
-          _print(_safe('\n                <li><a href="#movies?cast='));
-          _print(cast.name);
-          _print(_safe('" title="'));
-          _print(cast.name);
-          _print(_safe(' ('));
-          _print(cast.role);
-          _print(_safe(')">\n                    <div class="thumb">\n                        <img src="'));
-          _print(cast.thumbnail);
-          _print(_safe('" />\n                    </div>\n                    <div class="meta">\n                        <strong>'));
-          _print(cast.name);
-          _print(_safe('</strong>\n                        <span title="'));
-          _print(cast.role);
-          _print(_safe('">'));
-          _print(cast.role);
-          _print(_safe('</span>\n                    </div>\n                </a></li>\n            '));
-        }
-        _print(_safe('\n        </ul>\n    </div>\n'));
+        _print(_safe('</h2>\n        <div class="region-cast"></div>\n    </div>\n'));
       }
     
       _print(_safe('\n'));
@@ -1831,8 +1883,6 @@ window.JST["apps/tvshow/episode/tpl/content.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var cast, _i, _len, _ref;
-    
       _print(_safe('\n<div class="entity-progress"><div class="current-progress" style="width: '));
     
       _print(this.progress);
@@ -1858,27 +1908,7 @@ window.JST["apps/tvshow/episode/tpl/content.jst"] = function(__obj) {
       if (this.cast.length > 0) {
         _print(_safe('\n    <div class="section-content">\n        <h2>'));
         _print(t.gettext('Full Cast'));
-        _print(_safe('</h2>\n        <ul class="cast-full">\n            '));
-        _ref = this.cast;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          cast = _ref[_i];
-          _print(_safe('\n                <li><a href="#tvshows?cast='));
-          _print(cast.name);
-          _print(_safe('" title="'));
-          _print(cast.name);
-          _print(_safe(' ('));
-          _print(cast.role);
-          _print(_safe(')">\n                    <div class="thumb">\n                        <img src="'));
-          _print(cast.thumbnail);
-          _print(_safe('" />\n                    </div>\n                    <div class="meta">\n                        <strong>'));
-          _print(cast.name);
-          _print(_safe('</strong>\n                        <span title="'));
-          _print(cast.role);
-          _print(_safe('">'));
-          _print(cast.role);
-          _print(_safe('</span>\n                    </div>\n                </a></li>\n            '));
-        }
-        _print(_safe('\n        </ul>\n    </div>\n'));
+        _print(_safe('</h2>\n        <div class="region-cast"></div>\n    </div>\n'));
       }
     
       _print(_safe('\n'));

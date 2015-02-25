@@ -2,24 +2,38 @@
 
   API =
 
+    ## Includes triggres for lists.
     getEpisodeList: (collection) ->
       view = new Episode.Episodes
         collection: collection
-      App.listenTo view, 'childview:episode:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        ## playlist.play 'tvshowid', item.model.get('tvshowid')
+      App.listenTo view, 'childview:episode:play', (parent, viewItem) ->
+        App.execute 'episode:action', 'play', viewItem
+      App.listenTo view, 'childview:episode:add', (parent, viewItem) ->
+        App.execute 'episode:action', 'add', viewItem
+      App.listenTo view, 'childview:episode:localplay', (parent, viewItem) ->
+        App.execute 'episode:action', 'localplay', viewItem
+      App.listenTo view, 'childview:episode:download', (parent, viewItem) ->
+        App.execute 'episode:action', 'download', viewItem
+      App.listenTo view, 'childview:episode:watched', (parent, viewItem) ->
+        parent.$el.toggleClass('is-watched')
+        App.execute 'episode:action', 'toggleWatched', viewItem
       view
 
+    ## triggers for full view.
     bindTriggers: (view) ->
       App.listenTo view, 'episode:play', (viewItem) ->
         App.execute 'episode:action', 'play', viewItem
       App.listenTo view, 'episode:add', (viewItem) ->
         App.execute 'episode:action', 'add', viewItem
-      App.listenTo view, 'episode:stream', (viewItem) ->
-        App.execute 'episode:action', 'stream', viewItem
+      App.listenTo view, 'episode:localplay', (viewItem) ->
+        App.execute 'episode:action', 'localplay', viewItem
       App.listenTo view, 'episode:download', (viewItem) ->
-        console.log viewItem
         App.execute 'episode:action', 'download', viewItem
+      App.listenTo view, 'episode:watched', (viewItem) ->
+        parent.$el.toggleClass('is-watched')
+        App.execute 'episode:action', 'toggleWatched', viewItem
+
+
 
   ## Main controller
   class Episode.Controller extends App.Controllers.Base
@@ -63,7 +77,13 @@
 
     getContentView: (episode) ->
       contentLayout = new Episode.Content model: episode
+      App.listenTo contentLayout, 'show', =>
+        if episode.get('cast').length > 0
+          contentLayout.regionCast.show @getCast(episode)
       @layout.regionContent.show contentLayout
+
+    getCast: (episode) ->
+      App.request 'cast:list:view', episode.get('cast'), 'tvshows'
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "episode:list:view", (collection) ->

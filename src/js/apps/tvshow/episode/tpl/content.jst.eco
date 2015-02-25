@@ -9,18 +9,6 @@
 <% if @cast.length > 0: %>
     <div class="section-content">
         <h2><%= t.gettext('Full Cast') %></h2>
-        <ul class="cast-full">
-            <% for cast in @cast: %>
-                <li><a href="#tvshows?cast=<%= cast.name %>" title="<%= cast.name %> (<%= cast.role %>)">
-                    <div class="thumb">
-                        <img src="<%= cast.thumbnail %>" />
-                    </div>
-                    <div class="meta">
-                        <strong><%= cast.name %></strong>
-                        <span title="<%= cast.role %>"><%= cast.role %></span>
-                    </div>
-                </a></li>
-            <% end %>
-        </ul>
+        <div class="region-cast"></div>
     </div>
 <% end %>

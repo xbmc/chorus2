@@ -2199,6 +2199,74 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   var API;
   API = {
     fields: {
+      minimal: ['name'],
+      small: ['order', 'role', 'thumbnail', 'origin', 'url'],
+      full: []
+    },
+    getCollection: function(cast, origin) {
+      var collection, i, item;
+      for (i in cast) {
+        item = cast[i];
+        cast[i].origin = origin;
+      }
+      collection = new KodiEntities.CastCollection(cast);
+      return collection;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.Cast = (function(_super) {
+    __extends(Cast, _super);
+
+    function Cast() {
+      return Cast.__super__.constructor.apply(this, arguments);
+    }
+
+    Cast.prototype.idAttribute = "order";
+
+    Cast.prototype.defaults = function() {
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'small'), {});
+    };
+
+    Cast.prototype.parse = function(obj, xhr) {
+      obj.url = '?cast=' + obj.name;
+      return obj;
+    };
+
+    return Cast;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.CastCollection = (function(_super) {
+    __extends(CastCollection, _super);
+
+    function CastCollection() {
+      return CastCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    CastCollection.prototype.model = KodiEntities.Cast;
+
+    return CastCollection;
+
+  })(App.KodiEntities.Collection);
+
+  /*
+   Request Handlers.
+   */
+  return App.reqres.setHandler("cast:entities", function(cast, origin) {
+    return API.getCollection(cast, origin);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
       minimal: ['title'],
       small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'season', 'rating', 'file', 'cast', 'showtitle', 'tvshowid', 'uniqueid', 'resume'],
       full: ['fanart', 'plot', 'firstaired', 'director', 'writer', 'runtime', 'streamdetails']
@@ -6184,6 +6252,72 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
   })(App.Views.ItemView);
 });
 
+this.Kodi.module("CastApp", function(CastApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    getCastCollection: function(cast, origin) {
+      return App.request("cast:entities", cast, origin);
+    },
+    getCastView: function(collection) {
+      var view;
+      console.log(collection);
+      view = new CastApp.List.CastList({
+        collection: collection
+      });
+      App.listenTo(view, 'childview:cast:google', function(parent, child) {
+        return window.open('https://www.google.com/webhp?#q=' + encodeURIComponent(child.model.get('name')));
+      });
+      App.listenTo(view, 'childview:cast:imdb', function(parent, child) {
+        return window.open('http://www.imdb.com/find?s=nm&q=' + encodeURIComponent(child.model.get('name')));
+      });
+      return view;
+    }
+  };
+  return App.reqres.setHandler('cast:list:view', function(cast, origin) {
+    var collection;
+    collection = API.getCastCollection(cast, origin);
+    return API.getCastView(collection);
+  });
+});
+
+this.Kodi.module("CastApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.CastTeaser = (function(_super) {
+    __extends(CastTeaser, _super);
+
+    function CastTeaser() {
+      return CastTeaser.__super__.constructor.apply(this, arguments);
+    }
+
+    CastTeaser.prototype.template = 'apps/cast/list/cast';
+
+    CastTeaser.prototype.tagName = "li";
+
+    CastTeaser.prototype.triggers = {
+      "click .imdb": "cast:imdb",
+      "click .google": "cast:google"
+    };
+
+    return CastTeaser;
+
+  })(App.Views.ItemView);
+  return List.CastList = (function(_super) {
+    __extends(CastList, _super);
+
+    function CastList() {
+      return CastList.__super__.constructor.apply(this, arguments);
+    }
+
+    CastList.prototype.childView = List.CastTeaser;
+
+    CastList.prototype.tagName = "ul";
+
+    CastList.prototype.className = "cast-full";
+
+    return CastList;
+
+  })(App.Views.CollectionView);
+});
+
 this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $, _) {
 
   /*
@@ -6766,47 +6900,54 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
 
     VideoLibrary.prototype.commandNameSpace = 'VideoLibrary';
 
-    VideoLibrary.prototype.setEpisodeDetails = function(tvshowid, id, field, value, callback) {
+    VideoLibrary.prototype.setEpisodeDetails = function(id, fields, callback) {
       var params;
+      if (fields == null) {
+        fields = {};
+      }
       params = {
         episodeid: id
       };
-      params[field] = value;
-      return this.singleCommand(this.getCommand('SetEpisodeDetails'), [params], (function(_this) {
+      params = _.extend(params, fields);
+      return this.singleCommand(this.getCommand('SetEpisodeDetails'), params, (function(_this) {
         return function(resp) {
-          helpers.cache.updateCollection('TVShowCollection', 'tvshows', tvshowid, field, value);
           return _this.doCallback(callback, resp);
         };
       })(this));
     };
 
-    VideoLibrary.prototype.setMovieDetails = function(id, field, value, callback) {
+    VideoLibrary.prototype.setMovieDetails = function(id, fields, callback) {
       var params;
+      if (fields == null) {
+        fields = {};
+      }
       params = {
         movieid: id
       };
-      params[field] = value;
+      params = _.extend(params, fields);
       return this.singleCommand(this.getCommand('SetMovieDetails'), params, (function(_this) {
         return function(resp) {
-          helpers.cache.updateCollection('MovieCollection', 'movies', id, field, value);
           return _this.doCallback(callback, resp);
         };
       })(this));
     };
 
     VideoLibrary.prototype.toggleWatched = function(model, callback) {
-      var setPlaycount;
+      var fields, setPlaycount;
       setPlaycount = model.get('playcount') > 0 ? 0 : 1;
+      fields = helpers.global.paramObj('playcount', setPlaycount);
       if (model.get('type') === 'movie') {
-        this.setMovieDetails(model.get('id'), 'playcount', setPlaycount, (function(_this) {
+        this.setMovieDetails(model.get('id'), fields, (function(_this) {
           return function() {
+            helpers.cache.updateCollection('MovieCollection', 'movies', model.get('id'), 'playcount', setPlaycount);
             return _this.doCallback(callback, setPlaycount);
           };
         })(this));
       }
       if (model.get('type') === 'episode') {
-        return this.setEpisodeDetails(model.get('id'), 'playcount', setPlaycount, (function(_this) {
+        return this.setEpisodeDetails(model.get('id'), fields, (function(_this) {
           return function() {
+            helpers.cache.updateCollection('TVShowCollection', 'tvshows', model.get('tvshowid'), 'playcount', setPlaycount);
             return _this.doCallback(callback, setPlaycount);
           };
         })(this));
@@ -9276,7 +9417,18 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
         trailer = movie.get('trailer');
         return App.execute("ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id);
       });
+      this.listenTo(contentLayout, 'show', (function(_this) {
+        return function() {
+          if (movie.get('cast').length > 0) {
+            return contentLayout.regionCast.show(_this.getCast(movie));
+          }
+        };
+      })(this));
       return this.layout.regionContent.show(contentLayout);
+    };
+
+    Controller.prototype.getCast = function(movie) {
+      return App.request('cast:list:view', movie.get('cast'), 'movies');
     };
 
     Controller.prototype.getDetailsLayoutView = function(movie) {
@@ -9384,6 +9536,10 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
 
     Content.prototype.triggers = {
       'click .youtube': 'movie:youtube'
+    };
+
+    Content.prototype.regions = {
+      regionCast: '.region-cast'
     };
 
     return Content;
@@ -11644,9 +11800,21 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
       view = new Episode.Episodes({
         collection: collection
       });
-      App.listenTo(view, 'childview:episode:play', function(list, item) {
-        var playlist;
-        return playlist = App.request("command:kodi:controller", 'video', 'PlayList');
+      App.listenTo(view, 'childview:episode:play', function(parent, viewItem) {
+        return App.execute('episode:action', 'play', viewItem);
+      });
+      App.listenTo(view, 'childview:episode:add', function(parent, viewItem) {
+        return App.execute('episode:action', 'add', viewItem);
+      });
+      App.listenTo(view, 'childview:episode:localplay', function(parent, viewItem) {
+        return App.execute('episode:action', 'localplay', viewItem);
+      });
+      App.listenTo(view, 'childview:episode:download', function(parent, viewItem) {
+        return App.execute('episode:action', 'download', viewItem);
+      });
+      App.listenTo(view, 'childview:episode:watched', function(parent, viewItem) {
+        parent.$el.toggleClass('is-watched');
+        return App.execute('episode:action', 'toggleWatched', viewItem);
       });
       return view;
     },
@@ -11657,12 +11825,15 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
       App.listenTo(view, 'episode:add', function(viewItem) {
         return App.execute('episode:action', 'add', viewItem);
       });
-      App.listenTo(view, 'episode:stream', function(viewItem) {
-        return App.execute('episode:action', 'stream', viewItem);
+      App.listenTo(view, 'episode:localplay', function(viewItem) {
+        return App.execute('episode:action', 'localplay', viewItem);
       });
-      return App.listenTo(view, 'episode:download', function(viewItem) {
-        console.log(viewItem);
+      App.listenTo(view, 'episode:download', function(viewItem) {
         return App.execute('episode:action', 'download', viewItem);
+      });
+      return App.listenTo(view, 'episode:watched', function(viewItem) {
+        parent.$el.toggleClass('is-watched');
+        return App.execute('episode:action', 'toggleWatched', viewItem);
       });
     }
   };
@@ -11725,7 +11896,18 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
       contentLayout = new Episode.Content({
         model: episode
       });
+      App.listenTo(contentLayout, 'show', (function(_this) {
+        return function() {
+          if (episode.get('cast').length > 0) {
+            return contentLayout.regionCast.show(_this.getCast(episode));
+          }
+        };
+      })(this));
       return this.layout.regionContent.show(contentLayout);
+    };
+
+    Controller.prototype.getCast = function(episode) {
+      return App.request('cast:list:view', episode.get('cast'), 'tvshows');
     };
 
     return Controller;
@@ -11746,15 +11928,45 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
     }
 
     EpisodeTeaser.prototype.triggers = {
-      "click .play": "episode:play"
+      "click .play": "episode:play",
+      "click .watched": "episode:watched",
+      "click .add": "episode:add",
+      "click .localplay": "episode:localplay",
+      "click .download": "episode:download"
     };
 
     EpisodeTeaser.prototype.initialize = function() {
       EpisodeTeaser.__super__.initialize.apply(this, arguments);
-      return this.model.set({
-        label: this.model.get('title'),
-        subtitle: 'Episode ' + this.model.get('episode')
-      });
+      if (this.model != null) {
+        this.model.set({
+          label: this.model.get('title'),
+          subtitle: 'Episode ' + this.model.get('episode')
+        });
+        this.model.set({
+          actions: {
+            watched: 'Watched'
+          }
+        });
+        return this.model.set({
+          menu: {
+            add: 'Add to Kodi playlist',
+            divider: '',
+            download: 'Download',
+            localplay: 'Play in browser'
+          }
+        });
+      }
+    };
+
+    EpisodeTeaser.prototype.attributes = function() {
+      var classes;
+      classes = ['card'];
+      if (helpers.entities.isWatched(this.model)) {
+        classes.push('is-watched');
+      }
+      return {
+        "class": classes.join(' ')
+      };
     };
 
     return EpisodeTeaser;
@@ -11828,7 +12040,7 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
     Details.prototype.triggers = {
       'click .play': 'episode:play',
       'click .add': 'episode:add',
-      'click .stream': 'episode:stream',
+      'click .stream': 'episode:localplay',
       'click .download': 'episode:download'
     };
 
@@ -11863,6 +12075,10 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
     Content.prototype.template = 'apps/tvshow/episode/content';
 
     Content.prototype.className = "episode-content content-sections";
+
+    Content.prototype.regions = {
+      regionCast: '.region-cast'
+    };
 
     return Content;
 
@@ -12423,19 +12639,22 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
       });
     },
     episodeAction: function(op, view) {
-      var files, model, playlist;
+      var files, model, playlist, videoLib;
       model = view.model;
       playlist = App.request("command:kodi:controller", 'video', 'PlayList');
       files = App.request("command:kodi:controller", 'video', 'Files');
+      videoLib = App.request("command:kodi:controller", 'video', 'VideoLibrary');
       switch (op) {
         case 'play':
           return playlist.play('episodeid', model.get('episodeid'));
         case 'add':
           return playlist.add('episodeid', model.get('episodeid'));
-        case 'stream':
+        case 'localplay':
           return files.videoStream(model.get('file'));
         case 'download':
           return files.downloadFile(model.get('file'));
+        case 'toggleWatched':
+          return videoLib.toggleWatched(model);
       }
     }
   };
