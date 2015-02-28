@@ -43672,7 +43672,7 @@ window.JST["apps/movie/show/tpl/content.jst"] = function(__obj) {
         _print(_safe('</h2>\n        <div class="region-cast"></div>\n    </div>\n'));
       }
     
-      _print(_safe('\n'));
+      _print(_safe('\n\n<div class="region-sets section-content"></div>'));
     
     }).call(this);
     
@@ -43809,6 +43809,48 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
       _print(t.gettext('Download'));
     
       _print(_safe('</li>\n    </ul>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/movie/show/tpl/set.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="set-collection">\n    <h2 class="set-name"></h2>\n    <div class="collection-items"></div>\n</div>'));
     
     }).call(this);
     
@@ -46079,7 +46121,11 @@ helpers.global.localVideoPopup = function(path, height) {
 };
 
 helpers.global.stripTags = function(string) {
-  return string.replace(/(<([^>]+)>)/ig, "");
+  if (string != null) {
+    return string.replace(/(<([^>]+)>)/ig, "");
+  } else {
+    return '';
+  }
 };
 
 
@@ -48466,7 +48512,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   API = {
     fields: {
       minimal: ['title'],
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast'],
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set'],
       full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer']
     },
     getEntity: function(id, options) {
@@ -48493,6 +48539,12 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     getRecentlyAddedCollection: function(options) {
       var collection;
       collection = new KodiEntities.MovieRecentlyAddedCollection();
+      collection.fetch(options);
+      return collection;
+    },
+    getFilteredCollection: function(options) {
+      var collection;
+      collection = new KodiEntities.MovieFilteredCollection();
       collection.fetch(options);
       return collection;
     }
@@ -48627,6 +48679,12 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       options = {};
     }
     return API.getCollection(options);
+  });
+  App.reqres.setHandler("movie:filtered:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getFilteredCollection(options);
   });
   App.reqres.setHandler("movie:recentlyadded:entities", function(options) {
     if (options == null) {
@@ -50220,6 +50278,11 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return helpers.backscroll.scrollToLast();
     };
 
+    VirtualListView.prototype.onDestroy = function() {
+      $(window).unbind('scroll');
+      return $(window).unbind('resize');
+    };
+
     return VirtualListView;
 
   })(Views.CollectionView);
@@ -50414,11 +50477,12 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
           return $.material.init();
         };
       })(this));
-      return this.listenTo(this.formLayout, "form:submit", (function(_this) {
+      this.listenTo(this.formLayout, "form:submit", (function(_this) {
         return function() {
           return _this.formSubmit(options);
         };
       })(this));
+      return this;
     };
 
     Controller.prototype.formSubmit = function(options) {
@@ -50463,13 +50527,28 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
     return Controller;
 
   })(App.Controllers.Base);
-  return App.reqres.setHandler("form:wrapper", function(options) {
+  App.reqres.setHandler("form:wrapper", function(options) {
     var formController;
     if (options == null) {
       options = {};
     }
     formController = new Form.Controller(options);
     return formController.formLayout;
+  });
+  return App.reqres.setHandler("form:popup:wrapper", function(options) {
+    var formContent, formController, originalCallback;
+    if (options == null) {
+      options = {};
+    }
+    originalCallback = options.config.callback;
+    options.config.callback = function(data, layout) {
+      App.execute("ui:modal:close");
+      return originalCallback(data, layout);
+    };
+    formController = new Form.Controller(options);
+    formContent = formController.formLayout.render().$el;
+    formController.formLayout.trigger('show');
+    return App.execute("ui:modal:form:show", options.title, formContent);
   });
 });
 
@@ -51688,16 +51767,16 @@ soundManager.setup({
   useHTML5Audio: true,
   useFlashBlock: false,
   flashLoadTimeout: 3000,
-  debugMode: true,
+  debugMode: false,
   noSWFCache: true,
   debugFlash: false,
   flashPollingInterval: 1000,
   html5PollingInterval: 1000,
   onready: function() {
-    return console.log('sm ready!!');
+    return $(window).trigger('audiostream:ready');
   },
   ontimeout: function() {
-    console.log('sm timout!!');
+    $(window).trigger('audiostream:timout');
     soundManager.flashLoadTimeout = 0;
     soundManager.onerror = {};
     return soundManager.reboot();
@@ -52148,7 +52227,6 @@ this.Kodi.module("CastApp", function(CastApp, App, Backbone, Marionette, $, _) {
     },
     getCastView: function(collection) {
       var view;
-      console.log(collection);
       view = new CastApp.List.CastList({
         collection: collection
       });
@@ -53565,6 +53643,13 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
         type: 'object',
         property: 'name',
         key: 'cast',
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }, {
+        alias: 'Set',
+        type: 'string',
+        property: 'set',
+        key: 'set',
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
@@ -55127,6 +55212,91 @@ this.Kodi.module("localPlaylistApp", function(localPlaylistApp, App, Backbone, M
   });
 });
 
+this.Kodi.module("MovieApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+  return Edit.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var form, options;
+      this.model = this.getOption('model');
+      options = {
+        title: this.model.get('title'),
+        form: this.getSructure(),
+        formState: this.model.attributes,
+        config: {
+          attributes: {
+            "class": 'edit-form'
+          },
+          callback: (function(_this) {
+            return function(data, formView) {
+              return _this.saveCallback(data, formView);
+            };
+          })(this)
+        }
+      };
+      return form = App.request("form:popup:wrapper", options);
+    };
+
+    Controller.prototype.getSructure = function() {
+      return [
+        {
+          title: 'Information',
+          id: 'general',
+          children: [
+            {
+              id: 'title',
+              title: 'Title',
+              type: 'textfield',
+              defaultValue: ''
+            }, {
+              id: 'tagline',
+              title: 'Tagline',
+              type: 'textarea',
+              defaultValue: ''
+            }, {
+              id: 'plotoutline',
+              title: 'Plot Outline',
+              type: 'textarea',
+              defaultValue: ''
+            }, {
+              id: 'plot',
+              title: 'Plot',
+              type: 'textarea',
+              defaultValue: ''
+            }, {
+              id: 'rating',
+              title: 'Rating',
+              type: 'textfield',
+              defaultValue: ''
+            }, {
+              id: 'imdbnumber',
+              title: 'Imdb',
+              type: 'textfield',
+              defaultValue: ''
+            }
+          ]
+        }
+      ];
+    };
+
+    Controller.prototype.saveCallback = function(data, formView) {
+      var videoLib;
+      data.rating = parseFloat(data.rating);
+      videoLib = App.request("command:kodi:controller", 'video', 'VideoLibrary');
+      return videoLib.setMovieDetails(this.model.get('id'), data, function() {
+        return Kodi.execute("notification:show", t.gettext("Updated movie details"));
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
 this.Kodi.module("MovieApp.Landing", function(Landing, App, Backbone, Marionette, $, _) {
   return Landing.Controller = (function(_super) {
     __extends(Controller, _super);
@@ -55246,9 +55416,12 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
       App.listenTo(view, 'childview:movie:download', function(parent, viewItem) {
         return App.execute('movie:action', 'download', viewItem);
       });
-      return App.listenTo(view, 'childview:movie:watched', function(parent, viewItem) {
+      App.listenTo(view, 'childview:movie:watched', function(parent, viewItem) {
         parent.$el.toggleClass('is-watched');
         return App.execute('movie:action', 'toggleWatched', viewItem);
+      });
+      return App.listenTo(view, 'childview:movie:edit', function(parent, viewItem) {
+        return App.execute('movie:action', 'edit', viewItem);
       });
     }
   };
@@ -55286,7 +55459,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     Controller.prototype.getAvailableFilters = function() {
       return {
         sort: ['title', 'year', 'dateadded', 'rating'],
-        filter: ['year', 'genre', 'writer', 'director', 'cast', 'unwatched']
+        filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched']
       };
     };
 
@@ -55342,7 +55515,8 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
       "click .watched": "movie:watched",
       "click .add": "movie:add",
       "click .localplay": "movie:localplay",
-      "click .download": "movie:download"
+      "click .download": "movie:download",
+      "click .edit": "movie:edit"
     };
 
     MovieTeaser.prototype.initialize = function() {
@@ -55351,20 +55525,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
         this.model.set({
           subtitle: this.model.get('year')
         });
-        this.model.set({
-          actions: {
-            watched: 'Watched',
-            thumbs: 'Thumbs up'
-          }
-        });
-        return this.model.set({
-          menu: {
-            add: 'Add to Kodi playlist',
-            divider: '',
-            download: 'Download',
-            localplay: 'Play in browser'
-          }
-        });
+        return this.model.set(App.request('movie:action:items'));
       }
     };
 
@@ -55481,11 +55642,39 @@ this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _)
           return files.downloadFile(model.get('file'));
         case 'toggleWatched':
           return videoLib.toggleWatched(model);
+        case 'edit':
+          return App.execute('movie:edit', model);
       }
     }
   };
+  App.reqres.setHandler('movie:action:items', function() {
+    return {
+      actions: {
+        watched: 'Watched',
+        thumbs: 'Thumbs up'
+      },
+      menu: {
+        add: 'Add to Kodi playlist',
+        edit: 'Edit',
+        divider: '',
+        download: 'Download',
+        localplay: 'Play in browser'
+      }
+    };
+  });
   App.commands.setHandler('movie:action', function(op, view) {
     return API.action(op, view);
+  });
+  App.commands.setHandler('movie:edit', function(model) {
+    var loadedModel;
+    loadedModel = App.request("movie:entity", model.get('id'));
+    return App.execute("when:entity:fetched", loadedModel, (function(_this) {
+      return function() {
+        return new MovieApp.Edit.Controller({
+          model: loadedModel
+        });
+      };
+    })(this));
   });
   return App.on("before:start", function() {
     return new MovieApp.Router({
@@ -55546,23 +55735,23 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
     };
 
     Controller.prototype.getContentView = function(movie) {
-      var contentLayout;
-      contentLayout = new Show.Content({
+      this.contentLayout = new Show.Content({
         model: movie
       });
-      this.listenTo(contentLayout, "movie:youtube", function(view) {
+      this.listenTo(this.contentLayout, "movie:youtube", function(view) {
         var trailer;
         trailer = movie.get('trailer');
         return App.execute("ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id);
       });
-      this.listenTo(contentLayout, 'show', (function(_this) {
+      this.listenTo(this.contentLayout, 'show', (function(_this) {
         return function() {
           if (movie.get('cast').length > 0) {
-            return contentLayout.regionCast.show(_this.getCast(movie));
+            _this.contentLayout.regionCast.show(_this.getCast(movie));
           }
+          return _this.getSetView(movie);
         };
       })(this));
-      return this.layout.regionContent.show(contentLayout);
+      return this.layout.regionContent.show(this.contentLayout);
     };
 
     Controller.prototype.getCast = function(movie) {
@@ -55590,6 +55779,31 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
         };
       })(this));
       return this.layout.regionHeader.show(headerLayout);
+    };
+
+    Controller.prototype.getSetView = function(movie) {
+      var collection;
+      if (movie.get('set') !== '') {
+        collection = App.request("movie:entities");
+        return App.execute("when:entity:fetched", collection, (function(_this) {
+          return function() {
+            var filteredCollection, view;
+            filteredCollection = new App.Entities.Filtered(collection);
+            filteredCollection.filterBy('set', {
+              set: movie.get('set')
+            });
+            view = new Show.Set({
+              set: movie.get('set')
+            });
+            App.listenTo(view, "show", function() {
+              var listview;
+              listview = App.request("movie:list:view", filteredCollection);
+              return view.regionCollection.show(listview);
+            });
+            return _this.contentLayout.regionSets.show(view);
+          };
+        })(this));
+      }
     };
 
     return Controller;
@@ -55659,7 +55873,7 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
     return MovieTeaser;
 
   })(App.Views.CardView);
-  return Show.Content = (function(_super) {
+  Show.Content = (function(_super) {
     __extends(Content, _super);
 
     function Content() {
@@ -55677,10 +55891,39 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
     };
 
     Content.prototype.regions = {
-      regionCast: '.region-cast'
+      regionCast: '.region-cast',
+      regionSets: '.region-sets'
     };
 
     return Content;
+
+  })(App.Views.LayoutView);
+  return Show.Set = (function(_super) {
+    __extends(Set, _super);
+
+    function Set() {
+      return Set.__super__.constructor.apply(this, arguments);
+    }
+
+    Set.prototype.template = 'apps/movie/show/set';
+
+    Set.prototype.className = 'movie-set';
+
+    Set.prototype.onRender = function() {
+      if (this.options) {
+        if (this.options.set) {
+          return $('h2.set-name', this.$el).html(this.options.set);
+        }
+      }
+    };
+
+    Set.prototype.regions = function() {
+      return {
+        regionCollection: '.collection-items'
+      };
+    };
+
+    return Set;
 
   })(App.Views.LayoutView);
 });
@@ -55849,6 +56092,16 @@ this.Kodi.module("PlayerApp", function(PlayerApp, App, Backbone, Marionette, $, 
       this.initVolume(player);
       App.vent.trigger("state:player:updated", player);
       appController = this.getAppController(player);
+      App.vent.on("state:initialized", (function(_this) {
+        return function() {
+          var stateObj;
+          stateObj = App.request("state:kodi");
+          if (stateObj.isPlaying()) {
+            _this.timerStop();
+            return _this.timerStart();
+          }
+        };
+      })(this));
       App.listenTo(playerView, "control:play", (function(_this) {
         return function() {
           console.log('playOn', player);
@@ -56923,7 +57176,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
 
     Controller.prototype.saveCallback = function(data, formView) {
       config.set('app', 'config:local', data);
-      return Kodi.execute("notification:show", "Web Settings saved.");
+      return Kodi.execute("notification:show", t.gettext("Web Settings saved."));
     };
 
     return Controller;
@@ -59212,18 +59465,21 @@ this.Kodi.module("UiApp", function(UiApp, App, Backbone, Marionette, $, _) {
   App.commands.setHandler("ui:modal:close", function() {
     return API.closeModal();
   });
-  App.commands.setHandler("ui:modal:show", function(title, msg, footer, open) {
+  App.commands.setHandler("ui:modal:show", function(title, msg, footer) {
     if (msg == null) {
       msg = '';
     }
     if (footer == null) {
       footer = '';
     }
-    if (open == null) {
-      open = true;
-    }
     API.getModalButtonContainer().html(footer);
     return API.openModal(title, msg, open);
+  });
+  App.commands.setHandler("ui:modal:form:show", function(title, msg) {
+    if (msg == null) {
+      msg = '';
+    }
+    return API.openModal(title, msg, true, 'form');
   });
   App.commands.setHandler("ui:modal:close", function() {
     return API.closeModal();

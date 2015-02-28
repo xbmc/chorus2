@@ -34,12 +34,26 @@
           files.downloadFile model.get('file')
         when 'toggleWatched'
           videoLib.toggleWatched model
+        when 'edit'
+          App.execute 'movie:edit', model
         else
         ## nothing
 
 
+  App.reqres.setHandler 'movie:action:items', ->
+    {
+    actions: {watched: 'Watched', thumbs: 'Thumbs up'}
+    menu: {add: 'Add to Kodi playlist', edit: 'Edit', divider: '', download: 'Download', localplay: 'Play in browser'}
+    }
+
   App.commands.setHandler 'movie:action', (op, view) ->
     API.action op, view
+
+  App.commands.setHandler 'movie:edit', (model) ->
+    loadedModel = App.request "movie:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new MovieApp.Edit.Controller
+        model: loadedModel
 
 
   App.on "before:start", ->

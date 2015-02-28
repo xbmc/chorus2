@@ -1,0 +1,18 @@
+.edit-form {
+  .group-title {
+    display: none; // TODO maybe turn this into tabs?
+  }
+  .form-item {
+    @include pie-clearfix();
+    margin-bottom: $spacing-base-unit;
+  }
+  @include at-bp(medium) {
+    .control-label {
+      @include span(2 of 7);
+      padding: 5px 0 $spacing-half-unit;
+    }
+    .element {
+      @include span(5 of 7 last);
+    }
+  }
+}

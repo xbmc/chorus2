@@ -8,7 +8,7 @@
 
     fields:
       minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast']
+      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set']
       full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer']
 
     ## Fetch a single entity
@@ -29,6 +29,12 @@
     ## Fetch a recent entity collection.
     getRecentlyAddedCollection: (options) ->
       collection = new KodiEntities.MovieRecentlyAddedCollection()
+      collection.fetch options
+      collection
+
+    ## Fetch a filtered collection.
+    getFilteredCollection: (options) ->
+      collection = new KodiEntities.MovieFilteredCollection()
       collection.fetch options
       collection
 
@@ -82,6 +88,10 @@
   ## Get an movie collection
   App.reqres.setHandler "movie:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get an movie collection
+  App.reqres.setHandler "movie:filtered:entities", (options = {}) ->
+    API.getFilteredCollection options
 
   ## Get an movie collection
   App.reqres.setHandler "movie:recentlyadded:entities", (options = {}) ->

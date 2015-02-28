@@ -100,6 +100,14 @@
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
+      {
+        alias: 'Set'
+        type: 'string'
+        property: 'set'
+        key: 'set'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
     ]
 
     ## Wrapper for returning the available fields for sort/filter

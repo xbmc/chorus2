@@ -31,6 +31,11 @@
       @initVolume(player)
       App.vent.trigger "state:player:updated", player
       appController = @getAppController(player)
+      App.vent.on "state:initialized", =>
+        stateObj = App.request "state:kodi"
+        if stateObj.isPlaying()
+          @timerStop()
+          @timerStart()
 
       ## Buttons
       App.listenTo playerView, "control:play", =>

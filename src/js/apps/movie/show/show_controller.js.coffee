@@ -39,14 +39,15 @@
         model: movie
 
     getContentView: (movie) ->
-      contentLayout = new Show.Content model: movie
-      @listenTo contentLayout, "movie:youtube", (view) ->
+      @contentLayout = new Show.Content model: movie
+      @listenTo @contentLayout, "movie:youtube", (view) ->
         trailer = movie.get('trailer')
         App.execute "ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id
-      @listenTo contentLayout, 'show', =>
+      @listenTo @contentLayout, 'show', =>
         if movie.get('cast').length > 0
-          contentLayout.regionCast.show @getCast(movie)
-      @layout.regionContent.show contentLayout
+          @contentLayout.regionCast.show @getCast(movie)
+        @getSetView movie
+      @layout.regionContent.show @contentLayout
 
     getCast: (movie) ->
       App.request 'cast:list:view', movie.get('cast'), 'movies'
@@ -64,3 +65,15 @@
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
 
+    getSetView: (movie) ->
+      if movie.get('set') isnt ''
+        collection = App.request "movie:entities"
+        App.execute "when:entity:fetched", collection, =>
+          filteredCollection = new App.Entities.Filtered collection
+          filteredCollection.filterBy('set', {set: movie.get('set')})
+          view = new Show.Set
+            set: movie.get('set')
+          App.listenTo view, "show", =>
+            listview = App.request "movie:list:view", filteredCollection
+            view.regionCollection.show listview
+          @contentLayout.regionSets.show view

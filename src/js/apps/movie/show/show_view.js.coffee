@@ -29,3 +29,14 @@
       'click .youtube': 'movie:youtube'
     regions:
       regionCast: '.region-cast'
+      regionSets: '.region-sets'
+
+  class Show.Set extends App.Views.LayoutView
+    template: 'apps/movie/show/set'
+    className: 'movie-set'
+    onRender: ->
+      if @options
+        if @options.set
+          $('h2.set-name', @$el).html( @options.set )
+    regions: ->
+      regionCollection: '.collection-items'

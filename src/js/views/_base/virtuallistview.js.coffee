@@ -88,3 +88,7 @@
 
     onShow: ->
       helpers.backscroll.scrollToLast()
+
+    onDestroy: ->
+      $(window).unbind('scroll')
+      $(window).unbind('resize')

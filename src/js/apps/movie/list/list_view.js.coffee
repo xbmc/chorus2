@@ -10,12 +10,12 @@
       "click .add"        : "movie:add"
       "click .localplay"  : "movie:localplay"
       "click .download"   : "movie:download"
+      "click .edit"       : "movie:edit"
     initialize: ->
       super
       if @model?
         @model.set subtitle: @model.get('year')
-        @model.set({actions: {watched: 'Watched', thumbs: 'Thumbs up'}})
-        @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
+        @model.set( App.request('movie:action:items') )
 
     attributes: ->
       classes = ['card']

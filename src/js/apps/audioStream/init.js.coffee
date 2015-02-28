@@ -9,15 +9,15 @@ soundManager.setup({
   useHTML5Audio: true
   useFlashBlock: false
   flashLoadTimeout: 3000
-  debugMode: true
+  debugMode: false
   noSWFCache: true
   debugFlash: false
   flashPollingInterval: 1000
   html5PollingInterval: 1000
   onready: ->
-    console.log 'sm ready!!'
+    $(window).trigger 'audiostream:ready'
   ontimeout: ->
-    console.log 'sm timout!!'
+    $(window).trigger 'audiostream:timout'
     soundManager.flashLoadTimeout = 0 # When restarting, wait indefinitely for flash
     soundManager.onerror = {} # Prevent an infinite loop, in case it's not flashblock
     soundManager.reboot()  # Reboot

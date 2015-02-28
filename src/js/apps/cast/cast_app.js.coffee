@@ -7,7 +7,6 @@
       App.request "cast:entities", cast, origin
 
     getCastView: (collection) ->
-      console.log collection
       view = new CastApp.List.CastList
         collection: collection
       App.listenTo view, 'childview:cast:google', (parent, child) ->

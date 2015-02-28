@@ -21,6 +21,8 @@
       App.listenTo view, 'childview:movie:watched', (parent, viewItem) ->
         parent.$el.toggleClass('is-watched')
         App.execute 'movie:action', 'toggleWatched', viewItem
+      App.listenTo view, 'childview:movie:edit', (parent, viewItem) ->
+        App.execute 'movie:action', 'edit', viewItem
 
   ## Main controller
   class List.Controller extends App.Controllers.Base
@@ -53,7 +55,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'writer', 'director', 'cast', 'unwatched']
+      filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

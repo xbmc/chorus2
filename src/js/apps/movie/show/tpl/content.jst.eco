@@ -20,3 +20,5 @@
         <div class="region-cast"></div>
     </div>
 <% end %>
+
+<div class="region-sets section-content"></div>

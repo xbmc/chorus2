@@ -67,4 +67,4 @@
     ## Save the settings to local storage.
     saveCallback: (data, formView) ->
       config.set 'app', 'config:local', data
-      Kodi.execute "notification:show", "Web Settings saved."
+      Kodi.execute "notification:show", t.gettext("Web Settings saved.")

@@ -72,9 +72,13 @@
     API.closeModal()
 
   ## Open a modal window
-  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '', open = true) ->
+  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '') ->
     API.getModalButtonContainer().html(footer)
     API.openModal(title, msg, open)
+
+  ## Open a form modal window
+  App.commands.setHandler "ui:modal:form:show", (title, msg = '') ->
+    API.openModal(title, msg, true, 'form')
 
   ## Close a modal window
   App.commands.setHandler "ui:modal:close", ->

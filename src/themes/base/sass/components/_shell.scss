@@ -168,4 +168,21 @@ body.model-open {
       display: none;
     }
   }
+  &.style-form {
+    .modal-footer {
+      display: none;
+    }
+    footer {
+      margin: 15px -20px -15px;
+      padding: 5px 20px;
+      background: rgba($color-black, 0.05);
+      @include pie-clearfix();
+      .inline-list {
+        li {
+          margin: 0 0 0 2em;
+          float: right;
+        }
+      }
+    }
+  }
 }

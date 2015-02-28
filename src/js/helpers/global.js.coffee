@@ -120,4 +120,7 @@ helpers.global.localVideoPopup = (path, height = 545) ->
 
 ## Strip tags from a string
 helpers.global.stripTags = (string) ->
-  string.replace(/(<([^>]+)>)/ig,"");
+  if string?
+    string.replace(/(<([^>]+)>)/ig,"");
+  else
+    ''

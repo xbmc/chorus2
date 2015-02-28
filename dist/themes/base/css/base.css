@@ -17113,6 +17113,41 @@ h1, h2, h3, h4 {
   display: none;
 }
 
+/* line 2, ../../../../src/themes/base/sass/components/_edit.scss */
+.edit-form .group-title {
+  display: none;
+}
+/* line 5, ../../../../src/themes/base/sass/components/_edit.scss */
+.edit-form .form-item {
+  *zoom: 1;
+  margin-bottom: 1em;
+}
+/* line 38, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+.edit-form .form-item:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 45em) {
+  /* line 10, ../../../../src/themes/base/sass/components/_edit.scss */
+  .edit-form .control-label {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 28.5714285714%;
+    float: left;
+    padding: 5px 0 0.5em;
+  }
+  /* line 14, ../../../../src/themes/base/sass/components/_edit.scss */
+  .edit-form .element {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 71.4285714286%;
+    float: right;
+  }
+}
+
 /* line 3, ../../../../src/themes/base/sass/components/_external.scss */
 .youtube-list .thumb {
   width: 120px;
@@ -20735,6 +20770,28 @@ body.model-open {
 /* line 167, ../../../../src/themes/base/sass/components/_shell.scss */
 #modal-window.style-video .modal-footer {
   display: none;
+}
+/* line 172, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window.style-form .modal-footer {
+  display: none;
+}
+/* line 175, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window.style-form footer {
+  margin: 15px -20px -15px;
+  padding: 5px 20px;
+  background: rgba(0, 0, 0, 0.05);
+  *zoom: 1;
+}
+/* line 38, ../../../../../../usr/local/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+#modal-window.style-form footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 181, ../../../../src/themes/base/sass/components/_shell.scss */
+#modal-window.style-form footer .inline-list li {
+  margin: 0 0 0 2em;
+  float: right;
 }
 
 /* line 1, ../../../../src/themes/base/sass/components/_snackbar.scss */
