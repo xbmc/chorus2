@@ -47,6 +47,8 @@
       App.listenTo playerView, "control:mute", =>
         appController.toggleMute =>
           @pollingUpdate()
+      App.listenTo playerView, 'control:menu', ->
+        App.execute "ui:playermenu", 'toggle'
 
       ## Remote toggle
       if player is 'kodi'

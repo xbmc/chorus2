@@ -130,3 +130,20 @@
     background: $color-kodi;
   }
 }
+
+// Tv eps, toggle visibility of certain teaser els
+.season-show {
+  .card {
+    .show-name,
+    .ep-num {
+      display: none;
+    }
+  }
+}
+.landing-page {
+  .card {
+    .ep-num-full {
+      display: none;
+    }
+  }
+}

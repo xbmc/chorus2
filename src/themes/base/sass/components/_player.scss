@@ -39,11 +39,14 @@
       &:hover {
         color: $color-player-control-hover;
       }
-      &:before {
-        @include icon-style(mdi);
-        text-align: center;
-        @include vertical-align-element();
-      }
+
+    }
+  }
+  .control {
+    text-align: center;
+    @extend %icon-style--mdi;
+    &:before {
+      @include vertical-align-element();
     }
   }
   .controls-primary {
@@ -90,13 +93,13 @@
     text-align: center;
     @include set-layout('height-player', 'height');
     @include set-layout('height-player', 'width');
+    font-size: 300%;
+    opacity: 0.8;
     &:before {
       @include vertical-align-element();
       @include set-layout('height-player', 'height');
       @include set-layout('height-player', 'width');
       padding: 0;
-      font-size: 300%;
-      opacity: 0.8;
     }
   }
   .playing-info {
@@ -152,13 +155,38 @@
 }
 
 // Control icons.
-.control-prev:before { content: icon-code(av-fast-rewind); }
+.control-prev:before {  content: icon-code(av-fast-rewind); }
 .control-play:before { content: icon-code(av-play-arrow); font-size: 150%; }
 .control-next:before { content: icon-code(av-fast-forward); }
 .control-mute:before { content: icon-code(av-volume-up); }
 .control-repeat:before { content: icon-code(av-repeat); }
 .control-shuffle:before { content: icon-code(av-shuffle); }
 .control-menu:before { content: icon-code(navigation-more-vert); }
+
+// Player menu
+.player-menu-wrapper {
+  @include set-position-fixed(right 0);
+  @include set-layout('width-player-controls-secondary', 'width');
+  @include set-layout('height-player', 'bottom');
+  ul {
+    background: $color-white;
+    @include box-shadow(-1px -1px 8px rgba($color-black, 0.1));
+    height: 0;
+    @include transition(height 0.5s ease-in);
+    li {
+      padding: 7px 13px;
+      cursor: pointer;
+      &:hover {
+        background: rgba($color-black, 0.1);
+      }
+    }
+  }
+  &.opened {
+    ul {
+      height: auto;
+    }
+  }
+}
 
 // State based changes.
 @mixin player-state($player: 'kodi', $brand-color: $color-kodi, $background: $color-player-background) {

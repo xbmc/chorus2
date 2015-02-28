@@ -17,6 +17,7 @@
         }
         var src = getParameterByName('src'),
           player = getParameterByName('player'),
+          yt = getParameterByName('yt'),
           $player = $('<div>'),
           width = '100%',
           height = '90%',
@@ -105,6 +106,19 @@
 
             });
         }
+        else if (yt != '') {
+            $player = $('<iframe>', {
+                width: width,
+                height: height,
+                src: 'https://www.youtube.com/embed/' + yt  + '?rel=0&amp;showinfo=0&amp;autoplay=1&iv_load_policy=3',
+                frameborder: 0,
+                allowfullscreen: 'allowfullscreen'
+            });
+            $(document).ready(function(){
+               $('switch-player').empty();
+               $('download').empty();
+            });
+        }
     </script>
     <style type="text/css">
         body, html {
@@ -148,16 +162,31 @@
         select:focus {
             color: #aaa;
         }
+        .player-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            padding-top: 25px;
+            height: 0;
+        }
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
-<div id="player">
-    <a href="" id="download" download>Download video</a>
-    <select id="switch-player">
-        <option value="html5">html5</option>
-        <option value="vlc">VLC Web player</option>
-        <option value="divx">DivX Webplayer</option>
-    </select>
+<div class="player-wrapper">
+    <div id="player">
+        <a href="" id="download" download>Download video</a>
+        <select id="switch-player">
+            <option value="html5">html5</option>
+            <option value="vlc">VLC Web player</option>
+            <option value="divx">DivX Webplayer</option>
+        </select>
+    </div>
 </div>
 <script> $('#player').prepend($player);</script>
 </body>

@@ -1,7 +1,7 @@
 <div class="item-inner item-<%= @type %>">
     <div class="artwork">
         <div class="thumb" title="<%= @label %>" style="background-image: url('<%= @thumbnail %>')">
-            <div class="play"></div>
+            <div class="mdi play"></div>
         </div>
     </div>
     <div class="meta">

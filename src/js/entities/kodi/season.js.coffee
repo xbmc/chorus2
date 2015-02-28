@@ -19,10 +19,8 @@
     getCollection: (options) ->
       defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
-      console.log options
       collection = new KodiEntities.SeasonCollection()
       collection.fetch options
-      console.log collection
       collection
 
   ###

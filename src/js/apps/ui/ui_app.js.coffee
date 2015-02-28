@@ -42,6 +42,18 @@
         .append(API.closeModalButton())
         .append($ok)
 
+    ## Toggle player menu state.
+    playerMenu: (op = 'toggle') ->
+      $el = $('.player-menu-wrapper')
+      openClass = 'opened'
+      switch op
+        when 'open'
+          $el.addClass(openClass)
+        when 'close'
+          $el.removeClass(openClass)
+        else
+          $el.toggleClass(openClass)
+
 
   ## Open a text input modal window, callback recieves the entered text.
   App.commands.setHandler "ui:textinput:show", (title, msg = '', callback, open = true) ->
@@ -74,3 +86,12 @@
     msg = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoid + '?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>'
     API.openModal(title, msg, true, 'video')
 
+  ## Open a youtube video in a model
+  App.commands.setHandler "ui:playermenu", (op) ->
+    API.playerMenu op
+
+  ## When shell ready.
+  App.vent.on "shell:ready", (options) =>
+    ## Close player menu on anywhere click
+    $('html').on 'click', ->
+      API.playerMenu 'close'

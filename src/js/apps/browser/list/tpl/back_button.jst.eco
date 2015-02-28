@@ -1,1 +1,1 @@
-<i class="thumb"></i><div class="title"><%= t.gettext('Back') %></div>
+<i class="mdi thumb"></i><div class="title"><%= t.gettext('Back') %></div>

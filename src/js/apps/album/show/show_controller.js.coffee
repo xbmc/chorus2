@@ -9,6 +9,8 @@
         App.execute 'album:action', 'add', item
       App.listenTo view, 'album:localadd', (item) ->
         App.execute 'album:action', 'localadd', item
+      App.listenTo view, 'album:localplay', (item) ->
+        App.execute 'album:action', 'localplay', item
 
     ## Return a set of albums with songs.
     ## Songs is expected to be an array of song collections

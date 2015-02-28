@@ -18,26 +18,25 @@
     getItems: ->
       nav = []
       ## Music.
-      nav.push {id: 1, title: "Music", path: 'music/artists', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
-      nav.push {id: 2, title: "Artists", path: 'music/artists', icon: '', classes: '', parent: 1}
-      nav.push {id: 3, title: "Albums", path: 'music/albums', icon: '', classes: '', parent: 1}
-      nav.push {id: 4, title: "Recently Added", path: 'music/added', icon: '', classes: '', parent: 1}
-      nav.push {id: 5, title: "Recently Played", path: 'music/played', icon: '', classes: '', parent: 1}
+      nav.push {id: 1, title: "Music", path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
+      nav.push {id: 2, title: "Recent", path: 'music', icon: '', classes: '', parent: 1}
+      nav.push {id: 3, title: "Artists", path: 'music/artists', icon: '', classes: '', parent: 1}
+      nav.push {id: 4, title: "Albums", path: 'music/albums', icon: '', classes: '', parent: 1}
+      nav.push {id: 5, title: "Digital Radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1}
 
       ## Movies.
-      nav.push {id: 11, title: "Movies", path: 'movies', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
-      nav.push {id: 12, title: "Recently Added", path: 'movies/added', icon: '', classes: '', parent: 11}
-      nav.push {id: 13, title: "All", path: 'movies', icon: '', classes: '', parent: 11}
+      nav.push {id: 11, title: "Movies", path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
+      nav.push {id: 12, title: "Recent Movies", path: 'movies/recent', icon: '', classes: '', parent: 11}
+      nav.push {id: 13, title: "All Movies", path: 'movies', icon: '', classes: '', parent: 11}
 
       ## TV.
-      nav.push {id: 21, title: "TV Shows", path: 'tvshows', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
-      nav.push {id: 22, title: "Recently Added", path: 'tvshows/added', icon: '', classes: '', parent: 21}
-      nav.push {id: 23, title: "All", path: 'tvshows', icon: '', classes: '', parent: 21}
+      nav.push {id: 21, title: "TV Shows", path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
+      nav.push {id: 22, title: "Recent Episodes", path: 'tvshows/recent', icon: '', classes: '', parent: 21}
+      nav.push {id: 23, title: "All TVShows", path: 'tvshows', icon: '', classes: '', parent: 21}
+      nav.push {id: 24, title: "Live TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21}
 
       ## Browser.
       nav.push {id: 31, title: "Browser", path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
-      nav.push {id: 32, title: "Files", path: 'browser/files', icon: '', classes: '', parent: 31}
-      nav.push {id: 33, title: "AddOns", path: 'browser/addons', icon: '', classes: '', parent: 31}
 
       ## Thumbs up.
       nav.push {id: 41, title: "Thumbs Up", path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}

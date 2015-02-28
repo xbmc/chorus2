@@ -39,6 +39,14 @@
         <footer id="player-local"></footer>
     </div>
 
+    <div class="player-menu-wrapper">
+        <ul class="player-menu">
+            <li class="video-scan">Scan Video Library</li>
+            <li class="audio-scan">Scan Audio Library</li>
+            <li class="about">About Chorus</li>
+        </ul>
+    </div>
+
 </div>
 
 <div id="fanart"></div>

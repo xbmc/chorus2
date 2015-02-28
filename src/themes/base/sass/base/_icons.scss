@@ -15,8 +15,11 @@ $material-set-name: 'mdi';
 
 // Create classes for all Material icons.
 // @TODO: possibly change this to only icons in use.
- @include icon-create-css($material-set-name, $material-set-name);
+@include icon-create-css($material-set-name, $material-set-name);
 
+%icon-style--mdi {
+  @include icon-style(mdi);
+}
 
 
 /**
@@ -27,3 +30,7 @@ $icomoon-set-name: 'icomoon';
 
 // Font-face
 @include load-icon-font($icomoon-set-name);
+
+%icon-style--icomoon {
+  @include icon-style(icomoon);
+}

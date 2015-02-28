@@ -1,0 +1,19 @@
+.landing-page {
+  .region-first {
+    @extend %sidebar--padding;
+  }
+  .landing-section {
+    @extend %region-content;
+    padding-bottom: 10px;
+  }
+  .region-content {
+    padding: 0;
+    h3 {
+      background: $color-white;
+      padding: $spacing-base-unit $spacing-base-unit;
+      margin: 0;
+      font-size: $font-size-heading;
+      @extend .shadow-z-1;
+    }
+  }
+}

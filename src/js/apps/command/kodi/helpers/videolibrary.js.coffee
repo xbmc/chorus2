@@ -1,7 +1,6 @@
 @Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
 
-
-  ## Input commander
+  ## Video Library
   class Api.VideoLibrary extends Api.Commander
 
     commandNameSpace: 'VideoLibrary'
@@ -18,6 +17,11 @@
       params = {movieid: id}
       params = _.extend params, fields
       @singleCommand @getCommand('SetMovieDetails'), params, (resp) =>
+        @doCallback callback, resp
+
+    ## Scan library
+    scan: (callback) ->
+      @singleCommand @getCommand('Scan'), (resp) =>
         @doCallback callback, resp
 
     ## Toggle watched status

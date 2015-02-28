@@ -8,6 +8,7 @@
       @setPlayingContent player
       @setPlayerPlaying player
       @setAppProperties player
+      @setTitle player
 
     playerClass: (className, player) ->
       player + '-' + className
@@ -41,13 +42,12 @@
       $('.item', $playlistCtx).removeClassStartsWith('row-')
       if stateObj.isPlaying()
         item = stateObj.getPlaying('item')
-        if item.type isnt 'file'
-          playState = stateObj.getPlaying('playState')
-          ## library item
-          className = '.item-' + item.type + '-' + item.id
-          $(className).addClass( @playerClass('row-' + playState, player) )
-          ## playlist item
-          $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        playState = stateObj.getPlaying('playState')
+        ## library item
+        className = '.item-' + item.type + '-' + item.id
+        $(className).addClass( @playerClass('row-' + playState, player) )
+        ## playlist item
+        $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
 
     ## Set the now playing info in the player
     setPlayerPlaying: (player) ->
@@ -74,6 +74,13 @@
       $playerCtx = $('#player-' + player)
       $('.volume', $playerCtx).val stateObj.getState('volume')
 
+    setTitle: (player) ->
+      if player is 'kodi'
+        stateObj = App.request "state:" + player
+        if stateObj.isPlaying() and stateObj.getPlaying('playState') is 'playing'
+          helpers.global.appTitle stateObj.getPlaying('item')
+        else
+          helpers.global.appTitle()
 
     ## Kick off all things kodi statewise
     initKodiState: ->

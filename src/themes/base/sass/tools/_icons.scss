@@ -103,7 +103,7 @@ $default-set-name: 'mdi';
     }
   }
   // Include the base properties for this prefix.
-  [class^="#{$prefix}-"], [class*=" #{$prefix}-"] {
+  [class^="#{$prefix}-"], [class*=" #{$prefix}-"], .#{$prefix} {
     @include icon-style($set-name)
   }
 }

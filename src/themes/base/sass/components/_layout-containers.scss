@@ -12,6 +12,7 @@
       @include set-layout('width-sidebar-first', 'width');
       overflow-y: auto;
       z-index: $z-index-alpha;
+      @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
     }
     > .region-content-wrapper {
       @include set-layout('width-sidebar-first', 'margin-left');
@@ -30,11 +31,7 @@
 
 
 .region-content {
-  position: relative;
-  padding: 12px 12px 30px 12px;
-  .with-header & {
-    padding: 10px 20px 50px 20px;
-  }
+  @extend %region-content;
 }
 
 .content-container {

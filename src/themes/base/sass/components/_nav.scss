@@ -11,6 +11,7 @@ $width-nav-bar-closed: $size-region-unit;
   @include transition(all 0.3s linear);
   z-index: $z-index-gamma;
   @include set-layout('height-player', 'bottom');
+  @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
 
   #nav-header {
     height: 50px;

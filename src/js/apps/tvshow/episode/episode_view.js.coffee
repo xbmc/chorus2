@@ -11,7 +11,7 @@
     initialize: ->
       super
       if @model?
-        @model.set({label: @model.get('title'), subtitle: 'Episode ' + @model.get('episode')})
+        @model.set(@getMeta())
         @model.set({actions: {watched: 'Watched'}})
         @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
     attributes: ->
@@ -21,7 +21,14 @@
       {
         class: classes.join(' ')
       }
-
+    getMeta: ->
+      epNum = @themeTag('span', {class: 'ep-num'}, @model.get('season') + 'x' + @model.get('episode') + ' ')
+      epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.get('episode'))
+      showLink = @themeLink(@model.get('showtitle') + ' ', 'tvshow/' + @model.get('tvshowid'), {className: 'show-name'})
+      {
+        label: epNum + @model.get('title')
+        subtitle: showLink + epNumFull
+      }
 
   class Episode.Empty extends App.Views.EmptyView
     tagName: "li"

@@ -12,11 +12,11 @@
 
     initialize: ->
       super
-      @model.set({actions: {thumbs: 'Thumbs up'}})
-      artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
-      @model.set({menu: {add: 'Add to Kodi playlist', localadd: 'Add to local playlist', divider: '', localplay: 'Play in browser'}})
-      artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
-      @model.set subtitle: artistLink
+      if @model?
+        @model.set(App.request('album:action:items'))
+        artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
+        artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
+        @model.set subtitle: artistLink
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"

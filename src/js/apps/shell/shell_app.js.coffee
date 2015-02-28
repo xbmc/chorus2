@@ -52,18 +52,24 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
+      ## Library scans - not a fan of this living here!
+      ## TODO - find a better home.
+      App.listenTo shellLayout, "shell:audio:scan", =>
+        App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
+      App.listenTo shellLayout, "shell:video:scan", =>
+        App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
+
+      ## About.
+      App.listenTo shellLayout, "shell:about", =>
+        ## Trigger about popup.
+
 
       ## TESTINGS!
 
-      ## Get data
-#      entity = App.request "song:searchindex:entities", 'listname'
+#      ## Get data
+#      entity = App.request "channel:entities", 'alltv'
 #      App.execute "when:entity:fetched", entity, ->
-#        filtered = new App.Entities.Filtered(entity)
-#        filtered.filterByString('label', 'diplo')
-#        ids = filtered.pluck 'songid'
-#        loaded = App.request "song:byid:entities", ids
-#        App.execute "when:entity:fetched", loaded, ->
-#          console.log loaded
+#        console.log entity
 
 
     ## Alter region classes.

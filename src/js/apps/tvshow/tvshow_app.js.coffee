@@ -2,6 +2,7 @@
 	
   class TVShowApp.Router extends App.Router.Base
     appRoutes:
+      "tvshows/recent"   	                  : "landing"
       "tvshows"   	                        : "list"
       "tvshow/:tvshowid"	                  : "view"
       "tvshow/:tvshowid/:season"	          : "season"
@@ -9,8 +10,11 @@
 
   API =
 
+    landing: ->
+      new TVShowApp.Landing.Controller()
+
     list: ->
-      new TVShowApp.List.Controller
+      new TVShowApp.List.Controller()
 
     view: (tvshowid) ->
       new TVShowApp.Show.Controller

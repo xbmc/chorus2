@@ -25,6 +25,6 @@
 
     ## Callback for video stream popup
     videoStream: (file, player = 'html5') ->
-      st = window.open('about:blank', "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=545, top=100, left=100");
+      st = helpers.global.localVideoPopup 'about:blank'
       @downloadPath file, (path) ->
         st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path)

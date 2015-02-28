@@ -1,3 +1,45 @@
+window.JST["apps/album/landing/tpl/landing.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>Recently Added</h3>\n<div class="landing-section region-recently-added"></div>\n<h3>Recently Played</h3>\n<div class="landing-section region-recently-played"></div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/album/show/tpl/album_with_songs.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -193,7 +235,7 @@ window.JST["apps/browser/list/tpl/back_button.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<i class="thumb"></i><div class="title">'));
+      _print(_safe('<i class="mdi thumb"></i><div class="title">'));
     
       _print(t.gettext('Back'));
     
@@ -243,7 +285,7 @@ window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
     
       _print(this.thumbnail);
     
-      _print(_safe('\')"><div class="play"></div></div>\n<div class="title">'));
+      _print(_safe('\')"><div class="mdi play"></div></div>\n<div class="title">'));
     
       _print(this.label);
     
@@ -510,6 +552,56 @@ window.JST["apps/cast/list/tpl/cast.jst"] = function(__obj) {
       _print(this.role);
     
       _print(_safe('</span>\n    </div>\n</a>\n<ul class="actions">\n    <li class="imdb"></li>\n    <li class="google"></li>\n</ul>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/external/youtube/tpl/youtube.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" class="thumb" />\n<h3>'));
+    
+      _print(this.title);
+    
+      _print(_safe('</h3>\n<span class="play-kodi flat-btn action">Play in Kodi</span>\n<span class="play-local flat-btn action">Play in Browser</span>\n'));
     
     }).call(this);
     
@@ -986,6 +1078,48 @@ window.JST["apps/localPlaylist/list/tpl/playlist_sidebar_layout.jst"] = function
   })());
 };
 
+window.JST["apps/movie/landing/tpl/landing.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>Recently Added</h3>\n<div class="landing-section region-recently-added"></div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/movie/show/tpl/content.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -1395,11 +1529,11 @@ window.JST["apps/player/show/tpl/player.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb thumb">\n            <div class="remote-toggle"></div>\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
+      _print(_safe('<div class="player">\n\n    <div class="controls-primary">\n        <div class="controls-primary-buttons">\n            <div class="control control-prev"></div>\n            <div class="control control-play"></div>\n            <div class="control control-next"></div>\n        </div>\n    </div>\n\n    <div class="controls-secondary">\n        <div class="volume slider-bar"></div>\n        <div class="controls-secondary-buttons">\n            <div class="control control-mute"></div>\n            <div class="control control-repeat"></div>\n            <div class="control control-shuffle"></div>\n            <div class="control control-menu"></div>\n        </div>\n    </div>\n\n    <div class="now-playing">\n        <div class="playing-thumb thumb">\n            <div class="mdi remote-toggle"></div>\n        </div>\n        <div class="playing-info">\n            <div class="playing-progress slider-bar"></div>\n            <div class="playing-time">\n                <div class="playing-time-current">0</div>\n                <div class="playing-time-duration">0:00</div>\n            </div>\n            <div class="playing-meta">\n                <div class="playing-title">'));
     
       _print(t.gettext('Nothing playing'));
     
-      _print(_safe('</div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>'));
+      _print(_safe('</div>\n                <div class="playing-subtitle"></div>\n            </div>\n        </div>\n    </div>\n\n</div>\n'));
     
     }).call(this);
     
@@ -1503,7 +1637,7 @@ window.JST["apps/playlist/list/tpl/playlist_item.jst"] = function(__obj) {
     
       _print(this.thumbnail);
     
-      _print(_safe('\')">\n            <div class="play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+      _print(_safe('\')">\n            <div class="mdi play"></div>\n        </div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
     
       _print(this.url);
     
@@ -1524,6 +1658,56 @@ window.JST["apps/playlist/list/tpl/playlist_item.jst"] = function(__obj) {
       }
     
       _print(_safe('\n    </div>\n    <div class="remove"></div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/pvr/list/tpl/channel.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="play">\n    <div class="thumb">\n        <img src="'));
+    
+      _print(this.thumbnail);
+    
+      _print(_safe('" />\n    </div>\n    <div class="meta">\n        <strong>'));
+    
+      _print(this.label);
+    
+      _print(_safe('</strong>\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -1691,7 +1875,7 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="remote"></div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="remote"></div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n    <div class="player-menu-wrapper">\n        <ul class="player-menu">\n            <li class="video-scan">Scan Video Library</li>\n            <li class="audio-scan">Scan Audio Library</li>\n            <li class="about">About Chorus</li>\n        </ul>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -1741,7 +1925,7 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
     
       _print(this.track);
     
-      _print(_safe('</div>\n    <div class="play"></div>\n</td>\n<td class="cell-label song-title"><span class="crop">'));
+      _print(_safe('</div>\n    <div class="mdi play"></div>\n</td>\n<td class="cell-label song-title"><span class="crop">'));
     
       _print(this.label);
     
@@ -1757,7 +1941,7 @@ window.JST["apps/song/list/tpl/song.jst"] = function(__obj) {
     
       _print(this.displayDuration);
     
-      _print(_safe('</div>\n    <ul class="actions">\n        <li class="thumbs"></li>\n        <li class="add"></li>\n        <li class="menu dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu pull-right"></ul>\n        </li>\n    </ul>\n</td>'));
+      _print(_safe('</div>\n    <ul class="actions">\n        <li class="mdi thumbs"></li>\n        <li class="mdi add"></li>\n        <li class="menu dropdown">\n            <i data-toggle="dropdown" class="mdi"></i>\n            <ul class="dropdown-menu pull-right"></ul>\n        </li>\n    </ul>\n</td>'));
     
     }).call(this);
     
@@ -2040,6 +2224,48 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
       _print(t.gettext('Download'));
     
       _print(_safe('</li>\n    </ul>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/tvshow/landing/tpl/landing.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<h3>Recently Added</h3>\n<div class="landing-section region-recently-added"></div> '));
     
     }).call(this);
     
@@ -2407,23 +2633,23 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       _print(_safe('" class="thumb" title="'));
     
-      _print(this.label);
+      _print(helpers.global.stripTags(this.label));
     
       _print(_safe('" style="background-image: url(\''));
     
       _print(this.thumbnail);
     
-      _print(_safe('\')"></a>\n        <div class="play"></div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
+      _print(_safe('\')"></a>\n        <div class="mdi play"></div>\n    </div>\n    <div class="meta">\n        <div class="title"><a href="#'));
     
       _print(this.url);
     
       _print(_safe('" title="'));
     
-      _print(this.label);
+      _print(helpers.global.stripTags(this.label));
     
       _print(_safe('">'));
     
-      _print(this.label);
+      _print(_safe(this.label));
     
       _print(_safe('</a></div>\n        '));
     
@@ -2440,7 +2666,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
         _ref = this.actions;
         for (key in _ref) {
           val = _ref[key];
-          _print(_safe('<li class="'));
+          _print(_safe('<li class="mdi '));
           _print(key);
           _print(_safe('" title="'));
           _print(val);
@@ -2452,7 +2678,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
       _print(_safe('\n    '));
     
       if (this.menu) {
-        _print(_safe('\n        <div class="dropdown">\n            <i data-toggle="dropdown"></i>\n            <ul class="dropdown-menu"></ul>\n        </div>\n    '));
+        _print(_safe('\n        <div class="dropdown">\n            <i data-toggle="dropdown" class="mdi"></i>\n            <ul class="dropdown-menu"></ul>\n        </div>\n    '));
       }
     
       _print(_safe('\n    '));
@@ -2467,7 +2693,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
         _print(_safe('"></div></div>\n    '));
       }
     
-      _print(_safe('\n    <i class="watched-tick"></i>\n</div>'));
+      _print(_safe('\n    <i class="mdi watched-tick"></i>\n</div>'));
     
     }).call(this);
     

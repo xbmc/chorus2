@@ -12,7 +12,6 @@
       viewName = if set then 'ArtistsSet' else 'Artists'
       view = new List[viewName]
         collection: collection
-      console.log view
       API.bindTriggers view
       view
 

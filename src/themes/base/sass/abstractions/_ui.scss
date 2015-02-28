@@ -28,9 +28,9 @@
   @include overlay;
   @include icon-button-square($icon, $height);
   display: none;
+  color: $color-white;
+  font-size: $font-size;
   &:before {
-    color: $color-white;
-    font-size: $font-size;
     padding-right: 5px;
   }
 }

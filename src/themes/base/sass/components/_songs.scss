@@ -40,9 +40,9 @@ $row-action-width: $row-height - 10;
       text-align: center;
       cursor: pointer;
       display: none;
+      font-size: 200%;
       &:before {
         @include vertical-align-element();
-        font-size: 200%;
       }
       &:hover {
         color: $color-greyscale-outer-space;

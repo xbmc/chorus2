@@ -29,6 +29,6 @@ helpers.entities.playingLink = (model) ->
 ## Is watched
 helpers.entities.isWatched = (model) ->
   watched = false
-  if model.get('playcount')
+  if model? and model.get('playcount')
     watched = if model.get('playcount') > 0 then true else false
   watched

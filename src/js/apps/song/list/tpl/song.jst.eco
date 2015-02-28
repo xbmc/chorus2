@@ -2,7 +2,7 @@
     <div class="thumb" style="background-image: url('<%= @thumbnail %>')">
     </div>
     <div class="track"><%= @track %></div>
-    <div class="play"></div>
+    <div class="mdi play"></div>
 </td>
 <td class="cell-label song-title"><span class="crop"><%= @label %></span></td>
 <td class="cell-label song-artist"><a class="crop" href="#music/artist/<%= @artistid %>"><%= @artist %></a></td>
@@ -10,10 +10,10 @@
     <li class="thumbed-up"></li>
     <div class="duration"><%= @displayDuration %></div>
     <ul class="actions">
-        <li class="thumbs"></li>
-        <li class="add"></li>
+        <li class="mdi thumbs"></li>
+        <li class="mdi add"></li>
         <li class="menu dropdown">
-            <i data-toggle="dropdown"></i>
+            <i data-toggle="dropdown" class="mdi"></i>
             <ul class="dropdown-menu pull-right"></ul>
         </li>
     </ul>

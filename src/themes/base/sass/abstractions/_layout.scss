@@ -34,3 +34,14 @@
     }
   }
 }
+
+@mixin region-content() {
+  position: relative;
+  padding: 12px 12px 30px 12px;
+  .with-header & {
+    padding: 10px 20px 50px 20px;
+  }
+}
+%region-content {
+  @include region-content();
+}

@@ -26,6 +26,12 @@
       collection.fetch options
       collection
 
+    ## Fetch a recent entity collection.
+    getRecentlyAddedCollection: (options) ->
+      collection = new KodiEntities.MovieRecentlyAddedCollection()
+      collection.fetch options
+      collection
+
   ###
    Models and collections.
   ###
@@ -52,6 +58,13 @@
     arg3: -> @argSort("title", "ascending")
     parse: (resp, xhr) -> @getResult resp, 'movies'
 
+  ## Movies collection
+  class KodiEntities.MovieRecentlyAddedCollection extends App.KodiEntities.Collection
+    model: KodiEntities.Movie
+    methods: read: ['VideoLibrary.GetRecentlyAddedMovies', 'arg1', 'arg2']
+    arg1: -> helpers.entities.getFields(API.fields, 'small')
+    arg2: -> @argLimit()
+    parse: (resp, xhr) -> @getResult resp, 'movies'
 
   ## Filtered Movie collection
   class KodiEntities.MovieFilteredCollection extends KodiEntities.MovieCollection
@@ -69,6 +82,10 @@
   ## Get an movie collection
   App.reqres.setHandler "movie:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get an movie collection
+  App.reqres.setHandler "movie:recentlyadded:entities", (options = {}) ->
+    API.getRecentlyAddedCollection options
 
   ## Get a search collection
   App.commands.setHandler "movie:search:entities", (query, limit, callback) ->

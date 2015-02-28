@@ -1,27 +1,27 @@
 <div class="card-<%= @type %>">
     <div class="artwork">
-        <a href="#<%= @url %>" class="thumb" title="<%= @label %>" style="background-image: url('<%= @thumbnail %>')"></a>
-        <div class="play"></div>
+        <a href="#<%= @url %>" class="thumb" title="<%= helpers.global.stripTags(@label) %>" style="background-image: url('<%= @thumbnail %>')"></a>
+        <div class="mdi play"></div>
     </div>
     <div class="meta">
-        <div class="title"><a href="#<%= @url %>" title="<%= @label %>"><%= @label %></a></div>
+        <div class="title"><a href="#<%= @url %>" title="<%= helpers.global.stripTags(@label) %>"><%- @label %></a></div>
         <% if @subtitle?: %>
             <div class="subtitle"><%- @subtitle %></div>
         <% end %>
     </div>
     <% if @actions: %>
         <ul class="actions">
-            <% for key, val of @actions: %><li class="<%= key %>" title="<%= val %>"></li><% end %>
+            <% for key, val of @actions: %><li class="mdi <%= key %>" title="<%= val %>"></li><% end %>
         </ul>
     <% end %>
     <% if @menu: %>
         <div class="dropdown">
-            <i data-toggle="dropdown"></i>
+            <i data-toggle="dropdown" class="mdi"></i>
             <ul class="dropdown-menu"></ul>
         </div>
     <% end %>
     <% if @progress: %>
         <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
     <% end %>
-    <i class="watched-tick"></i>
+    <i class="mdi watched-tick"></i>
 </div>

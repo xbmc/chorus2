@@ -5,9 +5,7 @@
       background: $background;
     }
     #logo {
-      &:before {
-        color: $brand-color;
-      }
+      color: $brand-color;
     }
     #nav-bar #nav-header {
       background: $background;

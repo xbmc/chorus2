@@ -106,3 +106,18 @@ helpers.global.hash = (op, value) ->
 ## Round the rating
 helpers.global.rating = (rating) ->
   Math.round(rating * 10) / 10
+
+## Set the title
+helpers.global.appTitle = (playingItem = false) ->
+  titlePrefix = ''
+  if _.isObject(playingItem) and playingItem.label?
+    titlePrefix = '▶ ' + playingItem.label + ' | '
+  document.title = titlePrefix + config.get('static', 'appTitle')
+
+## Open the local video player window
+helpers.global.localVideoPopup = (path, height = 545) ->
+  window.open(path, "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=#{height}, top=100, left=100");
+
+## Strip tags from a string
+helpers.global.stripTags = (string) ->
+  string.replace(/(<([^>]+)>)/ig,"");

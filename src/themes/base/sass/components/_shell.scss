@@ -32,15 +32,15 @@ body.model-open {
   z-index: $z-index-delta;
   -webkit-perspective: 1000;
   overflow: hidden;
+  text-align: center;
+  color: $color-brand-primary;
+  font-size: 2em;
+  @extend %icon-style--icomoon;
+  .loading & {
+    @include pulsate;
+  }
   &:before {
     @include vertical-align-element();
-    text-align: center;
-    color: $color-brand-primary;
-    font-size: 2em;
-    z-index: $z-index-delta;
-    .loading & {
-      @include pulsate;
-    }
   }
 }
 

@@ -87,5 +87,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "episode:list:view", (collection) ->
-    collection.sortCollection('episode', 'asc')
     API.getEpisodeList collection

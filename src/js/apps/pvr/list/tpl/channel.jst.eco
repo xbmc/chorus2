@@ -1,0 +1,8 @@
+<div class="play">
+    <div class="thumb">
+        <img src="<%= @thumbnail %>" />
+    </div>
+    <div class="meta">
+        <strong><%= @label %></strong>
+    </div>
+</div>

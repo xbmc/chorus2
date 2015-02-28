@@ -19,6 +19,8 @@
         @localPlaySong item.model
       App.listenTo @songsView, 'childview:song:download', (list, item) =>
         @downloadSong item.model
+      App.listenTo @songsView, 'childview:song:musicvideo', (list, item) =>
+        @musicVideo item.model
 
       ## Potentially one of the songs could be playing so trigger a content state update
       App.listenTo @songsView, "show", ->
@@ -50,6 +52,13 @@
       files = App.request "command:kodi:controller", 'video', 'Files'
       files.downloadFile model.get('file')
 
+    ## Search youtube for a music video
+    musicVideo: (model) ->
+      query = model.get('label') + ' ' + model.get('artist')
+      App.execute "youtube:search:view", query, (view) ->
+        $footer = $('<a>', {class: 'btn btn-primary', href: 'https://www.youtube.com/results?search_query=' + query, target: '_blank'})
+        $footer.html('More videos')
+        App.execute "ui:modal:show", query, view.render().$el, $footer
 
   ## handler for other modules to get a songs view.
   App.reqres.setHandler "song:list:view", (songs, verbose = false) ->

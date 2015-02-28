@@ -2,6 +2,7 @@
 @helpers = {}
 @config = {
   static:
+    appTitle: 'Kodi.'
     jsonRpcEndpoint: 'jsonrpc'
     socketsHost: location.hostname
     socketsPort: 9090
@@ -26,7 +27,6 @@
   ## Load custom config settings.
   App.on "before:start", ->
     config.static = _.extend config.static, config.get('app', 'config:local', config.static)
-    console.log config.static
 
   App.vent.on "shell:ready", (options) =>
     App.startHistory()

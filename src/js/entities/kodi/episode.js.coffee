@@ -27,6 +27,11 @@
       collection.fetch options
       collection
 
+    ## Fetch a recently added entity collection.
+    getRecentlyAddedCollection: (options) ->
+      collection = new KodiEntities.EpisodeRecentlyAddedCollection()
+      collection.fetch options
+      collection
 
   ###
    Models and collections.
@@ -56,6 +61,14 @@
     arg5: -> @argSort("episode", "ascending")
     parse: (resp, xhr) -> @getResult resp, 'episodes'
 
+  ## Episodes collection
+  class KodiEntities.EpisodeRecentlyAddedCollection extends App.KodiEntities.Collection
+    model: KodiEntities.Episode
+    methods: read: ['VideoLibrary.GetRecentlyAddedEpisodes', 'arg1', 'arg2']
+    arg1: -> helpers.entities.getFields(API.fields, 'small')
+    arg2: -> @argLimit()
+    parse: (resp, xhr) -> @getResult resp, 'episodes'
+
 
   ###
    Request Handlers.
@@ -70,3 +83,7 @@
     options.tvshowid = tvshowid
     options.season = season
     API.getCollection options
+
+  ## Get a recently added episode collection
+  App.reqres.setHandler "episode:recentlyadded:entities", (options = {}) ->
+    API.getRecentlyAddedCollection options
