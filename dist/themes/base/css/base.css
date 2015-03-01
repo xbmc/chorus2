@@ -8249,7 +8249,7 @@ button.close {
 }
 
 /* line 6, ../../../../src/themes/base/sass/libs/bootstrap-material-design/_shadows.scss */
-.shadow-z-2, .well, .jumbotron, .btn-raised, .btn-group, .btn-group-vertical, .btn-group.btn-group-raised, .btn-group-vertical.btn-group-raised, .modal-content, #nav-bar:hover, #nav-bar.nav-open {
+.shadow-z-2, .well, .jumbotron, .btn-raised, .btn-group, .btn-group-vertical, .btn-group.btn-group-raised, .btn-group-vertical.btn-group-raised, .modal-content {
   box-shadow: 0 0px 14px -5px rgba(0, 0, 0, 0.06), 0 6px 12px -6px rgba(0, 0, 0, 0.13);
 }
 
@@ -18754,7 +18754,6 @@ form .inline-list .response {
   position: fixed;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
   -webkit-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -18794,61 +18793,55 @@ form .inline-list .response {
   display: block;
   padding: 0.5em 0;
   color: #2b2f30;
-  text-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  white-space: nowrap;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
 }
-/* line 30, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar nav ul a:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: #12b2e7;
-}
-/* line 33, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar nav ul a:hover i {
-  color: #12b2e7;
-}
-/* line 37, ../../../../src/themes/base/sass/components/_nav.scss */
+/* line 32, ../../../../src/themes/base/sass/components/_nav.scss */
 #nav-bar nav ul a span {
   display: none;
+  padding-right: 1em;
+  font-weight: bold;
+  padding-top: 2px;
 }
-/* line 40, ../../../../src/themes/base/sass/components/_nav.scss */
+/* line 38, ../../../../src/themes/base/sass/components/_nav.scss */
 #nav-bar nav ul a i {
   font-size: 130%;
+  width: 50px;
+  text-align: center;
 }
-/* line 44, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar nav ul i {
-  margin-right: 0.25em;
+/* line 42, ../../../../src/themes/base/sass/components/_nav.scss */
+#nav-bar nav ul a i:before {
+  top: 10px;
+  left: 16px;
+  position: absolute;
 }
-/* line 47, ../../../../src/themes/base/sass/components/_nav.scss */
+/* line 50, ../../../../src/themes/base/sass/components/_nav.scss */
 #nav-bar nav ul ul {
   display: none;
 }
-/* line 55, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover, #nav-bar.nav-open {
-  width: 200px;
-  overflow-x: hidden;
+/* line 53, ../../../../src/themes/base/sass/components/_nav.scss */
+#nav-bar nav ul li {
+  position: relative;
+  height: 38px;
 }
-/* line 61, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover ul li, #nav-bar.nav-open ul li {
-  width: 200px;
-}
-/* line 64, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover ul a, #nav-bar.nav-open ul a {
-  padding: 0.5em 1.5em;
-  text-align: left;
+/* line 56, ../../../../src/themes/base/sass/components/_nav.scss */
+#nav-bar nav ul li:hover {
   white-space: nowrap;
 }
-/* line 68, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover ul a span, #nav-bar.nav-open ul a span {
+/* line 58, ../../../../src/themes/base/sass/components/_nav.scss */
+#nav-bar nav ul li:hover a {
+  background: #12b2e7;
+  color: white;
+}
+/* line 61, ../../../../src/themes/base/sass/components/_nav.scss */
+#nav-bar nav ul li:hover a span {
   display: inline-block;
-}
-/* line 72, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover ul ul, #nav-bar.nav-open ul ul {
-  padding-bottom: 0.5em;
-}
-/* line 74, ../../../../src/themes/base/sass/components/_nav.scss */
-#nav-bar:hover ul ul a, #nav-bar.nav-open ul ul a {
-  padding-left: 4em;
-  color: #888888;
-  font-size: 90%;
 }
 
 /* line 1, ../../../../src/themes/base/sass/components/_player.scss */
@@ -20527,7 +20520,6 @@ body.model-open {
 #fanart,
 #fanart-overlay {
   top: 50px;
-  right: 0;
   bottom: 0;
   left: 50px;
   position: fixed;
@@ -20538,6 +20530,30 @@ body.model-open {
   #fanart,
   #fanart-overlay {
     bottom: 70px;
+  }
+}
+@media (min-width: 45em) {
+  /* line 48, ../../../../src/themes/base/sass/components/_shell.scss */
+  #fanart,
+  #fanart-overlay {
+    right: 250px;
+  }
+  /* line 29, ../../../../src/themes/base/sass/abstractions/_layout.scss */
+  .shell-playlist-closed #fanart, .shell-playlist-closed
+  #fanart-overlay {
+    right: 50px;
+  }
+}
+@media (min-width: 75em) {
+  /* line 48, ../../../../src/themes/base/sass/components/_shell.scss */
+  #fanart,
+  #fanart-overlay {
+    right: 395px;
+  }
+  /* line 29, ../../../../src/themes/base/sass/abstractions/_layout.scss */
+  .shell-playlist-closed #fanart, .shell-playlist-closed
+  #fanart-overlay {
+    right: 50px;
   }
 }
 

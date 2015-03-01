@@ -47,9 +47,9 @@ body.model-open {
 // Fanart and its overlay.
 #fanart,
 #fanart-overlay {
-  @include set-position-fixed(top $size-region-unit left $size-region-unit right 0 bottom 0);
+  @include set-position-fixed(top $size-region-unit left $size-region-unit bottom 0);
   @include set-layout('height-player', 'bottom');
-
+  @include set-layout('width-playlist', 'right');
 }
 #fanart {
   background-color: $color-background;

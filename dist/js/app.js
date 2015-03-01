@@ -9052,7 +9052,7 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
   API = {
     imagesPath: 'dist/images/',
     defaultFanartPath: 'fanart_default/',
-    defaultFanartFiles: ['wallpaper-443657.jpg', 'wallpaper-45040.jpg', 'wallpaper-765190.jpg', 'wallpaper-84050.jpg'],
+    defaultFanartFiles: ['buds.jpg', 'cans.jpg', 'guitar.jpg', 'speaker.jpg', 'turntable.jpg'],
     getDefaultThumbnail: function() {
       return API.imagesPath + 'thumbnail_default.png';
     },
@@ -11770,7 +11770,7 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
         return function(state) {
           var stateObj;
           stateObj = App.request("state:current");
-          if (stateObj.isPlayingItemChanged()) {
+          if (stateObj.isPlayingItemChanged() && helpers.url.arg(0) === '') {
             return _this.setFanart();
           }
         };

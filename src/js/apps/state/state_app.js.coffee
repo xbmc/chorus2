@@ -26,7 +26,6 @@
       newClasses.push ( 'mute-' + (if stateObj.getState('muted') then 'on' else 'off')  )
       newClasses.push ( 'repeat-' + stateObj.getState('repeat') )
       newClasses.push ( 'media-' + stateObj.getState('media') )
-
       if stateObj.isPlaying()
         newClasses.push ( stateObj.getPlaying('playState') )
       else

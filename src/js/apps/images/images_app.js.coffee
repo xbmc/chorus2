@@ -7,10 +7,11 @@
     defaultFanartPath: 'fanart_default/'
 
     defaultFanartFiles: [
-      'wallpaper-443657.jpg'
-      'wallpaper-45040.jpg'
-      'wallpaper-765190.jpg'
-      'wallpaper-84050.jpg'
+      'buds.jpg'
+      'cans.jpg'
+      'guitar.jpg'
+      'speaker.jpg'
+      'turntable.jpg'
     ]
 
     getDefaultThumbnail: ->
