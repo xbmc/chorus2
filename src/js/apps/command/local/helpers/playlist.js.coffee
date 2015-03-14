@@ -17,6 +17,8 @@
 
     ## Play a collection of song models.
     playCollection: (models) ->
+      if _.isObject models
+        models = models.getRawCollection()
       ## TODO: Add logic for if something is alreadly playing (like kodi controller)
       @clear =>
         @insertAndPlay models, 0

@@ -13,10 +13,12 @@
 
       App.regionContent.show @layout
 
+    ## Get the layout
     getLayoutView: (collection) ->
       new List.ListLayout
         collection: collection
 
+    ## Get the sidebar list
     getListsView: (playlists) ->
       @sideLayout = new List.SideLayout()
       view = new List.Lists
@@ -28,6 +30,7 @@
         App.execute "localplaylist:newlist"
       @layout.regionSidebarFirst.show @sideLayout
 
+    ## Get items then render
     getItems: (id) ->
       playlist = App.request "localplaylist:entity", id
       collection = App.request "localplaylist:item:entities", id
@@ -38,7 +41,12 @@
         if collection.length > 0
           view = App.request "#{media}:list:view", collection, true
           @itemLayout.regionListItems.show view
-      ## Binds
+      @bindLayout id
+      @layout.regionContent.show @itemLayout
+
+    ## Binds
+    bindLayout: (id) ->
+      collection = App.request "localplaylist:item:entities", id
       App.listenTo @itemLayout, 'list:clear', ->
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:reload", id
@@ -49,4 +57,6 @@
       App.listenTo @itemLayout, 'list:play', ->
         kodiPlaylist = App.request "command:kodi:controller", 'audio', 'PlayList'
         kodiPlaylist.playCollection(collection)
-      @layout.regionContent.show @itemLayout
+      App.listenTo @itemLayout, 'list:localplay', ->
+        localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
+        localPlaylist.playCollection(collection)

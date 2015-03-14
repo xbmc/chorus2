@@ -21206,15 +21206,23 @@ body.model-open {
 .songs-table.verbose tr.song.local-row-playing .play, .songs-table.verbose tr.song.local-row-paused .play, .songs-table.verbose tr.song.kodi-row-playing .play, .songs-table.verbose tr.song.kodi-row-paused .play {
   display: none;
 }
-/* line 168, ../../../../src/themes/base/sass/components/_songs.scss */
-.songs-table.verbose tr.song.local-row-playing .thumb, .songs-table.verbose tr.song.kodi-row-playing .thumb {
+/* line 167, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.kodi-row-playing .thumb {
   background-image: url('../images/row-playing-blue.gif?1423480525') !important;
 }
-/* line 175, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 172, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-playing .thumb {
+  background-image: url('../images/row-playing-pink.gif?1424158169') !important;
+}
+/* line 177, ../../../../src/themes/base/sass/components/_songs.scss */
+.songs-table.verbose tr.song.local-row-paused .thumb {
+  background-image: url('../images/row-pause-pink.png?1424158216') !important;
+}
+/* line 184, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table.basic .thumb {
   display: none;
 }
-/* line 180, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 189, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-playing,
 .songs-table .local-row-paused,
 .songs-table .kodi-row-playing,
@@ -21222,9 +21230,9 @@ body.model-open {
   background: rgba(255, 255, 255, 0.9) !important;
 }
 /* line 7, ../../../../src/themes/base/sass/abstractions/_text.scss */
-.region-album-songs .songs-table .local-row-playing td .crop:after, .region-album-songs
-.songs-table .local-row-paused td .crop:after, .region-album-songs
-.songs-table .kodi-row-playing td .crop:after, .region-album-songs
+.songs-table .local-row-playing td .crop:after,
+.songs-table .local-row-paused td .crop:after,
+.songs-table .kodi-row-playing td .crop:after,
 .songs-table .kodi-row-paused td .crop:after {
   content: "";
   *zoom: 1;
@@ -21241,7 +21249,7 @@ body.model-open {
   position: absolute;
   width: 1.5em;
 }
-/* line 190, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 197, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-playing .track,
 .songs-table .local-row-paused .track,
 .songs-table .kodi-row-playing .track,
@@ -21249,16 +21257,16 @@ body.model-open {
   background: url('../images/row-pause-blue.png?1423480412') 50% 50% no-repeat;
   text-indent: -99999px;
 }
-/* line 196, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 203, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-paused .track {
   background: url('../images/row-pause-pink.png?1424158216') 50% 50% no-repeat;
 }
-/* line 202, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 209, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-playing .track,
 .songs-table .kodi-row-playing .track {
   background-image: url('../images/row-playing-blue.gif?1423480525');
 }
-/* line 207, ../../../../src/themes/base/sass/components/_songs.scss */
+/* line 214, ../../../../src/themes/base/sass/components/_songs.scss */
 .songs-table .local-row-playing .track {
   background-image: url('../images/row-playing-pink.gif?1424158169');
 }

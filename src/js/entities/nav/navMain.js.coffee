@@ -22,7 +22,7 @@
       nav.push {id: 2, title: "Recent", path: 'music', icon: '', classes: '', parent: 1}
       nav.push {id: 3, title: "Artists", path: 'music/artists', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: "Albums", path: 'music/albums', icon: '', classes: '', parent: 1}
-      nav.push {id: 5, title: "Digital Radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1}
+      nav.push {id: 5, title: "Digital Radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
 
       ## Movies.
       nav.push {id: 11, title: "Movies", path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
@@ -33,7 +33,7 @@
       nav.push {id: 21, title: "TV Shows", path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
       nav.push {id: 22, title: "Recent Episodes", path: 'tvshows/recent', icon: '', classes: '', parent: 21}
       nav.push {id: 23, title: "All TVShows", path: 'tvshows', icon: '', classes: '', parent: 21}
-      nav.push {id: 24, title: "Live TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21}
+      nav.push {id: 24, title: "Live TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21, visibility: "addon:pvr:enabled"}
 
       ## Browser.
       nav.push {id: 31, title: "Browser", path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
@@ -47,13 +47,28 @@
       nav.push {id: 52, title: "Web Settings", path: 'settings/web', icon: '', classes: '', parent: 51}
       nav.push {id: 53, title: "Kodi Settings", path: 'settings/kodi', icon: '', classes: '', parent: 51}
 
-      nav
+      @checkVisibility nav
 
+    ## Nav items can have a visibility property, if this is set, the request handler
+    ## is called for that value which should return true or false depending if that
+    ## item is visible.  eg. pvr links check if pvr is enabled.
+    checkVisibility: (items) ->
+      newItems = []
+      for item in items
+        if item.visibility?
+          if App.request item.visibility
+            newItems.push item
+        else
+          newItems.push item
+      newItems
+
+    ## Get a full standard structure
     getDefaultStructure: ->
       navParsed = @sortStructure @getItems()
       navCollection = new Entities.NavMainCollection navParsed
       navCollection
 
+    ## Get only child items from a given parent
     getChildStructure: (parentId) ->
       nav = @getItems()
       parent = _.findWhere nav, {id: parentId}

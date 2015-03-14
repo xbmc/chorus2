@@ -19,7 +19,8 @@ this.config = {
     pollInterval: 10000,
     albumAtristsOnly: true,
     searchIndexCacheExpiry: 24 * 60 * 60,
-    collectionCacheExpiry: 7 * 24 * 60 * 60
+    collectionCacheExpiry: 7 * 24 * 60 * 60,
+    addOnsLoaded: false
   }
 };
 
@@ -716,8 +717,11 @@ $.fn.resizeStopped = function(callback) {
 };
 
 $(document).ready(function() {
-  return $('.dropdown li').on('click', function() {
+  $('.dropdown li').on('click', function() {
     return $(this).closest('.dropdown').removeClass('open');
+  });
+  return $('.dropdown').on('click', function() {
+    return $(this).removeClass('open').trigger('hide.bs.dropdown');
   });
 });
 
@@ -4374,7 +4378,8 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         path: 'music/radio',
         icon: '',
         classes: 'pvr-link',
-        parent: 1
+        parent: 1,
+        visibility: "addon:pvr:enabled"
       });
       nav.push({
         id: 11,
@@ -4430,7 +4435,8 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         path: 'tvshows/live',
         icon: '',
         classes: 'pvr-link',
-        parent: 21
+        parent: 21,
+        visibility: "addon:pvr:enabled"
       });
       nav.push({
         id: 31,
@@ -4480,7 +4486,22 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         classes: '',
         parent: 51
       });
-      return nav;
+      return this.checkVisibility(nav);
+    },
+    checkVisibility: function(items) {
+      var item, newItems, _i, _len;
+      newItems = [];
+      for (_i = 0, _len = items.length; _i < _len; _i++) {
+        item = items[_i];
+        if (item.visibility != null) {
+          if (App.request(item.visibility)) {
+            newItems.push(item);
+          }
+        } else {
+          newItems.push(item);
+        }
+      }
+      return newItems;
     },
     getDefaultStructure: function() {
       var navCollection, navParsed;
@@ -5320,6 +5341,45 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
     return Groups;
 
   })(App.Views.CollectionView);
+});
+
+this.Kodi.module("AddonApp", function(AddonApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    addonController: function() {
+      return App.request("command:kodi:controller", 'auto', 'AddOn');
+    },
+    getEnabledAddons: function(callback) {
+      return this.addonController().getEnabledAddons(callback);
+    }
+  };
+  return App.on("before:start", function() {
+    return API.getEnabledAddons(function(resp) {
+      config.set("static", "addOnsEnabled", resp);
+      return config.set("static", "addOnsLoaded", true);
+    });
+  });
+});
+
+this.Kodi.module("AddonApp.Pvr", function(Pvr, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    pvrEnabled: function() {
+      var addons, enabled, pvrClients;
+      enabled = false;
+      if (config.get("static", "addOnsLoaded", false)) {
+        addons = config.get("static", "addOnsEnabled", []);
+        pvrClients = _.findWhere(addons, {
+          type: 'xbmc.pvrclient'
+        });
+        enabled = pvrClients != null ? true : false;
+      }
+      return enabled;
+    }
+  };
+  return App.reqres.setHandler("addon:pvr:enabled", function() {
+    return API.pvrEnabled();
+  });
 });
 
 this.Kodi.module("AlbumApp", function(AlbumApp, App, Backbone, Marionette, $, _) {
@@ -7173,6 +7233,43 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
 });
 
 this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.AddOn = (function(_super) {
+    __extends(AddOn, _super);
+
+    function AddOn() {
+      return AddOn.__super__.constructor.apply(this, arguments);
+    }
+
+    AddOn.prototype.commandNameSpace = 'Addons';
+
+    AddOn.prototype.getAddons = function(type, enabled, callback) {
+      if (type == null) {
+        type = "unknown";
+      }
+      if (enabled == null) {
+        enabled = true;
+      }
+      return this.singleCommand(this.getCommand('GetAddons'), [type, "unknown", enabled], (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp.addons);
+        };
+      })(this));
+    };
+
+    AddOn.prototype.getEnabledAddons = function(callback) {
+      return this.getAddons("unknown", true, (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    return AddOn;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   return Api.Application = (function(_super) {
     __extends(Application, _super);
 
@@ -7954,6 +8051,9 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     };
 
     PlayList.prototype.playCollection = function(models) {
+      if (_.isObject(models)) {
+        models = models.getRawCollection();
+      }
       return this.clear((function(_this) {
         return function() {
           return _this.insertAndPlay(models, 0);
@@ -9496,6 +9596,13 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
           }
         };
       })(this));
+      this.bindLayout(id);
+      return this.layout.regionContent.show(this.itemLayout);
+    };
+
+    Controller.prototype.bindLayout = function(id) {
+      var collection;
+      collection = App.request("localplaylist:item:entities", id);
       App.listenTo(this.itemLayout, 'list:clear', function() {
         App.execute("localplaylist:clear:entities", id);
         return App.execute("localplaylist:reload", id);
@@ -9512,7 +9619,11 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
         kodiPlaylist = App.request("command:kodi:controller", 'audio', 'PlayList');
         return kodiPlaylist.playCollection(collection);
       });
-      return this.layout.regionContent.show(this.itemLayout);
+      return App.listenTo(this.itemLayout, 'list:localplay', function() {
+        var localPlaylist;
+        localPlaylist = App.request("command:local:controller", 'audio', 'PlayList');
+        return localPlaylist.playCollection(collection);
+      });
     };
 
     return Controller;
@@ -9676,7 +9787,8 @@ this.Kodi.module("localPlaylistApp.List", function(List, App, Backbone, Marionet
     Layout.prototype.triggers = {
       'click .local-playlist-header .clear': 'list:clear',
       'click .local-playlist-header .delete': 'list:delete',
-      'click .local-playlist-header .play': 'list:play'
+      'click .local-playlist-header .play': 'list:play',
+      'click .local-playlist-header .localplay': 'list:localplay'
     };
 
     Layout.prototype.onRender = function() {

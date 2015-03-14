@@ -163,10 +163,19 @@ $row-action-width: $row-height - 10;
           display: none;
         }
       }
-      &.local-row-playing,
       &.kodi-row-playing {
         .thumb {
           background-image: image-url('row-playing-blue.gif') !important;
+        }
+      }
+      &.local-row-playing {
+        .thumb {
+          background-image: image-url('row-playing-pink.gif') !important;
+        }
+      }
+      &.local-row-paused {
+        .thumb {
+          background-image: image-url('row-pause-pink.png') !important;
         }
       }
     }
@@ -183,9 +192,7 @@ $row-action-width: $row-height - 10;
   .kodi-row-paused {
     background: rgba($color-white, 0.9) !important;
     td .crop {
-      .region-album-songs & {
-        @include text-fade($color-white);
-      }
+      @include text-fade($color-white);
     }
     .track {
       background: image-url('row-pause-blue.png') 50% 50% no-repeat;

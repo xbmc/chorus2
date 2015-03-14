@@ -41,3 +41,5 @@ $(document).ready ->
   ## Hide dropdowns on click of item - why doesnt it do this already????
   $('.dropdown li').on 'click', ->
     $(@).closest('.dropdown').removeClass('open')
+  $('.dropdown').on 'click', ->
+    $(@).removeClass('open').trigger('hide.bs.dropdown')
