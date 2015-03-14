@@ -4,9 +4,13 @@
 
     bindTriggers: (view) ->
       App.listenTo view, 'childview:artist:play', (list, item) ->
-        App.execute 'artist:action', 'play', item.model
+        App.execute 'artist:action', 'play', item
       App.listenTo view, 'childview:artist:add', (list, item) ->
-        App.execute 'artist:action', 'add', item.model
+        App.execute 'artist:action', 'add', item
+      App.listenTo view, 'childview:artist:localadd', (list, item) ->
+        App.execute 'artist:action', 'localadd', item
+      App.listenTo view, 'childview:artist:localplay', (list, item) ->
+        App.execute 'artist:action', 'localplay', item
 
     getArtistList: (collection, set = false) ->
       viewName = if set then 'ArtistsSet' else 'Artists'

@@ -23,16 +23,14 @@
       playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
       switch op
         when 'play'
-          playlist.play 'albumid', model.get('albumid')
+          App.execute "command:audio:play", 'albumid', model.get('albumid')
         when 'add'
           playlist.add 'albumid', model.get('albumid')
         when 'localadd'
           App.execute "localplaylist:addentity", 'albumid', model.get('albumid')
         when 'localplay'
           localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
-          songs = App.request "song:filtered:entities", {filter: {albumid: model.get('albumid')}}
-          App.execute "when:entity:fetched", songs, =>
-            localPlaylist.play songs.getRawCollection()
+          localPlaylist.play 'albumid', model.get('albumid')
         else
         ## nothing
 

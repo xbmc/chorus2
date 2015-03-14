@@ -30,14 +30,15 @@
 
     getItems: (id) ->
       playlist = App.request "localplaylist:entity", id
+      collection = App.request "localplaylist:item:entities", id
       @itemLayout = new List.Layout
         list: playlist
       App.listenTo @itemLayout, "show", =>
         media = playlist.get('media')
-        collection = App.request "localplaylist:item:entities", id
         if collection.length > 0
           view = App.request "#{media}:list:view", collection, true
           @itemLayout.regionListItems.show view
+      ## Binds
       App.listenTo @itemLayout, 'list:clear', ->
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:reload", id
@@ -45,4 +46,7 @@
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:remove:entity", id
         App.navigate "playlists", {trigger: true}
+      App.listenTo @itemLayout, 'list:play', ->
+        kodiPlaylist = App.request "command:kodi:controller", 'audio', 'PlayList'
+        kodiPlaylist.playCollection(collection)
       @layout.regionContent.show @itemLayout

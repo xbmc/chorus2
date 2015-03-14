@@ -14,7 +14,6 @@
       @localLoad model, =>
         @localPlay()
         ## Start playback of playlist position x
-        console.log 'playing..', model
         @doCallback callback, position
 
     ## Mimics Kodi Player Commands.

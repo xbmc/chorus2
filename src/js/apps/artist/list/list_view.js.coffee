@@ -7,11 +7,13 @@
     triggers:
       "click .play" : "artist:play"
       "click .dropdown .add" : "artist:add"
+      "click .dropdown .localadd" : "artist:localadd"
+      "click .dropdown .localplay" : "artist:localplay"
+
     initialize: ->
       super
       if @model?
-        @model.set({actions: {thumbs: 'Thumbs up'}})
-        @model.set({menu: {add: 'Add to Kodi playlist', savelist: 'Add to local playlist', divider: '', localplay: 'Play in browser'}})
+        @model.set(App.request('album:action:items'))
 
   class List.Empty extends App.Views.EmptyView
     tagName: "li"

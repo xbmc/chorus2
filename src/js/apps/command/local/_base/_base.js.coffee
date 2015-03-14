@@ -102,7 +102,6 @@
 
     ## Go to next/prev item adhering to repeat and shuffle
     localGoTo: (param) ->
-      console.log 'localGoto', param
       ## Get current playlist and state
       collection = App.request "localplayer:get:entities"
       stateObj = App.request "state:local"

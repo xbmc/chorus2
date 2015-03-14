@@ -57,6 +57,7 @@
     triggers:
       'click .local-playlist-header .clear' : 'list:clear'
       'click .local-playlist-header .delete' : 'list:delete'
+      'click .local-playlist-header .play' : 'list:play'
     onRender: ->
       if @options and @options.list
         $('h2', @$el).html( @options.list.get('name') )

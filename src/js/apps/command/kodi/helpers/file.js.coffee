@@ -9,7 +9,6 @@
     ## Prepare a file for download
     prepareDownload: (file, callback) ->
       @singleCommand @getCommand('PrepareDownload'), [file], (resp) =>
-        console.log resp
         @doCallback callback, resp
 
     ## Returns a download path for a file

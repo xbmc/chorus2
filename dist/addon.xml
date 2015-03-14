@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
-  id="webinterface.kodi.dev"
+  id="webinterface.kodi"
   version="1.0.0"
-  name="Default Web Interface Dev"
+  name="Kodi Web Interface"
   provider-name="jez500">
   <requires>
     <import addon="xbmc.gui" version="4.0.0"/>
     <import addon="xbmc.json" version="6.0.0" />
   </requires>
-  <extension
-    point="xbmc.gui.webinterface"/>
+  <extension point="xbmc.gui.webinterface"/>
+  <extension point="xbmc.webinterface"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Default Web Interface Dev</summary>
     <description lang="en">Only use this version for dev, see dist folder for production ready</description>

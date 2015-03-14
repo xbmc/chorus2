@@ -1,5 +1,12 @@
 @Kodi.module "CommandApp", (CommandApp, App, Backbone, Marionette, $, _) ->
 
+  API =
+    ## Return current playlist controller.
+    currentAudioPlaylistController: ->
+      stateObj = App.request "state:current"
+      App.request "command:" + stateObj.getPlayer() + ":controller", 'audio', 'PlayList'
+
+
   ###
     Kodi.
   ###
@@ -26,6 +33,17 @@
   App.reqres.setHandler "command:local:controller", (media = 'auto', controller) ->
     new CommandApp.Local[controller](media)
 
+  ###
+    Wrappers single command for playing in kodi and local.
+  ###
+
+  ## Play Audio in kodi or local depending on active player.
+  App.commands.setHandler "command:audio:play", (type, value) ->
+    API.currentAudioPlaylistController().play type, value
+
+  ## Queue Audio in kodi or local depending on active player.
+  App.commands.setHandler "command:audio:add", (type, value) ->
+    API.currentAudioPlaylistController().add type, value
 
   ## Startup tasks.
   App.addInitializer ->

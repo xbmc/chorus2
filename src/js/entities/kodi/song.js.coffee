@@ -52,7 +52,6 @@
       cacheKey = 'songs-' + songIds.join('-')
       items = []
       cache = helpers.cache.get cacheKey, false
-      console.log songIds, 'sssonnn'
       if cache
         ## Cache hit
         collection = new KodiEntities.SongCustomCollection cache

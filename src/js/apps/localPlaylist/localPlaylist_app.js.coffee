@@ -78,6 +78,7 @@
           @addToExistingList playlistId, entityType, id
       , false
 
+    ## Create a new empty list.
     createEmptyList: ->
       App.execute "ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (text) =>
         if text isnt ''

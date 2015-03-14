@@ -39,7 +39,6 @@
 
       ## Buttons
       App.listenTo playerView, "control:play", =>
-        console.log 'playOn', player
         @doCommand player, 'PlayPause', 'toggle'
       App.listenTo playerView, "control:prev", =>
         @doCommand player, 'GoTo', 'previous'

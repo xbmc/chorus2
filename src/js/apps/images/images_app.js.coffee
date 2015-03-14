@@ -2,7 +2,7 @@
 
   API =
 
-    imagesPath: 'dist/images/'
+    imagesPath: 'images/'
 
     defaultFanartPath: 'fanart_default/'
 

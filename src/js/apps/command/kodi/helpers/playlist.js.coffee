@@ -16,6 +16,22 @@
         @clear =>
           @insertAndPlay type, value, 0
 
+    ## Play a collection of models
+    playCollection: (collection, position = 0) ->
+      @clear =>
+        models = collection.getRawCollection()
+        player = @getPlayer()
+        commands = []
+        ## build a set of commands so we can add all the models with one request.
+        for i, model of models
+          pos = parseInt(position) + parseInt(i)
+          type = if model.type is 'file' then 'file' else model.type + 'id'
+          params = [player, pos, @paramObj(type, model[type])]
+          commands.push {method: @getCommand('Insert'), params: params}
+        @multipleCommands commands, (resp) =>
+          @playEntity 'position', parseInt(position), {}, =>
+            @refreshPlaylistView()
+
     ## Add a item to the end of the playlist
     add: (type, value) ->
       @playlistSize (size) =>

@@ -5,18 +5,24 @@
   ## own thing so it extends the player.
   class Api.PlayList extends Api.Player
 
-    ## Play an item. If currently playing, insert it next, else clear playlist and add.
-    play: (models) ->
-      ## TODO: this doesnt work if playing...
-#      stateObj = App.request "state:local"
-#      if stateObj.isPlaying()
-#        @insertAndPlay models, (stateObj.getPlaying('position') + 1)
-#      else
+    ## Play an item.
+    play: (type, value) ->
+      @getSongs type, value, (songs) =>
+        @playCollection songs
+
+    ## Queue an item.
+    add: (type, value) ->
+      @getSongs type, value, (songs) =>
+        @addCollection songs
+
+    ## Play a collection of song models.
+    playCollection: (models) ->
+      ## TODO: Add logic for if something is alreadly playing (like kodi controller)
       @clear =>
         @insertAndPlay models, 0
 
     ## Add a item to the end of the playlist
-    add: (models) ->
+    addCollection: (models) ->
       @playlistSize (size) =>
         @insert models, size
 
@@ -66,6 +72,12 @@
     addItems: (items) ->
       App.request "localplayer:item:add:entities", items
       @refreshPlaylistView()
+
+    ## Get the songs in a collection based on type type/value.
+    getSongs: (type, value, callback) ->
+      songs = App.request "song:filtered:entities", {filter: helpers.global.paramObj(type, value)}
+      App.execute "when:entity:fetched", songs, =>
+        @doCallback callback, songs.getRawCollection()
 
     ## Get items in a playlist
     getItems: (callback) ->
