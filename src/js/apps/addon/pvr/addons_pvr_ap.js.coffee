@@ -14,4 +14,3 @@
   ## Is a pvr client enabled.
   App.reqres.setHandler "addon:pvr:enabled", ->
     API.pvrEnabled()
-    
