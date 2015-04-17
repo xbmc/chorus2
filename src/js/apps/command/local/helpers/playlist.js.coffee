@@ -17,7 +17,7 @@
 
     ## Play a collection of song models.
     playCollection: (models) ->
-      if _.isObject models
+      if not _.isArray models
         models = models.getRawCollection()
       ## TODO: Add logic for if something is alreadly playing (like kodi controller)
       @clear =>
@@ -77,9 +77,15 @@
 
     ## Get the songs in a collection based on type type/value.
     getSongs: (type, value, callback) ->
-      songs = App.request "song:filtered:entities", {filter: helpers.global.paramObj(type, value)}
-      App.execute "when:entity:fetched", songs, =>
-        @doCallback callback, songs.getRawCollection()
+      ## If a single song.
+      if type is 'songid'
+        App.request "song:byid:entities", [value], (songs) =>
+          @doCallback callback, songs.getRawCollection()
+      else
+        ## Else it's a filtered collection (artist, album, etc)
+        songs = App.request "song:filtered:entities", {filter: helpers.global.paramObj(type, value)}
+        App.execute "when:entity:fetched", songs, =>
+          @doCallback callback, songs.getRawCollection()
 
     ## Get items in a playlist
     getItems: (callback) ->
@@ -95,7 +101,7 @@
     ## Get the size of the current playlist
     playlistSize: (callback) ->
       @getItems (resp) =>
-        @doCallback callback, resp.items.length
+        @doCallback callback, resp.length
 
     ## Refresh playlist
     refreshPlaylistView: ->

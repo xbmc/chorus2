@@ -30,13 +30,13 @@
 
     ## Play a tune
     playSong: (songId) ->
-      playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
-      playlist.play 'songid', songId
+      App.execute "command:audio:play", 'songid', songId
 
     ## Add a song to the list
     addSong: (songId) ->
-      playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
-      playlist.add 'songid', songId
+      App.execute "command:audio:add", 'songid', songId
+      # playlist = App.request "command:kodi:controller", 'audio', 'PlayList'
+      # playlist.add 'songid', songId
 
     ## Add the song to a local playlist
     localAddSong: (songId) ->

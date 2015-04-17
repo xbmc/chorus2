@@ -8051,7 +8051,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     };
 
     PlayList.prototype.playCollection = function(models) {
-      if (_.isObject(models)) {
+      if (!_.isArray(models)) {
         models = models.getRawCollection();
       }
       return this.clear((function(_this) {
@@ -8142,14 +8142,22 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
 
     PlayList.prototype.getSongs = function(type, value, callback) {
       var songs;
-      songs = App.request("song:filtered:entities", {
-        filter: helpers.global.paramObj(type, value)
-      });
-      return App.execute("when:entity:fetched", songs, (function(_this) {
-        return function() {
-          return _this.doCallback(callback, songs.getRawCollection());
-        };
-      })(this));
+      if (type === 'songid') {
+        return App.request("song:byid:entities", [value], (function(_this) {
+          return function(songs) {
+            return _this.doCallback(callback, songs.getRawCollection());
+          };
+        })(this));
+      } else {
+        songs = App.request("song:filtered:entities", {
+          filter: helpers.global.paramObj(type, value)
+        });
+        return App.execute("when:entity:fetched", songs, (function(_this) {
+          return function() {
+            return _this.doCallback(callback, songs.getRawCollection());
+          };
+        })(this));
+      }
     };
 
     PlayList.prototype.getItems = function(callback) {
@@ -8174,7 +8182,7 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     PlayList.prototype.playlistSize = function(callback) {
       return this.getItems((function(_this) {
         return function(resp) {
-          return _this.doCallback(callback, resp.items.length);
+          return _this.doCallback(callback, resp.length);
         };
       })(this));
     };
@@ -12149,14 +12157,10 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
       return this.songsView;
     },
     playSong: function(songId) {
-      var playlist;
-      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
-      return playlist.play('songid', songId);
+      return App.execute("command:audio:play", 'songid', songId);
     },
     addSong: function(songId) {
-      var playlist;
-      playlist = App.request("command:kodi:controller", 'audio', 'PlayList');
-      return playlist.add('songid', songId);
+      return App.execute("command:audio:add", 'songid', songId);
     },
     localAddSong: function(songId) {
       return App.execute("localplaylist:addentity", 'songid', songId);

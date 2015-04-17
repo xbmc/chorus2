@@ -124,7 +124,7 @@
 
   ## Get a filtered song collection.
   App.reqres.setHandler "song:filtered:entities", (options = {}) ->
-    API.getFilteredSongs options
+      API.getFilteredSongs options
 
   ## Get a filtered song collection.
   App.reqres.setHandler "song:byid:entities", (songIds = [], callback) ->
