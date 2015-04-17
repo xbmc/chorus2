@@ -3,7 +3,17 @@
   class Api.Base extends Marionette.Object
 
     localLoad: (model, callback) ->
+
+      ## Local state obj
       stateObj = App.request "state:local"
+
+      ## If no valid model passed tell the UI we have stopped
+      if not model?
+        stateObj.setPlaying 'playing', false
+        @localStateUpdate()
+        return
+
+      ## Unique browser playback id
       stateObj.setState 'currentPlaybackId', 'browser-' + model.get('id')
 
       ## Get the download path for the file.
