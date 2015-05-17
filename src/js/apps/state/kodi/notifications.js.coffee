@@ -166,7 +166,7 @@
         # input box has closed
         when 'Input.OnInputFinished'
           clearTimeout App.inputTimeout
-          App.execute "inpute:textbox:close"
+          App.execute "input:textbox:close"
 
         # xbmc shutdown
         when 'System.OnQuit'
