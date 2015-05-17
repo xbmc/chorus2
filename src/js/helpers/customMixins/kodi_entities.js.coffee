@@ -20,7 +20,7 @@
 
 KodiMixins.Entities =
 
-  url: config.get 'static', 'jsonRpcEndpoint'
+  url: -> helpers.url.baseKodiUrl "Mixins"
   rpc: new Backbone.Rpc({
     useNamedParameters: true,
     namespaceDelimiter: ''
@@ -213,5 +213,3 @@ KodiMixins.Entities =
         req.push arg
     ## Set the method
     req
-
-

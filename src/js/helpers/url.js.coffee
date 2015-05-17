@@ -15,6 +15,13 @@ helpers.url.map =
   file: 'browser/file/:id'
   playlist: 'playlist/:id'
 
+## Get base endpoint
+helpers.url.baseKodiUrl = (query = 'Kodi') ->
+  path = (config.get 'static', 'jsonRpcEndpoint') + "?" + query
+  if config.get 'static', 'reverseProxy'
+    path
+  else
+    "/" + path
 
 ## Get a url for a given model type.
 helpers.url.get = (type, id = '', replacements = {}) ->
@@ -115,4 +122,3 @@ helpers.url.parseTrailerUrl = (trailer) ->
     ret.img = "http://img.youtube.com/vi/#{ret.id}/0.jpg"
     ret.url = "https://www.youtube.com/watch?v=#{ret.id}"
   ret
-

@@ -1,7 +1,7 @@
 @Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
-	
+
 	class KodiEntities.Model extends App.Entities.Model
-    url: config.get 'static', 'jsonRpcEndpoint'
+    url: -> helpers.url.baseKodiUrl "Model"
     rpc: new Backbone.Rpc({
       useNamedParameters: true,
       namespaceDelimiter: ''

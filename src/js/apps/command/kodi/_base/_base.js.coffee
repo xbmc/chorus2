@@ -5,7 +5,7 @@
     ajaxOptions: {}
 
     initialize: (options = {}) ->
-      $.jsonrpc.defaultUrl = config.get 'static', 'jsonRpcEndpoint'
+      $.jsonrpc.defaultUrl = helpers.url.baseKodiUrl "Base"
       @setOptions(options)
 
     setOptions: (options) ->
@@ -49,4 +49,3 @@
 
     onError: (commands, error) ->
       helpers.debug.rpcError commands, error
-

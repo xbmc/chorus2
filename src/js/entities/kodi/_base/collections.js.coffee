@@ -5,7 +5,7 @@
   class KodiEntities.Collection extends App.Entities.Collection
 
     ## Common jsonrpc settings.
-    url: config.get 'static', 'jsonRpcEndpoint'
+    url: -> helpers.url.baseKodiUrl "Collection"
     rpc: new Backbone.Rpc({
       useNamedParameters: true,
       namespaceDelimiter: ''
