@@ -68,12 +68,12 @@ helpers.global.formatTime = (time) ->
   if not time?
     0
   else
-    timeStr = ((if time.hours > 0 then time.hours + ":" else "")) +
-    ((if time.hours > 0 and time.minutes < 10 then "0" else "")) +
-    ((if time.minutes > 0 then time.minutes + ":" else "")) +
-    ((if (time.minutes > 0 or time.hours > 0) and time.seconds < 10 then "0" else "")) +
-    time.seconds
-    timeStr
+    # Format time to hh:mm:ss or mm:ss
+    hrStr = ""
+    if time.hours > 0
+      if time.hours < 10 then hrStr = "0"
+      hrStr += time.hours + ':'
+    hrStr + `(time.minutes<10 ? '0' : '') + time.minutes + ':' + (time.seconds<10 ? '0' : '')` + time.seconds;
 
 
 ## Basic helper that returns a new object with a key/value set
