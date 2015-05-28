@@ -16,6 +16,7 @@
     searchIndexCacheExpiry: (24 * 60 * 60) # 1 day
     collectionCacheExpiry: (7 * 24 * 60 * 60) # 1 week (gets wiped on library update)
     addOnsLoaded: false
+    lang: (if JSON.parse(localStorage.getItem('config:app-config:local')).data.lang? then JSON.parse(localStorage.getItem('config:app-config:local')).data.lang else 'en')
 }
 
 ## The App Inance
@@ -36,5 +37,9 @@
   App
 
 $(document).ready =>
-  @Kodi.start()
+  $.getJSON("resources/language/" + config.static.lang + ".json", (data) -> 
+    window.t = new Jed(data)
+    t.options["missing_key_callback"] = (key) -> console.error key
+    Kodi.start()
+  )
   $.material.init()

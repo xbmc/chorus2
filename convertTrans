@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+fs = require('fs');
+var po2json = require('po2json');
+var manifest = [];
+
+//Remove the current manifest.json file
+try {
+  fs.unlinkSync('dist/resources/language/manifest.json');
+} catch (e) {
+  console.log('Info: manifest.json not found for deletion');
+}
+
+var parsePO2JSON = function(file, callback) {
+  po2json.parseFile('resources/language/' + file + '/strings.po', { format: 'jed1.x' }, function (err, jsonData) {
+    if (!err) {
+      var lang = jsonData.locale_data.messages[''].lang;
+      fs.writeFile('dist/resources/language/'+lang+'.json', JSON.stringify(jsonData), function(err) {
+        if (err) {
+          console.log(err);
+          callback (false);
+        } else {
+          manifest.push({name: file, lang: lang, path: file});
+          callback (true);
+        }
+      });
+    } else {
+      console.log('Error reading file: ' + file + '/strings.po');
+      callback (false);
+    }
+  });
+}
+
+
+fs.readdir('resources/language/', function(err, dirs) {
+  var n = 0;
+  for (var i=0; i < dirs.length; i++) {
+    parsePO2JSON(dirs[i], function(cb) {
+      n++;
+      if (n === dirs.length) {
+        fs.writeFile('dist/resources/language/manifest.json', JSON.stringify(manifest), function(err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('manifest.json written');
+          }
+        });
+      }
+    });
+  }
+});

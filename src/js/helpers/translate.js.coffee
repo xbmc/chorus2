@@ -2,16 +2,11 @@
   For everything translatable.
 ###
 
-## @TODO: Add translation data when I have some.
-jedOptions =
-  locale_data:
-    messages:
-      "":
-        domain: "messages"
-        lang: "en"
-        "plural_forms": "nplurals=2; plural=(n != 1);"
-    domain: "messages"
+helpers.translate = {}
 
-## t is our wrapper for all translate calls.
-t = new Jed(jedOptions)
-
+helpers.translate.getLanguages = (callback) ->
+  returnVal = ''
+  $.getJSON 'resources/language/manifest.json', (data) ->
+    _.each data, (lang) ->
+      returnVal += lang.lang + ': "' + lang.name + '", '
+    callback returnVal

@@ -62,11 +62,7 @@
       console.log data
 
     socketConnectionErrorMsg: ->
-      msg = "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and " +
-        "uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED " +
-        "in the Kodi settings (System > Services > Remote control).  You may also get this if you are using proxies or " +
-        "accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to " +
-        "refresh your browser."
+      msg = "Failed to connect to websockets"
       t.gettext msg
 
     ## Force a state refresh
@@ -156,6 +152,7 @@
           wait = 60
           # We set a timeout for {wait} seconds for a fallback for no input
           # this is to prevent an open dialog preventing api requests
+          # Instead of encouraging entering random shizzle how about it's just cancelled and a message saying why?
           App.inputTimeout = setTimeout((->
             msg = wait + t.gettext(' seconds ago, an input dialog opened on xbmc and it is still open! To prevent ' +
               'a mainframe implosion, you should probably give me some text. I don\'t really care what it is at this point, ' +

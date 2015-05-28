@@ -18,21 +18,21 @@
 
     <ul class="people">
         <% if @director.length > 0: %>
-            <li><label>Director:</label> <span><%- helpers.url.filterLinks 'tvshows', 'director', @director %></span></li>
+            <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'director', @director %></span></li>
         <% end %>
         <% if @writer.length > 0: %>
-            <li><label>Writer:</label> <span><%- helpers.url.filterLinks 'tvshows', 'writer', @writer %></span></li>
+            <li><label><%= t.ngettext("Writer", "Writers", @writer.length) %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'writer', @writer %></span></li>
         <% end %>
         <% if @cast.length > 0: %>
-            <li><label>Cast:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
+            <li><label><%= t.gettext('Cast') %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
     </ul>
 
     <ul class="streams">
-        <li><label>Video:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
-        <li><label>Audio:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <li><label><%= t.gettext('Video') %>:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
+        <li><label><%= t.gettext('Audio') %>:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
         <% if @streamdetails.subtitle.length > 0 and @streamdetails.subtitle[0].label isnt '': %>
-            <li><label>Subtitle:</label>
+            <li><label><%= t.ngettext("Subtitle", "Subtitles", @streamdetails.subtitle.length) %>:</label>
                 <span class="dropdown"><span data-toggle="dropdown"><%= _.first _.pluck( @streamdetails.subtitle, 'label' ) %></span>
                 <ul class="dropdown-menu">
                     <% for sub in @streamdetails.subtitle: %>
