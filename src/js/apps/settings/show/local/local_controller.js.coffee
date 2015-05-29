@@ -2,16 +2,25 @@
 
   class Local.Controller extends App.Controllers.Base
 
+    availableLangs = {}
+
     initialize: ->
 
       ## Get and setup the layout
+      
       @layout = @getLayoutView()
       @listenTo @layout, "show", =>
         @getSubNav()
-        @getForm()
+        @getLangs()
 
       ## Render the layout
       App.regionContent.show @layout
+
+    gotLangs: (langs) =>
+      availableLangs = langs
+      @getForm()
+
+    getLangs: -> helpers.translate.getLanguages(@gotLangs)
 
     getLayoutView: ->
       new App.SettingsApp.Show.Layout()
@@ -33,12 +42,13 @@
       @layout.regionContent.show form
 
     getStructure: ->
+      console.log availableLangs
       [
         {
           title: 'General Options'
           id: 'general'
           children:[
-            {id: 'lang', title: t.gettext("Language"), type: 'select', options: { en: "English", fr: "French", gr: "German" }, defaultValue: 'en', description: t.gettext('Preferred language')}
+            {id: 'lang', title: t.gettext("Language"), type: 'select', options: availableLangs, defaultValue: 'en', description: t.gettext('Preferred language')}
             {id: 'defaultPlayer', title: t.gettext("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: t.gettext('Which player to start with')}
           ]
         }
