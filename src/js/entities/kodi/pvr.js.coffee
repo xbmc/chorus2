@@ -8,7 +8,7 @@
 
     fields:
       minimal: ['thumbnail']
-      small: ['channeltype', 'hidden', 'locked', 'channel', 'lastplayed']
+      small: ['channeltype', 'hidden', 'locked', 'channel', 'lastplayed', 'broadcastnow']
       full: []
 
     ## Fetch a single entity, requires a channel collection passed.

@@ -1,0 +1,7 @@
+
+<div <% if @isactive: %> class="airing" <% end %> ><strong><%= @label %></strong><% if @hastimer: %><span class="hastimer"></span><% end %></div>
+<div><strong><%= t.gettext("Start") %>:</strong> <%= helpers.global.epgDateTimeToJS(@starttime).toLocaleString() %></div>
+<div><strong><%= t.gettext("End") %>:</strong> <%= helpers.global.epgDateTimeToJS(@endtime).toLocaleString() %></div>
+<div><strong> <%= t.gettext("Runtime") %>:</strong> <%= @runtime %> </div>
+<div><%= @plot %></div>
+<div class="programme-progress"><div class="current-progress" style="width: <%= @progresspercentage %>%" title="<%= Math.round(@progresspercentage) %>% <%= t.gettext('complete') %>"></div></div>

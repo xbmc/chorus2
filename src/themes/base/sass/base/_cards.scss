@@ -77,6 +77,12 @@ $card-layout: (
       color: $color-white;
     }
   }
+  .record {
+    color: rgba($color-white, 0.8);
+    &:hover {
+      color: #f00;
+    }
+  }
 }
 
 /**
@@ -176,6 +182,14 @@ $card-layout: (
     z-index: $z-index-beta;
 
   }
+  .record {
+    @include icon-button-square(image-brightness-1, $spacing-half-unit * 3);
+    @include set-position-absolute(bottom 2px right 5px);
+    font-size: 200%;
+    display: none;
+    z-index: $z-index-beta;
+
+  }
   .dropdown {
     @include set-position-absolute(top 5px right 0);
     i {
@@ -208,6 +222,9 @@ $card-layout: (
     .actions,
     .dropdown i,
     .play {
+      display: table;
+    }
+    .record {
       display: table;
     }
   }

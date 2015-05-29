@@ -62,6 +62,15 @@ helpers.global.timeToSec = (time) ->
   minutes = parseInt(time.minutes) * 60
   parseInt(hours) + parseInt(minutes) + parseInt(time.seconds)
 
+  
+## Convert EPG time to JS date
+helpers.global.epgDateTimeToJS = (datetime) ->
+  if not datetime
+    new Date 0 # Will equal start of epoch?
+  else
+    ## This will add the offset which should make the time correct as the EPG date time is UTC
+    new Date(datetime.replace(" ","t"))
+
 
 ## format a nowplaying time object for display
 helpers.global.formatTime = (time) ->
