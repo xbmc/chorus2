@@ -3,3 +3,33 @@
     @extend %sidebar--padding;
   }
 }
+.epg-page {
+  .region-first {
+    @extend %sidebar--padding;
+  }
+  .programmes {
+    background-color: #f9f9f9;
+  }
+  .programme {
+    border-bottom: 2px solid #eee;
+    padding: 5px;
+  }
+  .aired {
+    background-color: rgba(130,130,130,0.5)
+  }
+  .programme-progress {
+    background-color: #ddd;
+    
+    .current-progress {
+      height: 4px;
+      background: #12b2e7;
+    }
+  }
+  .hastimer {
+    @include icon(action-schedule);
+    color: $color-kodi;
+    font-size: 110%;
+    margin-left: 3px;
+    display: inline;
+  }
+}

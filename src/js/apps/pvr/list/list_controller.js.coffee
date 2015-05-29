@@ -30,6 +30,11 @@
         player = App.request "command:kodi:controller", 'auto', 'Player'
         player.playEntity 'channelid', child.model.get('id'), {},  =>
           ## update state?
+      @listenTo view, 'childview:channel:record', (parent, child) ->
+        #App.request "command:kodi:controller", 'PVR', child.model.get('id'), 'SetPVRRecord'
+        record = App.request "command:kodi:controller", 'auto', 'PVR'
+        record.setPVRRecord child.model.get('id'), {"record": "toggle"},  =>
+          App.execute "notification:show", t.gettext("Channel recording toggled")
       @layout.regionContent.show view
 
     getSubNav: ->

@@ -29,8 +29,13 @@
           model.trailer = helpers.url.parseTrailerUrl model.trailer
         if type is 'episode'
           model.url = helpers.url.get type, id, {':tvshowid': model.tvshowid, ':season': model.season}
+        else if type is 'channel'
+          ## Check pvr for subtype
+          if model.channeltype is 'tv' then type = "channeltv" else type = "channelradio"
+          model.url = helpers.url.get type, id
         else
           model.url = helpers.url.get type, id
+          
         model = App.request "images:path:entity", model
         model.type = type
         model.parsed = true
