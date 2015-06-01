@@ -20,6 +20,8 @@ module.exports = function (grunt) {
   // Js Dist files.
   var jsDistApp = jsDistFolder + 'app.js';
   var jsDistTpl = jsDistFolder + 'tpl.js';
+  
+  var srcLangs = 'resources/language/';
 
   // The order of concat files.
   function getConcatStack() {
@@ -85,6 +87,10 @@ module.exports = function (grunt) {
       coffee: {
         files: [jsSrcFolder + '{,**/}*.coffee'],
         tasks: ['coffee', 'concat', 'uglify:dev']
+      },
+      langs: {
+        files: [srcLangs + '**/*.po'],
+        tasks: ['execute']
       }
     },
 
@@ -215,6 +221,12 @@ module.exports = function (grunt) {
           }
         }]
       }
+    },
+    
+    execute: {
+        target: {
+            src  : ['convertTrans']
+        }
     }
   });
 
@@ -227,6 +239,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-eco');
+  grunt.loadNpmTasks('grunt-execute');
 
   /**
    * Tasks
@@ -237,6 +250,7 @@ module.exports = function (grunt) {
     'concat',
     'uglify:dist',
     'compass:dist',
+    'execute'
     //'jshint'
   ]);
 

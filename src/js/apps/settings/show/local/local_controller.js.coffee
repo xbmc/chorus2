@@ -42,7 +42,6 @@
       @layout.regionContent.show form
 
     getStructure: ->
-      console.log availableLangs
       [
         {
           title: 'General Options'

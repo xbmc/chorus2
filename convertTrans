@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 
-fs = require('fs');
+var fs = require('fs');
 var po2json = require('po2json');
 var manifest = [];
-
-//Remove the current manifest.json file
-try {
-  fs.unlinkSync('dist/resources/language/manifest.json');
-} catch (e) {
-  console.log('Info: manifest.json not found for deletion');
-}
 
 var parsePO2JSON = function(file, callback) {
   po2json.parseFile('resources/language/' + file + '/strings.po', { format: 'jed1.x' }, function (err, jsonData) {
