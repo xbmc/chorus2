@@ -37,9 +37,20 @@
   App
 
 $(document).ready =>
-  $.getJSON("resources/language/" + config.static.lang + ".json", (data) -> 
+  # Initialise language support
+  $.getJSON("resources/language/" + config.static.lang + ".json", (data) ->
     window.t = new Jed(data)
-    t.options["missing_key_callback"] = (key) -> console.error key
+    t.options["missing_key_callback"] = (key) -> console.warn key
     Kodi.start()
+  ).error( ->
+    # No file for language?!
+    # Revert to en.json and assume it will always be there.
+    $.getJSON("resources/language/en.json", (data) ->
+      window.t = new Jed(data)
+      t.options["missing_key_callback"] = (key) -> console.warn key
+      Kodi.start()
+    ).error(
+      alert 'Language file not found! Check your installation and/or reinstall.'
+    )
   )
   $.material.init()
