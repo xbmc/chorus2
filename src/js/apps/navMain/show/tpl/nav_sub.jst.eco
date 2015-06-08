@@ -1,2 +1,2 @@
-<h3><%= t.gettext(@title) %></h3>
+<h3><%= @title %></h3>
 <ul class="items"></ul>

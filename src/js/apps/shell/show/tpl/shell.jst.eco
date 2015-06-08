@@ -22,7 +22,7 @@
 
         <div id="sidebar-one"></div>
 
-        <div id="content">Loading things...</div>
+        <div id="content"><%= t.gettext("Loading things...") %></div>
 
     </div>
 
@@ -41,9 +41,9 @@
 
     <div class="player-menu-wrapper">
         <ul class="player-menu">
-            <li class="video-scan">Scan Video Library</li>
-            <li class="audio-scan">Scan Audio Library</li>
-            <li class="about">About Chorus</li>
+            <li class="video-scan"><%= t.gettext("Scan Video Library") %></li>
+            <li class="audio-scan"><%= t.gettext("Scan Audio Library") %></li>
+            <li class="about"><%= t.gettext("About Chorus") %></li>
         </ul>
     </div>
 

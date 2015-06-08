@@ -21,7 +21,7 @@
 
     <ul class="people">
         <% if @cast.length > 0: %>
-        <li><label>Cast:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
+        <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
     </ul>
 

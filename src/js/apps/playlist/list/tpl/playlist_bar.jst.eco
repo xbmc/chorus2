@@ -6,12 +6,12 @@
     <div class="playlist-menu dropdown">
         <i data-toggle="dropdown" class="menu-toggle"></i>
         <ul class="dropdown-menu pull-right">
-            <li class="dropdown-header">Current Playlist</li>
-            <li><a href="#" class="clear-playlist">Clear Playlist</a></li>
-            <li><a href="#" class="refresh-playlist">Refresh Playlist</a></li>
-            <li class="dropdown-header">Kodi</li>
-            <li><a href="#" class="party-mode">Party Mode <i class="mdi-navigation-check"></i></a></li>
-            <li><a href="#" class="save-playlist">Save Kodi Playlist</a></li>
+            <li class="dropdown-header"><%= t.gettext('Current Playlist') %></li>
+            <li><a href="#" class="clear-playlist"><%= t.gettext('Clear Playlist') %></a></li>
+            <li><a href="#" class="refresh-playlist"><%= t.gettext('Refresh Playlist') %></a></li>
+            <li class="dropdown-header"><%= t.gettext('Kodi') %></li>
+            <li><a href="#" class="party-mode"><%= t.gettext('Party Mode') %> <i class="mdi-navigation-check"></i></a></li>
+            <li><a href="#" class="save-playlist"><%= t.gettext('Save Kodi Playlist') %></a></li>
             </li>
         </ul>
     </div>
@@ -19,8 +19,8 @@
 <div class="playlists-wrapper">
     <div class="kodi-playlists">
         <ul class="media-toggle">
-            <li class="audio">Audio</li>
-            <li class="video">Video</li>
+            <li class="audio"><%= t.gettext('Audio') %></li>
+            <li class="video"><%= t.gettext('Video') %></li>
         </ul>
         <div class="kodi-playlist"></div>
     </div>
