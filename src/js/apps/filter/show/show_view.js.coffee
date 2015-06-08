@@ -116,7 +116,7 @@
     triggers:
       "click .filterable-add" : "filter:add"
     initialize: ->
-      tag = @themeTag('span', {'class': 'filter-btn filterable-add'}, t.gettext('Add Filter'))
+      tag = @themeTag('span', {'class': 'filter-btn filterable-add'}, t.gettext('Add filter'))
       @model.set(title: tag)
 
   class Show.ActiveList extends Show.List

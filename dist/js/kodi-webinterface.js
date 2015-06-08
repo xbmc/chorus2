@@ -43090,7 +43090,7 @@ window.JST["apps/external/youtube/tpl/youtube.jst"] = function(__obj) {
     
       _print(this.title);
     
-      _print(_safe('</h3>\n<span class="play-kodi flat-btn action">Play in Kodi</span>\n<span class="play-local flat-btn action">Play in Browser</span>\n'));
+      _print(_safe('</h3>\n<span class="play-kodi flat-btn action">Play in Kodi</span>\n<span class="play-local flat-btn action">Play in browser</span>\n'));
     
     }).call(this);
     
@@ -45463,7 +45463,7 @@ this.helpers = {};
 
 this.config = {
   "static": {
-    appTitle: 'Kodi.',
+    appTitle: 'Kodi',
     jsonRpcEndpoint: 'jsonrpc',
     socketsHost: location.hostname,
     socketsPort: 9090,
@@ -50008,7 +50008,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 5,
-        title: "Digital Radio",
+        title: "Digital radio",
         path: 'music/radio',
         icon: '',
         classes: 'pvr-link',
@@ -50025,7 +50025,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 12,
-        title: "Recent Movies",
+        title: "Recent movies",
         path: 'movies/recent',
         icon: '',
         classes: '',
@@ -50033,7 +50033,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 13,
-        title: "All Movies",
+        title: "All movies",
         path: 'movies',
         icon: '',
         classes: '',
@@ -50041,7 +50041,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 21,
-        title: "TV Shows",
+        title: "TV shows",
         path: 'tvshows/recent',
         icon: 'mdi-hardware-tv',
         classes: 'nav-tv',
@@ -50049,7 +50049,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 22,
-        title: "Recent Episodes",
+        title: "Recent episodes",
         path: 'tvshows/recent',
         icon: '',
         classes: '',
@@ -50057,7 +50057,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 23,
-        title: "All TVShows",
+        title: "All TV shows",
         path: 'tvshows',
         icon: '',
         classes: '',
@@ -50065,7 +50065,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 24,
-        title: "Live TV",
+        title: "TV",
         path: 'tvshows/live',
         icon: '',
         classes: 'pvr-link',
@@ -50082,7 +50082,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 41,
-        title: "Thumbs Up",
+        title: "Thumbs up",
         path: 'thumbsup',
         icon: 'mdi-action-thumb-up',
         classes: 'nav-thumbs-up',
@@ -50106,7 +50106,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 52,
-        title: "Web Settings",
+        title: "Web settings",
         path: 'settings/web',
         icon: '',
         classes: '',
@@ -50114,7 +50114,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 53,
-        title: "Kodi Settings",
+        title: "Kodi settings",
         path: 'settings/kodi',
         icon: '',
         classes: '',
@@ -57614,7 +57614,7 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
           children: [
             {
               id: 'ignore-article',
-              title: 'Ignore Article',
+              title: 'Ignore article',
               type: 'checkbox',
               defaultValue: true,
               description: 'Ignore terms such as "The" and "a" when sorting lists'
@@ -57689,7 +57689,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     Controller.prototype.getStructure = function() {
       return [
         {
-          title: 'General Options',
+          title: 'General options',
           id: 'general',
           children: [
             {
@@ -57731,24 +57731,24 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
-          title: 'Advanced Options',
+          title: 'Advanced options',
           id: 'advanced',
           children: [
             {
               id: 'socketsPort',
-              title: t.gettext("Websockets Port"),
+              title: t.gettext("Websockets port"),
               type: 'textfield',
               defaultValue: '9090',
               description: "9090 " + t.gettext("is the default")
             }, {
               id: 'socketsHost',
-              title: t.gettext("Websockets Host"),
+              title: t.gettext("Websockets host"),
               type: 'textfield',
               defaultValue: 'auto',
               description: t.gettext("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")
             }, {
               id: 'pollInterval',
-              title: t.gettext("Poll Interval"),
+              title: t.gettext("Poll interval"),
               type: 'select',
               defaultValue: '10000',
               options: {
@@ -57760,10 +57760,10 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
               description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")
             }, {
               id: 'reverseProxy',
-              title: t.gettext("Reverse Proxy Support"),
+              title: t.gettext("Reverse proxy support"),
               type: 'checkbox',
               defaultValue: false,
-              description: t.gettext('Enable support for reverse proxying.')
+              description: t.gettext('Enable support for reverse proxy.')
             }
           ]
         }
@@ -57776,7 +57776,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
 
     Controller.prototype.saveCallback = function(data, formView) {
       config.set('app', 'config:local', data);
-      return Kodi.execute("notification:show", t.gettext("Web Settings saved."));
+      return Kodi.execute("notification:show", t.gettext("Web settings saved."));
     };
 
     return Controller;

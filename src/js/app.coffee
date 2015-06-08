@@ -2,7 +2,7 @@
 @helpers = {}
 @config = {
   static:
-    appTitle: 'Kodi.'
+    appTitle: 'Kodi'
     jsonRpcEndpoint: 'jsonrpc'
     socketsHost: location.hostname
     socketsPort: 9090

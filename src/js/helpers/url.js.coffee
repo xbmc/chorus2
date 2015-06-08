@@ -69,7 +69,7 @@ helpers.url.arg = (arg = 'none') ->
 
 
 ## Get Url params
-## Will automatically parse current url or the params provided eg. 'foo=bar&duck=sauce'
+## Will automatically parse current url or the params provided e.g. 'foo=bar&duck=sauce'
 helpers.url.params = (params = 'auto') ->
   if params is 'auto'
     p = document.location.href

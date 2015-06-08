@@ -95,7 +95,7 @@
           App.execute "player:kodi:timer", 'stop'
           @refreshStateNow()
 
-        # eg. shuffled, repeat, partymode
+        # e.g. shuffled, repeat, partymode
         when 'Player.OnPropertyChanged'
           @refreshStateNow()
 

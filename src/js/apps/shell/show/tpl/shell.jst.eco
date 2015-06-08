@@ -41,8 +41,8 @@
 
     <div class="player-menu-wrapper">
         <ul class="player-menu">
-            <li class="video-scan"><%= t.gettext("Scan Video Library") %></li>
-            <li class="audio-scan"><%= t.gettext("Scan Audio Library") %></li>
+            <li class="video-scan"><%= t.gettext("Scan video library") %></li>
+            <li class="audio-scan"><%= t.gettext("Scan audio library") %></li>
             <li class="about"><%= t.gettext("About Chorus") %></li>
         </ul>
     </div>

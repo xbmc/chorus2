@@ -16,7 +16,7 @@
 
 <% if @cast.length > 0: %>
     <div class="section-content">
-        <h2><%= t.gettext('Full Cast') %></h2>
+        <h2><%= t.gettext('Full cast') %></h2>
         <div class="region-cast"></div>
     </div>
 <% end %>

@@ -22,36 +22,36 @@
       nav.push {id: 2, title: "Recent", path: 'music', icon: '', classes: '', parent: 1}
       nav.push {id: 3, title: "Artists", path: 'music/artists', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: "Albums", path: 'music/albums', icon: '', classes: '', parent: 1}
-      nav.push {id: 5, title: "Digital Radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
+      nav.push {id: 5, title: "Digital radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
 
       ## Movies.
       nav.push {id: 11, title: "Movies", path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
-      nav.push {id: 12, title: "Recent Movies", path: 'movies/recent', icon: '', classes: '', parent: 11}
-      nav.push {id: 13, title: "All Movies", path: 'movies', icon: '', classes: '', parent: 11}
+      nav.push {id: 12, title: "Recent movies", path: 'movies/recent', icon: '', classes: '', parent: 11}
+      nav.push {id: 13, title: "All movies", path: 'movies', icon: '', classes: '', parent: 11}
 
       ## TV.
-      nav.push {id: 21, title: "TV Shows", path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
-      nav.push {id: 22, title: "Recent Episodes", path: 'tvshows/recent', icon: '', classes: '', parent: 21}
-      nav.push {id: 23, title: "All TVShows", path: 'tvshows', icon: '', classes: '', parent: 21}
-      nav.push {id: 24, title: "Live TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21, visibility: "addon:pvr:enabled"}
+      nav.push {id: 21, title: "TV shows", path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
+      nav.push {id: 22, title: "Recent episodes", path: 'tvshows/recent', icon: '', classes: '', parent: 21}
+      nav.push {id: 23, title: "All TV shows", path: 'tvshows', icon: '', classes: '', parent: 21}
+      nav.push {id: 24, title: "TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21, visibility: "addon:pvr:enabled"}
 
       ## Browser.
       nav.push {id: 31, title: "Browser", path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
 
       ## Thumbs up.
-      nav.push {id: 41, title: "Thumbs Up", path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
+      nav.push {id: 41, title: "Thumbs up", path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
       nav.push {id: 42, title: "Playlists", path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
 
       ## Settings.
       nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-browser', parent: 0}
-      nav.push {id: 52, title: "Web Settings", path: 'settings/web', icon: '', classes: '', parent: 51}
-      nav.push {id: 53, title: "Kodi Settings", path: 'settings/kodi', icon: '', classes: '', parent: 51}
+      nav.push {id: 52, title: "Web settings", path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 53, title: "Kodi settings", path: 'settings/kodi', icon: '', classes: '', parent: 51}
 
       @checkVisibility nav
 
     ## Nav items can have a visibility property, if this is set, the request handler
     ## is called for that value which should return true or false depending if that
-    ## item is visible.  eg. pvr links check if pvr is enabled.
+    ## item is visible.  e.g. pvr links check if pvr is enabled.
     checkVisibility: (items) ->
       newItems = []
       for item in items
@@ -76,7 +76,7 @@
       parent.items = new Entities.NavMainCollection childItems
       new Entities.NavMain parent
 
-    ## Sort the structure into a heirachy.
+    ## Sort the structure into a hierarchy.
     sortStructure: (structure) ->
       children = {}
       ## Parse the children from via the parent.
