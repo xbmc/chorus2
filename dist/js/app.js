@@ -1,5 +1,4 @@
-var jedOptions, t,
-  __hasProp = {}.hasOwnProperty,
+var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __slice = [].slice;
@@ -17,10 +16,12 @@ this.config = {
     defaultPlayer: 'auto',
     ignoreArticle: true,
     pollInterval: 10000,
+    reverseProxy: false,
     albumAtristsOnly: true,
     searchIndexCacheExpiry: 24 * 60 * 60,
     collectionCacheExpiry: 7 * 24 * 60 * 60,
-    addOnsLoaded: false
+    addOnsLoaded: false,
+    lang: "en"
   }
 };
 
@@ -43,8 +44,10 @@ this.Kodi = (function(Backbone, Marionette) {
 
 $(document).ready((function(_this) {
   return function() {
-    _this.Kodi.start();
-    return $.material.init();
+    return helpers.translate.init(function() {
+      Kodi.start();
+      return $.material.init();
+    });
   };
 })(this));
 
@@ -179,7 +182,9 @@ if (this.KodiMixins == null) {
 }
 
 KodiMixins.Entities = {
-  url: config.get('static', 'jsonRpcEndpoint'),
+  url: function() {
+    return helpers.url.baseKodiUrl("Mixins");
+  },
   rpc: new Backbone.Rpc({
     useNamedParameters: true,
     namespaceDelimiter: ''
@@ -609,13 +614,27 @@ helpers.global.timeToSec = function(time) {
   return parseInt(hours) + parseInt(minutes) + parseInt(time.seconds);
 };
 
+helpers.global.epgDateTimeToJS = function(datetime) {
+  if (!datetime) {
+    return new Date(0);
+  } else {
+    return new Date(datetime.replace(" ", "t"));
+  }
+};
+
 helpers.global.formatTime = function(time) {
-  var timeStr;
+  var hrStr;
   if (time == null) {
     return 0;
   } else {
-    timeStr = (time.hours > 0 ? time.hours + ":" : "") + (time.hours > 0 && time.minutes < 10 ? "0" : "") + (time.minutes > 0 ? time.minutes + ":" : "") + ((time.minutes > 0 || time.hours > 0) && time.seconds < 10 ? "0" : "") + time.seconds;
-    return timeStr;
+    hrStr = "";
+    if (time.hours > 0) {
+      if (time.hours < 10) {
+        hrStr = "0";
+      }
+      hrStr += time.hours + ':';
+    }
+    return hrStr + (time.minutes<10 ? '0' : '') + time.minutes + ':' + (time.seconds<10 ? '0' : '') + time.seconds;
   }
 };
 
@@ -884,20 +903,28 @@ helpers.stream.streamFormat = function(streams) {
   For everything translatable.
  */
 
-jedOptions = {
-  locale_data: {
-    messages: {
-      "": {
-        domain: "messages",
-        lang: "en",
-        "plural_forms": "nplurals=2; plural=(n != 1);"
-      }
-    },
-    domain: "messages"
-  }
+helpers.translate = {};
+
+helpers.translate.getLanguages = function() {
+  return {
+    en: "English",
+    gr: "German",
+    fr: "French"
+  };
 };
 
-t = new Jed(jedOptions);
+helpers.translate.init = function(callback) {
+  var defaultLang, lang;
+  defaultLang = config.get("static", "lang", "en");
+  lang = JSON.parse(localStorage.getItem('config:app-config:local')).data.lang || defaultLang;
+  return $.getJSON("lang/" + lang + ".json", function(data) {
+    window.t = new Jed(data);
+    t.options["missing_key_callback"] = function(key) {
+      return console.error(key);
+    };
+    return callback();
+  });
+};
 
 
 /*
@@ -914,8 +941,23 @@ helpers.url.map = {
   tvshow: 'tvshow/:id',
   season: 'tvshow/:id',
   episode: 'tvshow/:tvshowid/:season/:id',
+  channeltv: 'tvshows/live/:id',
+  channelradio: 'music/radio/:id',
   file: 'browser/file/:id',
   playlist: 'playlist/:id'
+};
+
+helpers.url.baseKodiUrl = function(query) {
+  var path;
+  if (query == null) {
+    query = 'Kodi';
+  }
+  path = (config.get('static', 'jsonRpcEndpoint')) + "?" + query;
+  if (config.get('static', 'reverseProxy')) {
+    return path;
+  } else {
+    return "/" + path;
+  }
 };
 
 helpers.url.get = function(type, id, replacements) {
@@ -1868,7 +1910,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       return Collection.__super__.constructor.apply(this, arguments);
     }
 
-    Collection.prototype.url = config.get('static', 'jsonRpcEndpoint');
+    Collection.prototype.url = function() {
+      return helpers.url.baseKodiUrl("Collection");
+    };
 
     Collection.prototype.rpc = new Backbone.Rpc({
       useNamedParameters: true,
@@ -1970,7 +2014,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       return Model.__super__.constructor.apply(this, arguments);
     }
 
-    Model.prototype.url = config.get('static', 'jsonRpcEndpoint');
+    Model.prototype.url = function() {
+      return helpers.url.baseKodiUrl("Model");
+    };
 
     Model.prototype.rpc = new Backbone.Rpc({
       useNamedParameters: true,
@@ -2006,6 +2052,13 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
             ':tvshowid': model.tvshowid,
             ':season': model.season
           });
+        } else if (type === 'channel') {
+          if (model.channeltype === 'tv') {
+            type = "channeltv";
+          } else {
+            type = "channelradio";
+          }
+          model.url = helpers.url.get(type, id);
         } else {
           model.url = helpers.url.get(type, id);
         }
@@ -2456,6 +2509,131 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
    */
   return App.reqres.setHandler("cast:entities", function(cast, origin) {
     return API.getCollection(cast, origin);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: [],
+      small: ['title', 'runtime', 'starttime', 'endtime', 'genre'],
+      full: ['plot', 'progress', 'progresspercentage', 'episodename', 'episodenum', 'episodepart', 'firstaired', 'hastimer', 'isactive', 'parentalrating', 'wasactive', 'thumbnail']
+    },
+
+    /*getEntity: (collection, channel) ->
+      collection.findWhere({channel: channel})
+     */
+    getEntity: function(channelid, options) {
+      var entity;
+      entity = new App.KodiEntities.Broadcast();
+      entity.set({
+        channelid: parseInt(channelid),
+        properties: helpers.entities.getFields(API.fields, 'full')
+      });
+      entity.fetch(options);
+      return entity;
+    },
+    getCollection: function(options) {
+      var collection;
+      collection = new KodiEntities.BroadcastCollection();
+      collection.fetch(options);
+      return collection;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.Broadcast = (function(_super) {
+    __extends(Broadcast, _super);
+
+    function Broadcast() {
+      return Broadcast.__super__.constructor.apply(this, arguments);
+    }
+
+    Broadcast.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        channelid: 1,
+        channel: ''
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    };
+
+    Broadcast.prototype.methods = {
+      read: ['PVR.GetBroadcasts', 'channelid', 'properties']
+    };
+
+    Broadcast.prototype.parse = function(resp, xhr) {
+      var obj;
+      obj = resp.broadcasts != null ? resp.broadcasts : resp;
+      if (resp.broadcasts != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('broadcast', obj, obj.channelid);
+    };
+
+
+    /*defaults: ->
+      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), {}
+    parse: (obj, xhr) ->
+      obj.fullyloaded = true
+      @parseModel 'broadcast', obj, obj.channelid
+     */
+
+    return Broadcast;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.BroadcastCollection = (function(_super) {
+    __extends(BroadcastCollection, _super);
+
+    function BroadcastCollection() {
+      return BroadcastCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    BroadcastCollection.prototype.model = KodiEntities.Broadcast;
+
+    BroadcastCollection.prototype.methods = {
+      read: ['PVR.GetBroadcasts', 'arg1', 'arg2', 'arg3']
+    };
+
+    BroadcastCollection.prototype.arg1 = function() {
+      return parseInt(this.argCheckOption('channelid', 0));
+    };
+
+    BroadcastCollection.prototype.arg2 = function() {
+      return helpers.entities.getFields(API.fields, 'full');
+    };
+
+    BroadcastCollection.prototype.arg3 = function() {
+      return this.argLimit();
+    };
+
+    BroadcastCollection.prototype.parse = function(resp, xhr) {
+      return this.getResult(resp, 'broadcasts');
+    };
+
+    return BroadcastCollection;
+
+  })(App.KodiEntities.Collection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("broadcast:entity", function(collection, channelid) {
+    return API.getEntity(collection, channelid);
+  });
+  return App.reqres.setHandler("broadcast:entities", function(channelid, options) {
+    if (options == null) {
+      options = {};
+    }
+    options.channelid = channelid;
+    return API.getCollection(options);
   });
 });
 
@@ -3417,7 +3595,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   API = {
     fields: {
       minimal: ['thumbnail'],
-      small: ['channeltype', 'hidden', 'locked', 'channel', 'lastplayed'],
+      small: ['channeltype', 'hidden', 'locked', 'channel', 'lastplayed', 'broadcastnow'],
       full: []
     },
     getEntity: function(collection, channel) {
@@ -6959,7 +7137,7 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       if (options == null) {
         options = {};
       }
-      $.jsonrpc.defaultUrl = config.get('static', 'jsonRpcEndpoint');
+      $.jsonrpc.defaultUrl = helpers.url.baseKodiUrl("Base");
       return this.setOptions(options);
     };
 
@@ -7620,6 +7798,37 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
 });
 
 this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.PVR = (function(_super) {
+    __extends(PVR, _super);
+
+    function PVR() {
+      return PVR.__super__.constructor.apply(this, arguments);
+    }
+
+    PVR.prototype.commandNameSpace = 'PVR';
+
+    PVR.prototype.setPVRRecord = function(id, fields, callback) {
+      var params;
+      if (fields == null) {
+        fields = {};
+      }
+      params = {
+        channel: id
+      };
+      params = _.extend(params, fields);
+      return this.singleCommand(this.getCommand('Record'), params, (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    return PVR;
+
+  })(Api.Commander);
+});
+
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
   return Api.VideoLibrary = (function(_super) {
     __extends(VideoLibrary, _super);
 
@@ -8214,6 +8423,156 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     return PlayList;
 
   })(Api.Player);
+});
+
+this.Kodi.module("EPGApp", function(EPGApp, App, Backbone, Marionette, $, _) {
+  var API;
+  EPGApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "tvshows/live/:channelid": "tv",
+      "music/radio/:channelid": "radio"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    tv: function(channelid) {
+      return new EPGApp.List.Controller({
+        channelid: channelid,
+        type: "tv"
+      });
+    },
+    radio: function(channelid) {
+      return new EPGApp.List.Controller({
+        channelid: channelid,
+        type: "radio"
+      });
+    }
+  };
+  return App.on("before:start", function() {
+    return new EPGApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.Kodi.module("EPGApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      var collection;
+      collection = App.request("broadcast:entities", options.channelid);
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          _this.layout = _this.getLayoutView(collection);
+          _this.listenTo(_this.layout, "show", function() {
+            _this.getSubNav();
+            return _this.renderProgrammes(collection);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(collection) {
+      return new List.Layout({
+        collection: collection
+      });
+    };
+
+    Controller.prototype.renderProgrammes = function(collection) {
+      var view;
+      view = new List.EPGList({
+        collection: collection
+      });
+
+      /*@listenTo view, 'childview:channel:play', (parent, child) ->
+        player = App.request "command:kodi:controller", 'auto', 'Player'
+        player.playEntity 'channelid', child.model.get('id'), {},  =>
+           *# update state?
+       */
+      return this.layout.regionContent.show(view);
+    };
+
+    Controller.prototype.getSubNav = function() {
+      var subNav, subNavId;
+      subNavId = this.getOption('type') === 'tv' ? 21 : 1;
+      subNav = App.request("navMain:children:show", subNavId, 'Sections');
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("EPGApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "epg-page";
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  List.ProgrammeList = (function(_super) {
+    __extends(ProgrammeList, _super);
+
+    function ProgrammeList() {
+      return ProgrammeList.__super__.constructor.apply(this, arguments);
+    }
+
+    ProgrammeList.prototype.template = 'apps/epg/list/programmes';
+
+    ProgrammeList.prototype.tagName = "li";
+
+    ProgrammeList.prototype.className = "programme";
+
+    ProgrammeList.prototype.onRender = function() {
+      if (this.model.attributes.wasactive) {
+        return this.$el.addClass("aired");
+      }
+    };
+
+    return ProgrammeList;
+
+  })(App.Views.ItemView);
+  return List.EPGList = (function(_super) {
+    __extends(EPGList, _super);
+
+    function EPGList() {
+      return EPGList.__super__.constructor.apply(this, arguments);
+    }
+
+    EPGList.prototype.childView = List.ProgrammeList;
+
+    EPGList.prototype.tagName = "ul";
+
+    EPGList.prototype.className = "programmes";
+
+    EPGList.prototype.onShow = function() {
+      return $(window).scrollTop(this.$el.find('.airing').offset().top - 150);
+    };
+
+    return EPGList;
+
+  })(App.Views.CollectionView);
 });
 
 this.Kodi.module("ExternalApp", function(ExternalApp, App, Backbone, Marionette, $, _) {});
@@ -9255,7 +9614,7 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     },
     parseRawPath: function(rawPath) {
       var path;
-      path = 'image/' + encodeURIComponent(rawPath);
+      path = config.get('static', 'reverseProxy') ? 'image/' + encodeURIComponent(rawPath) : '/image/' + encodeURIComponent(rawPath);
       return path;
     },
     setFanartBackground: function(path, region) {
@@ -11416,6 +11775,17 @@ this.Kodi.module("ChannelApp.List", function(List, App, Backbone, Marionette, $,
           return function() {};
         })(this));
       });
+      this.listenTo(view, 'childview:channel:record', function(parent, child) {
+        var record;
+        record = App.request("command:kodi:controller", 'auto', 'PVR');
+        return record.setPVRRecord(child.model.get('id'), {
+          "record": "toggle"
+        }, (function(_this) {
+          return function() {
+            return App.execute("notification:show", t.gettext("Channel recording toggled"));
+          };
+        })(this));
+      });
       return this.layout.regionContent.show(view);
     };
 
@@ -11454,7 +11824,17 @@ this.Kodi.module("ChannelApp.List", function(List, App, Backbone, Marionette, $,
     ChannelTeaser.prototype.tagName = "li";
 
     ChannelTeaser.prototype.triggers = {
-      "click .play": "channel:play"
+      "click .play": "channel:play",
+      "click .record": "channel:record"
+    };
+
+    ChannelTeaser.prototype.initialize = function() {
+      ChannelTeaser.__super__.initialize.apply(this, arguments);
+      if (this.model != null) {
+        return this.model.set({
+          subtitle: this.model.get('broadcastnow').title
+        });
+      }
     };
 
     return ChannelTeaser;
@@ -11833,7 +12213,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     Controller.prototype.getForm = function() {
       var form, options;
       options = {
-        form: this.getSructure(),
+        form: this.getStructure(),
         formState: this.getState(),
         config: {
           attributes: {
@@ -11850,15 +12230,22 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
       return this.layout.regionContent.show(form);
     };
 
-    Controller.prototype.getSructure = function() {
+    Controller.prototype.getStructure = function() {
       return [
         {
           title: 'General Options',
           id: 'general',
           children: [
             {
+              id: 'lang',
+              title: t.gettext("Language"),
+              type: 'select',
+              options: helpers.translate.getLanguages(),
+              defaultValue: 'en',
+              description: t.gettext('Preferred language, need to refresh browser to take effect')
+            }, {
               id: 'defaultPlayer',
-              title: 'Default player',
+              title: t.gettext("Default player"),
               type: 'select',
               options: {
                 auto: 'Auto',
@@ -11866,7 +12253,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
                 local: 'Local'
               },
               defaultValue: 'auto',
-              description: 'What player to start with'
+              description: t.gettext('Which player to start with')
             }
           ]
         }, {
@@ -11875,16 +12262,16 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
           children: [
             {
               id: 'ignoreArticle',
-              title: 'Ignore article',
+              title: t.gettext("Ignore article"),
               type: 'checkbox',
               defaultValue: true,
-              description: 'Ignore terms such as "The" and "a" when sorting lists'
+              description: t.gettext("Ignore articles (terms such as 'The' and 'A') when sorting lists")
             }, {
               id: 'albumAtristsOnly',
-              title: 'Album artists only',
+              title: t.gettext("Album artists only"),
               type: 'checkbox',
               defaultValue: true,
-              description: 'When listing artists should we only see arttists with albums or all artists found. Warning: turning this off can impact performance with large libraries'
+              description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')
             }
           ]
         }, {
@@ -11892,29 +12279,35 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
           id: 'advanced',
           children: [
             {
-              id: 'jsonRpcEndpoint',
-              title: 'JsonRPC path',
+              id: 'socketsPort',
+              title: t.gettext("Websockets Port"),
               type: 'textfield',
-              defaultValue: 'jsonrpc',
-              description: "Default is 'jsonrpc'"
+              defaultValue: '9090',
+              description: "9090 " + t.gettext("is the default")
             }, {
               id: 'socketsHost',
-              title: 'Websockets Host',
+              title: t.gettext("Websockets Host"),
               type: 'textfield',
               defaultValue: 'auto',
-              description: "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
+              description: t.gettext("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")
             }, {
               id: 'pollInterval',
-              title: 'Poll Interval',
+              title: t.gettext("Poll Interval"),
               type: 'select',
               defaultValue: '10000',
               options: {
-                '5000': '5 sec',
-                '10000': '10 sec',
-                '30000': '30 sec',
-                '60000': '1 min'
+                '5000': "5 " + t.gettext('sec'),
+                '10000': "10 " + t.gettext('sec'),
+                '30000': "30 " + t.gettext('sec'),
+                '60000': "60 " + t.gettext('sec')
               },
-              description: "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
+              description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")
+            }, {
+              id: 'reverseProxy',
+              title: t.gettext("Reverse Proxy Support"),
+              type: 'checkbox',
+              defaultValue: false,
+              description: t.gettext('Enable support for reverse proxying.')
             }
           ]
         }
@@ -12569,19 +12962,17 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
       return Notifications.__super__.constructor.apply(this, arguments);
     }
 
-    Notifications.prototype.socketPort = config.get('static', 'socketsPort');
-
-    Notifications.prototype.socketPath = config.get('static', 'jsonRpcEndpoint');
-
     Notifications.prototype.wsActive = false;
 
     Notifications.prototype.wsObj = {};
 
     Notifications.prototype.getConnection = function() {
-      var host, socketHost;
+      var host, socketHost, socketPath, socketPort;
       host = config.get('static', 'socketsHost');
+      socketPath = config.get('static', 'jsonRpcEndpoint');
+      socketPort = config.get('static', 'socketsPort');
       socketHost = host === 'auto' ? location.hostname : host;
-      return "ws://" + socketHost + ":" + this.socketPort + "/" + this.socketPath + "?kodi";
+      return "ws://" + socketHost + ":" + socketPort + "/" + socketPath + "?kodi";
     };
 
     Notifications.prototype.initialize = function() {
@@ -12636,7 +13027,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
 
     Notifications.prototype.socketConnectionErrorMsg = function() {
       var msg;
-      msg = "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and " + "uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED " + "in the Kodi settings (System > Services > Remote control).  You may also get this if you are using proxies or " + "accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to " + "refresh your browser.";
+      msg = "Failed to connect to websockets";
       return t.gettext(msg);
     };
 
@@ -12721,7 +13112,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
           break;
         case 'Input.OnInputFinished':
           clearTimeout(App.inputTimeout);
-          App.execute("inpute:textbox:close");
+          App.execute("input:textbox:close");
           break;
         case 'System.OnQuit':
           App.execute("notification:show", t.gettext("Kodi has quit"));

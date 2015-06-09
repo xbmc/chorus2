@@ -12,7 +12,9 @@
     "grunt-browser-sync": "~1.1.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-coffee": "~0.12.0",
-    "grunt-eco": "~0.1.2"
+    "grunt-eco": "~0.1.2",
+    "grunt-execute": "~0.2.2",
+    "grunt-po2json": "~0.3.0"
   },
   "engines": {
     "node": ">=0.8.0"

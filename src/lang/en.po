@@ -13,11 +13,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gr\n"
+"Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt ""
-msgid "Nothing playing"
+msgid "Nothing Playing"
 msgstr ""
 
 msgctxt ""
@@ -48,12 +48,11 @@ msgctxt ""
 msgid "Add Filter"
 msgstr ""
 
-msgctxt ""
 msgid "Which player to start with"
 msgstr ""
 
 msgctxt ""
-msgid "Ignore terms such as "The" and "a" when sorting lists"
+msgid "Ignore terms such as 'The' and 'a' when sorting lists"
 msgstr ""
 
 msgctxt ""
@@ -61,7 +60,7 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr ""
 
 msgctxt ""
-msgid "Default is"
+msgid "is the default"
 msgstr ""
 
 msgctxt ""
@@ -69,7 +68,7 @@ msgid "The hostname used for websockets connection. Set to 'auto' to use the cur
 msgstr ""
 
 msgctxt ""
-msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive"
+msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
 msgstr ""
 
 msgctxt ""
@@ -106,6 +105,10 @@ msgstr ""
 
 msgctxt ""
 msgid "Kodi has quit"
+msgstr ""
+
+msgctxt ""
+msgid "Sections"
 msgstr ""
 
 msgctxt ""
@@ -165,6 +168,14 @@ msgid "Give your playlist a name"
 msgstr ""
 
 msgctxt ""
+msgid "Recently Added"
+msgstr ""
+
+msgctxt ""
+msgid "Recently Played"
+msgstr ""
+
+msgctxt ""
 msgid "Season"
 msgstr ""
 
@@ -178,6 +189,10 @@ msgstr ""
 
 msgctxt ""
 msgid "Queue"
+msgstr ""
+
+msgctxt ""
+msgid "View on imdb"
 msgstr ""
 
 # Video and audio stream, such as 720, x264, AC3, etc.
@@ -206,12 +221,91 @@ msgid "Websockets Closed"
 msgstr ""
 
 msgctxt ""
+msgid "Websockets Host"
+msgstr ""
+
+msgctxt ""
+msgid "Websockets Port"
+msgstr ""
+
+msgctxt ""
+msgid "Default player"
+msgstr ""
+
+msgctxt ""
+msgid "Ignore article"
+msgstr ""
+
+msgctxt ""
+msgid "Album artists only"
+msgstr ""
+
+msgctxt ""
+msgid "Poll Interval"
+msgstr ""
+
+msgctxt ""
+msgid "Reverse Proxy Support"
+msgstr ""
+
+msgctxt ""
+msgid "Language"
+msgstr ""
+
+msgctxt ""
+msgid "Preferred language"
+msgstr ""
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr ""
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr ""
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr ""
+
+msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
 msgstr ""
 
 msgctxt ""
-msgid "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED in the Kodi settings (System > Services > Remote control). You may also get this if you are using proxies or accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to refresh your browser."
+msgid "Failed to connect to websockets"
+msgstr "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED in the Kodi settings (System > Services > Remote control). You may also get this if you are using proxies or accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to refresh your browser."
+
+msgctxt ""
+msgid "Video"
 msgstr ""
+
+msgctxt ""
+msgid "Audio"
+msgstr ""
+
+msgctxt ""
+msgid "Cast"
+msgstr ""
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] ""
+msgstr[1] ""
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] ""
+msgstr[1] ""
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] ""
+msgstr[1] ""
 
 msgctxt ""
 msgid "Result"

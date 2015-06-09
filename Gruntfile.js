@@ -222,11 +222,16 @@ module.exports = function (grunt) {
         }]
       }
     },
-    
-    execute: {
-        target: {
-            src  : ['convertTrans']
-        }
+
+    po2json: {
+      options: {
+        format: 'jed1.x',
+        domain: 'messages'
+      },
+      all: {
+        src: ['src/lang/*.po'],
+        dest: 'dist/lang/'
+      }
     }
   });
 
@@ -239,7 +244,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-eco');
-  grunt.loadNpmTasks('grunt-execute');
+  grunt.loadNpmTasks('grunt-po2json');
 
   /**
    * Tasks
@@ -247,11 +252,10 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['browserSync', 'watch']);
 
   grunt.registerTask('build', [
+    'po2json',
     'concat',
     'uglify:dist',
-    'compass:dist',
-    'execute'
-    //'jshint'
+    'compass:dist'
   ]);
 
 };

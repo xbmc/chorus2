@@ -4,15 +4,28 @@
 
 helpers.translate = {}
 
-helpers.translate.getLanguages = (callback) ->
-  returnVal = ''
-  $.getJSON 'resources/language/manifest.json', (data) ->
-    _.each data, (lang) ->
-      returnVal += '"' + lang.lang + '": "' + lang.name + '",'
-    callback JSON.parse '{' + (returnVal.slice 0, -1) + '}'
+## When a new language file (src/lang/*.po) is added, it must also be added
+## here as an available option.
+helpers.translate.getLanguages = ->
+  {
+    en: "English"
+    gr: "German"
+    fr: "French"
+  }
 
+## Init language and translations.
 helpers.translate.init = (callback) ->
-  $.getJSON("resources/language/" + config.static.lang + ".json", (data) -> 
+
+  # Need to get the language key from local storage before the app has started
+  # so this does a workaround to grab it direct from local storage.
+  # TODO Find a better way to do this!
+  defaultLang = config.get "static", "lang", "en"
+  lang = (JSON.parse(localStorage.getItem('config:app-config:local')).data.lang || defaultLang)
+
+  # Load the correct language from settings.
+  $.getJSON "lang/" + lang + ".json", (data) ->
     window.t = new Jed(data)
+    # If a key is missing, throw a console error.
     t.options["missing_key_callback"] = (key) -> console.error key
-  )
+    # Do whatever needs to be done after language is ready (eg. start the app)
+    callback()

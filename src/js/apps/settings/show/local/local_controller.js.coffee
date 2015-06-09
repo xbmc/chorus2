@@ -2,8 +2,6 @@
 
   class Local.Controller extends App.Controllers.Base
 
-    availableLangs = {}
-
     initialize: ->
 
       ## Get and setup the layout
@@ -11,16 +9,10 @@
       @layout = @getLayoutView()
       @listenTo @layout, "show", =>
         @getSubNav()
-        @getLangs()
+        @getForm()
 
       ## Render the layout
       App.regionContent.show @layout
-
-    gotLangs: (langs) =>
-      availableLangs = langs
-      @getForm()
-
-    getLangs: -> helpers.translate.getLanguages(@gotLangs)
 
     getLayoutView: ->
       new App.SettingsApp.Show.Layout()
@@ -47,7 +39,7 @@
           title: 'General Options'
           id: 'general'
           children:[
-            {id: 'lang', title: t.gettext("Language"), type: 'select', options: availableLangs, defaultValue: 'en', description: t.gettext('Preferred language')}
+            {id: 'lang', title: t.gettext("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: t.gettext('Preferred language, need to refresh browser to take effect')}
             {id: 'defaultPlayer', title: t.gettext("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: t.gettext('Which player to start with')}
           ]
         }
@@ -55,7 +47,7 @@
           title: 'List options'
           id: 'list'
           children:[
-            {id: 'ignoreArticle', title: t.gettext("Ignore article"), type: 'checkbox', defaultValue: true, description: t.gettext('Ignore articles (terms such as "The" and "A") when sorting lists')}
+            {id: 'ignoreArticle', title: t.gettext("Ignore article"), type: 'checkbox', defaultValue: true, description: t.gettext("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
             {id: 'albumAtristsOnly', title: t.gettext("Album artists only"), type: 'checkbox', defaultValue: true, description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
           ]
         }

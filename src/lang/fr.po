@@ -53,7 +53,7 @@ msgid "Which player to start with"
 msgstr ""
 
 msgctxt ""
-msgid "Ignore terms such as "The" and "a" when sorting lists"
+msgid "Ignore terms such as 'The' and 'a' when sorting lists"
 msgstr ""
 
 msgctxt ""
