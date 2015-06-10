@@ -19,7 +19,7 @@ window.JST["apps/album/landing/tpl/landing.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<h3>Recently Added</h3>\n<div class="landing-section region-recently-added"></div>\n<h3>Recently Played</h3>\n<div class="landing-section region-recently-played"></div>'));
+      _print(_safe('<h3>Recently added</h3>\n<div class="landing-section region-recently-added"></div>\n<h3>Recently played</h3>\n<div class="landing-section region-recently-played"></div>'));
     
     }).call(this);
     
@@ -645,7 +645,7 @@ window.JST["apps/filter/show/tpl/filter_options.jst"] = function(__obj) {
     (function() {
       _print(_safe('<div class="options-search-wrapper">\n    <input class="options-search" value="" />\n</div>\n<div class="deselect-all">'));
     
-      _print(t.gettext('Deselect All'));
+      _print(t.gettext('Deselect all'));
     
       _print(_safe('</div>\n<ul class="selection-list"></ul>'));
     
@@ -969,9 +969,9 @@ window.JST["apps/localPlaylist/list/tpl/playlist_layout.jst"] = function(__obj) 
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="local-playlist-header">\n    <h2></h2>\n    <div class="dropdown">\n        <i data-toggle="dropdown"></i>\n        <ul class="dropdown-menu">\n            <li class="play">Play in Kodi</li>\n            <li class="localplay">Play in Browser</li>\n            <li class="lsit">Export List</li>\n            <div class="divider"></div>\n            <li class="clear">Clear Playlist</li>\n            <li class="delete">Delete Playlist</li>\n        </ul>\n    </div>\n</div>\n<div class="item-container">\n    <div class="empty-content">'));
+      _print(_safe('<div class="local-playlist-header">\n    <h2></h2>\n    <div class="dropdown">\n        <i data-toggle="dropdown"></i>\n        <ul class="dropdown-menu">\n            <li class="play">Play in Kodi</li>\n            <li class="localplay">Play in browser</li>\n            <li class="lsit">Export list</li>\n            <div class="divider"></div>\n            <li class="clear">Clear playlist</li>\n            <li class="delete">Delete playlist</li>\n        </ul>\n    </div>\n</div>\n<div class="item-container">\n    <div class="empty-content">'));
     
-      _print(t.gettext('Empty Playlist, you should probably add something to it?'));
+      _print(t.gettext('Empty playlist, you should probably add something to it?'));
     
       _print(_safe('</div>\n</div>'));
     
@@ -1625,7 +1625,7 @@ window.JST["apps/playlist/list/tpl/playlist_bar.jst"] = function(__obj) {
     
       _print(t.gettext('Local'));
     
-      _print(_safe('</li>\n    </ul>\n    <div class="playlist-menu dropdown">\n        <i data-toggle="dropdown" class="menu-toggle"></i>\n        <ul class="dropdown-menu pull-right">\n            <li class="dropdown-header">Current Playlist</li>\n            <li><a href="#" class="clear-playlist">Clear Playlist</a></li>\n            <li><a href="#" class="refresh-playlist">Refresh Playlist</a></li>\n            <li class="dropdown-header">Kodi</li>\n            <li><a href="#" class="party-mode">Party Mode <i class="mdi-navigation-check"></i></a></li>\n            <li><a href="#" class="save-playlist">Save Kodi Playlist</a></li>\n            </li>\n        </ul>\n    </div>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
+      _print(_safe('</li>\n    </ul>\n    <div class="playlist-menu dropdown">\n        <i data-toggle="dropdown" class="menu-toggle"></i>\n        <ul class="dropdown-menu pull-right">\n            <li class="dropdown-header">Current playlist</li>\n            <li><a href="#" class="clear-playlist">Clear playlist</a></li>\n            <li><a href="#" class="refresh-playlist">Refresh playlist</a></li>\n            <li class="dropdown-header">Kodi</li>\n            <li><a href="#" class="party-mode">Party mode <i class="mdi-navigation-check"></i></a></li>\n            <li><a href="#" class="save-playlist">Save Kodi playlist</a></li>\n            </li>\n        </ul>\n    </div>\n</div>\n<div class="playlists-wrapper">\n    <div class="kodi-playlists">\n        <ul class="media-toggle">\n            <li class="audio">Audio</li>\n            <li class="video">Video</li>\n        </ul>\n        <div class="kodi-playlist"></div>\n    </div>\n    <div class="local-playlists">\n        <div class="local-playlist"></div>\n    </div>\n</div>\n'));
     
     }).call(this);
     
@@ -1917,7 +1917,7 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="remote"></div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n    <div class="player-menu-wrapper">\n        <ul class="player-menu">\n            <li class="video-scan">Scan Video Library</li>\n            <li class="audio-scan">Scan Audio Library</li>\n            <li class="about">About Chorus</li>\n        </ul>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
+      _print(_safe('<div id="shell">\n\n    <a id="logo" href="#"></a>\n\n    <div id="nav-bar"></div>\n\n    <div id="header">\n\n        <h1 id="page-title">\n            <span class="context"></span>\n            <span class="title"></span>\n        </h1>\n\n        <div id="search-region">\n            <input id="search" title="Search">\n            <span id="do-search"></span>\n        </div>\n\n    </div>\n\n    <div id="main">\n\n        <div id="sidebar-one"></div>\n\n        <div id="content">Loading things...</div>\n\n    </div>\n\n    <div id="sidebar-two">\n        <div class="playlist-toggle-open"></div>\n        <div id="playlist-summary"></div>\n        <div id="playlist-bar"></div>\n    </div>\n\n    <div id="remote"></div>\n\n    <div id="player-wrapper">\n        <footer id="player-kodi"></footer>\n        <footer id="player-local"></footer>\n    </div>\n\n    <div class="player-menu-wrapper">\n        <ul class="player-menu">\n            <li class="video-scan">Scan video library</li>\n            <li class="audio-scan">Scan audio library</li>\n            <li class="about">About Chorus</li>\n        </ul>\n    </div>\n\n</div>\n\n<div id="fanart"></div>\n<div id="fanart-overlay"></div>\n\n<div id="snackbar-container"></div>\n\n<div class="modal fade" id="modal-window">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title"></h4>\n            </div>\n            <div class="modal-body"></div>\n            <div class="modal-footer"></div>\n        </div>\n    </div>\n</div>'));
     
     }).call(this);
     

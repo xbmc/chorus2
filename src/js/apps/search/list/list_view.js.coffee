@@ -18,7 +18,7 @@
         if @options.entity
           $('h2.set-header', @$el).html( t.gettext( @options.entity + 's'  ) )
           if @options.more and @options.query
-            moreLink = @themeLink t.gettext('Show More'), 'search/' + @options.entity + '/' + @options.query
+            moreLink = @themeLink t.gettext('Show more'), 'search/' + @options.entity + '/' + @options.query
             $('.more', @$el).html( moreLink )
 
     regions:

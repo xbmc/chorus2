@@ -59,7 +59,7 @@ function SoundManager(smURL, smID) {
 
   /**
    * soundManager configuration options list
-   * defines top-level configuration properties to be applied to the soundManager instance (eg. soundManager.flashVersion)
+   * defines top-level configuration properties to be applied to the soundManager instance (e.g. soundManager.flashVersion)
    * to set these properties, use the setup() method - eg., soundManager.setup({url: '/swf/', flashVersion: 9})
    */
 
@@ -116,7 +116,7 @@ function SoundManager(smURL, smID) {
     'pan': 0,                 // "pan" settings, left-to-right, -100 to 100
     'stream': true,           // allows playing before entire file has loaded (recommended)
     'to': null,               // position to end playback within a sound (msec), default = end
-    'type': null,             // MIME-like hint for file pattern / canPlay() tests, eg. audio/mp3
+    'type': null,             // MIME-like hint for file pattern / canPlay() tests, e.g. audio/mp3
     'usePolicyFile': false,   // enable crossdomain.xml request for audio on remote domains (for ID3/waveform access)
     'volume': 100             // self-explanatory. 0-100, the latter being the max.
 
@@ -252,7 +252,7 @@ function SoundManager(smURL, smID) {
   /**
    * format support (html5/flash)
    * stores canPlayType() results based on audioFormats.
-   * eg. { mp3: boolean, mp4: boolean }
+   * e.g. { mp3: boolean, mp4: boolean }
    * treat as read-only.
    */
 
@@ -266,7 +266,7 @@ function SoundManager(smURL, smID) {
   // determined at init time
   this.html5Only = false;
 
-  // used for special cases (eg. iPad/iPhone/palm OS?)
+  // used for special cases (e.g. iPad/iPhone/palm OS?)
   this.ignoreFlash = false;
 
   /**
@@ -332,7 +332,7 @@ function SoundManager(smURL, smID) {
   /**
    * Configures top-level soundManager properties.
    *
-   * @param {object} options Option parameters, eg. { flashVersion: 9, url: '/path/to/swfs/' }
+   * @param {object} options Option parameters, e.g. { flashVersion: 9, url: '/path/to/swfs/' }
    * onready and ontimeout are also accepted parameters. call soundManager.setup() to see the full list.
    */
 
@@ -1006,7 +1006,7 @@ function SoundManager(smURL, smID) {
   };
 
   /**
-   * Determines playability of a MIME type, eg. 'audio/mp3'.
+   * Determines playability of a MIME type, e.g. 'audio/mp3'.
    */
 
   this.canPlayMIME = function(sMIME) {
@@ -3264,7 +3264,7 @@ function SoundManager(smURL, smID) {
         return false;
       }
 
-      // Safari HTML5 play() may return small -ve values when starting from position: 0, eg. -50.120396875. Unexpected/invalid per W3, I think. Normalize to 0.
+      // Safari HTML5 play() may return small -ve values when starting from position: 0, e.g. -50.120396875. Unexpected/invalid per W3, I think. Normalize to 0.
       s.position = Math.max(0, nPosition);
 
       s._processOnPosition();
@@ -3604,7 +3604,7 @@ console.log('updated metadata', s.metadata);
             /**
              * valid extraOptions (bonusOptions) parameter.
              * is it a method, like onready/ontimeout? call it.
-             * multiple parameters should be in an array, eg. soundManager.setup({onready: [myHandler, myScope]});
+             * multiple parameters should be in an array, e.g. soundManager.setup({onready: [myHandler, myScope]});
              */
 
             if (sm2[i] instanceof Function) {
@@ -3969,7 +3969,7 @@ console.log('updated metadata', s.metadata);
         // TODO: prevent calls with duplicate values.
         s._whileloading(loaded, total, s._get_html5_duration());
         if (loaded && total && loaded === total) {
-          // in case "onload" doesn't fire (eg. gecko 1.9.2)
+          // in case "onload" doesn't fire (e.g. gecko 1.9.2)
           html5_events.canplaythrough.call(this, e);
         }
 
@@ -3985,7 +3985,7 @@ console.log('updated metadata', s.metadata);
 
     suspend: html5_event(function(e) {
 
-      // download paused/stopped, may have finished (eg. onload)
+      // download paused/stopped, may have finished (e.g. onload)
       var s = this._s;
 
       sm2._wD(this._s.id + ': suspend');
@@ -4161,7 +4161,7 @@ console.log('updated metadata', s.metadata);
   testHTML5 = function() {
 
     /**
-     * Internal: Iterates over audioFormats, determining support eg. audio/mp3, audio/mpeg and so on
+     * Internal: Iterates over audioFormats, determining support e.g. audio/mp3, audio/mpeg and so on
      * assigns results to html5[] and flash[].
      */
 
@@ -4218,7 +4218,7 @@ console.log('updated metadata', s.metadata);
 
         support[item] = cp(aF[item].type);
 
-        // write back generic type too, eg. audio/mp3
+        // write back generic type too, e.g. audio/mp3
         support[lookup] = support[item];
 
         // assign flash
@@ -4240,7 +4240,7 @@ console.log('updated metadata', s.metadata);
 
           for (i=aF[item].related.length-1; i >= 0; i--) {
 
-            // eg. audio/m4a
+            // e.g. audio/m4a
             support['audio/'+aF[item].related[i]] = support[item];
             sm2.html5[aF[item].related[i]] = support[item];
             sm2.flash[aF[item].related[i]] = support[item];
@@ -4273,7 +4273,7 @@ console.log('updated metadata', s.metadata);
     swf404: smc + 'Verify that %s is a valid path.',
     tryDebug: 'Try ' + sm + '.debugFlash = true for more security details (output goes to SWF.)',
     checkSWF: 'See SWF output for more debug info.',
-    localFail: smc + 'Non-HTTP page (' + doc.location.protocol + ' URL?) Review Flash player security settings for this special case:\nhttp://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html\nMay need to add/allow path, eg. c:/sm2/ or /users/me/sm2/',
+    localFail: smc + 'Non-HTTP page (' + doc.location.protocol + ' URL?) Review Flash player security settings for this special case:\nhttp://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html\nMay need to add/allow path, e.g. c:/sm2/ or /users/me/sm2/',
     waitFocus: smc + 'Special case: Waiting for SWF to load with window focus...',
     waitForever: smc + 'Waiting indefinitely for Flash (will recover if unblocked)...',
     waitSWF: smc + 'Waiting for 100% SWF load...',
@@ -5391,7 +5391,7 @@ featureCheck = function() {
 
       } else {
 
-        // SM2 container is already in the document (eg. flashblock use case)
+        // SM2 container is already in the document (e.g. flashblock use case)
         sClass = sm2.oMC.className;
         sm2.oMC.className = (sClass?sClass+' ':swfCSS.swfDefault) + (extraClass?' '+extraClass:'');
         sm2.oMC.appendChild(oMovie);
@@ -5866,7 +5866,7 @@ featureCheck = function() {
 
     didDCLoaded = true;
 
-    // assign top-level soundManager properties eg. soundManager.url
+    // assign top-level soundManager properties e.g. soundManager.url
     setProperties();
 
     initDebug();

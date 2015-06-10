@@ -1,4 +1,4 @@
-<h3><%= t.gettext("Recently Added") %></h3>
+<h3><%= t.gettext("Recently added") %></h3>
 <div class="landing-section region-recently-added"></div>
-<h3><%= t.gettext("Recently Played") %></h3>
+<h3><%= t.gettext("Recently played") %></h3>
 <div class="landing-section region-recently-played"></div>

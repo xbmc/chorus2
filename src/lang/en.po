@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt ""
-msgid "Nothing Playing"
+msgid "Nothing playing"
 msgstr ""
 
 msgctxt ""
-msgid "Deselect All"
+msgid "Deselect all"
 msgstr ""
 
 msgctxt ""
@@ -45,7 +45,7 @@ msgid "filter"
 msgstr ""
 
 msgctxt ""
-msgid "Add Filter"
+msgid "Add filter"
 msgstr ""
 
 msgid "Which player to start with"
@@ -72,11 +72,11 @@ msgid "How often do I poll for updates from Kodi (Only applies when websockets i
 msgstr ""
 
 msgctxt ""
-msgid "Enable support for reverse proxying."
+msgid "Enable support for reverse proxy."
 msgstr ""
 
 msgctxt ""
-msgid "Web Settings saved."
+msgid "Web settings saved."
 msgstr ""
 
 msgctxt ""
@@ -120,7 +120,7 @@ msgid "Loading folder..."
 msgstr ""
 
 msgctxt ""
-msgid "Show More"
+msgid "Show more"
 msgstr ""
 
 msgctxt ""
@@ -148,7 +148,7 @@ msgid "Existing playlists"
 msgstr ""
 
 msgctxt ""
-msgid "Empty Playlist, you should probably add something to it?"
+msgid "Empty playlist, you should probably add something to it?"
 msgstr ""
 
 msgctxt ""
@@ -168,11 +168,11 @@ msgid "Give your playlist a name"
 msgstr ""
 
 msgctxt ""
-msgid "Recently Added"
+msgid "Recently added"
 msgstr ""
 
 msgctxt ""
-msgid "Recently Played"
+msgid "Recently played"
 msgstr ""
 
 msgctxt ""
@@ -213,19 +213,19 @@ msgid "Synopsis"
 msgstr ""
 
 msgctxt ""
-msgid "Full Cast"
+msgid "Full cast"
 msgstr ""
 
 msgctxt ""
-msgid "Websockets Closed"
+msgid "Websockets closed"
 msgstr ""
 
 msgctxt ""
-msgid "Websockets Host"
+msgid "Websockets host"
 msgstr ""
 
 msgctxt ""
-msgid "Websockets Port"
+msgid "Websockets port"
 msgstr ""
 
 msgctxt ""
@@ -241,11 +241,11 @@ msgid "Album artists only"
 msgstr ""
 
 msgctxt ""
-msgid "Poll Interval"
+msgid "Poll interval"
 msgstr ""
 
 msgctxt ""
-msgid "Reverse Proxy Support"
+msgid "Reverse proxy support"
 msgstr ""
 
 msgctxt ""

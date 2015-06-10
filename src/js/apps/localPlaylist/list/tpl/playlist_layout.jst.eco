@@ -4,14 +4,14 @@
         <i data-toggle="dropdown"></i>
         <ul class="dropdown-menu">
             <li class="play">Play in Kodi</li>
-            <li class="localplay">Play in Browser</li>
-            <li class="lsit">Export List</li>
+            <li class="localplay">Play in browser</li>
+            <li class="lsit">Export list</li>
             <div class="divider"></div>
-            <li class="clear">Clear Playlist</li>
-            <li class="delete">Delete Playlist</li>
+            <li class="clear">Clear playlist</li>
+            <li class="delete">Delete playlist</li>
         </ul>
     </div>
 </div>
 <div class="item-container">
-    <div class="empty-content"><%= t.gettext('Empty Playlist, you should probably add something to it?') %></div>
+    <div class="empty-content"><%= t.gettext('Empty playlist, you should probably add something to it?') %></div>
 </div>

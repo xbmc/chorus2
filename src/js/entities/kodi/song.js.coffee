@@ -28,7 +28,7 @@
       songs.fetch options
       songs
 
-    ## Turn a collection of songs, eg. all artist songs
+    ## Turn a collection of songs, e.g. all artist songs
     ## into an array of album song collections keyed by albumid.
     parseSongsToAlbumSongs: (songs) ->
       songsRaw = songs.getRawCollection()

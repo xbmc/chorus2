@@ -36,7 +36,7 @@
           title: 'List options'
           id: 'list'
           children:[
-            {id: 'ignore-article', title: 'Ignore Article', type: 'checkbox', defaultValue: true, description: 'Ignore terms such as "The" and "a" when sorting lists'}
+            {id: 'ignore-article', title: 'Ignore article', type: 'checkbox', defaultValue: true, description: 'Ignore terms such as "The" and "a" when sorting lists'}
           ]
         }
       ]

@@ -7,7 +7,7 @@
 
     initialize: ->
       duration = helpers.global.secToTime this.model.get('duration')
-      menu = {'song-localadd': 'Add to playlist', 'song-download': 'Download Song', 'song-localplay': 'Play in browser', 'song-musicvideo': 'Music Video'}
+      menu = {'song-localadd': 'Add to playlist', 'song-download': 'Download song', 'song-localplay': 'Play in browser', 'song-musicvideo': 'Music video'}
       this.model.set({displayDuration: helpers.global.formatTime(duration), menu: menu})
 
     triggers:
@@ -17,7 +17,7 @@
       "click .song-localadd"   : "song:localadd"
       "click .song-download"   : "song:download"
       "click .song-localplay"  : "song:localplay"
-      "click .song-musicvideo"  : "song:musicvideo"
+      "click .song-musicvideo" : "song:musicvideo"
 
     events:
       "click .dropdown > i": "populateMenu"

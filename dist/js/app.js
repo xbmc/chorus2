@@ -7,7 +7,7 @@ this.helpers = {};
 
 this.config = {
   "static": {
-    appTitle: 'Kodi.',
+    appTitle: 'Kodi',
     jsonRpcEndpoint: 'jsonrpc',
     socketsHost: location.hostname,
     socketsPort: 9090,
@@ -488,7 +488,7 @@ helpers.debug.rpcError = function(commands, data) {
   } else {
     detail.error = data;
   }
-  return helpers.debug.log("jsonRPC Rquequest - " + msg, detail, 'error');
+  return helpers.debug.log("jsonRPC request - " + msg, detail, 'error');
 };
 
 

@@ -229,7 +229,7 @@
       items = []
       ## Get the properties requested
       collectionItems = collection.pluck(key)
-      ## Deal with more complex nested propeties (eg. cast)
+      ## Deal with more complex nested propeties (e.g. cast)
       if s.filterCallback is 'multiple' and s.type is 'object'
         ## Limit to first 5 for each otherwise it kills the browser.
         limited = []
