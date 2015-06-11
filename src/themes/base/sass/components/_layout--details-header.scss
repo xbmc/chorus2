@@ -6,12 +6,6 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .active-player-#{$player} {
     .details-header {
       background: $background;
-      .region-details-fanart {
-        &:before {
-          @include filter-gradient(rgba($background, 1), rgba($background, 0), horizontal);
-          @include background-image(linear-gradient(left, rgba($background,1) 0%, rgba($background,0.9) 30%, rgba($background,0) 100%));
-        }
-      }
     }
   }
 }
@@ -81,7 +75,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     background-position: 50% 50%;
     width: 600px;
     @include set-position-absolute(top 0 right 0 bottom 0);
-    &:before {
+    .gradient {
       content: "";
       @include set-position-absolute(top 0 left 0 bottom 0);
       width: 60%;
