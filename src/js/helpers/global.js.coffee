@@ -133,29 +133,3 @@ helpers.global.stripTags = (string) ->
     string.replace(/(<([^>]+)>)/ig,"");
   else
     ''
-
-## Get a swatch from an image (Vibrant.js)
-helpers.global.getSwatch = (imgSrc, callback) ->
-  ret = {}
-  img = document.createElement('img');
-  img.setAttribute('src', imgSrc)
-  img.addEventListener 'load', ->
-    vibrant = new Vibrant(img);
-    swatches = vibrant.swatches()
-    for swatch of swatches
-      if swatches.hasOwnProperty(swatch) and swatches[swatch]
-        sw = swatches[swatch]
-        ret[swatch] = {
-          hex: sw.getHex()
-          rgb: sw.getRgb()
-          title: sw.getTitleTextColor()
-          body: sw.getBodyTextColor()
-        }
-    callback(ret)
-
-## Apply swatches to a header (Vibrant.js)
-helpers.global.applyHeaderSwatch = (swatches) ->
-  color = swatches.DarkVibrant
-  $header = $('.details-header')
-  $header.css('background-color', color.hex)
-  $('.region-details-fanart .gradient', $header).css('background-image', 'linear-gradient(to right, ' + color.hex + ' 0%, rgba(' + color.rgb.join(',') + ',0) 100%)')

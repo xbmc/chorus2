@@ -72,9 +72,6 @@
         detail = new Show.Details model: album
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
-        ## Get swatches
-        helpers.global.getSwatch album.get('thumbnail'), (swatches) ->
-          helpers.global.applyHeaderSwatch(swatches)
       @layout.regionHeader.show headerLayout
 
 

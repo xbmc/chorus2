@@ -52,7 +52,14 @@
           ]
         }
         {
-          title: 'Advanced options'
+          title: 'Appearance'
+          id: 'appearance'
+          children:[
+            {id: 'vibrantHeaders', title: t.gettext("Vibrant Headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
+          ]
+        }
+        {
+          title: 'Advanced Options'
           id: 'advanced'
           children:[
             {id: 'socketsPort', title: t.gettext("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + t.gettext("is the default")}
@@ -69,5 +76,9 @@
 
     ## Save the settings to local storage.
     saveCallback: (data, formView) ->
+      # Save to local storage
       config.set 'app', 'config:local', data
-      Kodi.execute "notification:show", t.gettext("Web settings saved.")
+      # Update current session
+      config.static = _.extend config.static, config.get('app', 'config:local', config.static)
+      # Notify.
+      Kodi.execute "notification:show", t.gettext("Web Settings saved.")

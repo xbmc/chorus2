@@ -1,4 +1,5 @@
 // Details Header (Generic across most entities).
+$color-detail-hightlight-text-over: rgba($color-white, 0.9);
 $color-detail-hightlight-text: rgba($color-white, 0.6);
 
 // State based changes.
@@ -6,6 +7,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .active-player-#{$player} {
     .details-header {
       background: $background;
+      .gradient {
+        @include background-image(linear-gradient(left, rgba($background,1) 0%, rgba($background,0.9) 30%, rgba($background,0) 100%));
+      }
     }
   }
 }
@@ -32,17 +36,20 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .region-details-meta-wrapper {
     @include set-layout('width-details-side', 'margin-left');
     padding: 0 $spacing-base-unit 0 $spacing-half-unit;
-    color: rgba($color-white, 0.4);
+    color: $color-detail-hightlight-text-over;
     position: relative;
     z-index: $z-index-beta;
-    margin-right: 500px;
     padding-top: $spacing-base-unit;
+    @include at-bp(xxlarge) {
+      margin-right: 500px;
+      color: rgba($color-white, 0.4);
+    }
   }
   .region-details-top {
     @include pie-clearfix;
   }
   .region-details-title {
-    color: rgba($color-white, 0.9);
+    color: rgba($color-white, 0.95);
     margin-bottom: $spacing-half-unit;
     .sub {
       font-weight: normal;
@@ -70,15 +77,24 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     @include pie-clearfix();
   }
   .region-details-fanart {
-    opacity: 0.8;
     background-size: cover;
     background-position: 50% 50%;
     width: 600px;
     @include set-position-absolute(top 0 right 0 bottom 0);
+    z-index: $z-index-alpha;
     .gradient {
       content: "";
       @include set-position-absolute(top 0 left 0 bottom 0);
       width: 60%;
+    }
+    display: none;
+    @include at-bp(large) {
+      display: block;
+      opacity: 0.3;
+    }
+    @include at-bp(xxlarge) {
+      display: block;
+      opacity: 0.8;
     }
   }
   .region-details-meta-below {
@@ -108,6 +124,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .card-detail {
     .artwork {
       position: relative;
+      z-index: $z-index-beta;
     }
     .play {
       @include set-position-absolute(top 0 bottom 0 right 0 left 0);
