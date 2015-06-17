@@ -21,6 +21,7 @@ this.config = {
     searchIndexCacheExpiry: 24 * 60 * 60,
     collectionCacheExpiry: 7 * 24 * 60 * 60,
     addOnsLoaded: false,
+    vibrantHeaders: true,
     lang: "en"
   }
 };
@@ -488,7 +489,7 @@ helpers.debug.rpcError = function(commands, data) {
   } else {
     detail.error = data;
   }
-  return helpers.debug.log("jsonRPC request - " + msg, detail, 'error');
+  return helpers.debug.log("jsonRPC Rquequest - " + msg, detail, 'error');
 };
 
 
@@ -914,9 +915,11 @@ helpers.translate.getLanguages = function() {
 };
 
 helpers.translate.init = function(callback) {
-  var defaultLang, lang;
-  defaultLang = config.get("static", "lang", "en");
-  lang = JSON.parse(localStorage.getItem('config:app-config:local')).data.lang || defaultLang;
+  var lang;
+  lang = config.get("static", "lang", "en");
+  if ((typeof localStorage !== "undefined" && localStorage !== null) && (localStorage.getItem('config:app-config:local') != null)) {
+    lang = JSON.parse(localStorage.getItem('config:app-config:local')).data.lang;
+  }
   return $.getJSON("lang/" + lang + ".json", function(data) {
     window.t = new Jed(data);
     t.options["missing_key_callback"] = function(key) {
@@ -924,6 +927,51 @@ helpers.translate.init = function(callback) {
     };
     return callback();
   });
+};
+
+
+/*
+  UI helpers for the app.
+ */
+
+helpers.ui = {};
+
+helpers.ui.getSwatch = function(imgSrc, callback) {
+  var img, ret;
+  ret = {};
+  img = document.createElement('img');
+  img.setAttribute('src', imgSrc);
+  return img.addEventListener('load', function() {
+    var sw, swatch, swatches, vibrant;
+    vibrant = new Vibrant(img);
+    swatches = vibrant.swatches();
+    for (swatch in swatches) {
+      if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+        sw = swatches[swatch];
+        ret[swatch] = {
+          hex: sw.getHex(),
+          rgb: sw.getRgb(),
+          title: sw.getTitleTextColor(),
+          body: sw.getBodyTextColor()
+        };
+      }
+    }
+    return callback(ret);
+  });
+};
+
+helpers.ui.applyHeaderSwatch = function(swatches) {
+  var $header, color, gradient, rgb;
+  if ((swatches != null) && (swatches.DarkVibrant != null) && (swatches.DarkVibrant.hex != null)) {
+    if (config.get('static', 'vibrantHeaders') === true) {
+      color = swatches.DarkVibrant;
+      $header = $('.details-header');
+      $header.css('background-color', color.hex);
+      rgb = color.rgb.join(',');
+      gradient = 'linear-gradient(to right, ' + color.hex + ' 0%, rgba(' + rgb + ',0.9) 30%, rgba(' + rgb + ',0) 100%)';
+      return $('.region-details-fanart .gradient', $header).css('background-image', gradient);
+    }
+  }
 };
 
 
@@ -4552,7 +4600,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 5,
-        title: "Digital Radio",
+        title: "Digital radio",
         path: 'music/radio',
         icon: '',
         classes: 'pvr-link',
@@ -4569,7 +4617,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 12,
-        title: "Recent Movies",
+        title: "Recent movies",
         path: 'movies/recent',
         icon: '',
         classes: '',
@@ -4577,7 +4625,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 13,
-        title: "All Movies",
+        title: "All movies",
         path: 'movies',
         icon: '',
         classes: '',
@@ -4585,7 +4633,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 21,
-        title: "TV Shows",
+        title: "TV shows",
         path: 'tvshows/recent',
         icon: 'mdi-hardware-tv',
         classes: 'nav-tv',
@@ -4593,7 +4641,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 22,
-        title: "Recent Episodes",
+        title: "Recent episodes",
         path: 'tvshows/recent',
         icon: '',
         classes: '',
@@ -4601,7 +4649,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 23,
-        title: "All TVShows",
+        title: "All TV shows",
         path: 'tvshows',
         icon: '',
         classes: '',
@@ -4609,7 +4657,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 24,
-        title: "Live TV",
+        title: "TV",
         path: 'tvshows/live',
         icon: '',
         classes: 'pvr-link',
@@ -4626,7 +4674,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 41,
-        title: "Thumbs Up",
+        title: "Thumbs up",
         path: 'thumbsup',
         icon: 'mdi-action-thumb-up',
         classes: 'nav-thumbs-up',
@@ -4650,7 +4698,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 52,
-        title: "Web Settings",
+        title: "Web settings",
         path: 'settings/web',
         icon: '',
         classes: '',
@@ -4658,7 +4706,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 53,
-        title: "Kodi Settings",
+        title: "Kodi settings",
         path: 'settings/kodi',
         icon: '',
         classes: '',
@@ -5190,7 +5238,10 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     LayoutDetailsHeaderView.prototype.onRender = function() {
-      return $('.region-details-fanart', this.$el).css('background-image', 'url("' + this.model.get('fanart') + '")');
+      $('.region-details-fanart', this.$el).css('background-image', 'url("' + this.model.get('fanart') + '")');
+      return helpers.ui.getSwatch(this.model.get('thumbnail'), function(swatches) {
+        return helpers.ui.applyHeaderSwatch(swatches);
+      });
     };
 
     return LayoutDetailsHeaderView;
@@ -9545,7 +9596,7 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       var tag;
       tag = this.themeTag('span', {
         'class': 'filter-btn filterable-add'
-      }, t.gettext('Add Filter'));
+      }, t.gettext('Add filter'));
       return this.model.set({
         title: tag
       });
@@ -11997,7 +12048,7 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
         if (this.options.entity) {
           $('h2.set-header', this.$el).html(t.gettext(this.options.entity + 's'));
           if (this.options.more && this.options.query) {
-            moreLink = this.themeLink(t.gettext('Show More'), 'search/' + this.options.entity + '/' + this.options.query);
+            moreLink = this.themeLink(t.gettext('Show more'), 'search/' + this.options.entity + '/' + this.options.query);
             return $('.more', this.$el).html(moreLink);
           }
         }
@@ -12158,7 +12209,7 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
           children: [
             {
               id: 'ignore-article',
-              title: 'Ignore Article',
+              title: 'Ignore article',
               type: 'checkbox',
               defaultValue: true,
               description: 'Ignore terms such as "The" and "a" when sorting lists'
@@ -12233,7 +12284,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     Controller.prototype.getStructure = function() {
       return [
         {
-          title: 'General Options',
+          title: 'General options',
           id: 'general',
           children: [
             {
@@ -12275,24 +12326,36 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
+          title: 'Appearance',
+          id: 'appearance',
+          children: [
+            {
+              id: 'vibrantHeaders',
+              title: t.gettext("Vibrant Headers"),
+              type: 'checkbox',
+              defaultValue: true,
+              description: t.gettext("Use colourful headers for media pages")
+            }
+          ]
+        }, {
           title: 'Advanced Options',
           id: 'advanced',
           children: [
             {
               id: 'socketsPort',
-              title: t.gettext("Websockets Port"),
+              title: t.gettext("Websockets port"),
               type: 'textfield',
               defaultValue: '9090',
               description: "9090 " + t.gettext("is the default")
             }, {
               id: 'socketsHost',
-              title: t.gettext("Websockets Host"),
+              title: t.gettext("Websockets host"),
               type: 'textfield',
               defaultValue: 'auto',
               description: t.gettext("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")
             }, {
               id: 'pollInterval',
-              title: t.gettext("Poll Interval"),
+              title: t.gettext("Poll interval"),
               type: 'select',
               defaultValue: '10000',
               options: {
@@ -12304,7 +12367,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
               description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")
             }, {
               id: 'reverseProxy',
-              title: t.gettext("Reverse Proxy Support"),
+              title: t.gettext("Reverse proxy support"),
               type: 'checkbox',
               defaultValue: false,
               description: t.gettext('Enable support for reverse proxying.')
@@ -12320,6 +12383,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
 
     Controller.prototype.saveCallback = function(data, formView) {
       config.set('app', 'config:local', data);
+      config["static"] = _.extend(config["static"], config.get('app', 'config:local', config["static"]));
       return Kodi.execute("notification:show", t.gettext("Web Settings saved."));
     };
 
@@ -12613,9 +12677,9 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
       duration = helpers.global.secToTime(this.model.get('duration'));
       menu = {
         'song-localadd': 'Add to playlist',
-        'song-download': 'Download Song',
+        'song-download': 'Download song',
         'song-localplay': 'Play in browser',
-        'song-musicvideo': 'Music Video'
+        'song-musicvideo': 'Music video'
       };
       return this.model.set({
         displayDuration: helpers.global.formatTime(duration),
@@ -13314,7 +13378,7 @@ this.Kodi.module("StateApp", function(StateApp, App, Backbone, Marionette, $, _)
         $dur.html(helpers.global.formatTime(stateObj.getPlaying('totaltime')));
         return $img.css("background-image", "url('" + item.thumbnail + "')");
       } else {
-        $title.html(t.gettext('Nothing Playing'));
+        $title.html(t.gettext('Nothing playing'));
         $subtitle.html('');
         $dur.html('0');
         return $img.attr('src', App.request("images:path:get"));
