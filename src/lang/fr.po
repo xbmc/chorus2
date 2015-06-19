@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr ""
+msgstr "Jeux de Rien"
 
 msgctxt ""
 msgid "Deselect All"

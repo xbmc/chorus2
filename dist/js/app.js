@@ -489,7 +489,7 @@ helpers.debug.rpcError = function(commands, data) {
   } else {
     detail.error = data;
   }
-  return helpers.debug.log("jsonRPC Rquequest - " + msg, detail, 'error');
+  return helpers.debug.log("jsonRPC request - " + msg, detail, 'error');
 };
 
 
