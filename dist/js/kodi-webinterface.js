@@ -46692,6 +46692,20 @@ config.set = function(type, id, data, callback) {
   return resp;
 };
 
+config.preStartGet = function(id, defaultData) {
+  var config;
+  if (defaultData == null) {
+    defaultData = '';
+  }
+  if ((typeof localStorage !== "undefined" && localStorage !== null) && (localStorage.getItem('config:app-config:local') != null)) {
+    config = JSON.parse(localStorage.getItem('config:app-config:local')).data;
+    if (config[id] != null) {
+      return config[id];
+    }
+  }
+  return defaultData;
+};
+
 
 /*
   Entities mixins, all the common things we do/need on almost every collection
@@ -47447,11 +47461,9 @@ helpers.translate.getLanguages = function() {
 };
 
 helpers.translate.init = function(callback) {
-  var lang;
-  lang = config.get("static", "lang", "en");
-  if ((typeof localStorage !== "undefined" && localStorage !== null) && (localStorage.getItem('config:app-config:local') != null)) {
-    lang = JSON.parse(localStorage.getItem('config:app-config:local')).data.lang;
-  }
+  var defaultLang, lang;
+  defaultLang = config.get("static", "lang", "en");
+  lang = config.preStartGet("lang", defaultLang);
   return $.getJSON("lang/" + lang + ".json", function(data) {
     window.t = new Jed(data);
     t.options["missing_key_callback"] = function(key) {
@@ -47482,7 +47494,9 @@ helpers.ui.getSwatch = function(imgSrc, callback) {
         sw = swatches[swatch];
         ret[swatch] = {
           hex: sw.getHex(),
-          rgb: sw.getRgb(),
+          rgb: _.map(sw.getRgb(), function(c) {
+            return Math.round(c);
+          }),
           title: sw.getTitleTextColor(),
           body: sw.getBodyTextColor()
         };

@@ -15,3 +15,12 @@ config.set = (type, id, data, callback) ->
   if callback?
     callback resp
   resp
+
+## Wrapper for getting a config value before app has started.
+## Should always try and use config.get() before this.
+config.preStartGet = (id, defaultData = '') ->
+  if localStorage? and localStorage.getItem('config:app-config:local')?
+    config = JSON.parse(localStorage.getItem('config:app-config:local')).data
+    if config[id]?
+      return config[id]
+  defaultData

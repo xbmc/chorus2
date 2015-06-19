@@ -41,7 +41,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     z-index: $z-index-beta;
     padding-top: $spacing-base-unit;
     @include at-bp(xxlarge) {
-      margin-right: 500px;
+      margin-right: 300px;
       color: rgba($color-white, 0.4);
     }
   }

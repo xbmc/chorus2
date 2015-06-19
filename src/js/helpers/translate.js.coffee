@@ -16,12 +16,11 @@ helpers.translate.getLanguages = ->
 ## Init language and translations.
 helpers.translate.init = (callback) ->
 
+  defaultLang = config.get "static", "lang", "en"
+
   # Need to get the language key from local storage before the app has started
   # so this does a workaround to grab it direct from local storage.
-  # TODO Find a better way to do this!
-  lang = config.get "static", "lang", "en"
-  if localStorage? and localStorage.getItem('config:app-config:local')?
-    lang = JSON.parse(localStorage.getItem('config:app-config:local')).data.lang
+  lang = config.preStartGet "lang", defaultLang
 
   # Load the correct language from settings.
   $.getJSON "lang/" + lang + ".json", (data) ->

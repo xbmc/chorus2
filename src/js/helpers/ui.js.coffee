@@ -16,7 +16,7 @@ helpers.ui.getSwatch = (imgSrc, callback) ->
         sw = swatches[swatch]
         ret[swatch] = {
           hex: sw.getHex()
-          rgb: sw.getRgb()
+          rgb: _.map sw.getRgb(), (c) -> Math.round(c)
           title: sw.getTitleTextColor()
           body: sw.getBodyTextColor()
         }
