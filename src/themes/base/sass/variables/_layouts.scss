@@ -43,12 +43,12 @@ $layouts: (
     height-header: $size-region-unit,
     width-nav: $size-region-unit,
     width-sidebar-first: $size-region-unit * 5,
-    width-details-side: 280px,
+    width-details-side: 190px,
     width-player-controls-primary: 220px,
     width-player-controls-secondary: 220px,
     width-player-thumb: $height-player-small,
     height-player-slider: 20px,
-    width-remote: auto
+    width-remote: auto,
   ),
   medium: (
     width-playlist: $width-playlist-small,
@@ -59,11 +59,13 @@ $layouts: (
     width-search: $size-region-unit * 4,
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
-    width-remote: 371px
+    width-remote: 371px,
   ),
   xlarge: (
     width-playlist: $width-playlist,
-    width-playlist-closed: $size-region-unit
+    width-playlist-closed: $size-region-unit,
+    width-header-fanart: 0,
+    width-details-side: 280px,
   )
 );
 

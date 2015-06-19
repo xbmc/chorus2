@@ -32,6 +32,7 @@
 }
 
 // When a card is displayed in the side of a detail pane.
+$card-detail-side-width-small: 150px;
 $card-detail-side-width: 238px;
 $card-detail-poster-side-height: 357px;
 $card-detail-episode-side-height: 150px;
@@ -47,25 +48,21 @@ $card-detail-episode-side-height: 150px;
   }
   .card-album,
   .card-artist {
-    @include card-artwork-size($card-detail-side-width, $card-detail-side-width);
+    @include responsive-card-artwork-size($card-detail-side-width, $card-detail-side-width);
   }
   .card-movie,
   .card-tvshow {
-    @include card-artwork-size($card-detail-side-width, $card-detail-poster-side-height);
+    @include responsive-card-artwork-size($card-detail-side-width, $card-detail-poster-side-height);
   }
   .card-episode {
-    @include card-artwork-size($card-detail-side-width, $card-detail-episode-side-height);
+    @include responsive-card-artwork-size($card-detail-side-width, $card-detail-episode-side-height);
   }
 }
 
 .card-minimal {
   @include card(square-medium, rgba($color-white, 0));
   width: 238px;
-  .artwork,
-  .artwork .thumb {
-    width: 238px;
-    height: 238px;
-  }
+  @include responsive-card-artwork-size($card-detail-side-width, $card-detail-side-width);
   margin: 0;
   padding: 0;
   .meta {

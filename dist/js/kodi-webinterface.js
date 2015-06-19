@@ -46553,7 +46553,7 @@ this.config = {
     searchIndexCacheExpiry: 24 * 60 * 60,
     collectionCacheExpiry: 7 * 24 * 60 * 60,
     addOnsLoaded: false,
-    vibrantHeaders: true,
+    vibrantHeaders: false,
     lang: "en"
   }
 };

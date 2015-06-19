@@ -16,7 +16,7 @@
     searchIndexCacheExpiry: (24 * 60 * 60) # 1 day
     collectionCacheExpiry: (7 * 24 * 60 * 60) # 1 week (gets wiped on library update)
     addOnsLoaded: false
-    vibrantHeaders: true
+    vibrantHeaders: false
     lang: "en"
 }
 

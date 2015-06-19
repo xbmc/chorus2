@@ -89,10 +89,21 @@ $card-layout: (
  * Set artwork size for cards not using the card mixin
  */
 @mixin card-artwork-size($width, $height) {
+  width: $width;
   .artwork,
   .artwork .thumb {
     width: $width;
     height: $height;
+  }
+}
+
+/**
+ * Artwork starts off at 2/3 of original size then full size on larger screens.
+ */
+@mixin responsive-card-artwork-size($width, $height) {
+  @include card-artwork-size(ceil($width * 0.66), ceil($height * 0.66));
+  @include at-bp(xlarge) {
+    @include card-artwork-size($width, $height);
   }
 }
 

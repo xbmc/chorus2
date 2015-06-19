@@ -39,10 +39,16 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     color: $color-detail-hightlight-text-over;
     position: relative;
     z-index: $z-index-beta;
-    padding-top: $spacing-base-unit;
+    padding-top: $spacing-half-unit;
+    @include at-bp(xlarge) {
+      padding-top: $spacing-base-unit;
+    }
     @include at-bp(xxlarge) {
       margin-right: 300px;
-      color: rgba($color-white, 0.4);
+      color: rgba($color-white, 0.9);
+      .shell-playlist-closed & {
+        margin-right: 500px;
+      }
     }
   }
   .region-details-top {
@@ -87,13 +93,8 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
       @include set-position-absolute(top 0 left 0 bottom 0);
       width: 60%;
     }
-    display: none;
-    @include at-bp(large) {
-      display: block;
-      opacity: 0.3;
-    }
+    opacity: 0.3;
     @include at-bp(xxlarge) {
-      display: block;
       opacity: 0.8;
     }
   }
@@ -158,9 +159,16 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   }
 
   // Movie and tv specific.
+  .tvshow-show &,
+  .movie-show & {
+    min-height: 315px;
+    @include at-bp(xlarge) {
+      min-height: 405px;
+    }
+  }
+
   .section-movie &,
   .section-tvshow & {
-    min-height: 403px;
     .region-details-meta-below {
       height: auto;
       overflow: initial;
