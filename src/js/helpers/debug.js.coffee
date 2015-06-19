@@ -69,4 +69,4 @@ helpers.debug.rpcError = (commands, data) ->
     detail.error = data.error
   else
     detail.error = data
-  helpers.debug.log "jsonRPC Rquequest - #{msg}", detail, 'error'
+  helpers.debug.log "jsonRPC request - #{msg}", detail, 'error'
