@@ -25,3 +25,12 @@
     }
   }
 }
+
+/**
+ * Wrapper for the major desktop breakpoint.
+ */
+@mixin at-desktop($bp: $desktop) {
+  @include at-bp($bp) {
+    @content;
+  }
+}

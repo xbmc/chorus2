@@ -1,5 +1,11 @@
 @Kodi.module "InputApp", (InputApp, App, Backbone, Marionette, $, _) ->
 
+
+  class InputApp.Router extends App.Router.Base
+    appRoutes:
+      "remote"   	    : "remotePage"
+
+
   API =
  
     initKeyBind: ->
@@ -31,17 +37,20 @@
     ## Toggle remote visiblily and path
     toggleRemote: (open = 'auto') ->
       $body = $('body')
-      rClass = 'remote-open'
+      rClass = 'section-remote'
       if open is 'auto'
         open = if ($body.hasClass(rClass)) then true else false
       if open
         App.navigate helpers.backscroll.lastPath
         helpers.backscroll.scrollToLast()
-        $body.removeClass(rClass)
       else
         helpers.backscroll.setLast()
-        App.navigate 'remote'
-        $body.addClass(rClass)
+        App.navigate("remote", {trigger: true});
+
+    ## Page callback, open remote and clear content.
+    remotePage: ->
+      @toggleRemote(false);
+      App.regionContent.empty()
 
     ## The input binds
     keyBind: (e) ->
@@ -110,3 +119,8 @@
 
     ## Bind to the keyboard inputs
     API.initKeyBind()
+
+  ## Start the router.
+  App.on "before:start", ->
+    new InputApp.Router
+      controller: API

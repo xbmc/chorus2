@@ -1,0 +1,3 @@
+<div class="search-page search-page__empty set-page">
+    <h3><%= t.gettext('Enter your search above') %></h3>
+</div>

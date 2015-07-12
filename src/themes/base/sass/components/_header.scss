@@ -31,8 +31,18 @@
   .shell-playlist-closed & {
     @include set-layout('width-playlist-closed', 'right');
   }
+
+  .search-toggle {
+    @include set-position-absolute(top 0 right #{$size-region-unit * 3});
+    i {
+      @include icon-button-square(navigation-more-vert, $size-region-unit);
+    }
+  }
 }
 
+/**
+ * Page title.
+ */
 #page-title {
   .context a,
   .title {
@@ -40,8 +50,56 @@
   }
 }
 
+
+/**
+ * Search region.
+ */
 #search-region {
-  position: absolute;
-  top: 0;
-  right: 0;
+  @include set-position-absolute(top $size-region-unit left 0 right 0);
+  display: none;
+  body.section-search & {
+    display: block;
+  }
+  @include at-desktop {
+    top: 0;
+    left: auto;
+  }
+}
+
+/**
+ * Mobile menu structure.
+ */
+.mobile-menu {
+  @extend %reset-list;
+  @include set-position-absolute(top 0 right 0);
+  li {
+    display: inline-block;
+    margin: 0;
+    width: $size-region-unit;
+    height: $size-region-unit;
+  }
+  i {
+    @include icon-button-square(navigation-more-vert, $size-region-unit);
+    color: $color-header-text;
+    font-size: 120%;
+  }
+  @include at-desktop {
+    display: none;
+  }
+}
+
+/**
+ * Mobile menu icons.
+ */
+$mobile-menu-icons: (
+  remote: action-settings-remote,
+  search: action-search,
+  playlist: editor-format-list-bulleted
+);
+.mobile-menu--link {
+  @each $key, $icon in $mobile-menu-icons {
+    &__#{$key} i:before {
+      content: icon-code($icon);
+    }
+  }
 }

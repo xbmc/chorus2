@@ -17,6 +17,7 @@
 
     view: ->
       ## Show the search form (for mobile)
+      new SearchApp.Show.Controller();
 
     searchBind: ->
       $('#search').on 'keyup', (e) ->

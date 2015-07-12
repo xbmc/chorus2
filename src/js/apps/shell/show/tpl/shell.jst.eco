@@ -11,6 +11,12 @@
             <span class="title"></span>
         </h1>
 
+        <ul class="mobile-menu">
+            <li><a href="#remote" class="mobile-menu--link__remote remote-toggle"><i></i></a></li>
+            <li><a href="#search" class="mobile-menu--link__search"><i></i></a></li>
+            <li><a href="#playlist" class="mobile-menu--link__playlist"><i></i></a></li>
+        </ul>
+
         <div id="search-region">
             <input id="search" title="Search">
             <span id="do-search"></span>

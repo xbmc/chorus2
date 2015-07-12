@@ -15,3 +15,5 @@
     playerClick: (e) ->
       type = $(e.target).data('type')
       @trigger 'remote:player', type
+
+    class Remote.Landing extends App.Views.ItemView

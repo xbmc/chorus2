@@ -83,8 +83,18 @@ body.model-open {
 #sidebar-two {
   @include set-position-fixed(top 0 left $size-region-unit right 0 bottom 0);
   background: $color-playlist-background;
-  @include at-bp(medium) {
+  z-index: $z-index-gamma;
+  top: $size-region-unit;
+
+  // Hide on mobile unless on playlist page.
+  display: none;
+  body.page-playlist & {
+    display: block;
+  }
+  @include at-desktop {
     left: auto;
+    top: 0;
+    display: block;
   }
   @include set-layout('width-playlist', 'width');
   @include set-layout('height-player', 'bottom');
@@ -101,12 +111,16 @@ body.model-open {
     @include icon('hardware-keyboard-arrow-right');
     @include vertical-align-wrapper();
     cursor: pointer;
+    display: none;
     &:before {
       @include transition(all 0.4s linear);
       @include vertical-align-element();
       text-align: center;
       font-size: 150%;
       color: $color-playlist-toggle-icon;
+    }
+    @include at-desktop {
+      display: block;
     }
   }
 

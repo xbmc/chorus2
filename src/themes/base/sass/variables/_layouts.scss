@@ -51,10 +51,11 @@ $layouts: (
     width-remote: auto,
   ),
   medium: (
-    width-playlist: $width-playlist-small,
-    width-playlist-closed: $size-region-unit
+
   ),
   large: (
+    width-playlist: $width-playlist-small,
+    width-playlist-closed: $size-region-unit,
     height-player: $height-player,
     width-search: $size-region-unit * 4,
     width-player-controls-primary: 300px,

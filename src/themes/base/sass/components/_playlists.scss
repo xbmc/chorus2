@@ -115,6 +115,7 @@ $playlist-item-open-height: 80px;
   overflow-y: auto;
   @include set-position-absolute(left 0 right 0 bottom 0);
   @include set-layout('height-header', 'top');
+  z-index: $z-index-above;
 }
 
 .media-toggle {
@@ -178,16 +179,21 @@ $playlist-item-open-height: 80px;
       }
     }
   }
+
   .playlist-menu {
-    @include set-position-absolute(top 0 right 50px);
+    @include set-position-absolute(top 0 right 0);
     .menu-toggle {
-      @include icon-button-square(navigation-more-vert, 50px);
+      @include icon-button-square(navigation-more-vert, $size-region-unit);
       color: rgba($color-white, 0.5);
       font-size: 150%;
       &:hover {
         color: $color-white;
       }
     }
+    @include at-desktop {
+      right: $size-region-unit;
+    }
+
     .dropdown-menu {
       background: tint($color-white, 2%);
       padding: 0;

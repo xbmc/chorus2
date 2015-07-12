@@ -1,4 +1,7 @@
 
+/**
+ * Header Search component.
+ */
 #search-region {
   background: rgba($color-white, 0.9);
   @include set-layout('height-header', 'height');
@@ -27,3 +30,21 @@
   }
 }
 
+/**
+ * A Search result page.
+ */
+.search-page {
+  // Move down to make space for search box.
+  top: $size-region-unit;
+  position: relative;
+  // Move into header at desktop.
+  @include at-desktop {
+    top: 0;
+  }
+  // Empty text under the search box.
+  &__empty {
+    @include at-desktop {
+      text-align: right;
+    }
+  }
+}
