@@ -13,9 +13,14 @@
       overflow-y: auto;
       z-index: $z-index-alpha;
       @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
+      display: none;
+      @include at-desktop {
+        display: block;
+      }
     }
     > .region-content-wrapper {
       @include set-layout('width-sidebar-first', 'margin-left');
+      margin-left: 0;
     }
   }
 
@@ -41,11 +46,11 @@
       @include set-layout('width-details-side', 'width');
       float: left;
       padding-right: $spacing-double-unit;
+      display: none;
     }
     .content-container-content-wrapper {
       @include set-layout('width-details-side', 'margin-left');
     }
-
   }
 }
 

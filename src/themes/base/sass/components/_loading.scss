@@ -10,7 +10,7 @@ $front-color: $color-brand-primary;
 $orbit-color: #ddd;
 
 #loading-page {
-  @include set-position-fixed(top 0 left 0 bottom 150px);
+  @include set-position-fixed(top 0 left 0 bottom 150px right 0);
   @include set-layout('width-nav', 'left');
   @include set-layout('width-playlist', 'right');
   &.init {
@@ -22,9 +22,14 @@ $orbit-color: #ddd;
   }
   h2 {
     text-align: center;
-    margin-top: 33rem;
+    margin-top: 18rem;
     font-size: 1.5em;
     color: $color-greyscale-cloudy;
+  }
+  @include at-desktop {
+    h2 {
+      margin-top: 33rem;
+    }
   }
 }
 
@@ -217,5 +222,10 @@ $unit: $size / 20;
     left: ($unit*-3);
     width: ($size + $unit*4);
     height: ($size + $unit*4);
+  }
+
+  top: 11em;
+  @include at-desktop {
+    top: 20em;
   }
 }

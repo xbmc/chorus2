@@ -10,6 +10,16 @@ html, body {
   font-family: $font-family-base;
 }
 
+body {
+  zoom: 0.75;
+  @include at-bp(small) {
+    zoom: 0.9;
+  }
+  @include at-bp(medium) {
+    zoom: 1;
+  }
+}
+
 a {
   @include transition(all 0.3s linear);
   &:focus,

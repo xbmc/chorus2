@@ -50,19 +50,28 @@
     }
   }
   .controls-primary {
+    display: none;
     @include set-layout('width-player-controls-primary', 'width');
-    float: left;
-    .control {
-      @include span(33.33%);
+    @include at-desktop {
+      float: left;
+      display: block;
+      .control {
+        @include span(33.33%);
+      }
+
     }
   }
   .controls-secondary {
+    display: none;
     @include set-layout('width-player-controls-secondary', 'width');
-    float: right;
-    .control {
-      margin-top: -9px;
-      font-size: $font-size-player-control-secondary;
-      @include span(25%);
+    @include at-desktop {
+      float: right;
+      display: block;
+      .control {
+        margin-top: -9px;
+        font-size: $font-size-player-control-secondary;
+        @include span(25%);
+      }
     }
   }
   .now-playing {

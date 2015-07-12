@@ -122,6 +122,13 @@ $row-action-width: $row-height - 10;
         display: none;
       }
     }
+    // Responsive.
+    .song-artist {
+      display: none;
+      @include at-desktop {
+        display: table-cell;
+      }
+    }
   }
   &.verbose {
     .track {

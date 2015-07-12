@@ -44,8 +44,8 @@ $layouts: (
     width-nav: $size-region-unit,
     width-sidebar-first: $size-region-unit * 5,
     width-details-side: 190px,
-    width-player-controls-primary: 220px,
-    width-player-controls-secondary: 220px,
+    width-player-controls-primary: auto,
+    width-player-controls-secondary: auto,
     width-player-thumb: $height-player-small,
     height-player-slider: 20px,
     width-remote: auto,
@@ -61,6 +61,8 @@ $layouts: (
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
     width-remote: 371px,
+    width-sidebar-first: $size-region-unit * 5,
+
   ),
   xlarge: (
     width-playlist: $width-playlist,
