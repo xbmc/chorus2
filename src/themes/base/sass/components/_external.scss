@@ -6,7 +6,7 @@
     margin-right: $spacing-base-unit
   }
   li {
-    @include pie-clearfix();
+    @extend %clearfix;
     margin-bottom: $spacing-half-unit;
   }
   h3 {

@@ -18,13 +18,16 @@ $width-containter: 95%;
 $width-container-max: 50em;
 
 // Width playlist
-$width-playlist-small: $size-region-unit * 5;
-$width-playlist: 395px;
+$width-playlist-small: 310px;
+$width-playlist: 400px;
 $width-playlist-large: $size-region-unit * 12;
 
+// Sidebar first
+$width-sidebar-first: $size-region-unit * 5;
+
 // Heights
-$height-player-small: $size-region-unit;
 $height-player: 70px;
+$height-player-small: $height-player;
 
 // Z-indexes
 $z-index-below: -10;
@@ -38,20 +41,21 @@ $z-index-above: 500;
 // Layout map - used with set-layout().
 $layouts: (
   smallest: (
+    width-playlist: 0,
+    width-playlist-closed: 0,
     height-player: $height-player-small,
     width-search: $size-region-unit * 3,
     height-header: $size-region-unit,
     width-nav: $size-region-unit,
-    width-sidebar-first: $size-region-unit * 5,
-    width-details-side: 190px,
-    width-player-controls-primary: auto,
-    width-player-controls-secondary: auto,
+    width-sidebar-first: 0,
+    width-player-controls-primary: 100%,
+    width-player-controls-secondary: 100%,
     width-player-thumb: $height-player-small,
     height-player-slider: 20px,
     width-remote: auto,
   ),
   medium: (
-
+    width-details-side: 190px,
   ),
   large: (
     width-playlist: $width-playlist-small,
@@ -61,7 +65,7 @@ $layouts: (
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
     width-remote: 371px,
-    width-sidebar-first: $size-region-unit * 5,
+    width-sidebar-first: $width-sidebar-first,
 
   ),
   xlarge: (

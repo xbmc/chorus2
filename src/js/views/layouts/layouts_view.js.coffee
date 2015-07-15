@@ -5,7 +5,10 @@
     regions:
       regionSidebarFirst:  ".region-first"
       regionContent:  ".region-content"
-
+    events:
+      "click .region-first-toggle": "toggleRegionFirst"
+    toggleRegionFirst: ->
+      @$el.toggleClass('region-first-open');
 
   class Views.LayoutWithHeaderView extends App.Views.LayoutView
     template: "views/layouts/layout_with_header"

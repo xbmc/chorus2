@@ -64,7 +64,7 @@ $color-side: #F9F9F9;
     }
   }
   .folder-container {
-    @include pie-clearfix();
+    @extend %clearfix;
     .folders-pane, .files {
       padding: $spacing-base-unit;
     }

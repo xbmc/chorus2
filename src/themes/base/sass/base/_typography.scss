@@ -12,8 +12,11 @@ html, body {
 
 body {
   zoom: 0.75;
+  @include at-bp(xsmall) {
+    zoom: 0.85;
+  }
   @include at-bp(small) {
-    zoom: 0.9;
+    zoom: 0.95;
   }
   @include at-bp(medium) {
     zoom: 1;

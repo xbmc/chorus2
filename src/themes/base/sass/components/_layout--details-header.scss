@@ -29,17 +29,24 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     }
   }
   .region-details-side {
-    position: absolute;
     @include set-layout('width-details-side', 'width');
-    padding: $spacing-half-unit * 3;
+    padding: $spacing-half-unit 0 $spacing-half-unit $spacing-half-unit;
+    display: none;
+    @include at-bp(medium) {
+      display: block;
+      padding: $spacing-half-unit * 3;
+      position: absolute;
+    }
   }
   .region-details-meta-wrapper {
     @include set-layout('width-details-side', 'margin-left');
-    padding: 0 $spacing-base-unit 0 $spacing-half-unit;
+    padding: $spacing-half-unit $spacing-double-unit;
     color: $color-detail-hightlight-text-over;
     position: relative;
     z-index: $z-index-beta;
-    padding-top: $spacing-half-unit;
+    @include at-bp(medium) {
+      padding: $spacing-half-unit $spacing-base-unit 0 $spacing-half-unit;
+    }
     @include at-bp(xlarge) {
       padding-top: $spacing-base-unit;
     }
@@ -52,7 +59,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     }
   }
   .region-details-top {
-    @include pie-clearfix;
+    @extend %clearfix;
   }
   .region-details-title {
     color: rgba($color-white, 0.95);
@@ -85,8 +92,12 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .region-details-fanart {
     background-size: cover;
     background-position: 50% 50%;
-    width: 600px;
-    @include set-position-absolute(top 0 right 0 bottom 0);
+    width: 100%;
+    @include set-position-absolute(top 0 right 0 bottom 0 left 0);
+    @include at-desktop {
+      width: 600px;
+      left: auto;
+    }
     z-index: $z-index-alpha;
     .gradient {
       content: "";

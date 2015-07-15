@@ -6,9 +6,10 @@
     }
     #logo {
       color: $brand-color;
+      background: $background
     }
     #nav-bar #nav-header {
-      background: $background;
+      //background: $background;
     }
   }
 }
@@ -21,7 +22,7 @@
   color: $color-header-text;
   position: fixed;
   top: 0;
-  left: $size-region-unit;
+  left: 0;
   right: 0;
   height: $size-region-unit;
   z-index: $z-index-gamma + 1;
@@ -44,9 +45,11 @@
  * Page title.
  */
 #page-title {
+  margin: 0;
+  line-height: $size-region-unit;
   .context a,
   .title {
-    padding: 0.5em 1em;
+    padding: 0 0 0 1em;
   }
 }
 

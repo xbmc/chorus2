@@ -87,16 +87,25 @@ body.model-open {
   top: $size-region-unit;
 
   // Hide on mobile unless on playlist page.
+  @include at-desktop {
+
+  }
+
   display: none;
   body.page-playlist & {
     display: block;
   }
+
   @include at-desktop {
     left: auto;
     top: 0;
     display: block;
   }
   @include set-layout('width-playlist', 'width');
+  // Fluid on small screen.
+  width: auto;
+
+  // Match footer height.
   @include set-layout('height-player', 'bottom');
 
   #playlist-summary {
@@ -104,14 +113,14 @@ body.model-open {
   }
 
   .playlist-toggle-open {
-    @include set-position-fixed(top 0 right 0);
-    position: absolute;
+    @include set-position-absolute(top 0 right 0);
     width: $size-region-unit;
     height: $size-region-unit;
-    @include icon('hardware-keyboard-arrow-right');
+    @include icon-button-square(hardware-keyboard-arrow-right, $size-region-unit);
     @include vertical-align-wrapper();
     cursor: pointer;
     display: none;
+    text-align: center;
     &:before {
       @include transition(all 0.4s linear);
       @include vertical-align-element();
@@ -120,7 +129,7 @@ body.model-open {
       color: $color-playlist-toggle-icon;
     }
     @include at-desktop {
-      display: block;
+      display: table;
     }
   }
 

@@ -5,12 +5,12 @@ $width-nav-bar-closed: $size-region-unit;
   background: $color-nav-background;
   width: $width-nav-bar-closed;
   padding: 0;
-  @include set-position-fixed(top 0 left 0 right auto bottom 0);
+  @include set-position-fixed(top 0 left 0 right auto);
   @include reset-edges;
   // overflow-y: auto;
   @include transition(all 0.3s linear);
   z-index: $z-index-gamma;
-  @include set-layout('height-player', 'bottom');
+  //@include set-layout('height-player', 'bottom');
   @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
 
   #nav-header {
@@ -58,8 +58,10 @@ $width-nav-bar-closed: $size-region-unit;
           a {
             background: $color-kodi;
             color: $color-white;
-            span {
-              display: inline-block;
+            @include at-bp(medium) {
+              span {
+                display: inline-block;
+              }
             }
           }
         }
@@ -67,35 +69,6 @@ $width-nav-bar-closed: $size-region-unit;
     }
 
   }
-
-//  // Open style.
-//  &:hover,
-//  &.nav-open {
-//    @extend .shadow-z-2;
-//    width: $width-nav-bar;
-//    overflow-x: hidden;
-//    ul {
-//      li {
-//        width: $width-nav-bar;
-//      }
-//      a {
-//        padding: $spacing-half-unit #{$spacing-half-unit + $spacing-base-unit};
-//        text-align: left;
-//        white-space: nowrap;
-//        span {
-//          display: inline-block;
-//        }
-//      }
-//      ul {
-//        padding-bottom: $spacing-half-unit;
-//        a {
-//          padding-left: $spacing-double-unit * 2;
-//          color: $color-greyscale-gray;
-//          font-size: 90%;
-//        }
-//      }
-//    }
-//  }
 }
 
 // Subnav

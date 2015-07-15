@@ -1,0 +1,4 @@
+<div class="playlist-page playlist-page__empty set-page">
+    <h3><%= t.gettext('Now Playing Playlists') %></h3>
+    <p><%= t.gettext('Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right') %></p>
+</div>

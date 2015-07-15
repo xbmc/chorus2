@@ -3,21 +3,44 @@
 .layout-container {
 
   &.with-sidebar-first {
+
+    // First sidebar.
     > .region-first {
       background: $color-sidebar;
+
+      // Position.
       position: fixed;
       @include set-layout('height-player', 'bottom');
       @include set-layout('height-header', 'top');
       @include set-layout('width-nav', 'left');
+
+      // Width is reset on small screens so add it back.
       @include set-layout('width-sidebar-first', 'width');
+      width: $width-sidebar-first;
+
+      // Hide by default, animate reveal.
+      left: -100%;
+      @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.3));
+      @include transition(all 0.3s linear);
+
+      // For scroll and layer.
       overflow-y: auto;
-      z-index: $z-index-alpha;
-      @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
-      display: none;
+      z-index: $z-index-beta + 5;
+
+      // Large screen.
       @include at-desktop {
         display: block;
+        @include box-shadow(1px 0 3px 0 rgba(134, 134, 134, 0.05));
+        left: $size-region-unit;
+      }
+
+      // Small screen open.
+      .region-first-open & {
+        left: $size-region-unit;
       }
     }
+
+    // Content.
     > .region-content-wrapper {
       @include set-layout('width-sidebar-first', 'margin-left');
       margin-left: 0;
@@ -34,6 +57,23 @@
 
 }
 
+.region-first-toggle {
+  @include set-position-fixed(top 0 left $size-region-unit);
+  @include icon-button-square(navigation-more-vert, $size-region-unit);
+  color: $color-header-text;
+  z-index: $z-index-delta;
+  font-size: 150%;
+  opacity: 0.5;
+  @include at-desktop {
+    display: none;
+  }
+  .region-first-open & {
+    color: $color-white;
+    &:before {
+      content: icon-code(navigation-chevron-left);
+    }
+  }
+}
 
 .region-content {
   @extend %region-content;
@@ -41,7 +81,7 @@
 
 .content-container {
   &.with-sidebar {
-    @include pie-clearfix;
+    @extend %clearfix;
     .content-container-first {
       @include set-layout('width-details-side', 'width');
       float: left;
@@ -55,7 +95,7 @@
 }
 
 .section-content {
-  @include pie-clearfix;
+  @extend %clearfix;
   border-bottom: 1px solid $color-greyscale-alto;
   max-width: 1100px;
   margin-bottom: $spacing-double-unit;

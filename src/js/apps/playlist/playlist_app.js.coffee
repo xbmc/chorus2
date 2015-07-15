@@ -7,7 +7,8 @@
   API =
 
     list: ->
-      ## Do something??
+      ## Show the search form (for mobile)
+      new PlaylistApp.Show.Controller();
 
     type: 'kodi'
     media: 'audio'

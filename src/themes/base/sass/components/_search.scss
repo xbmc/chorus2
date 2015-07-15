@@ -5,12 +5,12 @@
 #search-region {
   background: rgba($color-white, 0.9);
   @include set-layout('height-header', 'height');
+  margin-left: get-layout(smallest, width-nav);
 }
 #search {
   background: none;
   border: none;
   @include set-layout('height-header', 'height');
-  @include set-layout('height-header', 'margin-left');
   @include set-layout('width-search', 'width');
   outline: none;
   padding: 0 $spacing-half-unit 0 0;

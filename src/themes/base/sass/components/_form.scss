@@ -15,7 +15,7 @@ form .form-control-wrapper {
 
 form {
   .inline-list {
-    @include pie-clearfix();
+    @extend %clearfix;
     li {
       display: inline-block;
       margin-right: $spacing-double-unit;

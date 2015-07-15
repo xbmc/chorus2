@@ -166,14 +166,12 @@ $playlist-item-open-height: 80px;
     }
     .active-player-kodi & {
       li.kodi {
-        color: $color-playlist-header-active-text;
         color: $color-kodi;
         background: $color-playlist-background;
       }
     }
     .active-player-local & {
       li.local {
-        color: $color-playlist-header-active-text;
         color: $color-local;
         background: $color-playlist-background;
       }
@@ -240,5 +238,13 @@ $playlist-item-open-height: 80px;
   }
   .local-playlists {
     display: block;
+  }
+}
+
+.playlist-page__empty {
+  text-align: right;
+  margin-right: $spacing-base-unit;
+  h3 {
+    margin-bottom: $spacing-base-unit;
   }
 }

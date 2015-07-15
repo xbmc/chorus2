@@ -1,5 +1,6 @@
 <div class="layout-container with-sidebar-first">
 
+    <div class="region-first-toggle"></div>
     <section class="region-first"></section>
 
     <section class="region-content-wrapper">

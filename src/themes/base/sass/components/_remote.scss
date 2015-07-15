@@ -15,41 +15,38 @@
   background-color: $color-remote-background;
   z-index: $z-index-above;
   background-size: cover;
-  .playing-fanart {
-    display: none;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    right: 0;
-    bottom: 360px;
-    background: #3b3f40 50% 0 no-repeat;
-    background-size: cover;
-    @include at-bp(medium){
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      background-color: #eee;
-    }
+
+}
+
+#remote-background {
+  @include set-position-absolute(top 0 right 0 left 0 bottom 360px);
+  background-color: $color-greyscale-outer-space;
+  background-position: 50% 50%;
+  background-size: cover;
+  @include at-desktop {
+    bottom: 0;
+    z-index: 1;
+    background-color: $color-detail-content-background;
   }
 }
 
 $pad-height: 145px;
-$dark-bg: tint($color-remote-background, 5%);
+$color-remote-background-button: #222324;
 .kodi-remote {
   position: absolute;
-  bottom: 200px;
+  bottom: 180px;
   left: 0;
   right: 0;
   font-size: 1.7em;
   color: #6F7374;
   overflow: hidden;
-  z-index: 501;
-  @include at-bp(medium) {
+  z-index: 500;
+  @include at-desktop {
     bottom: 0;
   }
   @include set-layout('width-remote', 'width');
   .ibut {
-    background: $dark-bg;
+    background: $color-remote-background-button;
     &:hover {
       color: #ccc;
       cursor: pointer;
@@ -60,7 +57,7 @@ $dark-bg: tint($color-remote-background, 5%);
     @include pie-clearfix()
   }
   .direction {
-    background: $dark-bg;
+    background: $color-remote-background-button;
     height: $pad-height + 10;
     margin-top: -12px;
     @include span(3 of 4);
@@ -109,26 +106,34 @@ $dark-bg: tint($color-remote-background, 5%);
   .buttons {
     @include span(1 of 4 last);
     padding: 6px 8px 4px;
+    margin-top: -20px;
     .ibut {
       display: block;
-      padding: 10px 0;
+      padding: 11px 0;
       text-align: center;
-      margin: 1px 0 5px 0;
+      margin: 1px 0 9px 0;
     }
   }
   .alt-controls .row,
   .secondary-controls {
     clear: both;
-    background: $dark-bg;
-    @include set-layout('height-player', 'height');
+    background: $color-remote-background;
+    //@include set-layout('height-player', 'height');
+    height: $height-player;
     .ibut {
+      background: $color-remote-background-button;
       width: 33%;
       padding: 0;
       @include set-layout('height-player', 'line-height');
       font-size: 1.5em;
       text-align: center;
       float: left;
+      margin-bottom: 12px;
     }
+  }
+  .secondary-controls {
+    height: auto;
+    @extend %clearfix;
   }
   .alt-controls {
     .row {
@@ -162,169 +167,76 @@ $dark-bg: tint($color-remote-background, 5%);
   }
 }
 
-/*
-body {
-  &.paused,
-  &.playing {
-    //background: $color-remote-background;
-    .xbmc-remote {
-      .playing-area {
-        .playing {
-          display: block;
-        }
-        .not-playing {
-          display: none;
-        }
+// Remote sizes.
+$open-remote-mobile-sizing-unit: 75px;
+$open-remote-desktop-sizing-unit: get-layout($desktop, height-player);
+$open-remote-desktop-player-controls-primary: get-layout($desktop, width-player-controls-primary);
+$open-remote-desktop-player-controls-secondary: get-layout($desktop, width-player-controls-secondary);
+
+%open-remote-square {
+  height: $open-remote-mobile-sizing-unit;
+  width: $open-remote-mobile-sizing-unit;
+}
+%open-remote-height {
+  height: $open-remote-mobile-sizing-unit;
+}
+
+.section-remote {
+  #player-wrapper {
+    height: $size-region-unit * 5;
+  }
+  .player {
+    .controls-secondary,
+    .controls-primary {
+      display: block;
+      margin-bottom: 12px;
+      &, .control {
+        @extend %open-remote-height;
       }
+    }
+    .now-playing {
+      margin: 10px 0 0 0;
+      &, .thumb {
+        @extend %open-remote-height;
+      }
+      .remote-toggle,
+      .thumb {
+        @extend %open-remote-square;
+      }
+    }
+    .playing-info {
+      margin-left: $open-remote-mobile-sizing-unit;
     }
   }
 
-  &.section-remote {
-    #content {
-      position: relative;
-      z-index: -9999;
-      display: none;
+  // Reset to correct size.
+  @include at-desktop {
+    #player-wrapper {
+      height: $open-remote-desktop-sizing-unit;
     }
-    .xbmc-remote-wrapper {
-      display: block;
-    }
-    #sidebar-second {
-      z-index: 55;
-      padding-bottom: 10px;
-      margin-bottom: 85px;
-      @include at-bp(medium){
-        margin-bottom: 1px;
-      }
-    }
-    #header {
-      @include at-bp(medium){
-        bottom: auto;
-        background: rgba(255,255,255,0.7);
-        a {
-          i {
-            color: $color-remote-background;
-          }
-
-        }
-      }
-    }
-    #page-header {
-      @include at-bp(medium){
-        h1 {
-          display: none;
-        }
-        background: none;
-      }
-    }
-    #footer {
-      height: $height-footer + 14;
-      z-index: 80;
-      #now-playing .song-image {
-        height: 50px;
-        width: 50px;
-        bottom: 453px;
+    .player {
+      .now-playing,
+      .controls-secondary,
+      .controls-primary {
         margin: 0;
-        position: fixed;
-        z-index: 15;
-      }
-      .footer-right {
-        top: auto;
-        bottom: 110px;
-        height: $height-footer;
-        display: block;
-        margin: 10px 20px;
-        .actions-wrapper {
-          display: block;
-          width: 100%;
-          margin: 19px 0 0;
+        &, .control {
+          height: $open-remote-desktop-sizing-unit;
+        }
+        &, .thumb {
+          height: $open-remote-desktop-sizing-unit;
+        }
+        .thumb {
+          width: $open-remote-desktop-sizing-unit;
+        }
+        .playing-info {
+          margin-left: $open-remote-desktop-sizing-unit;
         }
       }
-      .playing-song-meta,
-      .playing-song-title {
-        position: fixed;
-        left: 50px;
-        right: 0;
-        bottom: 453px;
-        padding: 5px 10px;
-        background: rgba(0,0,0,0.4);
-        z-index: 12;
-        margin: 0;
-        height: 50px;
-        padding-bottom: 20px;
-      }
-      .playing-song-meta {
-        background: none;
-        bottom: 438px;
-        height: 18px;
-        a {
-          color: #ddd;
-        }
-      }
-      .footer-left {
-        width: 100%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        top: 14px;
-        .player-button {
-          font-size: 1.8em;
-          &.player-play {
-            font-size: 2.4em;
-          }
-        }
-      }
-      #progress-bar.ui-slider .ui-slider-range {
-        background: $color-carrot;
-      }
-      @include at-bp(medium){
-        height: $height-footer;
-        #now-playing .song-image,
-        .footer-left,
-        .footer-right,
-        .playing-song-meta,
-        .playing-song-title {
-          position: static;
-          //background: none;
-          width: auto;
-          margin: 0;
-          padding-left: 0;
-        }
-        #now-playing .song-image {
-          width: 70px;
-          height: 70px;
-          display: block;
-          margin-right: 10px;
-        }
-        .playing-song-title {
-          margin-top: 22px;
-          height: 20px;
-          padding: 0;
-          background: none;
-        }
-        .footer-left {
-          width: $width-sidebar-first-small + 30;
-        }
-        .footer-right {
-          width: $width-sidebar-second-small;
-          .actions-wrapper {
-            width: $width-sidebar-second-small;
-            margin: 0;
-          }
-        }
-      }
-      @include at-bp(small){
-        .footer-left {
-          width: $width-sidebar-first;
-        }
-        .footer-right {
-          width: $width-sidebar-second;
-          .actions-wrapper {
-            width: $width-sidebar-second;
-          }
-        }
+      .now-playing {
+        margin-left: $open-remote-desktop-player-controls-primary;
+        margin-right: $open-remote-desktop-player-controls-secondary;
       }
     }
-
   }
 }
-*/
+

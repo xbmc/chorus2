@@ -2,7 +2,7 @@
   @include set-position-fixed(top auto left 0 right 0 bottom 0);
   @include set-layout('height-player', 'height');
   background: $color-player-background;
-  z-index: $z-index-delta;
+  z-index: $z-index-above + 1;
 }
 
 #player-local {
@@ -52,31 +52,29 @@
   .controls-primary {
     display: none;
     @include set-layout('width-player-controls-primary', 'width');
+    .control {
+      @include span(33.33%);
+    }
     @include at-desktop {
       float: left;
       display: block;
-      .control {
-        @include span(33.33%);
-      }
-
     }
   }
   .controls-secondary {
     display: none;
     @include set-layout('width-player-controls-secondary', 'width');
+    .control {
+      margin-top: -9px;
+      font-size: $font-size-player-control-secondary;
+      @include span(25%);
+    }
     @include at-desktop {
       float: right;
       display: block;
-      .control {
-        margin-top: -9px;
-        font-size: $font-size-player-control-secondary;
-        @include span(25%);
-      }
     }
   }
   .now-playing {
-    @include set-layout('width-player-controls-primary', 'margin-right');
-    @include set-layout('width-player-controls-secondary', 'margin-left');
+
     @include set-layout('height-player', 'height');
     position: relative;
     font-size: 12px;
@@ -84,6 +82,10 @@
     color: $color-player-text;
     a {
       color: $color-player-text;
+    }
+    @include at-desktop {
+      margin-right: get-layout($desktop, 'width-player-controls-primary');
+      margin-left: get-layout($desktop, 'width-player-controls-secondary');
     }
   }
   @include thumb-crop(70px, 70px);

@@ -24,4 +24,5 @@
         stateObj = App.request "state:current"
         if stateObj.isPlayingItemChanged()
           playingItem = stateObj.getPlaying 'item'
-          App.execute "images:fanart:set", playingItem.fanart, 'regionRemote'
+          fanart = App.request "images:path:get", playingItem.fanart, 'fanart'
+          $('#remote-background').css('background-image', 'url(' + playingItem.fanart + ')')

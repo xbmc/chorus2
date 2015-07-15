@@ -5211,6 +5211,14 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       regionContent: ".region-content"
     };
 
+    LayoutWithSidebarFirstView.prototype.events = {
+      "click .region-first-toggle": "toggleRegionFirst"
+    };
+
+    LayoutWithSidebarFirstView.prototype.toggleRegionFirst = function() {
+      return this.$el.toggleClass('region-first-open');
+    };
+
     return LayoutWithSidebarFirstView;
 
   })(App.Views.LayoutView);
@@ -9750,6 +9758,20 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
 
 this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _) {
   var API;
+  InputApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "remote": "remotePage"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
   API = {
     initKeyBind: function() {
       return $(document).keydown((function(_this) {
@@ -9785,19 +9807,23 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
         open = 'auto';
       }
       $body = $('body');
-      rClass = 'remote-open';
+      rClass = 'section-remote';
       if (open === 'auto') {
         open = $body.hasClass(rClass) ? true : false;
       }
       if (open) {
         App.navigate(helpers.backscroll.lastPath);
-        helpers.backscroll.scrollToLast();
-        return $body.removeClass(rClass);
+        return helpers.backscroll.scrollToLast();
       } else {
         helpers.backscroll.setLast();
-        App.navigate('remote');
-        return $body.addClass(rClass);
+        return App.navigate("remote", {
+          trigger: true
+        });
       }
+    },
+    remotePage: function() {
+      this.toggleRemote(false);
+      return App.regionContent.empty();
     },
     keyBind: function(e) {
       var stateObj, vol;
@@ -9852,10 +9878,15 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
   App.commands.setHandler("input:remote:toggle", function() {
     return API.toggleRemote();
   });
-  return App.addInitializer(function() {
+  App.addInitializer(function() {
     var controller;
     controller = new InputApp.Remote.Controller();
     return API.initKeyBind();
+  });
+  return App.on("before:start", function() {
+    return new InputApp.Router({
+      controller: API
+    });
   });
 });
 
@@ -9891,11 +9922,12 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
       });
       App.regionRemote.show(view);
       return App.vent.on("state:changed", function(state) {
-        var playingItem, stateObj;
+        var fanart, playingItem, stateObj;
         stateObj = App.request("state:current");
         if (stateObj.isPlayingItemChanged()) {
           playingItem = stateObj.getPlaying('item');
-          return App.execute("images:fanart:set", playingItem.fanart, 'regionRemote');
+          fanart = App.request("images:path:get", playingItem.fanart, 'fanart');
+          return $('#remote-background').css('background-image', 'url(' + playingItem.fanart + ')');
         }
       });
     };
@@ -9935,6 +9967,17 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
       type = $(e.target).data('type');
       return this.trigger('remote:player', type);
     };
+
+    Remote.Landing = (function(_super1) {
+      __extends(Landing, _super1);
+
+      function Landing() {
+        return Landing.__super__.constructor.apply(this, arguments);
+      }
+
+      return Landing;
+
+    })(App.Views.ItemView);
 
     return Control;
 
@@ -11157,6 +11200,14 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
 
     List.prototype.template = "apps/navMain/show/navMain";
 
+    List.prototype.onRender = function() {
+      console.log('hehe', this.$el.find('a'));
+      return this.$el.find('li').click(function() {
+        console.log('oooohe', $(this));
+        return $(this).blur();
+      });
+    };
+
     return List;
 
   })(Backbone.Marionette.ItemView);
@@ -11761,7 +11812,9 @@ this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette,
 
   })(App.Router.Base);
   API = {
-    list: function() {},
+    list: function() {
+      return new PlaylistApp.Show.Controller();
+    },
     type: 'kodi',
     media: 'audio',
     setContext: function(type, media) {
@@ -11797,6 +11850,43 @@ this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette,
       return controller.renderList(type, media);
     });
   });
+});
+
+this.Kodi.module("PlaylistApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      this.landing = this.getLanding();
+      return App.regionContent.show(this.landing);
+    };
+
+    Controller.prototype.getLanding = function() {
+      return new Show.Landing();
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("PlaylistApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Landing = (function(_super) {
+    __extends(Landing, _super);
+
+    function Landing() {
+      return Landing.__super__.constructor.apply(this, arguments);
+    }
+
+    Landing.prototype.template = 'apps/playlist/show/landing';
+
+    return Landing;
+
+  })(App.Views.ItemView);
 });
 
 this.Kodi.module("ChannelApp.List", function(List, App, Backbone, Marionette, $, _) {
@@ -12104,7 +12194,9 @@ this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, 
         media: media
       });
     },
-    view: function() {},
+    view: function() {
+      return new SearchApp.Show.Controller();
+    },
     searchBind: function() {
       return $('#search').on('keyup', function(e) {
         var val;
@@ -12130,6 +12222,43 @@ this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, 
       return API.searchBind();
     });
   });
+});
+
+this.Kodi.module("SearchApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      this.landing = this.getLanding();
+      return App.regionContent.show(this.landing);
+    };
+
+    Controller.prototype.getLanding = function() {
+      return new Show.Landing();
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("SearchApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Landing = (function(_super) {
+    __extends(Landing, _super);
+
+    function Landing() {
+      return Landing.__super__.constructor.apply(this, arguments);
+    }
+
+    Landing.prototype.template = 'apps/search/show/landing';
+
+    return Landing;
+
+  })(App.Views.ItemView);
 });
 
 this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette, $, _) {
