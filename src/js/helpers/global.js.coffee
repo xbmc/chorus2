@@ -92,9 +92,14 @@ helpers.global.paramObj = (key, value) ->
   obj
 
 
+## Escape a RegEx
+helpers.global.regExpEscape = (str) ->
+  str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
+
+
 ## Check if a string starts with a given string
 helpers.global.stringStartsWith = (start, data) ->
-  new RegExp('^' + start).test(data)
+  new RegExp('^' + helpers.global.regExpEscape(start)).test(data)
 
 
 ## Strip a string from the begining of another string

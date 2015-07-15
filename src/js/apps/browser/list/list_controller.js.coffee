@@ -6,7 +6,6 @@
     backButtonModel: {}
 
     initialize: (options = {}) ->
-      console.log options
       @layout = @getLayout()
       @listenTo @layout, "show", =>
         @getSources(options)
@@ -37,7 +36,6 @@
     loadFromUrl: (options) ->
       if options.media and options.id
         model = App.request "file:url:entity", options.media, options.id
-        console.log model
         @getFolder model
 
     getFolder: (model) ->
@@ -47,11 +45,9 @@
       collection = App.request "file:entities", {file: model.get('file'), media: model.get('media')}
       pathCollection = App.request "file:path:entities", model.get('file'), @sourceCollection
       @getPathList pathCollection
-      ## console.log 'path collection', pathCollection
       App.execute "when:entity:fetched", collection, =>
         ## parse and render
         collections = App.request "file:parsed:entities", collection
-        console.log collections
         @getFolderList(collections.directory)
         @getFileList(collections.file)
 
@@ -61,7 +57,6 @@
       @folderLayout.regionFolders.show folderView
       @getBackButton()
       @listenTo folderView, 'childview:folder:open', (set, item) =>
-        console.log 'clicked', item
         @getFolder item.model
       @listenTo folderView, 'childview:folder:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
@@ -73,7 +68,6 @@
       @folderLayout.regionFiles.show fileView
       @listenTo fileView, 'childview:file:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
-        console.log 'playing', item.model.get('player'), item.model.get('file')
         playlist.play 'file', item.model.get('file')
 
     getPathList: (collection) ->
@@ -93,7 +87,6 @@
 
     getBackButton: ->
       if @backButtonModel.attributes
-        console.log 'back'
         backView = new List.Back
           model: @backButtonModel
         @folderLayout.regionBack.show backView

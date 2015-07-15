@@ -660,8 +660,12 @@ helpers.global.paramObj = function(key, value) {
   return obj;
 };
 
+helpers.global.regExpEscape = function(str) {
+  return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+};
+
 helpers.global.stringStartsWith = function(start, data) {
-  return new RegExp('^' + start).test(data);
+  return new RegExp('^' + helpers.global.regExpEscape(start)).test(data);
 };
 
 helpers.global.stringStripStartsWith = function(start, data) {
@@ -3078,7 +3082,6 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         media: media,
         url: this.createFileUrl(media, file)
       };
-      console.log(model);
       return model;
     },
     getPlayer: function(media) {
@@ -3260,7 +3263,6 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   });
   App.reqres.setHandler("file:url:entity", function(media, hash) {
     var file;
-    console.log(hash, decodeURIComponent(hash));
     file = helpers.global.hash('decode', hash);
     return new KodiEntities.EmptyFile({
       media: media,
@@ -6694,7 +6696,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       if (options == null) {
         options = {};
       }
-      console.log(options);
       this.layout = this.getLayout();
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
@@ -6738,7 +6739,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       var model;
       if (options.media && options.id) {
         model = App.request("file:url:entity", options.media, options.id);
-        console.log(model);
         return this.getFolder(model);
       }
     };
@@ -6756,7 +6756,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
         return function() {
           var collections;
           collections = App.request("file:parsed:entities", collection);
-          console.log(collections);
           _this.getFolderList(collections.directory);
           return _this.getFileList(collections.file);
         };
@@ -6772,7 +6771,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       this.getBackButton();
       this.listenTo(folderView, 'childview:folder:open', (function(_this) {
         return function(set, item) {
-          console.log('clicked', item);
           return _this.getFolder(item.model);
         };
       })(this));
@@ -6795,7 +6793,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
         return function(set, item) {
           var playlist;
           playlist = App.request("command:kodi:controller", item.model.get('player'), 'PlayList');
-          console.log('playing', item.model.get('player'), item.model.get('file'));
           return playlist.play('file', item.model.get('file'));
         };
       })(this));
@@ -6826,7 +6823,6 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
     Controller.prototype.getBackButton = function() {
       var backView;
       if (this.backButtonModel.attributes) {
-        console.log('back');
         backView = new List.Back({
           model: this.backButtonModel
         });
@@ -11199,14 +11195,6 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
     }
 
     List.prototype.template = "apps/navMain/show/navMain";
-
-    List.prototype.onRender = function() {
-      console.log('hehe', this.$el.find('a'));
-      return this.$el.find('li').click(function() {
-        console.log('oooohe', $(this));
-        return $(this).blur();
-      });
-    };
 
     return List;
 

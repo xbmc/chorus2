@@ -145,7 +145,6 @@
         file: file
         media: media
         url: @createFileUrl media, file
-      console.log model
       model
 
     ## fix the naming discrepancy between files and the rest of the app :(
@@ -228,7 +227,6 @@
 
   # Create a new file entity with info extracted from the url
   App.reqres.setHandler "file:url:entity", (media, hash) ->
-    console.log hash, decodeURIComponent(hash)
     file = helpers.global.hash 'decode', hash
     new KodiEntities.EmptyFile {media: media, file: file, url: API.createFileUrl(media, file)}
 
