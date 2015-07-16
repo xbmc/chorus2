@@ -47581,10 +47581,16 @@ helpers.translate.init = function(callback) {
   return $.getJSON("lang/" + lang + ".json", function(data) {
     window.t = new Jed(data);
     t.options["missing_key_callback"] = function(key) {
-      return console.error(key);
+      return helpers.translate.missingKeyLog(key);
     };
     return callback();
   });
+};
+
+helpers.translate.missingKeyLog = function(key) {
+  var item;
+  item = '\n\n' + 'msgctxt ""\n' + 'msgid "' + key + '"\n' + 'msgid_plural "' + key + '"\n' + 'msgstr[0] ""\n' + 'msgstr[1] ""\n';
+  return helpers.debug.msg(item, 'warning');
 };
 
 
