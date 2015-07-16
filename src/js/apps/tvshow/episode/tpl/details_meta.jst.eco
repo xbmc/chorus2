@@ -1,6 +1,13 @@
 <div class="region-details-top">
+    <% if @showtitle?: %>
+
+    <% end %>
     <div class="region-details-title">
-        <h2><span class="title"><%= @label %></span> <span class="sub">S<%= @season %> E<%= @episode %></span></h2>
+        <h2>
+            <span class="title"><%= @label %></span>
+            <span class="sub show-title"><a href="#<%= @url.split('/', 2).join('/') %>"><%= @showtitle %></a></span>
+            <span class="sub">S<%= @season %> E<%= @episode %></span>
+        </h2>
     </div>
     <div class="region-details-rating">
         <%= @rating %> <i></i>
@@ -15,6 +22,9 @@
         </div>
 
     </div>
+
+
+
 
     <ul class="people">
         <% if @director.length > 0: %>

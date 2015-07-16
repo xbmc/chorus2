@@ -96,6 +96,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     @include set-position-absolute(top 0 right 0 bottom 0 left 0);
     @include at-desktop {
       width: 600px;
+      margin-left: get-layout($desktop, width-nav);
+    }
+    @include at-bp(xlarge) {
       left: auto;
     }
     z-index: $z-index-alpha;
@@ -169,8 +172,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     cursor: pointer;
   }
 
-  // Movie and tv specific.
+  // Movie and tv specific .
   .tvshow-show &,
+  .season-details &,
   .movie-show & {
     min-height: 315px;
     @include at-bp(xlarge) {
