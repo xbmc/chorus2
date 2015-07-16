@@ -2451,11 +2451,25 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
     (function() {
       var sub, _i, _len, _ref;
     
-      _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
+      _print(_safe('<div class="region-details-top">\n    '));
+    
+      if (this.showtitle != null) {
+        _print(_safe('\n\n    '));
+      }
+    
+      _print(_safe('\n    <div class="region-details-title">\n        <h2>\n            <span class="title">'));
     
       _print(this.label);
     
-      _print(_safe('</span> <span class="sub">S'));
+      _print(_safe('</span>\n            <span class="sub show-title"><a href="#'));
+    
+      _print(this.url.split('/', 2).join('/'));
+    
+      _print(_safe('">'));
+    
+      _print(this.showtitle);
+    
+      _print(_safe('</a></span>\n            <span class="sub">S'));
     
       _print(this.season);
     
@@ -2463,7 +2477,7 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
     
       _print(this.episode);
     
-      _print(_safe('</span></h2>\n    </div>\n    <div class="region-details-rating">\n        '));
+      _print(_safe('</span>\n        </h2>\n    </div>\n    <div class="region-details-rating">\n        '));
     
       _print(this.rating);
     
@@ -2471,7 +2485,7 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
     
       _print(helpers.global.formatTime(helpers.global.secToTime(this.runtime)));
     
-      _print(_safe('\n        </div>\n\n    </div>\n\n    <ul class="people">\n        '));
+      _print(_safe('\n        </div>\n\n    </div>\n\n\n\n\n    <ul class="people">\n        '));
     
       if (this.director.length > 0) {
         _print(_safe('\n            <li><label>'));

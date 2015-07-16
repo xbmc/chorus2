@@ -10468,11 +10468,6 @@ this.Kodi.module("MovieApp.Edit", function(Edit, App, Backbone, Marionette, $, _
               type: 'textfield',
               defaultValue: ''
             }, {
-              id: 'tagline',
-              title: 'Tagline',
-              type: 'textarea',
-              defaultValue: ''
-            }, {
               id: 'plotoutline',
               title: 'Plot Outline',
               type: 'textarea',
@@ -12222,6 +12217,11 @@ this.Kodi.module("SearchApp.Show", function(Show, App, Backbone, Marionette, $, 
 
     Controller.prototype.initialize = function(options) {
       this.landing = this.getLanding();
+      this.listenTo(this.landing, "show", (function(_this) {
+        return function() {
+          return $('#search').focus();
+        };
+      })(this));
       return App.regionContent.show(this.landing);
     };
 
@@ -12667,7 +12667,8 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       regionModalTitle: '.modal-title',
       regionModalBody: '.modal-body',
       regionModalFooter: '.modal-footer',
-      regionRemote: '#remote'
+      regionRemote: '#remote',
+      regionSearch: '#search-region'
     };
 
     Layout.prototype.triggers = {
