@@ -8,7 +8,6 @@
 
       # Focus search input.
       @listenTo @landing, "show", =>
-        console.log($('#search'))
         $('#search').focus()
 
       # Show landing.
