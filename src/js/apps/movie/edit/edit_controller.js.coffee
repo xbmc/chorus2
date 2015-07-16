@@ -22,7 +22,6 @@
           id: 'general'
           children:[
             {id: 'title', title: 'Title', type: 'textfield', defaultValue: ''},
-            {id: 'tagline', title: 'Tagline', type: 'textarea', defaultValue: ''},
             {id: 'plotoutline', title: 'Plot Outline', type: 'textarea', defaultValue: ''},
             {id: 'plot', title: 'Plot', type: 'textarea', defaultValue: ''},
             {id: 'rating', title: 'Rating', type: 'textfield', defaultValue: ''},
