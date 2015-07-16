@@ -26,6 +26,17 @@ helpers.translate.init = (callback) ->
   $.getJSON "lang/" + lang + ".json", (data) ->
     window.t = new Jed(data)
     # If a key is missing, throw a console error.
-    t.options["missing_key_callback"] = (key) -> console.error key
+    t.options["missing_key_callback"] = (key) -> helpers.translate.missingKeyLog key
     # Do whatever needs to be done after language is ready (eg. start the app)
     callback()
+
+## Format a missing key in a .po format so it can be
+## easily added.
+helpers.translate.missingKeyLog = (key) ->
+  item = '\n\n' +
+         'msgctxt ""\n' +
+         'msgid "' + key + '"\n' +
+         'msgid_plural "' + key + '"\n' +
+         'msgstr[0] ""\n' +
+         'msgstr[1] ""\n'
+  helpers.debug.msg item, 'warning'
