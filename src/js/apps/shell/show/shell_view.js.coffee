@@ -18,6 +18,7 @@
       regionModalBody: '.modal-body'
       regionModalFooter: '.modal-footer'
       regionRemote: '#remote'
+      regionSearch: '#search-region'
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"

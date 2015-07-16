@@ -2,7 +2,7 @@ $width-nav-bar: $size-region-unit * 4;
 $width-nav-bar-closed: $size-region-unit;
 
 #nav-bar {
-  background: $color-nav-background;
+  background: rgba($color-nav-background, 0.9);
   width: $width-nav-bar-closed;
   padding: 0;
   @include set-position-fixed(top 0 left 0 right auto);
@@ -18,6 +18,16 @@ $width-nav-bar-closed: $size-region-unit;
     background: $color-nav-header-background image-url('logo.png') 0 0 no-repeat;
   }
 
+  // Visibility.
+  display: none;
+  .section-home & {
+    display: block;
+  }
+  @include at-desktop {
+    display: block;
+  }
+
+  // Items.
   nav {
     padding: $spacing-base-unit 0;
     ul {
@@ -58,11 +68,11 @@ $width-nav-bar-closed: $size-region-unit;
           a {
             background: $color-kodi;
             color: $color-white;
-            @include at-bp(medium) {
+          //  @include at-bp(medium) {
               span {
                 display: inline-block;
               }
-            }
+        //    }
           }
         }
       }

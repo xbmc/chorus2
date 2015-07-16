@@ -27,7 +27,8 @@ body.model-open {
   @include icon(kodi-symbol, icomoon);
   @include set-position-fixed(top 0 left 0);
   @include set-layout('height-header', 'height');
-  @include set-layout('width-nav', 'width');
+  width: get-layout($desktop, 'width-nav');
+  //@include set-layout('width-nav', 'width');
   @include vertical-align-wrapper();
   z-index: $z-index-delta;
   -webkit-perspective: 1000;
@@ -47,9 +48,10 @@ body.model-open {
 // Fanart and its overlay.
 #fanart,
 #fanart-overlay {
-  @include set-position-fixed(top $size-region-unit left $size-region-unit bottom 0);
+  @include set-position-fixed(top $size-region-unit bottom 0);
   @include set-layout('height-player', 'bottom');
   @include set-layout('width-playlist', 'right');
+  @include set-layout('width-nav', 'left');
 }
 #fanart {
   background-color: $color-background;
@@ -68,9 +70,13 @@ body.model-open {
 // Main region.
 #main {
   @include pie-clearfix();
-  margin: $size-region-unit 0 0 $size-region-unit;
+  margin: $size-region-unit 0 $size-region-unit 0;
   @include set-layout('width-playlist', 'margin-right');
   @include set-layout('height-player', 'padding-bottom');
+  @include at-desktop {
+    margin-left: get-layout($desktop, width-nav);
+    margin-bottom: 0;
+  }
 
   // Sidebar is hidden.
   .shell-playlist-closed & {
@@ -81,7 +87,7 @@ body.model-open {
 
 // Playlist region.
 #sidebar-two {
-  @include set-position-fixed(top 0 left $size-region-unit right 0 bottom 0);
+  @include set-position-fixed(top 0 left 0 right 0 bottom 0);
   background: $color-playlist-background;
   z-index: $z-index-gamma;
   top: $size-region-unit;

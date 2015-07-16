@@ -86,6 +86,7 @@
     color: $color-header-text;
     font-size: 120%;
   }
+
   @include at-desktop {
     display: none;
   }
@@ -102,7 +103,12 @@ $mobile-menu-icons: (
 .mobile-menu--link {
   @each $key, $icon in $mobile-menu-icons {
     &__#{$key} i:before {
+      // Icon.
       content: icon-code($icon);
+      // Active.
+      .section-#{$key} & {
+        color: $color-white;
+      }
     }
   }
 }

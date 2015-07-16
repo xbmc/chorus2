@@ -13,7 +13,7 @@
   @include set-layout('height-header', 'height');
   @include set-layout('width-search', 'width');
   outline: none;
-  padding: 0 $spacing-half-unit 0 0;
+  padding: 0 $spacing-half-unit 0 $size-region-unit;
   color: $color-header-search-text;
 }
 #do-search {

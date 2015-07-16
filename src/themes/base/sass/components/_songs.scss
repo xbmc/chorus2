@@ -110,6 +110,9 @@ $row-action-width: $row-height - 10;
     &.menu-open,
     &:hover {
       @extend %table-row-hover;
+      .crop {
+        white-space: normal;
+      }
       .duration,
       .track {
         display: none;

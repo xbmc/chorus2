@@ -40,13 +40,14 @@ $z-index-above: 500;
 
 // Layout map - used with set-layout().
 $layouts: (
+  // Mobile and up.
   smallest: (
     width-playlist: 0,
     width-playlist-closed: 0,
     height-player: $height-player-small,
-    width-search: $size-region-unit * 3,
+    width-search: 100%,
     height-header: $size-region-unit,
-    width-nav: $size-region-unit,
+    width-nav: 0,
     width-sidebar-first: 0,
     width-player-controls-primary: 100%,
     width-player-controls-secondary: 100%,
@@ -57,11 +58,13 @@ $layouts: (
   medium: (
     width-details-side: 190px,
   ),
+  // $desktop breakpoint.
   large: (
     width-playlist: $width-playlist-small,
     width-playlist-closed: $size-region-unit,
     height-player: $height-player,
     width-search: $size-region-unit * 4,
+    width-nav: $size-region-unit,
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
     width-remote: 371px,

@@ -5,9 +5,16 @@
     ## The search landing page.
     initialize: (options) ->
       @landing = @getLanding()
+
+      # Focus search input.
+      @listenTo @landing, "show", =>
+        console.log($('#search'))
+        $('#search').focus()
+
+      # Show landing.
       App.regionContent.show @landing
 
 
-    ## Get the base layout
+    ## Get the base layout.
     getLanding: () ->
       new Show.Landing()

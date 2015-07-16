@@ -179,6 +179,7 @@
   @include set-position-fixed(right 0);
   @include set-layout('width-player-controls-secondary', 'width');
   @include set-layout('height-player', 'bottom');
+  z-index: $z-index-gamma;
   ul {
     background: $color-white;
     @include box-shadow(-1px -1px 8px rgba($color-black, 0.1));
