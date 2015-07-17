@@ -6,6 +6,9 @@
   background: rgba($color-white, 0.9);
   @include set-layout('height-header', 'height');
   margin-left: get-layout(smallest, width-nav);
+  @include at-desktop {
+    display: block;
+  }
 }
 #search {
   background: none;
