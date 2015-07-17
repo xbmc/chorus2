@@ -9,21 +9,15 @@ echo "Running Grunt"
 echo "=============================================="
 grunt build
 
-echo "Running compass"
-echo "=============================================="
-compass clean ./src/themes/base
-compass compile ./src/theme/base -e production
-
 echo "removing old zip"
 echo "=============================================="
-rm webinterface.default*.zip
+rm webinterface.kodi*.zip
 
 echo "Building zip"
 echo "=============================================="
-cp -r ./dist ./webinterface.default
-zip -r -q webinterface.default.$1.zip ./webinterface.default
-rm -rf ./webinterface.default
+cp -r ./dist ./webinterface.kodi
+zip -r -q webinterface.kodi.$1.zip ./webinterface.kodi
+rm -rf ./webinterface.kodi
 
 echo "Build complete"
 echo "=============================================="
-
