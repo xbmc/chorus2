@@ -36,7 +36,5 @@ helpers.translate.missingKeyLog = (key) ->
   item = '\n\n' +
          'msgctxt ""\n' +
          'msgid "' + key + '"\n' +
-         'msgid_plural "' + key + '"\n' +
-         'msgstr[0] ""\n' +
-         'msgstr[1] ""\n'
+         'msgstr "' + key + '"\n'
   helpers.debug.msg item, 'warning'
