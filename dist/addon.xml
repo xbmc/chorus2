@@ -10,8 +10,8 @@
   <extension point="xbmc.gui.webinterface"/>
   <extension point="xbmc.webinterface"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Default Web Interface Dev</summary>
-    <description lang="en">Only use this version for dev, see dist folder for production ready</description>
+    <summary lang="en">Chorus2</summary>
+    <description lang="en">Control Kodi using your web browser</description>
     <platform>all</platform>
     <language>en</language>
   </extension>
