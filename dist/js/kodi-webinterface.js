@@ -47589,7 +47589,7 @@ helpers.translate.init = function(callback) {
 
 helpers.translate.missingKeyLog = function(key) {
   var item;
-  item = '\n\n' + 'msgctxt ""\n' + 'msgid "' + key + '"\n' + 'msgid_plural "' + key + '"\n' + 'msgstr[0] ""\n' + 'msgstr[1] ""\n';
+  item = '\n\n' + 'msgctxt ""\n' + 'msgid "' + key + '"\n' + 'msgstr "' + key + '"\n';
   return helpers.debug.msg(item, 'warning');
 };
 
