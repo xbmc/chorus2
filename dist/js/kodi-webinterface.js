@@ -45360,7 +45360,7 @@ window.JST["apps/search/list/tpl/search_layout.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n</div>'));
+      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n    <div class="entity-set entity-set-loading"></div>\n</div>'));
     
     }).call(this);
     
@@ -47312,6 +47312,25 @@ helpers.global.stringStartsWith = function(start, data) {
 
 helpers.global.stringStripStartsWith = function(start, data) {
   return data.substring(start.length);
+};
+
+helpers.global.arrayToSentence = function(arr, pluralise) {
+  var i, item, last, prefix, str;
+  if (pluralise == null) {
+    pluralise = true;
+  }
+  str = '';
+  prefix = pluralise ? 's' : '';
+  last = arr.pop();
+  if (arr.length > 0) {
+    for (i in arr) {
+      item = arr[i];
+      str += '<strong>' + item + prefix + '</strong>';
+      str += parseInt(i) !== (arr.length - 1) ? ', ' : '';
+    }
+    str += ' ' + t.gettext('and') + ' ';
+  }
+  return str += '<strong>' + last + prefix + '</strong>';
 };
 
 helpers.global.hash = function(op, value) {
@@ -56629,15 +56648,18 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
 });
 
 this.Kodi.module("LoadingApp", function(LoadingApp, App, Backbone, Marionette, $, _) {
-  App.commands.setHandler("loading:show:page", function() {
-    var page;
-    page = new LoadingApp.Show.Page();
-    return App.regionContent.show(page);
-  });
-  return App.commands.setHandler("loading:show:view", function(region) {
+  App.commands.setHandler("loading:show:view", function(region, msgText) {
     var view;
-    view = new LoadingApp.Show.Page();
+    if (msgText == null) {
+      msgText = 'Just a sec...';
+    }
+    view = new LoadingApp.Show.Page({
+      text: msgText
+    });
     return region.show(view);
+  });
+  return App.commands.setHandler("loading:show:page", function() {
+    return App.execute("loading:show:view", App.regionContent);
   });
 });
 
@@ -56650,6 +56672,10 @@ this.Kodi.module("LoadingApp.Show", function(Show, App, Backbone, Marionette, $,
     }
 
     Page.prototype.template = "apps/loading/show/loading_page";
+
+    Page.prototype.onRender = function() {
+      return this.$el.find('h2').html(this.options.text);
+    };
 
     return Page;
 
@@ -58685,24 +58711,29 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
     __extends(Controller, _super);
 
     function Controller() {
+      this.updateProgress = __bind(this.updateProgress, this);
+      this.getLoader = __bind(this.getLoader, this);
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
     Controller.prototype.initialize = function() {
-      var entities, media;
+      var media;
       this.layout = this.getLayout();
+      this.processed = [];
       media = this.getOption('media');
       if (media === 'all') {
-        entities = ['song', 'artist', 'album', 'tvshow', 'movie'];
+        this.entities = ['song', 'artist', 'album', 'tvshow', 'movie'];
       } else {
-        entities = [media];
+        this.entities = [media];
       }
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
-          var entity, _i, _len, _results;
+          var entity, _i, _len, _ref, _results;
+          _this.getLoader();
+          _ref = _this.entities;
           _results = [];
-          for (_i = 0, _len = entities.length; _i < _len; _i++) {
-            entity = entities[_i];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            entity = _ref[_i];
             _results.push(_this.getResult(entity));
           }
           return _results;
@@ -58713,6 +58744,12 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
 
     Controller.prototype.getLayout = function() {
       return new List.ListLayout();
+    };
+
+    Controller.prototype.getLoader = function() {
+      var text;
+      text = t.gettext('Searching for') + ' ' + helpers.global.arrayToSentence(_.difference(this.entities, this.processed));
+      return App.execute("loading:show:view", this.layout.loadingSet, text);
     };
 
     Controller.prototype.getResult = function(entity) {
@@ -58732,10 +58769,21 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
             App.listenTo(setView, "show", function() {
               return setView.regionResult.show(view);
             });
-            return _this.layout["" + entity + "Set"].show(setView);
+            _this.layout["" + entity + "Set"].show(setView);
           }
+          return _this.updateProgress(entity);
         };
       })(this));
+    };
+
+    Controller.prototype.updateProgress = function(done) {
+      if (done != null) {
+        this.processed.push(done);
+      }
+      this.getLoader();
+      if (this.processed.length === this.entities.length) {
+        return this.layout.loadingSet.$el.empty();
+      }
     };
 
     return Controller;
@@ -58760,7 +58808,8 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
       albumSet: '.entity-set-album',
       songSet: '.entity-set-song',
       movieSet: '.entity-set-movie',
-      tvshowSet: '.entity-set-tvshow'
+      tvshowSet: '.entity-set-tvshow',
+      loadingSet: '.entity-set-loading'
     };
 
     return ListLayout;
@@ -58819,7 +58868,12 @@ this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, 
   API = {
     keyUpTimeout: 2000,
     list: function(media, query) {
+      var $search;
       App.navigate("search/" + media + "/" + query);
+      $search = $('#search');
+      if ($search.val() === '') {
+        $search.val(query);
+      }
       return new SearchApp.List.Controller({
         query: query,
         media: media

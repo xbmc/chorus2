@@ -136,7 +136,7 @@ helpers.global.hash = (op, value) ->
 helpers.global.rating = (rating) ->
   Math.round(rating * 10) / 10
 
-  
+
 ## Set the title
 helpers.global.appTitle = (playingItem = false) ->
   titlePrefix = ''

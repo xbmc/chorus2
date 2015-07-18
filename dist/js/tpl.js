@@ -1999,7 +1999,7 @@ window.JST["apps/search/list/tpl/search_layout.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n</div>'));
+      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n    <div class="entity-set entity-set-loading"></div>\n</div>'));
     
     }).call(this);
     
