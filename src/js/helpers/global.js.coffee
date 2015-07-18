@@ -107,6 +107,21 @@ helpers.global.stringStripStartsWith = (start, data) ->
   data.substring(start.length)
 
 
+## Turn an array of strings into a collective sentence.
+## eg. ['foo', 'bar', 'other'] = 'foo, bar and other'
+## Pluralise = 'foos, bars and others'
+helpers.global.arrayToSentence = (arr, pluralise = true) ->
+  str = ''
+  prefix = if pluralise then 's' else ''
+  last = arr.pop()
+  if arr.length > 0
+    for i, item of arr
+      str += '<strong>' + item + prefix + '</strong>'
+      str += if parseInt(i) isnt (arr.length - 1) then ', ' else ''
+    str += ' ' + t.gettext('and') + ' ';
+  str += '<strong>' + last + prefix + '</strong>'
+
+
 ## Used for url stubs so we can pass long strings like files and folders
 ## via a url. op = 'encode' or 'decode'. value is the thing you want to encode/decode
 ## @see https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
@@ -121,6 +136,7 @@ helpers.global.hash = (op, value) ->
 helpers.global.rating = (rating) ->
   Math.round(rating * 10) / 10
 
+  
 ## Set the title
 helpers.global.appTitle = (playingItem = false) ->
   titlePrefix = ''

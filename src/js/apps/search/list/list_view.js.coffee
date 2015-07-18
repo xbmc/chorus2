@@ -9,6 +9,7 @@
       songSet:   '.entity-set-song'
       movieSet:  '.entity-set-movie'
       tvshowSet: '.entity-set-tvshow'
+      loadingSet: '.entity-set-loading'
 
   class List.ListSet extends App.Views.LayoutView
     template: 'apps/search/list/search_set'

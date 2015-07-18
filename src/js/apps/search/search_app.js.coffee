@@ -11,6 +11,9 @@
 
     list: (media, query) ->
       App.navigate "search/#{media}/#{query}"
+      $search = $('#search')
+      if $search.val() is ''
+        $search.val query
       new SearchApp.List.Controller
         query: query
         media: media

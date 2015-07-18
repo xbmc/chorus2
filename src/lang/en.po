@@ -432,3 +432,15 @@ msgstr "albums"
 msgctxt ""
 msgid "movies"
 msgstr "movies"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "Searching for"
+
+msgctxt ""
+msgid "and"
+msgstr "and"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "tvshows"

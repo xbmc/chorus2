@@ -18,4 +18,17 @@
       padding: 5px;
     }
   }
+  .entity-set-loading {
+    #loading-page {
+      left: 0;
+      right: 0;
+      position: relative;
+    }
+    .spinner-double-section-far, h2 {
+      top: 5em;
+    }
+    h2 {
+      margin-top: 5em !important;
+    }
+  }
 }

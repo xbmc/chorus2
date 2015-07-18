@@ -5,19 +5,26 @@
 
     initialize: ->
       @layout = @getLayout()
+      @processed = [];
       media = @getOption('media')
       if media is 'all'
-        entities = ['song', 'artist', 'album', 'tvshow', 'movie']
+        @entities = ['song', 'artist', 'album', 'tvshow', 'movie']
       else
-        entities = [media]
+        @entities = [media]
       @listenTo @layout, "show", =>
+        ## Add the loader
+        @getLoader()
         ## Do a search for each entity
-        for entity in entities
+        for entity in @entities
           @getResult entity
       App.regionContent.show @layout
 
     getLayout: ->
       new List.ListLayout()
+
+    getLoader: =>
+      text = t.gettext('Searching for') + ' ' + helpers.global.arrayToSentence(_.difference(@entities, @processed))
+      App.execute "loading:show:view", @layout.loadingSet, text;
 
     getResult: (entity) ->
       query = @getOption('query')
@@ -36,3 +43,12 @@
             setView.regionResult.show view
           ## Add to layout
           @layout["#{entity}Set"].show setView
+        @updateProgress entity
+
+    ## Update the progress of the search
+    updateProgress: (done) =>
+      if done?
+        @processed.push done
+      @getLoader()
+      if @processed.length is @entities.length
+        @layout.loadingSet.$el.empty()
