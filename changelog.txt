@@ -1,2 +1,9 @@
-Version 1.0.1:
-- Base structure and dev tools
+Version 2.0.2
+- Improved search UX to inform user of progress
+
+Version 2.0.1:
+- Readme and responsive updates
+- Added install zip to repo
+
+Version 2.0.0:
+- Majority of build. See: https://github.com/jez500/chorus2/commits/master
