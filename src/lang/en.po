@@ -257,10 +257,6 @@ msgid "Preferred language"
 msgstr "Preferred language"
 
 msgctxt ""
-msgid "Loading folder..."
-msgstr "Loading folder..."
-
-msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
 msgstr "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
 
@@ -324,10 +320,6 @@ msgstr "Scan video library"
 msgctxt ""
 msgid "Scan audio library"
 msgstr "Scan audio library"
-
-msgctxt ""
-msgid "Scan video library"
-msgstr "Scan video library"
 
 msgctxt ""
 msgid "About Chorus"
