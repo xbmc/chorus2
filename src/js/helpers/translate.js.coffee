@@ -9,8 +9,8 @@ helpers.translate = {}
 helpers.translate.getLanguages = ->
   {
     en: "English"
-    gr: "German"
     fr: "French"
+    de: "German"
   }
 
 ## Init language and translations.
