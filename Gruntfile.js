@@ -207,7 +207,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           mangle: true,
-          compress: true,
+          compress: {},
           banner: '/*! <%= pkg.name %> by Jeremy Graham - built on <%= grunt.template.today("dd-mm-yyyy") %> */\n'
         },
         files: [{
