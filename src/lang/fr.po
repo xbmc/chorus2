@@ -18,203 +18,203 @@ msgstr ""
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr "Jeux de Rien"
+msgstr "Aucune lecture en cours"
 
 msgctxt ""
 msgid "Deselect All"
-msgstr ""
+msgstr "Déselectionner tout"
 
 msgctxt ""
 msgid "Filters"
-msgstr ""
+msgstr "Filtrer"
 
 msgctxt ""
 msgid "Sort"
-msgstr ""
+msgstr "Trier"
 
 msgctxt ""
 msgid "Select a filter"
-msgstr ""
+msgstr "Sélectionner un filtre"
 
 msgctxt ""
 msgid "Select an option"
-msgstr ""
+msgstr "Sélectionner une option"
 
 msgctxt ""
 msgid "filter"
-msgstr ""
+msgstr "filtrer"
 
 msgctxt ""
 msgid "Add Filter"
-msgstr ""
+msgstr "Ajouter un filtrer"
 
 msgctxt ""
 msgid "Which player to start with"
-msgstr ""
+msgstr "Avec quel lecteur désirez-vous démarrer"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'a' when sorting lists"
-msgstr ""
+msgstr "Ignorer les termes tels que 'The' et 'a' en triant les listes"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr ""
+msgstr "Lorsque vous lister les artistes, ne voir que les artistes avec albums ou tous les artistes. Attention: désactiver cette fonctionnalité peut impacter les performance sur les larges libraries."
 
 msgctxt ""
 msgid "Default is"
-msgstr ""
+msgstr "Par défaut"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr ""
+msgstr "The nom d'hôte utilisé pour les connections websockets. Choisir 'auto' pour utiliser le nom d'hôte actuel"
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive"
-msgstr ""
+msgstr "À quel fréquence dois-je chercher un mise à jour de Kodi (ne s'applique qu'en cas de websockets inactif)"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
-msgstr ""
+msgstr "Activer le support pour le reverse proxying"
 
 msgctxt ""
 msgid "Web Settings saved."
-msgstr ""
+msgstr "Configuration web sauvée"
 
 msgctxt ""
 msgid "Just a sec..."
-msgstr ""
+msgstr "Veuillez patienter ..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr ""
+msgstr "Impossible de se connecter à Kodi depuis un bon bout de temps. Serait-il décédé !?"
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr ""
+msgstr "Scan de la librairie Video en cours"
 
 msgctxt ""
 msgid "Video library scan complete"
-msgstr ""
+msgstr "Scan de la librairie Video terminé"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr ""
+msgstr "Scan de la librairie Audio en cours"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr ""
+msgstr "Scan de la librairie Audio terminé"
 
 msgctxt ""
 msgid "Kodi has quit"
-msgstr ""
+msgstr "Kodi a quitté"
 
 msgctxt ""
 msgid "Back"
-msgstr ""
+msgstr "Retour"
 
 msgctxt ""
 msgid "Loading folder..."
-msgstr ""
+msgstr "Chargement du dossier"
 
 msgctxt ""
 msgid "Show More"
-msgstr ""
+msgstr "Montrer Plus"
 
 msgctxt ""
 msgid "to Kodi"
-msgstr ""
+msgstr "vers Kodi"
 
 msgctxt ""
-msgid "Playlist refreshed"
+msgid "Liste de lecture mise à jour"
 msgstr ""
 
 msgctxt ""
 msgid "Kodi"
-msgstr ""
+msgstr "Kodi"
 
 msgctxt ""
 msgid "Local"
-msgstr ""
+msgstr "local"
 
 msgctxt ""
 msgid "Playlists"
-msgstr ""
+msgstr "Listes de lecture"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr ""
+msgstr "Listes de lecture existantes"
 
 msgctxt ""
 msgid "Empty Playlist, you should probably add something to it?"
-msgstr ""
+msgstr "Liste de lecture vide, vous devriez y ajouter quelque chose"
 
 msgctxt ""
 msgid "Create a new list"
-msgstr ""
+msgstr "Créer un nouvelle liste"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr ""
+msgstr "Ajouter à la liste"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr ""
+msgstr "Ajouté à la liste"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr ""
+msgstr "Donner un nom à votre liste de lecture"
 
 msgctxt ""
 msgid "Season"
-msgstr ""
+msgstr "Saison"
 
 msgctxt ""
 msgid "Episode"
-msgstr ""
+msgstr "Épisode"
 
 msgctxt ""
 msgid "Play"
-msgstr ""
+msgstr "Jouer"
 
 msgctxt ""
 msgid "Queue"
-msgstr ""
+msgstr "Dans la liste d'attente"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
 msgid "Stream"
-msgstr ""
+msgstr "Canal"
 
 msgctxt ""
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 msgctxt ""
 msgid "complete"
-msgstr ""
+msgstr "complet"
 
 msgctxt ""
 msgid "Synopsis"
-msgstr ""
+msgstr "Synopsis"
 
 msgctxt ""
 msgid "Full Cast"
-msgstr ""
+msgstr "Distribution"
 
 msgctxt ""
 msgid "Websockets Closed"
-msgstr ""
+msgstr "Websockets fermé"
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr ""
+msgstr "Votre navigateur ne supporte pas les websockets! Prenez le temps de mettre à jour votre navigateur."
 
 msgctxt ""
 msgid "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED in the Kodi settings (System > Services > Remote control). You may also get this if you are using proxies or accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to refresh your browser."
-msgstr ""
+msgstr "Echec de connection au websockets, impossible de vérifier les mises jour."
 
 msgctxt ""
 msgid "Result"
 msgid_plural "Results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Résultat"
+msgstr[1] "Résultats"
