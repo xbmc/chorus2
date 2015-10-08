@@ -1,0 +1,465 @@
+# Kodi Media Center language file
+# Addon Name: Default Webinterface?
+# Addon id: webinterface.default?
+# Addon Provider: Team Kodi?
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-09-24 16:50+0100\n"
+"Last-Translator: \n"
+"Language-Team: bertenvdb <berten.vdb@hotmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
+"Language: nl\n"
+
+msgctxt ""
+msgid "Nothing playing"
+msgstr "Niets aan het spelen"
+
+msgctxt ""
+msgid "Deselect all"
+msgstr "Deselecteer alles"
+
+msgctxt ""
+msgid "Filters"
+msgstr "Filters"
+
+msgctxt ""
+msgid "Sort"
+msgstr "Sorteer"
+
+msgctxt ""
+msgid "Select a filter"
+msgstr "Selecteer een filter"
+
+msgctxt ""
+msgid "Select an option"
+msgstr "Selecteer een optie"
+
+msgctxt ""
+msgid "filter"
+msgstr "filter"
+
+msgctxt ""
+msgid "Add filter"
+msgstr "Voeg filter toe"
+
+msgid "Which player to start with"
+msgstr "Met welke speler starten"
+
+msgctxt ""
+msgid "Ignore terms such as 'The' and 'a' when sorting lists"
+msgstr "Negeer termen zoals 'de' en 'een' bij het sorteren van lijsten"
+
+msgctxt ""
+msgid ""
+"When listing artists should we only see artists with albums or all artists "
+"found. Warning: turning this off can impact performance with large libraries"
+msgstr ""
+"Bij het tonen van de artiestenlijst, zouden we enkel artiesten moeten zien "
+"met een album of alle gevonden artiesten. Waarschuwing: dit uitschakelen kan "
+"een impact hebben op de performantie bij grote bibliotheken."
+
+msgctxt ""
+msgid "is the default"
+msgstr "is standaard"
+
+msgctxt ""
+msgid ""
+"The hostname used for websockets connection. Set to 'auto' to use the "
+"current hostname."
+msgstr ""
+"De hostnaam gebruikt voor websockets-verbindingen. Zet op 'auto' om de "
+"huidige hostnaam te gebruiken."
+
+msgctxt ""
+msgid ""
+"How often do I poll for updates from Kodi (Only applies when websockets "
+"inactive)"
+msgstr ""
+"Hoe dikwijls pollen voor updates van Kodi (Enkel van toepassing als "
+"websockets inactief zijn)"
+
+msgctxt ""
+msgid "Enable support for reverse proxy."
+msgstr "Schakel ondersteuning voor reverse proxy in."
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Webinstellingen bewaard."
+
+msgctxt ""
+msgid "Just a sec..."
+msgstr "Een secondje..."
+
+msgctxt ""
+msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+msgstr ""
+"Al een hele tijd niet in staat om te communiceren met Kodi. Ik denk dat het "
+"dood is Jim!"
+
+msgctxt ""
+msgid "Video library scan started"
+msgstr "Scannen videobibliotheek gestart"
+
+msgctxt ""
+msgid "Video library scan complete"
+msgstr "Scannen videobibliotheek afgerond"
+
+msgctxt ""
+msgid "Audio library scan started"
+msgstr "Scannen audiobibliotheek gestart"
+
+msgctxt ""
+msgid "Audio library scan complete"
+msgstr "Scannen audiobibliotheek afgerond"
+
+msgctxt ""
+msgid "Kodi has quit"
+msgstr "Kodi is gestopt"
+
+msgctxt ""
+msgid "Sections"
+msgstr "Secties"
+
+msgctxt ""
+msgid "Back"
+msgstr "Terug"
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr "Map aan het laden..."
+
+msgctxt ""
+msgid "Show more"
+msgstr "Toon meer"
+
+msgctxt ""
+msgid "to Kodi"
+msgstr "naar Kodi"
+
+msgctxt ""
+msgid "Playlist refreshed"
+msgstr "Afspeellijst ververst"
+
+msgctxt ""
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt ""
+msgid "Local"
+msgstr "Lokaal"
+
+msgctxt ""
+msgid "Playlists"
+msgstr "Afspeellijsten"
+
+msgctxt ""
+msgid "Existing playlists"
+msgstr "Bestaande afspeellijsten"
+
+msgctxt ""
+msgid "Empty playlist, you should probably add something to it?"
+msgstr "Lege afspeellijst, je zou hier iets aan moeten toevoegen?"
+
+msgctxt ""
+msgid "Create a new list"
+msgstr "Creëer een nieuwe lijst"
+
+msgctxt ""
+msgid "Add to playlist"
+msgstr "Voeg toe aan afspeellijst"
+
+msgctxt ""
+msgid "Added to your playlist"
+msgstr "Toegevoegd aan je afspeellijst"
+
+msgctxt ""
+msgid "Give your playlist a name"
+msgstr "Geef je afspeellijst een naam"
+
+msgctxt ""
+msgid "Recently added"
+msgstr "Recent toegevoegd"
+
+msgctxt ""
+msgid "Recently played"
+msgstr "Recent afgespeeld"
+
+msgctxt ""
+msgid "Season"
+msgstr "Seizoen"
+
+msgctxt ""
+msgid "Episode"
+msgstr "Aflevering"
+
+msgctxt ""
+msgid "Play"
+msgstr "Afspelen"
+
+msgctxt ""
+msgid "Queue"
+msgstr "In wachtrij zetten"
+
+msgctxt ""
+msgid "View on imdb"
+msgstr "Toon op IMDB"
+
+# Video and audio stream, such as 720, x264, AC3, etc.
+msgctxt ""
+msgid "Stream"
+msgstr "Stream"
+
+msgctxt ""
+msgid "Download"
+msgstr "Downloaden"
+
+msgctxt ""
+msgid "complete"
+msgstr "afgerond"
+
+msgctxt ""
+msgid "Synopsis"
+msgstr "Synopsis"
+
+msgctxt ""
+msgid "Full cast"
+msgstr "Volledige cast"
+
+msgctxt ""
+msgid "Websockets closed"
+msgstr "Websockets gesloten"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websockets host"
+
+msgctxt ""
+msgid "Websockets port"
+msgstr "Websockets poort"
+
+msgctxt ""
+msgid "Default player"
+msgstr "Standaard speler"
+
+msgctxt ""
+msgid "Ignore article"
+msgstr "Negeer lidwoord "
+
+msgctxt ""
+msgid "Album artists only"
+msgstr "Enkel albumartiesten"
+
+msgctxt ""
+msgid "Poll interval"
+msgstr "Poll-interval"
+
+msgctxt ""
+msgid "Reverse proxy support"
+msgstr "Reverse proxy-ondersteuning"
+
+msgctxt ""
+msgid "Language"
+msgstr "Taal"
+
+msgctxt ""
+msgid "Preferred language"
+msgstr "Voorkeurstaal"
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr ""
+"Negeer lidwoorden (termen zoals \"De\" en \"Een\") bij het sorteren van "
+"lijsten"
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr "sec"
+
+msgctxt ""
+msgid ""
+"Your browser doesn't support websockets! Get with the times and update your "
+"browser."
+msgstr ""
+"Je browser ondersteunt geen websockets! Ga mee met je tijd en update je "
+"browser."
+
+msgctxt ""
+msgid "Failed to connect to websockets"
+msgstr "Mislukt om met websockets te verbinden"
+
+msgctxt ""
+msgid "Video"
+msgstr "Video"
+
+msgctxt ""
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt ""
+msgid "Cast"
+msgstr "Cast"
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] "Regisseur"
+msgstr[1] "Regisseurs"
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] "Schrijver"
+msgstr[1] "Schrijvers"
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] "Ondertiteling"
+msgstr[1] "Ondertitelingen"
+
+msgctxt ""
+msgid "Result"
+msgid_plural "Results"
+msgstr[0] "Resultaat"
+msgstr[1] "Resultaten"
+
+msgctxt ""
+msgid "Loading things..."
+msgstr "Dingen aan het laden..."
+
+msgctxt ""
+msgid "Scan video library"
+msgstr "Scan  de videobibliotheek"
+
+msgctxt ""
+msgid "Scan audio library"
+msgstr "Scan de audiobibliotheek"
+
+msgctxt ""
+msgid "About Chorus"
+msgstr "Over Chorus"
+
+msgctxt ""
+msgid "Recent"
+msgstr "Recent"
+
+msgctxt ""
+msgid "Artists"
+msgstr "Artiesten"
+
+msgctxt ""
+msgid "Albums"
+msgstr "Albums"
+
+msgctxt ""
+msgid "Recent movies"
+msgstr "Recente films"
+
+msgctxt ""
+msgid "All movies"
+msgstr "Alle films"
+
+msgctxt ""
+msgid "Recent episodes"
+msgstr "Recente afleveringen"
+
+msgctxt ""
+msgid "All TV shows"
+msgstr "Alle TV-shows"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Webinstellingen"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi-instellingen"
+
+msgctxt ""
+msgid "Now Playing Playlists"
+msgstr "Nu spelend afspeellijsten"
+
+msgctxt ""
+msgid ""
+"Switch between Kodi and local playback via the tabs. You can toggle "
+"visibility with the arrow in the top right"
+msgstr ""
+"Schakel tussen Kodi en lokale weergave via de tabbladen. Je kan de "
+"zichtbaarheid omschakelen met de pijl in de rechterbovenhoek"
+
+msgctxt ""
+msgid "Current playlist"
+msgstr "Huidige afspeellijst"
+
+msgctxt ""
+msgid "Clear playlist"
+msgstr "Wis afspeellijst"
+
+msgctxt ""
+msgid "Refresh playlist"
+msgstr "Ververs afspeellijst"
+
+msgctxt ""
+msgid "Party mode"
+msgstr "Party-modus"
+
+msgctxt ""
+msgid "Save Kodi playlist"
+msgstr "Bewaar Kodi-afspeellijst"
+
+msgctxt ""
+msgid "Preferred language, need to refresh browser to take effect"
+msgstr "Voorkeurstaal, vernieuw browser om toe te passen"
+
+msgctxt ""
+msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr ""
+"Negeer lidwoorden (termen zoals 'De' en 'Een') bij het sorteren van lijsten"
+
+msgctxt ""
+msgid "Vibrant Headers"
+msgstr "Levendige koppen"
+
+msgctxt ""
+msgid "Use colourful headers for media pages"
+msgstr "Gebruik kleurrijke koppen voor mediapagina's"
+
+msgctxt ""
+msgid "Enable support for reverse proxying."
+msgstr "Schakel ondersteuning voor reverse proxy in."
+
+msgctxt ""
+msgid "songs"
+msgstr "nummers"
+
+msgctxt ""
+msgid "artists"
+msgstr "artiesten"
+
+msgctxt ""
+msgid "albums"
+msgstr "albums"
+
+msgctxt ""
+msgid "movies"
+msgstr "films"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "Zoeken naar"
+
+msgctxt ""
+msgid "and"
+msgstr "en"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "tv-shows"
