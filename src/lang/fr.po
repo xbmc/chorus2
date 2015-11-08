@@ -218,3 +218,18 @@ msgid "Result"
 msgid_plural "Results"
 msgstr[0] "Résultat"
 msgstr[1] "Résultats"
+
+
+## Needs translating:
+
+msgctxt ""
+msgid "no media in this folder"
+msgstr "no media in this folder"
+
+msgctxt ""
+msgid "Browse Files and AddOns"
+msgstr "Browse Files and AddOns"
+
+msgctxt ""
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
