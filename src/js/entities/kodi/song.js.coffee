@@ -45,7 +45,7 @@
       collections
 
     ## Get a list of songs via an array of ids only, we don't use Backbone.jsonrpc for this
-    ## as we are doning multiple commands. Specific sets are stored in cache.
+    ## as we are doing multiple commands. Specific sets are stored in cache.
     getSongsByIds: (songIds = [], max = -1, callback) ->
       commander = App.request "command:kodi:controller", 'auto', 'Commander'
       songIds = @getLimitIds songIds, max

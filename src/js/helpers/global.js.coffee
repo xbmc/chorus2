@@ -154,3 +154,18 @@ helpers.global.stripTags = (string) ->
     string.replace(/(<([^>]+)>)/ig,"");
   else
     ''
+
+## Generate a hashCode
+helpers.global.hashCode = (string) ->
+  hash = 0
+  if string.length == 0
+    return hash
+  i = 0
+  len = string.length
+  while i < len
+    chr = string.charCodeAt(i)
+    hash = (hash << 5) - hash + chr
+    hash |= 0
+    # Convert to 32bit integer
+    i++
+  hash

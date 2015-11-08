@@ -48,7 +48,6 @@
     arg3: -> @argLimit()
     arg4: -> @argSort("season", "ascending")
     parse: (resp, xhr) ->
-      console.log resp
       @getResult resp, 'seasons'
 
 

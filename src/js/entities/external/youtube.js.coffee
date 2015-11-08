@@ -13,7 +13,6 @@
 
     parseItems: (response) ->
       items = []
-      console.log response
       for i, item of response.items
         resp =
           id: item.id.videoId
