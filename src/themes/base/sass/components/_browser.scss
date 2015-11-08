@@ -12,7 +12,15 @@ $color-side: #F9F9F9;
       @extend %sidebar--section;
     }
     .sources {
-      @extend %sidebar--list;
+      @extend %sidebar--list-with-icons;
+      li {
+        &.type-source:before {
+            content: icon-code(device-devices);
+        }
+        &.type-addon:before {
+            content: icon-code(av-my-library-add);
+        }
+      }
     }
   }
   .region-content {
@@ -24,7 +32,7 @@ $color-side: #F9F9F9;
   .loading-bar,
   .path {
     height: $path-height;
-    background: $color-white;
+    background: rgba($color-white, 0.3);
     .loading & {
       display: none;
     }
@@ -70,10 +78,14 @@ $color-side: #F9F9F9;
     }
     .folders-pane {
       background: $color-side;
-      @include span(5 of 12);
     }
-    .files {
-      @include span(7 of 12 last)
+    @include at-bp(xlarge) {
+      .folders-pane {
+        @include span(5 of 12);
+      }
+      .files {
+        @include span(7 of 12 last)
+      }
     }
   }
   .folder, .file, .back-button {
@@ -111,5 +123,8 @@ $color-side: #F9F9F9;
         width: $file-row-height;
       }
     }
+  }
+  .empty--page-content {
+    @extend %text--dim;
   }
 }

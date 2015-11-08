@@ -46,6 +46,28 @@
     }
   }
 }
+
+@mixin sidebar-list-with-icons() {
+  @include sidebar-list();
+  padding-left: $spacing-half-unit;;
+  li {
+    > div {
+      display: inline-block;
+      padding-left: $spacing-half-unit;
+    }
+    &:before {
+      @include icon-style($default-set-name);
+      opacity: 0.3;
+      content: "";
+      font-size: 0.9em;
+    }
+  }
+}
+
 %sidebar--list {
   @include sidebar-list();
+}
+
+%sidebar--list-with-icons {
+  @include sidebar-list-with-icons();
 }
