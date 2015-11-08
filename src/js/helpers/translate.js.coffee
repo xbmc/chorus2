@@ -11,6 +11,7 @@ helpers.translate.getLanguages = ->
     en: "English"
     fr: "French"
     de: "German"
+    nl: "Dutch"
   }
 
 ## Init language and translations.
