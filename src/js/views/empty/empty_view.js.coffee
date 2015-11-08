@@ -1,6 +1,11 @@
 @Kodi.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 
-  class Views.EmptyView extends App.Views.ItemView
-    template: "views/empty/empty"
+	class Views.EmptyViewPage extends App.Views.ItemView
+		template: "views/empty/empty_page"
+		regions:
+			regionEmptyContent:  ".empty--page"
+
+  class Views.EmptyViewResults extends App.Views.ItemView
+    template: "views/empty/empty_results"
     regions:
-      regionEmptyContent:  ".region-empty-content"
+      regionEmptyContent:  ".empty-result"

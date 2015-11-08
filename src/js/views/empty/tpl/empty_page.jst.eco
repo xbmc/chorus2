@@ -1,0 +1,9 @@
+<div class="empty--page">
+    <% if @title: %>
+        <h2 class="empty--page-title"><%= title %></h2>
+    <% end %>
+
+    <% if @content: %>
+        <div class="empty--page-content"><%= @content %></div>
+    <% end %>
+</div>
