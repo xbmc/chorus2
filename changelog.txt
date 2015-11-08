@@ -1,3 +1,9 @@
+Version 2.0.3
+- File browser style and responsive updates
+- Added dutch language #56
+- SSL fix for web sockets #54
+- Minor updates and fixes
+
 Version 2.0.2
 - Improved search UX to inform user of progress
 
