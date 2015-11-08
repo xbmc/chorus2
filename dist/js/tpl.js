@@ -343,7 +343,15 @@ window.JST["apps/browser/list/tpl/folder_layout.jst"] = function(__obj) {
     
       _print(t.gettext('Loading folder...'));
     
-      _print(_safe('</span></div></div>\n    <div class="path"></div>\n    <div class="folder-container">\n        <div class="folders-pane">\n            <div class="back"></div>\n            <div class="folders"></div>\n        </div>\n        <div class="files"></div>\n    </div>\n</div>'));
+      _print(_safe('</span></div></div>\n    <div class="path"></div>\n    <div class="folder-container">\n        <div class="files">\n        </div>\n        <div class="folders-pane">\n            <div class="back"></div>\n            <div class="folders">\n                <div class="intro">\n                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> '));
+    
+      _print(t.gettext('Browse Files and AddOns'));
+    
+      _print(_safe('</h3>\n                    <p>'));
+    
+      _print(t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon.'));
+    
+      _print(_safe('</p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -3112,7 +3120,65 @@ window.JST["views/card/tpl/card_placeholder.jst"] = function(__obj) {
   })());
 };
 
-window.JST["views/empty/tpl/empty.jst"] = function(__obj) {
+window.JST["views/empty/tpl/empty_page.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="empty--page">\n    '));
+    
+      if (this.title) {
+        _print(_safe('\n        <h2 class="empty--page-title">'));
+        _print(title);
+        _print(_safe('</h2>\n    '));
+      }
+    
+      _print(_safe('\n\n    '));
+    
+      if (this.content) {
+        _print(_safe('\n        <div class="empty--page-content">'));
+        _print(this.content);
+        _print(_safe('</div>\n    '));
+      }
+    
+      _print(_safe('\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/empty/tpl/empty_results.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';

@@ -43704,7 +43704,15 @@ window.JST["apps/browser/list/tpl/folder_layout.jst"] = function(__obj) {
     
       _print(t.gettext('Loading folder...'));
     
-      _print(_safe('</span></div></div>\n    <div class="path"></div>\n    <div class="folder-container">\n        <div class="folders-pane">\n            <div class="back"></div>\n            <div class="folders"></div>\n        </div>\n        <div class="files"></div>\n    </div>\n</div>'));
+      _print(_safe('</span></div></div>\n    <div class="path"></div>\n    <div class="folder-container">\n        <div class="files">\n        </div>\n        <div class="folders-pane">\n            <div class="back"></div>\n            <div class="folders">\n                <div class="intro">\n                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> '));
+    
+      _print(t.gettext('Browse Files and AddOns'));
+    
+      _print(_safe('</h3>\n                    <p>'));
+    
+      _print(t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon.'));
+    
+      _print(_safe('</p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>'));
     
     }).call(this);
     
@@ -46473,7 +46481,65 @@ window.JST["views/card/tpl/card_placeholder.jst"] = function(__obj) {
   })());
 };
 
-window.JST["views/empty/tpl/empty.jst"] = function(__obj) {
+window.JST["views/empty/tpl/empty_page.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="empty--page">\n    '));
+    
+      if (this.title) {
+        _print(_safe('\n        <h2 class="empty--page-title">'));
+        _print(title);
+        _print(_safe('</h2>\n    '));
+      }
+    
+      _print(_safe('\n\n    '));
+    
+      if (this.content) {
+        _print(_safe('\n        <div class="empty--page-content">'));
+        _print(this.content);
+        _print(_safe('</div>\n    '));
+      }
+    
+      _print(_safe('\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["views/empty/tpl/empty_results.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
       value = '';
@@ -47372,6 +47438,23 @@ helpers.global.stripTags = function(string) {
   }
 };
 
+helpers.global.hashCode = function(string) {
+  var chr, hash, i, len;
+  hash = 0;
+  if (string.length === 0) {
+    return hash;
+  }
+  i = 0;
+  len = string.length;
+  while (i < len) {
+    chr = string.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0;
+    i++;
+  }
+  return hash;
+};
+
 
 /*
   A collection of small jquery plugin helpers.
@@ -47588,8 +47671,9 @@ helpers.translate = {};
 helpers.translate.getLanguages = function() {
   return {
     en: "English",
-    gr: "German",
-    fr: "French"
+    fr: "French",
+    de: "German",
+    nl: "Dutch"
   };
 };
 
@@ -47837,6 +47921,12 @@ helpers.url.parseTrailerUrl = function(trailer) {
     ret.url = "https://www.youtube.com/watch?v=" + ret.id;
   }
   return ret;
+};
+
+helpers.url.isSecureProtocol = function() {
+  var secure;
+  secure = (typeof document !== "undefined" && document !== null) && document.location.protocal === "https:" ? true : false;
+  return secure;
 };
 
 Cocktail.patch(Backbone);
@@ -48312,7 +48402,6 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     parseItems: function(response) {
       var i, item, items, resp, _ref;
       items = [];
-      console.log(response);
       _ref = response.items;
       for (i in _ref) {
         item = _ref[i];
@@ -48797,6 +48886,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         }
         model = App.request("images:path:entity", model);
         model.type = type;
+        model.uid = this.getUniqueId(model, type);
         model.parsed = true;
       }
       return model;
@@ -48812,6 +48902,22 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         defaults[field] = '';
       }
       return defaults;
+    };
+
+    Model.prototype.getUniqueId = function(model, type) {
+      var file, id, uid;
+      type = type ? type : model.type;
+      id = model.id;
+      uid = 'none';
+      if (typeof id === 'number') {
+        uid = id;
+      } else {
+        file = model.file;
+        if (file) {
+          uid = 'file-' + helpers.global.hashCode(file);
+        }
+      }
+      return type + '-' + uid;
     };
 
     return Model;
@@ -50507,7 +50613,6 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     SeasonCollection.prototype.parse = function(resp, xhr) {
-      console.log(resp);
       return this.getResult(resp, 'seasons');
     };
 
@@ -51847,20 +51952,37 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 });
 
 this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
-  return Views.EmptyView = (function(_super) {
-    __extends(EmptyView, _super);
+  return Views.EmptyViewPage = (function(_super) {
+    __extends(EmptyViewPage, _super);
 
-    function EmptyView() {
-      return EmptyView.__super__.constructor.apply(this, arguments);
+    function EmptyViewPage() {
+      return EmptyViewPage.__super__.constructor.apply(this, arguments);
     }
 
-    EmptyView.prototype.template = "views/empty/empty";
+    EmptyViewPage.prototype.template = "views/empty/empty_page";
 
-    EmptyView.prototype.regions = {
-      regionEmptyContent: ".region-empty-content"
+    EmptyViewPage.prototype.regions = {
+      regionEmptyContent: ".empty--page"
     };
 
-    return EmptyView;
+    Views.EmptyViewResults = (function(_super1) {
+      __extends(EmptyViewResults, _super1);
+
+      function EmptyViewResults() {
+        return EmptyViewResults.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyViewResults.prototype.template = "views/empty/empty_results";
+
+      EmptyViewResults.prototype.regions = {
+        regionEmptyContent: ".empty-result"
+      };
+
+      return EmptyViewResults;
+
+    })(App.Views.ItemView);
+
+    return EmptyViewPage;
 
   })(App.Views.ItemView);
 });
@@ -52628,7 +52750,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   List.Albums = (function(_super) {
     __extends(Albums, _super);
 
@@ -53120,7 +53242,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   List.Artists = (function(_super) {
     __extends(Artists, _super);
 
@@ -53541,6 +53663,12 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       'click .source': 'source:open'
     };
 
+    Source.prototype.attributes = function() {
+      return {
+        "class": 'type-' + this.model.get('sourcetype')
+      };
+    };
+
     return Source;
 
   })(App.Views.ItemView);
@@ -53640,6 +53768,25 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
     return Folder;
 
   })(List.Item);
+  List.EmptyFiles = (function(_super) {
+    __extends(EmptyFiles, _super);
+
+    function EmptyFiles() {
+      return EmptyFiles.__super__.constructor.apply(this, arguments);
+    }
+
+    EmptyFiles.prototype.tagName = 'li';
+
+    EmptyFiles.prototype.initialize = function() {
+      return this.model.set({
+        id: 'empty',
+        content: t.gettext('no media in this folder')
+      });
+    };
+
+    return EmptyFiles;
+
+  })(App.Views.EmptyViewPage);
   List.File = (function(_super) {
     __extends(File, _super);
 
@@ -53680,6 +53827,8 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
     FileList.prototype.tagName = 'ul';
 
     FileList.prototype.childView = List.File;
+
+    FileList.prototype.emptyView = List.EmptyFiles;
 
     return FileList;
 
@@ -57440,7 +57589,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   List.Movies = (function(_super) {
     __extends(Movies, _super);
 
@@ -57581,7 +57730,6 @@ this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _
         return App.execute('movie:action', 'localplay', viewItem);
       });
       return App.listenTo(view, 'movie:download', function(viewItem) {
-        console.log(viewItem);
         return App.execute('movie:action', 'download', viewItem);
       });
     }
@@ -59558,7 +59706,7 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
 
     Song.prototype.attributes = function() {
       var classes;
-      classes = ['song', 'table-row', 'can-play', 'item-song-' + this.model.get('songid')];
+      classes = ['song', 'table-row', 'can-play', 'item-' + this.model.get('uid')];
       if (App.request("thumbsup:check", this.model)) {
         classes.push('thumbs-up');
       }
@@ -59568,6 +59716,7 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     };
 
     Song.prototype.onShow = function() {
+      console.log(this.model);
       $('.dropdown', this.$el).on('show.bs.dropdown', (function(_this) {
         return function() {
           return _this.$el.addClass('menu-open');
@@ -59865,12 +60014,13 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
     Notifications.prototype.wsObj = {};
 
     Notifications.prototype.getConnection = function() {
-      var host, socketHost, socketPath, socketPort;
+      var host, protocol, socketHost, socketPath, socketPort;
       host = config.get('static', 'socketsHost');
       socketPath = config.get('static', 'jsonRpcEndpoint');
       socketPort = config.get('static', 'socketsPort');
       socketHost = host === 'auto' ? location.hostname : host;
-      return "ws://" + socketHost + ":" + socketPort + "/" + socketPath + "?kodi";
+      protocol = helpers.url.isSecureProtocol() ? "wss" : "ws";
+      return "" + protocol + "://" + socketHost + ":" + socketPort + "/" + socketPath + "?kodi";
     };
 
     Notifications.prototype.initialize = function() {
@@ -60622,7 +60772,7 @@ this.Kodi.module("TVShowApp.Episode", function(Episode, App, Backbone, Marionett
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   Episode.Episodes = (function(_super) {
     __extends(Episodes, _super);
 
@@ -60949,7 +61099,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   List.TVShows = (function(_super) {
     __extends(TVShows, _super);
 
@@ -61047,7 +61197,6 @@ this.Kodi.module("TVShowApp.Season", function(Season, App, Backbone, Marionette,
             thumbnail: season.get('thumbnail'),
             seasons: seasons
           });
-          console.log(tvshow);
           headerLayout = new Season.HeaderLayout({
             model: tvshow
           });
@@ -61123,7 +61272,7 @@ this.Kodi.module("TVShowApp.Season", function(Season, App, Backbone, Marionette,
 
     return Empty;
 
-  })(App.Views.EmptyView);
+  })(App.Views.EmptyViewResults);
   Season.Seasons = (function(_super) {
     __extends(Seasons, _super);
 
