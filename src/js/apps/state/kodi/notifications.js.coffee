@@ -14,7 +14,8 @@
       socketPath = config.get 'static', 'jsonRpcEndpoint'
       socketPort = config.get 'static', 'socketsPort'
       socketHost = if host is 'auto' then location.hostname else host
-      "ws://#{socketHost}:#{socketPort}/#{socketPath}?kodi"
+      protocol = if helpers.url.isSecureProtocol then "wss" else "ws"
+      "#{protocol}://#{socketHost}:#{socketPort}/#{socketPath}?kodi"
 
     initialize: ->
 

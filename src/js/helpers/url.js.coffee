@@ -124,3 +124,8 @@ helpers.url.parseTrailerUrl = (trailer) ->
     ret.img = "http://img.youtube.com/vi/#{ret.id}/0.jpg"
     ret.url = "https://www.youtube.com/watch?v=#{ret.id}"
   ret
+
+## Is current protocol https
+helpers.url.isSecureProtocol = () ->
+  secure = if document? and document.location.protocal is "https:" then true else false
+  secure
