@@ -45,7 +45,6 @@
       App.execute "when:entity:fetched", seasons, =>
         season = seasons.findWhere({season: seasonId})
         tvshow.set({season: seasonId, thumbnail: season.get('thumbnail'), seasons: seasons})
-        console.log tvshow
         headerLayout = new Season.HeaderLayout model: tvshow
         @listenTo headerLayout, "show", =>
           teaser = new Season.SeasonDetailTeaser model: tvshow

@@ -18,7 +18,7 @@
         artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
         @model.set subtitle: artistLink
 
-  class List.Empty extends App.Views.EmptyView
+  class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
     className: "album-empty-result"
 

@@ -10,7 +10,6 @@
       App.listenTo view, 'movie:localplay', (viewItem) ->
         App.execute 'movie:action', 'localplay', viewItem
       App.listenTo view, 'movie:download', (viewItem) ->
-        console.log viewItem
         App.execute 'movie:action', 'download', viewItem
 
   class Show.Controller extends App.Controllers.Base

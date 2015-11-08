@@ -35,7 +35,7 @@
       this.$el.toggleClass 'thumbs-up'
 
     attributes: ->
-      classes = ['song', 'table-row', 'can-play', 'item-song-' + @model.get('songid')]
+      classes = ['song', 'table-row', 'can-play', 'item-' + @model.get('uid')]
       if App.request "thumbsup:check", @model
         classes.push 'thumbs-up'
       {
@@ -43,6 +43,7 @@
       }
 
     onShow: ->
+      console.log @model
       ## Toggle menu open class on song row.
       $('.dropdown', @$el).on 'show.bs.dropdown', =>
         @$el.addClass('menu-open')

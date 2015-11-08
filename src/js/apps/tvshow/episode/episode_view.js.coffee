@@ -30,7 +30,7 @@
         subtitle: showLink + epNumFull
       }
 
-  class Episode.Empty extends App.Views.EmptyView
+  class Episode.Empty extends App.Views.EmptyViewResults
     tagName: "li"
     className: "episode-empty-result"
 

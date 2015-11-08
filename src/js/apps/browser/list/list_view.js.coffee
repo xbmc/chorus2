@@ -13,6 +13,10 @@
     tagName: 'li'
     triggers:
       'click .source' : 'source:open'
+    attributes: ->
+      {
+        class: 'type-' + @model.get('sourcetype')
+      }
 
   ## Our composite view allows adding another view via the 'childViewContainer' el
   ## which is in the template
@@ -55,6 +59,11 @@
       'click .title' : 'folder:open'
       'click .play' : 'folder:play'
 
+  class List.EmptyFiles extends App.Views.EmptyViewPage
+    tagName: 'li'
+    initialize: ->
+      @model.set({id: 'empty', content: t.gettext('no media in this folder')})
+
   class List.File extends List.Item
     className: 'file'
     triggers:
@@ -67,6 +76,7 @@
   class List.FileList extends App.Views.CollectionView
     tagName: 'ul'
     childView: List.File
+    emptyView: List.EmptyFiles
 
   ###
     Path

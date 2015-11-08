@@ -16,7 +16,7 @@
       # artistLink = @linkTo @model.get('artist'), helpers.url.get('artist', @model.get('artistid'))
       @model.set subtitle: subtitle
 
-  class List.Empty extends App.Views.EmptyView
+  class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
     className: "tvshow-empty-result"
 

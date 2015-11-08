@@ -26,7 +26,7 @@
       }
 
 
-  class List.Empty extends App.Views.EmptyView
+  class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
     className: "movie-empty-result"
 

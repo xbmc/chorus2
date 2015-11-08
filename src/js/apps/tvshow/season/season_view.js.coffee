@@ -8,7 +8,7 @@
       super
       @model.set({label: 'Season ' + @model.get('season')})
 
-  class Season.Empty extends App.Views.EmptyView
+  class Season.Empty extends App.Views.EmptyViewResults
     tagName: "li"
     className: "season-empty-result"
 

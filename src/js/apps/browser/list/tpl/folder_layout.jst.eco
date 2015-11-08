@@ -2,10 +2,17 @@
     <div class="loading-bar"><div class="inner"><span><%= t.gettext('Loading folder...') %></span></div></div>
     <div class="path"></div>
     <div class="folder-container">
+        <div class="files">
+        </div>
         <div class="folders-pane">
             <div class="back"></div>
-            <div class="folders"></div>
+            <div class="folders">
+                <div class="intro">
+                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> <%= t.gettext('Browse Files and AddOns') %></h3>
+                    <p><%= t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon.') %></p>
+                </div>
+            </div>
         </div>
-        <div class="files"></div>
+
     </div>
 </div>
