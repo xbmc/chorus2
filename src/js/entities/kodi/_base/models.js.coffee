@@ -60,3 +60,15 @@
         if file
           uid = 'file-' + helpers.global.hashCode(file)
       type + '-' + uid
+
+    # Check the response, it might be cached and parsing can be skipped.
+    #
+    # @param [Object] Response from the API
+    # @param [String] The key to check against.
+    # @return [Object] the response with the fullyloaded property set if parsing can be skipped.
+    #
+    checkResponse: (response, checkKey) ->
+      obj = if response[checkKey]? then response[checkKey] else response
+      if response[checkKey]?
+        obj.fullyloaded = true
+      obj

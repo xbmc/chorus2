@@ -1,0 +1,5 @@
+<div class="api-method--item">
+    <h4 class="method"><%= @method %></h4>
+    <p class="description"><%= @description %></p>
+</div>
+

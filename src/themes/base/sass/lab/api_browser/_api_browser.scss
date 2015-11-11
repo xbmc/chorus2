@@ -1,0 +1,43 @@
+.api-browser--method {
+  padding: $spacing-half-unit $spacing-base-unit $spacing-half-unit;
+
+  h4 {
+    font-size: 1.1em;
+    margin: 0 0 $spacing-half-unit 0;
+  }
+
+  p {
+    font-size: 90%;
+    opacity: 0.5;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .api-method--item {
+    border-bottom: 1px solid $color-greyscale-alto;
+    cursor: pointer;
+  }
+
+  &:hover {
+    p {
+      height: 100%;
+    }
+  }
+}
+
+.api-browser--page {
+  padding: 0 $spacing-half-unit;
+}
+
+.api-method--execute {
+  textarea {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    margin: $spacing-half-unit 0;
+    padding: $spacing-half-unit;
+    height: 200px;
+    @include border-radius(2px);
+    border: 1px solid $color-greyscale-alto;
+  }
+}

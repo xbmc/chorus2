@@ -1,0 +1,20 @@
+<div class="api-method--info">
+    <h2 class="method"><a href="http://kodi.wiki/view/JSON-RPC_API/v6#<%= @method %>" target="_blank"><%= @method %></a></h2>
+    <p class="description"><%= @description %></p>
+
+    <h3>Method Params</h3>
+    <div class="api-method--params"></div>
+</div>
+
+<div class="api-method--execute">
+    <h3>Execute <strong><%= @method %></strong></h3>
+    <p>
+        <textarea placeholder="Parameters"></textarea>
+    </p>
+    <p>GO</p>
+
+    <h3>Method Returns</h3>
+    <div class="api-method--return"></div>
+</div>
+
+<div class="api-method--result" id="api-result"></div>

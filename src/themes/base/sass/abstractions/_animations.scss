@@ -7,8 +7,8 @@
 /**
  * Standard transitions
  */
-@mixin standard-transition($prop: all) {
-  @include transition(0.3s $prop linear);
+@mixin standard-transition($prop: all, $dur: 0.3s) {
+  @include transition($dur $prop linear);
 }
 %transition--all {
   @include standard-transition();
