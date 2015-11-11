@@ -12,8 +12,9 @@
         @doCallback callback, resp
 
     ## Set a single input
-    sendInput: (type, callback) ->
-      @singleCommand @getCommand(type), [], (resp) =>
+    sendInput: (type, params = [], callback) ->
+      console.log type, params
+      @singleCommand @getCommand(type), params, (resp) =>
         @doCallback callback, resp
         if not App.request 'sockets:active'
           App.request 'state:kodi:update', callback

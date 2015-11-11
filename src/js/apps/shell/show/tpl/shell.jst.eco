@@ -49,6 +49,8 @@
         <ul class="player-menu">
             <li class="video-scan"><%= t.gettext("Scan video library") %></li>
             <li class="audio-scan"><%= t.gettext("Scan audio library") %></li>
+            <li class="action-screenshot"><%= t.gettext("Screenshot Kodi") %></li>
+            <li class="send-input"><%= t.gettext("Send text to Kodi") %></li>
             <li class="about"><%= t.gettext("About Chorus") %></li>
         </ul>
     </div>

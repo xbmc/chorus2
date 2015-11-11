@@ -24,6 +24,8 @@
       "click .playlist-toggle-open": "shell:playlist:toggle"
       "click .audio-scan": "shell:audio:scan"
       "click .video-scan": "shell:video:scan"
+      "click .action-screenshot": "shell:action:screenshot"
+      "click .send-input": "shell:send:input"
       "click .about": "shell:about"
 
     events:

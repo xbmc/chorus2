@@ -17,8 +17,13 @@
       App.request "command:kodi:controller", 'auto', 'Input'
 
     ## Do an input command
-    doInput: (action) ->
-      @inputController().sendInput action
+    doInput: (type) ->
+      @inputController().sendInput type, []
+
+    ## Do an action
+    ## http://kodi.wiki/view/JSON-RPC_API/v6#Input.Action
+    doAction: (action) ->
+      @inputController().sendInput 'ExecuteAction', [action]
 
     ## Send a player command.
     doCommand: (command, params, callback) ->
@@ -110,6 +115,9 @@
 
   App.commands.setHandler "input:remote:toggle", ->
     API.toggleRemote()
+
+  App.commands.setHandler "input:action", (action) ->
+    API.doAction(action)
 
   ## Startup tasks.
   App.addInitializer ->

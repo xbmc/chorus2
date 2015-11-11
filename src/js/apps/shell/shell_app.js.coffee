@@ -52,16 +52,27 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
-      ## Library scans - not a fan of this living here!
-      ## TODO - find a better home.
+      # TODO - find a better for the following listeners (handler for the app menu)
+
+      # Library scans - not a fan of this living here!
       App.listenTo shellLayout, "shell:audio:scan", =>
         App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
       App.listenTo shellLayout, "shell:video:scan", =>
         App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
 
-      ## About.
+      # ScreenShot.
+      # TODO - find a better home
+      App.listenTo shellLayout, "shell:action:screenshot", =>
+        App.execute "input:action", 'screenshot'
+
+      # Send input.
+      # TODO - find a better home
+      App.listenTo shellLayout, "shell:send:input", =>
+        App.execute "input:textbox", ''
+
+      # About.
       App.listenTo shellLayout, "shell:about", =>
-        ## Trigger about popup.
+        # Trigger about popup.
 
 
       ## TESTINGS!
