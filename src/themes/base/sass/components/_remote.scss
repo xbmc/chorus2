@@ -76,6 +76,7 @@ $color-remote-background-button: #222324;
         top: 0;
         left: 80px;
         width: 80px;
+        font-size: 125%;
         &.up, &.down, &.ok {
           height: $pad-height / 3;
           line-height: $pad-height / 3;
