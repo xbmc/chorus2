@@ -145,7 +145,7 @@ module.exports = function (grunt) {
     browserSync: {
       dev: {
         bsFiles: {
-          src: themeDistFolder + 'css/**/*.css'
+          src: themeDistFolder + 'css/{,**/}*.css'
         },
         options: {
           watchTask: true,
