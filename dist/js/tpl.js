@@ -970,6 +970,272 @@ window.JST["apps/input/remote/tpl/remote_control.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/lab/apiBrowser/tpl/api_browser_landing.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="api-browser--landing page">\n    <h2>'));
+    
+      _print(t.gettext('Kodi API browser'));
+    
+      _print(_safe('</h2>\n    <h4><a href="#lab">'));
+    
+      _print(t.gettext('Chorus Lab'));
+    
+      _print(_safe('</a></h4>\n    <div class="api-browser--content">\n        <p>'));
+    
+      _print(t.gettext('This is a tool to test out the api. Select a method then execute it with parameters.'));
+    
+      _print(_safe('</p>\n        <br />\n        <div class="alert alert-dismissable alert-warning">\n            <button type="button" class="close" data-dismiss="alert">×</button>\n            <h4>'));
+    
+      _print(t.gettext('Warning'));
+    
+      _print(_safe('</h4>\n            <p>'));
+    
+      _print(t.gettext('You could potentially damage your system with this and there are no sanity checks. Use at own risk.'));
+    
+      _print(_safe('<br /></p>\n        </div>\n    </div>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/lab/apiBrowser/tpl/api_method_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="api-method--item">\n    <h4 class="method">'));
+    
+      _print(this.method);
+    
+      _print(_safe('</h4>\n    <p class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</p>\n</div>\n\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/lab/apiBrowser/tpl/api_method_list.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="api-methods--list">\n    <p class="search-box"><input type="text" id="api-search" class="api-methods--search" /></p>\n    <ul class="items"></ul>\n</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/lab/apiBrowser/tpl/api_method_page.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('\n<div class="api-method--info page">\n    <h2 class="method"><a href="http://kodi.wiki/view/JSON-RPC_API/v6#'));
+    
+      _print(this.method);
+    
+      _print(_safe('" target="_blank">'));
+    
+      _print(this.method);
+    
+      _print(_safe('</a></h2>\n    <p class="description">'));
+    
+      _print(this.description);
+    
+      _print(_safe('</p>\n\n</div>\n\n<div class="api-method--execute">\n    <h3>Execute <strong>'));
+    
+      _print(this.method);
+    
+      _print(_safe('</strong> with these params:</h3>\n        <textarea class="api-method--params" placeholder=\'Eg. ["arg", "foo", true]\'></textarea>\n        <p class="description">Parameters get parsed by\n            <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse</a>.\n            Check the console for response objects, you will get an \'unexpected token\' error if parsing failed.\n            Params should be an array \'[]\' matching below \'Method params\'. Only use double quotes for strings/keys.\n        </p>\n        <p class="description">\n            Eg. [true] or [255, ["born", "formed", "thumbnail"]] or [] or [255]. Brackets required.\n        </p>\n    <p><button class="btn btn-primary" id="send-command">Send Command</button></p>\n\n</div>\n\n<div class="api-method--result" id="api-result"></div>\n\n<h3>Method Params</h3>\n<div class="api-method--params"></div>\n\n<hr />\n\n<h3>Method Returns</h3>\n<div class="api-method--return"></div>\n\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/lab/lab/tpl/lab_item.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<a class="lab-item" href="#'));
+    
+      _print(this.path);
+    
+      _print(_safe('">\n    <h4>'));
+    
+      _print(this.title);
+    
+      _print(_safe('</h4>\n    <p>'));
+    
+      _print(this.description);
+    
+      _print(_safe('</p>\n</a> '));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/loading/show/tpl/loading_page.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -2190,6 +2456,14 @@ window.JST["apps/shell/show/tpl/shell.jst"] = function(__obj) {
       _print(_safe('</li>\n            <li class="audio-scan">'));
     
       _print(t.gettext("Scan audio library"));
+    
+      _print(_safe('</li>\n            <li class="send-input">'));
+    
+      _print(t.gettext("Send text to Kodi"));
+    
+      _print(_safe('</li>\n            <li class="goto-lab">'));
+    
+      _print(t.gettext("Lab"));
     
       _print(_safe('</li>\n            <li class="about">'));
     

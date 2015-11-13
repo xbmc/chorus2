@@ -790,6 +790,36 @@ $.fn.resizeStopped = function(callback) {
   });
 };
 
+$.fn.filterList = function(settings, callback) {
+  var $this, defaults;
+  $this = $(this);
+  defaults = {
+    hiddenClass: 'hidden',
+    items: '.filter-options-list li',
+    textSelector: '.option'
+  };
+  settings = $.extend(defaults, settings);
+  return $this.on('keyup', (function(_this) {
+    return function() {
+      var $list, val;
+      val = $this.val().toLocaleLowerCase();
+      $list = $(settings.items).removeClass(settings.hiddenClass);
+      if (val.length > 0) {
+        $list.each(function(i, d) {
+          var text;
+          text = $(d).find(settings.textSelector).text().toLowerCase();
+          if (text.indexOf(val) === -1) {
+            return $(d).addClass(settings.hiddenClass);
+          }
+        });
+      }
+      if (typeof callback === "function") {
+        return callback();
+      }
+    };
+  })(this));
+};
+
 $(document).ready(function() {
   $('.dropdown li').on('click', function() {
     return $(this).closest('.dropdown').removeClass('open');
@@ -2210,6 +2240,15 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         }
       }
       return type + '-' + uid;
+    };
+
+    Model.prototype.checkResponse = function(response, checkKey) {
+      var obj;
+      obj = response[checkKey] != null ? response[checkKey] : response;
+      if (response[checkKey] != null) {
+        obj.fullyloaded = true;
+      }
+      return obj;
     };
 
     return Model;
@@ -4334,6 +4373,120 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
   });
 });
 
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    fields: {
+      minimal: [],
+      small: ['method', 'description', 'thumbnail', 'params', 'permission', 'returns', 'type', 'namespace', 'methodname'],
+      full: []
+    },
+    getEntity: function(id, collection) {
+      var model;
+      model = collection.where({
+        method: id
+      }).shift();
+      return model;
+    },
+    getCollection: function(options) {
+      var collection;
+      if (options == null) {
+        options = {};
+      }
+      collection = new KodiEntities.ApiMethodCollection();
+      collection.fetch(options);
+      return collection;
+    },
+    parseCollection: function(itemsRaw) {
+      var item, items, method, methodParts;
+      if (itemsRaw == null) {
+        itemsRaw = [];
+      }
+      items = [];
+      for (method in itemsRaw) {
+        item = itemsRaw[method];
+        item.method = method;
+        item.id = method;
+        methodParts = method.split('.');
+        item.namespace = methodParts[0];
+        item.methodname = methodParts[1];
+        items.push(item);
+      }
+      return items;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.ApiMethod = (function(_super) {
+    __extends(ApiMethod, _super);
+
+    function ApiMethod() {
+      return ApiMethod.__super__.constructor.apply(this, arguments);
+    }
+
+    ApiMethod.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        id: 1,
+        params: {}
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'small'), fields);
+    };
+
+    return ApiMethod;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.ApiMethodCollection = (function(_super) {
+    __extends(ApiMethodCollection, _super);
+
+    function ApiMethodCollection() {
+      return ApiMethodCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    ApiMethodCollection.prototype.model = KodiEntities.ApiMethod;
+
+    ApiMethodCollection.prototype.methods = {
+      read: ['JSONRPC.Introspect', 'arg1', 'arg2', 'arg3']
+    };
+
+    ApiMethodCollection.prototype.arg1 = function() {
+      return true;
+    };
+
+    ApiMethodCollection.prototype.arg2 = function() {
+      return true;
+    };
+
+    ApiMethodCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, 'methods');
+      return API.parseCollection(items);
+    };
+
+    return ApiMethodCollection;
+
+  })(App.KodiEntities.Collection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("introspect:entity", function(id, collection) {
+    return API.getEntity(id, collection);
+  });
+  return App.reqres.setHandler("introspect:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getCollection(options);
+  });
+});
+
 
 /*
   Custom saved playlists, saved in local storage
@@ -4621,6 +4774,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       id: 0,
       title: 'Untitled',
       path: '',
+      description: '',
       icon: '',
       classes: '',
       parent: 0,
@@ -7812,8 +7966,12 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       })(this));
     };
 
-    Input.prototype.sendInput = function(type, callback) {
-      return this.singleCommand(this.getCommand(type), [], (function(_this) {
+    Input.prototype.sendInput = function(type, params, callback) {
+      if (params == null) {
+        params = [];
+      }
+      console.log(type, params);
+      return this.singleCommand(this.getCommand(type), params, (function(_this) {
         return function(resp) {
           _this.doCallback(callback, resp);
           if (!App.request('sockets:active')) {
@@ -9655,20 +9813,7 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
       if (this.collection.length <= 10) {
         $('.options-search-wrapper', this.$el).addClass('hidden');
       }
-      return $('.options-search', this.$el).on('keyup', function() {
-        var $list, val;
-        val = $('.options-search', this.$el).val().toLocaleLowerCase();
-        $list = $('.filter-options-list li', this.$el).removeClass('hidden');
-        if (val.length > 0) {
-          return $list.each(function(i, d) {
-            var text;
-            text = $(d).find('.option').text().toLowerCase();
-            if (text.indexOf(val) === -1) {
-              return $(d).addClass('hidden');
-            }
-          });
-        }
-      });
+      return $('.options-search', this.$el).filterList();
     };
 
     OptionList.prototype.triggers = {
@@ -9887,8 +10032,11 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
     inputController: function() {
       return App.request("command:kodi:controller", 'auto', 'Input');
     },
-    doInput: function(action) {
-      return this.inputController().sendInput(action);
+    doInput: function(type) {
+      return this.inputController().sendInput(type, []);
+    },
+    doAction: function(action) {
+      return this.inputController().sendInput('ExecuteAction', [action]);
     },
     doCommand: function(command, params, callback) {
       return App.request('command:kodi:player', command, params, (function(_this) {
@@ -9981,6 +10129,9 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
   });
   App.commands.setHandler("input:remote:toggle", function() {
     return API.toggleRemote();
+  });
+  App.commands.setHandler("input:action", function(action) {
+    return API.doAction(action);
   });
   App.addInitializer(function() {
     var controller;
@@ -10086,6 +10237,301 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
     return Control;
 
   })(App.Views.ItemView);
+});
+
+this.Kodi.module("LabApp.apiBrowser", function(apiBrowser, App, Backbone, Marionette, $, _) {
+  return apiBrowser.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var collection;
+      collection = App.request("introspect:entities");
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          _this.layout = _this.getLayoutView(collection);
+          _this.listenTo(_this.layout, "show", function() {
+            _this.renderList(collection);
+            if (_this.options.method) {
+              return _this.renderPage(_this.options.method, collection);
+            } else {
+              return _this.renderLanding();
+            }
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getLayoutView = function(collection) {
+      return new apiBrowser.Layout({
+        collection: collection
+      });
+    };
+
+    Controller.prototype.renderList = function(collection) {
+      var view;
+      view = new apiBrowser.apiMethods({
+        collection: collection
+      });
+      this.listenTo(view, 'childview:lab:apibrowser:method:view', (function(_this) {
+        return function(item) {
+          return _this.renderPage(item.model.get('id'), collection);
+        };
+      })(this));
+      return this.layout.regionSidebarFirst.show(view);
+    };
+
+    Controller.prototype.renderPage = function(id, collection) {
+      var model, pageView;
+      model = App.request("introspect:entity", id, collection);
+      pageView = new apiBrowser.apiMethodPage({
+        model: model
+      });
+      helpers.debug.msg("Params/Returns for " + (model.get('method')) + ":", 'info', [model.get('params'), model.get('returns')]);
+      this.listenTo(pageView, 'lab:apibrowser:execute', (function(_this) {
+        return function(item) {
+          var api, input, method, params;
+          input = $('.api-method--params').val();
+          params = JSON.parse(input);
+          method = item.model.get('method');
+          helpers.debug.msg("Parameters for: " + method, 'info', params);
+          api = App.request("command:kodi:controller", "auto", "Commander");
+          return api.singleCommand(method, params, function(response) {
+            var output;
+            helpers.debug.msg("Response for: " + method, 'info', response);
+            output = prettyPrint(response);
+            return $('#api-result').html(output).prepend($('<h3>Response (check the console for more)</h3>'));
+          });
+        };
+      })(this));
+      App.navigate("lab/api-browser/" + (model.get('method')));
+      return this.layout.regionContent.show(pageView);
+    };
+
+    Controller.prototype.renderLanding = function() {
+      var view;
+      view = new apiBrowser.apiBrowserLanding();
+      return this.layout.regionContent.show(view);
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("LabApp.apiBrowser", function(apiBrowser, App, Backbone, Marionette, $, _) {
+  apiBrowser.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "api-browser--page page-wrapper";
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+  apiBrowser.apiMethodItem = (function(_super) {
+    __extends(apiMethodItem, _super);
+
+    function apiMethodItem() {
+      return apiMethodItem.__super__.constructor.apply(this, arguments);
+    }
+
+    apiMethodItem.prototype.className = "api-browser--method";
+
+    apiMethodItem.prototype.template = 'apps/lab/apiBrowser/api_method_item';
+
+    apiMethodItem.prototype.tagName = "li";
+
+    apiMethodItem.prototype.triggers = {
+      'click .api-method--item': 'lab:apibrowser:method:view'
+    };
+
+    return apiMethodItem;
+
+  })(App.Views.ItemView);
+  apiBrowser.apiMethods = (function(_super) {
+    __extends(apiMethods, _super);
+
+    function apiMethods() {
+      return apiMethods.__super__.constructor.apply(this, arguments);
+    }
+
+    apiMethods.prototype.template = 'apps/lab/apiBrowser/api_method_list';
+
+    apiMethods.prototype.childView = apiBrowser.apiMethodItem;
+
+    apiMethods.prototype.childViewContainer = 'ul.items';
+
+    apiMethods.prototype.tagName = "div";
+
+    apiMethods.prototype.className = "api-browser--methods";
+
+    apiMethods.prototype.onRender = function() {
+      return $('#api-search', this.$el).filterList({
+        items: '.api-browser--methods .api-browser--method',
+        textSelector: '.method'
+      });
+    };
+
+    return apiMethods;
+
+  })(App.Views.CompositeView);
+  apiBrowser.apiMethodPage = (function(_super) {
+    __extends(apiMethodPage, _super);
+
+    function apiMethodPage() {
+      return apiMethodPage.__super__.constructor.apply(this, arguments);
+    }
+
+    apiMethodPage.prototype.className = "api-browser--page";
+
+    apiMethodPage.prototype.template = 'apps/lab/apiBrowser/api_method_page';
+
+    apiMethodPage.prototype.tagName = "div";
+
+    apiMethodPage.prototype.triggers = {
+      'click #send-command': 'lab:apibrowser:execute'
+    };
+
+    apiMethodPage.prototype.regions = {
+      'apiResult': '#api-result'
+    };
+
+    apiMethodPage.prototype.onShow = function() {
+      $('.api-method--params', this.$el).html(prettyPrint(this.model.get('params')));
+      return $('.api-method--return', this.$el).html(prettyPrint(this.model.get('returns')));
+    };
+
+    return apiMethodPage;
+
+  })(App.Views.ItemView);
+  return apiBrowser.apiBrowserLanding = (function(_super) {
+    __extends(apiBrowserLanding, _super);
+
+    function apiBrowserLanding() {
+      return apiBrowserLanding.__super__.constructor.apply(this, arguments);
+    }
+
+    apiBrowserLanding.prototype.className = "api-browser--landing";
+
+    apiBrowserLanding.prototype.template = 'apps/lab/apiBrowser/api_browser_landing';
+
+    apiBrowserLanding.prototype.tagName = "div";
+
+    return apiBrowserLanding;
+
+  })(App.Views.ItemView);
+});
+
+this.Kodi.module("LabApp.lab", function(lab, App, Backbone, Marionette, $, _) {
+  lab.labItem = (function(_super) {
+    __extends(labItem, _super);
+
+    function labItem() {
+      return labItem.__super__.constructor.apply(this, arguments);
+    }
+
+    labItem.prototype.className = "lab--item";
+
+    labItem.prototype.template = 'apps/lab/lab/lab_item';
+
+    labItem.prototype.tagName = "div";
+
+    return labItem;
+
+  })(App.Views.ItemView);
+  return lab.labItems = (function(_super) {
+    __extends(labItems, _super);
+
+    function labItems() {
+      return labItems.__super__.constructor.apply(this, arguments);
+    }
+
+    labItems.prototype.tagName = "div";
+
+    labItems.prototype.className = "lab--items page";
+
+    labItems.prototype.childView = lab.labItem;
+
+    labItems.prototype.onRender = function() {
+      this.$el.prepend($('<h3>').html(t.gettext('Experimental code, use at own risk')));
+      this.$el.prepend($('<h2>').html(t.gettext('The Lab')));
+      return this.$el.addClass('page-secondary');
+    };
+
+    return labItems;
+
+  })(App.Views.CollectionView);
+});
+
+this.Kodi.module("LabApp", function(LabApp, App, Backbone, Marionette, $, _) {
+  var API;
+  LabApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "lab": "labLanding",
+      "lab/api-browser": "apiBrowser",
+      "lab/api-browser/:method": "apiBrowser",
+      "lab/screenshot": "screenShot"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    labLanding: function() {
+      var view;
+      view = new LabApp.lab.labItems({
+        collection: new App.Entities.NavMainCollection(this.labItems())
+      });
+      return App.regionContent.show(view);
+    },
+    labItems: function() {
+      return [
+        {
+          title: 'Api Browser',
+          description: 'Execute any api command.',
+          path: 'lab/api-browser'
+        }, {
+          title: 'ScreenShot',
+          description: 'Take a screen shot of Kodi right now.',
+          path: 'lab/screenshot'
+        }
+      ];
+    },
+    apiBrowser: function(method) {
+      if (method == null) {
+        method = false;
+      }
+      return new LabApp.apiBrowser.Controller({
+        method: method
+      });
+    },
+    screenShot: function() {
+      App.execute("input:action", 'screenshot');
+      App.execute("notification:show", t.gettext("Screenshot saved to your screenshots folder"));
+      return App.navigate("#lab", {
+        trigger: true
+      });
+    }
+  };
+  return App.on("before:start", function() {
+    return new LabApp.Router({
+      controller: API
+    });
+  });
 });
 
 this.Kodi.module("LoadingApp", function(LoadingApp, App, Backbone, Marionette, $, _) {
@@ -12757,6 +13203,18 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
           return App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan();
         };
       })(this));
+      App.listenTo(shellLayout, "shell:goto:lab", (function(_this) {
+        return function() {
+          return App.navigate("#lab", {
+            trigger: true
+          });
+        };
+      })(this));
+      App.listenTo(shellLayout, "shell:send:input", (function(_this) {
+        return function() {
+          return App.execute("input:textbox", '');
+        };
+      })(this));
       return App.listenTo(shellLayout, "shell:about", (function(_this) {
         return function() {};
       })(this));
@@ -12817,6 +13275,8 @@ this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
       "click .playlist-toggle-open": "shell:playlist:toggle",
       "click .audio-scan": "shell:audio:scan",
       "click .video-scan": "shell:video:scan",
+      "click .goto-lab": "shell:goto:lab",
+      "click .send-input": "shell:send:input",
       "click .about": "shell:about"
     };
 
