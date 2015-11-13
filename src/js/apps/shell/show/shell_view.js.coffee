@@ -24,7 +24,7 @@
       "click .playlist-toggle-open": "shell:playlist:toggle"
       "click .audio-scan": "shell:audio:scan"
       "click .video-scan": "shell:video:scan"
-      "click .action-screenshot": "shell:action:screenshot"
+      "click .goto-lab": "shell:goto:lab"
       "click .send-input": "shell:send:input"
       "click .about": "shell:about"
 

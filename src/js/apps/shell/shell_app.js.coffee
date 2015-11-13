@@ -61,12 +61,10 @@
         App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
 
       # ScreenShot.
-      # TODO - find a better home
-      App.listenTo shellLayout, "shell:action:screenshot", =>
-        App.execute "input:action", 'screenshot'
+      App.listenTo shellLayout, "shell:goto:lab", =>
+        App.navigate "#lab", {trigger: true}
 
       # Send input.
-      # TODO - find a better home
       App.listenTo shellLayout, "shell:send:input", =>
         App.execute "input:textbox", ''
 
