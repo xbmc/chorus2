@@ -26,3 +26,7 @@ form {
     }
   }
 }
+
+.search-box {
+  @extend %search-box;
+}

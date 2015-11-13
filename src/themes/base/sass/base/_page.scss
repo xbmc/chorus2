@@ -1,0 +1,30 @@
+.page-padding,
+%page-padding {
+  padding: $spacing-base-unit;
+  @include at-bp(large) {
+    padding: $spacing-double-unit;
+    padding-left: $spacing-base-unit * 3;
+  }
+}
+
+.page,
+%page {
+  max-width: $width-page;
+  margin-left: 0;
+  background: $color-white;
+  @extend %page-padding;
+}
+
+.page-secondary,
+%page-secondary {
+  @extend %page;
+  background: rgba($color-white, 0.5);
+}
+
+.page-wrapper,
+%page-wrapper {
+  padding: 0;
+  .region-content {
+    padding: 0;
+  }
+}

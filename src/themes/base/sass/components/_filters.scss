@@ -88,29 +88,8 @@
       }
     }
   }
-  .options-search {
-    color: $color-greyscale-dove-gray;
-    border: none;
-    width: 100%;
-    padding: $spacing-half-unit;
-    padding-left: $spacing-double-unit;
-    background: rgba($color-white, 0.5);
-    margin-bottom: $spacing-base-unit;
-    &:focus {
-      background: rgba($color-white, 0.9);
-      outline: none;
-    }
-  }
   .options-search-wrapper {
-    position: relative;
-    @include icon(action-search);
-    padding-right: $spacing-base-unit;
-    &:before {
-      @include set-position-absolute(top 8px left 6px);
-      z-index: $z-index-beta;
-      font-size: 130%;
-      opacity: 0.8;
-    }
+    @extend %search-box;
   }
   .deselect-all {
     margin: 0 0 $spacing-half-unit $spacing-base-unit;

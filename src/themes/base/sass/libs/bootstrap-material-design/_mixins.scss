@@ -16,7 +16,8 @@
 }
 
 @mixin alert-variant($color) {
-    background-color: $color;
+    background-color: rgba($color, 0.35);
+    color: $lightbg-text;
 }
 
 @mixin progress-bar-variant($color) {

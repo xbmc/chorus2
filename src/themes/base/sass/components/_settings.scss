@@ -9,15 +9,7 @@
 }
 
 .settings-form {
-  background: $color-white;
-  max-width: 800px;
-  .form-content-region {
-    padding: $spacing-base-unit;
-    @include at-bp(large) {
-      padding: $spacing-double-unit;
-      padding-left: $spacing-base-unit * 3;
-    }
-  }
+  @extend %page;
   .form-group {
     margin-bottom: $spacing-half-unit * 3;
     @include pie-clearfix();
