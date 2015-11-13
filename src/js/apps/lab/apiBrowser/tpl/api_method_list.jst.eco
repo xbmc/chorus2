@@ -1,0 +1,4 @@
+<div class="api-methods--list">
+    <p class="search-box"><input type="text" id="api-search" class="api-methods--search" /></p>
+    <ul class="items"></ul>
+</div>

@@ -1,0 +1,13 @@
+<div class="api-browser--landing page">
+    <h2><%= t.gettext('Kodi API browser') %></h2>
+    <h4><a href="#lab"><%= t.gettext('Chorus Lab') %></a></h4>
+    <div class="api-browser--content">
+        <p><%= t.gettext('This is a tool to test out the api. Select a method then execute it with parameters.') %></p>
+        <br />
+        <div class="alert alert-dismissable alert-warning">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h4><%= t.gettext('Warning') %></h4>
+            <p><%= t.gettext('You could potentially damage your system with this and there are no sanity checks. Use at own risk.') %><br /></p>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,8 @@
           @renderList collection
           if @options.method
             @renderPage @options.method, collection
-            console.log @options
+          else
+            @renderLanding()
 
         App.regionContent.show @layout
 
@@ -36,14 +37,33 @@
     renderList: (collection) ->
       view = new apiBrowser.apiMethods
         collection: collection
-      @listenTo view, 'childview:method:view', (item) =>
-        console.log item
+      @listenTo view, 'childview:lab:apibrowser:method:view', (item) =>
         @renderPage(item.model.get('id'), collection)
       @layout.regionSidebarFirst.show view
 
     renderPage: (id, collection) ->
       model = App.request "introspect:entity", id, collection
-      console.log model
-      view = new apiBrowser.apiMethodPage
+      pageView = new apiBrowser.apiMethodPage
         model: model
+      helpers.debug.msg "Params/Returns for #{model.get('method')}:", 'info', [model.get('params'), model.get('returns')]
+      @listenTo pageView, 'lab:apibrowser:execute', (item) =>
+        input = $('.api-method--params').val();
+        params = JSON.parse input
+        method = item.model.get 'method'
+
+        # Notify
+        helpers.debug.msg "Parameters for: #{method}", 'info', params
+
+        # Execute the method
+        api = App.request "command:kodi:controller", "auto", "Commander"
+        api.singleCommand method, params, (response) =>
+          helpers.debug.msg "Response for: #{method}", 'info', response
+          output = prettyPrint response
+          $('#api-result').html(output).prepend($('<h3>Response (check the console for more)</h3>'));
+
+      App.navigate "lab/api-browser/#{model.get('method')}"
+      @layout.regionContent.show pageView
+
+    renderLanding: ->
+      view = new apiBrowser.apiBrowserLanding()
       @layout.regionContent.show view
