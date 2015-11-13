@@ -30,7 +30,7 @@
     tagName: "div"
     className: "card-minimal"
     initialize: ->
-      this.model.set subtitle: this.model.get('year')
+      @model.set subtitle: @model.get('year')
       @model.set(App.request('album:action:items'))
 
   class Show.AlbumDetailTeaser extends Show.AlbumTeaser
