@@ -1,0 +1,22 @@
+.lab--items {
+  h3 {
+    margin-bottom: $spacing-double-unit;
+    font-size: 1.3em;
+    margin-top: 0;
+  }
+}
+
+.lab-item {
+  padding: $spacing-base-unit;
+  background: rgba($color-black, 0.05);
+  display: block;
+  margin-bottom: $spacing-half-unit;
+
+  p {
+    color: $color-text-dark;
+  }
+
+  &:hover {
+    background: rgba($color-black, 0.1);
+  }
+}

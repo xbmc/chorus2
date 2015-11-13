@@ -22,9 +22,7 @@
 
     ## Fetch a single entity
     getEntity: (id, collection) ->
-      console.log id, collection
       model = collection.where({method: id}).shift()
-      console.log model
       model
 
     ## Fetch an entity collection.
@@ -42,8 +40,6 @@
         item.namespace = methodParts[0]
         item.methodname = methodParts[1]
         items.push item
-      console.log "INTROSPECT"
-      console.log items
       items
 
 
