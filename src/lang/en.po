@@ -448,3 +448,39 @@ msgstr "Browse Files and AddOns"
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
 msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "Send text to Kodi"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Lab"
+
+msgctxt ""
+msgid "Chorus Lab"
+msgstr "Chorus Lab"
+
+msgctxt ""
+msgid "The Lab"
+msgstr "The Lab"
+
+msgctxt ""
+msgid "Warning"
+msgstr "Warning"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "Experimental code, use at own risk"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API browser"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+
+msgctxt ""
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
