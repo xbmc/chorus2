@@ -89,14 +89,7 @@
       if @collection.length <= 10
         $('.options-search-wrapper', @$el).addClass('hidden')
       ## Filter options via search box.
-      $('.options-search', @$el).on 'keyup', ->
-        val = $('.options-search', @$el).val().toLocaleLowerCase()
-        $list = $('.filter-options-list li', @$el).removeClass('hidden')
-        if val.length > 0
-          $list.each (i, d) ->
-            text = $(d).find('.option').text().toLowerCase()
-            if text.indexOf(val) is -1
-              $(d).addClass('hidden')
+      $('.options-search', @$el).filterList()
     triggers:
       'click .deselect-all': 'filter:option:deselectall'
 
