@@ -5,6 +5,7 @@
       id: 0
       title: 'Untitled'
       path: ''
+      description: ''
       icon: ''
       classes: ''
       parent: 0
