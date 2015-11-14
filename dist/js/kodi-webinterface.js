@@ -45352,7 +45352,7 @@ window.JST["apps/lab/lab/tpl/lab_item.jst"] = function(__obj) {
     
       _print(this.description);
     
-      _print(_safe('</p>\n</a> '));
+      _print(_safe('</p>\n</a>'));
     
     }).call(this);
     
@@ -46499,6 +46499,52 @@ window.JST["apps/search/show/tpl/landing.jst"] = function(__obj) {
       _print(t.gettext('Enter your search above'));
     
       _print(_safe('</h3>\n</div>\n'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
+window.JST["apps/settings/show/tpl/settings_sidebar.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="settings-sidebar">\n    <div class="settings-sidebar--section local-nav nav-sub">\n        <h3>Web Settings</h3>\n        <ul class="items">\n            <li><a href="#settings/web">'));
+    
+      _print(t.gettext('General'));
+    
+      _print(_safe('</a></li>\n        </ul>\n    </div>\n    <div class="settings-sidebar--section kodi-nav"></div>\n</div>'));
     
     }).call(this);
     
@@ -51725,6 +51771,291 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
 });
 
 this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
+
+  /*
+    API Helpers
+   */
+  var API;
+  API = {
+    settingsLevel: "standard",
+    settingsType: {
+      sections: "SettingSectionCollection",
+      categories: "SettingCategoryCollection",
+      settings: "SettingCollection"
+    },
+    fields: {
+      minimal: ['settingstype'],
+      small: ['title', 'control', 'options', 'parent', 'enabled', 'type', 'value', 'enabled', 'default', 'help', 'path', 'description', 'section', 'category'],
+      full: []
+    },
+    getSettingsLevel: function() {
+      return this.settingsLevel;
+    },
+    getEntity: function(id, collection) {
+      var model;
+      model = collection.where({
+        method: id
+      }).shift();
+      return model;
+    },
+    getCollection: function(options) {
+      var collection, collectionMethod;
+      if (options == null) {
+        options = {
+          type: 'sections'
+        };
+      }
+      collectionMethod = this.settingsType[options.type];
+      collection = new KodiEntities[collectionMethod]();
+      collection.fetch(options);
+      if (options.section && options.type === 'settings') {
+        collection.where({
+          section: options.section
+        });
+      }
+      return collection;
+    },
+    getSettings: function(section, categories, callback) {
+      var commander, commands, items;
+      if (categories == null) {
+        categories = [];
+      }
+      commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      commands = [];
+      items = [];
+      $(categories).each((function(_this) {
+        return function(i, category) {
+          return commands.push({
+            method: 'Settings.GetSettings',
+            params: [
+              _this.getSettingsLevel(), {
+                "section": section,
+                "category": category
+              }
+            ]
+          });
+        };
+      })(this));
+      return commander.multipleCommands(commands, (function(_this) {
+        return function(resp) {
+          var catId, i, item;
+          for (i in resp) {
+            item = resp[i];
+            catId = categories[i];
+            items[catId] = _this.parseCollection(item.settings, 'settings');
+          }
+          return callback(items);
+        };
+      })(this));
+    },
+    parseCollection: function(itemsRaw, type) {
+      var item, items, method;
+      if (itemsRaw == null) {
+        itemsRaw = [];
+      }
+      if (type == null) {
+        type = 'settings';
+      }
+      items = [];
+      for (method in itemsRaw) {
+        item = itemsRaw[method];
+        items.push(this.parseItem(item, type));
+      }
+      return items;
+    },
+    parseItem: function(item, type) {
+      if (type == null) {
+        type = 'settings';
+      }
+      item.settingstype = type;
+      item.title = item.label;
+      item.description = item.help;
+      item.path = 'settings/kodi/';
+      switch (type) {
+        case 'sections':
+          item.path += item.id;
+          break;
+        case 'categories':
+          item.path += helpers.url.arg(2) + '/' + item.id;
+          break;
+      }
+      return item;
+    },
+    saveSettings: function(data, callback) {
+      var commander, commands, key, val;
+      commander = App.request("command:kodi:controller", 'auto', 'Commander');
+      commands = [];
+      for (key in data) {
+        val = data[key];
+        commands.push({
+          method: 'Settings.SetSettingValue',
+          params: [key, this.valuePreSave(val)]
+        });
+      }
+      return commander.multipleCommands(commands, (function(_this) {
+        return function(resp) {
+          if (callback) {
+            return callback(resp);
+          }
+        };
+      })(this));
+    },
+    valuePreSave: function(val) {
+      if (val === String(parseInt(val))) {
+        val = parseInt(val);
+      }
+      return val;
+    }
+  };
+
+  /*
+   Models and collections.
+   */
+  KodiEntities.Setting = (function(_super) {
+    __extends(Setting, _super);
+
+    function Setting() {
+      return Setting.__super__.constructor.apply(this, arguments);
+    }
+
+    Setting.prototype.defaults = function() {
+      var fields;
+      fields = _.extend(this.modelDefaults, {
+        id: 0,
+        params: {}
+      });
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'small'), fields);
+    };
+
+    return Setting;
+
+  })(App.KodiEntities.Model);
+  KodiEntities.SettingSectionCollection = (function(_super) {
+    __extends(SettingSectionCollection, _super);
+
+    function SettingSectionCollection() {
+      return SettingSectionCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SettingSectionCollection.prototype.model = KodiEntities.Setting;
+
+    SettingSectionCollection.prototype.methods = {
+      read: ['Settings.GetSections']
+    };
+
+    SettingSectionCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, this.options.type);
+      return API.parseCollection(items, this.options.type);
+    };
+
+    return SettingSectionCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.SettingCategoryCollection = (function(_super) {
+    __extends(SettingCategoryCollection, _super);
+
+    function SettingCategoryCollection() {
+      return SettingCategoryCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SettingCategoryCollection.prototype.model = KodiEntities.Setting;
+
+    SettingCategoryCollection.prototype.methods = {
+      read: ['Settings.GetCategories', 'arg1', 'arg2']
+    };
+
+    SettingCategoryCollection.prototype.arg1 = function() {
+      return API.getSettingsLevel();
+    };
+
+    SettingCategoryCollection.prototype.arg2 = function() {
+      return this.argCheckOption('section', 0);
+    };
+
+    SettingCategoryCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, this.options.type);
+      return API.parseCollection(items, this.options.type);
+    };
+
+    return SettingCategoryCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.SettingCollection = (function(_super) {
+    __extends(SettingCollection, _super);
+
+    function SettingCollection() {
+      return SettingCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SettingCollection.prototype.model = KodiEntities.Setting;
+
+    SettingCollection.prototype.methods = {
+      read: ['Settings.GetSettings', 'arg1']
+    };
+
+    SettingCollection.prototype.arg1 = function() {
+      return API.getSettingsLevel();
+    };
+
+    SettingCollection.prototype.parse = function(resp, xhr) {
+      var items;
+      items = this.getResult(resp, this.options.type);
+      return API.parseCollection(items, this.options.type);
+    };
+
+    return SettingCollection;
+
+  })(App.KodiEntities.Collection);
+  KodiEntities.SettingFilteredCollection = (function(_super) {
+    __extends(SettingFilteredCollection, _super);
+
+    function SettingFilteredCollection() {
+      return SettingFilteredCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    SettingFilteredCollection.prototype.methods = {
+      read: ['Settings.GetSettings', 'arg1', 'arg2']
+    };
+
+    SettingFilteredCollection.prototype.arg2 = function() {
+      return {
+        section: this.argCheckOption('section', 0),
+        category: this.argCheckOption('category', 0)
+      };
+    };
+
+    return SettingFilteredCollection;
+
+  })(App.KodiEntities.SettingCollection);
+
+  /*
+   Request Handlers.
+   */
+  App.reqres.setHandler("settings:kodi:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getCollection(options);
+  });
+  App.reqres.setHandler("settings:kodi:filtered:entities", function(options) {
+    if (options == null) {
+      options = {};
+    }
+    return API.getSettings(options.section, options.categories, function(items) {
+      return options.callback(items);
+    });
+  });
+  return App.commands.setHandler("settings:kodi:save:entities", function(data, callback) {
+    if (data == null) {
+      data = {};
+    }
+    return API.saveSettings(data, callback);
+  });
+});
+
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     songsByIdMax: 50,
@@ -53533,11 +53864,13 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
           }), options);
           break;
         default:
-          el = '';
+          el = null;
       }
-      return this.model.set({
-        element: el
-      });
+      if (el) {
+        return this.model.set({
+          element: el
+        });
+      }
     };
 
     Item.prototype.attributes = function() {
@@ -53567,7 +53900,13 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
     Group.prototype.childViewContainer = '.form-items';
 
     Group.prototype.initialize = function() {
-      return this.collection = this.model.get('children');
+      var children;
+      children = this.model.get('children');
+      if (children.length === 0) {
+        return this.model.set('title', '');
+      } else {
+        return this.collection = children;
+      }
     };
 
     return Group;
@@ -59480,6 +59819,16 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
       return new NavMain.ItemList({
         model: navStructure
       });
+    },
+    getNavCollection: function(collection, title) {
+      var navStructure;
+      navStructure = new App.Entities.NavMain({
+        title: title,
+        items: collection
+      });
+      return new NavMain.ItemList({
+        model: navStructure
+      });
     }
   };
   this.onStart = function(options) {
@@ -59491,11 +59840,17 @@ this.Kodi.module("NavMain", function(NavMain, App, Backbone, Marionette, $, _) {
       };
     })(this));
   };
-  return App.reqres.setHandler("navMain:children:show", function(parentId, title) {
+  App.reqres.setHandler("navMain:children:show", function(parentId, title) {
     if (title == null) {
       title = 'default';
     }
     return API.getNavChildren(parentId, title);
+  });
+  return App.reqres.setHandler("navMain:collection:show", function(collection, title) {
+    if (title == null) {
+      title = '';
+    }
+    return API.getNavCollection(collection, title);
   });
 });
 
@@ -60606,7 +60961,9 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
 
     Router.prototype.appRoutes = {
       "settings/web": "local",
-      "settings/kodi": "kodi"
+      "settings/kodi": "kodi",
+      "settings/kodi/:section": "kodi",
+      "settings/kodi/:section/:category": "kodi"
     };
 
     return Router;
@@ -60617,11 +60974,39 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
     local: function() {
       return new SettingsApp.Show.Local.Controller();
     },
-    kodi: function() {
-      return new SettingsApp.Show.Kodi.Controller();
+    localNav: function() {
+      return [
+        {
+          title: "General",
+          id: "general",
+          path: "settings/web"
+        }
+      ];
     },
-    getSubNav: function() {
-      return App.request("navMain:children:show", this.subNavId, 'Sections');
+    kodi: function(section, category) {
+      return new SettingsApp.Show.Kodi.Controller({
+        section: section,
+        category: category
+      });
+    },
+    getSubNav: function(callback) {
+      var collection;
+      collection = App.request("settings:kodi:entities", {
+        type: 'sections'
+      });
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          var kodiSettingsView, sidebarView;
+          kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi Settings'));
+          sidebarView = new SettingsApp.Show.Sidebar();
+          App.listenTo(sidebarView, "show", function() {
+            return sidebarView.regionKodiNav.show(kodiSettingsView);
+          });
+          if (callback) {
+            return callback(sidebarView);
+          }
+        };
+      })(this));
     }
   };
   App.on("before:start", function() {
@@ -60629,25 +61014,40 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
       controller: API
     });
   });
-  return App.reqres.setHandler('settings:subnav', function() {
-    return API.getSubNav();
+  return App.reqres.setHandler('settings:subnav', function(callback) {
+    return API.getSubNav(callback);
   });
 });
 
 this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionette, $, _) {
   return Kodi.Controller = (function(_super) {
+    var API;
+
     __extends(Controller, _super);
 
     function Controller() {
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
-    Controller.prototype.initialize = function() {
+    API = {
+      parseOptions: function(options) {
+        var out;
+        out = {};
+        $(options).each(function(i, option) {
+          return out[option.value] = option.label;
+        });
+        return out;
+      }
+    };
+
+    Controller.prototype.initialize = function(options) {
       this.layout = this.getLayoutView();
       this.listenTo(this.layout, "show", (function(_this) {
         return function() {
           _this.getSubNav();
-          return _this.getForm();
+          if (options.section) {
+            return _this.getSettingsForm(options.section);
+          }
         };
       })(this));
       return App.regionContent.show(this.layout);
@@ -60658,42 +61058,106 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
     };
 
     Controller.prototype.getSubNav = function() {
-      var subNav;
-      subNav = App.request('settings:subnav');
-      return this.layout.regionSidebarFirst.show(subNav);
+      return App.request('settings:subnav', (function(_this) {
+        return function(subNav) {
+          return _this.layout.regionSidebarFirst.show(subNav);
+        };
+      })(this));
     };
 
-    Controller.prototype.getForm = function() {
+    Controller.prototype.getSettingsForm = function(section) {
+      var categoryCollection, formStructure;
+      formStructure = [];
+      categoryCollection = App.request("settings:kodi:entities", {
+        type: 'categories',
+        section: section
+      });
+      return App.execute("when:entity:fetched", categoryCollection, (function(_this) {
+        return function() {
+          var categories, categoryNames;
+          categoryNames = categoryCollection.pluck("id");
+          categories = categoryCollection.toJSON();
+          return App.request("settings:kodi:filtered:entities", {
+            type: 'settings',
+            section: section,
+            categories: categoryNames,
+            callback: function(categorySettings) {
+              $(categories).each(function(i, category) {
+                var items;
+                items = _this.mapSettingsToElements(categorySettings[category.id]);
+                if (items.length > 0) {
+                  return formStructure.push({
+                    title: category.title,
+                    id: category.id,
+                    children: items
+                  });
+                }
+              });
+              return _this.getForm(section, formStructure);
+            }
+          });
+        };
+      })(this));
+    };
+
+    Controller.prototype.getForm = function(section, formStructure) {
       var form, options;
       options = {
-        form: this.getSructure(),
+        form: formStructure,
         formState: this.getState(),
         config: {
           attributes: {
             "class": 'settings-form'
-          }
+          },
+          callback: (function(_this) {
+            return function(data, formView) {
+              return _this.saveCallback(data, formView);
+            };
+          })(this)
         }
       };
       form = App.request("form:wrapper", options);
       return this.layout.regionContent.show(form);
     };
 
-    Controller.prototype.getSructure = function() {
-      return [
-        {
-          title: 'List options',
-          id: 'list',
-          children: [
-            {
-              id: 'ignore-article',
-              title: 'Ignore article',
-              type: 'checkbox',
-              defaultValue: true,
-              description: 'Ignore terms such as "The" and "a" when sorting lists'
-            }
-          ]
+    Controller.prototype.mapSettingsToElements = function(items) {
+      var elements;
+      elements = [];
+      $(items).each(function(i, item) {
+        var type;
+        type = null;
+        switch (item.type) {
+          case 'boolean':
+            type = 'checkbox';
+            break;
+          case 'path':
+            type = 'textfield';
+            break;
+          case 'addon':
+            type = 'textfield';
+            break;
+          case 'integer':
+            type = 'textfield';
+            break;
+          case 'string':
+            type = 'textfield';
+            break;
+          default:
+            type = 'hide';
         }
-      ];
+        if (item.options) {
+          type = 'select';
+          item.options = API.parseOptions(item.options);
+        }
+        if (type === 'hide') {
+          return console.log('no setting to field mapping for: ' + item.type + ' -> ' + item.id);
+        } else {
+          item.type = type;
+          item.defaultValue = item.value;
+          return elements.push(item);
+        }
+      });
+      return elements;
     };
 
     Controller.prototype.getState = function() {
@@ -60704,10 +61168,20 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
       };
     };
 
+    Controller.prototype.saveCallback = function(data, formView) {
+      return App.execute("settings:kodi:save:entities", data, (function(_this) {
+        return function(resp) {
+          return App.execute("notification:show", t.gettext("Saved Kodi settings"));
+        };
+      })(this));
+    };
+
     return Controller;
 
   })(App.Controllers.Base);
 });
+
+this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionette, $, _) {});
 
 this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marionette, $, _) {
   return Local.Controller = (function(_super) {
@@ -60733,9 +61207,11 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     };
 
     Controller.prototype.getSubNav = function() {
-      var subNav;
-      subNav = App.request('settings:subnav');
-      return this.layout.regionSidebarFirst.show(subNav);
+      return App.request('settings:subnav', (function(_this) {
+        return function(subNav) {
+          return _this.layout.regionSidebarFirst.show(subNav);
+        };
+      })(this));
     };
 
     Controller.prototype.getForm = function() {
@@ -60870,7 +61346,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
 });
 
 this.Kodi.module("SettingsApp.Show", function(Show, App, Backbone, Marionette, $, _) {
-  return Show.Layout = (function(_super) {
+  Show.Layout = (function(_super) {
     __extends(Layout, _super);
 
     function Layout() {
@@ -60882,6 +61358,27 @@ this.Kodi.module("SettingsApp.Show", function(Show, App, Backbone, Marionette, $
     return Layout;
 
   })(App.Views.LayoutWithSidebarFirstView);
+  return Show.Sidebar = (function(_super) {
+    __extends(Sidebar, _super);
+
+    function Sidebar() {
+      return Sidebar.__super__.constructor.apply(this, arguments);
+    }
+
+    Sidebar.prototype.className = "settings-sidebar";
+
+    Sidebar.prototype.template = "apps/settings/show/settings_sidebar";
+
+    Sidebar.prototype.tagName = "div";
+
+    Sidebar.prototype.regions = {
+      regionKodiNav: '.kodi-nav',
+      regionLocalNav: '.local-nav'
+    };
+
+    return Sidebar;
+
+  })(App.Views.LayoutView);
 });
 
 this.Kodi.module("Shell", function(Shell, App, Backbone, Marionette, $, _) {
