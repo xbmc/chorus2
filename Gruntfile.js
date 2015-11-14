@@ -253,6 +253,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'po2json',
+    'eco',
     'coffee',
     'concat',
     'uglify:dist',
