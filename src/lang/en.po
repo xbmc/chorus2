@@ -484,3 +484,15 @@ msgstr "This is a tool to test out the api. Select a method then execute it with
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
 msgstr "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+
+msgctxt ""
+msgid "Kodi Settings"
+msgstr "Kodi Settings"
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "Saved Kodi settings"
+
+msgctxt ""
+msgid "General"
+msgstr "General"

@@ -10,16 +10,19 @@
 
 .settings-form {
   @extend %page;
+  .form-content-region {
+    @extend %page-padding;
+  }
   .form-group {
     margin-bottom: $spacing-half-unit * 3;
     @include pie-clearfix();
     @include at-bp(medium) {
       .control-label {
-        @include span(2 of 7);
-        padding: 5px 0 $spacing-half-unit;
+        @include span(3 of 7);
+        padding: 5px $spacing-double-unit $spacing-half-unit 0;
       }
       .element {
-        @include span(5 of 7 last);
+        @include span(4 of 7 last);
       }
     }
   }

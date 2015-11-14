@@ -30,3 +30,7 @@ form {
 .search-box {
   @extend %search-box;
 }
+
+.form-type-hide {
+  display: none;
+}

@@ -12,7 +12,6 @@
   max-width: $width-page;
   margin-left: 0;
   background: $color-white;
-  @extend %page-padding;
 }
 
 .page-secondary,

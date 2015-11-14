@@ -18,8 +18,8 @@
       new App.SettingsApp.Show.Layout()
 
     getSubNav: ->
-      subNav = App.request 'settings:subnav'
-      @layout.regionSidebarFirst.show subNav
+      App.request 'settings:subnav', (subNav) =>
+        @layout.regionSidebarFirst.show subNav
 
     getForm: ->
       options = {

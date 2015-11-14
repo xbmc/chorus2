@@ -90,8 +90,10 @@
             options += @themeTag 'option', attrs, val
           el = @themeTag 'select', _.extend(baseAttrs, class: 'form-control'), options
         else
-          el = ''
-      @model.set({element: el})
+          el = null
+
+      if el
+        @model.set({element: el})
 
     attributes: ->
       {class: 'form-item form-group form-type-' + @model.get('type') + ' form-edit-' + @model.get('id')}
@@ -104,7 +106,11 @@
     childView: Form.Item
     childViewContainer: '.form-items'
     initialize: ->
-      @collection = @model.get('children')
+      children = @model.get('children')
+      if children.length is 0
+        @model.set('title', '')
+      else
+        @collection = children
 
   class Form.Groups extends App.Views.CollectionView
     childView: Form.Group
