@@ -7,7 +7,7 @@
 
 
   API =
- 
+
     initKeyBind: ->
       $(document).keydown (e) =>
         @keyBind e
@@ -39,14 +39,15 @@
       if not App.request 'sockets:active'
         App.request 'state:kodi:update', callback
 
-    ## Toggle remote visiblily and path
+    ## Toggle remote visibility and path
     toggleRemote: (open = 'auto') ->
       $body = $('body')
       rClass = 'section-remote'
       if open is 'auto'
-        open = if ($body.hasClass(rClass)) then true else false
+        open = ($body.hasClass(rClass))
+      console.log open
       if open
-        App.navigate helpers.backscroll.lastPath
+        window.history.back()
         helpers.backscroll.scrollToLast()
       else
         helpers.backscroll.setLast()
@@ -54,13 +55,13 @@
 
     ## Page callback, open remote and clear content.
     remotePage: ->
-      @toggleRemote(false);
+      @toggleRemote('auto');
       App.regionContent.empty()
 
     ## The input binds
     keyBind: (e) ->
 
-      ## Dont do anything if foms in use
+      ## Don't do anything if forms in use
       if $(e.target).is("input, textarea")
         return
 
