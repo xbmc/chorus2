@@ -43,7 +43,6 @@
       }
 
     onShow: ->
-      console.log @model
       ## Toggle menu open class on song row.
       $('.dropdown', @$el).on 'show.bs.dropdown', =>
         @$el.addClass('menu-open')

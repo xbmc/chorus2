@@ -24,7 +24,7 @@
       path
 
     parseRawPath: (rawPath) ->
-      path = if config.get 'static', 'reverseProxy' then 'image/' + encodeURIComponent(rawPath) else '/image/' + encodeURIComponent(rawPath)
+      path = if config.getLocal 'reverseProxy' then 'image/' + encodeURIComponent(rawPath) else '/image/' + encodeURIComponent(rawPath)
       path
 
     ## set background fanart, stting to 'none' removes fanart

@@ -2,20 +2,21 @@
 .album--with-songs {
   position: relative;
   margin-bottom: 20px;
-  .region-album-side {
-    position: absolute;
-    @include set-layout('width-details-side', 'width');
-  }
-  .region-album-content {
-    .artist-show & {
-      @include set-layout('width-details-side', 'margin-left');
+  @include at-bp(large) {
+    .region-album-side {
+      position: absolute;
+      @include set-layout('width-details-side', 'width');
     }
-    @include set-layout('width-details-side', 'min-height');
-    max-width: 1100px;
-    padding: 0 20px 0 0;
+    .region-album-content {
+      .artist-show & {
+        @include set-layout('width-details-side', 'margin-left');
+      }
+      @include set-layout('width-details-side', 'min-height');
+      max-width: 1100px;
+      padding: 0 20px 0 0;
+    }
+    .card-minimal {
+      padding: 0 22px 0 0px;
+    }
   }
-  .card-minimal {
-    padding: 0 22px 0 0px;
-  }
-
 }

@@ -13,7 +13,7 @@
 
     initialize: ->
       ## Set the current interval to default
-      interval = config.get 'static', 'pollInterval'
+      interval = config.getLocal 'pollInterval'
       @checkInterval = parseInt interval
       @currentInterval = @checkInterval
 

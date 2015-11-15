@@ -500,3 +500,23 @@ msgstr "General"
 msgctxt ""
 msgid "Web Settings"
 msgstr "Web Settings"
+
+msgctxt ""
+msgid "Advanced setting level is recommended for those who know what they are doing."
+msgstr "Advanced setting level is recommended for those who know what they are doing."
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Settings saved."
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi settings level"
+
+msgctxt ""
+msgid "Remove"
+msgstr "Remove"
+
+msgctxt ""
+msgid "cast"
+msgstr "cast"

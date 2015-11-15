@@ -60,17 +60,42 @@ $card-detail-episode-side-height: 150px;
 }
 
 .card-minimal {
-  @include card(square-medium, rgba($color-white, 0));
-  width: 238px;
-  @include responsive-card-artwork-size($card-detail-side-width, $card-detail-side-width);
-  margin: 0;
+  @include card(square-medium, $color-white);
+  @include responsive-card-artwork-size(70px, 70px);
+  height: auto;
+  width: 100%;
+  margin: $spacing-double-unit 0 $spacing-half-unit;
   padding: 0;
+  overflow: visible;
+  .artwork {
+    float: left;
+  }
+  .dropdown i,
+  ul.actions > li {
+    color: $color-greyscale-alto;
+    &:hover {
+      color: shade($color-greyscale-alto, 20%);
+    }
+  }
   .meta {
-    padding: 10px 0;
+    padding: 4px 0 4px 60px;
     .title, .subtitle {
       &:after {
         display: none;
       }
+    }
+  }
+
+  @include at-bp(large) {
+    width: 238px;
+    margin: 0;
+    @include responsive-card-artwork-size($card-detail-side-width, $card-detail-side-width);
+    background: none;
+    .artwork {
+      float: none;
+    }
+    .meta {
+      padding: $spacing-half-unit 0;
     }
   }
 }

@@ -2403,11 +2403,7 @@ window.JST["apps/settings/show/tpl/settings_sidebar.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="settings-sidebar">\n    <div class="settings-sidebar--section local-nav nav-sub">\n        <h3>Web Settings</h3>\n        <ul class="items">\n            <li><a href="#settings/web">'));
-    
-      _print(t.gettext('General'));
-    
-      _print(_safe('</a></li>\n        </ul>\n    </div>\n    <div class="settings-sidebar--section kodi-nav"></div>\n</div>'));
+      _print(_safe('<div class="settings-sidebar">\n    <div class="settings-sidebar--section local-nav nav-sub"></div>\n    <div class="settings-sidebar--section kodi-nav"></div>\n</div>'));
     
     }).call(this);
     

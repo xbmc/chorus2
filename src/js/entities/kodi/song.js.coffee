@@ -21,7 +21,7 @@
       defaultOptions = {cache: true}
       options = _.extend defaultOptions, options
       if options.indexOnly
-        options.expires = config.get 'static', 'searchIndexCacheExpiry', 86400
+        options.expires = config.getLocal 'searchIndexCacheExpiry', 86400
         songs = new KodiEntities.SongSearchIndexCollection()
       else
         songs = new KodiEntities.SongFilteredCollection()

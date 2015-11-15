@@ -3,16 +3,13 @@
   ## Deal with notifications from Kodi
   class StateApp.Notifications extends App.StateApp.Base
 
-    # Moved as the config is not returned only the defaults. Too early?
-    #socketPort: config.get 'static', 'socketsPort'
-    #socketPath: config.get 'static', 'jsonRpcEndpoint'
     wsActive: false
     wsObj: {}
 
     getConnection: ->
-      host = config.get 'static', 'socketsHost'
-      socketPath = config.get 'static', 'jsonRpcEndpoint'
-      socketPort = config.get 'static', 'socketsPort'
+      host = config.getLocal 'socketsHost'
+      socketPath = config.getLocal 'jsonRpcEndpoint'
+      socketPort = config.getLocal 'socketsPort'
       socketHost = if host is 'auto' then location.hostname else host
       protocol = if helpers.url.isSecureProtocol() then "wss" else "ws"
       "#{protocol}://#{socketHost}:#{socketPort}/#{socketPath}?kodi"

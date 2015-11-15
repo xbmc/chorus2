@@ -6,8 +6,6 @@
 
   API =
 
-    settingsLevel: "standard"
-
     settingsType:
       sections: "SettingSectionCollection"
       categories: "SettingCategoryCollection"
@@ -22,7 +20,7 @@
       full: []
 
     getSettingsLevel: ->
-      @settingsLevel
+      config.getLocal 'kodiSettingsLevel', 'standard'
 
     # Fetch a single entity
     getEntity: (id, collection) ->

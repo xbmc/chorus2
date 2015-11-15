@@ -19,8 +19,8 @@ helpers.url.map =
 
 ## Get base endpoint
 helpers.url.baseKodiUrl = (query = 'Kodi') ->
-  path = (config.get 'static', 'jsonRpcEndpoint') + "?" + query
-  if config.get 'static', 'reverseProxy'
+  path = (config.getLocal 'jsonRpcEndpoint') + "?" + query
+  if config.getLocal 'reverseProxy'
     path
   else
     "/" + path

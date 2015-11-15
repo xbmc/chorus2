@@ -46540,11 +46540,7 @@ window.JST["apps/settings/show/tpl/settings_sidebar.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="settings-sidebar">\n    <div class="settings-sidebar--section local-nav nav-sub">\n        <h3>Web Settings</h3>\n        <ul class="items">\n            <li><a href="#settings/web">'));
-    
-      _print(t.gettext('General'));
-    
-      _print(_safe('</a></li>\n        </ul>\n    </div>\n    <div class="settings-sidebar--section kodi-nav"></div>\n</div>'));
+      _print(_safe('<div class="settings-sidebar">\n    <div class="settings-sidebar--section local-nav nav-sub"></div>\n    <div class="settings-sidebar--section kodi-nav"></div>\n</div>'));
     
     }).call(this);
     
@@ -47826,7 +47822,8 @@ this.config = {
     collectionCacheExpiry: 7 * 24 * 60 * 60,
     addOnsLoaded: false,
     vibrantHeaders: false,
-    lang: "en"
+    lang: "en",
+    kodiSettingsLevel: 'standard'
   }
 };
 
@@ -47962,6 +47959,10 @@ config.set = function(type, id, data, callback) {
     callback(resp);
   }
   return resp;
+};
+
+config.getLocal = function(id, defaultData, callback) {
+  return config.get('static', id, defaultData, callback);
 };
 
 config.preStartGet = function(id, defaultData) {
@@ -48521,7 +48522,7 @@ helpers.global.appTitle = function(playingItem) {
 
 helpers.global.localVideoPopup = function(path, height) {
   if (height == null) {
-    height = 545;
+    height = 570;
   }
   return window.open(path, "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=" + height + ", top=100, left=100");
 };
@@ -48895,8 +48896,8 @@ helpers.url.baseKodiUrl = function(query) {
   if (query == null) {
     query = 'Kodi';
   }
-  path = (config.get('static', 'jsonRpcEndpoint')) + "?" + query;
-  if (config.get('static', 'reverseProxy')) {
+  path = (config.getLocal('jsonRpcEndpoint')) + "?" + query;
+  if (config.getLocal('reverseProxy')) {
     return path;
   } else {
     return "/" + path;
@@ -49946,7 +49947,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     Collection.prototype.isIgnoreArticle = function() {
-      return config.get('static', 'ignoreArticle', true);
+      return config.getLocal('ignoreArticle', true);
     };
 
     return Collection;
@@ -50368,7 +50369,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     };
 
     ArtistCollection.prototype.arg1 = function() {
-      return config.get('static', 'albumAtristsOnly', true);
+      return config.getLocal('albumAtristsOnly', true);
     };
 
     ArtistCollection.prototype.arg2 = function() {
@@ -51777,19 +51778,19 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
    */
   var API;
   API = {
-    settingsLevel: "standard",
     settingsType: {
       sections: "SettingSectionCollection",
       categories: "SettingCategoryCollection",
       settings: "SettingCollection"
     },
+    ignoreKeys: ['weather'],
     fields: {
       minimal: ['settingstype'],
       small: ['title', 'control', 'options', 'parent', 'enabled', 'type', 'value', 'enabled', 'default', 'help', 'path', 'description', 'section', 'category'],
       full: []
     },
     getSettingsLevel: function() {
-      return this.settingsLevel;
+      return config.getLocal('kodiSettingsLevel', 'standard');
     },
     getEntity: function(id, collection) {
       var model;
@@ -51859,7 +51860,9 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       items = [];
       for (method in itemsRaw) {
         item = itemsRaw[method];
-        items.push(this.parseItem(item, type));
+        if (_.lastIndexOf(this.ignoreKeys, item.id) === -1) {
+          items.push(this.parseItem(item, type));
+        }
       }
       return items;
     },
@@ -51870,15 +51873,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       item.settingstype = type;
       item.title = item.label;
       item.description = item.help;
-      item.path = 'settings/kodi/';
-      switch (type) {
-        case 'sections':
-          item.path += item.id;
-          break;
-        case 'categories':
-          item.path += helpers.url.arg(2) + '/' + item.id;
-          break;
-      }
+      item.path = 'settings/kodi/' + item.id;
       return item;
     },
     saveSettings: function(data, callback) {
@@ -52008,27 +52003,6 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
     return SettingCollection;
 
   })(App.KodiEntities.Collection);
-  KodiEntities.SettingFilteredCollection = (function(_super) {
-    __extends(SettingFilteredCollection, _super);
-
-    function SettingFilteredCollection() {
-      return SettingFilteredCollection.__super__.constructor.apply(this, arguments);
-    }
-
-    SettingFilteredCollection.prototype.methods = {
-      read: ['Settings.GetSettings', 'arg1', 'arg2']
-    };
-
-    SettingFilteredCollection.prototype.arg2 = function() {
-      return {
-        section: this.argCheckOption('section', 0),
-        category: this.argCheckOption('category', 0)
-      };
-    };
-
-    return SettingFilteredCollection;
-
-  })(App.KodiEntities.SettingCollection);
 
   /*
    Request Handlers.
@@ -52081,7 +52055,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       };
       options = _.extend(defaultOptions, options);
       if (options.indexOnly) {
-        options.expires = config.get('static', 'searchIndexCacheExpiry', 86400);
+        options.expires = config.getLocal('searchIndexCacheExpiry', 86400);
         songs = new KodiEntities.SongSearchIndexCollection();
       } else {
         songs = new KodiEntities.SongFilteredCollection();
@@ -52872,7 +52846,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
 
     return NavMain;
 
-  })(Entities.Model);
+  })(App.Entities.Model);
   Entities.NavMainCollection = (function(_super) {
     __extends(NavMainCollection, _super);
 
@@ -52884,7 +52858,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
 
     return NavMainCollection;
 
-  })(Entities.Collection);
+  })(App.Entities.Collection);
   API = {
     getItems: function() {
       var nav;
@@ -53097,7 +53071,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       return newParents;
     }
   };
-  return App.reqres.setHandler("navMain:entities", function(parentId) {
+  App.reqres.setHandler("navMain:entities", function(parentId) {
     if (parentId == null) {
       parentId = 'all';
     }
@@ -53106,6 +53080,9 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     } else {
       return API.getChildStructure(parentId);
     }
+  });
+  return App.reqres.setHandler("navMain:array:entities", function(items) {
+    return new Entities.NavMainCollection(items);
   });
 });
 
@@ -58033,7 +58010,7 @@ this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
     },
     parseRawPath: function(rawPath) {
       var path;
-      path = config.get('static', 'reverseProxy') ? 'image/' + encodeURIComponent(rawPath) : '/image/' + encodeURIComponent(rawPath);
+      path = config.getLocal('reverseProxy') ? 'image/' + encodeURIComponent(rawPath) : '/image/' + encodeURIComponent(rawPath);
       return path;
     },
     setFanartBackground: function(path, region) {
@@ -60978,7 +60955,7 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
       return [
         {
           title: "General",
-          id: "general",
+          id: "settings/web",
           path: "settings/web"
         }
       ];
@@ -60989,24 +60966,26 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
         category: category
       });
     },
-    getSubNav: function(callback) {
-      var collection;
+    getSubNav: function() {
+      var collection, sidebarView;
       collection = App.request("settings:kodi:entities", {
         type: 'sections'
       });
-      return App.execute("when:entity:fetched", collection, (function(_this) {
+      sidebarView = new SettingsApp.Show.Sidebar();
+      App.listenTo(sidebarView, "show", (function(_this) {
         return function() {
-          var kodiSettingsView, sidebarView;
-          kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi Settings'));
-          sidebarView = new SettingsApp.Show.Sidebar();
-          App.listenTo(sidebarView, "show", function() {
+          var localNavCollection, localSettingsView;
+          App.execute("when:entity:fetched", collection, function() {
+            var kodiSettingsView;
+            kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi Settings'));
             return sidebarView.regionKodiNav.show(kodiSettingsView);
           });
-          if (callback) {
-            return callback(sidebarView);
-          }
+          localNavCollection = App.request("navMain:array:entities", _this.localNav());
+          localSettingsView = App.request("navMain:collection:show", localNavCollection, t.gettext('Web Settings'));
+          return sidebarView.regionLocalNav.show(localSettingsView);
         };
       })(this));
+      return sidebarView;
     }
   };
   App.on("before:start", function() {
@@ -61014,8 +60993,8 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
       controller: API
     });
   });
-  return App.reqres.setHandler('settings:subnav', function(callback) {
-    return API.getSubNav(callback);
+  return App.reqres.setHandler('settings:subnav', function() {
+    return API.getSubNav();
   });
 });
 
@@ -61058,11 +61037,9 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
     };
 
     Controller.prototype.getSubNav = function() {
-      return App.request('settings:subnav', (function(_this) {
-        return function(subNav) {
-          return _this.layout.regionSidebarFirst.show(subNav);
-        };
-      })(this));
+      var subNav;
+      subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
     };
 
     Controller.prototype.getSettingsForm = function(section) {
@@ -61104,7 +61081,7 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
       var form, options;
       options = {
         form: formStructure,
-        formState: this.getState(),
+        formState: {},
         config: {
           attributes: {
             "class": 'settings-form'
@@ -61160,14 +61137,6 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
       return elements;
     };
 
-    Controller.prototype.getState = function() {
-      return {
-        'default-player': 'local',
-        'jsonrpc-address': '/jsonrpc',
-        'test-checkbox': false
-      };
-    };
-
     Controller.prototype.saveCallback = function(data, formView) {
       return App.execute("settings:kodi:save:entities", data, (function(_this) {
         return function(resp) {
@@ -61207,11 +61176,9 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     };
 
     Controller.prototype.getSubNav = function() {
-      return App.request('settings:subnav', (function(_this) {
-        return function(subNav) {
-          return _this.layout.regionSidebarFirst.show(subNav);
-        };
-      })(this));
+      var subNav;
+      subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
     };
 
     Controller.prototype.getForm = function() {
@@ -61318,6 +61285,16 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
                 '60000': "60 " + t.gettext('sec')
               },
               description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")
+            }, {
+              id: 'kodiSettingsLevel',
+              title: t.gettext("Kodi settings level"),
+              type: 'select',
+              defaultValue: 'standard',
+              options: {
+                'standard': 'Standard',
+                'advanced': 'Advanced'
+              },
+              description: t.gettext('Advanced setting level is recommended for those who know what they are doing.')
             }, {
               id: 'reverseProxy',
               title: t.gettext("Reverse proxy support"),
@@ -61723,7 +61700,6 @@ this.Kodi.module("SongApp.List", function(List, App, Backbone, Marionette, $, _)
     };
 
     Song.prototype.onShow = function() {
-      console.log(this.model);
       $('.dropdown', this.$el).on('show.bs.dropdown', (function(_this) {
         return function() {
           return _this.$el.addClass('menu-open');
@@ -62022,9 +61998,9 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
 
     Notifications.prototype.getConnection = function() {
       var host, protocol, socketHost, socketPath, socketPort;
-      host = config.get('static', 'socketsHost');
-      socketPath = config.get('static', 'jsonRpcEndpoint');
-      socketPort = config.get('static', 'socketsPort');
+      host = config.getLocal('socketsHost');
+      socketPath = config.getLocal('jsonRpcEndpoint');
+      socketPort = config.getLocal('socketsPort');
       socketHost = host === 'auto' ? location.hostname : host;
       protocol = helpers.url.isSecureProtocol() ? "wss" : "ws";
       return "" + protocol + "://" + socketHost + ":" + socketPort + "/" + socketPath + "?kodi";
@@ -62202,7 +62178,7 @@ this.Kodi.module("StateApp.Kodi", function(StateApp, App, Backbone, Marionette, 
 
     Polling.prototype.initialize = function() {
       var interval;
-      interval = config.get('static', 'pollInterval');
+      interval = config.getLocal('pollInterval');
       this.checkInterval = parseInt(interval);
       return this.currentInterval = this.checkInterval;
     };

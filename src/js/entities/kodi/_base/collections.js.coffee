@@ -61,4 +61,4 @@
 
     ## Should we ignore article when sorting?
     isIgnoreArticle: ->
-      config.get 'static', 'ignoreArticle', true
+      config.getLocal 'ignoreArticle', true

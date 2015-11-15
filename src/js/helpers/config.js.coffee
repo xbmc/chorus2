@@ -18,7 +18,7 @@ config.set = (type, id, data, callback) ->
 
 # A wrapper for getting a local setting (static)
 config.getLocal = (id, defaultData, callback) ->
-  config.get 'static', defaultData, callback
+  config.get 'static', id, defaultData, callback
 
 # Wrapper for getting a config value before app has started.
 # Should always try and use config.get() before this.
