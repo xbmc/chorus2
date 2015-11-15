@@ -98,4 +98,5 @@
     className: 'back-button'
     triggers:
       'click .title' : 'folder:open'
+      'click i' : 'folder:open'
 
