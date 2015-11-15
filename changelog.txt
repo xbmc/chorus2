@@ -1,5 +1,10 @@
+Version 2.0.6
+- Improvements to settings browser
+- Responsive styles for album listings
+- Fixes and improvements
+
 Version 2.0.5
-- Browse an change Kodi settings with your browser
+- Browse and change Kodi settings with your browser
 
 Version 2.0.4
 - Labs
