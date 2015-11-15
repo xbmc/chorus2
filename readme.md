@@ -21,15 +21,15 @@ Disclaimer: Pre release software, expect bugs, changes, nuclear war, etc.
 ### Installing
 Install via zip is the easiest way to go. Grab the zip from the root of this repo [then do this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
 
-### Settings
-- Kodi > System > Settings > Services
-- Remote Control
--- Enable "Allow programs on this system to control Kodi"
--- Enable "Allow programs on other systems to control Kodi"
-- Webserver
--- Enable "Allow control of Kodi via HTTP"
--- Select Web interface
--- Select Chorus2
+### Configuring
+* Kodi > System > Settings > Services
+* Remote Control
+    * Enable "Allow programs on this system to control Kodi"
+    * Enable "Allow programs on other systems to control Kodi"
+* Webserver
+    * Enable "Allow control of Kodi via HTTP"
+    * Select Web interface
+    * Select Chorus2
 
 
 ## Feature requests / Bugs
@@ -49,6 +49,12 @@ playlists by clicking the menu buttons (three dots vertical) on most media items
 ### Video streaming
 Video streaming via HTML5 "sort of" works, it really depends on the codec used. An embedded VLC player is also available with better codec support.
 This looks like the best we can get until Kodi supports transcoding.
+**Chrome users**: Chrome has removed support for vlc/divx plugins so streaming a video requires a [Chrome friendly codec](https://en.wikipedia.org/wiki/HTML5_video#Browser_support).
+
+
+## Kodi settings via the web interface
+You can change most of the settings you would find in Kodi via the settings page in the web interface.
+Some settings have been omitted as they require interaction with the GUI and others are just a basic text field with no options.
 
 
 ## Contributing
