@@ -496,3 +496,7 @@ msgstr "Saved Kodi settings"
 msgctxt ""
 msgid "General"
 msgstr "General"
+
+msgctxt ""
+msgid "Web Settings"
+msgstr "Web Settings"

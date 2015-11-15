@@ -18,6 +18,7 @@
     addOnsLoaded: false
     vibrantHeaders: false
     lang: "en"
+    kodiSettingsLevel: 'standard'
 }
 
 ## The App Inance

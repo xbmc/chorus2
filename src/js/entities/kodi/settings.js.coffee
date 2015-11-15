@@ -13,6 +13,9 @@
       categories: "SettingCategoryCollection"
       settings: "SettingCollection"
 
+    # Items s with matching ids will be skipped, weather ignored as it had no usable elements.
+    ignoreKeys: ['weather']
+
     fields:
       minimal: ['settingstype']
       small: ['title', 'control', 'options', 'parent', 'enabled', 'type', 'value', 'enabled', 'default', 'help', 'path', 'description', 'section', 'category']
@@ -21,12 +24,12 @@
     getSettingsLevel: ->
       @settingsLevel
 
-    ## Fetch a single entity
+    # Fetch a single entity
     getEntity: (id, collection) ->
       model = collection.where({method: id}).shift()
       model
 
-    ## Fetch an entity collection.
+    # Fetch an entity collection.
     getCollection: (options = {type: 'sections'}) ->
       collectionMethod = @settingsType[options.type]
       collection = new KodiEntities[collectionMethod]()
@@ -35,6 +38,7 @@
         collection.where {section: options.section}
       collection
 
+    # Get an array of settings categories. Categories are an array of category ids/keys.
     getSettings: (section, categories = [], callback) ->
       commander = App.request "command:kodi:controller", 'auto', 'Commander'
       commands = []
@@ -51,21 +55,17 @@
     parseCollection: (itemsRaw = [], type = 'settings') ->
       items = []
       for method, item of itemsRaw
-        items.push @parseItem(item, type)
+        # If not ignored add parsed to items.
+        if _.lastIndexOf(@ignoreKeys, item.id) is -1
+          items.push @parseItem(item, type)
       items
 
+    # Parse a single setting item
     parseItem: (item, type = 'settings') ->
       item.settingstype = type
       item.title = item.label
       item.description = item.help
-      item.path = 'settings/kodi/'
-      switch type
-        when 'sections'
-          item.path += item.id
-        when 'categories'
-          item.path += helpers.url.arg(2) + '/' + item.id
-        else
-          ## nothing
+      item.path = 'settings/kodi/' + item.id
       item
 
     # Save a collection of settings (values from settings forms)
@@ -123,29 +123,19 @@
       items = @getResult resp, @options.type
       API.parseCollection items, @options.type
 
-  ## Setting filtered collection
-  class KodiEntities.SettingFilteredCollection extends App.KodiEntities.SettingCollection
-    methods: read: ['Settings.GetSettings', 'arg1', 'arg2']
-    arg2: -> {
-      section: @argCheckOption('section', 0)
-      category: @argCheckOption('category', 0)
-    }
-
-
   ###
    Request Handlers.
   ###
 
-  ## Get a list of settings
+  # Get a list of settings
   App.reqres.setHandler "settings:kodi:entities", (options = {}) ->
     API.getCollection options
 
-  ## Get a filtered list of settings for a section
+  # Get a filtered list of settings for a section
   App.reqres.setHandler "settings:kodi:filtered:entities", (options = {}) ->
     API.getSettings options.section, options.categories, (items) ->
       options.callback(items)
 
-  ## Save an object of settings
+  # Save an object of settings
   App.commands.setHandler "settings:kodi:save:entities", (data= {}, callback) ->
     API.saveSettings data, callback
-

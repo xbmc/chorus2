@@ -1,9 +1,4 @@
 <div class="settings-sidebar">
-    <div class="settings-sidebar--section local-nav nav-sub">
-        <h3>Web Settings</h3>
-        <ul class="items">
-            <li><a href="#settings/web"><%= t.gettext('General') %></a></li>
-        </ul>
-    </div>
+    <div class="settings-sidebar--section local-nav nav-sub"></div>
     <div class="settings-sidebar--section kodi-nav"></div>
 </div>

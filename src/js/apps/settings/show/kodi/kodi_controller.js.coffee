@@ -27,8 +27,8 @@
       new App.SettingsApp.Show.Layout()
 
     getSubNav: ->
-      App.request 'settings:subnav', (subNav) =>
-        @layout.regionSidebarFirst.show subNav
+      subNav = App.request 'settings:subnav'
+      @layout.regionSidebarFirst.show subNav
 
     getSettingsForm: (section) ->
       formStructure = []
@@ -65,7 +65,7 @@
     getForm: (section, formStructure) ->
       options = {
         form: formStructure
-        formState: @getState()
+        formState: {}
         config:
           attributes: {class: 'settings-form'}
           callback: (data, formView) =>
@@ -110,14 +110,6 @@
           elements.push item
 
       elements
-
-
-    getState: ->
-      {
-        'default-player': 'local'
-        'jsonrpc-address': '/jsonrpc'
-        'test-checkbox': false
-      }
 
     saveCallback: (data, formView) ->
       App.execute "settings:kodi:save:entities", data, (resp) =>

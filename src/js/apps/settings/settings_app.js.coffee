@@ -18,7 +18,7 @@
       [
         {
           title: "General"
-          id: "general"
+          id: "settings/web"
           path: "settings/web"
         }
       ]
@@ -28,21 +28,30 @@
         section: section
         category: category
 
-    getSubNav: (callback) ->
+    getSubNav: () ->
       collection = App.request "settings:kodi:entities", {type: 'sections'}
-      App.execute "when:entity:fetched", collection, =>
-        kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi Settings')
-        sidebarView = new SettingsApp.Show.Sidebar()
-        App.listenTo sidebarView, "show", =>
+      sidebarView = new SettingsApp.Show.Sidebar()
+
+      # On sidebar show.
+      App.listenTo sidebarView, "show", =>
+
+        # Get Kodi settings menu.
+        App.execute "when:entity:fetched", collection, =>
+          kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi Settings')
           sidebarView.regionKodiNav.show kodiSettingsView
-        if callback
-          callback sidebarView
+
+        # Get Local/Web settings menu.
+        localNavCollection = App.request "navMain:array:entities", @localNav()
+        localSettingsView = App.request "navMain:collection:show", localNavCollection, t.gettext('Web Settings')
+        sidebarView.regionLocalNav.show localSettingsView
+
+      sidebarView
 
 
   App.on "before:start", ->
     new SettingsApp.Router
       controller: API
 
-  App.reqres.setHandler 'settings:subnav', (callback) ->
-    API.getSubNav callback
+  App.reqres.setHandler 'settings:subnav', ->
+    API.getSubNav()
 

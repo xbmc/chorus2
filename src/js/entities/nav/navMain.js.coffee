@@ -1,6 +1,6 @@
 @Kodi.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 	
-  class Entities.NavMain extends Entities.Model
+  class Entities.NavMain extends App.Entities.Model
     defaults:
       id: 0
       title: 'Untitled'
@@ -11,7 +11,7 @@
       parent: 0
       children: []
 		
-  class Entities.NavMainCollection extends Entities.Collection
+  class Entities.NavMainCollection extends App.Entities.Collection
     model: Entities.NavMain
 	
   API =
@@ -101,3 +101,7 @@
       API.getDefaultStructure()
     else
       API.getChildStructure parentId
+
+  ## Turn an array of link objects into a collection.
+  App.reqres.setHandler "navMain:array:entities", (items) ->
+    new Entities.NavMainCollection items
