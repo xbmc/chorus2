@@ -21,7 +21,7 @@ msgid "Nothing playing"
 msgstr "Aucune lecture en cours"
 
 msgctxt ""
-msgid "Deselect All"
+msgid "Deselect all"
 msgstr "Déselectionner tout"
 
 msgctxt ""
@@ -198,11 +198,11 @@ msgid "Synopsis"
 msgstr "Synopsis"
 
 msgctxt ""
-msgid "Full Cast"
+msgid "Full cast"
 msgstr "Distribution"
 
 msgctxt ""
-msgid "Websockets Closed"
+msgid "Websockets closed"
 msgstr "Websockets fermé"
 
 msgctxt ""
@@ -227,9 +227,9 @@ msgid "no media in this folder"
 msgstr "no media in this folder"
 
 msgctxt ""
-msgid "Browse Files and AddOns"
-msgstr "Browse Files and AddOns"
+msgid "Browse files and add-ons"
+msgstr "Browse files and add-ons"
 
 msgctxt ""
-msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."

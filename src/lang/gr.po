@@ -21,7 +21,7 @@ msgid "Nothing playing"
 msgstr ""
 
 msgctxt ""
-msgid "Deselect All"
+msgid "Deselect all"
 msgstr ""
 
 msgctxt ""
@@ -53,7 +53,7 @@ msgid "Which player to start with"
 msgstr ""
 
 msgctxt ""
-msgid "Ignore terms such as 'The' and 'a' when sorting lists"
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
 msgstr ""
 
 msgctxt ""
@@ -77,7 +77,7 @@ msgid "Enable support for reverse proxying."
 msgstr ""
 
 msgctxt ""
-msgid "Web Settings saved."
+msgid "Web settings saved."
 msgstr ""
 
 msgctxt ""

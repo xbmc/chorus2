@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr "Keine Wiedergabe"
+msgstr "Keine wiedergabe"
 
 msgctxt ""
 msgid "Deselect all"
@@ -49,15 +49,15 @@ msgid "Add filter"
 msgstr "Filter hinzufügen"
 
 msgid "Which player to start with"
-msgstr "Standard-Player beim Start"
+msgstr "Standard-player beim start"
 
 msgctxt ""
-msgid "Ignore terms such as 'The' and 'a' when sorting lists"
-msgstr "Artikel wie 'The' und 'a' in sortierten Listen ignorieren"
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "Artikel wie 'The' und 'A' in sortierten Listen ignorieren"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "In Listen nur Künstler mit Alben oder alle Künstler anzeigen? Achtung: Kann große Bibliotheken verlangsamen."
+msgstr "In Listen nur künstler mit alben oder alle Künstler anzeigen? Achtung: Kann große bibliotheken verlangsamen."
 
 msgctxt ""
 msgid "is the default"
@@ -65,7 +65,7 @@ msgstr "ist Standard"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr "Der Hostname wird für die websockets-Verbindung benutzt. 'auto' einstellen, um den aktuellen Hostnamen zu verwenden."
+msgstr "Der Hostname wird für die websockets-verbindung benutzt. 'auto' einstellen, um den aktuellen Hostnamen zu verwenden."
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
@@ -73,11 +73,11 @@ msgstr "Wie oft werden Kodi-Updates abgefragt (funktioniert nur, wenn websockets
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
-msgstr "Unterstützung für einen Reverse Proxy einschalten."
+msgstr "Unterstützung für einen reverse proxy einschalten."
 
 msgctxt ""
 msgid "Web settings saved."
-msgstr "Web-Einstellungen gespeichert."
+msgstr "Web-einstellungen gespeichert."
 
 msgctxt ""
 msgid "Just a sec..."
@@ -89,19 +89,19 @@ msgstr "Konnte Kodi länger nicht ansprechen. Ich denke, es ist tot, Jim!"
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr "Video-Bibliothek wird gerade gescannt"
+msgstr "Video-bibliothek wird gerade gescannt"
 
 msgctxt ""
 msgid "Video library scan complete"
-msgstr "Scan der Video-Bibliothek abgeschlossen"
+msgstr "Scan der Video-bibliothek abgeschlossen"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr "Audio-Bibliothek wird gerade gescannt"
+msgstr "Audio-bibliothek wird gerade gescannt"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr "Scan der Audio-Bibliothek abgeschlossen"
+msgstr "Scan der Audio-bibliothek abgeschlossen"
 
 msgctxt ""
 msgid "Kodi has quit"
@@ -141,27 +141,27 @@ msgstr "Wiedergabelisten"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr "Vorhandene Wiedergabelisten"
+msgstr "Vorhandene wiedergabelisten"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Die Wiedergabeliste ist leer, vielleicht möchtest du etwas hinzufügen?"
+msgstr "Die wiedergabeliste ist leer, vielleicht möchtest du etwas hinzufügen?"
 
 msgctxt ""
 msgid "Create a new list"
-msgstr "Neue Liste erstellen"
+msgstr "Neue liste erstellen"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr "Zur Wiedergabeliste hinzufügen"
+msgstr "Zur wiedergabeliste hinzufügen"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr "Zu deiner Wiedergabeliste hinzugefügt"
+msgstr "Zu deiner wiedergabeliste hinzugefügt"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "Gib deiner Wiedergabeliste einen Namen"
+msgstr "Gib deiner wiedergabeliste einen Namen"
 
 msgctxt ""
 msgid "Recently added"
@@ -188,8 +188,8 @@ msgid "Queue"
 msgstr "Einreihen"
 
 msgctxt ""
-msgid "View on imdb"
-msgstr "Auf IMDB ansehen"
+msgid "View on IMDb"
+msgstr "Auf IMDb ansehen"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
@@ -222,11 +222,11 @@ msgstr "Websockets Host"
 
 msgctxt ""
 msgid "Websockets port"
-msgstr "Websockets Port"
+msgstr "Websockets port"
 
 msgctxt ""
 msgid "Default player"
-msgstr "Standard-Player"
+msgstr "Standard-player"
 
 msgctxt ""
 msgid "Ignore article"
@@ -250,7 +250,7 @@ msgstr "Sprache"
 
 msgctxt ""
 msgid "Preferred language"
-msgstr "Bevorzugte Sprache"
+msgstr "Bevorzugte sprache"
 
 msgctxt ""
 msgid "Loading folder..."
@@ -315,11 +315,11 @@ msgstr "Es wird geladen..."
 
 msgctxt ""
 msgid "Scan video library"
-msgstr "Video-Biblithek aktualisieren"
+msgstr "Video-biblithek aktualisieren"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr "Audio-Bibliothek aktualisieren"
+msgstr "Audio-bibliothek aktualisieren"
 
 msgctxt ""
 msgid "About Chorus"
@@ -339,11 +339,11 @@ msgstr "Alben"
 
 msgctxt ""
 msgid "Recent movies"
-msgstr "Letzte Videos"
+msgstr "Letzte videos"
 
 msgctxt ""
 msgid "All movies"
-msgstr "Alle Videos"
+msgstr "Alle videos"
 
 msgctxt ""
 msgid "Recent episodes"
@@ -355,23 +355,23 @@ msgstr "Alle Fernsehbeiträge"
 
 msgctxt ""
 msgid "Web settings"
-msgstr "Web-Einstellungen"
+msgstr "Web-einstellungen"
 
 msgctxt ""
 msgid "Kodi settings"
-msgstr "Kodi-Einstellungen"
+msgstr "Kodi-einstellungen"
 
 msgctxt ""
-msgid "Now Playing Playlists"
-msgstr "Spiele Wiedergabelisten ab"
+msgid "Now playing playlists"
+msgstr "Spiele wiedergabelisten ab"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "Zwischen Kodi und lokaler Wiedergabe wechseln. Die Anzeige kann mit dem Pfeil oben rechts umgeschaltet werden."
+msgstr "Zwischen Kodi und lokaler wiedergabe wechseln. Die anzeige kann mit dem pfeil oben rechts umgeschaltet werden."
 
 msgctxt ""
 msgid "Current playlist"
-msgstr "Aktuelle Wiedergabeliste"
+msgstr "Aktuelle wiedergabeliste"
 
 msgctxt ""
 msgid "Clear playlist"
@@ -383,7 +383,7 @@ msgstr "Wiedergabeliste aktualisieren"
 
 msgctxt ""
 msgid "Party mode"
-msgstr "Party Modus"
+msgstr "Party modus"
 
 msgctxt ""
 msgid "Save Kodi playlist"
@@ -395,7 +395,7 @@ msgstr "Bevorzugte Sprache, die Seite muss danach im Browser neu geladen werden 
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "Artikel wie 'The' und 'a' in sortierten Listen ignorieren"
+msgstr "Artikel wie 'The' und 'A' in sortierten Listen ignorieren"
 
 msgctxt ""
 msgid "Vibrant Headers"
@@ -407,7 +407,7 @@ msgstr "Bunte Überschriften in Medienseiten benutzen"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
-msgstr "Unterstützung für Reverse Proxies einschalten."
+msgstr "Unterstützung für reverse proxies einschalten."
 
 msgctxt ""
 msgid "songs"
@@ -445,9 +445,9 @@ msgid "no media in this folder"
 msgstr "no media in this folder"
 
 msgctxt ""
-msgid "Browse Files and AddOns"
-msgstr "Browse Files and AddOns"
+msgid "Browse files and add-ons"
+msgstr "Browse files and add-ons"
 
 msgctxt ""
-msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
