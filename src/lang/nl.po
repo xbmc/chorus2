@@ -53,8 +53,8 @@ msgid "Which player to start with"
 msgstr "Met welke speler starten"
 
 msgctxt ""
-msgid "Ignore terms such as 'The' and 'a' when sorting lists"
-msgstr "Negeer termen zoals 'de' en 'een' bij het sorteren van lijsten"
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "Negeer termen zoals 'De' en 'Een' bij het sorteren van lijsten"
 
 msgctxt ""
 msgid ""
@@ -208,8 +208,8 @@ msgid "Queue"
 msgstr "In wachtrij zetten"
 
 msgctxt ""
-msgid "View on imdb"
-msgstr "Toon op IMDB"
+msgid "View on IMDb"
+msgstr "Toon op IMDb"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
@@ -337,7 +337,7 @@ msgstr "Dingen aan het laden..."
 
 msgctxt ""
 msgid "Scan video library"
-msgstr "Scan  de videobibliotheek"
+msgstr "Scan de videobibliotheek"
 
 msgctxt ""
 msgid "Scan audio library"
@@ -384,7 +384,7 @@ msgid "Kodi settings"
 msgstr "Kodi-instellingen"
 
 msgctxt ""
-msgid "Now Playing Playlists"
+msgid "Now playing playlists"
 msgstr "Nu spelend afspeellijsten"
 
 msgctxt ""
@@ -471,9 +471,9 @@ msgid "no media in this folder"
 msgstr "no media in this folder"
 
 msgctxt ""
-msgid "Browse Files and AddOns"
-msgstr "Browse Files and AddOns"
+msgid "Browse files and add-ons"
+msgstr "Browse files and add-ons"
 
 msgctxt ""
-msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."

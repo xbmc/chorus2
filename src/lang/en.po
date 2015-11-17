@@ -52,7 +52,7 @@ msgid "Which player to start with"
 msgstr ""
 
 msgctxt ""
-msgid "Ignore terms such as 'The' and 'a' when sorting lists"
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
 msgstr ""
 
 msgctxt ""
@@ -192,7 +192,7 @@ msgid "Queue"
 msgstr ""
 
 msgctxt ""
-msgid "View on imdb"
+msgid "View on IMDb"
 msgstr ""
 
 # Video and audio stream, such as 720, x264, AC3, etc.
@@ -398,8 +398,8 @@ msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
 msgstr "Ignore articles (terms such as 'The' and 'A') when sorting lists"
 
 msgctxt ""
-msgid "Vibrant Headers"
-msgstr "Vibrant Headers"
+msgid "Vibrant headers"
+msgstr "Vibrant headers"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
@@ -442,20 +442,20 @@ msgid "no media in this folder"
 msgstr "no media in this folder"
 
 msgctxt ""
-msgid "Browse Files and AddOns"
-msgstr "Browse Files and AddOns"
+msgid "Browse files and add-ons"
+msgstr "Browse files and add-ons"
 
 msgctxt ""
-msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon."
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
 
 msgctxt ""
 msgid "Send text to Kodi"
 msgstr "Send text to Kodi"
 
 msgctxt ""
-msgid "Lab"
-msgstr "Lab"
+msgid "Chorus Lab"
+msgstr "Chorus Lab"
 
 msgctxt ""
 msgid "Chorus Lab"
@@ -478,16 +478,16 @@ msgid "Kodi API browser"
 msgstr "Kodi API browser"
 
 msgctxt ""
-msgid "This is a tool to test out the api. Select a method then execute it with parameters."
-msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+msgid "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the API. Select a method then execute it with parameters."
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
 msgstr "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
 
 msgctxt ""
-msgid "Kodi Settings"
-msgstr "Kodi Settings"
+msgid "Kodi settings"
+msgstr "Kodi settings"
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -498,16 +498,16 @@ msgid "General"
 msgstr "General"
 
 msgctxt ""
-msgid "Web Settings"
-msgstr "Web Settings"
+msgid "Web settings"
+msgstr "Web settings"
 
 msgctxt ""
 msgid "Advanced setting level is recommended for those who know what they are doing."
 msgstr "Advanced setting level is recommended for those who know what they are doing."
 
 msgctxt ""
-msgid "Web Settings saved."
-msgstr "Web Settings saved."
+msgid "Web settings saved."
+msgstr "Web settings saved."
 
 msgctxt ""
 msgid "Kodi settings level"
