@@ -47,9 +47,10 @@
 #page-title {
   margin: 0;
   line-height: $size-region-unit;
+  font-size: 1.3em;
   .context a,
   .title {
-    padding: 0 0 0 1em;
+    padding: 0 0 0 0.5em;
   }
 }
 
