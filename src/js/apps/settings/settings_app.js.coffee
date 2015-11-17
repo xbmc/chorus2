@@ -5,7 +5,7 @@
       "settings/web"   	: "local"
       "settings/kodi"	  : "kodi"
       "settings/kodi/:section" : "kodi"
-      "settings/kodi/:section/:category" : "kodi"
+      "settings/addons" : "addons"
 
   API =
 
@@ -14,14 +14,8 @@
     local: ->
       new SettingsApp.Show.Local.Controller()
 
-    localNav: ->
-      [
-        {
-          title: "General"
-          id: "settings/web"
-          path: "settings/web"
-        }
-      ]
+    addons: ->
+      new SettingsApp.Show.Addons.Controller()
 
     kodi: (section, category) ->
       new SettingsApp.Show.Kodi.Controller
@@ -41,9 +35,8 @@
           sidebarView.regionKodiNav.show kodiSettingsView
 
         # Get Local/Web settings menu.
-        localNavCollection = App.request "navMain:array:entities", @localNav()
-        localSettingsView = App.request "navMain:collection:show", localNavCollection, t.gettext('Web Settings')
-        sidebarView.regionLocalNav.show localSettingsView
+        settingsNavView = App.request "navMain:children:show", API.subNavId, 'General'
+        sidebarView.regionLocalNav.show settingsNavView
 
       sidebarView
 

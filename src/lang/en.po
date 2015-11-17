@@ -520,3 +520,11 @@ msgstr "Remove"
 msgctxt ""
 msgid "cast"
 msgstr "cast"
+
+msgctxt ""
+msgid "AddOns"
+msgstr "AddOns"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web interface"

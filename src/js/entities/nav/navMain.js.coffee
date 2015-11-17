@@ -45,8 +45,8 @@
 
       ## Settings.
       nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-browser', parent: 0}
-      nav.push {id: 52, title: "Web settings", path: 'settings/web', icon: '', classes: '', parent: 51}
-      nav.push {id: 53, title: "Kodi settings", path: 'settings/kodi', icon: '', classes: '', parent: 51}
+      nav.push {id: 52, title: "Web interface", path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 53, title: "AddOns", path: 'settings/addons', icon: '', classes: '', parent: 51}
 
       @checkVisibility nav
 

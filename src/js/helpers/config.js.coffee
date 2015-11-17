@@ -20,6 +20,13 @@ config.set = (type, id, data, callback) ->
 config.getLocal = (id, defaultData, callback) ->
   config.get 'static', id, defaultData, callback
 
+# A wrapper for setting a local setting (static)
+config.setLocal = (id, data, callback) ->
+  config.set 'static', id, data, callback
+
+config.setLocalApp = () ->
+  config.set 'static', id, data, callback
+
 # Wrapper for getting a config value before app has started.
 # Should always try and use config.get() before this.
 config.preStartGet = (id, defaultData = '') ->
