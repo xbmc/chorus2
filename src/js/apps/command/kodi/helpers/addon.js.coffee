@@ -5,10 +5,35 @@
 
     commandNameSpace: 'Addons'
 
-    getAddons: (type = "unknown", enabled = true, callback) ->
-      @singleCommand @getCommand('GetAddons'), [type, "unknown", enabled], (resp) =>
+    addonAllFields: [
+      "name",
+      "version",
+      "summary",
+      "description",
+      "path",
+      "author",
+      "thumbnail",
+      "disclaimer",
+      "fanart",
+      "dependencies",
+      "broken",
+      "extrainfo",
+      "rating",
+      "enabled"
+    ]
+
+    # Get an array of addons from the api
+    getAddons: (type = "unknown", enabled = true, fields = [], callback) ->
+      @singleCommand @getCommand('GetAddons'), [type, "unknown", enabled, fields], (resp) =>
         @doCallback callback, resp.addons
 
-    getEnabledAddons: (callback) ->
-      @getAddons "unknown", true, (resp) =>
+    # If load set then get all the addon fields else get basics
+    getEnabledAddons: (load = true, callback) =>
+      fields = if load then @addonAllFields else ["name"]
+      @getAddons "unknown", true, fields, (resp) =>
+        @doCallback callback, resp
+
+    # If load set then get all the addon fields else get basics
+    getAllAddons: (callback) =>
+      @getAddons "unknown", "all", @addonAllFields, (resp) =>
         @doCallback callback, resp
