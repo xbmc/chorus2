@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Chorus by jez500</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Chorus</h1>
+      <h2 class="project-tagline">Control your Kodi entertainment system with a web browser</h2>
+      <a href="https://github.com/jez500/chorus2" class="btn">View on GitHub</a>
+      <a href="https://github.com/jez500/chorus2/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jez500/chorus2/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="kodi-web-interface---chorus2" class="anchor" href="#kodi-web-interface---chorus2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kodi Web Interface - Chorus2</h1>
+
+<p>A great modern Web UI for Kodi. Browse your Music, Movies or TV Shows from the comfort of your
+own web browser. You can play media via Kodi or stream it in your browser. Works best with Chrome
+but plays well with most modern browsers.</p>
+
+<p>Successor to <a href="https://github.com/jez500/chorus">Chorus</a>. 
+A complete rebuild using Coffee Script, Backbone, Marionette and much, much more.</p>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p><a href="http://jez.me">Jeremy Graham </a> with help from <a href="https://github.com/jez500/chorus2/graphs/contributors">these kind people</a></p>
+
+<h2>
+<a id="current-state" class="anchor" href="#current-state" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current state</h2>
+
+<p>Pretty good, most things work really well. Other things need <a href="https://github.com/jez500/chorus2/issues">polish/finishing/fixing</a>. </p>
+
+<h2>
+<a id="getting-it-working" class="anchor" href="#getting-it-working" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting it working</h2>
+
+<p>Disclaimer: Pre release software, expect bugs, changes, nuclear war, etc. </p>
+
+<h3>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h3>
+
+<p>Install via zip is the easiest way to go. Grab the zip from the root of this repo <a href="http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file">then do this</a></p>
+
+<h3>
+<a id="configuring" class="anchor" href="#configuring" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring</h3>
+
+<ul>
+<li>Kodi &gt; System &gt; Settings &gt; Services</li>
+<li>Remote Control
+
+<ul>
+<li>Enable "Allow programs on this system to control Kodi"</li>
+<li>Enable "Allow programs on other systems to control Kodi"</li>
+</ul>
+</li>
+<li>Webserver
+
+<ul>
+<li>Enable "Allow control of Kodi via HTTP"</li>
+<li>Select Web interface</li>
+<li>Select Chorus2</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="feature-requests--bugs" class="anchor" href="#feature-requests--bugs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feature requests / Bugs</h2>
+
+<p>Add them to the <a href="https://github.com/jez500/chorus2/issues">list</a></p>
+
+<h2>
+<a id="streaming" class="anchor" href="#streaming" aria-hidden="true"><span class="octicon octicon-link"></span></a>Streaming</h2>
+
+<p>Disclaimer: The success of this depends on the file formats vs what the browser supports.  In general most things work.</p>
+
+<h3>
+<a id="audio-streaming" class="anchor" href="#audio-streaming" aria-hidden="true"><span class="octicon octicon-link"></span></a>Audio streaming</h3>
+
+<p>In the top right there are some tabs, two of them are named Kodi and Local, this is how you toggle what player the UI
+is controlling.  In Local mode the logo and accents are pinky-red, In Kodi mode the logo is the Kodi blue. When you 
+are in a given mode, actions affect that player, so if you click Play on a track when in Local mode, it will play 
+through the browser, likewise, when in Kodi mode all commands are sent to Kodi.  You can also add media to other 
+playlists by clicking the menu buttons (three dots vertical) on most media items.</p>
+
+<h3>
+<a id="video-streaming" class="anchor" href="#video-streaming" aria-hidden="true"><span class="octicon octicon-link"></span></a>Video streaming</h3>
+
+<p>Video streaming via HTML5 "sort of" works, it really depends on the codec used. An embedded VLC player is also available with better codec support.
+This looks like the best we can get until Kodi supports transcoding.
+<strong>Chrome users</strong>: Chrome has removed support for vlc/divx plugins so streaming a video requires a <a href="https://en.wikipedia.org/wiki/HTML5_video#Browser_support">Chrome friendly codec</a>.</p>
+
+<h2>
+<a id="kodi-settings-via-the-web-interface" class="anchor" href="#kodi-settings-via-the-web-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kodi settings via the web interface</h2>
+
+<p>You can change most of the settings you would find in Kodi via the settings page in the web interface.
+Some settings have been omitted as they require interaction with the GUI and others are just a basic text field with no options.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>If you would like to make this project better I would appreciate any help.</p>
+
+<h3>
+<a id="translations" class="anchor" href="#translations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Translations</h3>
+
+<p>I only know English so definitely need help with this.<br>
+I also don't know heaps about javascript multilingual stuff but thanks to <a href="https://github.com/mizaki" class="user-mention">@mizaki</a> we have a structure ready to go. 
+So it should be nice and easy to translate the UI. </p>
+
+<p>At the moment, there is 3 languages (english,french,german) more can be easily added. 
+To contribute, send me a PR on a new branch, or if you don't know git, a link to the language file.</p>
+
+<p>Language Files <a href="https://github.com/jez500/chorus2/tree/master/src/lang">here</a>. 
+English is the only real complete translation file so start with that as your base. </p>
+
+<h3>
+<a id="compiling" class="anchor" href="#compiling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiling</h3>
+
+<p>Sass and Grunt are used to compile css and js in the dist folder.
+To get your environment setup first install <a href="http://bundler.io">Bundler</a> and <a href="https://www.npmjs.org/">npm</a>.</p>
+
+<ul>
+<li>Install required gems with <code>bundle install</code>
+</li>
+<li>Install NodeJs packages with <code>npm install</code>
+</li>
+<li>Run grunt <code>grunt</code>
+</li>
+</ul>
+
+<h3>
+<a id="build" class="anchor" href="#build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build</h3>
+
+<p>A build will also include translation files.</p>
+
+<ul>
+<li>Run grunt <code>grunt build</code>
+</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jez500/chorus2">Chorus</a> is maintained by <a href="https://github.com/jez500">jez500</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-70330912-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
