@@ -37,3 +37,7 @@
   # Request is addon enabled.
   App.reqres.setHandler 'addon:isEnabled', (filter, callback) ->
     API.isAddOnEnabled filter, (enabled) -> if callback then callback(enabled)
+
+  # Request is addon enabled.
+  App.reqres.setHandler 'addon:enabled:addons', (callback) ->
+    API.getEnabledAddons (addons) -> if callback then callback(addons)

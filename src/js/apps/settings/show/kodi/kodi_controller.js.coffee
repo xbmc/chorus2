@@ -4,6 +4,21 @@
 
     API =
 
+      # To turn an addon text field into a select with a list of available addons
+      # Key is the setting id, Val is the type of addon (see #settings/addons)
+      optionLookups:
+        'lookandfeel.skin': 'xbmc.gui.skin'
+        'locale.language': 'kodi.resource.language'
+        'screensaver.mode': 'xbmc.ui.screensaver'
+        'musiclibrary.albumsscraper' : 'xbmc.metadata.scraper.albums'
+        'musiclibrary.artistsscraper' : 'xbmc.metadata.scraper.artists'
+        'musicplayer.visualisation' : 'xbmc.player.musicviz'
+        'services.webskin' : 'xbmc.webinterface' # No don't go...
+        'subtitles.tv' : 'xbmc.subtitle.module'
+        'subtitles.movie' : 'xbmc.subtitle.module'
+        'audiocds.encoder' : 'xbmc.audioencoder'
+
+
       # Turn the returned options into form friendly select options.
       parseOptions: (options) ->
         out = {}
@@ -45,7 +60,7 @@
           section: section,
           categories: categoryNames
 
-          # Caetgory settings fetched.
+          # Category settings fetched.
           callback: (categorySettings) =>
             # Build a fieldset for each section
             $(categories).each (i, category) =>
@@ -65,7 +80,7 @@
     getForm: (section, formStructure) ->
       options = {
         form: formStructure
-        formState: {}
+#        formState: {}
         config:
           attributes: {class: 'settings-form'}
           callback: (data, formView) =>
@@ -74,11 +89,30 @@
       form = App.request "form:wrapper", options
       @layout.regionContent.show form
 
+    # Turn a group of addon types into an array for form options
+    getAddonOptions: (elId, value) ->
+      mappedType = API.optionLookups[elId]
+      options = []
+      lookup = {}
+      if mappedType
+        addons = App.request 'addon:enabled:addons'
+        filteredAddons = _.where(addons, {type: mappedType})
+        for i, addon of filteredAddons
+          # Key by addon id, Value is name
+          options.push {value: addon.addonid, label: addon.name}
+          lookup[addon.addonid] = true
+        # If value isn't in the options, we add it
+        if not lookup[value]
+          options.push {value: value, label: value}
+        return options
+      false
+
+    # Map Kodi types to form types in the web form
     mapSettingsToElements: (items) ->
       elements = []
 
       # For each setting.
-      $(items).each (i, item) ->
+      $(items).each (i, item) =>
         type = null
 
         # Get type
@@ -88,7 +122,11 @@
           when 'path'
             type = 'textfield'
           when 'addon'
-            type = 'textfield'
+            options = @getAddonOptions item.id, item.value
+            if options
+              item.options = options
+            else
+              type = 'textfield'
           when 'integer'
             type = 'textfield'
           when 'string'

@@ -85,7 +85,8 @@
           options = ''
           for key, val of @model.get('options')
             attrs = {value: key}
-            if @model.get('defaultValue') is key
+            value = @model.get('defaultValue')
+            if String(value) is String(key)
               attrs.selected = 'selected'
             options += @themeTag 'option', attrs, val
           el = @themeTag 'select', _.extend(baseAttrs, class: 'form-control'), options
