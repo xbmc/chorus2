@@ -24,12 +24,17 @@
 
     searchBind: ->
       $('#search').on 'keyup', (e) ->
+        $('#search-region').removeClass 'pre-search'
         val = $('#search').val()
         clearTimeout App.searchAllTimeout
+        # If enter key
         if e.which is 13
           API.list 'all', val
         else
+          $('#search-region').addClass 'pre-search'
+          # Start search in @keyUpTimeout
           App.searchAllTimeout = setTimeout(( ->
+            $('#search-region').removeClass 'pre-search'
             API.list 'all', val
           ), API.keyUpTimeout)
 
