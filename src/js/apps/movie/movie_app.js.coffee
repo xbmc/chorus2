@@ -29,7 +29,7 @@
         when 'add'
           playlist.add 'movieid', model.get('movieid')
         when 'localplay'
-          files.videoStream model.get('file')
+          files.videoStream model.get('file'), model.get('fanart')
         when 'download'
           files.downloadFile model.get('file')
         when 'toggleWatched'

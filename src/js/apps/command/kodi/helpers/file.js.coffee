@@ -23,7 +23,7 @@
         dl.location = path
 
     ## Callback for video stream popup
-    videoStream: (file, player = 'html5') ->
+    videoStream: (file, background = '', player = 'html5') ->
       st = helpers.global.localVideoPopup 'about:blank'
       @downloadPath file, (path) ->
-        st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path)
+        st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path) + '&bg=' + encodeURIComponent(background)
