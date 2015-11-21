@@ -34209,7 +34209,793 @@ var prettyPrint = (function(){
 
     return (retVal === void 0) ? this : retVal;
   };
-});;/* ========================================================================
+});;/*
+ Copyright (C) 2011 Patrick Gillespie, http://patorjk.com/
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ */
+
+/*
+ Extendible BBCode Parser v1.0.0
+ By Patrick Gillespie (patorjk@gmail.com)
+ Website: http://patorjk.com/
+
+ This module allows you to parse BBCode and to extend to the mark-up language
+ to add in your own tags.
+ */
+
+"use strict";
+
+var XBBCODE = (function() {
+
+  // -----------------------------------------------------------------------------
+  // Set up private variables
+  // -----------------------------------------------------------------------------
+
+  var me = {},
+    urlPattern = /^(?:https?|file|c):(?:\/{1,3}|\\{1})[-a-zA-Z0-9:;@#%&()~_?\+=\/\\\.]*$/,
+    colorNamePattern = /^(?:aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen)$/,
+    colorCodePattern = /^#?[a-fA-F0-9]{6}$/,
+    emailPattern = /[^\s@]+@[^\s@]+\.[^\s@]+/,
+    fontFacePattern = /^([a-z][a-z0-9_]+|"[a-z][a-z0-9_\s]+")$/i,
+    tags,
+    tagList,
+    tagsNoParseList = [],
+    bbRegExp,
+    pbbRegExp,
+    pbbRegExp2,
+    openTags,
+    closeTags;
+
+  /* -----------------------------------------------------------------------------
+   * tags
+   * This object contains a list of tags that your code will be able to understand.
+   * Each tag object has the following properties:
+   *
+   *   openTag - A function that takes in the tag's parameters (if any) and its
+   *             contents, and returns what its HTML open tag should be.
+   *             Example: [color=red]test[/color] would take in "=red" as a
+   *             parameter input, and "test" as a content input.
+   *             It should be noted that any BBCode inside of "content" will have
+   *             been processed by the time it enter the openTag function.
+   *
+   *   closeTag - A function that takes in the tag's parameters (if any) and its
+   *              contents, and returns what its HTML close tag should be.
+   *
+   *   displayContent - Defaults to true. If false, the content for the tag will
+   *                    not be displayed. This is useful for tags like IMG where
+   *                    its contents are actually a parameter input.
+   *
+   *   restrictChildrenTo - A list of BBCode tags which are allowed to be nested
+   *                        within this BBCode tag. If this property is omitted,
+   *                        any BBCode tag may be nested within the tag.
+   *
+   *   restrictParentsTo - A list of BBCode tags which are allowed to be parents of
+   *                       this BBCode tag. If this property is omitted, any BBCode
+   *                       tag may be a parent of the tag.
+   *
+   *   noParse - true or false. If true, none of the content WITHIN this tag will be
+   *             parsed by the XBBCode parser.
+   *
+   *
+   *
+   * LIMITIONS on adding NEW TAGS:
+   *  - Tag names should be alphanumeric (including underscores) and all tags should have an opening tag
+   *    and a closing tag.
+   *    The [*] tag is an exception because it was already a standard
+   *    bbcode tag. Technecially tags don't *have* to be alphanumeric, but since
+   *    regular expressions are used to parse the text, if you use a non-alphanumeric
+   *    tag names, just make sure the tag name gets escaped properly (if needed).
+   * --------------------------------------------------------------------------- */
+
+  tags = {
+    "b": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-b">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    /*
+     This tag does nothing and is here mostly to be used as a classification for
+     the bbcode input when evaluating parent-child tag relationships
+     */
+    "bbcode": {
+      openTag: function(params,content) {
+        return '';
+      },
+      closeTag: function(params,content) {
+        return '';
+      }
+    },
+    "center": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-center">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+
+    "code": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-code">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      },
+      noParse: true
+    },
+    "color": {
+      openTag: function(params,content) {
+
+        var colorCode = (params.substr(1)).toLowerCase() || "black";
+        colorNamePattern.lastIndex = 0;
+        colorCodePattern.lastIndex = 0;
+        if ( !colorNamePattern.test( colorCode ) ) {
+          if ( !colorCodePattern.test( colorCode ) ) {
+            colorCode = "black";
+          } else {
+            if (colorCode.substr(0,1) !== "#") {
+              colorCode = "#" + colorCode;
+            }
+          }
+        }
+
+        return '<span style="color:' + colorCode + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "email": {
+      openTag: function(params,content) {
+
+        var myEmail;
+
+        if (!params) {
+          myEmail = content.replace(/<.*?>/g,"");
+        } else {
+          myEmail = params.substr(1);
+        }
+
+        emailPattern.lastIndex = 0;
+        if ( !emailPattern.test( myEmail ) ) {
+          return '<a>';
+        }
+
+        return '<a href="mailto:' + myEmail + '">';
+      },
+      closeTag: function(params,content) {
+        return '</a>';
+      }
+    },
+    "face": {
+      openTag: function(params,content) {
+
+        var faceCode = params.substr(1) || "inherit";
+        fontFacePattern.lastIndex = 0;
+        if ( !fontFacePattern.test( faceCode ) ) {
+          faceCode = "inherit";
+        }
+        return '<span style="font-family:' + faceCode + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+
+
+    "font": {
+      openTag: function(params,content) {
+
+        var faceCode = params.substr(1) || "inherit";
+        fontFacePattern.lastIndex = 0;
+        if ( !fontFacePattern.test( faceCode ) ) {
+          faceCode = "inherit";
+        }
+        return '<span style="font-family:' + faceCode + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+
+    "i": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-i">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "img": {
+      openTag: function(params,content) {
+
+        var myUrl = content;
+
+        urlPattern.lastIndex = 0;
+        if ( !urlPattern.test( myUrl ) ) {
+          myUrl = "";
+        }
+
+        return '<img src="' + myUrl + '" />';
+      },
+      closeTag: function(params,content) {
+        return '';
+      },
+      displayContent: false
+    },
+    "justify": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-justify">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "large": {
+      openTag: function(params,content) {
+        var params = params || '';
+        var colorCode = params.substr(1) || "inherit";
+        colorNamePattern.lastIndex = 0;
+        colorCodePattern.lastIndex = 0;
+        if ( !colorNamePattern.test( colorCode ) ) {
+          if ( !colorCodePattern.test( colorCode ) ) {
+            colorCode = "inherit";
+          } else {
+            if (colorCode.substr(0,1) !== "#") {
+              colorCode = "#" + colorCode;
+            }
+          }
+        }
+
+
+        return '<span class="xbbcode-size-36" style="color:' + colorCode + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "left": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-left">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "li": {
+      openTag: function(params,content) {
+        return "<li>";
+      },
+      closeTag: function(params,content) {
+        return "</li>";
+      },
+      restrictParentsTo: ["list","ul","ol"]
+    },
+    "list": {
+      openTag: function(params,content) {
+        return '<ul>';
+      },
+      closeTag: function(params,content) {
+        return '</ul>';
+      },
+      restrictChildrenTo: ["*", "li"]
+    },
+    "noparse": {
+      openTag: function(params,content) {
+        return '';
+      },
+      closeTag: function(params,content) {
+        return '';
+      },
+      noParse: true
+    },
+    "ol": {
+      openTag: function(params,content) {
+        return '<ol>';
+      },
+      closeTag: function(params,content) {
+        return '</ol>';
+      },
+      restrictChildrenTo: ["*", "li"]
+    },
+    "php": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-code">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      },
+      noParse: true
+    },
+    "quote": {
+      openTag: function(params,content) {
+        return '<blockquote class="xbbcode-blockquote">';
+      },
+      closeTag: function(params,content) {
+        return '</blockquote>';
+      }
+    },
+    "right": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-right">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "s": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-s">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "size": {
+      openTag: function(params,content) {
+
+        var mySize = parseInt(params.substr(1),10) || 0;
+        if (mySize < 4 || mySize > 40) {
+          mySize = 14;
+        }
+
+        return '<span class="xbbcode-size-' + mySize + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "small": {
+      openTag: function(params,content) {
+        var params = params || '';
+        var colorCode = params.substr(1) || "inherit";
+        colorNamePattern.lastIndex = 0;
+        colorCodePattern.lastIndex = 0;
+        if ( !colorNamePattern.test( colorCode ) ) {
+          if ( !colorCodePattern.test( colorCode ) ) {
+            colorCode = "inherit";
+          } else {
+            if (colorCode.substr(0,1) !== "#") {
+              colorCode = "#" + colorCode;
+            }
+          }
+        }
+
+        return '<span class="xbbcode-size-10" style="color:' + colorCode + '">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+
+    "sub": {
+      openTag: function(params,content) {
+        return '<sub>';
+      },
+      closeTag: function(params,content) {
+        return '</sub>';
+      }
+    },
+    "sup": {
+      openTag: function(params,content) {
+        return '<sup>';
+      },
+      closeTag: function(params,content) {
+        return '</sup>';
+      }
+    },
+
+    "table": {
+      openTag: function(params,content) {
+        return '<table class="xbbcode-table">';
+      },
+      closeTag: function(params,content) {
+        return '</table>';
+      },
+      restrictChildrenTo: ["tbody","thead", "tfoot", "tr"]
+    },
+    "tbody": {
+      openTag: function(params,content) {
+        return '<tbody>';
+      },
+      closeTag: function(params,content) {
+        return '</tbody>';
+      },
+      restrictChildrenTo: ["tr"],
+      restrictParentsTo: ["table"]
+    },
+    "tfoot": {
+      openTag: function(params,content) {
+        return '<tfoot>';
+      },
+      closeTag: function(params,content) {
+        return '</tfoot>';
+      },
+      restrictChildrenTo: ["tr"],
+      restrictParentsTo: ["table"]
+    },
+    "thead": {
+      openTag: function(params,content) {
+        return '<thead class="xbbcode-thead">';
+      },
+      closeTag: function(params,content) {
+        return '</thead>';
+      },
+      restrictChildrenTo: ["tr"],
+      restrictParentsTo: ["table"]
+    },
+    "td": {
+      openTag: function(params,content) {
+        return '<td class="xbbcode-td">';
+      },
+      closeTag: function(params,content) {
+        return '</td>';
+      },
+      restrictParentsTo: ["tr"]
+    },
+    "th": {
+      openTag: function(params,content) {
+        return '<th class="xbbcode-th">';
+      },
+      closeTag: function(params,content) {
+        return '</th>';
+      },
+      restrictParentsTo: ["tr"]
+    },
+    "tr": {
+      openTag: function(params,content) {
+        return '<tr class="xbbcode-tr">';
+      },
+      closeTag: function(params,content) {
+        return '</tr>';
+      },
+      restrictChildrenTo: ["td","th"],
+      restrictParentsTo: ["table","tbody","tfoot","thead"]
+    },
+    "u": {
+      openTag: function(params,content) {
+        return '<span class="xbbcode-u">';
+      },
+      closeTag: function(params,content) {
+        return '</span>';
+      }
+    },
+    "ul": {
+      openTag: function(params,content) {
+        return '<ul>';
+      },
+      closeTag: function(params,content) {
+        return '</ul>';
+      },
+      restrictChildrenTo: ["*", "li"]
+    },
+    "url": {
+      openTag: function(params,content) {
+
+        var myUrl;
+
+        if (!params) {
+          myUrl = content.replace(/<.*?>/g,"");
+        } else {
+          myUrl = params.substr(1);
+        }
+
+        urlPattern.lastIndex = 0;
+        if ( !urlPattern.test( myUrl ) ) {
+          myUrl = "#";
+        }
+
+        return '<a href="' + myUrl + '">';
+      },
+      closeTag: function(params,content) {
+        return '</a>';
+      }
+    },
+    /*
+     The [*] tag is special since the user does not define a closing [/*] tag when writing their bbcode.
+     Instead this module parses the code and adds the closing [/*] tag in for them. None of the tags you
+     add will act like this and this tag is an exception to the others.
+     */
+    "*": {
+      openTag: function(params,content) {
+        return "<li>";
+      },
+      closeTag: function(params,content) {
+        return "</li>";
+      },
+      restrictParentsTo: ["list","ul","ol"]
+    }
+  };
+
+  // create tag list and lookup fields
+  function initTags() {
+    tagList = [];
+    var prop,
+      ii,
+      len;
+    for (prop in tags) {
+      if (tags.hasOwnProperty(prop)) {
+        if (prop === "*") {
+          tagList.push("\\" + prop);
+        } else {
+          tagList.push(prop);
+          if ( tags[prop].noParse ) {
+            tagsNoParseList.push(prop);
+          }
+        }
+
+        tags[prop].validChildLookup = {};
+        tags[prop].validParentLookup = {};
+        tags[prop].restrictParentsTo = tags[prop].restrictParentsTo || [];
+        tags[prop].restrictChildrenTo = tags[prop].restrictChildrenTo || [];
+
+        len = tags[prop].restrictChildrenTo.length;
+        for (ii = 0; ii < len; ii++) {
+          tags[prop].validChildLookup[ tags[prop].restrictChildrenTo[ii] ] = true;
+        }
+        len = tags[prop].restrictParentsTo.length;
+        for (ii = 0; ii < len; ii++) {
+          tags[prop].validParentLookup[ tags[prop].restrictParentsTo[ii] ] = true;
+        }
+      }
+    }
+
+    bbRegExp = new RegExp("<bbcl=([0-9]+) (" + tagList.join("|") + ")([ =][^>]*?)?>((?:.|[\\r\\n])*?)<bbcl=\\1 /\\2>", "gi");
+    pbbRegExp = new RegExp("\\[(" + tagList.join("|") + ")([ =][^\\]]*?)?\\]([^\\[]*?)\\[/\\1\\]", "gi");
+    pbbRegExp2 = new RegExp("\\[(" + tagsNoParseList.join("|") + ")([ =][^\\]]*?)?\\]([\\s\\S]*?)\\[/\\1\\]", "gi");
+
+    // create the regex for escaping ['s that aren't apart of tags
+    (function() {
+      var closeTagList = [];
+      for (var ii = 0; ii < tagList.length; ii++) {
+        if ( tagList[ii] !== "\\*" ) { // the * tag doesn't have an offical closing tag
+          closeTagList.push ( "/" + tagList[ii] );
+        }
+      }
+
+      openTags = new RegExp("(\\[)((?:" + tagList.join("|") + ")(?:[ =][^\\]]*?)?)(\\])", "gi");
+      closeTags = new RegExp("(\\[)(" + closeTagList.join("|") + ")(\\])", "gi");
+    })();
+
+  };
+  initTags();
+
+  // -----------------------------------------------------------------------------
+  // private functions
+  // -----------------------------------------------------------------------------
+
+  function checkParentChildRestrictions(parentTag, bbcode, bbcodeLevel, tagName, tagParams, tagContents, errQueue) {
+
+    errQueue = errQueue || [];
+    bbcodeLevel++;
+
+    // get a list of all of the child tags to this tag
+    var reTagNames = new RegExp("(<bbcl=" + bbcodeLevel + " )(" + tagList.join("|") + ")([ =>])","gi"),
+      reTagNamesParts = new RegExp("(<bbcl=" + bbcodeLevel + " )(" + tagList.join("|") + ")([ =>])","i"),
+      matchingTags = tagContents.match(reTagNames) || [],
+      cInfo,
+      errStr,
+      ii,
+      childTag,
+      pInfo = tags[parentTag] || {};
+
+    reTagNames.lastIndex = 0;
+
+    if (!matchingTags) {
+      tagContents = "";
+    }
+
+    for (ii = 0; ii < matchingTags.length; ii++) {
+      reTagNamesParts.lastIndex = 0;
+      childTag = (matchingTags[ii].match(reTagNamesParts))[2].toLowerCase();
+
+      if ( pInfo && pInfo.restrictChildrenTo && pInfo.restrictChildrenTo.length > 0 ) {
+        if ( !pInfo.validChildLookup[childTag] ) {
+          errStr = "The tag \"" + childTag + "\" is not allowed as a child of the tag \"" + parentTag + "\".";
+          errQueue.push(errStr);
+        }
+      }
+      cInfo = tags[childTag] || {};
+      if ( cInfo.restrictParentsTo.length > 0 ) {
+        if ( !cInfo.validParentLookup[parentTag] ) {
+          errStr = "The tag \"" + parentTag + "\" is not allowed as a parent of the tag \"" + childTag + "\".";
+          errQueue.push(errStr);
+        }
+      }
+
+    }
+
+    tagContents = tagContents.replace(bbRegExp, function(matchStr, bbcodeLevel, tagName, tagParams, tagContents ) {
+      errQueue = checkParentChildRestrictions(tagName.toLowerCase(), matchStr, bbcodeLevel, tagName, tagParams, tagContents, errQueue);
+      return matchStr;
+    });
+    return errQueue;
+  }
+
+  /*
+   This function updates or adds a piece of metadata to each tag called "bbcl" which
+   indicates how deeply nested a particular tag was in the bbcode. This property is removed
+   from the HTML code tags at the end of the processing.
+   */
+  function updateTagDepths(tagContents) {
+    tagContents = tagContents.replace(/\<([^\>][^\>]*?)\>/gi, function(matchStr, subMatchStr) {
+      var bbCodeLevel = subMatchStr.match(/^bbcl=([0-9]+) /);
+      if (bbCodeLevel === null) {
+        return "<bbcl=0 " + subMatchStr + ">";
+      } else {
+        return "<" + subMatchStr.replace(/^(bbcl=)([0-9]+)/, function(matchStr, m1, m2) {
+            return m1 + (parseInt(m2, 10) + 1);
+          }) + ">";
+      }
+    });
+    return tagContents;
+  }
+
+  /*
+   This function removes the metadata added by the updateTagDepths function
+   */
+  function unprocess(tagContent) {
+    return tagContent.replace(/<bbcl=[0-9]+ \/\*>/gi,"").replace(/<bbcl=[0-9]+ /gi,"&#91;").replace(/>/gi,"&#93;");
+  }
+
+  var replaceFunct = function(matchStr, bbcodeLevel, tagName, tagParams, tagContents) {
+
+    tagName = tagName.toLowerCase();
+
+    var processedContent = tags[tagName].noParse ? unprocess(tagContents) : tagContents.replace(bbRegExp, replaceFunct),
+      openTag = tags[tagName].openTag(tagParams,processedContent),
+      closeTag = tags[tagName].closeTag(tagParams,processedContent);
+
+    if ( tags[tagName].displayContent === false) {
+      processedContent = "";
+    }
+
+    return openTag + processedContent + closeTag;
+  };
+
+  function parse(config) {
+    var output = config.text;
+    output = output.replace(bbRegExp, replaceFunct);
+    return output;
+  }
+
+  /*
+   The star tag [*] is special in that it does not use a closing tag. Since this parser requires that tags to have a closing
+   tag, we must pre-process the input and add in closing tags [/*] for the star tag.
+   We have a little levaridge in that we know the text we're processing wont contain the <> characters (they have been
+   changed into their HTML entity form to prevent XSS and code injection), so we can use those characters as markers to
+   help us define boundaries and figure out where to place the [/*] tags.
+   */
+  function fixStarTag(text) {
+    text = text.replace(/\[(?!\*[ =\]]|list([ =][^\]]*)?\]|\/list[\]])/ig, "<");
+    text = text.replace(/\[(?=list([ =][^\]]*)?\]|\/list[\]])/ig, ">");
+
+    while (text !== (text = text.replace(/>list([ =][^\]]*)?\]([^>]*?)(>\/list])/gi, function(matchStr,contents,endTag) {
+
+      var innerListTxt = matchStr;
+      while (innerListTxt !== (innerListTxt = innerListTxt.replace(/\[\*\]([^\[]*?)(\[\*\]|>\/list])/i, function(matchStr,contents,endTag) {
+        if (endTag.toLowerCase() === ">/list]") {
+          endTag = "</*]</list]";
+        } else {
+          endTag = "</*][*]";
+        }
+        return "<*]" + contents + endTag;
+      })));
+
+      innerListTxt = innerListTxt.replace(/>/g, "<");
+      return innerListTxt;
+    })));
+
+    // add ['s for our tags back in
+    text = text.replace(/</g, "[");
+    return text;
+  }
+
+  function addBbcodeLevels(text) {
+    while ( text !== (text = text.replace(pbbRegExp, function(matchStr, tagName, tagParams, tagContents) {
+      matchStr = matchStr.replace(/\[/g, "<");
+      matchStr = matchStr.replace(/\]/g, ">");
+      return updateTagDepths(matchStr);
+    })) );
+    return text;
+  }
+
+  // -----------------------------------------------------------------------------
+  // public functions
+  // -----------------------------------------------------------------------------
+
+  // API, Expose all available tags
+  me.tags = function() {
+    return tags;
+  }
+
+  // API
+  me.addTags = function(newtags) {
+    var tag;
+    for (tag in newtags) {
+      tags[tag] = newtags[tag];
+    }
+    initTags();
+  }
+
+  me.process = function(config) {
+
+    var ret = {html: "", error: false},
+      errQueue = [];
+
+    config.text = config.text.replace(/</g, "&lt;"); // escape HTML tag brackets
+    config.text = config.text.replace(/>/g, "&gt;"); // escape HTML tag brackets
+
+    config.text = config.text.replace(openTags, function(matchStr, openB, contents, closeB) {
+      return "<" + contents + ">";
+    });
+    config.text = config.text.replace(closeTags, function(matchStr, openB, contents, closeB) {
+      return "<" + contents + ">";
+    });
+
+    config.text = config.text.replace(/\[/g, "&#91;"); // escape ['s that aren't apart of tags
+    config.text = config.text.replace(/\]/g, "&#93;"); // escape ['s that aren't apart of tags
+    config.text = config.text.replace(/</g, "["); // escape ['s that aren't apart of tags
+    config.text = config.text.replace(/>/g, "]"); // escape ['s that aren't apart of tags
+
+    // process tags that don't have their content parsed
+    while ( config.text !== (config.text = config.text.replace(pbbRegExp2, function(matchStr, tagName, tagParams, tagContents) {
+      tagContents = tagContents.replace(/\[/g, "&#91;");
+      tagContents = tagContents.replace(/\]/g, "&#93;");
+      tagParams = tagParams || "";
+      tagContents = tagContents || "";
+      return "[" + tagName + tagParams + "]" + tagContents + "[/" + tagName + "]";
+    })) );
+
+    config.text = fixStarTag(config.text); // add in closing tags for the [*] tag
+    config.text = addBbcodeLevels(config.text); // add in level metadata
+
+    errQueue = checkParentChildRestrictions("bbcode", config.text, -1, "", "", config.text);
+
+    ret.html = parse(config);;
+
+    if ( ret.html.indexOf("[") !== -1 || ret.html.indexOf("]") !== -1) {
+      errQueue.push("Some tags appear to be misaligned.");
+    }
+
+    if (config.removeMisalignedTags) {
+      ret.html = ret.html.replace(/\[.*?\]/g,"");
+    }
+    if (config.addInLineBreaks) {
+      ret.html = '<div style="white-space:pre;">' + ret.html + '</div>';
+    }
+
+    ret.html = ret.html.replace("&#91;", "["); // put ['s back in
+    ret.html = ret.html.replace("&#93;", "]"); // put ['s back in
+
+    ret.error = errQueue.length !== 0;
+    ret.errorQueue = errQueue;
+
+    return ret;
+  };
+
+  return me;
+})();;/* ========================================================================
  * Bootstrap: affix.js v3.3.1
  * http://getbootstrap.com/javascript/#affix
  * ========================================================================
@@ -44432,7 +45218,7 @@ window.JST["apps/browser/list/tpl/file.jst"] = function(__obj) {
     
       _print(_safe('\')"><div class="mdi play"></div></div>\n<div class="title">'));
     
-      _print(this.label);
+      _print(_safe(this.label));
     
       _print(_safe('</div>'));
     
@@ -45086,7 +45872,7 @@ window.JST["apps/input/remote/tpl/remote_control.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div id="remote-background"></div>\n<div class="remote kodi-remote">\n    <div class="toggle-visibility"></div>\n    <div class="playing-area">\n\n    </div>\n    <div class="main-controls">\n        <div class="direction">\n            <div class="pad">\n                <div class="ibut mdi-hardware-keyboard-arrow-left left input-button" data-type="Left"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-up up input-button" data-type="Up"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-down down input-button" data-type="Down"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-right right input-button" data-type="Right"></div>\n                <div class="ibut mdi-image-brightness-1 ok input-button" data-type="Select"></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <div class="ibut mdi-action-settings-power power-button"></div>\n            <div class="ibut mdi-navigation-more-vert input-button" data-type="ContextMenu"></div>\n            <div class="ibut mdi-action-info input-button" data-type="Info"></div>\n        </div>\n    </div>\n    <div class="secondary-controls">\n        <div class="ibut mdi-hardware-keyboard-return input-button" data-type="Back"></div>\n        <div class="ibut mdi-av-stop player-button" data-type="Stop"></div>\n        <div class="ibut mdi-maps-store-mall-directory input-button" data-type="Home"></div>\n    </div>\n\n</div>'));
+      _print(_safe('<div id="remote-background"></div>\n<div class="remote kodi-remote">\n    <div class="toggle-visibility"></div>\n    <div class="playing-area">\n\n    </div>\n    <div class="main-controls">\n        <div class="direction">\n            <div class="pad">\n                <div class="ibut mdi-hardware-keyboard-arrow-left left input-button" data-type="Left"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-up up input-button" data-type="Up"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-down down input-button" data-type="Down"></div>\n                <div class="ibut mdi-hardware-keyboard-arrow-right right input-button" data-type="Right"></div>\n                <div class="ibut mdi-image-brightness-1 ok input-button" data-type="Select"></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <div class="ibut mdi-action-settings-power power-button"></div>\n            <div class="ibut mdi-navigation-more-vert input-button" data-type="ContextMenu"></div>\n            <div class="ibut mdi-action-info info-button" data-type="Info"></div>\n        </div>\n    </div>\n    <div class="secondary-controls">\n        <div class="ibut mdi-hardware-keyboard-return input-button" data-type="Back"></div>\n        <div class="ibut mdi-av-stop player-button" data-type="Stop"></div>\n        <div class="ibut mdi-maps-store-mall-directory input-button" data-type="Home"></div>\n    </div>\n\n</div>'));
     
     }).call(this);
     
@@ -46410,7 +47196,7 @@ window.JST["apps/search/list/tpl/search_layout.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n    <div class="entity-set entity-set-loading"></div>\n</div>'));
+      _print(_safe('<div class="search-inner">\n    <div class="entity-set entity-set-movie"></div>\n    <div class="entity-set entity-set-tvshow"></div>\n    <div class="entity-set entity-set-artist"></div>\n    <div class="entity-set entity-set-album"></div>\n    <div class="entity-set entity-set-song"></div>\n    <div class="entity-set entity-set-loading"></div>\n    <div class="entity-set entity-set-addons"></div>\n</div>'));
     
     }).call(this);
     
@@ -47963,6 +48749,14 @@ config.set = function(type, id, data, callback) {
 
 config.getLocal = function(id, defaultData, callback) {
   return config.get('static', id, defaultData, callback);
+};
+
+config.setLocal = function(id, data, callback) {
+  return config.set('static', id, data, callback);
+};
+
+config.setLocalApp = function() {
+  return config.set('static', id, data, callback);
 };
 
 config.preStartGet = function(id, defaultData) {
@@ -52995,7 +53789,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 52,
-        title: "Web settings",
+        title: "Web interface",
         path: 'settings/web',
         icon: '',
         classes: '',
@@ -53003,8 +53797,8 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 53,
-        title: "Kodi settings",
-        path: 'settings/kodi',
+        title: "AddOns",
+        path: 'settings/addons',
         icon: '',
         classes: '',
         parent: 51
@@ -53252,6 +54046,21 @@ this.Kodi.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var attrsString;
       attrsString = this.parseAttributes(attrs);
       return "<" + el + " " + attrsString + ">" + value + "</" + el + ">";
+    },
+    formatText: function(text, addInLineBreaks) {
+      var res;
+      if (addInLineBreaks == null) {
+        addInLineBreaks = false;
+      }
+      res = XBBCODE.process({
+        text: text,
+        removeMisalignedTags: true,
+        addInLineBreaks: addInLineBreaks
+      });
+      if (res.error === !false) {
+        helpers.debug.msg('formatText error: ' + res.errorQueue.join(', '), 'warning', res);
+      }
+      return res.html;
     }
   });
 });
@@ -53793,7 +54602,7 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
     Item.prototype.tagName = 'div';
 
     Item.prototype.initialize = function() {
-      var attrs, baseAttrs, el, key, materialBaseAttrs, options, val, _ref;
+      var attrs, baseAttrs, el, key, materialBaseAttrs, options, val, value, _ref;
       baseAttrs = _.extend({
         id: 'form-edit-' + this.model.get('id'),
         name: this.model.get('id')
@@ -53831,7 +54640,8 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
             attrs = {
               value: key
             };
-            if (this.model.get('defaultValue') === key) {
+            value = this.model.get('defaultValue');
+            if (String(value) === String(key)) {
               attrs.selected = 'selected';
             }
             options += this.themeTag('option', attrs, val);
@@ -53912,13 +54722,48 @@ this.Kodi.module("AddonApp", function(AddonApp, App, Backbone, Marionette, $, _)
       return App.request("command:kodi:controller", 'auto', 'AddOn');
     },
     getEnabledAddons: function(callback) {
-      return this.addonController().getEnabledAddons(callback);
+      var addons;
+      addons = [];
+      if (config.getLocal("addOnsLoaded", false)) {
+        addons = config.getLocal("addOnsEnabled", []);
+        if (callback) {
+          callback(addons);
+        }
+      } else {
+        this.addonController().getEnabledAddons(true, function(addons) {
+          config.setLocal("addOnsEnabled", addons);
+          config.setLocal("addOnsLoaded", true);
+          if (callback) {
+            return callback(addons);
+          }
+        });
+      }
+      return addons;
+    },
+    isAddOnEnabled: function(filter, callback) {
+      var addons;
+      if (filter == null) {
+        filter = {};
+      }
+      addons = this.getEnabledAddons(callback);
+      return _.findWhere(addons, filter);
     }
   };
-  return App.on("before:start", function() {
-    return API.getEnabledAddons(function(resp) {
-      config.set("static", "addOnsEnabled", resp);
-      return config.set("static", "addOnsLoaded", true);
+  App.on("before:start", function() {
+    return API.getEnabledAddons(function(resp) {});
+  });
+  App.reqres.setHandler('addon:isEnabled', function(filter, callback) {
+    return API.isAddOnEnabled(filter, function(enabled) {
+      if (callback) {
+        return callback(enabled);
+      }
+    });
+  });
+  return App.reqres.setHandler('addon:enabled:addons', function(callback) {
+    return API.getEnabledAddons(function(addons) {
+      if (callback) {
+        return callback(addons);
+      }
     });
   });
 });
@@ -53926,21 +54771,35 @@ this.Kodi.module("AddonApp", function(AddonApp, App, Backbone, Marionette, $, _)
 this.Kodi.module("AddonApp.Pvr", function(Pvr, App, Backbone, Marionette, $, _) {
   var API;
   API = {
-    pvrEnabled: function() {
-      var addons, enabled, pvrClients;
-      enabled = false;
-      if (config.get("static", "addOnsLoaded", false)) {
-        addons = config.get("static", "addOnsEnabled", []);
-        pvrClients = _.findWhere(addons, {
-          type: 'xbmc.pvrclient'
-        });
-        enabled = pvrClients != null ? true : false;
-      }
-      return enabled;
+    isEnabled: function() {
+      return App.request("addon:isEnabled", {
+        type: 'xbmc.pvrclient'
+      });
     }
   };
   return App.reqres.setHandler("addon:pvr:enabled", function() {
-    return API.pvrEnabled();
+    return API.isEnabled();
+  });
+});
+
+this.Kodi.module("AddonApp.SoundCloud", function(Soundcloud, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    addonId: 'plugin.audio.soundcloud',
+    searchAddon: {
+      id: this.addonId,
+      url: 'plugin://plugin.audio.soundcloud/search/query/?q=[QUERY]',
+      title: 'SoundCloud',
+      media: 'music'
+    },
+    isEnabled: function() {
+      return App.request("addon:isEnabled", {
+        addonid: this.addonId
+      });
+    }
+  };
+  return App.reqres.setHandler("addon:soundcloud:enabled", function() {
+    return API.isEnabled();
   });
 });
 
@@ -54990,7 +55849,7 @@ this.Kodi.module("BrowserApp", function(BrowserApp, App, Backbone, Marionette, $
 });
 
 this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $, _) {
-  return List.Controller = (function(_super) {
+  List.Controller = (function(_super) {
     __extends(Controller, _super);
 
     function Controller() {
@@ -55071,40 +55930,48 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       })(this));
     };
 
-    Controller.prototype.getFolderList = function(collection) {
+    Controller.prototype.getFolderListView = function(collection) {
       var folderView;
       folderView = new List.FolderList({
         collection: collection
       });
-      this.folderLayout.regionFolders.show(folderView);
-      this.getBackButton();
       this.listenTo(folderView, 'childview:folder:open', (function(_this) {
         return function(set, item) {
           return _this.getFolder(item.model);
         };
       })(this));
-      return this.listenTo(folderView, 'childview:folder:play', (function(_this) {
+      this.listenTo(folderView, 'childview:folder:play', (function(_this) {
         return function(set, item) {
           var playlist;
           playlist = App.request("command:kodi:controller", item.model.get('player'), 'PlayList');
           return playlist.play('directory', item.model.get('file'));
         };
       })(this));
+      return folderView;
     };
 
-    Controller.prototype.getFileList = function(collection) {
+    Controller.prototype.getFolderList = function(collection) {
+      this.folderLayout.regionFolders.show(this.getFolderListView(collection));
+      return this.getBackButton();
+    };
+
+    Controller.prototype.getFileListView = function(collection) {
       var fileView;
       fileView = new List.FileList({
         collection: collection
       });
-      this.folderLayout.regionFiles.show(fileView);
-      return this.listenTo(fileView, 'childview:file:play', (function(_this) {
+      this.listenTo(fileView, 'childview:file:play', (function(_this) {
         return function(set, item) {
           var playlist;
           playlist = App.request("command:kodi:controller", item.model.get('player'), 'PlayList');
           return playlist.play('file', item.model.get('file'));
         };
       })(this));
+      return fileView;
+    };
+
+    Controller.prototype.getFileList = function(collection) {
+      return this.folderLayout.regionFiles.show(this.getFileListView(collection));
     };
 
     Controller.prototype.getPathList = function(collection) {
@@ -55146,9 +56013,31 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
       }
     };
 
+    Controller.prototype.getFileViewByPath = function(path, media, callback) {
+      var collection;
+      collection = App.request("file:entities", {
+        file: path,
+        media: media
+      });
+      return App.execute("when:entity:fetched", collection, (function(_this) {
+        return function() {
+          var view;
+          view = _this.getFileListView(collection);
+          if (callback) {
+            return callback(view);
+          }
+        };
+      })(this));
+    };
+
     return Controller;
 
   })(App.Controllers.Base);
+  return App.reqres.setHandler("browser:files:view", function(path, media, callback) {
+    var browserController;
+    browserController = new List.Controller();
+    return browserController.getFileViewByPath(path, media, callback);
+  });
 });
 
 this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $, _) {
@@ -55267,6 +56156,12 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
     Item.prototype.template = 'apps/browser/list/file';
 
     Item.prototype.tagName = 'li';
+
+    Item.prototype.initialize = function() {
+      return this.model.set({
+        label: this.formatText(this.model.get('label'))
+      });
+    };
 
     return Item;
 
@@ -55403,7 +56298,8 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
     Back.prototype.className = 'back-button';
 
     Back.prototype.triggers = {
-      'click .title': 'folder:open'
+      'click .title': 'folder:open',
+      'click i': 'folder:open'
     };
 
     return Back;
@@ -55483,6 +56379,12 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
       var stateObj;
       stateObj = App.request("state:current");
       return App.request("command:" + stateObj.getPlayer() + ":controller", 'audio', 'PlayList');
+    },
+    currentVideoPlayerController: function() {
+      var method, stateObj;
+      stateObj = App.request("state:current");
+      method = stateObj.getPlayer() === 'local' ? 'VideoPlayer' : 'PlayList';
+      return App.request("command:" + stateObj.getPlayer() + ":controller", 'video', method);
     }
   };
 
@@ -55524,6 +56426,11 @@ this.Kodi.module("CommandApp", function(CommandApp, App, Backbone, Marionette, $
   });
   App.commands.setHandler("command:audio:add", function(type, value) {
     return API.currentAudioPlaylistController().add(type, value);
+  });
+  App.commands.setHandler("command:video:play", function(model, type) {
+    var value;
+    value = model.get(type);
+    return API.currentVideoPlayerController().play(type, value, model);
   });
   return App.addInitializer(function() {});
 });
@@ -55820,27 +56727,47 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
     __extends(AddOn, _super);
 
     function AddOn() {
+      this.getAllAddons = __bind(this.getAllAddons, this);
+      this.getEnabledAddons = __bind(this.getEnabledAddons, this);
       return AddOn.__super__.constructor.apply(this, arguments);
     }
 
     AddOn.prototype.commandNameSpace = 'Addons';
 
-    AddOn.prototype.getAddons = function(type, enabled, callback) {
+    AddOn.prototype.addonAllFields = ["name", "version", "summary", "description", "path", "author", "thumbnail", "disclaimer", "fanart", "dependencies", "broken", "extrainfo", "rating", "enabled"];
+
+    AddOn.prototype.getAddons = function(type, enabled, fields, callback) {
       if (type == null) {
         type = "unknown";
       }
       if (enabled == null) {
         enabled = true;
       }
-      return this.singleCommand(this.getCommand('GetAddons'), [type, "unknown", enabled], (function(_this) {
+      if (fields == null) {
+        fields = [];
+      }
+      return this.singleCommand(this.getCommand('GetAddons'), [type, "unknown", enabled, fields], (function(_this) {
         return function(resp) {
           return _this.doCallback(callback, resp.addons);
         };
       })(this));
     };
 
-    AddOn.prototype.getEnabledAddons = function(callback) {
-      return this.getAddons("unknown", true, (function(_this) {
+    AddOn.prototype.getEnabledAddons = function(load, callback) {
+      var fields;
+      if (load == null) {
+        load = true;
+      }
+      fields = load ? this.addonAllFields : ["name"];
+      return this.getAddons("unknown", true, fields, (function(_this) {
+        return function(resp) {
+          return _this.doCallback(callback, resp);
+        };
+      })(this));
+    };
+
+    AddOn.prototype.getAllAddons = function(callback) {
+      return this.getAddons("unknown", "all", this.addonAllFields, (function(_this) {
         return function(resp) {
           return _this.doCallback(callback, resp);
         };
@@ -56006,14 +56933,17 @@ this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, 
       });
     };
 
-    Files.prototype.videoStream = function(file, player) {
+    Files.prototype.videoStream = function(file, background, player) {
       var st;
+      if (background == null) {
+        background = '';
+      }
       if (player == null) {
         player = 'html5';
       }
       st = helpers.global.localVideoPopup('about:blank');
       return this.downloadPath(file, function(path) {
-        return st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path);
+        return st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path) + '&bg=' + encodeURIComponent(background);
       });
     };
 
@@ -56830,6 +57760,41 @@ this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $,
     };
 
     return PlayList;
+
+  })(Api.Player);
+});
+
+this.Kodi.module("CommandApp.Local", function(Api, App, Backbone, Marionette, $, _) {
+  return Api.VideoPlayer = (function(_super) {
+    __extends(VideoPlayer, _super);
+
+    function VideoPlayer() {
+      return VideoPlayer.__super__.constructor.apply(this, arguments);
+    }
+
+    VideoPlayer.prototype.getKodiFilesController = function() {
+      return new App.CommandApp.Kodi.Files;
+    };
+
+    VideoPlayer.prototype.play = function(type, value, model) {
+      return this.videoStream(model.get('file'), model.get('fanart'));
+    };
+
+    VideoPlayer.prototype.videoStream = function(file, background, player) {
+      var st;
+      if (background == null) {
+        background = '';
+      }
+      if (player == null) {
+        player = 'html5';
+      }
+      st = helpers.global.localVideoPopup('about:blank');
+      return this.getKodiFilesController().downloadPath(file, function(path) {
+        return st.location = "videoPlayer.html?player=" + player + '&src=' + encodeURIComponent(path) + '&bg=' + encodeURIComponent(background);
+      });
+    };
+
+    return VideoPlayer;
 
   })(Api.Player);
 });
@@ -58135,10 +59100,11 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
       $body = $('body');
       rClass = 'section-remote';
       if (open === 'auto') {
-        open = $body.hasClass(rClass) ? true : false;
+        open = $body.hasClass(rClass);
       }
+      console.log(open);
       if (open) {
-        App.navigate(helpers.backscroll.lastPath);
+        window.history.back();
         return helpers.backscroll.scrollToLast();
       } else {
         helpers.backscroll.setLast();
@@ -58148,7 +59114,7 @@ this.Kodi.module("InputApp", function(InputApp, App, Backbone, Marionette, $, _)
       }
     },
     remotePage: function() {
-      this.toggleRemote(false);
+      this.toggleRemote('auto');
       return App.regionContent.empty();
     },
     keyBind: function(e) {
@@ -58244,6 +59210,13 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
       this.listenTo(view, "remote:player", function(type) {
         return App.request('command:kodi:player', type, []);
       });
+      this.listenTo(view, "remote:info", function() {
+        if (App.request("state:kodi").isPlaying()) {
+          return App.execute('input:action', 'osd');
+        } else {
+          return App.execute("input:send", 'Info');
+        }
+      });
       this.listenTo(view, "remote:power", function() {
         var appController;
         appController = App.request("command:kodi:controller", 'auto', 'Application');
@@ -58282,7 +59255,8 @@ this.Kodi.module("InputApp.Remote", function(Remote, App, Backbone, Marionette, 
     };
 
     Control.prototype.triggers = {
-      'click .power-button': 'remote:power'
+      'click .power-button': 'remote:power',
+      'click .info-button': 'remote:info'
     };
 
     Control.prototype.inputClick = function(e) {
@@ -59478,11 +60452,11 @@ this.Kodi.module("MovieApp", function(MovieApp, App, Backbone, Marionette, $, _)
       videoLib = App.request("command:kodi:controller", 'video', 'VideoLibrary');
       switch (op) {
         case 'play':
-          return playlist.play('movieid', model.get('movieid'));
+          return App.execute("command:video:play", model, 'movieid');
         case 'add':
           return playlist.add('movieid', model.get('movieid'));
         case 'localplay':
-          return files.videoStream(model.get('file'));
+          return files.videoStream(model.get('file'), model.get('fanart'));
         case 'download':
           return files.downloadFile(model.get('file'));
         case 'toggleWatched':
@@ -60723,8 +61697,10 @@ this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, 
     };
 
     Controller.prototype.getLoader = function() {
-      var text;
-      text = t.gettext('Searching for') + ' ' + helpers.global.arrayToSentence(_.difference(this.entities, this.processed));
+      var query, searchNames, text;
+      searchNames = helpers.global.arrayToSentence(_.difference(this.entities, this.processed));
+      query = helpers.global.arrayToSentence([this.getOption('query')], false);
+      text = t.gettext('Searching for') + ' ' + query + ' ' + t.gettext('in') + ' ' + searchNames;
       return App.execute("loading:show:view", this.layout.loadingSet, text);
     };
 
@@ -60861,12 +61837,15 @@ this.Kodi.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, 
     searchBind: function() {
       return $('#search').on('keyup', function(e) {
         var val;
+        $('#search-region').removeClass('pre-search');
         val = $('#search').val();
         clearTimeout(App.searchAllTimeout);
         if (e.which === 13) {
           return API.list('all', val);
         } else {
+          $('#search-region').addClass('pre-search');
           return App.searchAllTimeout = setTimeout((function() {
+            $('#search-region').removeClass('pre-search');
             return API.list('all', val);
           }), API.keyUpTimeout);
         }
@@ -60940,7 +61919,7 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
       "settings/web": "local",
       "settings/kodi": "kodi",
       "settings/kodi/:section": "kodi",
-      "settings/kodi/:section/:category": "kodi"
+      "settings/addons": "addons"
     };
 
     return Router;
@@ -60951,14 +61930,8 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
     local: function() {
       return new SettingsApp.Show.Local.Controller();
     },
-    localNav: function() {
-      return [
-        {
-          title: "General",
-          id: "settings/web",
-          path: "settings/web"
-        }
-      ];
+    addons: function() {
+      return new SettingsApp.Show.Addons.Controller();
     },
     kodi: function(section, category) {
       return new SettingsApp.Show.Kodi.Controller({
@@ -60974,15 +61947,14 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
       sidebarView = new SettingsApp.Show.Sidebar();
       App.listenTo(sidebarView, "show", (function(_this) {
         return function() {
-          var localNavCollection, localSettingsView;
+          var settingsNavView;
           App.execute("when:entity:fetched", collection, function() {
             var kodiSettingsView;
             kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi Settings'));
             return sidebarView.regionKodiNav.show(kodiSettingsView);
           });
-          localNavCollection = App.request("navMain:array:entities", _this.localNav());
-          localSettingsView = App.request("navMain:collection:show", localNavCollection, t.gettext('Web Settings'));
-          return sidebarView.regionLocalNav.show(localSettingsView);
+          settingsNavView = App.request("navMain:children:show", API.subNavId, 'General');
+          return sidebarView.regionLocalNav.show(settingsNavView);
         };
       })(this));
       return sidebarView;
@@ -60998,6 +61970,130 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
   });
 });
 
+this.Kodi.module("SettingsApp.Show.Addons", function(Addons, App, Backbone, Marionette, $, _) {
+  return Addons.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      this.layout = this.getLayoutView();
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          _this.getSubNav();
+          return _this.getForm();
+        };
+      })(this));
+      return App.regionContent.show(this.layout);
+    };
+
+    Controller.prototype.getLayoutView = function() {
+      return new App.SettingsApp.Show.Layout();
+    };
+
+    Controller.prototype.getSubNav = function() {
+      var subNav;
+      subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.addonController = function() {
+      return App.request("command:kodi:controller", 'auto', 'AddOn');
+    };
+
+    Controller.prototype.getAllAddons = function(callback) {
+      return this.addonController().getAllAddons(callback);
+    };
+
+    Controller.prototype.getForm = function() {
+      return this.getAllAddons((function(_this) {
+        return function(addons) {
+          var form, options;
+          options = {
+            form: _this.getStructure(addons),
+            formState: [],
+            config: {
+              attributes: {
+                "class": 'settings-form'
+              },
+              callback: function(data, formView) {
+                return _this.saveCallback(data, formView);
+              }
+            }
+          };
+          form = App.request("form:wrapper", options);
+          return _this.layout.regionContent.show(form);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getStructure = function(addons) {
+      var addon, el, elements, enabled, form, i, type, types;
+      form = [];
+      types = [];
+      for (i in addons) {
+        addon = addons[i];
+        types[addon.type] = true;
+      }
+      for (type in types) {
+        enabled = types[type];
+        elements = _.where(addons, {
+          type: type
+        });
+        for (i in elements) {
+          el = elements[i];
+          elements[i] = $.extend(el, {
+            id: el.addonid,
+            type: 'checkbox',
+            defaultValue: el.enabled,
+            title: el.name
+          });
+        }
+        form.push({
+          title: type,
+          id: type,
+          children: elements
+        });
+      }
+      return form;
+    };
+
+    Controller.prototype.saveCallback = function(data, formView) {
+      var updating;
+      updating = [];
+      return this.getAllAddons((function(_this) {
+        return function(addons) {
+          var addon, addonid, commander, commands, key, val;
+          for (key in addons) {
+            addon = addons[key];
+            addonid = addon.addonid;
+            if (addon.enabled === !data[addonid]) {
+              updating[addonid] = data[addonid];
+            }
+          }
+          commander = App.request("command:kodi:controller", 'auto', 'Commander');
+          commands = [];
+          for (key in updating) {
+            val = updating[key];
+            commands.push({
+              method: 'Addons.SetAddonEnabled',
+              params: [key, val]
+            });
+          }
+          return commander.multipleCommands(commands, function(resp) {
+            return Kodi.execute("notification:show", 'Toggled ' + commands.length + ' addons');
+          });
+        };
+      })(this));
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
 this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionette, $, _) {
   return Kodi.Controller = (function(_super) {
     var API;
@@ -61009,6 +62105,18 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
     }
 
     API = {
+      optionLookups: {
+        'lookandfeel.skin': 'xbmc.gui.skin',
+        'locale.language': 'kodi.resource.language',
+        'screensaver.mode': 'xbmc.ui.screensaver',
+        'musiclibrary.albumsscraper': 'xbmc.metadata.scraper.albums',
+        'musiclibrary.artistsscraper': 'xbmc.metadata.scraper.artists',
+        'musicplayer.visualisation': 'xbmc.player.musicviz',
+        'services.webskin': 'xbmc.webinterface',
+        'subtitles.tv': 'xbmc.subtitle.module',
+        'subtitles.movie': 'xbmc.subtitle.module',
+        'audiocds.encoder': 'xbmc.audioencoder'
+      },
       parseOptions: function(options) {
         var out;
         out = {};
@@ -61081,7 +62189,6 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
       var form, options;
       options = {
         form: formStructure,
-        formState: {},
         config: {
           attributes: {
             "class": 'settings-form'
@@ -61097,43 +62204,79 @@ this.Kodi.module("SettingsApp.Show.Kodi", function(Kodi, App, Backbone, Marionet
       return this.layout.regionContent.show(form);
     };
 
+    Controller.prototype.getAddonOptions = function(elId, value) {
+      var addon, addons, filteredAddons, i, lookup, mappedType, options;
+      mappedType = API.optionLookups[elId];
+      options = [];
+      lookup = {};
+      if (mappedType) {
+        addons = App.request('addon:enabled:addons');
+        filteredAddons = _.where(addons, {
+          type: mappedType
+        });
+        for (i in filteredAddons) {
+          addon = filteredAddons[i];
+          options.push({
+            value: addon.addonid,
+            label: addon.name
+          });
+          lookup[addon.addonid] = true;
+        }
+        if (!lookup[value]) {
+          options.push({
+            value: value,
+            label: value
+          });
+        }
+        return options;
+      }
+      return false;
+    };
+
     Controller.prototype.mapSettingsToElements = function(items) {
       var elements;
       elements = [];
-      $(items).each(function(i, item) {
-        var type;
-        type = null;
-        switch (item.type) {
-          case 'boolean':
-            type = 'checkbox';
-            break;
-          case 'path':
-            type = 'textfield';
-            break;
-          case 'addon':
-            type = 'textfield';
-            break;
-          case 'integer':
-            type = 'textfield';
-            break;
-          case 'string':
-            type = 'textfield';
-            break;
-          default:
-            type = 'hide';
-        }
-        if (item.options) {
-          type = 'select';
-          item.options = API.parseOptions(item.options);
-        }
-        if (type === 'hide') {
-          return console.log('no setting to field mapping for: ' + item.type + ' -> ' + item.id);
-        } else {
-          item.type = type;
-          item.defaultValue = item.value;
-          return elements.push(item);
-        }
-      });
+      $(items).each((function(_this) {
+        return function(i, item) {
+          var options, type;
+          type = null;
+          switch (item.type) {
+            case 'boolean':
+              type = 'checkbox';
+              break;
+            case 'path':
+              type = 'textfield';
+              break;
+            case 'addon':
+              options = _this.getAddonOptions(item.id, item.value);
+              if (options) {
+                item.options = options;
+              } else {
+                type = 'textfield';
+              }
+              break;
+            case 'integer':
+              type = 'textfield';
+              break;
+            case 'string':
+              type = 'textfield';
+              break;
+            default:
+              type = 'hide';
+          }
+          if (item.options) {
+            type = 'select';
+            item.options = API.parseOptions(item.options);
+          }
+          if (type === 'hide') {
+            return console.log('no setting to field mapping for: ' + item.type + ' -> ' + item.id);
+          } else {
+            item.type = type;
+            item.defaultValue = item.value;
+            return elements.push(item);
+          }
+        };
+      })(this));
       return elements;
     };
 
@@ -63511,11 +64654,11 @@ this.Kodi.module("TVShowApp", function(TVShowApp, App, Backbone, Marionette, $, 
       videoLib = App.request("command:kodi:controller", 'video', 'VideoLibrary');
       switch (op) {
         case 'play':
-          return playlist.play('episodeid', model.get('episodeid'));
+          return App.execute("command:video:play", model, 'episodeid');
         case 'add':
           return playlist.add('episodeid', model.get('episodeid'));
         case 'localplay':
-          return files.videoStream(model.get('file'));
+          return files.videoStream(model.get('file'), model.get('fanart'));
         case 'download':
           return files.downloadFile(model.get('file'));
         case 'toggleWatched':
