@@ -1,3 +1,13 @@
+Version 2.0.7
+- Ability to toggle what addons are enabled
+- Fixed back button in file browser #40
+- Fixed remote toggle bug #39
+- Settings improvements (addon selection)
+- Added fanart background to popup video player
+- Added bb code formatting to file/addon browser
+- Playing a video respects kodi/local context #11
+- Info toggles osd when playing #57
+
 Version 2.0.6
 - Improvements to settings browser
 - Responsive styles for album listings
