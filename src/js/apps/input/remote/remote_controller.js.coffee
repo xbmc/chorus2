@@ -13,6 +13,12 @@
         App.execute "input:send", type
       @listenTo view, "remote:player", (type) ->
         App.request 'command:kodi:player', type, []
+      @listenTo view, "remote:info", ->
+        # If playing show osd
+        if App.request("state:kodi").isPlaying()
+          App.execute 'input:action', 'osd'
+        else
+          App.execute "input:send", 'Info'
       @listenTo view, "remote:power", ->
         ## TODO: Add a shutdown menu.
         appController = App.request "command:kodi:controller", 'auto', 'Application'

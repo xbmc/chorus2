@@ -7,6 +7,7 @@
       'click .player-button': 'playerClick'
     triggers:
       'click .power-button': 'remote:power'
+      'click .info-button': 'remote:info'
 
     inputClick: (e) ->
       type = $(e.target).data('type')
