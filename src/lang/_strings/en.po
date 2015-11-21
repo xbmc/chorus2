@@ -522,8 +522,8 @@ msgid "cast"
 msgstr "cast"
 
 msgctxt ""
-msgid "AddOns"
-msgstr "AddOns"
+msgid "Add-ons"
+msgstr "Add-ons"
 
 msgctxt ""
 msgid "Web interface"

@@ -32,13 +32,13 @@
     labItems: ->
       [
         {
-          title: 'Api Browser'
-          description: 'Execute any api command.'
+          title: 'API browser'
+          description: 'Execute any API command.'
           path: 'lab/api-browser'
         }
         {
-          title: 'ScreenShot'
-          description: 'Take a screen shot of Kodi right now.'
+          title: 'Screenshot'
+          description: 'Take a screenshot of Kodi right now.'
           path: 'lab/screenshot'
         }
       ]

@@ -28,7 +28,7 @@
         defaultOrder: 'desc'
       }
       {
-        alias: 'Date Added'
+        alias: 'Date added'
         type: 'string'
         key: 'dateadded'
         defaultOrder: 'desc'

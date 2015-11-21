@@ -22,10 +22,10 @@
           id: 'general'
           children:[
             {id: 'title', title: 'Title', type: 'textfield', defaultValue: ''},
-            {id: 'plotoutline', title: 'Plot Outline', type: 'textarea', defaultValue: ''},
+            {id: 'plotoutline', title: 'Plot outline', type: 'textarea', defaultValue: ''},
             {id: 'plot', title: 'Plot', type: 'textarea', defaultValue: ''},
             {id: 'rating', title: 'Rating', type: 'textfield', defaultValue: ''},
-            {id: 'imdbnumber', title: 'Imdb', type: 'textfield', defaultValue: ''}
+            {id: 'imdbnumber', title: 'IMDb', type: 'textfield', defaultValue: ''}
           ]
         }
       ]

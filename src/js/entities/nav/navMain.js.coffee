@@ -46,7 +46,7 @@
       ## Settings.
       nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
       nav.push {id: 52, title: "Web interface", path: 'settings/web', icon: '', classes: '', parent: 51}
-      nav.push {id: 53, title: "AddOns", path: 'settings/addons', icon: '', classes: '', parent: 51}
+      nav.push {id: 53, title: "Add-ons", path: 'settings/addons', icon: '', classes: '', parent: 51}
 
       ## Help
       nav.push {id: 61, title: "Help", path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}

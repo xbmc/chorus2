@@ -60,7 +60,7 @@
       App.listenTo shellLayout, "shell:video:scan", =>
         App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
 
-      # ScreenShot.
+      # Screenshot.
       App.listenTo shellLayout, "shell:goto:lab", =>
         App.navigate "#lab", {trigger: true}
 

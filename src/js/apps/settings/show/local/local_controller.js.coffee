@@ -55,11 +55,11 @@
           title: 'Appearance'
           id: 'appearance'
           children:[
-            {id: 'vibrantHeaders', title: t.gettext("Vibrant Headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
+            {id: 'vibrantHeaders', title: t.gettext("Vibrant headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
           ]
         }
         {
-          title: 'Advanced Options'
+          title: 'Advanced options'
           id: 'advanced'
           children:[
             {id: 'socketsPort', title: t.gettext("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + t.gettext("is the default")}
