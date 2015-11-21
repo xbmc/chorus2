@@ -1,11 +1,17 @@
 @Kodi.module "CommandApp", (CommandApp, App, Backbone, Marionette, $, _) ->
 
   API =
-    ## Return current playlist controller.
+    # Return current playlist controller.
     currentAudioPlaylistController: ->
       stateObj = App.request "state:current"
       App.request "command:" + stateObj.getPlayer() + ":controller", 'audio', 'PlayList'
 
+    # Return current playlist controller.
+    currentVideoPlayerController: ->
+      stateObj = App.request "state:current"
+      # Switch method depending on player
+      method =  if stateObj.getPlayer() is 'local' then 'VideoPlayer' else 'PlayList'
+      App.request "command:" + stateObj.getPlayer() + ":controller", 'video', method
 
   ###
     Kodi.
@@ -44,6 +50,11 @@
   ## Queue Audio in kodi or local depending on active player.
   App.commands.setHandler "command:audio:add", (type, value) ->
     API.currentAudioPlaylistController().add type, value
+
+  ## Play Audio in kodi or local depending on active player.
+  App.commands.setHandler "command:video:play", (model, type) ->
+    value = model.get(type)
+    API.currentVideoPlayerController().play type, value, model
 
   ## Startup tasks.
   App.addInitializer ->

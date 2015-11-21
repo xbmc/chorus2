@@ -38,7 +38,7 @@
       videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       switch op
         when 'play'
-          playlist.play 'episodeid', model.get('episodeid')
+          App.execute "command:video:play", model, 'episodeid'
         when 'add'
           playlist.add 'episodeid', model.get('episodeid')
         when 'localplay'
