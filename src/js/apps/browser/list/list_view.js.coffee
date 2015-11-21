@@ -52,6 +52,9 @@
   class List.Item extends App.Views.ItemView
     template: 'apps/browser/list/file'
     tagName: 'li'
+    initialize: ->
+    # Parse title text
+      @model.set {label: @formatText(@model.get('label'))}
 
   class List.Folder extends List.Item
     className: 'folder'
