@@ -1,38 +1,46 @@
 Version 2.0.7
-- Ability to toggle what addons are enabled
-- Fixed back button in file browser #40
-- Fixed remote toggle bug #39
-- Settings improvements (addon selection)
-- Added fanart background to popup video player
-- Added bb code formatting to file/addon browser
-- Playing a video respects kodi/local context #11
-- Info toggles osd when playing #57
+-------------
+* Ability to toggle what addons are enabled
+* Fixed back button in file browser #40
+* Fixed remote toggle bug #39
+* Settings improvements (addon selection)
+* Added fanart background to popup video player
+* Added bb code formatting to file/addon browser
+* Playing a video respects kodi/local context #11
+* Info toggles osd when playing #57
 
 Version 2.0.6
-- Improvements to settings browser
-- Responsive styles for album listings
-- Fixes and improvements
+-------------
+* Improvements to settings browser
+* Responsive styles for album listings
+* Fixes and improvements
 
 Version 2.0.5
-- Browse and change Kodi settings with your browser
+-------------
+* Browse and change Kodi settings with your browser
 
 Version 2.0.4
-- Labs
-- API browser
-- Screenshot
+-------------
+* Labs
+* API browser
+* Screenshot
 
 Version 2.0.3
-- File browser style and responsive updates
-- Added dutch language #56
-- SSL fix for web sockets #54
-- Minor updates and fixes
+-------------
+* File browser style and responsive updates
+* Added dutch language #56
+* SSL fix for web sockets #54
+* Minor updates and fixes
 
 Version 2.0.2
-- Improved search UX to inform user of progress
+-------------
+* Improved search UX to inform user of progress
 
-Version 2.0.1:
-- Readme and responsive updates
-- Added install zip to repo
+Version 2.0.1
+-------------
+* Readme and responsive updates
+* Added install zip to repo
 
-Version 2.0.0:
-- Majority of build. See: https://github.com/jez500/chorus2/commits/master
+Version 2.0.0
+-------------
+* Majority of build. See: https://github.com/jez500/chorus2/commits/master
