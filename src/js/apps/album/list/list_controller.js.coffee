@@ -63,7 +63,7 @@
     ## Get the list view with filters applied.
     renderList: (collection) ->
       App.execute "loading:show:view", @layout.regionContent
-      filteredCollection = App.request 'filter:apply:entites', collection
+      filteredCollection = App.request 'filter:apply:entities', collection
       view = API.getAlbumsList filteredCollection
       @layout.regionContent.show view
 
