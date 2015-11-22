@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.0",
+    "grunt": "~0.4.2",
     "grunt-contrib-watch": "~0.4.3",
     "grunt-contrib-compass": "~0.2.0",
     "grunt-contrib-jshint": "~0.1.1",
@@ -14,7 +14,8 @@
     "grunt-contrib-coffee": "~0.12.0",
     "grunt-eco": "~0.1.2",
     "grunt-execute": "~0.2.2",
-    "grunt-po2json": "~0.3.0"
+    "grunt-po2json": "~0.3.0",
+    "grunt-marked": "~0.1.2"
   },
   "engines": {
     "node": ">=0.8.0"

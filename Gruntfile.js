@@ -21,7 +21,8 @@ module.exports = function (grunt) {
   var jsDistApp = jsDistFolder + 'app.js';
   var jsDistTpl = jsDistFolder + 'tpl.js';
   
-  var srcLangs = 'resources/language/';
+  var srcLangs = srcFolder + 'lang/_strings/*.po';
+  var distLangs = distFolder + 'lang/';
 
   // The order of concat files.
   function getConcatStack() {
@@ -89,7 +90,7 @@ module.exports = function (grunt) {
         tasks: ['coffee', 'concat', 'uglify:dev']
       },
       langs: {
-        files: [srcLangs + '**/*.po'],
+        files: [srcLangs],
         tasks: ['execute']
       }
     },
@@ -229,10 +230,28 @@ module.exports = function (grunt) {
         domain: 'messages'
       },
       all: {
-        src: ['src/lang/*.po'],
-        dest: 'dist/lang/'
+        src: [srcLangs],
+        dest: 'dist/lang/_strings/'
+      }
+    },
+
+    marked: {
+      options: {
+        highlight: false,
+        tables: true,
+        breaks: false
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'src/lang',
+          src: ['{,**/}*.md'],
+          dest: distLangs,
+          ext: '.html'
+        }]
       }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -245,14 +264,25 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-eco');
   grunt.loadNpmTasks('grunt-po2json');
+  grunt.loadNpmTasks('grunt-marked');
 
   /**
    * Tasks
+   *
+   * Use via command line with "grunt TASKNAME"
+   * Eg "grunt lang" will rebuild languages.
    */
+
+  // Development watch task.
   grunt.registerTask('default', ['browserSync', 'watch']);
 
+  // Languages (strings and pages) only.
+  grunt.registerTask('lang', ['po2json', 'marked']);
+
+  // Full build of all.
   grunt.registerTask('build', [
     'po2json',
+    'marked',
     'eco',
     'coffee',
     'concat',
