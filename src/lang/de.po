@@ -69,7 +69,7 @@ msgstr "Der Hostname wird für die Websockets-Verbindung benutzt. Bitte 'auto' e
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "Wie oft werden Kodi-Updates abgefragt (Funktioniert nur, wenn Websockets nicht aktiv sind)?"
+msgstr "Wie oft sollen Kodi-Updates abgefragt werden? (Funktioniert nur, wenn Websockets nicht aktiv sind.)"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -85,7 +85,7 @@ msgstr "Momentchen..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "Kodi gibt uns keine Antwort. Ich denke, es ist tot, Jim! (Verbindungs TimeOut)"
+msgstr "Kodi gibt uns keine Antwort. Ich denke, es ist tot, Jim! (Verbindungs-timeout)"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -250,7 +250,7 @@ msgstr "Sprache"
 
 msgctxt ""
 msgid "Preferred language"
-msgstr "Bevorzugte sprache"
+msgstr "Bevorzugte Sprache"
 
 msgctxt ""
 msgid "Loading folder..."
@@ -258,7 +258,7 @@ msgstr "Lade Ordner..."
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Artikel (wie \"The\" und \"A\") beim Sortieren von Listen ignorieren"
+msgstr "Artikel (wie 'The' und 'A') beim Sortieren von Listen ignorieren"
 
 # Short for "second"
 msgctxt ""
@@ -271,7 +271,7 @@ msgstr "Dein Browser unterstützt keine Websockets, geh mit der Zeit und aktuali
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Websockets sind nicht erreichbar, daher wird nach Updates gesucht. Das macht die Sache langsamer und verbraucht mehr Ressourcen. Kontrolliere bitte, dass 'Entfernten Programmen die Fernbedienung von Kodi' erlaub ist (Einstellungen > System > Fernbedienung). Diese Meldung könnte außerdem daher kommen, dass du Proxies benutzt oder über eine IP-Adresse auf localhost zugreifst. Falls Websockets im Allgemeinen funktionieren, könnte auch ein Browser-refresh weiterhelfen (Seite neu laden)."
+msgstr "Websockets sind nicht erreichbar, daher wird nach Updates gesucht. Das macht die Sache langsamer und verbraucht mehr Ressourcen. Kontrolliere bitte, ob anderen Programmen die Fernbedienung von Kodi erlaubt ist (Einstellungen > System > Fernbedienung). Diese Meldung könnte außerdem daher kommen, dass du Proxies benutzt oder über eine IP-Adresse auf localhost zugreifst. Falls Websockets im Allgemeinen funktionieren, könnte auch ein Browser-refresh weiterhelfen (Seite neu laden)."
 
 msgctxt ""
 msgid "Video"
@@ -339,11 +339,11 @@ msgstr "Alben"
 
 msgctxt ""
 msgid "Recent movies"
-msgstr "Letzte videos"
+msgstr "Letzte Videos"
 
 msgctxt ""
 msgid "All movies"
-msgstr "Alle videos"
+msgstr "Alle Videos"
 
 msgctxt ""
 msgid "Recent episodes"
@@ -391,7 +391,7 @@ msgstr "Kodi-Wiedergabeliste speichern"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "Bevorzugte Sprache, die Seite muss danach im Browser neu geladen werden (F5)"
+msgstr "Bevorzugte Sprache, die Seite muss nach einem Wechsel im Browser neu geladen werden (F5)"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
