@@ -74,10 +74,13 @@ English is the only real complete translation file so start with that as your ba
 ### Compiling
 Sass and Grunt are used to compile css and js in the dist folder.
 To get your environment setup first install [Bundler](http://bundler.io) and [npm](https://www.npmjs.org/).
-- Install required gems with `bundle install`
-- Install NodeJs packages with `npm install`
-- Run grunt `grunt`
 
+* Install required gems with `bundle install`
+* Install NodeJs packages with `npm install`
+* Run grunt `grunt`
+
+If you are updating (eg. git pull), always do an `npm update` and `bundle update` to ensure all the tools are in the toolbox.
+ 
 ### Build
 A build will also include translation files.
 - Run grunt `grunt build`

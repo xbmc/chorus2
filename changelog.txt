@@ -1,3 +1,10 @@
+Version 2.0.8
+-------------
+* Help module with multilingual support and markdown parsing
+* Restructure of language files
+* Developer build tools improvements
+* Fixes and improvements
+
 Version 2.0.7
 -------------
 * Ability to toggle what addons are enabled
