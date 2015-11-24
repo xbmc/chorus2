@@ -21,8 +21,10 @@ module.exports = function (grunt) {
   var jsDistApp = jsDistFolder + 'app.js';
   var jsDistTpl = jsDistFolder + 'tpl.js';
   
-  var srcLangs = srcFolder + 'lang/_strings/*.po';
-  var distLangs = distFolder + 'lang/';
+  var srcLang = srcFolder + 'lang/';
+  var srcLangStrings = srcLang + '_strings/*.po';
+  var srcLangPages = srcLang + '{,**/}*.md';
+  var distLang = distFolder + 'lang/';
 
   // The order of concat files.
   function getConcatStack() {
@@ -89,9 +91,17 @@ module.exports = function (grunt) {
         files: [jsSrcFolder + '{,**/}*.coffee'],
         tasks: ['coffee', 'concat', 'uglify:dev']
       },
-      langs: {
-        files: [srcLangs],
-        tasks: ['execute']
+      po2json: {
+        files: [srcLangStrings],
+        tasks: ['po2json']
+      },
+      copyLang: {
+        files: ['readme.md', 'changelog.txt', 'src/lang/readme.md'],
+        tasks: ['copy:lang']
+      },
+      marked: {
+        files: [srcLangPages],
+        tasks: ['marked']
       }
     },
 
@@ -230,14 +240,16 @@ module.exports = function (grunt) {
         domain: 'messages'
       },
       all: {
-        src: [srcLangs],
-        dest: 'dist/lang/_strings/'
+        src: [srcLangStrings],
+        dest: distLang + '_strings/'
       }
     },
 
     marked: {
       options: {
-        highlight: false,
+        highlight: function (code) {
+          return '<pre>' + code + '</pre>';
+        },
         tables: true,
         breaks: false
       },
@@ -245,10 +257,22 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'src/lang',
-          src: ['{,**/}*.md'],
-          dest: distLangs,
+          src: ['{,**/}*.md', '!readme.md'],
+          dest: distLang,
           ext: '.html'
         }]
+      }
+    },
+
+    copy: {
+      // Copy the readme, changelog and lang readme to the english lang folder
+      // for translating and converting to html.
+      lang: {
+        files: [
+          {src: 'readme.md', dest: 'src/lang/en/app-readme.md'},
+          {src: 'changelog.txt', dest: 'src/lang/en/app-changelog.md'},
+          {src: 'src/lang/readme.md', dest: 'src/lang/en/lang-readme.md'}
+        ]
       }
     }
 
@@ -265,6 +289,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-eco');
   grunt.loadNpmTasks('grunt-po2json');
   grunt.loadNpmTasks('grunt-marked');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   /**
    * Tasks
@@ -274,14 +299,15 @@ module.exports = function (grunt) {
    */
 
   // Development watch task.
-  grunt.registerTask('default', ['browserSync', 'watch']);
+  grunt.registerTask('default', ['browserSync:dev', 'watch']);
 
   // Languages (strings and pages) only.
-  grunt.registerTask('lang', ['po2json', 'marked']);
+  grunt.registerTask('lang', ['copy:lang', 'po2json', 'marked']);
 
   // Full build of all.
   grunt.registerTask('build', [
     'po2json',
+    'copy:lang',
     'marked',
     'eco',
     'coffee',
