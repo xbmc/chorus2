@@ -928,6 +928,48 @@ window.JST["apps/filter/show/tpl/list_item.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/help/overview/tpl/overview.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="help--overview--header"></div>\n\n<h2>Report</h2>\n<div class="help--overview--report">Coming soon</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/input/remote/tpl/remote_control.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -1609,7 +1651,7 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var sub, _i, _len, _ref;
+      var i, len, ref, sub;
     
       _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
     
@@ -1693,9 +1735,9 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
         _print(_safe(':</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
         _print(_.pluck(this.streamdetails.subtitle, 'label').join(', '));
         _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
-        _ref = this.streamdetails.subtitle;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          sub = _ref[_i];
+        ref = this.streamdetails.subtitle;
+        for (i = 0, len = ref.length; i < len; i++) {
+          sub = ref[i];
           _print(_safe('\n                        <li>'));
           _print(sub.label);
           _print(_safe('</li>\n                    '));
@@ -1803,13 +1845,13 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var child, item, _i, _j, _len, _len1, _ref, _ref1;
+      var child, i, item, j, len, len1, ref, ref1;
     
       _print(_safe('<div id="nav-header"></div>\n<nav>\n    <ul>\n        '));
     
-      _ref = this.items;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        item = _ref[_i];
+      ref = this.items;
+      for (i = 0, len = ref.length; i < len; i++) {
+        item = ref[i];
         if (!(item.path !== 'undefined' && item.parent === 0)) {
           continue;
         }
@@ -1824,9 +1866,9 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
         _print(_safe('</span>\n                </a>\n\n                '));
         if (item.children.length !== 0) {
           _print(_safe('\n                <ul>\n                    '));
-          _ref1 = item.children;
-          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-            child = _ref1[_j];
+          ref1 = item.children;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            child = ref1[j];
             if (!(child.path !== 'undefined')) {
               continue;
             }
@@ -2773,7 +2815,7 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var sub, _i, _len, _ref;
+      var i, len, ref, sub;
     
       _print(_safe('<div class="region-details-top">\n    '));
     
@@ -2863,9 +2905,9 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
         _print(_safe(':</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
         _print(_.first(_.pluck(this.streamdetails.subtitle, 'label')));
         _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
-        _ref = this.streamdetails.subtitle;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          sub = _ref[_i];
+        ref = this.streamdetails.subtitle;
+        for (i = 0, len = ref.length; i < len; i++) {
+          sub = ref[i];
           _print(_safe('\n                        <li>'));
           _print(sub.label);
           _print(_safe('</li>\n                    '));
@@ -3295,7 +3337,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var key, val, _ref;
+      var key, ref, val;
     
       _print(_safe('<div class="card-'));
     
@@ -3343,9 +3385,9 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       if (this.actions) {
         _print(_safe('\n        <ul class="actions">\n            '));
-        _ref = this.actions;
-        for (key in _ref) {
-          val = _ref[key];
+        ref = this.actions;
+        for (key in ref) {
+          val = ref[key];
           _print(_safe('<li class="mdi '));
           _print(key);
           _print(_safe('" title="'));

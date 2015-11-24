@@ -1016,7 +1016,7 @@ helpers.translate.init = function(callback) {
   var defaultLang, lang;
   defaultLang = config.get("static", "lang", "en");
   lang = config.preStartGet("lang", defaultLang);
-  return $.getJSON("lang/" + lang + ".json", function(data) {
+  return $.getJSON("lang/_strings/" + lang + ".json", function(data) {
     window.t = new Jed(data);
     t.options["missing_key_callback"] = function(key) {
       return helpers.translate.missingKeyLog(key);
@@ -5198,7 +5198,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         title: "Settings",
         path: 'settings/web',
         icon: 'mdi-action-settings',
-        classes: 'nav-browser',
+        classes: 'nav-settings',
         parent: 0
       });
       nav.push({
@@ -5216,6 +5216,14 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         icon: '',
         classes: '',
         parent: 51
+      });
+      nav.push({
+        id: 61,
+        title: "Help",
+        path: 'help',
+        icon: 'mdi-action-help',
+        classes: 'nav-help',
+        parent: 0
       });
       return this.checkVisibility(nav);
     },
@@ -5290,6 +5298,11 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     }
   });
   return App.reqres.setHandler("navMain:array:entities", function(items) {
+    var i, item;
+    for (i in items) {
+      item = items[i];
+      items[i].id = item.path;
+    }
     return new Entities.NavMainCollection(items);
   });
 });
@@ -10369,6 +10382,228 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
     return FilterBar;
 
   })(App.Views.ItemView);
+});
+
+this.Kodi.module("HelpApp", function(HelpApp, App, Backbone, Marionette, $, _) {
+  var API;
+  HelpApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "help": "helpOverview",
+      "help/overview": "helpOverview",
+      "help/:id": "helpPage"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    helpOverview: function() {
+      return new App.HelpApp.Overview.Controller();
+    },
+    helpPage: function(id) {
+      return new HelpApp.Show.Controller({
+        id: id
+      });
+    },
+    getPage: function(id, lang, callback) {
+      var content;
+      if (lang == null) {
+        lang = 'en';
+      }
+      content = $.get("lang/" + lang + "/" + id + ".html");
+      content.fail((function(_this) {
+        return function(error) {
+          if (lang === !'en') {
+            return _this.getPage(id, 'en', callback);
+          }
+        };
+      })(this));
+      content.done(function(data) {
+        return callback(data);
+      });
+      return content;
+    },
+    getSubNav: function() {
+      var collection;
+      collection = App.request("navMain:array:entities", this.getSideBarSructure());
+      return App.request("navMain:collection:show", collection, t.gettext('Help topics'));
+    },
+    getSideBarSructure: function() {
+      return [
+        {
+          title: t.gettext('Overview'),
+          path: 'help'
+        }, {
+          title: t.gettext('Readme'),
+          path: 'help/app-readme'
+        }, {
+          title: t.gettext('Changelog'),
+          path: 'help/app-changelog'
+        }, {
+          title: t.gettext('Translations'),
+          path: 'help/lang-readme'
+        }
+      ];
+    }
+  };
+  App.reqres.setHandler('help:subnav', function() {
+    return API.getSubNav();
+  });
+  App.reqres.setHandler('help:page', function(id, callback) {
+    var lang;
+    lang = config.getLocal('lang', 'en');
+    return API.getPage(id, lang, callback);
+  });
+  return App.on("before:start", function() {
+    return new HelpApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.Kodi.module("HelpApp.Overview", function(Overview, App, Backbone, Marionette, $, _) {
+  return Overview.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      return App.request("help:page", 'help-overview', (function(_this) {
+        return function(data) {
+          _this.layout = _this.getLayoutView(data);
+          _this.listenTo(_this.layout, "show", function() {
+            _this.getSideBar();
+            return _this.getPage(data);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getPage = function(data) {
+      var view;
+      view = new Overview.Page({
+        data: data
+      });
+      return this.layout.regionContent.show(view);
+    };
+
+    Controller.prototype.getSideBar = function() {
+      var subNav;
+      subNav = App.request("help:subnav");
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getLayoutView = function() {
+      return new Overview.Layout();
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("HelpApp.Overview", function(Overview, App, Backbone, Marionette, $, _) {
+  Overview.Page = (function(_super) {
+    __extends(Page, _super);
+
+    function Page() {
+      return Page.__super__.constructor.apply(this, arguments);
+    }
+
+    Page.prototype.className = "help--overview";
+
+    Page.prototype.template = 'apps/help/overview/overview';
+
+    Page.prototype.tagName = "div";
+
+    Page.prototype.onRender = function() {
+      return $('.help--overview--header', this.$el).html(this.options.data);
+    };
+
+    return Page;
+
+  })(App.Views.CompositeView);
+  return Overview.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "help--page help--overview page-wrapper";
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+});
+
+this.Kodi.module("HelpApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      return App.request("help:page", options.id, (function(_this) {
+        return function(data) {
+          _this.layout = _this.getLayoutView(data);
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.getSideBar();
+          });
+          App.regionContent.show(_this.layout);
+          if (options.pageView) {
+            return _this.layout.regionContent.show(options.pageView);
+          }
+        };
+      })(this));
+    };
+
+    Controller.prototype.getSideBar = function() {
+      var subNav;
+      subNav = App.request("help:subnav");
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getLayoutView = function(data) {
+      return new Show.Layout({
+        data: data,
+        pageView: this.options.pageView
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("HelpApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "help--page page-wrapper";
+
+    Layout.prototype.onRender = function() {
+      return $(this.regionContent.el, this.$el).html(this.options.data);
+    };
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
 });
 
 this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {

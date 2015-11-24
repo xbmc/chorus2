@@ -45851,6 +45851,48 @@ window.JST["apps/filter/show/tpl/list_item.jst"] = function(__obj) {
   })());
 };
 
+window.JST["apps/help/overview/tpl/overview.jst"] = function(__obj) {
+  var _safe = function(value) {
+    if (typeof value === 'undefined' && value == null)
+      value = '';
+    var result = new String(value);
+    result.ecoSafe = true;
+    return result;
+  };
+  return (function() {
+    var __out = [], __self = this, _print = function(value) {
+      if (typeof value !== 'undefined' && value != null)
+        __out.push(value.ecoSafe ? value : __self.escape(value));
+    }, _capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return _safe(result);
+    };
+    (function() {
+      _print(_safe('<div class="help--overview--header"></div>\n\n<h2>Report</h2>\n<div class="help--overview--report">Coming soon</div>'));
+    
+    }).call(this);
+    
+    return __out.join('');
+  }).call((function() {
+    var obj = {
+      escape: function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      },
+      safe: _safe
+    }, key;
+    for (key in __obj) obj[key] = __obj[key];
+    return obj;
+  })());
+};
+
 window.JST["apps/input/remote/tpl/remote_control.jst"] = function(__obj) {
   var _safe = function(value) {
     if (typeof value === 'undefined' && value == null)
@@ -46532,7 +46574,7 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var sub, _i, _len, _ref;
+      var i, len, ref, sub;
     
       _print(_safe('<div class="region-details-top">\n    <div class="region-details-title">\n        <h2><span class="title">'));
     
@@ -46616,9 +46658,9 @@ window.JST["apps/movie/show/tpl/details_meta.jst"] = function(__obj) {
         _print(_safe(':</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
         _print(_.pluck(this.streamdetails.subtitle, 'label').join(', '));
         _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
-        _ref = this.streamdetails.subtitle;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          sub = _ref[_i];
+        ref = this.streamdetails.subtitle;
+        for (i = 0, len = ref.length; i < len; i++) {
+          sub = ref[i];
           _print(_safe('\n                        <li>'));
           _print(sub.label);
           _print(_safe('</li>\n                    '));
@@ -46726,13 +46768,13 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var child, item, _i, _j, _len, _len1, _ref, _ref1;
+      var child, i, item, j, len, len1, ref, ref1;
     
       _print(_safe('<div id="nav-header"></div>\n<nav>\n    <ul>\n        '));
     
-      _ref = this.items;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        item = _ref[_i];
+      ref = this.items;
+      for (i = 0, len = ref.length; i < len; i++) {
+        item = ref[i];
         if (!(item.path !== 'undefined' && item.parent === 0)) {
           continue;
         }
@@ -46747,9 +46789,9 @@ window.JST["apps/navMain/show/tpl/navMain.jst"] = function(__obj) {
         _print(_safe('</span>\n                </a>\n\n                '));
         if (item.children.length !== 0) {
           _print(_safe('\n                <ul>\n                    '));
-          _ref1 = item.children;
-          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-            child = _ref1[_j];
+          ref1 = item.children;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            child = ref1[j];
             if (!(child.path !== 'undefined')) {
               continue;
             }
@@ -47696,7 +47738,7 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var sub, _i, _len, _ref;
+      var i, len, ref, sub;
     
       _print(_safe('<div class="region-details-top">\n    '));
     
@@ -47786,9 +47828,9 @@ window.JST["apps/tvshow/episode/tpl/details_meta.jst"] = function(__obj) {
         _print(_safe(':</label>\n                <span class="dropdown"><span data-toggle="dropdown">'));
         _print(_.first(_.pluck(this.streamdetails.subtitle, 'label')));
         _print(_safe('</span>\n                <ul class="dropdown-menu">\n                    '));
-        _ref = this.streamdetails.subtitle;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          sub = _ref[_i];
+        ref = this.streamdetails.subtitle;
+        for (i = 0, len = ref.length; i < len; i++) {
+          sub = ref[i];
           _print(_safe('\n                        <li>'));
           _print(sub.label);
           _print(_safe('</li>\n                    '));
@@ -48218,7 +48260,7 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
       return _safe(result);
     };
     (function() {
-      var key, val, _ref;
+      var key, ref, val;
     
       _print(_safe('<div class="card-'));
     
@@ -48266,9 +48308,9 @@ window.JST["views/card/tpl/card.jst"] = function(__obj) {
     
       if (this.actions) {
         _print(_safe('\n        <ul class="actions">\n            '));
-        _ref = this.actions;
-        for (key in _ref) {
-          val = _ref[key];
+        ref = this.actions;
+        for (key in ref) {
+          val = ref[key];
           _print(_safe('<li class="mdi '));
           _print(key);
           _print(_safe('" title="'));
@@ -49602,7 +49644,7 @@ helpers.translate.init = function(callback) {
   var defaultLang, lang;
   defaultLang = config.get("static", "lang", "en");
   lang = config.preStartGet("lang", defaultLang);
-  return $.getJSON("lang/" + lang + ".json", function(data) {
+  return $.getJSON("lang/_strings/" + lang + ".json", function(data) {
     window.t = new Jed(data);
     t.options["missing_key_callback"] = function(key) {
       return helpers.translate.missingKeyLog(key);
@@ -53784,7 +53826,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         title: "Settings",
         path: 'settings/web',
         icon: 'mdi-action-settings',
-        classes: 'nav-browser',
+        classes: 'nav-settings',
         parent: 0
       });
       nav.push({
@@ -53802,6 +53844,14 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
         icon: '',
         classes: '',
         parent: 51
+      });
+      nav.push({
+        id: 61,
+        title: "Help",
+        path: 'help',
+        icon: 'mdi-action-help',
+        classes: 'nav-help',
+        parent: 0
       });
       return this.checkVisibility(nav);
     },
@@ -53876,6 +53926,11 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
     }
   });
   return App.reqres.setHandler("navMain:array:entities", function(items) {
+    var i, item;
+    for (i in items) {
+      item = items[i];
+      items[i].id = item.path;
+    }
     return new Entities.NavMainCollection(items);
   });
 });
@@ -58955,6 +59010,228 @@ this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, 
     return FilterBar;
 
   })(App.Views.ItemView);
+});
+
+this.Kodi.module("HelpApp", function(HelpApp, App, Backbone, Marionette, $, _) {
+  var API;
+  HelpApp.Router = (function(_super) {
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "help": "helpOverview",
+      "help/overview": "helpOverview",
+      "help/:id": "helpPage"
+    };
+
+    return Router;
+
+  })(App.Router.Base);
+  API = {
+    helpOverview: function() {
+      return new App.HelpApp.Overview.Controller();
+    },
+    helpPage: function(id) {
+      return new HelpApp.Show.Controller({
+        id: id
+      });
+    },
+    getPage: function(id, lang, callback) {
+      var content;
+      if (lang == null) {
+        lang = 'en';
+      }
+      content = $.get("lang/" + lang + "/" + id + ".html");
+      content.fail((function(_this) {
+        return function(error) {
+          if (lang === !'en') {
+            return _this.getPage(id, 'en', callback);
+          }
+        };
+      })(this));
+      content.done(function(data) {
+        return callback(data);
+      });
+      return content;
+    },
+    getSubNav: function() {
+      var collection;
+      collection = App.request("navMain:array:entities", this.getSideBarSructure());
+      return App.request("navMain:collection:show", collection, t.gettext('Help topics'));
+    },
+    getSideBarSructure: function() {
+      return [
+        {
+          title: t.gettext('Overview'),
+          path: 'help'
+        }, {
+          title: t.gettext('Readme'),
+          path: 'help/app-readme'
+        }, {
+          title: t.gettext('Changelog'),
+          path: 'help/app-changelog'
+        }, {
+          title: t.gettext('Translations'),
+          path: 'help/lang-readme'
+        }
+      ];
+    }
+  };
+  App.reqres.setHandler('help:subnav', function() {
+    return API.getSubNav();
+  });
+  App.reqres.setHandler('help:page', function(id, callback) {
+    var lang;
+    lang = config.getLocal('lang', 'en');
+    return API.getPage(id, lang, callback);
+  });
+  return App.on("before:start", function() {
+    return new HelpApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.Kodi.module("HelpApp.Overview", function(Overview, App, Backbone, Marionette, $, _) {
+  return Overview.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      return App.request("help:page", 'help-overview', (function(_this) {
+        return function(data) {
+          _this.layout = _this.getLayoutView(data);
+          _this.listenTo(_this.layout, "show", function() {
+            _this.getSideBar();
+            return _this.getPage(data);
+          });
+          return App.regionContent.show(_this.layout);
+        };
+      })(this));
+    };
+
+    Controller.prototype.getPage = function(data) {
+      var view;
+      view = new Overview.Page({
+        data: data
+      });
+      return this.layout.regionContent.show(view);
+    };
+
+    Controller.prototype.getSideBar = function() {
+      var subNav;
+      subNav = App.request("help:subnav");
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getLayoutView = function() {
+      return new Overview.Layout();
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("HelpApp.Overview", function(Overview, App, Backbone, Marionette, $, _) {
+  Overview.Page = (function(_super) {
+    __extends(Page, _super);
+
+    function Page() {
+      return Page.__super__.constructor.apply(this, arguments);
+    }
+
+    Page.prototype.className = "help--overview";
+
+    Page.prototype.template = 'apps/help/overview/overview';
+
+    Page.prototype.tagName = "div";
+
+    Page.prototype.onRender = function() {
+      return $('.help--overview--header', this.$el).html(this.options.data);
+    };
+
+    return Page;
+
+  })(App.Views.CompositeView);
+  return Overview.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "help--page help--overview page-wrapper";
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
+});
+
+this.Kodi.module("HelpApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Controller = (function(_super) {
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function(options) {
+      return App.request("help:page", options.id, (function(_this) {
+        return function(data) {
+          _this.layout = _this.getLayoutView(data);
+          _this.listenTo(_this.layout, "show", function() {
+            return _this.getSideBar();
+          });
+          App.regionContent.show(_this.layout);
+          if (options.pageView) {
+            return _this.layout.regionContent.show(options.pageView);
+          }
+        };
+      })(this));
+    };
+
+    Controller.prototype.getSideBar = function() {
+      var subNav;
+      subNav = App.request("help:subnav");
+      return this.layout.regionSidebarFirst.show(subNav);
+    };
+
+    Controller.prototype.getLayoutView = function(data) {
+      return new Show.Layout({
+        data: data,
+        pageView: this.options.pageView
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+this.Kodi.module("HelpApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+  return Show.Layout = (function(_super) {
+    __extends(Layout, _super);
+
+    function Layout() {
+      return Layout.__super__.constructor.apply(this, arguments);
+    }
+
+    Layout.prototype.className = "help--page page-wrapper";
+
+    Layout.prototype.onRender = function() {
+      return $(this.regionContent.el, this.$el).html(this.options.data);
+    };
+
+    return Layout;
+
+  })(App.Views.LayoutWithSidebarFirstView);
 });
 
 this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
