@@ -1,0 +1,70 @@
+
+@mixin markdown-typography {
+
+  // Headings.
+  h2, h3, h4 {
+    margin-top: $spacing-one-n-half-unit;
+  }
+  h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+    border-bottom: 1px dotted #ddd;
+    padding-bottom: $spacing-half-unit;
+    margin-top: $spacing-double-unit;
+  }
+  h3 {
+    font-size: 1.3em;
+    color: $color-greyscale-dove-gray;
+  }
+  h4 {
+    font-size: 1.2em;
+  }
+
+  // Text
+  p, li {
+    line-height: 1.8;
+  }
+
+  // Unordered lists.
+  ul, ol {
+    padding-left: $spacing-one-n-half-unit;
+    li {
+      list-style: disc;
+      margin: $spacing-half-unit 0;
+    }
+  }
+  ol {
+    li {
+      list-style-type: decimal;
+    }
+  }
+
+  // Code
+  code {
+    border: 1px solid rgba($color-greyscale-loblolly, 0.33);
+    background: rgba($color-greyscale-alto, 0.5);
+    color: $color-text-dark;
+    &:hover {
+      color: $color-kodi;
+      border-color: $color-kodi;
+    }
+  }
+  pre {
+    border: 1px dashed $color-greyscale-loblolly;
+    margin: $spacing-base-unit;
+    margin-left: 0;
+    code {
+      background: none;
+      border: none;
+      &:hover {
+        color: inherit;
+        border-color: inherit;
+      }
+    }
+  }
+
+}
+
+%markdown-typography {
+  @include markdown-typography();
+}
