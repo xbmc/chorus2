@@ -24,7 +24,7 @@ helpers.translate.init = (callback) ->
   lang = config.preStartGet "lang", defaultLang
 
   # Load the correct language from settings.
-  $.getJSON "lang/" + lang + ".json", (data) ->
+  $.getJSON "lang/_strings/" + lang + ".json", (data) ->
     window.t = new Jed(data)
     # If a key is missing, throw a console error.
     t.options["missing_key_callback"] = (key) -> helpers.translate.missingKeyLog key

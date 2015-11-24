@@ -1,0 +1,22 @@
+// Very simple view, everything is nested under help--page.
+.help--page {
+
+  .region-content-wrapper {
+    @extend %page-wrapper;
+
+    // Page.
+    .region-content {
+      @extend %page;
+      @include page-padding();
+    }
+
+    // Typography.
+    @extend %markdown-typography;
+
+  }
+
+  .region-first {
+    @extend %sidebar--padding;
+  }
+
+}
