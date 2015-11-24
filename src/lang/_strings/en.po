@@ -528,3 +528,27 @@ msgstr "AddOns"
 msgctxt ""
 msgid "Web interface"
 msgstr "Web interface"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Readme"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Changelog"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Translations"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Help topics"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Overview"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Lab"
