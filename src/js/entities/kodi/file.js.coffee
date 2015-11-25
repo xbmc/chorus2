@@ -15,8 +15,8 @@
     sources: [
       {media: 'video', label: 'Video', type: 'source', provides: 'video'}
       {media: 'music', label: 'Music', type: 'source', provides: 'audio'}
-      {media: 'music', label: 'Audio Addons', type: 'addon', provides: 'audio', addonType: 'xbmc.addon.audio', content: 'unknown'}
-      {media: 'video', label: 'Video Addons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
+      {media: 'music', label: 'Audio add-ons', type: 'addon', provides: 'audio', addonType: 'xbmc.addon.audio', content: 'unknown'}
+      {media: 'video', label: 'Video add-ons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
     ]
 
     directorySeperator: '/'

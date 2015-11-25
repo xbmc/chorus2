@@ -31,7 +31,7 @@
 
         # Get Kodi settings menu.
         App.execute "when:entity:fetched", collection, =>
-          kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi Settings')
+          kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi settings')
           sidebarView.regionKodiNav.show kodiSettingsView
 
         # Get Local/Web settings menu.
