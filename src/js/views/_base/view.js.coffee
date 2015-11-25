@@ -4,7 +4,7 @@
 
   _.extend Marionette.View::,
 
-    ## Build a link.
+    # Build a link.
     themeLink: (name, url, options = {}) ->
       _.defaults options,
         external: false,
@@ -18,14 +18,14 @@
 
       @themeTag 'a', attrs, name
 
-    ## Parse tag attributes into a string.
+    # Parse tag attributes into a string.
     parseAttributes: (attrs) ->
       a = []
       for attr, val of attrs
         a.push "#{attr}='#{val}'"
       a.join(' ')
 
-    ## Make a tag
+    # Make a tag
     themeTag: (el, attrs, value) ->
       attrsString = @parseAttributes(attrs)
       "<#{el} #{attrsString}>#{value}</#{el}>"
@@ -41,3 +41,7 @@
         helpers.debug.msg 'formatText error: ' + res.errorQueue.join(', '), 'warning', res
       # return updated text
       res.html
+
+    # A wrapper for translating strings
+    t: (text) ->
+      t.gettext(text)
