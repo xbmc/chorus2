@@ -320,7 +320,7 @@
     App.request 'filter:active:entities', API.getFilterActive()
 
   ## Apply filters to a collection.
-  App.reqres.setHandler 'filter:apply:entites', (collection)  ->
+  App.reqres.setHandler 'filter:apply:entities', (collection)  ->
     API.setAvailable collection.availableFilters
     API.applyFilters collection
 

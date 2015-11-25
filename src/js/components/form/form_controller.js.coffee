@@ -29,7 +29,7 @@
         config: options
 
     formBuild: (form = [], formState = {}, options = {}) ->
-      collection = App.request "form:item:entites", form, formState
+      collection = App.request "form:item:entities", form, formState
       buildView = new Form.Groups
         collection: collection
       @formLayout.formContentRegion.show buildView
