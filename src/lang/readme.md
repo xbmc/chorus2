@@ -29,7 +29,7 @@ msgstr "Filter wählen"
 * If there is no *PAGE*.md for yor language then copy from the en folder and edit.
 * Only create a *PAGE*.md for a full translation
 
-## If adding a new language
+## Adding a new language
 
 **Example:** If your new language is `French` it would have a *LANG_KEY* of `fr`.
 
