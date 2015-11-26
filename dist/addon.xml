@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="webinterface.kodi"
-  version="2.0.8"
+  version="2.0.9"
   name="Chorus2"
   provider-name="jez500">
   <requires>
