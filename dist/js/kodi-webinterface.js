@@ -50647,7 +50647,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       return new Entities.Form(items);
     }
   };
-  return App.reqres.setHandler("form:item:entites", function(form, formState) {
+  return App.reqres.setHandler("form:item:entities", function(form, formState) {
     if (form == null) {
       form = [];
     }
@@ -51645,14 +51645,14 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         provides: 'audio'
       }, {
         media: 'music',
-        label: 'Audio Addons',
+        label: 'Audio add-ons',
         type: 'addon',
         provides: 'audio',
         addonType: 'xbmc.addon.audio',
         content: 'unknown'
       }, {
         media: 'video',
-        label: 'Video Addons',
+        label: 'Video add-ons',
         type: 'addon',
         provides: 'files',
         addonType: 'xbmc.addon.video',
@@ -53839,7 +53839,7 @@ this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _)
       });
       nav.push({
         id: 53,
-        title: "AddOns",
+        title: "Add-ons",
         path: 'settings/addons',
         icon: '',
         classes: '',
@@ -54499,7 +54499,7 @@ this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $,
       if (options == null) {
         options = {};
       }
-      collection = App.request("form:item:entites", form, formState);
+      collection = App.request("form:item:entities", form, formState);
       buildView = new Form.Groups({
         collection: collection
       });
@@ -55115,7 +55115,7 @@ this.Kodi.module("AlbumApp.List", function(List, App, Backbone, Marionette, $, _
     Controller.prototype.renderList = function(collection) {
       var filteredCollection, view;
       App.execute("loading:show:view", this.layout.regionContent);
-      filteredCollection = App.request('filter:apply:entites', collection);
+      filteredCollection = App.request('filter:apply:entities', collection);
       view = API.getAlbumsList(filteredCollection);
       return this.layout.regionContent.show(view);
     };
@@ -55613,7 +55613,7 @@ this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, 
     Controller.prototype.renderList = function(collection) {
       var filteredCollection, view;
       App.execute("loading:show:view", this.layout.regionContent);
-      filteredCollection = App.request('filter:apply:entites', collection);
+      filteredCollection = App.request('filter:apply:entities', collection);
       view = API.getArtistList(filteredCollection);
       return this.layout.regionContent.show(view);
     };
@@ -58106,7 +58106,7 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
         key: 'year',
         defaultOrder: 'desc'
       }, {
-        alias: 'Date Added',
+        alias: 'Date added',
         type: 'string',
         key: 'dateadded',
         defaultOrder: 'desc'
@@ -58426,7 +58426,7 @@ this.Kodi.module("FilterApp", function(FilterApp, App, Backbone, Marionette, $, 
   App.reqres.setHandler('filter:active', function() {
     return App.request('filter:active:entities', API.getFilterActive());
   });
-  App.reqres.setHandler('filter:apply:entites', function(collection) {
+  App.reqres.setHandler('filter:apply:entities', function(collection) {
     API.setAvailable(collection.availableFilters);
     return API.applyFilters(collection);
   });
@@ -59826,12 +59826,12 @@ this.Kodi.module("LabApp", function(LabApp, App, Backbone, Marionette, $, _) {
     labItems: function() {
       return [
         {
-          title: 'Api Browser',
-          description: 'Execute any api command.',
+          title: 'API browser',
+          description: 'Execute any API command.',
           path: 'lab/api-browser'
         }, {
-          title: 'ScreenShot',
-          description: 'Take a screen shot of Kodi right now.',
+          title: 'Screenshot',
+          description: 'Take a screenshot of Kodi right now.',
           path: 'lab/screenshot'
         }
       ];
@@ -60355,7 +60355,7 @@ this.Kodi.module("MovieApp.Edit", function(Edit, App, Backbone, Marionette, $, _
               defaultValue: ''
             }, {
               id: 'plotoutline',
-              title: 'Plot Outline',
+              title: 'Plot outline',
               type: 'textarea',
               defaultValue: ''
             }, {
@@ -60370,7 +60370,7 @@ this.Kodi.module("MovieApp.Edit", function(Edit, App, Backbone, Marionette, $, _
               defaultValue: ''
             }, {
               id: 'imdbnumber',
-              title: 'Imdb',
+              title: 'IMDb',
               type: 'textfield',
               defaultValue: ''
             }
@@ -60573,7 +60573,7 @@ this.Kodi.module("MovieApp.List", function(List, App, Backbone, Marionette, $, _
     Controller.prototype.renderList = function(collection) {
       var filteredCollection, view;
       App.execute("loading:show:view", this.layout.regionContent);
-      filteredCollection = App.request('filter:apply:entites', collection);
+      filteredCollection = App.request('filter:apply:entities', collection);
       view = API.getMoviesView(filteredCollection);
       return this.layout.regionContent.show(view);
     };
@@ -62227,7 +62227,7 @@ this.Kodi.module("SettingsApp", function(SettingsApp, App, Backbone, Marionette,
           var settingsNavView;
           App.execute("when:entity:fetched", collection, function() {
             var kodiSettingsView;
-            kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi Settings'));
+            kodiSettingsView = App.request("navMain:collection:show", collection, t.gettext('Kodi settings'));
             return sidebarView.regionKodiNav.show(kodiSettingsView);
           });
           settingsNavView = App.request("navMain:children:show", API.subNavId, 'General');
@@ -62671,14 +62671,14 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
           children: [
             {
               id: 'vibrantHeaders',
-              title: t.gettext("Vibrant Headers"),
+              title: t.gettext("Vibrant headers"),
               type: 'checkbox',
               defaultValue: true,
               description: t.gettext("Use colourful headers for media pages")
             }
           ]
         }, {
-          title: 'Advanced Options',
+          title: 'Advanced options',
           id: 'advanced',
           children: [
             {
@@ -64438,7 +64438,7 @@ this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, 
     Controller.prototype.renderList = function(collection) {
       var filteredCollection, view;
       App.execute("loading:show:view", this.layout.regionContent);
-      filteredCollection = App.request('filter:apply:entites', collection);
+      filteredCollection = App.request('filter:apply:entities', collection);
       view = API.getTVShowsList(filteredCollection);
       return this.layout.regionContent.show(view);
     };
