@@ -9,6 +9,7 @@ module.exports = function (grunt) {
    * Config and config helpers.
    **************************************************/
 
+
   /**
    *  An attempt at organising all the variables needed for a build/watch into one object.
    *  Do not access directly, use ggs(), ggp(), etc.
@@ -32,6 +33,7 @@ module.exports = function (grunt) {
 	js: 'js/',
 	jsSrc: 'src/js/',
 	jsDist: 'dist/js/',
+	jsBuild: 'dist/js/build/',
 
 	// Lang
 	lang: 'src/lang/',
@@ -57,29 +59,34 @@ module.exports = function (grunt) {
       concatStack: {
 	src: [
 	  // Core dependencies.
-	  'lib/core/jquery.js',
-	  'lib/core/lodash.js',
-	  'lib/core/backbone.js',
-	  'lib/core/json2.js',
+	  'src/lib/core/jquery.js',
+	  'src/lib/core/lodash.js',
+	  'src/lib/core/backbone.js',
+	  'src/lib/core/json2.js',
 	  // Libs.
-	  'lib/required/{,**}/*.js',
-	  'lib/ui/*.js',
+	  'src/lib/required/{,**}/*.js',
+	  'src/lib/ui/*.js',
 	  // Sound manager.
-	  'lib/soundmanager/script/soundmanager2.js'
+	  'src/lib/soundmanager/script/soundmanager2.js'
 	],
 	dist: [
-	  // Template and the app.
-	  'tpl.js', 'app.js'
+	  // Libs, template and the app, all minified.
+	  // TODO: Is it worth the 200K it saves to sacrifice debugging, currently not used
+	  'dist/js/build/libs.min.js', 'dist/js/build/app.min.js'
+	],
+	'dev': [
+	  // Dev uses non minified and easier to debug..
+	  'dist/js/build/libs.min.js', 'dist/js/build/app.js'
 	]
       },
 
       // General settings.
       settings: {
-	author: "Jeremy Graham",
-	banner: '/*! Chorus 2 - A web interface for Kodi. Created by ' + this.author + ' - built on <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+	banner: '/*! Chorus 2 - A web interface for Kodi. Created by Jeremy Graham - built on <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       }
 
   };
+
 
   /**
    * Grunt Get Setting (ggs).
@@ -94,27 +101,14 @@ module.exports = function (grunt) {
   function ggs(type, prop) {
     switch (type) {
 
+      case 'concatStack':
+      case 'settings':
       case 'paths':
-	return cfg.paths[prop];
+	return cfg[type][prop];
 
       case 'coffeeStack':
 	return cfg.coffeeStack;
 
-      // ConcatStack cfg requires a bit more parsing.
-      case 'concatStack':
-	var stack = [], keys = ['src', 'dist'], key, path, i, p;
-	// Loop over groups keys in order of items src/dist.
-	for (i in keys) {
-	  key = keys[i];
-	  // Loop over cfg, prefixing paths with group path and add to the stack.
-	  for (p in cfg[type][key]) {
-	    // Concat group dir (src/dist) with path.
-	    path = cfg.paths[key] + cfg.concatStack[key][p];
-	    stack.push([p])
-	  }
-	}
-	// Return stack.
-	return stack;
     }
   }
 
@@ -158,11 +152,11 @@ module.exports = function (grunt) {
       },
       eco: {
 	files: [ggp('jsSrc') + '/**/*.eco'],
-	tasks: ['eco', 'concat']
+	tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
       },
       coffee: {
 	files: [ggp('jsSrc') + '{,**/}*.coffee'],
-	tasks: ['coffee', 'concat']
+	tasks: ['coffee', 'concat:dev']
       },
       po2json: {
 	files: [ggp('langSrcStrings')],
@@ -174,7 +168,11 @@ module.exports = function (grunt) {
       },
       marked: {
 	files: [ggp('langSrcPages')],
-        tasks: ['marked']
+	tasks: ['marked']
+      },
+      libs: {
+	files: [ggs('concatStack', 'src')],
+	tasks: ['concat:libs', 'uglify:libs', 'concat:dev']
       }
     },
 
@@ -206,13 +204,13 @@ module.exports = function (grunt) {
       },
       files: {
         expand: true,
-        flatten: true,
+	flatten: true,
 	cwd:  ggp('jsSrc'),
 	src: ggs('coffeeStack'),
-	dest: ggp('jsDist'),
-        rename: function (dest, src) {
-          return dest + 'app.js';
-        }
+	dest: ggp('jsBuild'),
+	rename: function (dest, src) {
+	  return dest + 'app.js';
+	}
       }
     },
 
@@ -221,11 +219,11 @@ module.exports = function (grunt) {
       app: {
         options: {
 	  basePath: ggp('jsSrc'),
-          jstGlobalCheck: false
-        },
-        files: [{
-	  'dist/js/tpl.js': [ggp('jsSrc') + '**/*.eco']
-        }]
+	  jstGlobalCheck: false
+	},
+	files: [{
+	  'dist/js/build/tpl.js': [ggp('jsSrc') + '**/*.eco']
+	}]
       }
     },
 
@@ -259,59 +257,65 @@ module.exports = function (grunt) {
 	  document: true
         },
         unused: false,
-        eqnull: true,
-        boss: true
+	eqnull: true,
+	boss: true
       },
-      all: [ggp('jsDist') + 'app.js']
+      all: [ggp('jsBuild') + 'app.js']
     },
 
-    // Join all the dist files into one place
+    // Concat the libs for uglify and build final JS file.
     concat: {
       options: {
-        separator: ';'
+	separator: ';'
+      },
+      libs: {
+	src: ggs('concatStack', 'src'),
+	dest: ggp('jsBuild') + 'libs.js'
       },
       dist: {
-	src: ggs('concatStack'),
+	src: ggs('concatStack', 'dist'),
+	dest: ggp('jsDist') + '<%= pkg.name %>.js'
+      },
+      dev: {
+	src: ggs('concatStack', 'dev'),
 	dest: ggp('jsDist') + '<%= pkg.name %>.js'
       }
     },
 
-    // Minify - DISABLED (in 'watch' and 'build') until test written.
+    // Minify - Only used for libs.
     uglify: {
-      dev: {
-        options: {
-          mangle: false,
-          compress: false,
-          beautify: true,
-	  banner: ggs('setting', 'banner')
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-	  cwd: ggp('jsDist'),
-	  dest: ggp('jsDist'),
-          src: ['**/*.js', '!**/*.min.js'],
-          rename: function (dest, src) {
-            return dest + '<%= pkg.name %>.min.js';
-          }
-        }]
+      libs: {
+	options: {
+	  mangle: true,
+	  compress: {},
+	  banner: ggs('settings', 'banner')
+	},
+	files: [{
+	  expand: true,
+	  flatten: true,
+	  cwd: ggp('jsBuild'),
+	  dest: ggp('jsBuild'),
+	  src: ['libs.js', 'tpl.js'],
+	  rename: function (dest, src) {
+	    return dest + 'libs.min.js';
+	  }
+	}]
       },
-      dist: {
-        options: {
-          mangle: true,
-          compress: {},
-	  banner: ggs('setting', 'banner')
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-	  cwd: ggp('jsDist'),
-	  dest: ggp('jsDist'),
-          src: ['**/*.js', '!**/*.min.js'],
-          rename: function (dest, src) {
-            return dest + '<%= pkg.name %>.min.js';
-          }
-        }]
+      app: {
+	options: {
+	  mangle: false,
+	  compress: {},
+	},
+	files: [{
+	  expand: true,
+	  flatten: true,
+	  cwd: ggp('jsBuild'),
+	  dest: ggp('jsBuild'),
+	  src: ['app.js'],
+	  rename: function (dest, src) {
+	    return dest + 'app.min.js';
+	  }
+	}]
       }
     },
 
@@ -398,7 +402,10 @@ module.exports = function (grunt) {
     'marked',
     'eco',
     'coffee',
-    'concat',
+    'concat:libs',
+    'uglify:libs',
+    // 'uglify:app', // Uncomment if concat:dist is used.
+    'concat:dev', // App is not minified for in the wild debugging. Change to concat:dist to save ~200K
     'compass:dist'
   ]);
 

@@ -16,9 +16,10 @@ echo "Running Grunt"
 echo "=============================================="
 grunt build
 
-echo "removing old zip"
+echo "removing old zip and build files"
 echo "=============================================="
 rm webinterface.kodi*.zip
+rm dist/js/build/*.js
 
 echo "Building zip"
 echo "=============================================="
