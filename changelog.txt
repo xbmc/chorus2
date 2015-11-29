@@ -1,3 +1,10 @@
+Version 2.0.10
+-------------
+* Bug fixes and refactoring
+* Help improvements and added about page
+* Added screenshots to readme
+* Dev build improvements
+
 Version 2.0.9
 -------------
 * String updates
