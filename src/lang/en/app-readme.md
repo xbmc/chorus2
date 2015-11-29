@@ -85,3 +85,30 @@ If you are updating (eg. git pull), always do an `npm update` and `bundle update
 A build will also include translation files.
 - Run grunt `grunt build`
 
+## Donate
+Are you a fan of Chorus? You can [buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
+
+## Screenshots
+
+### Homepage (now playing)
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/now-playing.jpg "Homepage/Now Playing")
+
+### Search results
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/search.jpg "Search")
+
+### Artists
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/artists.jpg "Artists")
+
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist//screenshots/artist.jpg "Artist")
+
+### Video library
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/tv.jpg "TV")
+
+### Filtering
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/movie.jpg "Movies")
+
+### Settings
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/settings.jpg "Settings")
+
+### Add-ons
+![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/addons.jpg "Add-ons")

@@ -39,3 +39,9 @@ helpers.translate.missingKeyLog = (key) ->
          'msgid "' + key + '"\n' +
          'msgstr "' + key + '"\n'
   helpers.debug.msg item, 'warning'
+
+###
+  Translate aliases.
+###
+tr = (text) ->
+  t.gettext text

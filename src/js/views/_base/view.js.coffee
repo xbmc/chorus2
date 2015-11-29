@@ -41,7 +41,3 @@
         helpers.debug.msg 'formatText error: ' + res.errorQueue.join(', '), 'warning', res
       # return updated text
       res.html
-
-    # A wrapper for translating strings
-    t: (text) ->
-      t.gettext(text)

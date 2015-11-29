@@ -552,3 +552,31 @@ msgstr "Overview"
 msgctxt ""
 msgid "Lab"
 msgstr "Lab"
+
+msgctxt ""
+msgid "version"
+msgstr "version"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Remote control"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "Remote control is set up correctly"
+
+msgctxt ""
+msgid "About"
+msgstr "About"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Local audio"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Status report"
+
+msgctxt ""
+msgid "in"
+msgstr "in"

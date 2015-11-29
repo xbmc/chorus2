@@ -45,7 +45,6 @@
       rClass = 'section-remote'
       if open is 'auto'
         open = ($body.hasClass(rClass))
-      console.log open
       if open
         window.history.back()
         helpers.backscroll.scrollToLast()
