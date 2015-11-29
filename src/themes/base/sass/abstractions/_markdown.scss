@@ -15,6 +15,7 @@
   h3 {
     font-size: 1.3em;
     color: $color-greyscale-dove-gray;
+    margin-bottom: $spacing-base-unit;
   }
   h4 {
     font-size: 1.2em;
@@ -63,6 +64,10 @@
     }
   }
 
+  img {
+    width: 100%;
+    max-width: 1000px;
+  }
 }
 
 %markdown-typography {

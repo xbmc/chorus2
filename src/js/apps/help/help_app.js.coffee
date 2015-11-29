@@ -34,7 +34,7 @@
     # TODO: refactor into navMain
     getSideBarSructure: ->
       [
-        {title: t.gettext('Overview'), path: 'help'}
+	{title: t.gettext('About'), path: 'help'}
         {title: t.gettext('Readme'), path: 'help/app-readme'}
         {title: t.gettext('Changelog'), path: 'help/app-changelog'}
         {title: t.gettext('Translations'), path: 'help/lang-readme'}
