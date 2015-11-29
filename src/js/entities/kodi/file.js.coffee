@@ -91,7 +91,7 @@
 
     ## Create a url for this file/folder
     createFileUrl: (media, file) ->
-      'browser/' + media + '/' + helpers.global.hash('encode', file)
+      'browser/' + media + '/' + encodeURIComponent(file)
 
     ## Create a url for an addon
     createAddonFile: (addon) ->
@@ -227,7 +227,7 @@
 
   # Create a new file entity with info extracted from the url
   App.reqres.setHandler "file:url:entity", (media, hash) ->
-    file = helpers.global.hash 'decode', hash
+    file = decodeURIComponent hash
     new KodiEntities.EmptyFile {media: media, file: file, url: API.createFileUrl(media, file)}
 
   ## Get an file collection

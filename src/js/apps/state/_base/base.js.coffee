@@ -14,6 +14,7 @@
       muted: false
       shuffled: false
       repeat: 'off' # 'off'/'one'/'all'
+      version: {major: 15, minor: 0}
 
     playing:
       playing: false # false = stopped, true = playing or paused

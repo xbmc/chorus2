@@ -3,6 +3,23 @@
 ###
 helpers.entities = {}
 
+# Create a UniqueID (uid) from a model object (raw)
+# Numerical id is the preference, fallback to file
+helpers.entities.createUid = (model, type) ->
+  type = if type then type else model.type
+  id = model.id
+  uid = 'none'
+  if typeof id is 'number'
+    uid = id
+  else
+    file = model.file
+    if file
+      hash = helpers.global.hashEncode(file)
+      uid = 'path-' + hash.substring 0, 26
+  # Return pre-pending th type
+  type + '-' + uid
+
+
 ## Get fields for an entity given the set and type.
 helpers.entities.getFields = (set, type = 'small') ->
   fields = set.minimal

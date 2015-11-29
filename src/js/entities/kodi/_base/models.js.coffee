@@ -38,7 +38,7 @@
           
         model = App.request "images:path:entity", model
         model.type = type
-        model.uid = @getUniqueId(model, type)
+	model.uid = helpers.entities.createUid(model, type)
         model.parsed = true
       model
 
@@ -47,19 +47,6 @@
       for field in fields
         defaults[field] = ''
       defaults
-
-    ## Get UniqueID for model.
-    getUniqueId: (model, type) ->
-      type = if type then type else model.type
-      id = model.id
-      uid = 'none'
-      if typeof id is 'number'
-        uid = id
-      else
-        file = model.file
-        if file
-          uid = 'file-' + helpers.global.hashCode(file)
-      type + '-' + uid
 
     # Check the response, it might be cached and parsing can be skipped.
     #

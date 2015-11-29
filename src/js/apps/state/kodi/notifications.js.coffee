@@ -46,7 +46,7 @@
         helpers.debug.msg t.gettext(msg), "warning", resp
         App.vent.trigger "sockets:unavailable"
 
-      App.reqres.setHandler "sockets:active", ->
+      App.reqres.setHandler "sockets:active", =>
         @wsActive
 
     ## Return the data from a response

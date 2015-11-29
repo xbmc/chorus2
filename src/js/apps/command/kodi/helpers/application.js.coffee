@@ -6,7 +6,7 @@
     commandNameSpace: 'Application'
 
     getProperties: (callback) ->
-      @singleCommand @getCommand('GetProperties'), [["volume", "muted"]], (resp) =>
+      @singleCommand @getCommand('GetProperties'), [["volume", "muted", "version"]], (resp) =>
         @doCallback callback, resp
 
     setVolume: (volume, callback) ->
