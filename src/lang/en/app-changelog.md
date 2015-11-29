@@ -1,3 +1,7 @@
+Version 2.0.9
+-------------
+* String updates
+
 Version 2.0.8
 -------------
 * Help module with multilingual support and markdown parsing

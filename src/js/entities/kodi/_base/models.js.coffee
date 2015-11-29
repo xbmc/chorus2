@@ -38,7 +38,7 @@
           
         model = App.request "images:path:entity", model
         model.type = type
-	model.uid = helpers.entities.createUid(model, type)
+        model.uid = helpers.entities.createUid(model, type)
         model.parsed = true
       model
 

@@ -19,7 +19,7 @@
       @pageView = new Overview.Page
         data: data
       @listenTo @pageView, "show", =>
-	@getReport()
+	      @getReport()
 
       @layout.regionContent.show @pageView
 
@@ -42,9 +42,9 @@
 
       # We might have just called to early, bind to available event just in case.
       App.vent.on "sockets:available", =>
-	@getReportWebsocketsActive()
+	      @getReportWebsocketsActive()
       App.vent.on "state:initialized", =>
-	@getReportKodiVersion()
+	      @getReportKodiVersion()
 
     #
     # Callbacks for getting/setting report values below.
@@ -54,7 +54,7 @@
     # Chorus version.
     getReportChorusVersion: ->
       $.get "addon.xml", (data) =>
-	$('.report-chorus-version > span', @$pageView).html $('addon', data).attr('version')
+	      $('.report-chorus-version > span', @$pageView).html $('addon', data).attr('version')
 
     # Kodi version
     getReportKodiVersion: ->
@@ -67,11 +67,11 @@
       wsActive = App.request "sockets:active"
       $ws = $('.report-websockets', @$pageView)
       if wsActive
-	$('span', $ws).html tr("Remote control is set up correctly")
-	$ws.removeClass 'warning'
+        $('span', $ws).html tr("Remote control is set up correctly")
+        $ws.removeClass 'warning'
       else
-	$('span', $ws).html tr("You need to 'Allow remote control' for Kodi. You can do that") + ' <a href="#settings/kodi/services">' + tr('here') + '</a>'
-	$ws.addClass 'warning'
+        $('span', $ws).html tr("You need to 'Allow remote control' for Kodi. You can do that") + ' <a href="#settings/kodi/services">' + tr('here') + '</a>'
+        $ws.addClass 'warning'
 
     # Local audio
     getReportLocalAudio: ->

@@ -43,7 +43,7 @@
         item = stateObj.getPlaying('item')
         playState = stateObj.getPlaying('playState')
         ## library item
-	className = '.item-' + item.uid
+        className = '.item-' + item.uid
         $(className).addClass( @playerClass('row-' + playState, player) )
         ## playlist item
         $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )

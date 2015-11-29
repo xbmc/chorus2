@@ -16,74 +16,74 @@ module.exports = function (grunt) {
    */
   var cfg = {
 
-      // Where things are stored.
-      paths: {
+    // Where things are stored.
+    paths: {
 
-	// Core
-	cwd: cwd,
-	src: 'src/',
-	dist: 'dist/',
+      // Core
+      cwd: cwd,
+      src: 'src/',
+      dist: 'dist/',
 
-	// Theme
-	theme: 'themes/base/',
-	themeSrc: 'src/themes/base/',
-	themeDist: 'dist/themes/base/',
+      // Theme
+      theme: 'themes/base/',
+      themeSrc: 'src/themes/base/',
+      themeDist: 'dist/themes/base/',
 
-	// Js
-	js: 'js/',
-	jsSrc: 'src/js/',
-	jsDist: 'dist/js/',
-	jsBuild: 'dist/js/build/',
+      // Js
+      js: 'js/',
+      jsSrc: 'src/js/',
+      jsDist: 'dist/js/',
+      jsBuild: 'dist/js/build/',
 
-	// Lang
-	lang: 'src/lang/',
-	langDist: 'dist/lang/',
-	langSrcStrings: 'src/lang/_strings/*.po',
-	langSrcPages: 'src/lang/{,**/}*.md'
+      // Lang
+      lang: 'src/lang/',
+      langDist: 'dist/lang/',
+      langSrcStrings: 'src/lang/_strings/*.po',
+      langSrcPages: 'src/lang/{,**/}*.md'
 
-      },
+    },
 
-      // Includes and order of compiling coffee.
-      coffeeStack: [
-	'*.coffee',
-	'helpers/{,**}/*.coffee',
-	'config/{,**}/*.coffee',
-	'entities/{,**}/*.coffee',
-	'controllers/{,**}/*.coffee',
-	'views/{,**}/*.coffee',
-	'components/{,**}/*.coffee',
-	'apps/{,**}/*.coffee'
+    // Includes and order of compiling coffee.
+    coffeeStack: [
+      '*.coffee',
+      'helpers/{,**}/*.coffee',
+      'config/{,**}/*.coffee',
+      'entities/{,**}/*.coffee',
+      'controllers/{,**}/*.coffee',
+      'views/{,**}/*.coffee',
+      'components/{,**}/*.coffee',
+      'apps/{,**}/*.coffee'
+    ],
+
+    // Joins all libraries and complied app into a single js file.
+    concatStack: {
+      src: [
+        // Core dependencies.
+        'src/lib/core/jquery.js',
+        'src/lib/core/lodash.js',
+        'src/lib/core/backbone.js',
+        'src/lib/core/json2.js',
+        // Libs.
+        'src/lib/required/{,**}/*.js',
+        'src/lib/ui/*.js',
+        // Sound manager.
+        'src/lib/soundmanager/script/soundmanager2.js'
       ],
+      dist: [
+        // Libs, template and the app, all minified.
+        // TODO: Is it worth the 200K it saves to sacrifice debugging, currently not used
+        'dist/js/build/libs.min.js', 'dist/js/build/app.min.js'
+      ],
+      'dev': [
+        // Dev uses non minified and easier to debug..
+        'dist/js/build/libs.min.js', 'dist/js/build/app.js'
+      ]
+    },
 
-      // Joins all libraries and complied app into a single js file.
-      concatStack: {
-	src: [
-	  // Core dependencies.
-	  'src/lib/core/jquery.js',
-	  'src/lib/core/lodash.js',
-	  'src/lib/core/backbone.js',
-	  'src/lib/core/json2.js',
-	  // Libs.
-	  'src/lib/required/{,**}/*.js',
-	  'src/lib/ui/*.js',
-	  // Sound manager.
-	  'src/lib/soundmanager/script/soundmanager2.js'
-	],
-	dist: [
-	  // Libs, template and the app, all minified.
-	  // TODO: Is it worth the 200K it saves to sacrifice debugging, currently not used
-	  'dist/js/build/libs.min.js', 'dist/js/build/app.min.js'
-	],
-	'dev': [
-	  // Dev uses non minified and easier to debug..
-	  'dist/js/build/libs.min.js', 'dist/js/build/app.js'
-	]
-      },
-
-      // General settings.
-      settings: {
-	banner: '/*! Chorus 2 - A web interface for Kodi. Created by Jeremy Graham - built on <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-      }
+    // General settings.
+    settings: {
+      banner: '/*! Chorus 2 - A web interface for Kodi. Created by Jeremy Graham - built on <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+    }
 
   };
 
@@ -104,10 +104,10 @@ module.exports = function (grunt) {
       case 'concatStack':
       case 'settings':
       case 'paths':
-	return cfg[type][prop];
+        return cfg[type][prop];
 
       case 'coffeeStack':
-	return cfg.coffeeStack;
+        return cfg.coffeeStack;
 
     }
   }
@@ -139,47 +139,46 @@ module.exports = function (grunt) {
         cliArgs: ['--gruntfile', require('path').join(cwd, 'Gruntfile.js')]
       },
       sass: {
-	files: [ggp('themeSrc') + 'sass/{,**/}*.{scss,sass}'],
+        files: [ggp('themeSrc') + 'sass/{,**/}*.{scss,sass}'],
         tasks: ['compass:dev'],
-        options: {
-        }
+        options: {}
       },
       images: {
-	files: [ggp('themeSrc') + 'images/**']
+        files: [ggp('themeSrc') + 'images/**']
       },
       css: {
-	files: [ggp('themeDist') + 'css/{,**/}*.css']
+        files: [ggp('themeDist') + 'css/{,**/}*.css']
       },
       eco: {
-	files: [ggp('jsSrc') + '/**/*.eco'],
-	tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
+        files: [ggp('jsSrc') + '/**/*.eco'],
+        tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
       },
       coffee: {
-	files: [ggp('jsSrc') + '{,**/}*.coffee'],
-	tasks: ['coffee', 'concat:dev']
+        files: [ggp('jsSrc') + '{,**/}*.coffee'],
+        tasks: ['coffee', 'concat:dev']
       },
       po2json: {
-	files: [ggp('langSrcStrings')],
+        files: [ggp('langSrcStrings')],
         tasks: ['po2json']
       },
       copyLang: {
         files: ['readme.md', 'changelog.txt', 'src/lang/readme.md'],
-	tasks: ['copy:lang', 'marked']
+        tasks: ['copy:lang', 'marked']
       },
       marked: {
-	files: [ggp('langSrcPages')],
-	tasks: ['marked']
+        files: [ggp('langSrcPages')],
+        tasks: ['marked']
       },
       libs: {
-	files: [ggs('concatStack', 'src')],
-	tasks: ['concat:libs', 'uglify:libs', 'concat:dev']
+        files: [ggs('concatStack', 'src')],
+        tasks: ['concat:libs', 'uglify:libs', 'concat:dev']
       }
     },
 
     // Compile compass.
     compass: {
       options: {
-	config: ggp('themeSrc') + 'config.rb',
+        config: ggp('themeSrc') + 'config.rb',
         bundleExec: true,
         force: true
       },
@@ -204,13 +203,13 @@ module.exports = function (grunt) {
       },
       files: {
         expand: true,
-	flatten: true,
-	cwd:  ggp('jsSrc'),
-	src: ggs('coffeeStack'),
-	dest: ggp('jsBuild'),
-	rename: function (dest, src) {
-	  return dest + 'app.js';
-	}
+        flatten: true,
+        cwd: ggp('jsSrc'),
+        src: ggs('coffeeStack'),
+        dest: ggp('jsBuild'),
+        rename: function (dest, src) {
+          return dest + 'app.js';
+        }
       }
     },
 
@@ -218,12 +217,12 @@ module.exports = function (grunt) {
     eco: {
       app: {
         options: {
-	  basePath: ggp('jsSrc'),
-	  jstGlobalCheck: false
-	},
-	files: [{
-	  'dist/js/build/tpl.js': [ggp('jsSrc') + '**/*.eco']
-	}]
+          basePath: ggp('jsSrc'),
+          jstGlobalCheck: false
+        },
+        files: [{
+          'dist/js/build/tpl.js': [ggp('jsSrc') + '**/*.eco']
+        }]
       }
     },
 
@@ -232,7 +231,7 @@ module.exports = function (grunt) {
     browserSync: {
       dev: {
         bsFiles: {
-	  src: ggp('themeDist') + 'css/{,**/}*.css'
+          src: ggp('themeDist') + 'css/{,**/}*.css'
         },
         options: {
           watchTask: true,
@@ -254,11 +253,11 @@ module.exports = function (grunt) {
           jQuery: true,
           console: true,
           module: true,
-	  document: true
+          document: true
         },
         unused: false,
-	eqnull: true,
-	boss: true
+        eqnull: true,
+        boss: true
       },
       all: [ggp('jsBuild') + 'app.js']
     },
@@ -266,56 +265,56 @@ module.exports = function (grunt) {
     // Concat the libs for uglify and build final JS file.
     concat: {
       options: {
-	separator: ';'
+        separator: ';'
       },
       libs: {
-	src: ggs('concatStack', 'src'),
-	dest: ggp('jsBuild') + 'libs.js'
+        src: ggs('concatStack', 'src'),
+        dest: ggp('jsBuild') + 'libs.js'
       },
       dist: {
-	src: ggs('concatStack', 'dist'),
-	dest: ggp('jsDist') + '<%= pkg.name %>.js'
+        src: ggs('concatStack', 'dist'),
+        dest: ggp('jsDist') + '<%= pkg.name %>.js'
       },
       dev: {
-	src: ggs('concatStack', 'dev'),
-	dest: ggp('jsDist') + '<%= pkg.name %>.js'
+        src: ggs('concatStack', 'dev'),
+        dest: ggp('jsDist') + '<%= pkg.name %>.js'
       }
     },
 
     // Minify - Only used for libs.
     uglify: {
       libs: {
-	options: {
-	  mangle: true,
-	  compress: {},
-	  banner: ggs('settings', 'banner')
-	},
-	files: [{
-	  expand: true,
-	  flatten: true,
-	  cwd: ggp('jsBuild'),
-	  dest: ggp('jsBuild'),
-	  src: ['libs.js', 'tpl.js'],
-	  rename: function (dest, src) {
-	    return dest + 'libs.min.js';
-	  }
-	}]
+        options: {
+          mangle: true,
+          compress: {},
+          banner: ggs('settings', 'banner')
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: ggp('jsBuild'),
+          dest: ggp('jsBuild'),
+          src: ['libs.js', 'tpl.js'],
+          rename: function (dest, src) {
+            return dest + 'libs.min.js';
+          }
+        }]
       },
       app: {
-	options: {
-	  mangle: false,
-	  compress: {},
-	},
-	files: [{
-	  expand: true,
-	  flatten: true,
-	  cwd: ggp('jsBuild'),
-	  dest: ggp('jsBuild'),
-	  src: ['app.js'],
-	  rename: function (dest, src) {
-	    return dest + 'app.min.js';
-	  }
-	}]
+        options: {
+          mangle: false,
+          compress: {},
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: ggp('jsBuild'),
+          dest: ggp('jsBuild'),
+          src: ['app.js'],
+          rename: function (dest, src) {
+            return dest + 'app.min.js';
+          }
+        }]
       }
     },
 
@@ -326,15 +325,15 @@ module.exports = function (grunt) {
         domain: 'messages'
       },
       all: {
-	src: [ggp('langSrcStrings')],
-	dest: ggp('langDist') + '_strings/'
+        src: [ggp('langSrcStrings')],
+        dest: ggp('langDist') + '_strings/'
       }
     },
 
     // Convert md files to html.
     marked: {
       options: {
-	// Wrap code blocks in a <pre>.
+        // Wrap code blocks in a <pre>.
         highlight: function (code) {
           return '<pre>' + code + '</pre>';
         },
@@ -342,13 +341,13 @@ module.exports = function (grunt) {
         breaks: false
       },
       dist: {
-	// Convert and copy src/lang/LANG/*.md to dist/lang/LANG/*.html while
-	// preserving folder/lang structure.
+        // Convert and copy src/lang/LANG/*.md to dist/lang/LANG/*.html while
+        // preserving folder/lang structure.
         files: [{
           expand: true,
           cwd: 'src/lang',
           src: ['{,**/}*.md', '!readme.md'],
-	  dest: ggp('langDist'),
+          dest: ggp('langDist'),
           ext: '.html'
         }]
       }
@@ -389,7 +388,7 @@ module.exports = function (grunt) {
    * Eg "grunt lang" will rebuild languages.
    */
 
-  // Development watch task.
+    // Development watch task.
   grunt.registerTask('default', ['browserSync:dev', 'watch']);
 
   // Languages (strings and pages) only.
