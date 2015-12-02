@@ -10,7 +10,7 @@
     <% end %>
     <p><%= @plot %></p>
     <ul class="inline-links">
-        <li><%- helpers.url.imdbUrl @imdbnumber, 'View on imdb' %></li>
+        <li><%- helpers.url.imdbUrl @imdbnumber, 'View on IMDb' %></li>
     </ul>
 </div>
 

@@ -5,7 +5,7 @@
         <ul class="dropdown-menu">
             <li class="play">Play in Kodi</li>
             <li class="localplay">Play in browser</li>
-            <li class="lsit">Export list</li>
+            <li class="list">Export list</li>
             <div class="divider"></div>
             <li class="clear">Clear playlist</li>
             <li class="delete">Delete playlist</li>
