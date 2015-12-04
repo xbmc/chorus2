@@ -1,6 +1,6 @@
 <div class="api-browser--landing page">
     <h2><%= t.gettext('Kodi API browser') %></h2>
-    <h4><a href="#lab"><%= t.gettext('Chorus Lab') %></a></h4>
+    <h4><a href="#lab"><%= t.gettext('Chorus lab') %></a></h4>
     <div class="api-browser--content">
         <p><%= t.gettext('This is a tool to test out the api. Select a method then execute it with parameters.') %></p>
         <br />

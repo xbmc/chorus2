@@ -8,11 +8,10 @@
             <div class="back"></div>
             <div class="folders">
                 <div class="intro">
-                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> <%= t.gettext('Browse Files and AddOns') %></h3>
-                    <p><%= t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or addon.') %></p>
+                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> <%= t.gettext('Browse files and add-ons') %></h3>
+                    <p><%= t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on.') %></p>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

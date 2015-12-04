@@ -50,7 +50,7 @@
             <li class="video-scan"><%= t.gettext("Scan video library") %></li>
             <li class="audio-scan"><%= t.gettext("Scan audio library") %></li>
             <li class="send-input"><%= t.gettext("Send text to Kodi") %></li>
-            <li class="goto-lab"><%= t.gettext("Lab") %></li>
+            <li class="goto-lab"><%= t.gettext("The lab") %></li>
             <li class="about"><%= t.gettext("About Chorus") %></li>
         </ul>
     </div>

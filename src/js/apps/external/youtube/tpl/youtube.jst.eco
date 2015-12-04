@@ -1,4 +1,4 @@
 <img src="<%= @thumbnail %>" class="thumb" />
 <h3><%= @title %></h3>
 <span class="play-kodi flat-btn action">Play in Kodi</span>
-<span class="play-local flat-btn action">Play in Browser</span>
+<span class="play-local flat-btn action">Play in browser</span>

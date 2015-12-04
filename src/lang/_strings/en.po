@@ -454,16 +454,16 @@ msgid "Send text to Kodi"
 msgstr "Send text to Kodi"
 
 msgctxt ""
-msgid "Chorus Lab"
-msgstr "Chorus Lab"
+msgid "The lab"
+msgstr "The lab"
 
 msgctxt ""
-msgid "Chorus Lab"
-msgstr "Chorus Lab"
+msgid "Chorus lab"
+msgstr "Chorus lab"
 
 msgctxt ""
-msgid "The Lab"
-msgstr "The Lab"
+msgid "The lab"
+msgstr "The lab"
 
 msgctxt ""
 msgid "Warning"

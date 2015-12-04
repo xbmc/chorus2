@@ -22,6 +22,6 @@
     childView: lab.labItem
     onRender: ->
       @$el.prepend $('<h3>').html( t.gettext('Experimental code, use at own risk') )
-      @$el.prepend $('<h2>').html( t.gettext('The Lab') )
+      @$el.prepend $('<h2>').html( t.gettext('The lab') )
       @$el.addClass('page-secondary')
 

@@ -1,3 +1,7 @@
+Version 2.0.11
+-------------
+* String updates
+
 Version 2.0.10
 -------------
 * Bug fixes and refactoring
