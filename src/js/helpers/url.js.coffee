@@ -127,5 +127,5 @@ helpers.url.parseTrailerUrl = (trailer) ->
 
 ## Is current protocol https
 helpers.url.isSecureProtocol = () ->
-  secure = if document? and document.location.protocal is "https:" then true else false
+  secure = if document? and document.location.protocol is "https:" then true else false
   secure
