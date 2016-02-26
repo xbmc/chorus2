@@ -39,6 +39,12 @@
         key: 'rating'
         defaultOrder: 'desc'
       }
+      {
+        alias: 'Artist'
+        type: 'string'
+        key: 'artist'
+        defaultOrder: 'asc'
+      }
     ]
 
     ## See applyFilter() for how filterCallback are handled.
@@ -108,7 +114,7 @@
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
-    ]
+    ] 
 
     ## Wrapper for returning the available fields for sort/filter
     ## Available fields are defined in the entity controller and passed
