@@ -1,6 +1,5 @@
 @Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
 
-
   ## Playlist requires some player functionality but is also its
   ## own thing so it extends the player.
   class Api.PlayList extends Api.Player
@@ -83,7 +82,4 @@
       @singleCommand @getCommand('Remove'), [@getPlayer(), parseInt(position1)], (resp) =>
         @insert idProp, id, position2, =>
           @doCallback callback, position2
-
-
-
 

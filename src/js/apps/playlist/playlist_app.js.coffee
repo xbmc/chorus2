@@ -41,6 +41,7 @@
     App.commands.setHandler "playlist:refresh", (type, media) ->
       controller.renderList type, media
 
+    # Trigger on item changed
+    App.vent.on "state:kodi:playing:updated", (stateObj) ->
+      controller.focusPlaying stateObj.getState('player'), stateObj.getPlaying()
 
-
- 

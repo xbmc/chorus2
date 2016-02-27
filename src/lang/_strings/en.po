@@ -580,3 +580,15 @@ msgstr "Status report"
 msgctxt ""
 msgid "in"
 msgstr "in"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Focus playlist on playing"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Settings saved."
