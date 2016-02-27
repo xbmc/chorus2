@@ -1,3 +1,11 @@
+Version 2.0.12
+-------------
+* Improved adding to mobile home screen #79
+* Fixed https issue with type #83
+* Sort album by artist #84
+* Auto scroll to current track #88
+* Added keyboard control setting #89
+
 Version 2.0.11
 -------------
 * String updates
