@@ -60,9 +60,16 @@
     ## The input binds
     keyBind: (e) ->
 
-      ## Don't do anything if forms in use
-      if $(e.target).is("input, textarea")
+      # Get settings
+      keyboardControl = config.getLocal('keyboardControl')
+
+      ## Don't do anything if forms in use or if we have a local only setting
+      if $(e.target).is("input, textarea") or keyboardControl is 'local'
         return
+
+      # If all keyboard controls are for kodi
+      if keyboardControl is 'kodi'
+        e.preventDefault()
 
       ## Get stateObj - consider changing this to be current and work with local too?
       stateObj = App.request "state:kodi"

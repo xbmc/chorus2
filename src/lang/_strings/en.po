@@ -592,3 +592,11 @@ msgstr "Automatically scroll the playlist to the current playing item. This happ
 msgctxt ""
 msgid "Web Settings saved."
 msgstr "Web Settings saved."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Keyboard controls"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "In Chorus, will you keyboard control Kodi, the browser or both"

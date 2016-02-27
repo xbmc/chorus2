@@ -41,6 +41,7 @@
           children:[
             {id: 'lang', title: t.gettext("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: t.gettext('Preferred language, need to refresh browser to take effect')}
             {id: 'defaultPlayer', title: t.gettext("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: t.gettext('Which player to start with')}
+            {id: 'keyboardControl', title: t.gettext("Keyboard controls"), type: 'select', options: {kodi: 'Kodi', local: 'Browser', both: 'Both'}, defaultValue: 'kodi', description: t.gettext('In Chorus, will you keyboard control Kodi, the browser or both')}
           ]
         }
         {

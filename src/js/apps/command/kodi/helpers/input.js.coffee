@@ -13,7 +13,6 @@
 
     ## Set a single input
     sendInput: (type, params = [], callback) ->
-      console.log type, params
       @singleCommand @getCommand(type), params, (resp) =>
         @doCallback callback, resp
         if not App.request 'sockets:active'
