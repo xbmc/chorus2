@@ -90,10 +90,10 @@
           @doInput "Select"
         when 67 # c (context)
           @doInput "ContextMenu"
-        when 107 # + (vol up)
+        when 107 || 175 || 183 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
-        when 109 # - (vol down)
+        when 109 || 189 || 173 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)
