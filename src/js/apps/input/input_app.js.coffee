@@ -61,14 +61,19 @@
     keyBind: (e) ->
 
       # Get settings
-      keyboardControl = config.getLocal('keyboardControl')
+      kodiControl = config.getLocal('keyboardControl') is 'kodi'
+      remotePage = $('body').hasClass('page-remote')
 
       ## Don't do anything if forms in use or if we have a local only setting
-      if $(e.target).is("input, textarea") or keyboardControl is 'local'
+      if $(e.target).is("input, textarea")
         return
 
-      # If all keyboard controls are for kodi
-      if keyboardControl is 'kodi'
+      # If no Kodi control and not on the remote page
+      if not kodiControl and not remotePage
+	return
+
+      # If all keyboard controls are for kodi or on the remote page
+      if kodiControl or remotePage
         e.preventDefault()
 
       ## Get stateObj - consider changing this to be current and work with local too?
@@ -100,8 +105,10 @@
           @doCommand "PlayPause", "toggle"
         when 88 # x (stop)
           @doCommand "Stop"
-        # when 84 # t (toggle subtitles)
-          ## TODO
+	when 84 # t (toggle subtitles)
+	  @doAction "showsubtitles"
+	when 9 # tab (close osd)
+	  @doAction "close"
         when 190 # > (next)
           @doCommand "GoTo", "next"
         when 188 # < (prev)

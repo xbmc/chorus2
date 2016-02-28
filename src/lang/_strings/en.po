@@ -600,3 +600,7 @@ msgstr "Keyboard controls"
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
 msgstr "In Chorus, will you keyboard control Kodi, the browser or both"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Learn more"

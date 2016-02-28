@@ -10,6 +10,6 @@
         </div>
     <% end %>
     <% if @description: %>
-        <div class="help-block description"><%= @description %></div>
+	<div class="help-block description"><%- @description %></div>
     <% end %>
 </div>
