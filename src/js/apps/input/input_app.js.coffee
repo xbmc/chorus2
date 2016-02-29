@@ -135,9 +135,9 @@
   App.commands.setHandler "input:action", (action) ->
     API.doAction(action)
 
-  App.commands.setHandler "input:resume", (player, model, idKey) ->
+  App.commands.setHandler "input:resume", (model, idKey) ->
     controller = new InputApp.Resume.Controller()
-    controller.resumePlay player, model, idKey
+    controller.resumePlay model, idKey
 
   ## Startup tasks.
   App.addInitializer ->

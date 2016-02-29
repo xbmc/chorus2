@@ -51,10 +51,18 @@
   App.commands.setHandler "command:audio:add", (type, value) ->
     API.currentAudioPlaylistController().add type, value
 
-  ## Play Audio in kodi or local depending on active player.
-  App.commands.setHandler "command:video:play", (model, type) ->
+  ## Play Video in kodi or local depending on active player.
+  App.commands.setHandler "command:video:play", (model, type, resume = 0, callback) ->
     value = model.get(type)
-    API.currentVideoPlayerController().play type, value, model
+    API.currentVideoPlayerController().play type, value, model, resume, (resp) ->
+      # Problem: Home OSD to display when you 'add to playlist and play' when it is not empty
+      # This might cause other issues but tested ok for me, so hack implemented!
+      # TODO: Investigate, feels like a Kodi bug, but maybe not also.
+      stateObj = App.request "state:current"
+      if stateObj.getPlayer() is 'kodi'
+	# If player is kodi, force full screen to full. This hides the home OSD.
+	kodiVideo = App.request "command:kodi:controller", 'video', 'GUI'
+	kodiVideo.setFullScreen true, callback
 
   ## Startup tasks.
   App.addInitializer ->

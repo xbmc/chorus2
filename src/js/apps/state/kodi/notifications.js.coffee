@@ -66,8 +66,8 @@
     ## Force a state refresh
     refreshStateNow: (callback) ->
       App.vent.trigger "state:kodi:changed", @getCachedState()
-      ## Do a full lookup 1s later, calling this immediatly returns
-      ## old data.
+      ## Do a full lookup 1s later, calling this immediately returns
+      ## old data. TODO: Not robust, fix!
       setTimeout(( =>
         App.request "state:kodi:update", (state) =>
           if callback

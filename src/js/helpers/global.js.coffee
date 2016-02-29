@@ -152,3 +152,11 @@ helpers.global.stripTags = (string) ->
     string.replace(/(<([^>]+)>)/ig,"");
   else
     ''
+
+# Round to decimal places.
+helpers.global.round = (x, places = 0) ->
+  parseFloat(x.toFixed(places))
+
+## Given a position and total, return percent to 2 decimal places
+helpers.global.getPercent = (pos, total, places = 2) ->
+  Math.floor((pos / total) * (100 * Math.pow(10, places))) / 100

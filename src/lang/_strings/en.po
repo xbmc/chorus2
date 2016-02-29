@@ -604,3 +604,15 @@ msgstr "In Chorus, will you keyboard control Kodi, the browser or both"
 msgctxt ""
 msgid "Learn more"
 msgstr "Learn more"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Resume playback"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Resume from"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Start from the beginning"

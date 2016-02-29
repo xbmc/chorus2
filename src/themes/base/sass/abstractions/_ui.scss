@@ -67,3 +67,6 @@
     }
   }
 }
+%flat-button {
+  @include flat-button();
+}

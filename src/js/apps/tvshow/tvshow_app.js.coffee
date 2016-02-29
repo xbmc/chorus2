@@ -36,9 +36,10 @@
       playlist = App.request "command:kodi:controller", 'video', 'PlayList'
       files = App.request "command:kodi:controller", 'video', 'Files'
       videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
+      # Action to do
       switch op
         when 'play'
-          App.execute "command:video:play", model, 'episodeid'
+	  App.execute "input:resume", model, 'episodeid'
         when 'add'
           playlist.add 'episodeid', model.get('episodeid')
         when 'localplay'
@@ -48,8 +49,7 @@
         when 'toggleWatched'
           videoLib.toggleWatched model
         else
-        ## nothing
-
+	  ## nothing
 
   App.commands.setHandler 'episode:action', (op, view) ->
     API.episodeAction op, view

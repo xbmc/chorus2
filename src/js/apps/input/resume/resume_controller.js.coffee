@@ -4,14 +4,15 @@
 
     ## Ask to resume playback if the model has a resume position
     ## Currently only supports Kodi playback
-    resumePlay: (player, model, idKey) ->
+    resumePlay: (model, idKey) ->
+      stateObj = App.request "state:current"
       title = t.gettext('Resume playback')
       resume = model.get('resume')
       percent = 0
       options = []
 
       # If resume position position
-      if parseInt(resume.position) > 0 and player is 'kodi'
+      if parseInt(resume.position) > 0 and stateObj.getPlayer() is 'kodi'
 	# Get percent
 	percent = helpers.global.getPercent(resume.position, resume.total)
 
@@ -24,22 +25,19 @@
 	# build options as an array of jQuery objects
 	items = [{title: resume_string, percent: percent}, {title: start_string, percent: 0}]
 	for item in items
-	  console.log item
 	  $el = $('<span>')
 	  .attr('data-percent', item.percent)
 	  .html(item.title)
 	  .click (e)->
-	    console.log $(@).data('percent')
+	    # Callback for option click
 	    App.execute "command:video:play", model, idKey, $(@).data('percent')
-	    $(@).unbind('click')
 	  options.push $el
 
 	# Open options in a modal
 	App.execute "ui:modal:options", title, options
       else
 	# No resume point or resume is 0%
-	App.execute "command:video:play", model, idKey
-
+	App.execute "command:video:play", model, idKey, 0
 
     initialize: ->
       # Something.
