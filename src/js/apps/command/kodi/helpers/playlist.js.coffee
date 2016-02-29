@@ -11,10 +11,10 @@
     play: (type, value, model, resume = 0, callback) ->
       stateObj = App.request "state:kodi"
       if stateObj.isPlaying()
-	@insertAndPlay type, value, (stateObj.getPlaying('position') + 1), resume, callback
+        @insertAndPlay type, value, (stateObj.getPlaying('position') + 1), resume, callback
       else
         @clear =>
-	  @insertAndPlay type, value, 0, resume, callback
+          @insertAndPlay type, value, 0, resume, callback
 
     ## Play a collection of models
     playCollection: (collection, position = 0) ->
@@ -63,9 +63,9 @@
     insertAndPlay: (type, value, position = 0, resume = 0, callback) ->
       @insert type, value, position, (resp) =>
         @playEntity 'position', parseInt(position), {}, =>
-	  if resume > 0
-	    # Seek to resume point if not 0. Setting option {resume: true} does not work :(
-	    App.execute "player:kodi:progress:update", resume
+          if resume > 0
+            # Seek to resume point if not 0. Setting option {resume: true} does not work :(
+            App.execute "player:kodi:progress:update", resume
           @doCallback callback, resp
 
     ## Get the size of the current playlist

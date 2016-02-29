@@ -39,7 +39,7 @@
       # Action to do
       switch op
         when 'play'
-	  App.execute "input:resume", model, 'episodeid'
+          App.execute "input:resume", model, 'episodeid'
         when 'add'
           playlist.add 'episodeid', model.get('episodeid')
         when 'localplay'

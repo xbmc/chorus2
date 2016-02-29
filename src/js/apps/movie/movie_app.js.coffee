@@ -25,7 +25,7 @@
       videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       switch op
         when 'play'
-	  App.execute "input:resume", model, 'movieid'
+          App.execute "input:resume", model, 'movieid'
         when 'add'
           playlist.add 'movieid', model.get('movieid')
         when 'localplay'

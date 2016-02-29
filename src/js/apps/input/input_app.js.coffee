@@ -70,7 +70,7 @@
 
       # If no Kodi control and not on the remote page
       if not kodiControl and not remotePage
-	return
+        return
 
       # If all keyboard controls are for kodi or on the remote page
       if kodiControl or remotePage
@@ -105,16 +105,16 @@
           @doCommand "PlayPause", "toggle"
         when 88 # x (stop)
           @doCommand "Stop"
-	when 84 # t (toggle subtitles)
-	  @doAction "showsubtitles"
-	when 9 # tab (close osd)
-	  @doAction "close"
+        when 84 # t (toggle subtitles)
+          @doAction "showsubtitles"
+        when 9 # tab (close osd)
+          @doAction "close"
         when 190 # > (next)
           @doCommand "GoTo", "next"
         when 188 # < (prev)
           @doCommand "GoTo", "previous"
-	when 220 # Backslash (fullscreen)
-	  @doAction "fullscreen"
+        when 220 # Backslash (fullscreen)
+          @doAction "fullscreen"
         else # return everything else here
 
 
@@ -123,8 +123,8 @@
       API.inputController().sendText(text)
       App.execute "notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi')
 
-    App.commands.setHandler "input:textbox:close", ->
-      App.execute "ui:modal:close"
+  App.commands.setHandler "input:textbox:close", ->
+    App.execute "ui:modal:close"
 
   App.commands.setHandler "input:send", (action) ->
     API.doInput action

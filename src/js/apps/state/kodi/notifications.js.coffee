@@ -97,14 +97,14 @@
         when 'Player.OnPropertyChanged'
           @refreshStateNow()
 
-       # playback pause
+        # playback pause
         when 'Player.OnPause'
           @setPlaying('paused', true)
           @setPlaying('playState', 'paused')
           App.execute "player:kodi:timer", 'stop'
           @refreshStateNow()
 
-       # progress changed
+        # progress changed
         when 'Player.OnSeek'
           App.execute "player:kodi:timer", 'stop'
           @refreshStateNow ->
@@ -116,7 +116,7 @@
           App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
           @refreshStateNow()
 
-       # volume change
+        # volume change
         when 'Application.OnVolumeChanged'
           @setState 'volume', data.params.data.volume
           @setState 'muted', data.params.data.muted

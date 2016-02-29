@@ -1,3 +1,10 @@
+Version 2.0.13
+-------------
+* Added video resume UI and functionality #76
+* Volume keys fix for non numpad keyboard #83
+* Added fullscreen to keymap #94
+* Improved key bindings and added docs
+
 Version 2.0.12
 -------------
 * Improved adding to mobile home screen #79

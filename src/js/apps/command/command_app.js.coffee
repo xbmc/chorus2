@@ -60,9 +60,9 @@
       # TODO: Investigate, feels like a Kodi bug, but maybe not also.
       stateObj = App.request "state:current"
       if stateObj.getPlayer() is 'kodi'
-	# If player is kodi, force full screen to full. This hides the home OSD.
-	kodiVideo = App.request "command:kodi:controller", 'video', 'GUI'
-	kodiVideo.setFullScreen true, callback
+        # If player is kodi, force full screen to full. This hides the home OSD.
+        kodiVideo = App.request "command:kodi:controller", 'video', 'GUI'
+        kodiVideo.setFullScreen true, callback
 
   ## Startup tasks.
   App.addInitializer ->

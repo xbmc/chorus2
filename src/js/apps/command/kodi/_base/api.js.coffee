@@ -83,7 +83,7 @@
     playEntity: (type, value, options = {}, callback) ->
       params = {'item': @paramObj(type, value), 'options': options}
       if type is 'position'
-	params.item.playlistid = @getPlayer()
+        params.item.playlistid = @getPlayer()
       @singleCommand @getCommand('Open', 'Player'), params, (resp) =>
         if not App.request 'sockets:active'
           # App.request 'player:kodi:timer', 'start'

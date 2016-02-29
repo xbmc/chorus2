@@ -59,18 +59,17 @@
     ## a title and callback key. when the option is clicked the callback is called.
     buildOptions: (options) ->
       if options.length is 0
-	return
+        return
       $wrap = $('<ul>').addClass('modal-options options-list')
       $option = $('<li>')
       for option in options
-	  $newOption = $option.clone()
-	  $newOption.html(option)
-	  $newOption.click (e) ->
-	    API.closeModal()
-	    $(@).closest('ul').find('li, span').unbind('click')
-	  $wrap.append($newOption)
+        $newOption = $option.clone()
+        $newOption.html(option)
+        $newOption.click (e) ->
+          API.closeModal()
+          $(@).closest('ul').find('li, span').unbind('click')
+        $wrap.append($newOption)
       $wrap
-
 
   ## Open a text input modal window, callback recieves the entered text.
   App.commands.setHandler "ui:textinput:show", (title, msg = '', callback, open = true) ->

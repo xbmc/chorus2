@@ -37,7 +37,7 @@
 	      {title: t.gettext('About'), path: 'help'}
         {title: t.gettext('Readme'), path: 'help/app-readme'}
         {title: t.gettext('Changelog'), path: 'help/app-changelog'}
-	{title: t.gettext('Keyboard'), path: 'help/keybind-readme'}
+	      {title: t.gettext('Keyboard'), path: 'help/keybind-readme'}
         {title: t.gettext('Translations'), path: 'help/lang-readme'}
       ]
 
