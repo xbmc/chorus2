@@ -24,6 +24,7 @@ Key "X" = Stop
 Key "T" = Toggle subtitles
 Key ">" = Play Next
 Key "<" = Play Prev
+Key "\" = Full screen
 ```
 
 [Got improvements to add? click here](https://github.com/jez500/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)

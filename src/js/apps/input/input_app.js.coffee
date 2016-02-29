@@ -113,6 +113,8 @@
           @doCommand "GoTo", "next"
         when 188 # < (prev)
           @doCommand "GoTo", "previous"
+	when 220 # Backslash (fullscreen)
+	  @doAction "fullscreen"
         else # return everything else here
 
 
@@ -132,6 +134,10 @@
 
   App.commands.setHandler "input:action", (action) ->
     API.doAction(action)
+
+  App.commands.setHandler "input:resume", (player, model, idKey) ->
+    controller = new InputApp.Resume.Controller()
+    controller.resumePlay player, model, idKey
 
   ## Startup tasks.
   App.addInitializer ->

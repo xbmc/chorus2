@@ -5,6 +5,7 @@
     events:
       'click .input-button': 'inputClick'
       'click .player-button': 'playerClick'
+      'click .close-remote': 'closeRemote'
     triggers:
       'click .power-button': 'remote:power'
       'click .info-button': 'remote:info'
@@ -16,5 +17,8 @@
     playerClick: (e) ->
       type = $(e.target).data('type')
       @trigger 'remote:player', type
+
+    closeRemote: (e) ->
+      App.execute "input:remote:toggle"
 
     class Remote.Landing extends App.Views.ItemView

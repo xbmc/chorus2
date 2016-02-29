@@ -1,4 +1,4 @@
-<div id="remote-background"></div>
+<div id="remote-background" class="close-remote"></div>
 <div class="remote kodi-remote">
     <div class="toggle-visibility"></div>
     <div class="playing-area">
