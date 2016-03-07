@@ -1,3 +1,10 @@
+Version 2.0.14
+-------------
+* Added ability to customise menu links
+* de language updates
+* Added progress to tvshow and season
+* Volume keybind update #91
+
 Version 2.0.13
 -------------
 * Added video resume UI and functionality #76
