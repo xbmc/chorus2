@@ -10,6 +10,8 @@
       @listenTo @formLayout, "show", =>
         @formBuild(options.form, options.formState, config)
         $.material.init()
+        if config and typeof config.onShow is 'function'
+          config.onShow options
 
       @listenTo @formLayout, "form:submit", =>
         @formSubmit(options)
@@ -34,6 +36,11 @@
         collection: collection
       @formLayout.formContentRegion.show buildView
 
+
+  App.reqres.setHandler "form:render:items", (form, formState, options = {}) ->
+    collection = App.request "form:item:entities", form, formState
+    new Form.Groups
+      collection: collection
 
   App.reqres.setHandler "form:wrapper", (options = {}) ->
     formController = new Form.Controller options

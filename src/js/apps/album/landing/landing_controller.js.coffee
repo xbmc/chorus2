@@ -3,7 +3,7 @@
   ## Main controller
   class Landing.Controller extends App.Controllers.Base
 
-    subNavId: 1
+    subNavId: 'music'
 
     initialize: ->
 

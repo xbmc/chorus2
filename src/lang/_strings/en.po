@@ -616,3 +616,15 @@ msgstr "Resume from"
 msgctxt ""
 msgid "Start from the beginning"
 msgstr "Start from the beginning"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "Click here restore defaults"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "Main Menu Structure"
+
+msgctxt ""
+msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
+msgstr "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."

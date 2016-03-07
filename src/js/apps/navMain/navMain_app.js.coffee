@@ -7,8 +7,8 @@
       new NavMain.List
         collection: navStructure
 
-    getNavChildren: (parentId, title = 'default') ->
-      navStructure = App.request 'navMain:entities', parentId
+    getNavChildren: (path, title = 'default') ->
+      navStructure = App.request 'navMain:entities', path
       if title isnt 'default'
         navStructure.set({title: title})
       new NavMain.ItemList
@@ -26,8 +26,12 @@
       nav = API.getNav()
       App.regionNav.show nav
 
-  App.reqres.setHandler "navMain:children:show", (parentId, title = 'default') ->
-    API.getNavChildren parentId, title
+  App.reqres.setHandler "navMain:children:show", (path, title = 'default') ->
+    API.getNavChildren path, title
 
   App.reqres.setHandler "navMain:collection:show", (collection, title = '') ->
     API.getNavCollection collection, title
+
+  App.vent.on "navMain:refresh", ->
+    nav = API.getNav()
+    App.regionNav.show nav

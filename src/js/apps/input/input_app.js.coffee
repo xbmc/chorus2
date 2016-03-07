@@ -65,7 +65,7 @@
       remotePage = $('body').hasClass('page-remote')
 
       ## Don't do anything if forms in use or if we have a local only setting
-      if $(e.target).is("input, textarea")
+      if $(e.target).is("input, textarea, select")
         return
 
       # If no Kodi control and not on the remote page

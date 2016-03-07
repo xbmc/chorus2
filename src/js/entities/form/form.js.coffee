@@ -11,6 +11,7 @@
       description: ''
       children: []
       attributes: {}
+      class: ''
 
   class Entities.Form extends Entities.Collection
     model: Entities.FormItem

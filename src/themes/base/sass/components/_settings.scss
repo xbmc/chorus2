@@ -1,3 +1,4 @@
+%settings-page,
 .settings-page {
   .region-first {
     @extend %sidebar--padding;
@@ -8,13 +9,15 @@
   }
 }
 
+%settings-form,
 .settings-form {
   @extend %page;
   .form-content-region {
     @extend %page-padding;
   }
   .form-group {
-    margin-bottom: $spacing-half-unit * 3;
+    padding-bottom: $spacing-half-unit * 3;
+    margin-bottom: 0;
     @include pie-clearfix();
     @include at-bp(medium) {
       .control-label {
@@ -32,6 +35,9 @@
     padding-bottom: $spacing-half-unit;
     color: $color-kodi;
     display: inline-block;
+    i {
+      color: rgba($color-greyscale-gray, 0.7);
+    }
   }
   .form-items {
     @include at-bp(large) {
@@ -51,6 +57,53 @@
     margin-top: 4px;
     label .toggle:after {
       top: -3px;
+    }
+  }
+}
+
+%settings-form-draggable,
+.settings-form-draggable {
+  .form-groups .draggable-row {
+    position: relative;
+    border-bottom: 1px solid rgba($color-greyscale-alto, 0.6);
+    padding: $spacing-base-unit $spacing-half-unit;
+    cursor: move;
+    &:nth-child(even) {
+      background: rgba($color-greyscale-mercury, 0.4);
+    }
+    .form-group {
+      padding-bottom: $spacing-half-unit;
+    }
+    .control-label {
+      cursor: move;
+      position: relative;
+      display: block;
+      i {
+        margin-left: $spacing-half-unit;
+        font-weight: normal;
+        font-size: 1.3em;
+        position: absolute;
+        right: $spacing-half-unit;
+        top: $spacing-half-unit;
+        opacity: 0.9;
+      }
+    }
+    .remove-item {
+      @include set-position-absolute(top 0 right 0);
+      padding: 0 $spacing-half-unit $spacing-quarter-unit;
+      color: rgb(146, 18, 18);
+      display: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      opacity: 0.5;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    &:hover {
+      .remove-item {
+        display: block;
+      }
     }
   }
 }

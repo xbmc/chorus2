@@ -1,22 +1,17 @@
 @Kodi.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
-	
-  class Entities.NavMain extends App.Entities.Model
-    defaults:
-      id: 0
-      title: 'Untitled'
-      path: ''
-      description: ''
-      icon: ''
-      classes: ''
-      parent: 0
-      children: []
-		
-  class Entities.NavMainCollection extends App.Entities.Collection
-    model: Entities.NavMain
-	
+
   API =
 
+    localKey: 'mainNav'
+
     getItems: ->
+      navCollection = @getLocalCollection()
+      items = navCollection.getRawCollection()
+      if items.length is 0
+        items = @getDefaultItems()
+      items
+
+    getDefaultItems: ->
       nav = []
       ## Music.
       nav.push {id: 1, title: "Music", path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
@@ -47,6 +42,7 @@
       nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
       nav.push {id: 52, title: "Web interface", path: 'settings/web', icon: '', classes: '', parent: 51}
       nav.push {id: 53, title: "Add-ons", path: 'settings/addons', icon: '', classes: '', parent: 51}
+      nav.push {id: 54, title: "Main Nav", path: 'settings/nav', icon: '', classes: '', parent: 51}
 
       ## Help
       nav.push {id: 61, title: "Help", path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}
@@ -66,15 +62,21 @@
           newItems.push item
       newItems
 
+    ## Get a collection from local storage.
+    getLocalCollection: ->
+      collection = new Entities.LocalNavMainCollection([], {key: @localKey})
+      collection.fetch()
+      collection
+
     ## Get a full standard structure
-    getDefaultStructure: ->
+    getStructure: ->
       navParsed = @sortStructure @getItems()
       navCollection = new Entities.NavMainCollection navParsed
       navCollection
 
     ## Get only child items from a given parent
     getChildStructure: (parentId) ->
-      nav = @getItems()
+      nav = @getDefaultItems()
       parent = _.findWhere nav, {id: parentId}
       childItems = _.where(nav, {parent: parentId})
       parent.items = new Entities.NavMainCollection childItems
@@ -98,11 +100,54 @@
           newParents.push model
       newParents
 
-  ## Handler to return the collection
-  App.reqres.setHandler "navMain:entities", (parentId = 'all') ->
-    if parentId is 'all'
-      API.getDefaultStructure()
+    # Returns the ID for the given path (no hash)
+    getIdfromPath: (path) ->
+      model = _.findWhere @getDefaultItems(), {path: path}
+      if model? then model.id else 1
+
+    # Save current form to local storage collection
+    saveLocal: (items) ->
+      collection = @clearLocal()
+      for i, item of items
+        collection.create item
+      collection
+
+    ## remove all items from a list
+    clearLocal: ->
+      collection = @getLocalCollection()
+      while model = collection.first()
+        model.destroy()
+      collection
+
+
+  ## NavMain model
+  class Entities.NavMain extends App.Entities.Model
+    defaults:
+      id: 0
+      title: 'Untitled'
+      path: ''
+      description: ''
+      icon: ''
+      classes: ''
+      parent: 0
+      children: []
+
+  ## NavMain collection
+  class Entities.NavMainCollection extends App.Entities.Collection
+    model: Entities.NavMain
+
+  ## NavMain local storage collection
+  class Entities.LocalNavMainCollection extends App.Entities.Collection
+    model: Entities.NavMain
+    localStorage: new Backbone.LocalStorage API.localKey
+
+
+  ## Handler to return the collection, parent is path to parent.
+  App.reqres.setHandler "navMain:entities", (parent = 'all') ->
+    if parent is 'all'
+      API.getStructure()
     else
+      parentId = API.getIdfromPath(parent)
       API.getChildStructure parentId
 
   ## Turn an array of link objects into a collection.
@@ -111,3 +156,11 @@
     for i, item of items
       items[i].id = item.path
     new Entities.NavMainCollection items
+
+  ## Update mainNav local storage entities
+  App.reqres.setHandler "navMain:update:entities", (items) ->
+    API.saveLocal items
+
+  ## Update mainNav local storage entities
+  App.reqres.setHandler "navMain:update:defaults", (items) ->
+    API.clearLocal()
