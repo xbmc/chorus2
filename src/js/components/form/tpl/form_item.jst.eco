@@ -1,15 +1,20 @@
 <% if @title: %>
-    <label class="control-label"><%= @title %></label>
+    <label class="control-label"><%- @title %></label>
 <% end %>
-<div class="element">
-    <% if @type isnt 'checkbox': %>
-        <%- @element %>
-    <% else: %>
-        <div class="togglebutton">
-            <label><%- @element %></label>
-        </div>
-    <% end %>
-    <% if @description: %>
-	<div class="help-block description"><%- @description %></div>
-    <% end %>
-</div>
+
+<% if @type is 'markup' or @type is 'button': %>
+    <%- @element %>
+<% else: %>
+    <div class="element">
+        <% if @type isnt 'checkbox': %>
+            <%- @element %>
+        <% else: %>
+            <div class="togglebutton">
+                <label><%- @element %></label>
+            </div>
+        <% end %>
+        <% if @description: %>
+        <div class="help-block description"><%- @description %></div>
+        <% end %>
+    </div>
+<% end %>

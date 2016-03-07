@@ -27,6 +27,8 @@
           model.progress = if model.resume.position is 0 then 0 else Math.round((model.resume.position / model.resume.total) * 100)
         if model.trailer
           model.trailer = helpers.url.parseTrailerUrl model.trailer
+        if type is 'tvshow' or type is 'season'
+          model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
         if type is 'episode'
           model.url = helpers.url.get type, id, {':tvshowid': model.tvshowid, ':season': model.season}
         else if type is 'channel'

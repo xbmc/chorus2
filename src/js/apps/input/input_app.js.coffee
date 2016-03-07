@@ -65,7 +65,7 @@
       remotePage = $('body').hasClass('page-remote')
 
       ## Don't do anything if forms in use or if we have a local only setting
-      if $(e.target).is("input, textarea")
+      if $(e.target).is("input, textarea, select")
         return
 
       # If no Kodi control and not on the remote page
@@ -78,6 +78,8 @@
 
       ## Get stateObj - consider changing this to be current and work with local too?
       stateObj = App.request "state:kodi"
+
+      console.log e.which
 
       ## Respond to key code
       switch e.which
@@ -95,10 +97,10 @@
           @doInput "Select"
         when 67 # c (context)
           @doInput "ContextMenu"
-        when 107 || 175 || 183 # + (vol up)
+        when 107 || 187 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
-        when 109 || 189 || 173 # - (vol down)
+        when 109 || 189 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)

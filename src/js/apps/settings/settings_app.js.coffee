@@ -6,16 +6,20 @@
       "settings/kodi"	  : "kodi"
       "settings/kodi/:section" : "kodi"
       "settings/addons" : "addons"
+      "settings/nav" : "navMain"
 
   API =
 
-    subNavId: 51
+    subNavId: 'settings/web'
 
     local: ->
       new SettingsApp.Show.Local.Controller()
 
     addons: ->
       new SettingsApp.Show.Addons.Controller()
+
+    navMain: ->
+      new SettingsApp.Show.navMain.Controller()
 
     kodi: (section, category) ->
       new SettingsApp.Show.Kodi.Controller
