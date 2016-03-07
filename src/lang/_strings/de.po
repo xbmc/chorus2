@@ -448,3 +448,169 @@ msgstr "Dateien und Add-ons durchsuchen"
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
 msgstr "Hier kannst du alles in Kodi durchsuchen, nicht nur die Bibliothek. Suche per Quelle oder Add-on."
+
+### new strings below ###
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "Text an Kodi senden"
+
+msgctxt ""
+msgid "The lab"
+msgstr "Das Labor"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Chorus Entwicklung"
+
+msgctxt ""
+msgid "Warning"
+msgstr "Warnung"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "Experimentelle Version, Nutzung auf eigene Gefahr"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API browser"
+
+msgctxt ""
+msgid "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "Dieses Tool testet die API. Wähle eine Methode und führe es mit Parametern aus."
+
+msgctxt ""
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "Du könntest dein System beschädigen, es gibt keine Sicherheitsprüfungen. Benutzung auf eigene Gefahr."
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi Einstellungen"
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "Kodi Einstellungen wurden gespeichert"
+
+msgctxt ""
+msgid "General"
+msgstr "Allgemein"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Web Einstellungen"
+
+msgctxt ""
+msgid "Advanced setting level is recommended for those who know what they are doing."
+msgstr "Erweiterte Einstellungsmöglichkeiten für alle, die wissen was sie tun."
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Web Einstellungen wurden gespeichert."
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi Einstellungsebene"
+
+msgctxt ""
+msgid "Remove"
+msgstr "Löschen"
+
+msgctxt ""
+msgid "cast"
+msgstr "Darsteller"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "Add-ons"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web interface"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Lies mich"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Änderungen"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Übersetzungen"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Hilfethemen"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Überblick"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Labor"
+
+msgctxt ""
+msgid "version"
+msgstr "Version"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Fernbedienung"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "Die Fernbedienung funktioniert."
+
+msgctxt ""
+msgid "About"
+msgstr "Über"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Lokale Wiedergabe"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Status"
+
+msgctxt ""
+msgid "in"
+msgstr "in"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Wiedergabeliste bei der Wiedergabe nach vorne holen"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "In der Wiedergabeliste zum aktuellen Stück springen, wenn Einträge geändert wurden."
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Einstellungen wurden gespeichert."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Tastatursteuerung"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "Chorus mit der Tastatur, dem Browser oder beidem steuern"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Wiedergabe fortsetzen"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Fortsetzen ab"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Von vorne beginnen"

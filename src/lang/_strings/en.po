@@ -462,10 +462,6 @@ msgid "Chorus lab"
 msgstr "Chorus lab"
 
 msgctxt ""
-msgid "The lab"
-msgstr "The lab"
-
-msgctxt ""
 msgid "Warning"
 msgstr "Warning"
 
