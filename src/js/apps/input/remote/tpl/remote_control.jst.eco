@@ -1,4 +1,4 @@
-<div id="remote-background"></div>
+<div id="remote-background" class="close-remote"></div>
 <div class="remote kodi-remote">
     <div class="toggle-visibility"></div>
     <div class="playing-area">
@@ -17,7 +17,7 @@
         <div class="buttons">
             <div class="ibut mdi-action-settings-power power-button"></div>
             <div class="ibut mdi-navigation-more-vert input-button" data-type="ContextMenu"></div>
-            <div class="ibut mdi-action-info input-button" data-type="Info"></div>
+            <div class="ibut mdi-action-info info-button" data-type="Info"></div>
         </div>
     </div>
     <div class="secondary-controls">

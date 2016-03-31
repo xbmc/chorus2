@@ -122,14 +122,12 @@ helpers.global.arrayToSentence = (arr, pluralise = true) ->
   str += '<strong>' + last + prefix + '</strong>'
 
 
-## Used for url stubs so we can pass long strings like files and folders
-## via a url. op = 'encode' or 'decode'. value is the thing you want to encode/decode
-## @see https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
-helpers.global.hash = (op, value) ->
-  if op is 'encode'
-    encodeURIComponent(value)
-  else
-    decodeURIComponent(value)
+# Encode/Decode a string which is typically a file path that we want to use
+# as an id and for classes. Url encoded file paths as classes break Sizzle.
+helpers.global.hashEncode = (value) ->
+  Base64.encode(value)
+helpers.global.hashDecode = (value) ->
+  Base64.decode(value)
 
 
 ## Round the rating
@@ -155,17 +153,10 @@ helpers.global.stripTags = (string) ->
   else
     ''
 
-## Generate a hashCode
-helpers.global.hashCode = (string) ->
-  hash = 0
-  if string.length == 0
-    return hash
-  i = 0
-  len = string.length
-  while i < len
-    chr = string.charCodeAt(i)
-    hash = (hash << 5) - hash + chr
-    hash |= 0
-    # Convert to 32bit integer
-    i++
-  hash
+# Round to decimal places.
+helpers.global.round = (x, places = 0) ->
+  parseFloat(x.toFixed(places))
+
+## Given a position and total, return percent to 2 decimal places
+helpers.global.getPercent = (pos, total, places = 2) ->
+  Math.floor((pos / total) * (100 * Math.pow(10, places))) / 100

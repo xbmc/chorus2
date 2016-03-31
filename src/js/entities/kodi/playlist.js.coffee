@@ -47,6 +47,7 @@
         item.type = API.getType(item, options.media)
       if item.type is 'file'
         item.id = item.file
+      item.uid = helpers.entities.createUid(item)
       item
 
 

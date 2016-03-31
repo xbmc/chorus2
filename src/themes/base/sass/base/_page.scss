@@ -1,10 +1,14 @@
+@mixin page-padding($padding: $spacing-base-unit) {
+  padding: $padding;
+  @include at-bp(large) {
+    padding: #{$padding * 2};
+    padding-left: #{$padding * 3};
+  }
+}
+
 .page-padding,
 %page-padding {
-  padding: $spacing-base-unit;
-  @include at-bp(large) {
-    padding: $spacing-double-unit;
-    padding-left: $spacing-base-unit * 3;
-  }
+  @include page-padding();
 }
 
 .page,
@@ -23,6 +27,7 @@
 .page-wrapper,
 %page-wrapper {
   padding: 0;
+  margin-bottom: #{$spacing-double-unit * 2};
   .region-content {
     padding: 0;
   }

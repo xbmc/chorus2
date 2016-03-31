@@ -1,0 +1,44 @@
+/*
+ * The styles for a list of options commonly used in modal popups.
+ */
+
+%options-list,
+.options-list {
+  @extend %reset-list;
+  padding-bottom: $spacing-half-unit;
+  > li {
+    border-bottom: 1px solid $color-greyscale-alto;
+    &:last-child {
+      border: 0;
+    }
+    > span,
+    > a {
+      display: block;
+      padding: $spacing-half-unit $spacing-base-unit;
+      cursor: pointer;
+      &:hover {
+	background: $color-kodi;
+	color: $color-white;
+	small {
+	  display: inline;
+	}
+      }
+    }
+  }
+  small {
+    font-size: 70%;
+    opacity: 0.7;
+    display: none;
+  }
+}
+
+.modal.style-options {
+  .modal-dialog {
+    @include at-bp(large) {
+      width: 300px;
+    }
+  }
+  .modal-footer {
+    display: none;
+  }
+}

@@ -23,7 +23,9 @@
       new List.ListLayout()
 
     getLoader: =>
-      text = t.gettext('Searching for') + ' ' + helpers.global.arrayToSentence(_.difference(@entities, @processed))
+      searchNames = helpers.global.arrayToSentence(_.difference(@entities, @processed))
+      query = helpers.global.arrayToSentence([@getOption('query')], false)
+      text = t.gettext('Searching for') + ' ' + query + ' ' + t.gettext('in') + ' ' + searchNames
       App.execute "loading:show:view", @layout.loadingSet, text;
 
     getResult: (entity) ->

@@ -42,6 +42,9 @@
       &.active {
         color: $color-kodi;
         font-weight: bold;
+        .active-player-local & {
+          color: $color-local;
+        }
       }
     }
   }

@@ -5,4 +5,5 @@
     <div class="entity-set entity-set-album"></div>
     <div class="entity-set entity-set-song"></div>
     <div class="entity-set entity-set-loading"></div>
+    <div class="entity-set entity-set-addons"></div>
 </div>

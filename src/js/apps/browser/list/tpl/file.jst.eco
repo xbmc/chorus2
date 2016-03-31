@@ -1,2 +1,2 @@
 <div class="thumb" style="background-image: url('<%= @thumbnail %>')"><div class="mdi play"></div></div>
-<div class="title"><%= @label %></div>
+<div class="title"><%- @label %></div>

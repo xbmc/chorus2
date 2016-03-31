@@ -49,7 +49,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['label', 'year', 'rating']
+      sort: ['label', 'year', 'rating', 'artist'] 
       filter: ['year', 'genre']
 
     ## Apply filter view and provide a handler for applying changes
@@ -63,7 +63,7 @@
     ## Get the list view with filters applied.
     renderList: (collection) ->
       App.execute "loading:show:view", @layout.regionContent
-      filteredCollection = App.request 'filter:apply:entites', collection
+      filteredCollection = App.request 'filter:apply:entities', collection
       view = API.getAlbumsList filteredCollection
       @layout.regionContent.show view
 

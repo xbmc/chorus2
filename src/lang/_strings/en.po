@@ -454,16 +454,12 @@ msgid "Send text to Kodi"
 msgstr "Send text to Kodi"
 
 msgctxt ""
-msgid "Chorus Lab"
-msgstr "Chorus Lab"
+msgid "The lab"
+msgstr "The lab"
 
 msgctxt ""
-msgid "Chorus Lab"
-msgstr "Chorus Lab"
-
-msgctxt ""
-msgid "The Lab"
-msgstr "The Lab"
+msgid "Chorus lab"
+msgstr "Chorus lab"
 
 msgctxt ""
 msgid "Warning"
@@ -520,3 +516,111 @@ msgstr "Remove"
 msgctxt ""
 msgid "cast"
 msgstr "cast"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "Add-ons"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web interface"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Readme"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Changelog"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Translations"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Help topics"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Overview"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Lab"
+
+msgctxt ""
+msgid "version"
+msgstr "version"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Remote control"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "Remote control is set up correctly"
+
+msgctxt ""
+msgid "About"
+msgstr "About"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Local audio"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Status report"
+
+msgctxt ""
+msgid "in"
+msgstr "in"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Focus playlist on playing"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Settings saved."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Keyboard controls"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "In Chorus, will you keyboard control Kodi, the browser or both"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Learn more"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Resume playback"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Resume from"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Start from the beginning"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "Click here restore defaults"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "Main Menu Structure"
+
+msgctxt ""
+msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
+msgstr "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."

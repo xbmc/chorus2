@@ -15,8 +15,8 @@
     sources: [
       {media: 'video', label: 'Video', type: 'source', provides: 'video'}
       {media: 'music', label: 'Music', type: 'source', provides: 'audio'}
-      {media: 'music', label: 'Audio Addons', type: 'addon', provides: 'audio', addonType: 'xbmc.addon.audio', content: 'unknown'}
-      {media: 'video', label: 'Video Addons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
+      {media: 'music', label: 'Audio add-ons', type: 'addon', provides: 'audio', addonType: 'xbmc.addon.audio', content: 'unknown'}
+      {media: 'video', label: 'Video add-ons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
     ]
 
     directorySeperator: '/'
@@ -91,7 +91,7 @@
 
     ## Create a url for this file/folder
     createFileUrl: (media, file) ->
-      'browser/' + media + '/' + helpers.global.hash('encode', file)
+      'browser/' + media + '/' + encodeURIComponent(file)
 
     ## Create a url for an addon
     createAddonFile: (addon) ->
@@ -227,7 +227,7 @@
 
   # Create a new file entity with info extracted from the url
   App.reqres.setHandler "file:url:entity", (media, hash) ->
-    file = helpers.global.hash 'decode', hash
+    file = decodeURIComponent hash
     new KodiEntities.EmptyFile {media: media, file: file, url: API.createFileUrl(media, file)}
 
   ## Get an file collection

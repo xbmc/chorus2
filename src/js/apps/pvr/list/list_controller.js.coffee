@@ -38,6 +38,6 @@
       @layout.regionContent.show view
 
     getSubNav: ->
-      subNavId = if @getOption('group') is 'alltv' then 21 else 1
+      subNavId = if @getOption('group') is 'alltv' then 'tvshows/recent' else 'music'
       subNav = App.request "navMain:children:show", subNavId, 'Sections'
       @layout.regionSidebarFirst.show subNav

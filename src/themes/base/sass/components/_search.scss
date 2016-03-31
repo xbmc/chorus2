@@ -9,6 +9,22 @@
   @include at-desktop {
     display: block;
   }
+  &:after {
+    content: "";
+    height: 3px;
+    background: $color-kodi;
+    opacity: 0.3;
+    @include set-position-absolute(bottom 0 left 0);
+    width: 0%;
+    //display: none;
+  }
+  &.pre-search {
+    &:after {
+      display: block;
+      width: 100%;
+      @include transition(2s all linear);
+    }
+  }
 }
 #search {
   background: none;
@@ -18,6 +34,7 @@
   outline: none;
   padding: 0 $spacing-half-unit 0 $size-region-unit;
   color: $color-header-search-text;
+
 }
 #do-search {
   @include set-layout('height-header', 'width');

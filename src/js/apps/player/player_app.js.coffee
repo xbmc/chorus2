@@ -86,11 +86,9 @@
         @timerUpdate()
       ), 1000)
 
-
     ## Stop virtual timer
     timerStop: ->
       clearTimeout App.playingTimerInterval
-
 
     ## Update virual timer.
     timerUpdate: ->
@@ -111,14 +109,12 @@
         # Restart timer
         @timerStart()
 
-
     ## Set the current player progress.
-    setProgress: (player, percent = 0, currentTime) ->
+    setProgress: (player, percent = 0, currentTime = 0) ->
       $playerCtx = $('#player-' + player)
+      $('.playing-progress', $playerCtx).val(percent)
       $cur = $('.playing-time-current', $playerCtx)
       $cur.html helpers.global.formatTime(currentTime)
-      $('.playing-progress', $playerCtx).val(percent)
-
 
     ## Init progress.
     initProgress: (player, percent = 0) ->
@@ -175,3 +171,7 @@
     ## Handler for changing the local progress.
     App.commands.setHandler 'player:local:progress:update', (percent, currentTime) ->
       API.setProgress 'local', percent, currentTime
+
+    ## Handler for changing the kodi progress.
+    App.commands.setHandler 'player:kodi:progress:update', (percent, callback) ->
+      API.doCommand 'kodi', 'Seek', percent, callback

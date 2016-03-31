@@ -81,13 +81,9 @@
           @doCallback callback, resp
 
     playEntity: (type, value, options = {}, callback) ->
-      params = []
-      data = @paramObj(type, value)
+      params = {'item': @paramObj(type, value), 'options': options}
       if type is 'position'
-        data.playlistid = @getPlayer()
-      params.push data
-      if options.length > 0
-        params.push options
+        params.item.playlistid = @getPlayer()
       @singleCommand @getCommand('Open', 'Player'), params, (resp) =>
         if not App.request 'sockets:active'
           # App.request 'player:kodi:timer', 'start'

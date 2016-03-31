@@ -28,7 +28,7 @@
         defaultOrder: 'desc'
       }
       {
-        alias: 'Date Added'
+        alias: 'Date added'
         type: 'string'
         key: 'dateadded'
         defaultOrder: 'desc'
@@ -38,6 +38,12 @@
         type: 'float'
         key: 'rating'
         defaultOrder: 'desc'
+      }
+      {
+        alias: 'Artist'
+        type: 'string'
+        key: 'artist'
+        defaultOrder: 'asc'
       }
     ]
 
@@ -108,7 +114,7 @@
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
-    ]
+    ] 
 
     ## Wrapper for returning the available fields for sort/filter
     ## Available fields are defined in the entity controller and passed
@@ -320,7 +326,7 @@
     App.request 'filter:active:entities', API.getFilterActive()
 
   ## Apply filters to a collection.
-  App.reqres.setHandler 'filter:apply:entites', (collection)  ->
+  App.reqres.setHandler 'filter:apply:entities', (collection)  ->
     API.setAvailable collection.availableFilters
     API.applyFilters collection
 

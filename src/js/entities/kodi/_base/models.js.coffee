@@ -27,6 +27,8 @@
           model.progress = if model.resume.position is 0 then 0 else Math.round((model.resume.position / model.resume.total) * 100)
         if model.trailer
           model.trailer = helpers.url.parseTrailerUrl model.trailer
+        if type is 'tvshow' or type is 'season'
+          model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
         if type is 'episode'
           model.url = helpers.url.get type, id, {':tvshowid': model.tvshowid, ':season': model.season}
         else if type is 'channel'
@@ -38,7 +40,7 @@
           
         model = App.request "images:path:entity", model
         model.type = type
-        model.uid = @getUniqueId(model, type)
+        model.uid = helpers.entities.createUid(model, type)
         model.parsed = true
       model
 
@@ -47,19 +49,6 @@
       for field in fields
         defaults[field] = ''
       defaults
-
-    ## Get UniqueID for model.
-    getUniqueId: (model, type) ->
-      type = if type then type else model.type
-      id = model.id
-      uid = 'none'
-      if typeof id is 'number'
-        uid = id
-      else
-        file = model.file
-        if file
-          uid = 'file-' + helpers.global.hashCode(file)
-      type + '-' + uid
 
     # Check the response, it might be cached and parsing can be skipped.
     #

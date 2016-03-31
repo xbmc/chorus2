@@ -1,0 +1,11 @@
+<h1><%= tr "About Chorus" %></h1>
+<h2><%= tr "Status report" %></h2>
+<div class="help--overview--report">
+    <ul>
+	<li class="report-chorus-version"><strong>Chorus <%= tr "version" %></strong><span></span></li>
+	<li class="report-kodi-version"><strong>Kodi <%= tr "version" %></strong><span></span></li>
+	<li class="report-websockets"><strong><%= tr "Remote control" %></strong><span></span></li>
+	<li class="report-local-audio"><strong><%= tr "Local audio" %></strong><span></span></li>
+    </ul>
+</div>
+<div class="help--overview--header"></div>

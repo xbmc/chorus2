@@ -51,24 +51,30 @@
         @getFolderList(collections.directory)
         @getFileList(collections.file)
 
-    getFolderList: (collection) ->
+    getFolderListView: (collection) ->
       folderView = new List.FolderList
         collection: collection
-      @folderLayout.regionFolders.show folderView
-      @getBackButton()
       @listenTo folderView, 'childview:folder:open', (set, item) =>
         @getFolder item.model
       @listenTo folderView, 'childview:folder:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
         playlist.play 'directory', item.model.get('file')
+      folderView
 
-    getFileList: (collection) ->
+    getFolderList: (collection) ->
+      @folderLayout.regionFolders.show @getFolderListView(collection)
+      @getBackButton()
+
+    getFileListView: (collection) ->
       fileView = new List.FileList
         collection: collection
-      @folderLayout.regionFiles.show fileView
       @listenTo fileView, 'childview:file:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
         playlist.play 'file', item.model.get('file')
+      fileView
+
+    getFileList: (collection) ->
+      @folderLayout.regionFiles.show @getFileListView(collection)
 
     getPathList: (collection) ->
       pathView = new List.PathList
@@ -79,7 +85,7 @@
         @getFolder item.model
 
     setBackModel: (pathCollection) ->
-      ## Back button should be the second last model
+      # Back button should be the second last model
       if pathCollection.length >= 2
         @backButtonModel = pathCollection.models[pathCollection.length - 2]
       else
@@ -94,3 +100,17 @@
           @getFolder model.model
       else
         @folderLayout.regionBack.empty()
+
+    # Get view with a collection of files only
+    getFileViewByPath: (path, media, callback) ->
+      collection = App.request "file:entities", {file: path, media: media}
+      App.execute "when:entity:fetched", collection, =>
+        view = @getFileListView collection
+        if callback
+          callback view
+
+
+  # Get view with a collection of files only
+  App.reqres.setHandler "browser:files:view", (path, media, callback) ->
+    browserController = new List.Controller()
+    browserController.getFileViewByPath path, media, callback

@@ -13,6 +13,10 @@ form .form-control-wrapper {
   color: #C0C0C0;
 }
 
+.form-type-hidden {
+  display: none;
+}
+
 form {
   .inline-list {
     @extend %clearfix;

@@ -1,6 +1,5 @@
 @Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
 
-
   ## Playlist requires some player functionality but is also its
   ## own thing so it extends the player.
   class Api.PlayList extends Api.Player
@@ -8,13 +7,14 @@
     commandNameSpace: 'Playlist'
 
     ## Play an item. If currently playing, insert it next, else clear playlist and add.
-    play: (type, value) ->
+    ## If resume > 0 will resume from that point.
+    play: (type, value, model, resume = 0, callback) ->
       stateObj = App.request "state:kodi"
       if stateObj.isPlaying()
-        @insertAndPlay type, value, (stateObj.getPlaying('position') + 1)
+        @insertAndPlay type, value, (stateObj.getPlaying('position') + 1), resume, callback
       else
         @clear =>
-          @insertAndPlay type, value, 0
+          @insertAndPlay type, value, 0, resume, callback
 
     ## Play a collection of models
     playCollection: (collection, position = 0) ->
@@ -60,9 +60,12 @@
         @doCallback callback, resp
 
     ## Insert a song at a position and play it
-    insertAndPlay: (type, value, position = 0, callback) ->
+    insertAndPlay: (type, value, position = 0, resume = 0, callback) ->
       @insert type, value, position, (resp) =>
         @playEntity 'position', parseInt(position), {}, =>
+          if resume > 0
+            # Seek to resume point if not 0. Setting option {resume: true} does not work :(
+            App.execute "player:kodi:progress:update", resume
           @doCallback callback, resp
 
     ## Get the size of the current playlist
@@ -83,7 +86,4 @@
       @singleCommand @getCommand('Remove'), [@getPlayer(), parseInt(position1)], (resp) =>
         @insert idProp, id, position2, =>
           @doCallback callback, position2
-
-
-
 

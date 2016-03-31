@@ -25,11 +25,11 @@
       videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       switch op
         when 'play'
-          playlist.play 'movieid', model.get('movieid')
+          App.execute "input:resume", model, 'movieid'
         when 'add'
           playlist.add 'movieid', model.get('movieid')
         when 'localplay'
-          files.videoStream model.get('file')
+          files.videoStream model.get('file'), model.get('fanart')
         when 'download'
           files.downloadFile model.get('file')
         when 'toggleWatched'

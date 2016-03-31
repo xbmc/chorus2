@@ -68,16 +68,16 @@ $width-nav-bar-closed: $size-region-unit;
           a {
             background: $color-kodi;
             color: $color-white;
-          //  @include at-bp(medium) {
-              span {
-                display: inline-block;
-              }
-        //    }
+            span {
+              display: inline-block;
+            }
+            .active-player-local & {
+              background: $color-local;
+            }
           }
         }
       }
     }
-
   }
 }
 

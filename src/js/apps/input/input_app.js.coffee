@@ -7,7 +7,7 @@
 
 
   API =
- 
+
     initKeyBind: ->
       $(document).keydown (e) =>
         @keyBind e
@@ -39,14 +39,14 @@
       if not App.request 'sockets:active'
         App.request 'state:kodi:update', callback
 
-    ## Toggle remote visiblily and path
+    ## Toggle remote visibility and path
     toggleRemote: (open = 'auto') ->
       $body = $('body')
       rClass = 'section-remote'
       if open is 'auto'
-        open = if ($body.hasClass(rClass)) then true else false
+        open = ($body.hasClass(rClass))
       if open
-        App.navigate helpers.backscroll.lastPath
+        window.history.back()
         helpers.backscroll.scrollToLast()
       else
         helpers.backscroll.setLast()
@@ -54,18 +54,32 @@
 
     ## Page callback, open remote and clear content.
     remotePage: ->
-      @toggleRemote(false);
+      @toggleRemote('auto');
       App.regionContent.empty()
 
     ## The input binds
     keyBind: (e) ->
 
-      ## Dont do anything if foms in use
-      if $(e.target).is("input, textarea")
+      # Get settings
+      kodiControl = config.getLocal('keyboardControl') is 'kodi'
+      remotePage = $('body').hasClass('page-remote')
+
+      ## Don't do anything if forms in use or if we have a local only setting
+      if $(e.target).is("input, textarea, select")
         return
+
+      # If no Kodi control and not on the remote page
+      if not kodiControl and not remotePage
+        return
+
+      # If all keyboard controls are for kodi or on the remote page
+      if kodiControl or remotePage
+        e.preventDefault()
 
       ## Get stateObj - consider changing this to be current and work with local too?
       stateObj = App.request "state:kodi"
+
+      console.log e.which
 
       ## Respond to key code
       switch e.which
@@ -83,22 +97,26 @@
           @doInput "Select"
         when 67 # c (context)
           @doInput "ContextMenu"
-        when 107 # + (vol up)
+        when 107 || 187 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
-        when 109 # - (vol down)
+        when 109 || 189 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)
           @doCommand "PlayPause", "toggle"
         when 88 # x (stop)
           @doCommand "Stop"
-        # when 84 # t (toggle subtitles)
-          ## TODO
+        when 84 # t (toggle subtitles)
+          @doAction "showsubtitles"
+        when 9 # tab (close osd)
+          @doAction "close"
         when 190 # > (next)
           @doCommand "GoTo", "next"
         when 188 # < (prev)
           @doCommand "GoTo", "previous"
+        when 220 # Backslash (fullscreen)
+          @doAction "fullscreen"
         else # return everything else here
 
 
@@ -107,8 +125,8 @@
       API.inputController().sendText(text)
       App.execute "notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi')
 
-    App.commands.setHandler "input:textbox:close", ->
-      App.execute "ui:modal:close"
+  App.commands.setHandler "input:textbox:close", ->
+    App.execute "ui:modal:close"
 
   App.commands.setHandler "input:send", (action) ->
     API.doInput action
@@ -118,6 +136,10 @@
 
   App.commands.setHandler "input:action", (action) ->
     API.doAction(action)
+
+  App.commands.setHandler "input:resume", (model, idKey) ->
+    controller = new InputApp.Resume.Controller()
+    controller.resumePlay model, idKey
 
   ## Startup tasks.
   App.addInitializer ->

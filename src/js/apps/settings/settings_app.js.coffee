@@ -5,23 +5,21 @@
       "settings/web"   	: "local"
       "settings/kodi"	  : "kodi"
       "settings/kodi/:section" : "kodi"
-      "settings/kodi/:section/:category" : "kodi"
+      "settings/addons" : "addons"
+      "settings/nav" : "navMain"
 
   API =
 
-    subNavId: 51
+    subNavId: 'settings/web'
 
     local: ->
       new SettingsApp.Show.Local.Controller()
 
-    localNav: ->
-      [
-        {
-          title: "General"
-          id: "settings/web"
-          path: "settings/web"
-        }
-      ]
+    addons: ->
+      new SettingsApp.Show.Addons.Controller()
+
+    navMain: ->
+      new SettingsApp.Show.navMain.Controller()
 
     kodi: (section, category) ->
       new SettingsApp.Show.Kodi.Controller
@@ -37,13 +35,12 @@
 
         # Get Kodi settings menu.
         App.execute "when:entity:fetched", collection, =>
-          kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi Settings')
+          kodiSettingsView = App.request "navMain:collection:show", collection, t.gettext('Kodi settings')
           sidebarView.regionKodiNav.show kodiSettingsView
 
         # Get Local/Web settings menu.
-        localNavCollection = App.request "navMain:array:entities", @localNav()
-        localSettingsView = App.request "navMain:collection:show", localNavCollection, t.gettext('Web Settings')
-        sidebarView.regionLocalNav.show localSettingsView
+        settingsNavView = App.request "navMain:children:show", API.subNavId, 'General'
+        sidebarView.regionLocalNav.show settingsNavView
 
       sidebarView
 

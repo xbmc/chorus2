@@ -19,6 +19,8 @@
     vibrantHeaders: false
     lang: "en"
     kodiSettingsLevel: 'standard'
+    playlistFocusPlaying: true
+    keyboardControl: 'kodi'
 }
 
 ## The App Inance

@@ -25,9 +25,10 @@
       @applicationController.getProperties (properties) =>
         @setState 'volume', properties.volume
         @setState 'muted', properties.muted
+        @setState 'version', properties.version
         ## Stop the timer before an update
         App.reqres.setHandler 'player:kodi:timer', 'stop'
-        ## Get plaing data and parse it
+        ## Get playing data and parse it
         @playerController.getPlaying (playing) =>
           if playing
             ## Mark basic playing info
@@ -75,8 +76,3 @@
       model.url = helpers.url.get model.type, model.id
       model.url = helpers.url.playlistUrl model
       model
-
-
-
-
-

@@ -46,7 +46,7 @@
         helpers.debug.msg t.gettext(msg), "warning", resp
         App.vent.trigger "sockets:unavailable"
 
-      App.reqres.setHandler "sockets:active", ->
+      App.reqres.setHandler "sockets:active", =>
         @wsActive
 
     ## Return the data from a response
@@ -66,8 +66,8 @@
     ## Force a state refresh
     refreshStateNow: (callback) ->
       App.vent.trigger "state:kodi:changed", @getCachedState()
-      ## Do a full lookup 1s later, calling this immediatly returns
-      ## old data.
+      ## Do a full lookup 1s later, calling this immediately returns
+      ## old data. TODO: Not robust, fix!
       setTimeout(( =>
         App.request "state:kodi:update", (state) =>
           if callback
@@ -97,14 +97,14 @@
         when 'Player.OnPropertyChanged'
           @refreshStateNow()
 
-       # playback pause
+        # playback pause
         when 'Player.OnPause'
           @setPlaying('paused', true)
           @setPlaying('playState', 'paused')
           App.execute "player:kodi:timer", 'stop'
           @refreshStateNow()
 
-       # progress changed
+        # progress changed
         when 'Player.OnSeek'
           App.execute "player:kodi:timer", 'stop'
           @refreshStateNow ->
@@ -116,7 +116,7 @@
           App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
           @refreshStateNow()
 
-       # volume change
+        # volume change
         when 'Application.OnVolumeChanged'
           @setState 'volume', data.params.data.volume
           @setState 'muted', data.params.data.muted

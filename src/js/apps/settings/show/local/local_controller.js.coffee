@@ -41,6 +41,7 @@
           children:[
             {id: 'lang', title: t.gettext("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: t.gettext('Preferred language, need to refresh browser to take effect')}
             {id: 'defaultPlayer', title: t.gettext("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: t.gettext('Which player to start with')}
+            {id: 'keyboardControl', title: t.gettext("Keyboard controls"), type: 'select', options: {kodi: 'Kodi', local: 'Browser', both: 'Both'}, defaultValue: 'kodi', description: t.gettext('In Chorus, will you keyboard control Kodi, the browser or both') + '. <a href="#help/keybind-readme">' + t.gettext('Learn more') + '</a>'}
           ]
         }
         {
@@ -49,17 +50,18 @@
           children:[
             {id: 'ignoreArticle', title: t.gettext("Ignore article"), type: 'checkbox', defaultValue: true, description: t.gettext("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
             {id: 'albumAtristsOnly', title: t.gettext("Album artists only"), type: 'checkbox', defaultValue: true, description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
+            {id: 'playlistFocusPlaying', title: t.gettext("Focus playlist on playing"), type: 'checkbox', defaultValue: true, description: t.gettext('Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed')}
           ]
         }
         {
           title: 'Appearance'
           id: 'appearance'
           children:[
-            {id: 'vibrantHeaders', title: t.gettext("Vibrant Headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
+            {id: 'vibrantHeaders', title: t.gettext("Vibrant headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
           ]
         }
         {
-          title: 'Advanced Options'
+          title: 'Advanced options'
           id: 'advanced'
           children:[
             {id: 'socketsPort', title: t.gettext("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + t.gettext("is the default")}

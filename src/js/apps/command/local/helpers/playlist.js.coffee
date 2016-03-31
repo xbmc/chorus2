@@ -6,7 +6,7 @@
   class Api.PlayList extends Api.Player
 
     ## Play an item.
-    play: (type, value) ->
+    play: (type, value, resume = 0) ->
       @getSongs type, value, (songs) =>
         @playCollection songs
 

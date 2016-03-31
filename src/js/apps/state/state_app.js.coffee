@@ -43,10 +43,11 @@
         item = stateObj.getPlaying('item')
         playState = stateObj.getPlaying('playState')
         ## library item
-        className = '.item-' + item.type + '-' + item.id
+        className = '.item-' + item.uid
         $(className).addClass( @playerClass('row-' + playState, player) )
         ## playlist item
         $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        App.vent.trigger "state:" + player + ":playing:updated", stateObj
 
     ## Set the now playing info in the player
     setPlayerPlaying: (player) ->
@@ -67,6 +68,7 @@
         $subtitle.html ''
         $dur.html '0'
         $img.attr 'src', App.request("images:path:get")
+
 
     setAppProperties: (player) ->
       stateObj = App.request "state:" + player
@@ -107,7 +109,7 @@
         App.vent.on "playlist:rendered", ->
           App.request "playlist:refresh", App.kodiState.getState('player'), App.kodiState.getState('media')
 
-        ## Some new content has been renderd with a potential to be playing
+        ## Some new content has been rendered with a potential to be playing
         App.vent.on "state:content:updated", ->
           API.setPlayingContent 'kodi'
           API.setPlayingContent 'local'

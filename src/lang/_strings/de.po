@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr "Keine wiedergabe"
+msgstr "Keine Wiedergabe"
 
 msgctxt ""
 msgid "Deselect all"
@@ -49,7 +49,7 @@ msgid "Add filter"
 msgstr "Filter hinzufügen"
 
 msgid "Which player to start with"
-msgstr "Standard-player beim start"
+msgstr "Standard-Player beim Start"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
@@ -57,27 +57,27 @@ msgstr "Artikel wie 'The' und 'A' in sortierten Listen ignorieren"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "In Listen nur künstler mit alben oder alle Künstler anzeigen? Achtung: Kann große bibliotheken verlangsamen."
+msgstr "In Listen nur Künstler mit Alben oder alle Künstler anzeigen? Achtung: Kann große Bibliotheken verlangsamen."
 
 msgctxt ""
 msgid "is the default"
-msgstr "ist Standard"
+msgstr "ist der Standard"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr "Der Hostname wird für die websockets-verbindung benutzt. 'auto' einstellen, um den aktuellen Hostnamen zu verwenden."
+msgstr "Der Hostname wird für die Websockets-Verbindung benutzt. Bitte 'auto' einstellen, um den aktuellen Hostnamen zu verwenden."
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "Wie oft werden Kodi-Updates abgefragt (funktioniert nur, wenn websockets nicht aktiv sind)?"
+msgstr "Wie oft sollen Kodi-Updates abgefragt werden? (Funktioniert nur, wenn Websockets nicht aktiv sind.)"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
-msgstr "Unterstützung für einen reverse proxy einschalten."
+msgstr "Unterstützung für einen 'reverse proxy' einschalten."
 
 msgctxt ""
 msgid "Web settings saved."
-msgstr "Web-einstellungen gespeichert."
+msgstr "Web-Einstellungen gespeichert."
 
 msgctxt ""
 msgid "Just a sec..."
@@ -85,23 +85,23 @@ msgstr "Momentchen..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "Konnte Kodi länger nicht ansprechen. Ich denke, es ist tot, Jim!"
+msgstr "Kodi gibt uns keine Antwort. Ich denke, es ist tot, Jim! (Verbindungs-timeout)"
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr "Video-bibliothek wird gerade gescannt"
+msgstr "Video-Bibliothek wird gerade gescannt"
 
 msgctxt ""
 msgid "Video library scan complete"
-msgstr "Scan der Video-bibliothek abgeschlossen"
+msgstr "Scan der Video-Bibliothek abgeschlossen"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr "Audio-bibliothek wird gerade gescannt"
+msgstr "Audio-Bibliothek wird gerade gescannt"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr "Scan der Audio-bibliothek abgeschlossen"
+msgstr "Scan der Audio-Bibliothek abgeschlossen"
 
 msgctxt ""
 msgid "Kodi has quit"
@@ -141,27 +141,27 @@ msgstr "Wiedergabelisten"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr "Vorhandene wiedergabelisten"
+msgstr "Vorhandene Wiedergabelisten"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Die wiedergabeliste ist leer, vielleicht möchtest du etwas hinzufügen?"
+msgstr "Die Wiedergabeliste ist leer, möchtest du etwas hinzufügen?"
 
 msgctxt ""
 msgid "Create a new list"
-msgstr "Neue liste erstellen"
+msgstr "Neue Liste erstellen"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr "Zur wiedergabeliste hinzufügen"
+msgstr "Zur Wiedergabeliste hinzufügen"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr "Zu deiner wiedergabeliste hinzugefügt"
+msgstr "Zu deiner Wiedergabeliste hinzugefügt"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "Gib deiner wiedergabeliste einen Namen"
+msgstr "Gib deiner Wiedergabeliste einen Namen"
 
 msgctxt ""
 msgid "Recently added"
@@ -222,11 +222,11 @@ msgstr "Websockets Host"
 
 msgctxt ""
 msgid "Websockets port"
-msgstr "Websockets port"
+msgstr "Websockets Port"
 
 msgctxt ""
 msgid "Default player"
-msgstr "Standard-player"
+msgstr "Standard-Player"
 
 msgctxt ""
 msgid "Ignore article"
@@ -250,7 +250,7 @@ msgstr "Sprache"
 
 msgctxt ""
 msgid "Preferred language"
-msgstr "Bevorzugte sprache"
+msgstr "Bevorzugte Sprache"
 
 msgctxt ""
 msgid "Loading folder..."
@@ -258,7 +258,7 @@ msgstr "Lade Ordner..."
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Artikel (wie \"The\" und \"A\") beim Sortieren von Listen ignorieren"
+msgstr "Artikel (wie 'The' und 'A') beim Sortieren von Listen ignorieren"
 
 # Short for "second"
 msgctxt ""
@@ -267,11 +267,11 @@ msgstr "Sek."
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr "Dein Browser unterstützt keine websockets, geh mit der Zeit und aktualisiere deinen Browser."
+msgstr "Dein Browser unterstützt keine Websockets, geh mit der Zeit und aktualisiere deinen Browser."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Websockets sind nicht erreichbar, daher wird nach updates gesucht. Das macht die Sache langsamer und verbraucht mehr Ressourcen. Kontrolliere bitte, dass 'Entfernten Programmen die Fernbedienung von Kodi' erlaub ist (Einstellungen > System > Fernbedienung). Diese Meldung könnte außerdem daher kommen, dass du Proxies benutzt oder über eine IP-Adresse auf localhost zugreifst. Falls Websockets im Allgemeinen funktionieren, könnte auch ein Browser-refresh weiterhelfen (Seite neu laden)."
+msgstr "Websockets sind nicht erreichbar, daher wird nach Updates gesucht. Das macht die Sache langsamer und verbraucht mehr Ressourcen. Kontrolliere bitte, ob anderen Programmen die Fernbedienung von Kodi erlaubt ist (Einstellungen > System > Fernbedienung). Diese Meldung könnte außerdem daher kommen, dass du Proxies benutzt oder über eine IP-Adresse auf localhost zugreifst. Falls Websockets im Allgemeinen funktionieren, könnte auch ein Browser-refresh weiterhelfen (Seite neu laden)."
 
 msgctxt ""
 msgid "Video"
@@ -315,11 +315,11 @@ msgstr "Es wird geladen..."
 
 msgctxt ""
 msgid "Scan video library"
-msgstr "Video-biblithek aktualisieren"
+msgstr "Video-Bibliothek aktualisieren"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr "Audio-bibliothek aktualisieren"
+msgstr "Audio-Bibliothek aktualisieren"
 
 msgctxt ""
 msgid "About Chorus"
@@ -339,11 +339,11 @@ msgstr "Alben"
 
 msgctxt ""
 msgid "Recent movies"
-msgstr "Letzte videos"
+msgstr "Letzte Videos"
 
 msgctxt ""
 msgid "All movies"
-msgstr "Alle videos"
+msgstr "Alle Videos"
 
 msgctxt ""
 msgid "Recent episodes"
@@ -351,27 +351,27 @@ msgstr "Letzte Folgen"
 
 msgctxt ""
 msgid "All TV shows"
-msgstr "Alle Fernsehbeiträge"
+msgstr "Alle Serien"
 
 msgctxt ""
 msgid "Web settings"
-msgstr "Web-einstellungen"
+msgstr "Web-Einstellungen"
 
 msgctxt ""
 msgid "Kodi settings"
-msgstr "Kodi-einstellungen"
+msgstr "Kodi-Einstellungen"
 
 msgctxt ""
 msgid "Now playing playlists"
-msgstr "Spiele wiedergabelisten ab"
+msgstr "Spiele Wiedergabelisten ab"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "Zwischen Kodi und lokaler wiedergabe wechseln. Die anzeige kann mit dem pfeil oben rechts umgeschaltet werden."
+msgstr "Zwischen Kodi und lokaler Wiedergabe wechseln. Die Anzeige kann mit dem Pfeil oben rechts umgeschaltet werden."
 
 msgctxt ""
 msgid "Current playlist"
-msgstr "Aktuelle wiedergabeliste"
+msgstr "Aktuelle Wiedergabeliste"
 
 msgctxt ""
 msgid "Clear playlist"
@@ -383,7 +383,7 @@ msgstr "Wiedergabeliste aktualisieren"
 
 msgctxt ""
 msgid "Party mode"
-msgstr "Party modus"
+msgstr "Party-Modus"
 
 msgctxt ""
 msgid "Save Kodi playlist"
@@ -391,7 +391,7 @@ msgstr "Kodi-Wiedergabeliste speichern"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "Bevorzugte Sprache, die Seite muss danach im Browser neu geladen werden (F5)"
+msgstr "Bevorzugte Sprache, die Seite muss nach einem Wechsel im Browser neu geladen werden (F5)"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
@@ -407,7 +407,7 @@ msgstr "Bunte Überschriften in Medienseiten benutzen"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
-msgstr "Unterstützung für reverse proxies einschalten."
+msgstr "Unterstützung für 'reverse proxies' einschalten."
 
 msgctxt ""
 msgid "songs"
@@ -435,19 +435,182 @@ msgstr "und"
 
 msgctxt ""
 msgid "tvshows"
-msgstr "Fernsehbeiträgen"
-
-
-## Needs translating:
+msgstr "Serien"
 
 msgctxt ""
 msgid "no media in this folder"
-msgstr "no media in this folder"
+msgstr "Keine Dateien in diesem Ordner"
 
 msgctxt ""
 msgid "Browse files and add-ons"
-msgstr "Browse files and add-ons"
+msgstr "Dateien und Add-ons durchsuchen"
 
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "Hier kannst du alles in Kodi durchsuchen, nicht nur die Bibliothek. Suche per Quelle oder Add-on."
+
+### new strings below ###
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "Text an Kodi senden"
+
+msgctxt ""
+msgid "The lab"
+msgstr "Das Labor"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Chorus Entwicklung"
+
+msgctxt ""
+msgid "Warning"
+msgstr "Warnung"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "Experimentelle Version, Nutzung auf eigene Gefahr"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API browser"
+
+msgctxt ""
+msgid "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "Dieses Tool testet die API. Wähle eine Methode und führe es mit Parametern aus."
+
+msgctxt ""
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "Du könntest dein System beschädigen, es gibt keine Sicherheitsprüfungen. Benutzung auf eigene Gefahr."
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi Einstellungen"
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "Kodi Einstellungen wurden gespeichert"
+
+msgctxt ""
+msgid "General"
+msgstr "Allgemein"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Web Einstellungen"
+
+msgctxt ""
+msgid "Advanced setting level is recommended for those who know what they are doing."
+msgstr "Erweiterte Einstellungsmöglichkeiten für alle, die wissen was sie tun."
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Web Einstellungen wurden gespeichert."
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi Einstellungsebene"
+
+msgctxt ""
+msgid "Remove"
+msgstr "Löschen"
+
+msgctxt ""
+msgid "cast"
+msgstr "Darsteller"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "Add-ons"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web interface"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Lies mich"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Änderungen"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Übersetzungen"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Hilfethemen"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Überblick"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Labor"
+
+msgctxt ""
+msgid "version"
+msgstr "Version"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Fernbedienung"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "Die Fernbedienung funktioniert."
+
+msgctxt ""
+msgid "About"
+msgstr "Über"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Lokale Wiedergabe"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Status"
+
+msgctxt ""
+msgid "in"
+msgstr "in"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Wiedergabeliste bei der Wiedergabe nach vorne holen"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "In der Wiedergabeliste zum aktuellen Stück springen, wenn Einträge geändert wurden."
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Einstellungen wurden gespeichert."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Tastatursteuerung"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "Chorus mit der Tastatur, dem Browser oder beidem steuern"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Wiedergabe fortsetzen"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Fortsetzen ab"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Von vorne beginnen"

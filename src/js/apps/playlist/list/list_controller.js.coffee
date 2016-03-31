@@ -71,9 +71,9 @@
           App.listenTo listView, "show", =>
             ## Bind actions
             @bindActions listView, type, media
+            ## Trigger content update
+            App.vent.trigger "state:content:updated", type, media
           @layout.kodiPlayList.show listView
-          ## Trigger content update
-          App.vent.trigger "state:content:updated"
       else
         ## Get the local playlist collection
         collection = App.request "localplayer:get:entities"
@@ -81,9 +81,9 @@
         App.listenTo listView, "show", =>
           ## Bind actions
           @bindActions listView, type, media
+          ## Trigger content update
+          App.vent.trigger "state:content:updated", type, media
         @layout.localPlayList.show listView
-        ## Trigger content update
-        App.vent.trigger "state:content:updated"
 
     bindActions: (listView, type, media) ->
       ## Get the controller for this
@@ -105,3 +105,10 @@
         onEnd: (e) ->
           playlist.moveItem $(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex
       });
+
+    ## If playing item isn't visible already, scroll to it
+    focusPlaying: (type, media) ->
+      if config.getLocal('playlistFocusPlaying', true)
+        $playing = $('.' + type + '-playlist .row-playing')
+        if $playing.length > 0
+          $playing.get(0).scrollIntoView()

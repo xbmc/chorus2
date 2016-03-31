@@ -11,6 +11,7 @@
       description: ''
       children: []
       attributes: {}
+      class: ''
 
   class Entities.Form extends Entities.Collection
     model: Entities.FormItem
@@ -42,5 +43,5 @@
 
 
   ## Return a collection of form items parsed with the form state
-  App.reqres.setHandler "form:item:entites", (form = [], formState = {}) ->
+  App.reqres.setHandler "form:item:entities", (form = [], formState = {}) ->
     API.toCollection API.processItems(form, formState)

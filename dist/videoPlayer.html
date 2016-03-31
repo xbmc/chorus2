@@ -18,6 +18,7 @@
         var src = getParameterByName('src'),
           player = getParameterByName('player'),
           yt = getParameterByName('yt'),
+          bg = getParameterByName('bg'),
           $player = $('<div>'),
           width = '100%',
           height = '90%',
@@ -25,7 +26,7 @@
 
         // do we have something to play?
         if(src != ''){
-console.log(src);
+
             // Make the html5 player
             if(player == 'html5'){
                 $player = $('<video>', {
@@ -34,7 +35,8 @@ console.log(src);
                     "controls": "controls",
                     "preload": "auto",
                     "autoplay": "autoplay",
-                    "data-setup": {}
+                    "data-setup": {},
+                    "poster": bg
                 });
                 $player.append($('<source>', {
                     "type": 'video/mp4; codecs="a_ac3, avc"',

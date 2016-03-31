@@ -1,4 +1,4 @@
 <% if @title: %>
-    <h3 class="group-title"><%= @title %></h3>
+    <h3 class="group-title"><% if @icon: %><i class="<%- @icon %>"></i> <% end %><%- @title %></h3>
 <% end %>
 <div class="form-items"></div>
