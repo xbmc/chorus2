@@ -81,7 +81,10 @@
     $msg = $('<p>').html(msg)
     API.defaultButtons -> callback $('#text-input').val()
     API.openModal(title, $msg, callback, open)
-    App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>')).find('input').first().focus()
+    el = App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>'))
+    setTimeout ->
+      el.find('input').first().focus()
+    , 200
     $.material.init()
 
   App.commands.setHandler "ui:modal:close", ->
