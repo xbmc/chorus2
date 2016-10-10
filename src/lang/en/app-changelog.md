@@ -1,3 +1,7 @@
+Version 2.0.16
+--------------
+* Bugfix: Fixed mp4 local video playback in chrome.
+
 Version 2.0.15
 --------------
 * Bugfix: Fixed first playlist item not indicating it's playing after track change #107
