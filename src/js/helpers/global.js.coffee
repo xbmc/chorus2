@@ -143,7 +143,7 @@ helpers.global.appTitle = (playingItem = false) ->
   document.title = titlePrefix + config.get('static', 'appTitle')
 
 ## Open the local video player window
-helpers.global.localVideoPopup = (path, height = 570) ->
+helpers.global.localVideoPopup = (path, height = 590) ->
   window.open(path, "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=#{height}, top=100, left=100");
 
 ## Strip tags from a string

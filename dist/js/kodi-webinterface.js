@@ -765,7 +765,7 @@ helpers.global.appTitle = function(playingItem) {
 
 helpers.global.localVideoPopup = function(path, height) {
   if (height == null) {
-    height = 570;
+    height = 590;
   }
   return window.open(path, "_blank", "toolbar=no, scrollbars=no, resizable=yes, width=925, height=" + height + ", top=100, left=100");
 };
