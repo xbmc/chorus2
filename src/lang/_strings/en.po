@@ -595,7 +595,7 @@ msgstr "Keyboard controls"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "In Chorus, will your keyboard control Kodi, the browser or both"
 
 msgctxt ""
 msgid "Learn more"
@@ -624,3 +624,15 @@ msgstr "Main Menu Structure"
 msgctxt ""
 msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
 msgstr "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
+
+msgctxt ""
+msgid "Main Nav"
+msgstr "Main Nav"
+
+msgctxt ""
+msgid "Add a new playlist"
+msgstr "Add a new playlist"
+
+msgctxt ""
+msgid "Keyboard"
+msgstr "Keyboard"

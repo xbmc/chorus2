@@ -20,7 +20,9 @@
 
       ## Set available filters
       collection.availableFilters = @getAvailableFilters()
-      collection.sectionId = 21
+
+      ## Top level menu path for filters
+      collection.sectionId = 'tvshows/recent'
 
       ## If present set initial filter via url
       App.request 'filter:init', @getAvailableFilters()

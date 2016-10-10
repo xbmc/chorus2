@@ -38,7 +38,7 @@
             ## Standard map
             autoMap = ['canrepeat', 'canseek', 'canshuffle', 'partymode', 'percentage', 'playlistid', 'position', 'speed', 'time', 'totaltime']
             for key in autoMap
-              if playing.properties[key]
+              if playing.properties[key]?
                 @setPlaying key, playing.properties[key]
             @setState 'shuffled',  playing.properties.shuffled
             @setState 'repeat',  playing.properties.repeat

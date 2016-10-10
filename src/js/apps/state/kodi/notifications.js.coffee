@@ -57,7 +57,6 @@
     messageRecieved: (resp) ->
       data = @parseResponse resp
       @onMessage data
-      console.log data
 
     socketConnectionErrorMsg: ->
       msg = "Failed to connect to websockets"

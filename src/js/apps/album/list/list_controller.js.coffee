@@ -29,7 +29,9 @@
 
         ## Set available filters
         collection.availableFilters = @getAvailableFilters()
-        collection.sectionId = 1
+
+        ## Top level menu path for filters
+        collection.sectionId = 'music'
 
         ## If present set initial filter via url
         App.request 'filter:init', @getAvailableFilters()

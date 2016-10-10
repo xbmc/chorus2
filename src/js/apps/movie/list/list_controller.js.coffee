@@ -34,7 +34,9 @@
 
         ## Set available filters
         collection.availableFilters = @getAvailableFilters()
-        collection.sectionId = 11
+
+        ## Top level menu path for filters
+        collection.sectionId = 'movies/recent'
 
         ## If present set initial filter via url
         App.request 'filter:init', @getAvailableFilters()

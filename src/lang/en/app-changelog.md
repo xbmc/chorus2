@@ -1,3 +1,12 @@
+Version 2.0.15
+--------------
+* Bugfix: Fixed first playlist item not indicating it's playing after track change #107
+* Bugfix: Fixed incorrect section menu displaying on filtered results page #112
+* Bugfix: Fixed about link in main context menu
+* Bugfix: Focus in text input in modal popup #119
+* French language updated #114
+* Minor code cleanup
+
 Version 2.0.14
 -------------
 * Added ability to customise menu links

@@ -70,16 +70,7 @@
 
       # About.
       App.listenTo shellLayout, "shell:about", =>
-        # Trigger about popup.
-
-
-      ## TESTINGS!
-
-#      ## Get data
-#      entity = App.request "channel:entities", 'alltv'
-#      App.execute "when:entity:fetched", entity, ->
-#        console.log entity
-
+        App.navigate "#help", {trigger: true}
 
     ## Alter region classes.
     alterRegionClasses: (op, classes, region = 'root') ->

@@ -37,8 +37,8 @@
       @itemLayout = new List.Layout
         list: playlist
       App.listenTo @itemLayout, "show", =>
-        media = playlist.get('media')
         if collection.length > 0
+          media = playlist.get('media')
           view = App.request "#{media}:list:view", collection, true
           @itemLayout.regionListItems.show view
       @bindLayout id
