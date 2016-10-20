@@ -1,3 +1,7 @@
+Version 2.3.0
+-------------
+* Version bump to be greater than current default web interface
+
 Version 2.0.17
 --------------
 * Moved to official XBMC/Kodi repo and addon id changed to webinterface.default
