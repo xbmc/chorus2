@@ -1,4 +1,6 @@
 # Kodi Web Interface - Chorus2
+The default Web Interface for Kodi.
+
 A great modern Web UI for Kodi. Browse your Music, Movies or TV Shows from the comfort of your
 own web browser. You can play media via Kodi or stream it in your browser. Works best with Chrome
 but plays well with most modern browsers.
@@ -8,15 +10,15 @@ A complete rebuild using Coffee Script, Backbone, Marionette and much, much more
 
 
 ## Author
-[Jeremy Graham ](http://jez.me) with help from [these kind people](https://github.com/jez500/chorus2/graphs/contributors)
+[Jeremy Graham ](http://jez.me) with help from [these kind people](https://github.com/xbmc/chorus2/graphs/contributors)
 
 
 ## Current state
-Pretty good, most things work really well. Other things need [polish/finishing/fixing](https://github.com/jez500/chorus2/issues). 
+Pretty good, most things work really well. Other things need [polish/finishing/fixing](https://github.com/xbmc/chorus2/issues). 
 
 
 ## Getting it working
-Disclaimer: Pre release software, expect bugs, changes, nuclear war, etc. 
+Disclaimer: Beta software, expect bugs, changes, nuclear war, etc.
 
 ### Installing
 Install via zip is the easiest way to go. Grab the zip from the root of this repo [then do this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
@@ -33,7 +35,7 @@ Install via zip is the easiest way to go. Grab the zip from the root of this rep
 
 
 ## Feature requests / Bugs
-Add them to the [list](https://github.com/jez500/chorus2/issues)
+Add them to the [list](https://github.com/xbmc/chorus2/issues)
 
 
 ## Streaming 
@@ -68,7 +70,7 @@ So it should be nice and easy to translate the UI.
 At the moment, there is 3 languages (english,french,german) more can be easily added. 
 To contribute, send me a PR on a new branch, or if you don't know git, a link to the language file.
 
-Language Files [here](https://github.com/jez500/chorus2/tree/master/src/lang). 
+Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
 English is the only real complete translation file so start with that as your base. 
 
 ### Compiling
@@ -86,29 +88,29 @@ A build will also include translation files.
 - Run grunt `grunt build`
 
 ## Donate
-Are you a fan of Chorus? You can [buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
+Are you a fan of Chorus? You can [buy me Jeremy a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
 
 ## Screenshots
 
 ### Homepage (now playing)
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/now-playing.jpg "Homepage/Now Playing")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/now-playing.jpg "Homepage/Now Playing")
 
 ### Search results
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/search.jpg "Search")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/search.jpg "Search")
 
 ### Artists
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/artists.jpg "Artists")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/artists.jpg "Artists")
 
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist//screenshots/artist.jpg "Artist")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist//screenshots/artist.jpg "Artist")
 
 ### Video library
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/tv.jpg "TV")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/tv.jpg "TV")
 
 ### Filtering
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/movie.jpg "Movies")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/movie.jpg "Movies")
 
 ### Settings
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/settings.jpg "Settings")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/settings.jpg "Settings")
 
 ### Add-ons
-![alt text](https://raw.githubusercontent.com/jez500/chorus2/master/dist/screenshots/addons.jpg "Add-ons")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/addons.jpg "Add-ons")

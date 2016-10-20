@@ -1,4 +1,8 @@
-Version 2.0.16
+Version 2.0.17
+--------------
+* Moved to official XBMC/Kodi repo and addon id changed to webinterface.default
+
+Version 2.0.17
 --------------
 * Bugfix: Fixed mp4 local video playback in chrome.
 

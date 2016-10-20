@@ -18,16 +18,16 @@ even better? You can [buy him a beer or 2](https://www.paypal.com/cgi-bin/webscr
 ### Who made it possible?
 
 * Kodi, and the thousands of awesome people who contribute to it. [If you love it, support it.](http://kodi.tv/get-involved/)
-* These [wonderful people](https://github.com/jez500/chorus2/graphs/contributors) who gave a helping hand.
+* These [wonderful people](https://github.com/xbmc/chorus2/graphs/contributors) who gave a helping hand.
 * All the great tools available, which are really too many to list, but if you have anything to do with
-  the contents of [this folder](https://github.com/jez500/chorus2/tree/master/src/lib) then cheers!
+  the contents of [this folder](https://github.com/xbmc/chorus2/tree/master/src/lib) then cheers!
 
 ## Bugs and Features
 
 ### Is something broken?
 
 It happens, it could also be a "Cool idea"? Chorus is a complex app and Kodi is way more complex. For Chorus issues
-you can [create an issue on Github](https://github.com/jez500/chorus2/issues).  It is important that you provide
+you can [create an issue on Github](https://github.com/xbmc/chorus2/issues).  It is important that you provide
 as much information as possible. Great things to include are:
 
 * Information from "Status report" on this page.
@@ -37,7 +37,7 @@ as much information as possible. Great things to include are:
 
 ### Cool ideas
 
-Got neat addition or a feature wish list for Chorus? You can add them to the [Github](https://github.com/jez500/chorus2/issues)
+Got neat addition or a feature wish list for Chorus? You can add them to the [Github](https://github.com/xbmc/chorus2/issues)
 page or even better, send through a pull request..
 
 ## Tell me more

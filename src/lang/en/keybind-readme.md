@@ -27,7 +27,7 @@ Key "<" = Play Prev
 Key "\" = Full screen
 ```
 
-[Got improvements to add? click here](https://github.com/jez500/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
+[Got improvements to add? click here](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
 
 ## Browser
 
