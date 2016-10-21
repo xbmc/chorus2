@@ -21,7 +21,7 @@ Pretty good, most things work really well. Other things need [polish/finishing/f
 Disclaimer: Beta software, expect bugs, changes, nuclear war, etc.
 
 ### Installing
-Install via zip is the easiest way to go. Grab the zip from the root of this repo [then do this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
+Install via zip is the easiest way to go. Grab the latest release of webinterface.default.2.X.X.zip from the [releases page](https://github.com/xbmc/chorus2/releases) then install it [like this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
 
 ### Configuring
 * Kodi > System > Settings > Services

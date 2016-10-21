@@ -1,3 +1,7 @@
+Version 2.3.1
+-------------
+* Changed build script to use webinterface.default
+
 Version 2.3.0
 -------------
 * Version bump to be greater than current default web interface

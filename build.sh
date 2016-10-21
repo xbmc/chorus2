@@ -18,14 +18,14 @@ grunt build
 
 echo "removing old zip and build files"
 echo "=============================================="
-rm webinterface.kodi*.zip
+rm webinterface.default*.zip
 rm dist/js/build/*.js
 
 echo "Building zip"
 echo "=============================================="
-cp -r ./dist ./webinterface.kodi
-zip -r -q webinterface.kodi.$1.zip ./webinterface.kodi
-rm -rf ./webinterface.kodi
+cp -r ./dist ./webinterface.default
+zip -r -q webinterface.default.$1.zip ./webinterface.default
+rm -rf ./webinterface.default
 
 echo "Build complete"
 echo "=============================================="
