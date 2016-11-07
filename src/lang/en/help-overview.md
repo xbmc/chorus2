@@ -21,6 +21,8 @@ even better? You can [buy him a beer or 2](https://www.paypal.com/cgi-bin/webscr
 * These [wonderful people](https://github.com/xbmc/chorus2/graphs/contributors) who gave a helping hand.
 * All the great tools available, which are really too many to list, but if you have anything to do with
   the contents of [this folder](https://github.com/xbmc/chorus2/tree/master/src/lib) then cheers!
+* The amazing photographers who have submitted their images to [unsplash](https://unsplash.com) and
+  [pexels](https://www.pexels.com) with a CC0 license.
 
 ## Bugs and Features
 

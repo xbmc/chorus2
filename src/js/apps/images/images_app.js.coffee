@@ -7,11 +7,13 @@
     defaultFanartPath: 'fanart_default/'
 
     defaultFanartFiles: [
-      'buds.jpg'
       'cans.jpg'
       'guitar.jpg'
       'speaker.jpg'
-      'turntable.jpg'
+      'turntable.jpg',
+      'amp.jpg',
+      'concert.jpg',
+      'tweeter.jpg',
     ]
 
     getDefaultThumbnail: ->

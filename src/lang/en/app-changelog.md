@@ -1,3 +1,7 @@
+Version 2.3.2
+-------------
+* Updated default backgrounds with CC images
+
 Version 2.3.1
 -------------
 * Changed build script to use webinterface.default
