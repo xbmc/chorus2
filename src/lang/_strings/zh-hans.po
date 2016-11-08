@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr "没有内容在播放"
+msgstr "没有内容正在播放"
 
 msgctxt ""
 msgid "Deselect all"
@@ -57,7 +57,7 @@ msgstr "排序时忽略'The'和'A'之类的词"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
+msgstr "当列出艺术家的时候，我们仅列出专辑上的艺术家或者能找到的所有艺术家。警告：库比较大的时候关闭此项可能会影响性能。"
 
 msgctxt ""
 msgid "is the default"
@@ -69,7 +69,7 @@ msgstr "用于websockets连接的服务器名字。设置为‘auto’来使用�
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
+msgstr "多久从Kodi更新一次（仅当websockets关闭是生效）"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -258,7 +258,7 @@ msgstr "选择语言"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "排序时忽略类似'The'和'A'这样的词"
 
 # Short for "second"
 msgctxt ""
@@ -399,11 +399,11 @@ msgstr "当排序时忽略类似'The'和'A'的单词"
 
 msgctxt ""
 msgid "Vibrant headers"
-msgstr "Vibrant headers"
+msgstr "彩色标头"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
-msgstr "Use colourful headers for media pages"
+msgstr "为媒体页面使用多彩的标头"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
@@ -447,7 +447,7 @@ msgstr "浏览文件和插件"
 
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
-msgstr "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "这里不仅可以浏览库，还可以浏览所有的Kodi内容。选择Source或插件来浏览。"
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -475,11 +475,11 @@ msgstr "Kodi API 浏览器"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "这是用于测试API的工具。选择一个方法，添加一些参数来执行它。"
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
-msgstr "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "这么做你可能会破坏你的系统。风险自担。"
 
 msgctxt ""
 msgid "Kodi settings"
@@ -539,19 +539,19 @@ msgstr "翻译"
 
 msgctxt ""
 msgid "Help topics"
-msgstr "Help topics"
+msgstr "帮助主题"
 
 msgctxt ""
 msgid "Overview"
-msgstr "Overview"
+msgstr "概观"
 
 msgctxt ""
 msgid "Lab"
-msgstr "Lab"
+msgstr "实验室"
 
 msgctxt ""
 msgid "version"
-msgstr "version"
+msgstr "版本"
 
 msgctxt ""
 msgid "Remote control"
