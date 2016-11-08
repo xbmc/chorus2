@@ -12,6 +12,7 @@ helpers.translate.getLanguages = ->
     fr: "French"
     de: "German"
     nl: "Dutch"
+    zh-hans: "Chinese, Simplified"
   }
 
 ## Init language and translations.
