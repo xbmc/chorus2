@@ -1,0 +1,638 @@
+# Kodi Media Center language file
+# Addon Name: Default Webinterface?
+# Addon id: webinterface.default?
+# Addon Provider: Team Kodi?
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: XBMC Translation Team\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-hans\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt ""
+msgid "Nothing playing"
+msgstr "没有内容正在播放"
+
+msgctxt ""
+msgid "Deselect all"
+msgstr "取消所有勾选"
+
+msgctxt ""
+msgid "Filters"
+msgstr "筛选区"
+
+msgctxt ""
+msgid "Sort"
+msgstr "排序"
+
+msgctxt ""
+msgid "Select a filter"
+msgstr "选取一个筛选条件"
+
+msgctxt ""
+msgid "Select an option"
+msgstr "挑选一个选项"
+
+msgctxt ""
+msgid "filter"
+msgstr "筛选条件"
+
+msgctxt ""
+msgid "Add filter"
+msgstr "添加筛选条件"
+
+msgid "Which player to start with"
+msgstr "用哪一个播放器来开始"
+
+msgctxt ""
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "排序时忽略'The'和'A'之类的词"
+
+msgctxt ""
+msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
+msgstr "当列出艺术家的时候，我们仅列出专辑上的艺术家或者能找到的所有艺术家。警告：库比较大的时候关闭此项可能会影响性能。"
+
+msgctxt ""
+msgid "is the default"
+msgstr "是默认的"
+
+msgctxt ""
+msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
+msgstr "用于websockets连接的服务器名字。设置为‘auto’来使用当前的服务器名字。"
+
+msgctxt ""
+msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
+msgstr "多久从Kodi更新一次（仅当websockets关闭是生效）"
+
+msgctxt ""
+msgid "Enable support for reverse proxy."
+msgstr "启用对反向代理的支持"
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "设置已保存"
+
+msgctxt ""
+msgid "Just a sec..."
+msgstr "稍等。。。"
+
+msgctxt ""
+msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+msgstr "无法与Kodi连接。怪我咯。"
+
+msgctxt ""
+msgid "Video library scan started"
+msgstr "视频库扫描开始"
+
+msgctxt ""
+msgid "Video library scan complete"
+msgstr "视频库扫描完毕"
+
+msgctxt ""
+msgid "Audio library scan started"
+msgstr "音频库扫描开始"
+
+msgctxt ""
+msgid "Audio library scan complete"
+msgstr "音频库扫描完毕"
+
+msgctxt ""
+msgid "Kodi has quit"
+msgstr "Kodi已退出"
+
+msgctxt ""
+msgid "Sections"
+msgstr "区"
+
+msgctxt ""
+msgid "Back"
+msgstr "后退"
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr "正在加载文件夹。。。"
+
+msgctxt ""
+msgid "Show more"
+msgstr "显示更多"
+
+msgctxt ""
+msgid "to Kodi"
+msgstr "to Kodi"
+
+msgctxt ""
+msgid "Playlist refreshed"
+msgstr "播放列表已刷新"
+
+msgctxt ""
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt ""
+msgid "Local"
+msgstr "本地"
+
+msgctxt ""
+msgid "Playlists"
+msgstr "播放列表"
+
+msgctxt ""
+msgid "Existing playlists"
+msgstr "已有播放列表"
+
+msgctxt ""
+msgid "Empty playlist, you should probably add something to it?"
+msgstr "空的播放列表，放点东西进去吧？"
+
+msgctxt ""
+msgid "Create a new list"
+msgstr "新建一个列表"
+
+msgctxt ""
+msgid "Add to playlist"
+msgstr "添加到播放列表"
+
+msgctxt ""
+msgid "Added to your playlist"
+msgstr "添加到你的播放列表"
+
+msgctxt ""
+msgid "Give your playlist a name"
+msgstr "命名你的播放列表"
+
+msgctxt ""
+msgid "Recently added"
+msgstr "最近添加的"
+
+msgctxt ""
+msgid "Recently played"
+msgstr "最近播放的"
+
+msgctxt ""
+msgid "Season"
+msgstr "季"
+
+msgctxt ""
+msgid "Episode"
+msgstr "剧集"
+
+msgctxt ""
+msgid "Play"
+msgstr "播放"
+
+msgctxt ""
+msgid "Queue"
+msgstr "队列"
+
+msgctxt ""
+msgid "View on IMDb"
+msgstr "去IMDb查看"
+
+# Video and audio stream, such as 720, x264, AC3, etc.
+msgctxt ""
+msgid "Stream"
+msgstr "流媒体"
+
+msgctxt ""
+msgid "Download"
+msgstr "下载"
+
+msgctxt ""
+msgid "complete"
+msgstr "完成"
+
+msgctxt ""
+msgid "Synopsis"
+msgstr "概要"
+
+msgctxt ""
+msgid "Full cast"
+msgstr "演员表"
+
+msgctxt ""
+msgid "Websockets closed"
+msgstr "Websockets已关闭"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websockets服务器"
+
+msgctxt ""
+msgid "Websockets port"
+msgstr "Websockets端口"
+
+msgctxt ""
+msgid "Default player"
+msgstr "默认播放器"
+
+msgctxt ""
+msgid "Ignore article"
+msgstr "忽略文章"
+
+msgctxt ""
+msgid "Album artists only"
+msgstr "仅专辑艺术家"
+
+msgctxt ""
+msgid "Poll interval"
+msgstr "Poll interval"
+
+msgctxt ""
+msgid "Reverse proxy support"
+msgstr "反向代理支持"
+
+msgctxt ""
+msgid "Language"
+msgstr "语言"
+
+msgctxt ""
+msgid "Preferred language"
+msgstr "选择语言"
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "排序时忽略类似'The'和'A'这样的词"
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr "秒"
+
+msgctxt ""
+msgid "Your browser doesn't support websockets! Get with the times and update your browser."
+msgstr "你的浏览器不支持websockets！是时候升级浏览器了。"
+
+msgctxt ""
+msgid "Failed to connect to websockets"
+msgstr "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED in the Kodi settings (System > Services > Remote control). You may also get this if you are using proxies or accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to refresh your browser."
+
+msgctxt ""
+msgid "Video"
+msgstr "视频"
+
+msgctxt ""
+msgid "Audio"
+msgstr "音频"
+
+msgctxt ""
+msgid "Cast"
+msgstr "演员表"
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] "导演"
+msgstr[1] "导演"
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] "编剧"
+msgstr[1] "编剧"
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] "字幕"
+msgstr[1] "字幕"
+
+msgctxt ""
+msgid "Result"
+msgid_plural "Results"
+msgstr[0] "结果"
+msgstr[1] "结果"
+
+msgctxt ""
+msgid "Loading things..."
+msgstr "加载中。。。"
+
+msgctxt ""
+msgid "Scan video library"
+msgstr "扫描视频库"
+
+msgctxt ""
+msgid "Scan audio library"
+msgstr "扫描音频库"
+
+msgctxt ""
+msgid "About Chorus"
+msgstr "关于Chorus"
+
+msgctxt ""
+msgid "Recent"
+msgstr "最近"
+
+msgctxt ""
+msgid "Artists"
+msgstr "艺术家"
+
+msgctxt ""
+msgid "Albums"
+msgstr "专辑"
+
+msgctxt ""
+msgid "Recent movies"
+msgstr "最近的电影"
+
+msgctxt ""
+msgid "All movies"
+msgstr "所有电影"
+
+msgctxt ""
+msgid "Recent episodes"
+msgstr "最近的电视节目"
+
+msgctxt ""
+msgid "All TV shows"
+msgstr "所有电视节目"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "网页设置"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi设置"
+
+msgctxt ""
+msgid "Now Playing Playlists"
+msgstr "现在正在播放播放列表"
+
+msgctxt ""
+msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
+msgstr "用标签在Kodi和本地播放间切换。你可以用右上角的箭头来显示或隐藏它。"
+
+msgctxt ""
+msgid "Current playlist"
+msgstr "当前播放列表"
+
+msgctxt ""
+msgid "Clear playlist"
+msgstr "清楚播放列表"
+
+msgctxt ""
+msgid "Refresh playlist"
+msgstr "刷新播放列表"
+
+msgctxt ""
+msgid "Party mode"
+msgstr "派对模式"
+
+msgctxt ""
+msgid "Save Kodi playlist"
+msgstr "保存Kodi播放列表"
+
+msgctxt ""
+msgid "Preferred language, need to refresh browser to take effect"
+msgstr "选择语言，刷新浏览器后生效"
+
+msgctxt ""
+msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr "当排序时忽略类似'The'和'A'的单词"
+
+msgctxt ""
+msgid "Vibrant headers"
+msgstr "彩色标头"
+
+msgctxt ""
+msgid "Use colourful headers for media pages"
+msgstr "为媒体页面使用多彩的标头"
+
+msgctxt ""
+msgid "Enable support for reverse proxying."
+msgstr "启用反向代理支持"
+
+msgctxt ""
+msgid "songs"
+msgstr "歌曲"
+
+msgctxt ""
+msgid "artists"
+msgstr "艺术家"
+
+msgctxt ""
+msgid "albums"
+msgstr "专辑"
+
+msgctxt ""
+msgid "movies"
+msgstr "电影"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "搜索"
+
+msgctxt ""
+msgid "and"
+msgstr "和"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "电视节目"
+
+msgctxt ""
+msgid "no media in this folder"
+msgstr "这个文件夹里没有媒体文件"
+
+msgctxt ""
+msgid "Browse files and add-ons"
+msgstr "浏览文件和插件"
+
+msgctxt ""
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "这里不仅可以浏览库，还可以浏览所有的Kodi内容。选择Source或插件来浏览。"
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "发消息给Kodi"
+
+msgctxt ""
+msgid "The lab"
+msgstr "实验室"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Chorus 实验室"
+
+msgctxt ""
+msgid "Warning"
+msgstr "警告"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "实验阶段代码，使用者风险自担"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API 浏览器"
+
+msgctxt ""
+msgid "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "这是用于测试API的工具。选择一个方法，添加一些参数来执行它。"
+
+msgctxt ""
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "这么做你可能会破坏你的系统。风险自担。"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi设置"
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "保存的Kodi设置"
+
+msgctxt ""
+msgid "General"
+msgstr "通用"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Web设置"
+
+msgctxt ""
+msgid "Advanced setting level is recommended for those who know what they are doing."
+msgstr "高级设置只适合清楚自己在做什么的用户"
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Web设置已保存"
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi设置级别"
+
+msgctxt ""
+msgid "Remove"
+msgstr "删除"
+
+msgctxt ""
+msgid "cast"
+msgstr "主演"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "插件"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web界面"
+
+msgctxt ""
+msgid "Readme"
+msgstr "自述"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "修改日志"
+
+msgctxt ""
+msgid "Translations"
+msgstr "翻译"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "帮助主题"
+
+msgctxt ""
+msgid "Overview"
+msgstr "概观"
+
+msgctxt ""
+msgid "Lab"
+msgstr "实验室"
+
+msgctxt ""
+msgid "version"
+msgstr "版本"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "遥控"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "遥控设置正确"
+
+msgctxt ""
+msgid "About"
+msgstr "关于"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "本地音频"
+
+msgctxt ""
+msgid "Status report"
+msgstr "状态报告"
+
+msgctxt ""
+msgid "in"
+msgstr "在"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "播放时聚焦在播放列表上"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "自动滚动播放列表到当前播放内容。当播放内容变化时生效。"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "网页设置已保存"
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "键盘控制"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "在Chorus里, 你希望用键盘控制Kodi，浏览器或是两者一起"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "了解更多"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "继续播放"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "继续从"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "重新开始"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "点击这里恢复默认设置"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "主菜单结构"
+
+msgctxt ""
+msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
+msgstr "在这里你可以改变菜单项的标题，url和图标。你也可以删除，排序和添加新的菜单项。"
+
+msgctxt ""
+msgid "Main Nav"
+msgstr "主菜单"
+
+msgctxt ""
+msgid "Add a new playlist"
+msgstr "新增一个播放列表"
+
+msgctxt ""
+msgid "Keyboard"
+msgstr "键盘"
