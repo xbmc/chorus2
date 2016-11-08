@@ -14,38 +14,38 @@
     getDefaultItems: ->
       nav = []
       ## Music.
-      nav.push {id: 1, title: "Music", path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
-      nav.push {id: 2, title: "Recent", path: 'music', icon: '', classes: '', parent: 1}
-      nav.push {id: 3, title: "Artists", path: 'music/artists', icon: '', classes: '', parent: 1}
-      nav.push {id: 4, title: "Albums", path: 'music/albums', icon: '', classes: '', parent: 1}
-      nav.push {id: 5, title: "Digital radio", path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
+      nav.push {id: 1, title: tr("Music"), path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
+      nav.push {id: 2, title: tr("Recent"), path: 'music', icon: '', classes: '', parent: 1}
+      nav.push {id: 3, title: tr("Artists"), path: 'music/artists', icon: '', classes: '', parent: 1}
+      nav.push {id: 4, title: tr("Albums"), path: 'music/albums', icon: '', classes: '', parent: 1}
+      nav.push {id: 5, title: tr("Digital radio"), path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
 
       ## Movies.
-      nav.push {id: 11, title: "Movies", path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
-      nav.push {id: 12, title: "Recent movies", path: 'movies/recent', icon: '', classes: '', parent: 11}
-      nav.push {id: 13, title: "All movies", path: 'movies', icon: '', classes: '', parent: 11}
+      nav.push {id: 11, title: tr("Movies"), path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
+      nav.push {id: 12, title: tr("Recent movies"), path: 'movies/recent', icon: '', classes: '', parent: 11}
+      nav.push {id: 13, title: tr("All movies"), path: 'movies', icon: '', classes: '', parent: 11}
 
       ## TV.
-      nav.push {id: 21, title: "TV shows", path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
-      nav.push {id: 22, title: "Recent episodes", path: 'tvshows/recent', icon: '', classes: '', parent: 21}
-      nav.push {id: 23, title: "All TV shows", path: 'tvshows', icon: '', classes: '', parent: 21}
-      nav.push {id: 24, title: "TV", path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21, visibility: "addon:pvr:enabled"}
+      nav.push {id: 21, title: tr("TV shows"), path: 'tvshows/recent', icon: 'mdi-hardware-tv', classes: 'nav-tv', parent: 0}
+      nav.push {id: 22, title: tr("Recent episodes"), path: 'tvshows/recent', icon: '', classes: '', parent: 21}
+      nav.push {id: 23, title: tr("All TV shows"), path: 'tvshows', icon: '', classes: '', parent: 21}
+      nav.push {id: 24, title: tr("TV"), path: 'tvshows/live', icon: '', classes: 'pvr-link', parent: 21, visibility: "addon:pvr:enabled"}
 
       ## Browser.
-      nav.push {id: 31, title: "Browser", path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
+      nav.push {id: 31, title: tr("Browser"), path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
 
       ## Thumbs up.
-      nav.push {id: 41, title: "Thumbs up", path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
-      nav.push {id: 42, title: "Playlists", path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
+      nav.push {id: 41, title: tr("Thumbs up"), path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
+      nav.push {id: 42, title: tr("Playlists"), path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
 
       ## Settings.
-      nav.push {id: 51, title: "Settings", path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
-      nav.push {id: 52, title: "Web interface", path: 'settings/web', icon: '', classes: '', parent: 51}
-      nav.push {id: 53, title: "Add-ons", path: 'settings/addons', icon: '', classes: '', parent: 51}
-      nav.push {id: 54, title: "Main Nav", path: 'settings/nav', icon: '', classes: '', parent: 51}
+      nav.push {id: 51, title: tr("Settings"), path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
+      nav.push {id: 52, title: tr("Web interface"), path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 53, title: tr("Add-ons"), path: 'settings/addons', icon: '', classes: '', parent: 51}
+      nav.push {id: 54, title: tr("Main Nav"), path: 'settings/nav', icon: '', classes: '', parent: 51}
 
       ## Help
-      nav.push {id: 61, title: "Help", path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}
+      nav.push {id: 61, title: tr("Help"), path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}
 
       @checkVisibility nav
 

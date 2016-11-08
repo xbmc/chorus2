@@ -636,3 +636,39 @@ msgstr "Add a new playlist"
 msgctxt ""
 msgid "Keyboard"
 msgstr "Keyboard"
+
+msgctxt ""
+msgid "Music"
+msgstr "Music"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "Digital radio"
+
+msgctxt ""
+msgid "Movies"
+msgstr "Movies"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "TV shows"
+
+msgctxt ""
+msgid "TV"
+msgstr "TV"
+
+msgctxt ""
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "Thumbs up"
+
+msgctxt ""
+msgid "Settings"
+msgstr "Settings"
+
+msgctxt ""
+msgid "Help"
+msgstr "Help"
