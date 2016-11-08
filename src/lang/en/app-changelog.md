@@ -1,3 +1,7 @@
+Version 2.3.3
+-------------
+* Added screenshots to addon.xml
+
 Version 2.3.2
 -------------
 * Updated default backgrounds with CC images
