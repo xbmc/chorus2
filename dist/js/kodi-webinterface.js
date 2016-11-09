@@ -19,6 +19,8 @@ return b.ecoSafe=!0,b};return function(){var a=[],c=this,d=function(b){"undefine
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __slice = [].slice;
 
+
+
 this.helpers = {};
 
 this.config = {
@@ -3061,6 +3063,7 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
       }
     ],
     directorySeperator: '/',
+	breadcrumbs: [],
     getEntity: function(id, options) {
       var entity;
       entity = new App.KodiEntities.File();
@@ -3207,18 +3210,42 @@ this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionett
         }
       }
       if (parentSource.file) {
-        items.push(parentSource);
-        basePath = parentSource.file;
-        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(this.directorySeperator);
-        for (_j = 0, _len1 = pathParts.length; _j < _len1; _j++) {
-          part = pathParts[_j];
-          if (part !== '') {
-            basePath += part + this.directorySeperator;
-            items.push(this.createPathModel(parentSource.media, part, basePath));
-          }
-        }
+		if(this.breadcrumbs == ''){
+			this.breadcrumbs.push(parentSource);
+			basePath = parentSource.file + this.directorySeperator;
+		} else {
+			if(this.breadcrumbs[0]['addonid'] != parentSource['addonid']){
+				this.breadcrumbs=[]; /* change plugin */
+				this.breadcrumbs.push(parentSource);
+			}
+			basePath = parentSource.file;
+		}
+        
+        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file);
+          if (pathParts !== '') {
+            basePath += pathParts;
+			if(this.breadcrumbs.length > 1){
+				this.breadcrumbs.push(this.createPathModel(parentSource.media, pathParts, basePath));
+				check_arr = this.breadcrumbs;
+				this.breadcrumbs = []; /* recreating the breacrums array only with needed steps*/
+				for (_j=0;  _j < check_arr.length; _j++ ){	
+					if(check_arr[_j]['file'] != check_arr[check_arr.length -1]['file']){
+						this.breadcrumbs.push(check_arr[_j]);
+					} else {
+						this.breadcrumbs.push(check_arr[_j]);
+						break;
+					}
+					
+				}
+			} else {
+				this.breadcrumbs.push(this.createPathModel(parentSource.media, pathParts, basePath));
+			}
+          } else {
+				this.breadcrumbs=[]; /* removing all of the trails */
+				this.breadcrumbs.push(parentSource);
+		  }
       }
-      return new KodiEntities.FileCustomCollection(items);
+      return new KodiEntities.FileCustomCollection(this.breadcrumbs);
     },
     createPathModel: function(media, label, file) {
       var model;
@@ -7806,7 +7833,7 @@ this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $,
   })(App.Views.CollectionView);
   List.FileList = (function(_super) {
     __extends(FileList, _super);
-
+	
     function FileList() {
       return FileList.__super__.constructor.apply(this, arguments);
     }
