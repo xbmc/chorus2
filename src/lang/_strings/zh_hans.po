@@ -109,7 +109,7 @@ msgstr "Kodi已退出"
 
 msgctxt ""
 msgid "Sections"
-msgstr "区"
+msgstr "分类"
 
 msgctxt ""
 msgid "Back"
@@ -234,7 +234,7 @@ msgstr "默认播放器"
 
 msgctxt ""
 msgid "Ignore article"
-msgstr "忽略文章"
+msgstr "忽略字段"
 
 msgctxt ""
 msgid "Album artists only"
@@ -242,7 +242,7 @@ msgstr "仅专辑艺术家"
 
 msgctxt ""
 msgid "Poll interval"
-msgstr "Poll interval"
+msgstr "更新间隔"
 
 msgctxt ""
 msgid "Reverse proxy support"
@@ -258,7 +258,7 @@ msgstr "选择语言"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "排序时忽略类似'The'和'A'这样的词"
+msgstr "排序时忽略类似'The'和'A'这样的字段"
 
 # Short for "second"
 msgctxt ""
@@ -327,7 +327,7 @@ msgstr "关于Chorus"
 
 msgctxt ""
 msgid "Recent"
-msgstr "最近"
+msgstr "最新"
 
 msgctxt ""
 msgid "Artists"
@@ -339,7 +339,7 @@ msgstr "专辑"
 
 msgctxt ""
 msgid "Recent movies"
-msgstr "最近的电影"
+msgstr "最新电影"
 
 msgctxt ""
 msgid "All movies"
@@ -391,15 +391,15 @@ msgstr "保存Kodi播放列表"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "选择语言，刷新浏览器后生效"
+msgstr "你喜欢的语言，刷新浏览器后生效"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "当排序时忽略类似'The'和'A'的单词"
+msgstr "当排序时忽略类似'The'和'A'的字段"
 
 msgctxt ""
 msgid "Vibrant headers"
-msgstr "彩色标头"
+msgstr "炫丽标头"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
@@ -636,3 +636,39 @@ msgstr "新增一个播放列表"
 msgctxt ""
 msgid "Keyboard"
 msgstr "键盘"
+
+msgctxt ""
+msgid "Music"
+msgstr "音乐"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "数字广播"
+
+msgctxt ""
+msgid "Movies"
+msgstr "电影"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "电视节目"
+
+msgctxt ""
+msgid "TV"
+msgstr "电视"
+
+msgctxt ""
+msgid "Browser"
+msgstr "浏览"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "赞"
+
+msgctxt ""
+msgid "Settings"
+msgstr "设置"
+
+msgctxt ""
+msgid "Help"
+msgstr "帮助"
