@@ -95,7 +95,7 @@
 
     ## Create a url for an addon
     createAddonFile: (addon) ->
-      'plugin://' + addon.addonid
+      'plugin://' + addon.addonid + @directorySeperator
 
     ## Parse files for extra data
     parseFiles: (items, media) ->
@@ -132,10 +132,12 @@
         items.push parentSource
         basePath = parentSource.file
         pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(@directorySeperator)
+        excludedPaths = App.request "addon:excludedPaths", parentSource.addonid
         for part in pathParts
           if part isnt ''
             basePath += part + @directorySeperator
-            items.push @createPathModel(parentSource.media, part, basePath)
+            if excludedPaths.indexOf(basePath) is -1 ## Don't add excluded paths
+              items.push @createPathModel(parentSource.media, part, basePath)
       new KodiEntities.FileCustomCollection items
 
     ## Create a model structure for a virtual path entity.
