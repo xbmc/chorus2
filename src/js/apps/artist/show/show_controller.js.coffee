@@ -1,5 +1,13 @@
 @Kodi.module "ArtistApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
+
+  API =
+
+    bindTriggers: (view) ->
+      App.listenTo view, 'artist:play', (item) ->
+        App.execute 'artist:action', 'play', item
+
+
   class Show.Controller extends App.Controllers.Base
 
     ## The Artist page.
@@ -30,6 +38,7 @@
       headerLayout = new Show.HeaderLayout model: artist
       @listenTo headerLayout, "show", =>
         teaser = new Show.ArtistTeaser model: artist
+        API.bindTriggers teaser
         detail = new Show.Details model: artist
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
