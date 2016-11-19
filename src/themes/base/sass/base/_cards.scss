@@ -218,6 +218,9 @@ $card-layout: (
     .thumbs {
       @include icon-button-square(action-thumb-up, $spacing-half-unit * 3);
       font-size: 135%;
+      .disable-thumbs & {
+        display: none;
+      }
     }
     li {
       float: left;

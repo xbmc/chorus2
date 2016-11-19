@@ -45,6 +45,11 @@
       if playlistState is 'closed'
         @alterRegionClasses 'add', "shell-playlist-closed"
 
+      ## Update config options
+      @configUpdated()
+      App.vent.on "config:local:updated", (data) =>
+        @configUpdated()
+
       ## Listen for changes to the playlist state.
       App.listenTo shellLayout, "shell:playlist:toggle", (child, args) =>
         playlistState = config.get 'app', 'shell:playlist:state', 'open'
@@ -77,6 +82,13 @@
       $body = App.getRegion(region).$el
       action = "#{op}Class"
       $body[action](classes)
+
+    ## Config updated. We might need to add or remove some shell classes.
+    configUpdated: ->
+      ## Are thumbs disabled.
+      disableThumbs = config.getLocal 'disableThumbs', false
+      disableThumbsClassOp = if disableThumbs is true then 'add' else 'remove'
+      @alterRegionClasses disableThumbsClassOp, 'disable-thumbs'
 
 
   App.addInitializer ->

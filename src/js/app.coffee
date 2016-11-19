@@ -21,6 +21,7 @@
     kodiSettingsLevel: 'standard'
     playlistFocusPlaying: true
     keyboardControl: 'kodi'
+    disableThumbs: false
 }
 
 ## The App Inance

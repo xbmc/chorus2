@@ -30,7 +30,6 @@
       # Return a form structure
       for i, item of data.collection.getRawCollection()
         item.weight = i
-        console.log item
         row = @getRow item, data.icons
         form.push row
       form.push {

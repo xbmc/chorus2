@@ -1,3 +1,11 @@
+Version 2.3.4
+-------------
+* Fixed bug with playing all songs for an artist via artist page #129
+* Improved breadcrumb handling and fixed base path issue with addon browser #125 and #132
+* Added setting to toggle visibility of thumbs up action #117
+* Fixed issue with help pages not displaying when using a non en language
+* Added Chinese translations #130 and #128
+
 Version 2.3.3
 -------------
 * Added screenshots to addon.xml

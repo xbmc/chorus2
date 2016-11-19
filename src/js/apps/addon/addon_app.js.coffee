@@ -41,3 +41,12 @@
   # Request is addon enabled.
   App.reqres.setHandler 'addon:enabled:addons', (callback) ->
     API.getEnabledAddons (addons) -> if callback then callback(addons)
+
+  # Request excluded breadcrumb paths
+  App.reqres.setHandler 'addon:excludedPaths', (addonId) ->
+    if addonId?
+      excludedPaths = App.request "addon:excludedPaths:" + addonId
+      console.log excludedPaths, "addon:excludedPaths:" + addonId
+    if not excludedPaths?
+      excludedPaths = []
+    excludedPaths

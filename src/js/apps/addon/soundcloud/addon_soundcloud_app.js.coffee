@@ -16,7 +16,7 @@
 
 
 
-  ## Is a pvr client enabled.
+  ## Is a sc client enabled.
   App.reqres.setHandler "addon:soundcloud:enabled", ->
     API.isEnabled()
 
