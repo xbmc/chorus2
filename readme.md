@@ -60,15 +60,15 @@ Some settings have been omitted as they require interaction with the GUI and oth
 
 
 ## Contributing
-If you would like to make this project better I would appreciate any help.
+If you would like to make this project better I would appreciate any help. Please do pull requests against the `develop` branch.
 
 ### Translations
 I only know English so definitely need help with this.  
 I also don't know heaps about javascript multilingual stuff but thanks to @mizaki we have a structure ready to go. 
 So it should be nice and easy to translate the UI. 
 
-At the moment, there is 3 languages (english,french,german) more can be easily added. 
-To contribute, send me a PR on a new branch, or if you don't know git, a link to the language file.
+At the moment, there is 5 languages (english,french,german,dutch,chinese) more can be easily added.
+To contribute, send me a PR on a new branch against `develop`, or if you don't know git, a link to the language file.
 
 Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
 English is the only real complete translation file so start with that as your base. 

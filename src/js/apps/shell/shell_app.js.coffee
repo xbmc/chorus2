@@ -50,10 +50,6 @@
       App.vent.on "config:local:updated", (data) =>
         @configUpdated()
 
-      ## Playlist visibility
-      if playlistState is 'closed'
-        @alterRegionClasses 'add', "shell-playlist-closed"
-
       ## Listen for changes to the playlist state.
       App.listenTo shellLayout, "shell:playlist:toggle", (child, args) =>
         playlistState = config.get 'app', 'shell:playlist:state', 'open'
