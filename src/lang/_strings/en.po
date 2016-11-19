@@ -672,3 +672,19 @@ msgstr "Settings"
 msgctxt ""
 msgid "Help"
 msgstr "Help"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "Disable Thumbs Up"
+
+msgctxt ""
+msgid "Remove the thumbs up button from media. Note: you may also want to remove the menu item from the "
+msgstr "Remove the thumbs up button from media. Note: you may also want to remove the menu item from the "
+
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "You need to 'Allow remote control' for Kodi. You can do that"
+
+msgctxt ""
+msgid "here"
+msgstr "here"

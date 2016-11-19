@@ -18,9 +18,9 @@
     # Get a html page with jQuery ajax
     getPage: (id, lang = 'en', callback) ->
       content = $.get("lang/#{lang}/#{id}.html")
-      content.fail (error) =>
-        if lang is not 'en'
-          @getPage id, 'en', callback
+      content.fail (error) ->
+        if lang != 'en'
+          API.getPage id, 'en', callback
       content.done (data) ->
         callback data
       content
