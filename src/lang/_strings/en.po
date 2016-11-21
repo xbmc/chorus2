@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-11-21 20:59+0100\n"
+"PO-Revision-Date: 2016-11-21 21:26+0100\n"
 "Last-Translator: XBMC Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/"
 "language/en/)\n"
@@ -675,3 +675,59 @@ msgstr "Add a new playlist"
 msgctxt ""
 msgid "Keyboard"
 msgstr "Keyboard"
+
+msgctxt ""
+msgid "Music"
+msgstr "Music"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "Digital radio"
+
+msgctxt ""
+msgid "Movies"
+msgstr "Movies"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "TV shows"
+
+msgctxt ""
+msgid "TV"
+msgstr "TV"
+
+msgctxt ""
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "Thumbs up"
+
+msgctxt ""
+msgid "Settings"
+msgstr "Settings"
+
+msgctxt ""
+msgid "Help"
+msgstr "Help"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "Disable Thumbs Up"
+
+msgctxt ""
+msgid ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the "
+msgstr ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the "
+
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "You need to 'Allow remote control' for Kodi. You can do that"
+
+msgctxt ""
+msgid "here"
+msgstr "here"
