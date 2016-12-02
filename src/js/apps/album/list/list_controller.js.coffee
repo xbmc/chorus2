@@ -51,7 +51,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['label', 'year', 'rating', 'artist'] 
+      sort: ['label', 'year', 'rating', 'artist', 'dateadded']
       filter: ['year', 'genre']
 
     ## Apply filter view and provide a handler for applying changes
