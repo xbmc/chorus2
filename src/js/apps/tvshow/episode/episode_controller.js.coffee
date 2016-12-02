@@ -47,7 +47,6 @@
       ## Fetch the tvshow
       episode = App.request "episode:entity", episodeId
       App.execute "when:entity:fetched", episode, =>
-        console.log episode
         ## Get the layout.
         @layout = @getLayoutView episode
 
