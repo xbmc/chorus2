@@ -1,3 +1,11 @@
+Version 2.3.5
+-------------
+* Merged German language updates #139
+* Merged Lithuanian language updates #141
+* Removed some debugging
+* Added expert settings level to Kodi settings
+* Added sorting of albums by date added #21
+
 Version 2.3.4
 -------------
 * Fixed bug with playing all songs for an artist via artist page #129
