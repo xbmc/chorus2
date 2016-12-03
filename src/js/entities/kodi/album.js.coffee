@@ -4,7 +4,7 @@
 
     ## Get an albums fields.
     getAlbumFields: (type = 'small')->
-      baseFields = ['thumbnail', 'playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year']
+      baseFields = ['thumbnail', 'playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year', 'dateadded']
       extraFields = ['fanart', 'style', 'mood', 'description', 'genreid', 'rating']
       if type is 'full'
         fields = baseFields.concat( extraFields )
