@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-12-04 22:09+0100\n"
+"PO-Revision-Date: 2016-12-04 22:15+0100\n"
 "Last-Translator: XBMC Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "À quel fréquence dois-je chercher un mise à jour de Kodi (ne s'appliq
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
-msgstr "Activer le support pour le proxy inversé."
+msgstr "Activer le support du proxy inverse."
 
 msgctxt ""
 msgid "Web settings saved."
@@ -251,7 +251,7 @@ msgstr "Intervale de Poll "
 
 msgctxt ""
 msgid "Reverse proxy support"
-msgstr "Support du proxy inversé"
+msgstr "Support du proxy inverse"
 
 msgctxt ""
 msgid "Language"
@@ -418,7 +418,7 @@ msgstr "Utiliser les en-têtes colorées pour les pages des média"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
-msgstr "Activer le suport du proxying inversé."
+msgstr "Activer le support du proxy inverse."
 
 msgctxt ""
 msgid "songs"
