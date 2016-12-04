@@ -467,14 +467,14 @@ msgstr "aucun média dans ce dossier"
 
 msgctxt ""
 msgid "Browse files and add-ons"
-msgstr "Lister les fichiers et les add-ons"
+msgstr "Lister les fichiers et les extensions"
 
 msgctxt ""
 msgid ""
 "This is where you can browse all Kodi content, not just what is in the "
 "library. Browse by source or add-on."
 msgstr ""
-"Vous trouverez ici tout le contenu Kodi, pas seulement celui de la librairie. Parcourez par source ou add-on."
+"Vous trouverez ici tout le contenu Kodi, pas seulement celui de la librairie. Parcourez par source ou extension."
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -544,7 +544,7 @@ msgstr "distribution"
 
 msgctxt ""
 msgid "Add-ons"
-msgstr "Add-ons"
+msgstr "Extensions"
 
 msgctxt ""
 msgid "Web interface"
