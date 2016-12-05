@@ -607,15 +607,15 @@ msgstr "w"
 
 msgctxt ""
 msgid "Focus playlist on playing"
-msgstr "Focus playlist on playing"
+msgstr "Zaznaczaj odtwarzaną pozycję"
 
 msgctxt ""
 msgid ""
 "Automatically scroll the playlist to the current playing item. This happens whenever the "
 "playing item is changed"
 msgstr ""
-"Automatically scroll the playlist to the current playing item. This happens whenever the "
-"playing item is changed"
+"Umożliwia automatyczne przewijanie listy do aktualnie odtwarzanej pozycji. Ta operacja jest wykonywana za "
+"każdym razem, gdy zmienia się odtwarzana pozycja."
 
 msgctxt ""
 msgid "Web Settings saved."
