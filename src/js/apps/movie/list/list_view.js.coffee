@@ -14,7 +14,7 @@
     initialize: ->
       super
       if @model?
-        @model.set subtitle: @model.get('year')
+        @model.set subtitle: @themeLink @model.get('year'), 'movies?year=' + @model.get('year')
         @model.set( App.request('movie:action:items') )
 
     attributes: ->

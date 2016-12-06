@@ -30,7 +30,7 @@
     tagName: "div"
     className: "card-minimal"
     initialize: ->
-      @model.set subtitle: @model.get('year')
+      @model.set subtitle: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
       @model.set(App.request('album:action:items'))
 
   class Show.AlbumDetailTeaser extends Show.AlbumTeaser
