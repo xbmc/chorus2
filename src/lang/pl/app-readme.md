@@ -20,10 +20,10 @@ Prace na dodatkiem są zaawansowane, większość rzeczy działa poprawnie. Pozo
 
 
 ## Uruchomienie interfejsu
-Zastrzeżenia: Oprogramowanie w fazie beta, możliwe błędy, zmiany, wojna nuklearna, etc.
+Zastrzeżenie: Oprogramowanie w fazie beta, możliwe błędy, zmiany, wojna nuklearna, etc.
 
 ### Instalowanie
-Instalacja przy pomocy pliku ZIP jest najprostszym rozwiązaniem. Pobierz najnowszą wersję dodatku ze [strony wydań](https://github.com/xbmc/chorus2/releases) i zainstaluj je [w opisany sposób](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
+Instalacja przy pomocy pliku ZIP jest najprostszym rozwiązaniem. Pobierz najnowszą wersję dodatku ze [strony wydań](https://github.com/xbmc/chorus2/releases) i zainstaluj go [w opisany sposób](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
 
 ### Konfiguracja
 * Kodi > System > Ustawienia > Usługi
@@ -41,36 +41,36 @@ Dodaj je do aktualnej [listy zagadnień](https://github.com/xbmc/chorus2/issues)
 
 
 ## Transmitowanie
-Zastrzeżenia: Powodzenie odtwarzania zależy od wspieranych przez przeglądarkę formatów plików.
+Zastrzeżenie: Powodzenie odtwarzania zależy od wspieranych przez przeglądarkę formatów plików.
 W większości przypadków nie powinno być z tym żadnych problemów.
 
 ### Transmisja dźwięku
 W prawym górnym roku znajdują się różne zakładki, w tym dwie o nazwie Kodi i Lokalnie, które służą do przełączania
-się między odtwarzaniem mediów w Kodi i przeglądarce. W trybie Lokalnie logo i etykieta są wiśniowym, a w trybie Kodi
-niebieskie. W poszczególnych trybach wykonywane operacje przekazywane są do aktualnego odtwarzacza, więc naciśnięcie
-przycisku Odtwarzaj w trybie Lokalnie, spowoduje rozpoczęcie odtwarzania w przeglądarce. Podobnie sprawa wygląda z trybem
-Kodi, w którym naciśnięcie przycisku Odtwarzaj spowoduje rozpoczęcie odtwarzania w Kodi. Isnieje także możliwość, dla
-większości typów mediów, dodania ich do innych list odtwarzania, za pomocą przycisków dostępnych po wybraniu menu
-dostępnego na pasku odtwarzacza (trzy pionowe kropki).
+się między odtwarzaniem mediów w Kodi i przeglądarce. W trybie Lokalnie logo i etykieta są w kolorze wiśniowym, a
+w trybie Kodi niebieskie. W poszczególnych trybach wykonywane operacje przekazywane są do aktualnego odtwarzacza,
+więc naciśnięcie przycisku Odtwarzaj w trybie Lokalnie, spowoduje rozpoczęcie odtwarzania w przeglądarce. Podobnie
+sprawa wygląda z trybem Kodi, w którym naciśnięcie przycisku Odtwarzaj spowoduje rozpoczęcie odtwarzania w Kodi.
+Isnieje także możliwość, dla większości typów mediów, dodania ich do innych list odtwarzania, za pomocą przycisków
+dostępnych po wybraniu odpowiedniego menu na pasku odtwarzacza (trzy pionowe kropki).
 
 
 ### Transmisja wideo
 Odtwarzanie transmisji wideo przy pomocy HTML5 "prawie działa", tak naprawdę wszystko zależy od użytego kodeka.
-Dodatkową możliwości oferuje wtyczka odtwarzacza VLC, który posiada lepszą obsługę kodeków.
-Do czasu dodania do Kodi mechanizmu transkodowania, jest to wszystko co można uzyskać.
-**Użytkownicy Chrome**: Z przeglądarki Chrome usunięto obsługę wtyczek VLC/DivX, więc transmisja wideo wymaga kodeka
-obsługiwanego przez [Chrome](https://en.wikipedia.org/wiki/HTML5_video#Browser_support).
+Dodatkowe możliwości oferuje wtyczka odtwarzacza VLC, który posiada lepszą obsługę kodeków.
+Do czasu dodania do Kodi funkcji transkodowania, jest to wszystko co można uzyskać.
+**Użytkownicy Chrome**: Z przeglądarki Chrome usunięto obsługę wtyczek VLC/DivX, więc transmisja wideo wymaga
+kodeka obsługiwanego przez [Chrome](https://en.wikipedia.org/wiki/HTML5_video#Browser_support).
 
 
 ## Konfiguracja Kodi przy pomocy interfejsu webowego
-Możesz zmienić większość ustawień Kodi za pomocą dedykowanej strony ustawień w interfejsie.
+Możesz zmienić większość ustawień Kodi za pomocą dedykowanej strony ustawień w interfejsie webowym.
 Niektórych ustawień może brakować, gdyż wymagają one interacji użytkownika w natywnym interfejsie Kodi,
 inne natomiast, są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
 
 
 ## Współudział
-Jeśli chciałbyś pwesprzeć rozwoju projektu, będę wdzięczny za każdą pomoc.
-Pamiętaj proszę, aby modyfikacje kodu dodawane za pomocą Pull Request znajdowany się w gałęzi `develop`.
+Jeśli chciałbyś wesprzeć rozwoju projektu, będę wdzięczny za każdą pomoc.
+Pamiętaj proszę, aby modyfikacje kodu, dodawane za pomocą Pull Request, znajdowany się w gałęzi `develop`.
 
 ### Tłumaczenia
 Znam tylko język angielski, więc niezbędna będzie Wasza pomoc przy tłumaczeniu.
@@ -82,7 +82,7 @@ mogą zostać z łatwością dodane. Jeśli chcesz dodać własne tłumaczenie, 
 z funkcji Pull Request do gałęzi `develop`. Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze z plikiem tłumaczenia.
 
 Pliki tłumaczeń są dostępne [tutaj](https://github.com/xbmc/chorus2/tree/master/src/lang). 
-Pliki dla języka angielskiego są jedynymi kompletnymi źródłami, które powinieneś używać w trakcie tłumaczenia na inny język.
+Pliki języka angielskiego są jedynymi kompletnymi źródłami, które powinieneś używać w trakcie tłumaczenia na inny język.
 
 ### Kompilowanie
 Do kompilowania arkuszy CSS i skryptów JavaScript, w ramach dystrybucji, używane są Sass i Grunt.
