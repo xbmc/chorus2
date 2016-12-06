@@ -46,7 +46,6 @@
   App.reqres.setHandler 'addon:excludedPaths', (addonId) ->
     if addonId?
       excludedPaths = App.request "addon:excludedPaths:" + addonId
-      console.log excludedPaths, "addon:excludedPaths:" + addonId
     if not excludedPaths?
       excludedPaths = []
     excludedPaths

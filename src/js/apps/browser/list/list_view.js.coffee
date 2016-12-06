@@ -71,6 +71,14 @@
     className: 'file'
     triggers:
       'click .play' : 'file:play'
+      "dblclick .title" : "file:play"
+      'click .queue' : 'file:queue'
+    events:
+      "click .dropdown > i": "menuPopulate"
+    initialize: ->
+      menu = {'queue': 'Add to Kodi playlist'}
+      this.model.set({menu: menu})
+
 
   class List.FolderList extends App.Views.CollectionView
     tagName: 'ul'
