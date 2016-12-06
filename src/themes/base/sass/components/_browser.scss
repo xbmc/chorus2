@@ -1,4 +1,4 @@
-$file-row-height: 35px;
+$file-row-height: $song-row-height;
 $path-height: $spacing-base-unit * 3;
 $color-side: #F9F9F9;
 
@@ -95,6 +95,7 @@ $color-side: #F9F9F9;
     @include thumb-crop($file-row-height, $file-row-height);
     .thumb {
       @include set-position-absolute(top 1px left 0 bottom 1px);
+      z-index: $z-index-beta;
       &:hover {
         .play {
           display: table;
@@ -102,14 +103,31 @@ $color-side: #F9F9F9;
       }
     }
     .title {
-      padding: 7px;
+      @include user-select(none);
+      padding: 0 7px;
       padding-left: $file-row-height + 10;
       cursor: pointer;
+      line-height: $file-row-height;
     }
     .play {
       @include overlay-icon($height: $file-row-height, $font-size: 150%)
     }
   }
+  // File specific styles.
+  .file {
+    .title {
+      @include text-crop($color-background);
+      margin-right: $spacing-triple-unit;
+    }
+    .menu {
+      @include actions-menu();
+    }
+    .actions {
+      @include actions-song(1);
+      display: block;
+    }
+  }
+  // Folder specific styles.
   .folder {
     @include text-crop($color-side);
   }

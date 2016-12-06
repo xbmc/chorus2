@@ -71,6 +71,9 @@
       @listenTo fileView, 'childview:file:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
         playlist.play 'file', item.model.get('file')
+      @listenTo fileView, 'childview:file:queue', (set, item) =>
+        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
+        playlist.add 'file', item.model.get('file')
       fileView
 
     getFileList: (collection) ->
