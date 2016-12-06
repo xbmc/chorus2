@@ -1,6 +1,6 @@
 <div class="region-details-top">
     <div class="region-details-title">
-        <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
+        <h2><span class="title"><%= @label %></span> <span class="sub"><a href="#movies?year=<%= @year %>"><%= @year %></a></span></h2>
     </div>
     <div class="region-details-rating">
         <%= @rating %> <i></i>

@@ -284,8 +284,9 @@
       collection
 
     ## Get settings for a given filter
-    getFilterSettings: (key) ->
-      _.findWhere(API.getFilterFields('filter'), {key: key})
+    getFilterSettings: (key, availableOnly = true) ->
+      filters = if availableOnly is true then API.getFilterFields('filter') else API.filterFields
+      _.findWhere(filters, {key: key})
 
     ## Get the active filters.
     getFilterActive: ->
@@ -348,9 +349,13 @@
         ## is one of the params an available filter
         if params[key]
           values = API.getStoreFiltersKey key
+          filterSettings = API.getFilterSettings key, false
           ## If the filter doesn't exist, add and save.
           if not helpers.global.inArray params[key], values
-            values.push decodeURIComponent(params[key])
+            if filterSettings.type is 'number'
+              values.push parseInt params[key]
+            else
+              values.push decodeURIComponent(params[key])
             API.updateStoreFiltersKey key, values
 
   ## Storage.

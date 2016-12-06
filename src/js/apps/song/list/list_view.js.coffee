@@ -20,15 +20,8 @@
       "click .song-musicvideo" : "song:musicvideo"
 
     events:
-      "click .dropdown > i": "populateMenu"
+      "click .dropdown > i": "menuPopulate"
       "click .thumbs" : "toggleThumbs"
-
-    populateMenu: ->
-      menu = ''
-      if @model.get('menu')
-        for key, val of @model.get('menu')
-          menu += @themeTag 'li', {class: key}, val
-        this.$el.find('.dropdown-menu').html(menu)
 
     toggleThumbs: ->
       App.request "thumbsup:toggle:entity", @model
@@ -43,13 +36,7 @@
       }
 
     onShow: ->
-      ## Toggle menu open class on song row.
-      $('.dropdown', @$el).on 'show.bs.dropdown', =>
-        @$el.addClass('menu-open')
-      $('.dropdown', @$el).on 'hide.bs.dropdown', =>
-        @$el.removeClass('menu-open')
-      $('.dropdown', @$el).on 'click', ->
-        $(@).removeClass('open').trigger('hide.bs.dropdown')
+      @menuBlur()
 
   ## Song list
   class List.Songs extends App.Views.CollectionView

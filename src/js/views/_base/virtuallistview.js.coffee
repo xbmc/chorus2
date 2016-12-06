@@ -36,7 +36,10 @@
 
     ## incase the view re-rendered when we are not at the top.
     onRender: ->
-      @requestTick()
+      # If this is called on an empty collection it causes a nasty memory
+      # leak and kills the browser with an "Aw Snap!"
+      if @collection.length > 0
+        @requestTick()
 
     ## Use requestAnimationFrame for smoother redraw
     ## http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
