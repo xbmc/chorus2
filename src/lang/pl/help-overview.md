@@ -37,14 +37,14 @@ Bardzo ważne jest to, abyś dostarczył możliwie jak największą ilość info
 
 * Informacje z 'Raportu o stanie' znajdującego się na tej stronie.
 * Dowolne błędy, które pojawiły się w konsoli Twojej przeglądarki.
-* Szczegółowy opis zawierający kroki niezbędne do odtworzenia błędu oraz zrzuty ekranu, jeśli są niezbędne do wyjaśnienia.
-* **A gdy jesteś prawdziwym bohaterem** gotowa łatka, którą można dołączyć do kodu aplikacji, za pomocą mechanizmu Pull Request :)
+* Szczegółowy opis zawierający kroki niezbędne do odtworzenia błędu oraz zrzuty ekranu, jeśli są niezbędne do wyjaśnienia problemu.
+* **A gdy jesteś prawdziwym bohaterem** - gotową łatkę, którą można dołączyć do kodu aplikacji, za pomocą funkcji Pull Request :)
 
 ### Nowe pomysły
 
 Masz fajny pomysł lub listę życzeń z funkcjami Chorusa? Możesz je dodać do listy zagadanień, a nawet możesz 
 przesłać gotowe modyfikacje do repozytorium [GitHuba](https://github.com/xbmc/chorus2/issues), wykorzystując
-mechanizm Pull Request.
+funkcji Pull Request.
 
 ## Powiedz mi więcej
 
