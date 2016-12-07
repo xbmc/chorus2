@@ -33,7 +33,7 @@
         when 'download'
           files.downloadFile model.get('file')
         when 'toggleWatched'
-          videoLib.toggleWatched model
+          videoLib.toggleWatched model, 'auto'
         when 'edit'
           App.execute 'movie:edit', model
         else

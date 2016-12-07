@@ -731,3 +731,35 @@ msgstr "You need to 'Allow remote control' for Kodi. You can do that"
 msgctxt ""
 msgid "here"
 msgstr "here"
+
+msgctxt ""
+msgid "yes"
+msgstr "yes"
+
+msgctxt ""
+msgid "no"
+msgstr "no"
+
+msgctxt ""
+msgid "close"
+msgstr "close"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgctxt ""
+msgid "Set all episodes as"
+msgstr "Set all episodes as"
+
+msgctxt ""
+msgid "watched"
+msgstr "watched"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "unwatched"

@@ -23,7 +23,10 @@
     getCollection: (options) ->
       defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry')}
       options = _.extend defaultOptions, options
-      collection = new KodiEntities.EpisodeCollection()
+      if options.season is 'all'
+        collection = new KodiEntities.EpisodeAllCollection()
+      else
+        collection = new KodiEntities.EpisodeCollection()
       collection.fetch options
       collection
 
@@ -59,6 +62,13 @@
     arg3: -> helpers.entities.getFields(API.fields, 'small')
     arg4: -> @argLimit()
     arg5: -> @argSort("episode", "ascending")
+    parse: (resp, xhr) -> @getResult resp, 'episodes'
+
+  ## All Episodes collection (for adding to playlist)
+  class KodiEntities.EpisodeAllCollection extends App.KodiEntities.Collection
+    model: KodiEntities.Episode
+    methods: read: ['VideoLibrary.GetEpisodes', 'arg1']
+    arg1: ->@argCheckOption('tvshowid', 0)
     parse: (resp, xhr) -> @getResult resp, 'episodes'
 
   ## Episodes collection

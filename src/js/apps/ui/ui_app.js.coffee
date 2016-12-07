@@ -1,5 +1,7 @@
 @Kodi.module "UiApp", (UiApp, App, Backbone, Marionette, $, _) ->
 
+  ## TODO: Clean this up, it is a bit messy and needs some better abstraction.
+
   API =
 
     openModal: (title, msg, open = true, style = '') ->
@@ -23,8 +25,8 @@
       App.getRegion('regionModal').$el.modal('hide')
       $('.modal-body').html('')
 
-    closeModalButton: ->
-      API.getButton('Close', 'default').on('click', -> API.closeModal())
+    closeModalButton: (text = 'close') ->
+      API.getButton(t.gettext(text), 'default').on('click', -> API.closeModal())
 
     getModalButtonContainer: ->
       App.getRegion('regionModalFooter').$el.empty()
@@ -33,7 +35,7 @@
       $('<button>').addClass('btn btn-' + type).html(text)
 
     defaultButtons: (callback) ->
-      $ok = API.getButton('Ok', 'primary').on('click', ->
+      $ok = API.getButton(t.gettext('ok'), 'primary').on('click', ->
         if callback
           callback()
         API.closeModal()
@@ -41,6 +43,16 @@
       API.getModalButtonContainer()
         .append(API.closeModalButton())
         .append($ok)
+
+    confirmButtons: (callback) ->
+      $ok = API.getButton(t.gettext('yes'), 'primary').on('click', ->
+        if callback
+          callback()
+        API.closeModal()
+      )
+      API.getModalButtonContainer()
+      .append(API.closeModalButton('no'))
+      .append($ok)
 
     ## Toggle player menu state.
     playerMenu: (op = 'toggle') ->
@@ -89,6 +101,11 @@
 
   App.commands.setHandler "ui:modal:close", ->
     API.closeModal()
+
+  ## Open a confirm modal
+  App.commands.setHandler "ui:modal:confirm", (title, msg = '', callback) ->
+    API.confirmButtons -> callback true
+    API.openModal(title, msg, true)
 
   ## Open a modal window
   App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '') ->
