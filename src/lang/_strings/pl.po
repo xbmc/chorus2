@@ -57,7 +57,7 @@ msgstr "Określa domyślnie używany odtwarzacz mediów"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "gnoruj wyrażenia takie, jak 'The' i 'A' podczas sortowania list"
+msgstr "Ignoruj wyrażenia takie, jak 'The' i 'A' podczas sortowania list"
 
 msgctxt ""
 msgid ""
