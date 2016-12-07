@@ -65,7 +65,7 @@ msgid ""
 "turning this off can impact performance with large libraries"
 msgstr ""
 "W trakcie przeglądania listy wykonawców, widoczni będą tylko wykonawcy z własnymi albumami "
-"lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć  "
+"lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć "
 "negatywny wpływ na wydajność w przypadku dużych bibliotek."
 
 msgctxt ""
