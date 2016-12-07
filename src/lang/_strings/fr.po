@@ -332,7 +332,7 @@ msgstr "Scanner la librairie audio"
 
 msgctxt ""
 msgid "About Chorus"
-msgstr "A propos de Chorus"
+msgstr "À propos de Chorus"
 
 msgctxt ""
 msgid "Recent"
@@ -562,7 +562,7 @@ msgstr "Le contrôle à distance est configuré correctement"
 
 msgctxt ""
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 msgctxt ""
 msgid "Local audio"
