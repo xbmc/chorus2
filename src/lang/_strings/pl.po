@@ -731,3 +731,35 @@ msgstr ""
 msgctxt ""
 msgid "here"
 msgstr "tutaj"
+
+msgctxt ""
+msgid "yes"
+msgstr "tak"
+
+msgctxt ""
+msgid "no"
+msgstr "nie"
+
+msgctxt ""
+msgid "close"
+msgstr "zamknij"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Jesteś pewien?"
+
+msgctxt ""
+msgid "Set all episodes as"
+msgstr "Ustaw wszystkie odcinki jako"
+
+msgctxt ""
+msgid "watched"
+msgstr "obejrzane"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "nieobejrzane"
