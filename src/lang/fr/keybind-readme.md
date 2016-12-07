@@ -27,11 +27,11 @@ Touche "<" = Jouer le précédent
 Touche "\" = Plein écran
 ```
 
-[Des amélioration à rajouter? cliquer ici](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
+[Des améliorations à rajouter? cliquez ici](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
 
 ## Navigateur
 
-Le clavier contrôle le navigateur seulement. Si la [télécommande](#remote) est ouverte les touches ne contrôlent que Kodi.
+Le clavier contrôle uniquement le navigateur. Si la [télécommande](#remote) est ouverte les touches ne contrôlent que Kodi.
 
 ## Les deux
 

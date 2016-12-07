@@ -5,8 +5,7 @@ Cette page devrait vous éclairer sur la structure des fichiers de langue.
 
 ## Où sont les fichiers de langue ?
 
-Ces fichiers se trouvent à deux endroits. Le *CODE_LANG* correspond aux deux premières lettre 
-de votre langue (ex: en, fr, de).
+Ces fichiers se trouvent à deux endroits. Le *CODE_LANG* correspond aux deux premières lettres de votre langue (ex: en, fr, de).
 
 ### Strings (textes)
 
