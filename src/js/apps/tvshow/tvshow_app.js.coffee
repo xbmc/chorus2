@@ -31,6 +31,16 @@
         season: season
         episodeid: episodeid
 
+    toggleWatched: (model, season = 'all', op) ->
+      API.getAllEpisodesCollection model.get('tvshowid'), season, (collection) ->
+        videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
+        videoLib.toggleWatchedCollection collection, op
+
+    getAllEpisodesCollection: (tvshowid, season, callback) ->
+      collectionAll = App.request "episode:entities", tvshowid, 'all'
+      App.execute "when:entity:fetched", collectionAll, =>
+        callback collectionAll
+
     episodeAction: (op, view) ->
       model = view.model
       playlist = App.request "command:kodi:controller", 'video', 'PlayList'
@@ -47,12 +57,42 @@
         when 'download'
           files.downloadFile model.get('file')
         when 'toggleWatched'
-          videoLib.toggleWatched model
+          videoLib.toggleWatched model, 'auto'
         else
-	  ## nothing
+          ## nothing
+
+    tvShowAction: (op, view) ->
+      model = view.model
+      playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+      files = App.request "command:kodi:controller", 'video', 'Files'
+      switch op
+        when 'play'
+          API.getAllEpisodesCollection model.get('tvshowid'), 'all', (collection) ->
+            playlist.playCollection collection
+        when 'add'
+          API.getAllEpisodesCollection model.get('tvshowid'), 'all', (collection) ->
+            playlist.addCollection collection
+        when 'watched'
+          API.toggleWatched model, 'all', op
+        when 'unwatched'
+          API.toggleWatched model, 'all', op
+        when 'edit'
+          App.execute 'tvshow:edit', model
+        else
+          ## nothing
 
   App.commands.setHandler 'episode:action', (op, view) ->
     API.episodeAction op, view
+
+  App.commands.setHandler 'tvshow:action', (op, view) ->
+    API.tvShowAction op, view
+
+  App.reqres.setHandler 'tvshow:action:items', ->
+    {
+      actions: {watched: 'Watched', thumbs: 'Thumbs up'}
+      menu: {add: 'Add to Kodi playlist'}
+    }
+
 
   App.on "before:start", ->
     new TVShowApp.Router

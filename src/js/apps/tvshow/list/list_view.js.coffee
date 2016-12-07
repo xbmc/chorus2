@@ -5,16 +5,22 @@
 
   class List.TVShowTeaser extends App.Views.CardView
     triggers:
-      "click .play" : "tvshow:play"
-      "click .menu" : "tvshow-menu:clicked"
+      "click .play"       : "tvshow:play"
+      "click .watched"    : "tvshow:watched"
+      "click .add"        : "tvshow:add"
     initialize: ->
       super
       subtitle = ''
-      # subtitle += @model.get('year')
-      # subtitle += ' ' + @model.get('dateadded')
       subtitle += ' ' + @model.get('rating')
-      # artistLink = @linkTo @model.get('artist'), helpers.url.get('artist', @model.get('artistid'))
       @model.set subtitle: subtitle
+      @model.set( App.request('tvshow:action:items') )
+    attributes: ->
+      classes = ['card']
+      if helpers.entities.isWatched @model
+        classes.push 'is-watched'
+      {
+      class: classes.join(' ')
+      }
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
