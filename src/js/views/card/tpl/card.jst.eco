@@ -23,8 +23,7 @@
             <ul class="dropdown-menu"></ul>
         </div>
     <% end %>
-    <% if @progress: %>
-        <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
-    <% end %>
+    <% @progress = if @progress? then @progress else 0 %>
+    <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
     <i class="mdi watched-tick"></i>
 </div>

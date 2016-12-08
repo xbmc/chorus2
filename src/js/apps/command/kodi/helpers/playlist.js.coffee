@@ -16,8 +16,8 @@
         @clear =>
           @insertAndPlay type, value, 0, resume, callback
 
-    ## Play a collection of models
-    playCollection: (collection, position = 0) ->
+    ## Add a collection of models
+    addCollection: (collection, position = 0, callback) ->
       @clear =>
         models = collection.getRawCollection()
         player = @getPlayer()
@@ -29,8 +29,14 @@
           params = [player, pos, @paramObj(type, model[type])]
           commands.push {method: @getCommand('Insert'), params: params}
         @multipleCommands commands, (resp) =>
-          @playEntity 'position', parseInt(position), {}, =>
-            @refreshPlaylistView()
+          @doCallback callback, resp
+          @refreshPlaylistView()
+
+    # Add a collection of models.
+    playCollection: (collection, position = 0) ->
+      @addCollection collection, position, (resp) =>
+        @playEntity 'position', parseInt(position), {}, =>
+        @refreshPlaylistView()
 
     ## Add a item to the end of the playlist
     add: (type, value) ->

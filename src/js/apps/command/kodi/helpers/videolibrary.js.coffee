@@ -24,9 +24,20 @@
       @singleCommand @getCommand('Scan'), (resp) =>
         @doCallback callback, resp
 
-    ## Toggle watched status
-    toggleWatched: (model, callback) ->
-      setPlaycount = if model.get('playcount') > 0 then 0 else 1
+    ## Toggle watched on a collection. op is 'watched' or 'unwatched'
+    toggleWatchedCollection: (collection, op, callback) ->
+      for i, model of collection.models
+        @toggleWatched model, op
+      @doCallback callback, true
+
+    ## Toggle watched status. op is 'watched' or 'unwatched'
+    toggleWatched: (model, op = 'auto', callback) ->
+      if op is 'auto'
+        setPlaycount = if model.get('playcount') > 0 then 0 else 1
+      else if op is 'watched'
+        setPlaycount = 1
+      else if op is 'unwatched'
+        setPlaycount = 0
       fields = helpers.global.paramObj 'playcount', setPlaycount
       if model.get('type') is 'movie'
         @setMovieDetails model.get('id'), fields, =>
