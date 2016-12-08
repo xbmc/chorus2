@@ -8,3 +8,4 @@ npm-debug.log
 /tutorial
 atlassian-ide-plugin.xml
 dist/js/build/*
+*.mo
