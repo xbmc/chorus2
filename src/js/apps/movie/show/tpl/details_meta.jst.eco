@@ -23,7 +23,7 @@
 
     <div class="description"><%= @plotoutline %></div>
 
-    <ul class="people">
+    <ul class="meta">
         <% if @director.length > 0: %>
             <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'movies', 'director', @director %></span></li>
         <% end %>

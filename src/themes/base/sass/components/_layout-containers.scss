@@ -48,6 +48,10 @@
   }
 
   &.with-header {
+    > .region-content-wrapper {
+      position: relative;
+    }
+    > .region-content-wrapper > .region-content,
     > .region-content {
       background: $color-detail-content-background;
       padding-top: $spacing-double-unit;

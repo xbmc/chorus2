@@ -16,12 +16,24 @@
         <% end %>
     </div>
 
-    <ul class="people">
+    <ul class="meta">
         <% if @cast.length > 0: %>
         <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
+        <% if @studio.length > 0: %>
+        <li><label><%= t.gettext("Studio") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'studio', @studio %></span></li>
+        <% end %>
+        <% if @mpaa: %>
+        <li><label><%= t.gettext("Rated") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'mpaa', [@mpaa] %></span></li>
+        <% end %>
+        <li><label><%= t.gettext("Episodes") %>:</label> <span><%= @episode %> <%= t.gettext("total") %> (<%= @unwatched %> <%= t.gettext("unwatched") %>)</span></li>
     </ul>
 
     <div class="description"><%= @plot %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
+        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+    </ul>
 
 </div>

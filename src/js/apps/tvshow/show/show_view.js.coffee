@@ -14,3 +14,4 @@
     className: "card-detail"
     triggers:
       "click .menu" : "tvshow-menu:clicked"
+
