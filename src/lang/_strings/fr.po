@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-12-06 23:06+0100\n"
+"PO-Revision-Date: 2016-12-08 18:31+0100\n"
 "Last-Translator: XBMC Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -692,3 +692,35 @@ msgstr "Vous devez 'Autoriser le contrôle à distance' dans Kodi. Vous pouvez l
 msgctxt ""
 msgid "here"
 msgstr "ici"
+
+msgctxt ""
+msgid "yes"
+msgstr "oui"
+
+msgctxt ""
+msgid "no"
+msgstr "non"
+
+msgctxt ""
+msgid "close"
+msgstr "fermer"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr ?"
+
+msgctxt ""
+msgid "Set all episodes as"
+msgstr "Marquer tous les épisodes comme"
+
+msgctxt ""
+msgid "watched"
+msgstr "vus"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "non vus"
