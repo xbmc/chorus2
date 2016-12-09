@@ -51,7 +51,8 @@ $card-detail-episode-side-height: 150px;
     @include responsive-card-artwork-size($card-detail-side-width, $card-detail-side-width);
   }
   .card-movie,
-  .card-tvshow {
+  .card-tvshow,
+  .card-season {
     @include responsive-card-artwork-size($card-detail-side-width, $card-detail-poster-side-height);
   }
   .card-episode {

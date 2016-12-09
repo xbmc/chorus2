@@ -9,21 +9,13 @@
       API.bindTriggers view
       view
 
-    toggleWatched: (parent, viewItem) ->
-      op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
-      msg = t.gettext('Set all episodes as') + ' ' + t.gettext(op)
-      App.execute "ui:modal:confirm", t.gettext('Are you sure?'), msg, () ->
-        progress = if op is 'watched' then 100 else 0
-        parent.$el.toggleClass('is-watched').find('.current-progress').css('width', progress + '%')
-        App.execute 'tvshow:action', op, viewItem
-
     bindTriggers: (view) ->
       App.listenTo view, 'childview:tvshow:play', (parent, viewItem) ->
         App.execute 'tvshow:action', 'play', viewItem
       App.listenTo view, 'childview:tvshow:add', (parent, viewItem) ->
         App.execute 'tvshow:action', 'add', viewItem
       App.listenTo view, 'childview:tvshow:watched', (parent, viewItem) ->
-        API.toggleWatched parent, viewItem
+        App.execute 'tvshow:action:watched', parent, viewItem
       App.listenTo view, 'childview:tvshow:edit', (parent, viewItem) ->
         App.execute 'tvshow:action', 'edit', viewItem
 
@@ -63,7 +55,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'unwatched', 'cast']
+      filter: ['year', 'genre', 'unwatched', 'cast', 'mpaa', 'studio']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

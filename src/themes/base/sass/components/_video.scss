@@ -123,10 +123,29 @@
   @include flat-button($icon: content-archive);
 }
 
+.btn-flat-watched {
+  @include flat-button($icon: toggle-check-box);
+  .action-watched {
+    display: inline;
+  }
+  .action-unwatched {
+    display: none;
+  }
+  .is-watched & {
+    .action-watched {
+      display: none;
+    }
+    .action-unwatched {
+      display: inline;
+    }
+  }
+}
+
 .entity-progress {
   @include set-position-absolute(top -2px right 0 left 0);
+  z-index: $z-index-delta;
   .current-progress {
-    height: 4px;
+    height: 3px;
     background: $color-kodi;
   }
 }

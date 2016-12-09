@@ -15,12 +15,7 @@
       @model.set subtitle: subtitle
       @model.set( App.request('tvshow:action:items') )
     attributes: ->
-      classes = ['card']
-      if helpers.entities.isWatched @model
-        classes.push 'is-watched'
-      {
-      class: classes.join(' ')
-      }
+      @watchedAttributes 'card tv-show'
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

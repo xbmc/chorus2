@@ -124,6 +124,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     span {
       color: $color-detail-hightlight-text;
     }
+    label {
+      text-transform: capitalize;
+    }
   }
   .runtime {
     font-size: 120%;

@@ -17,7 +17,6 @@
       regionContentTop:  ".region-content-top"
       regionContent:  ".region-content"
 
-
   class Views.LayoutDetailsHeaderView extends App.Views.LayoutView
     template: "views/layouts/layout_details_header"
     regions:

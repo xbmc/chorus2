@@ -763,3 +763,27 @@ msgstr "watched"
 msgctxt ""
 msgid "unwatched"
 msgstr "unwatched"
+
+msgctxt ""
+msgid "genre"
+msgstr "genre"
+
+msgctxt ""
+msgid "studio"
+msgstr "studio"
+
+msgctxt ""
+msgid "rated"
+msgstr "rated"
+
+msgctxt ""
+msgid "episodes"
+msgstr "episodes"
+
+msgctxt ""
+msgid "total"
+msgstr "total"
+
+msgctxt ""
+msgid "set"
+msgstr "set"
