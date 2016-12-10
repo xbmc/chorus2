@@ -56,7 +56,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched', 'mpaa', 'studio']
+      filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched', 'mpaa', 'studio', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

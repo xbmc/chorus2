@@ -3,13 +3,13 @@
   ## https://github.com/jmorrell/backbone-filtered-collection
   class Entities.Filtered extends FilteredCollection
 
-    ## Alows filtering against multiple values of the same key.
+    ## Allows filtering against multiple values of the same key.
     filterByMultiple: (key, values = []) ->
       @filterBy key, (model) ->
         helpers.global.inArray model.get(key), values
 
-    ## Alows filtering against multiple values of the same key
-    ## wher the data is an array
+    ## Allows filtering against multiple values of the same key
+    ## where the data is an array
     filterByMultipleArray: (key, values = []) ->
       @filterBy key, (model) ->
         match = false
@@ -37,6 +37,10 @@
         else if model.get('type') is 'movie' or model.get('type') is 'episode'
           unwatched = if model.get('playcount') > 0 then 0 else 1
         unwatched > 0
+
+    filterByThumbsUp: (key) ->
+      @filterBy key, (model) ->
+        App.request "thumbsup:check", model
 
     filterByString: (key, query) ->
       @filterBy 'search', (model) ->

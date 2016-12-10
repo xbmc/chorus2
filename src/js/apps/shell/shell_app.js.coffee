@@ -53,6 +53,12 @@
       App.vent.on "config:local:updated", (data) =>
         @configUpdated()
 
+      ## Listen for active filtering
+      App.vent.on "filter:filtering:start", () =>
+        @alterRegionClasses 'add', "filters-loading"
+      App.vent.on "filter:filtering:stop", () =>
+        @alterRegionClasses 'remove', "filters-loading"
+
       ## Listen for changes to the playlist state.
       App.listenTo shellLayout, "shell:playlist:toggle", (child, args) =>
         playlistState = config.get 'app', 'shell:playlist:state', 'open'

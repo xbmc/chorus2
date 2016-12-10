@@ -9,7 +9,7 @@
     modelDefaults:
       fullyloaded: false
       thumbnail: ''
-      thumbsUp: false
+      thumbsUp: 0
       parsed: false
       progress: 0
 
@@ -44,7 +44,7 @@
           model.url = helpers.url.get type, id
         else
           model.url = helpers.url.get type, id
-          
+
         model = App.request "images:path:entity", model
         model.type = type
         model.uid = helpers.entities.createUid(model, type)
