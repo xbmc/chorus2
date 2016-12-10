@@ -19,8 +19,7 @@
       App.listenTo view, 'childview:movie:download', (parent, viewItem) ->
         App.execute 'movie:action', 'download', viewItem
       App.listenTo view, 'childview:movie:watched', (parent, viewItem) ->
-        parent.$el.toggleClass('is-watched')
-        App.execute 'movie:action', 'toggleWatched', viewItem
+        App.execute 'movie:action:watched', parent, viewItem
       App.listenTo view, 'childview:movie:edit', (parent, viewItem) ->
         App.execute 'movie:action', 'edit', viewItem
 
@@ -57,7 +56,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched']
+      filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched', 'mpaa', 'studio', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

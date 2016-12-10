@@ -52,7 +52,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['label']
-      filter: ['mood', 'genre', 'style']
+      filter: ['mood', 'genre', 'style', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

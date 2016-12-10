@@ -22,6 +22,7 @@
     playlistFocusPlaying: true
     keyboardControl: 'kodi'
     disableThumbs: false
+    showDeviceName: false
 }
 
 ## The App Inance

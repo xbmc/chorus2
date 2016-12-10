@@ -11,20 +11,30 @@
 </div>
 <div class="region-details-meta-below">
 
-    <div class="region-details-subtext">
+    <ul class="meta">
         <% if @genre.length > 0: %>
-        <div class="genres">
-            <%- helpers.url.filterLinks 'tvshows', 'genre', @genre %>
-        </div>
+        <li><label><%= t.gettext("genre") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'genre', @genre %></span></li>
         <% end %>
-    </div>
-
-    <ul class="people">
         <% if @cast.length > 0: %>
-        <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
+        <li><label><%= t.gettext("cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
+        <% if @studio.length > 0: %>
+        <li><label><%= t.gettext("studio") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'studio', @studio %></span></li>
+        <% end %>
+        <% if @mpaa: %>
+        <li><label><%= t.gettext("rated") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'mpaa', [@mpaa] %></span></li>
+        <% end %>
+        <li><label><%= t.gettext("episodes") %>:</label> <span><span class="episode-total"><%= @episode %></span> <%= t.gettext("total") %> (<span class="episode-unwatched"><%= @unwatched %></span> <%= t.gettext("unwatched") %>)</span></li>
     </ul>
 
     <div class="description"><%= @plot %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
+        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+        <li class="btn-flat-watched watched">
+            <%= t.gettext('set') %> <span class="action-watched"><%= t.gettext('watched') %></span><span class="action-unwatched"><%= t.gettext('unwatched') %></span>
+        </li>
+    </ul>
 
 </div>

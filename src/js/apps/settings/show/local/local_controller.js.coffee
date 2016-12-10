@@ -59,6 +59,7 @@
           children:[
             {id: 'vibrantHeaders', title: t.gettext("Vibrant headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
             {id: 'disableThumbs', title: t.gettext("Disable Thumbs Up"), type: 'checkbox', defaultValue: false, description: t.gettext("Remove the thumbs up button from media. Note: you may also want to remove the menu item from the ") + '<a href="#settings/nav">' + t.gettext('Main Nav') + '</a>'}
+            {id: 'showDeviceName', title: t.gettext("Show device name"), type: 'checkbox', defaultValue: false, description: t.gettext("Show the Kodi device name in the header of Chorus")}
           ]
         }
         {
@@ -85,5 +86,5 @@
       # Update current session
       config.static = _.extend config.static, config.get('app', 'config:local', config.static)
       # Notify.
-      Kodi.vent.trigger("config:local:updated", config.static);
+      Kodi.vent.trigger("config:local:updated", config.static)
       Kodi.execute "notification:show", t.gettext("Web Settings saved.")

@@ -2,6 +2,9 @@
 
     <header class="region-header"></header>
 
-    <section class="region-content"></section>
+    <div class="region-content-wrapper">
+        <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
+        <section class="region-content"></section>
+    </div>
 
 </div>

@@ -49,3 +49,8 @@ helpers.entities.isWatched = (model) ->
   if model? and model.get('playcount')
     watched = if model.get('playcount') > 0 then true else false
   watched
+
+# Set progress on an entity.
+helpers.entities.setProgress = ($el, progress) ->
+  progress = progress + '%'
+  $el.find('.current-progress').css('width', progress).attr('title', progress + ' ' + t.gettext('complete'))

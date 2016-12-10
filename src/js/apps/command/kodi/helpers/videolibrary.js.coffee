@@ -38,12 +38,15 @@
         setPlaycount = 1
       else if op is 'unwatched'
         setPlaycount = 0
+      setProgress = setPlaycount * 100
       fields = helpers.global.paramObj 'playcount', setPlaycount
       if model.get('type') is 'movie'
         @setMovieDetails model.get('id'), fields, =>
           helpers.cache.updateCollection 'MovieCollection', 'movies', model.get('id'), 'playcount', setPlaycount
+          helpers.cache.updateCollection 'MovieCollection', 'movies', model.get('id'), 'progress', setProgress
           @doCallback callback, setPlaycount
       if model.get('type') is 'episode'
         @setEpisodeDetails model.get('id'), fields, =>
           helpers.cache.updateCollection 'TVShowCollection', 'tvshows', model.get('tvshowid'), 'playcount', setPlaycount
+          helpers.cache.updateCollection 'TVShowCollection', 'tvshows', model.get('tvshowid'), 'progress', setProgress
           @doCallback callback, setPlaycount

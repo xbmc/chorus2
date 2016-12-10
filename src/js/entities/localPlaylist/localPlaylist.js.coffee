@@ -157,12 +157,11 @@
   App.reqres.setHandler "thumbsup:toggle:entity", (model) ->
     media = model.get('type')
     collection = API.getItemCollection API.getThumbsKey(media)
-    position = if collection then collection.length + 1 else 1
     existing = collection.findWhere {id: model.get('id')}
     if existing
       existing.destroy()
     else
-      collection.create(API.getSavedModelFromSource(model.attributes, position))
+      collection.create(API.getSavedModelFromSource(model.attributes, model.get('id')))
     collection
 
   ## Handler to get a thumbs up collection
