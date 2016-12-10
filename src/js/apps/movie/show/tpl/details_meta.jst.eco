@@ -9,21 +9,17 @@
 <div class="region-details-meta-below">
 
     <div class="region-details-subtext">
-
         <div class="runtime">
             <%= helpers.global.formatTime helpers.global.secToTime( @runtime ) %>
         </div>
-
-        <% if @genre.length > 0: %>
-        <div class="genres">
-            <%- helpers.url.filterLinks 'movies', 'genre', @genre %>
-        </div>
-        <% end %>
     </div>
 
     <div class="description"><%= @plotoutline %></div>
 
     <ul class="meta">
+        <% if @genre.length > 0: %>
+            <li><label><%= t.gettext("genre") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'genre', @genre %></span></li>
+        <% end %>
         <% if @director.length > 0: %>
             <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'movies', 'director', @director %></span></li>
         <% end %>
@@ -33,11 +29,18 @@
         <% if @cast.length > 0: %>
             <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'movies', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
+        <% if @mpaa: %>
+            <li><label><%= t.gettext("rated") %>:</label> <span><%- helpers.url.filterLinks 'movies', 'mpaa', [@mpaa] %></span></li>
+        <% end %>
     </ul>
 
     <ul class="streams">
-        <li><label><%= t.gettext("Video") %>:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
-        <li><label><%= t.gettext("Audio") %>:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <% if @streamdetails.video.length > 0: %>
+            <li><label><%= t.gettext('Video') %>:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
+        <% end %>
+        <% if @streamdetails.audio.length > 0: %>
+            <li><label><%= t.gettext('Audio') %>:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <% end %>
         <% if @streamdetails.subtitle.length > 0 and @streamdetails.subtitle[0].label isnt '': %>
             <li><label><%= t.ngettext("Subtitle", "Subtitles", @streamdetails.subtitle.length) %>:</label>
                 <span class="dropdown"><span data-toggle="dropdown"><%= _.pluck( @streamdetails.subtitle, 'label' ).join(', ') %></span>
@@ -56,5 +59,8 @@
         <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
         <li class="btn-flat-stream stream"><%= t.gettext('Stream') %></li>
         <li class="btn-flat-download download"><%= t.gettext('Download') %></li>
+        <li class="btn-flat-watched watched">
+            <%= t.gettext('set') %> <span class="action-watched"><%= t.gettext('watched') %></span><span class="action-unwatched"><%= t.gettext('unwatched') %></span>
+        </li>
     </ul>
 </div>

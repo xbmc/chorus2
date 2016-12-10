@@ -11,6 +11,8 @@
         App.execute 'movie:action', 'localplay', viewItem
       App.listenTo view, 'movie:download', (viewItem) ->
         App.execute 'movie:action', 'download', viewItem
+      App.listenTo view, 'toggle:watched', (viewItem) ->
+        App.execute 'movie:action:watched', viewItem.view, viewItem.view
 
   class Show.Controller extends App.Controllers.Base
 

@@ -114,6 +114,22 @@
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
+      {
+        alias: 'Rated'
+        type: 'string'
+        property: 'mpaa'
+        key: 'mpaa'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Studio'
+        type: 'array'
+        property: 'studio'
+        key: 'studio'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
     ] 
 
     ## Wrapper for returning the available fields for sort/filter

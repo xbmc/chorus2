@@ -1,6 +1,3 @@
-
-<div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
-
 <div class="section-content">
     <h2><%= t.gettext('Synopsis') %></h2>
     <% if @trailer.source is 'youtube': %>
