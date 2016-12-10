@@ -29,7 +29,7 @@
       else
         App.execute "images:fanart:set"
 
-  ## Render the shell.
+    ## Render the shell.
     renderLayout: ->
 
       ## Render Shell and assign its regions to the app.
@@ -39,6 +39,9 @@
 
       ## Kick of loading.
       App.execute "loading:show:page"
+
+      ## Set title.
+      @setAppTitle()
 
       ## Get playlist state.
       playlistState = config.get 'app', 'shell:playlist:state', 'open'
@@ -89,7 +92,15 @@
       disableThumbs = config.getLocal 'disableThumbs', false
       disableThumbsClassOp = if disableThumbs is true then 'add' else 'remove'
       @alterRegionClasses disableThumbsClassOp, 'disable-thumbs'
+      @setAppTitle()
 
+    ## Set app title.
+    setAppTitle: ->
+      App.getRegion('regionTitle').$el.html('')
+      if config.getLocal('showDeviceName', false) is true
+        settingsController = App.request "command:kodi:controller", 'auto', 'Settings'
+        settingsController.getSettingValue 'services.devicename', (title) ->
+          App.getRegion('regionTitle').$el.html(title)
 
   App.addInitializer ->
 
