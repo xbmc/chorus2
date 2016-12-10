@@ -1,3 +1,20 @@
+Version 2.3.6
+-------------
+* Added filtering by thumbs up to movies, tv, artists and albums
+* Fixed bug with newly added thumbs up items not appearing on thumbs up page
+* Added ability to show device name as title #98
+* Style and UI improvements for movies and TV with focus on watched status
+* Movie details page improvements, added mpaa, added ability to toggle watched
+* TV details, list, seasons and episodes have all had an overhaul with many bugfixes and improvements
+* Added ability to mark watched, queue or play an entire TV series or season #74
+* Merged updated French and Polish translations #161 and #160
+* Improved play button toggle based on player state #157
+* Improved styling in file/addon browser
+* Added ability to queue a file/addon media via context menu
+* Aligned album song listing columns #37
+* Added filtering by year for albums and music
+* Fixed browser crashing if virtual list was passed an empty collection
+
 Version 2.3.5
 -------------
 * Merged German language updates #139
