@@ -2,6 +2,11 @@
   .layout-container > .region-first {
     overflow: hidden;
   }
+  .region-content-wrapper .region-content {
+    .filters-loading & {
+      opacity: 0.3;
+    }
+  }
 }
 
 .filters-container {

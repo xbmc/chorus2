@@ -29,7 +29,7 @@
       else
         App.execute "images:fanart:set"
 
-  ## Render the shell.
+    ## Render the shell.
     renderLayout: ->
 
       ## Render Shell and assign its regions to the app.
@@ -40,6 +40,9 @@
       ## Kick of loading.
       App.execute "loading:show:page"
 
+      ## Set title.
+      @setAppTitle()
+
       ## Get playlist state.
       playlistState = config.get 'app', 'shell:playlist:state', 'open'
       if playlistState is 'closed'
@@ -49,6 +52,12 @@
       @configUpdated()
       App.vent.on "config:local:updated", (data) =>
         @configUpdated()
+
+      ## Listen for active filtering
+      App.vent.on "filter:filtering:start", () =>
+        @alterRegionClasses 'add', "filters-loading"
+      App.vent.on "filter:filtering:stop", () =>
+        @alterRegionClasses 'remove', "filters-loading"
 
       ## Listen for changes to the playlist state.
       App.listenTo shellLayout, "shell:playlist:toggle", (child, args) =>
@@ -89,7 +98,15 @@
       disableThumbs = config.getLocal 'disableThumbs', false
       disableThumbsClassOp = if disableThumbs is true then 'add' else 'remove'
       @alterRegionClasses disableThumbsClassOp, 'disable-thumbs'
+      @setAppTitle()
 
+    ## Set app title.
+    setAppTitle: ->
+      App.getRegion('regionTitle').$el.html('')
+      if config.getLocal('showDeviceName', false) is true
+        settingsController = App.request "command:kodi:controller", 'auto', 'Settings'
+        settingsController.getSettingValue 'services.devicename', (title) ->
+          App.getRegion('regionTitle').$el.html(title)
 
   App.addInitializer ->
 

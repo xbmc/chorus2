@@ -1,0 +1,12 @@
+// TV show specific components.
+
+.tvshow-show {
+
+  .card-season {
+    // No thumbs up for TV season.
+    .thumbs {
+      display: none !important;
+    }
+  }
+
+}

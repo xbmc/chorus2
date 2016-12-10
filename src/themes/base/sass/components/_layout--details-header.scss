@@ -119,8 +119,14 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   .description {
     margin-top: $spacing-half-unit;
   }
-  .people {
+  .meta {
     margin: $spacing-base-unit 0;
+    span {
+      color: $color-detail-hightlight-text;
+    }
+    label {
+      text-transform: capitalize;
+    }
   }
   .runtime {
     font-size: 120%;

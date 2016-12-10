@@ -753,8 +753,12 @@ msgid "Are you sure?"
 msgstr "Are you sure?"
 
 msgctxt ""
-msgid "Set all episodes as"
-msgstr "Set all episodes as"
+msgid "Set all episodes for this season as"
+msgstr "Set all episodes for this season as"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Set all episodes for this TV show as"
 
 msgctxt ""
 msgid "watched"
@@ -763,3 +767,35 @@ msgstr "watched"
 msgctxt ""
 msgid "unwatched"
 msgstr "unwatched"
+
+msgctxt ""
+msgid "genre"
+msgstr "genre"
+
+msgctxt ""
+msgid "studio"
+msgstr "studio"
+
+msgctxt ""
+msgid "rated"
+msgstr "rated"
+
+msgctxt ""
+msgid "episodes"
+msgstr "episodes"
+
+msgctxt ""
+msgid "total"
+msgstr "total"
+
+msgctxt ""
+msgid "set"
+msgstr "set"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Show device name"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Show the Kodi device name in the header of Chorus"

@@ -15,12 +15,7 @@
         @model.set({actions: {watched: 'Watched'}})
         @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
     attributes: ->
-      classes = ['card']
-      if helpers.entities.isWatched @model
-        classes.push 'is-watched'
-      {
-        class: classes.join(' ')
-      }
+      @watchedAttributes 'card'
     getMeta: ->
       epNum = @themeTag('span', {class: 'ep-num'}, @model.get('season') + 'x' + @model.get('episode') + ' ')
       epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.get('episode'))
@@ -54,7 +49,11 @@
       'click .add': 'episode:add'
       'click .stream': 'episode:localplay'
       'click .download': 'episode:download'
-      
+    events:
+      "click .watched"    : "toggleWatched"
+    attributes: ->
+      @watchedAttributes()
+
   class Episode.EpisodeDetailTeaser extends App.Views.CardView
     tagName: "div"
     className: "card-detail"

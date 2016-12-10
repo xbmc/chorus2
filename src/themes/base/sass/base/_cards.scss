@@ -159,11 +159,13 @@ $card-layout: (
   .watched {
     @include icon-button-square(toggle-check-box-outline-blank, $spacing-half-unit * 3);
     font-size: 135%;
+    // Hide on thumbs page because collection is cached in local storage.
+    // TODO: make this work.
+    .thumbs-page & {
+      display: none;
+    }
   }
   &.is-watched {
-    .watched-tick {
-      display: block;
-    }
     .watched {
       @include icon(toggle-check-box);
       color: $color-kodi;

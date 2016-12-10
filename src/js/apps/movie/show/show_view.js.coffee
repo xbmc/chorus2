@@ -13,6 +13,10 @@
       'click .add': 'movie:add'
       'click .stream': 'movie:localplay'
       'click .download': 'movie:download'
+    events:
+      "click .watched"    : "toggleWatched"
+    attributes: ->
+      @watchedAttributes()
 
   class Show.MovieTeaser extends App.Views.CardView
     tagName: "div"

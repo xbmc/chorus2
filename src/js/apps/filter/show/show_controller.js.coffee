@@ -51,6 +51,7 @@
         collection: filterCollection
       ## On filterable click.
       App.listenTo filtersView, "childview:filter:filterable:select", (parentview, childview) =>
+        App.vent.trigger 'filter:filtering:start'
         key = childview.model.get('key')
         if childview.model.get('type') is 'boolean'  ## No options
           App.request 'filter:store:key:toggle', key, childview.model.get('alias')

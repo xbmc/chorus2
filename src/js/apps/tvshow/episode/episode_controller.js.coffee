@@ -15,8 +15,7 @@
       App.listenTo view, 'childview:episode:download', (parent, viewItem) ->
         App.execute 'episode:action', 'download', viewItem
       App.listenTo view, 'childview:episode:watched', (parent, viewItem) ->
-        parent.$el.toggleClass('is-watched')
-        App.execute 'episode:action', 'toggleWatched', viewItem
+        App.execute 'episode:action:watched', parent, viewItem
       view
 
     ## triggers for full view.
@@ -29,9 +28,8 @@
         App.execute 'episode:action', 'localplay', viewItem
       App.listenTo view, 'episode:download', (viewItem) ->
         App.execute 'episode:action', 'download', viewItem
-      App.listenTo view, 'episode:watched', (viewItem) ->
-        parent.$el.toggleClass('is-watched')
-        App.execute 'episode:action', 'toggleWatched', viewItem
+      App.listenTo view, 'toggle:watched', (viewItem) ->
+        App.execute 'episode:action:watched', viewItem.view, viewItem.view
 
 
 
@@ -58,10 +56,9 @@
         ## Add the layout to content.
         App.regionContent.show @layout
 
-    getLayoutView: (tvshow) ->
+    getLayoutView: (episode) ->
       new Episode.PageLayout
-        tvshow: tvshow
-
+        model: episode
 
     ## Build the details layout.
     getDetailsLayoutView: (episode) ->

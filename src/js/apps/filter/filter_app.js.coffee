@@ -85,6 +85,13 @@
         filterCallback: 'unwatched'
       }
       {
+        alias: 'Thumbs Up'
+        type: "boolean"
+        key: 'thumbsUp'
+        sortOrder: 'asc',
+        filterCallback: 'thumbsup'
+      }
+      {
         alias: 'Writer'
         type: 'array'
         key: 'writer'
@@ -111,6 +118,22 @@
         type: 'string'
         property: 'set'
         key: 'set'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Rated'
+        type: 'string'
+        property: 'mpaa'
+        key: 'mpaa'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Studio'
+        type: 'array'
+        property: 'studio'
+        key: 'studio'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
@@ -279,6 +302,8 @@
             collection.filterByMultiple(key, vals) ## data is not array
         when 'unwatched'
           collection.filterByUnwatched()
+        when 'thumbsup'
+          collection.filterByThumbsUp()
         else
           collection
       collection
@@ -329,7 +354,9 @@
   ## Apply filters to a collection.
   App.reqres.setHandler 'filter:apply:entities', (collection)  ->
     API.setAvailable collection.availableFilters
-    API.applyFilters collection
+    newCollection = API.applyFilters collection
+    App.vent.trigger 'filter:filtering:stop'
+    newCollection
 
   ## Get a sortable collection
   App.reqres.setHandler 'filter:sortable:entities', ->

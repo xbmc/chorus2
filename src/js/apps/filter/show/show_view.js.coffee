@@ -100,7 +100,7 @@
     triggers:
       "click .filterable-remove" : "filter:option:remove"
     initialize: ->
-      tooltip = t.gettext('Remove') + ' ' + t.gettext(@model.get('key')) + ' ' + t.gettext('filter')
+      tooltip = t.gettext('Remove') + ' ' + @model.get('key') + ' ' + t.gettext('filter')
       text = @themeTag('span', {'class': 'text'}, @model.get('values').join(', '))
       tag = @themeTag('span', {'class': 'filter-btn filterable-remove', title: tooltip}, text)
       @model.set(title: tag)

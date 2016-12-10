@@ -49,6 +49,14 @@
   App.commands.setHandler 'movie:action', (op, view) ->
     API.action op, view
 
+  App.commands.setHandler 'movie:action:watched', (parent, viewItem) ->
+    op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
+    progress = if op is 'watched' then 100 else 0
+    parent.$el.toggleClass('is-watched')
+    helpers.entities.setProgress(parent.$el, progress)
+    helpers.entities.setProgress(parent.$el.closest('.movie-show').find('.region-content-wrapper'), progress)
+    API.action 'toggleWatched', viewItem
+
   App.commands.setHandler 'movie:edit', (model) ->
     loadedModel = App.request "movie:entity", model.get('id')
     App.execute "when:entity:fetched", loadedModel, =>

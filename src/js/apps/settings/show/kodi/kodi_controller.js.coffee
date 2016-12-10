@@ -152,3 +152,5 @@
     saveCallback: (data, formView) ->
       App.execute "settings:kodi:save:entities", data, (resp) =>
         App.execute "notification:show", t.gettext("Saved Kodi settings")
+        App.vent.trigger "config:local:updated", {}
+        App.vent.trigger "config:kodi:updated", data

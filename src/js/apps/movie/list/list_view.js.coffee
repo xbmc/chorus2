@@ -16,15 +16,8 @@
       if @model?
         @model.set subtitle: @themeLink @model.get('year'), 'movies?year=' + @model.get('year')
         @model.set( App.request('movie:action:items') )
-
     attributes: ->
-      classes = ['card']
-      if helpers.entities.isWatched @model
-        classes.push 'is-watched'
-      {
-        class: classes.join(' ')
-      }
-
+      @watchedAttributes 'card'
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

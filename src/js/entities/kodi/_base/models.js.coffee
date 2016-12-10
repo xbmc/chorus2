@@ -9,14 +9,17 @@
     modelDefaults:
       fullyloaded: false
       thumbnail: ''
-      thumbsUp: false
+      thumbsUp: 0
       parsed: false
+      progress: 0
 
     ## This is our generic way of updating things that need to be
     ## added or changed on all models prior to creation, should be
     ## called during model.parse()
     parseModel: (type, model, id) ->
       if not model.parsed
+
+        # Setup some additional attributes
         if id isnt 'mixed'
           model.id = id
         if model.rating
@@ -29,6 +32,10 @@
           model.trailer = helpers.url.parseTrailerUrl model.trailer
         if type is 'tvshow' or type is 'season'
           model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
+        if type is 'episode' or type is 'movie' and model.progress is 0
+          model.progress = if model.playcount is 0 then 0 else 100
+
+        # Set URL.
         if type is 'episode'
           model.url = helpers.url.get type, id, {':tvshowid': model.tvshowid, ':season': model.season}
         else if type is 'channel'
@@ -37,7 +44,7 @@
           model.url = helpers.url.get type, id
         else
           model.url = helpers.url.get type, id
-          
+
         model = App.request "images:path:entity", model
         model.type = type
         model.uid = helpers.entities.createUid(model, type)
