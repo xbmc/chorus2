@@ -145,6 +145,7 @@
   @include set-position-absolute(top -2px right 0 left 0);
   z-index: $z-index-delta;
   .current-progress {
+    @include transition(width 0.3s linear);
     height: 3px;
     background: $color-kodi;
   }

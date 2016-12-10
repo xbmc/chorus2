@@ -35,14 +35,15 @@
   }
 }
 
-@mixin flat-button($color: $color-greyscale-cloudy, $icon: false) {
+@mixin flat-button($color: rgba($color-white, 0.1), $icon: false) {
   display: inline-block;
   @extend %transition--all;
+  @include user-select(none);
   background: $color;
   padding: $spacing-half-unit $spacing-base-unit;
   position: relative;
   cursor: pointer;
-  margin-bottom: $spacing-half-unit;
+  margin: 0 $spacing-half-unit $spacing-half-unit 0;
   color: $color-white;
   text-transform: capitalize;
   .text {

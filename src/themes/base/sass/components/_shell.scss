@@ -45,6 +45,16 @@ body.model-open {
   }
 }
 
+#page-title {
+  .title {
+    @include set-layout('height-header', 'padding-left');
+    display: none;
+    @include at-bp(large) {
+      display: inline-block;
+    }
+  }
+}
+
 // Fanart and its overlay.
 #fanart,
 #fanart-overlay {
