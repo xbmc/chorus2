@@ -112,11 +112,13 @@
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
     op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
-    msg = t.gettext('Set all episodes as') + ' ' + t.gettext(op)
+    if viewItem.model.get('type') is 'season'
+      msg = t.gettext('Set all episodes for this season as') + ' ' + t.gettext(op)
+    else
+      msg = t.gettext('Set all episodes for this TV show as') + ' ' + t.gettext(op)
     App.execute "ui:modal:confirm", t.gettext('Are you sure?'), msg, () ->
       API.toggleWatchedUiState parent.$el, setChildren
       API.tvShowAction op, viewItem
-      # API.view viewItem.model.get('tvshowid')
 
   App.commands.setHandler 'episode:action:watched', (parent, viewItem) ->
     API.toggleWatchedUiState parent.$el, false
