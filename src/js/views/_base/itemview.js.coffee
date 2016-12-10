@@ -18,3 +18,18 @@
         @$el.removeClass('menu-open')
       $('.dropdown', @$el).on 'click', ->
         $(@).removeClass('open').trigger('hide.bs.dropdown')
+
+    ## Trigger watched and pass the view so the dom can be actioned on.
+    toggleWatched: (e) ->
+      @trigger "toggle:watched", {view: @}
+
+    ## Adds the watched class if required
+    watchedAttributes: (baseClass = '')->
+      classes = [baseClass]
+      if App.request "thumbsup:check", @model
+        classes.push 'thumbs-up'
+      if helpers.entities.isWatched @model
+        classes.push 'is-watched'
+      {
+        class: classes.join(' ')
+      }

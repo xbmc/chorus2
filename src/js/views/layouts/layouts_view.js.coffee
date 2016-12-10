@@ -32,3 +32,6 @@
       ## Get swatches
       helpers.ui.getSwatch @model.get('thumbnail'), (swatches) ->
         helpers.ui.applyHeaderSwatch(swatches)
+    initialize: ->
+      if not @model.get('progress')
+        @model.set({progress: 0})

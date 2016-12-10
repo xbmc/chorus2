@@ -3,9 +3,7 @@
     <header class="region-header"></header>
 
     <div class="region-content-wrapper">
-        <%= if @progress: %>
-            <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
-        <% end %>
+        <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
         <section class="region-content"></section>
     </div>
 
