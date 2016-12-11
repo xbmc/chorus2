@@ -799,3 +799,59 @@ msgstr "Show device name"
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
 msgstr "Show the Kodi device name in the header of Chorus"
+
+msgctxt ""
+msgid "No results found"
+msgstr "No results found"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Have you done a library scan?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Play in browser"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Edit"
+
+msgctxt ""
+msgid "Add to Kodi playlist"
+msgstr "Add to Kodi playlist"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Watched"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "New playlist"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Play in Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Export list"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Delete playlist"
+
+msgctxt ""
+msgid "Title"
+msgstr "Title"
+
+msgctxt ""
+msgid "Year"
+msgstr "Year"
+
+msgctxt ""
+msgid "Date added"
+msgstr "Date added"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Rating"

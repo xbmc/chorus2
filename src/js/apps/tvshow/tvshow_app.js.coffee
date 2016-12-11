@@ -106,17 +106,17 @@
 
   App.reqres.setHandler 'tvshow:action:items', ->
     {
-      actions: {watched: 'Watched', thumbs: 'Thumbs up'}
-      menu: {add: 'Add to Kodi playlist'}
+      actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
+      menu: {add: tr('Add to Kodi playlist')}
     }
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
     op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
     if viewItem.model.get('type') is 'season'
-      msg = t.gettext('Set all episodes for this season as') + ' ' + t.gettext(op)
+      msg = tr('Set all episodes for this season as') + ' ' + tr(op)
     else
-      msg = t.gettext('Set all episodes for this TV show as') + ' ' + t.gettext(op)
-    App.execute "ui:modal:confirm", t.gettext('Are you sure?'), msg, () ->
+      msg = tr('Set all episodes for this TV show as') + ' ' + tr(op)
+    App.execute "ui:modal:confirm", tr('Are you sure?'), msg, () ->
       API.toggleWatchedUiState parent.$el, setChildren
       API.tvShowAction op, viewItem
 

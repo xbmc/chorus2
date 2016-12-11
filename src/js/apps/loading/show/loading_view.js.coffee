@@ -4,4 +4,4 @@
     template: "apps/loading/show/loading_page"
 
     onRender: ->
-      @$el.find('h2').html @options.text
+      @$el.find('h2').html t.gettext(@options.text)
