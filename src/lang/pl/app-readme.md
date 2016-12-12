@@ -79,7 +79,7 @@ wielu języków. Z tego powodu, tłumaczenie interfejsu użytkownika nie powinno
 
 Aktualnie dostępne są tłumaczenia dla 5 języków (angielskiego, francuskiego, niemieckiego, holenderskiego, chińskiego), ale nowe
 mogą zostać z łatwością dodane. Jeśli chcesz dodać własne tłumaczenie, stwórz dla niego nową gałąź, a następnie skorzystaj
-z funkcji Pull Request do gałęzi `develop`. Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze z plikiem tłumaczenia.
+z funkcji Pull Request do gałęzi `develop`. Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze do plików z tłumaczeniem.
 
 Pliki tłumaczeń są dostępne [tutaj](https://github.com/xbmc/chorus2/tree/master/src/lang). 
 Pliki języka angielskiego są jedynymi kompletnymi źródłami, które powinieneś używać w trakcie tłumaczenia na inny język.
