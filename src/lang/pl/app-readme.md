@@ -1,5 +1,5 @@
 # Chorus 2.0 - interfejs webowy Kodi
-Domyślny interfejs webowy dla Kodi.
+Domyślny interfejs webowy Kodi.
 
 Nowoczesny webowy interfejs użytkownika dla programu Kodi. Umożliwia komfortowe przeglądanie biblioteki
 Muzyki, Filmów i Seriali przy pomocy przeglądarki internetowej.
