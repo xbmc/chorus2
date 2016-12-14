@@ -48,5 +48,5 @@ funkcji Pull Request.
 
 ## Powiedz mi więcej
 
-Na początku zajrzyj do [readme](#help/app-readme), przejrzyj listę zmian pomiędzy wersjami w [changelog](#help/app-changelog)
-albo pomóż w procesie tłumaczenia [translations](#help/app-changelog).
+Na początku zajrzyj do [dokumentacji](#help/app-readme), przejrzyj listę zmian pomiędzy wersjami w [dzienniku zmian](#help/app-changelog)
+albo pomóż w procesie [tłumaczenia](#help/lang-readme).

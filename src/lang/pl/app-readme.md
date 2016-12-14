@@ -1,5 +1,5 @@
 # Chorus 2.0 - interfejs webowy Kodi
-Domyślny interfejs webowy dla Kodi.
+Domyślny interfejs webowy Kodi.
 
 Nowoczesny webowy interfejs użytkownika dla programu Kodi. Umożliwia komfortowe przeglądanie biblioteki
 Muzyki, Filmów i Seriali przy pomocy przeglądarki internetowej.
@@ -79,7 +79,7 @@ wielu języków. Z tego powodu, tłumaczenie interfejsu użytkownika nie powinno
 
 Aktualnie dostępne są tłumaczenia dla 5 języków (angielskiego, francuskiego, niemieckiego, holenderskiego, chińskiego), ale nowe
 mogą zostać z łatwością dodane. Jeśli chcesz dodać własne tłumaczenie, stwórz dla niego nową gałąź, a następnie skorzystaj
-z funkcji Pull Request do gałęzi `develop`. Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze z plikiem tłumaczenia.
+z funkcji Pull Request do gałęzi `develop`. Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze do plików z tłumaczeniem.
 
 Pliki tłumaczeń są dostępne [tutaj](https://github.com/xbmc/chorus2/tree/master/src/lang). 
 Pliki języka angielskiego są jedynymi kompletnymi źródłami, które powinieneś używać w trakcie tłumaczenia na inny język.
@@ -105,24 +105,24 @@ Jesteś fanem Chorusa? Możesz [zasponsorować](https://www.paypal.com/cgi-bin/w
 ## Zrzuty ekranu
 
 ### Strona startowa (Teraz odtwarzane)
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/now-playing.jpg "Homepage/Now Playing")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/now-playing.jpg "Strona startowa/Teraz odtwarzane")
 
 ### Wyniki wyszukiwania
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/search.jpg "Search")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/search.jpg "Wyszukiwanie")
 
 ### Wykonawcy
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/artists.jpg "Artists")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/artists.jpg "Wykonawcy")
 
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist//screenshots/artist.jpg "Artist")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist//screenshots/artist.jpg "Wykonawca")
 
 ### Biblioteka wideo
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/tv.jpg "TV")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/tv.jpg "Seriale")
 
 ### Filtrowanie
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/movie.jpg "Movies")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/movie.jpg "Filmy")
 
 ### Ustawienia
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/settings.jpg "Settings")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/settings.jpg "Ustawienia")
 
 ### Dodatki
-![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/addons.jpg "Add-ons")
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/addons.jpg "Dodatki")
