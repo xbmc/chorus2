@@ -74,6 +74,7 @@
                 model.label = model.name
               model.url = @createFileUrl(source.media, model.file)
               collection.add model
+        collection = @addPlaylists collection
         collection.trigger 'cachesync'
       collection
 
@@ -108,6 +109,15 @@
           items[i].url = @createFileUrl media, item.file
           items[i].parsed = true
       items
+
+    ## Add music and video playlist sources.
+    addPlaylists: (collection) ->
+      types = ['video', 'music']
+      for type in types
+        model = @createPathModel type, t.gettext('Playlists'), 'special://profile/playlists/' + type
+        model.sourcetype = 'playlist'
+        collection.add model
+      collection
 
     ## The damn kodi api is returning folders with a filetype of 'file' !!??!
     ## So we do some extra checking and parsing to correct the filetype.
@@ -179,7 +189,7 @@
   ## Files collection
   class KodiEntities.FileCollection extends App.KodiEntities.Collection
     model: KodiEntities.File
-    methods: read: ['Files.GetDirectory', 'arg1', 'arg2', 'arg3', 'arg4']
+    methods: read: ['Files.GetDirectory', 'arg1', 'arg2', 'arg3']
     arg1: -> @argCheckOption('file', '')
     arg2: -> @argCheckOption('media', '')
     arg3: -> helpers.entities.getFields(API.fields, 'small')

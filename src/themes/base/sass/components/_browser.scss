@@ -20,6 +20,9 @@ $color-side: #F9F9F9;
         &.type-addon:before {
             content: icon-code(av-my-library-add);
         }
+        &.type-playlist:before {
+            content: icon-code(action-assignment);
+        }
       }
     }
   }
