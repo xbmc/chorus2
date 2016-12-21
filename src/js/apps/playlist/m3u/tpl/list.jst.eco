@@ -1,0 +1,4 @@
+#EXTCPlayListM3U::M3U
+<% for item in @items: %>#EXTINF:<%= item.duration %>,<%= item.artist.join('/') %> - <%= item.label %>
+<%= item.file %>
+<% end %>

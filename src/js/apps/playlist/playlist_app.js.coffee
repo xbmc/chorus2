@@ -10,6 +10,10 @@
       ## Show the search form (for mobile)
       new PlaylistApp.Show.Controller();
 
+    export: (collection) ->
+      new PlaylistApp.M3u.Controller
+        collection: collection
+
     type: 'kodi'
     media: 'audio'
 
@@ -27,6 +31,10 @@
   App.reqres.setHandler "playlist:list", (type, media) ->
     API.setContext(type, media)
     API.getPlaylistItems()
+
+  App.commands.setHandler "playlist:export", (collection) ->
+    API.export collection
+
 
 
   App.on "before:start", ->

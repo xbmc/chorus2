@@ -20,6 +20,7 @@
       regionRemote: '#remote'
       regionSearch: '#search-region'
       regionTitle: '#page-title .title'
+      regionOffscreen: '#offscreen'
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"

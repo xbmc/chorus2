@@ -153,10 +153,22 @@ helpers.global.stripTags = (string) ->
   else
     ''
 
-# Round to decimal places.
+## Round to decimal places.
 helpers.global.round = (x, places = 0) ->
   parseFloat(x.toFixed(places))
 
 ## Given a position and total, return percent to 2 decimal places
 helpers.global.getPercent = (pos, total, places = 2) ->
   Math.floor((pos / total) * (100 * Math.pow(10, places))) / 100
+
+## Trigger save dialog to save a text file
+helpers.global.saveFileText = (content, filename = 'untitled.txt') ->
+  try
+    isFileSaverSupported = !!new Blob
+    if isFileSaverSupported
+      content = content.replace(String.fromCharCode(65279), "" )
+      blob = new Blob([content], {type: "text/plain;charset=utf-8"})
+      saveAs(blob, filename, true)
+  catch error
+    App.execute "notification:show", tr('Saving is not supported by your browser')
+

@@ -60,3 +60,5 @@
       App.listenTo @itemLayout, 'list:localplay', ->
         localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
         localPlaylist.playCollection(collection)
+      App.listenTo @itemLayout, 'list:export', ->
+        App.execute "playlist:export", collection
