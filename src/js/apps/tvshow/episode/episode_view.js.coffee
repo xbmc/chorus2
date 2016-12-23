@@ -12,8 +12,7 @@
       super
       if @model?
         @model.set(@getMeta())
-        @model.set({actions: {watched: 'Watched'}})
-        @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
+        @model.set(App.request('episode:action:items'))
     attributes: ->
       @watchedAttributes 'card'
     getMeta: ->

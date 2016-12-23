@@ -104,6 +104,17 @@
   App.commands.setHandler 'tvshow:action', (op, view) ->
     API.tvShowAction op, view
 
+  App.reqres.setHandler 'episode:action:items', ->
+    {
+      actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
+      menu: {
+        add: tr('Add to Kodi playlist')
+        divider: ''
+        download: tr('Download')
+        localplay: tr('Play in browser')
+      }
+    }
+
   App.reqres.setHandler 'tvshow:action:items', ->
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}

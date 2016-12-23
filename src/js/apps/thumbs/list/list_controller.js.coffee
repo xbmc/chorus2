@@ -5,7 +5,7 @@
 
     initialize: ->
       @layout = @getLayout()
-      entities = ['song', 'artist', 'album', 'tvshow', 'movie']
+      entities = ['song', 'artist', 'album', 'tvshow', 'movie', 'episode']
 
       @listenTo @layout, "show", =>
         ## Do a search for each entity
