@@ -817,8 +817,8 @@ msgid "Edit"
 msgstr "Edit"
 
 msgctxt ""
-msgid "Add to Kodi playlist"
-msgstr "Add to Kodi playlist"
+msgid "Add to Kodi"
+msgstr "Add to Kodi"
 
 msgctxt ""
 msgid "Watched"
@@ -853,5 +853,17 @@ msgid "Date added"
 msgstr "Date added"
 
 msgctxt ""
-msgid "Rating"
-msgstr "Rating"
+msgid "rating"
+msgstr "rating"
+
+msgctxt ""
+msgid "actor"
+msgstr "actor"
+
+msgctxt ""
+msgid "items selected"
+msgstr "items selected"
+
+msgctxt ""
+msgid "item selected"
+msgstr "item selected"
