@@ -122,6 +122,13 @@
         display: table-cell;
       }
     }
+    &.selected {
+      border-left: 1px solid $color-kodi;
+      background: lighten($color-kodi, 45%);
+      .crop:after {
+        display: none;
+      }
+    }
   }
   &.verbose {
     .track {

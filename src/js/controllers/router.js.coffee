@@ -5,6 +5,7 @@
     before: ( route, params ) ->
       ## Kick of loading.
       App.execute "loading:show:page"
+      App.execute "selected:clear:items"
 
     after: (route, params) ->
       ## After route set the body classes

@@ -13,7 +13,7 @@
       @model.set( App.request('tvshow:action:items') )
       @model.set({label: tr('Season') + ' ' + @model.get('season')})
     attributes: ->
-      @watchedAttributes 'card tv-season'
+      @watchedAttributes 'card tv-season prevent-select'
 
   class Season.Empty extends App.Views.EmptyViewResults
     tagName: "li"

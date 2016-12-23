@@ -15,7 +15,7 @@
       @model.set subtitle: subtitle
       @model.set( App.request('tvshow:action:items') )
     attributes: ->
-      @watchedAttributes 'card tv-show'
+      @watchedAttributes 'card tv-show prevent-select'
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

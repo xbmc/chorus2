@@ -245,6 +245,10 @@ $card-layout: (
       display: table;
     }
   }
+  &.selected {
+    outline: 1px solid $color-kodi;
+    box-shadow: 0 0 10px 1px rgba($color-kodi, 0.5);
+  }
   .dropdown-menu {
     left: auto;
     right: 0px;

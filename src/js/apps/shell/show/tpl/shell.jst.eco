@@ -17,6 +17,18 @@
             <li><a href="#playlist" class="mobile-menu--link__playlist"><i></i></a></li>
         </ul>
 
+        <div id="selected-region">
+            <div class="selected-text">
+                <span id="selected-count"></span>
+            </div>
+            <i data-toggle="dropdown" class="menu-toggle"></i>
+            <ul class="dropdown-menu pull-right">
+                <li class="selected-play"><%= tr('Play in Kodi') %></li>
+                <li class="selected-add"><%= tr('Add to Kodi') %></li>
+                <li class="selected-localadd"><%= tr('Add to playlist') %></li>
+            </ul>
+        </div>
+
         <div id="search-region">
             <input id="search" title="Search">
             <span id="do-search"></span>
@@ -28,7 +40,7 @@
 
         <div id="sidebar-one"></div>
 
-        <div id="content"><%= t.gettext("Loading things...") %></div>
+        <div id="content"><%= tr("Loading things...") %></div>
 
     </div>
 

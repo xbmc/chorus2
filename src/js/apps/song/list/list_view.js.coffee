@@ -22,6 +22,7 @@
     events:
       "click .dropdown > i": "menuPopulate"
       "click .thumbs" : "toggleThumbs"
+      "click": "toggleSelect"
 
     toggleThumbs: ->
       App.request "thumbsup:toggle:entity", @model

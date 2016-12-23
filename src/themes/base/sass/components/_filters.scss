@@ -30,6 +30,11 @@
       }
     }
   }
+  .selection-list {
+    a, .option {
+      text-transform: capitalize;
+    }
+  }
   .sortable.active {
     position: relative;
     &.order-asc {

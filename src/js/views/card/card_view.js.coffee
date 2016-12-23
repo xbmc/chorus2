@@ -7,6 +7,7 @@
     events:
       "click .dropdown > i": "populateMenu"
       "click .thumbs" : "toggleThumbs"
+      "click" : "toggleSelect"
 
     populateMenu: ->
       menu = ''
