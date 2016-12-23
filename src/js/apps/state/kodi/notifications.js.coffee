@@ -143,6 +143,22 @@
           Backbone.fetchCache.clearItem('AlbumCollection');
           Backbone.fetchCache.clearItem('ArtistCollection');
 
+        # Audio Library clean start
+        when 'AudioLibrary.OnCleanStarted'
+          App.execute "notification:show", t.gettext("Audio library clean started")
+
+        # Audio Library clean stop
+        when 'AudioLibrary.OnCleanFinished'
+          App.execute "notification:show", t.gettext("Audio library clean finished")
+
+        # Video Library clean start
+        when 'VideoLibrary.OnCleanStarted'
+          App.execute "notification:show", t.gettext("Video library clean started")
+
+        # Video Library clean stop
+        when 'VideoLibrary.OnCleanFinished'
+          App.execute "notification:show", t.gettext("Video library clean finished")
+
         # input box has opened
         when 'Input.OnInputRequested'
           App.execute "input:textbox", ''

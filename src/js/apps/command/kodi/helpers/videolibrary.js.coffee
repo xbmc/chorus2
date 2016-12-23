@@ -24,6 +24,11 @@
       @singleCommand @getCommand('Scan'), (resp) =>
         @doCallback callback, resp
 
+    ## Clean library
+    clean: (callback) ->
+      @singleCommand @getCommand('Clean'), {showdialogs: false}, (resp) =>
+        @doCallback callback, resp
+
     ## Toggle watched on a collection. op is 'watched' or 'unwatched'
     toggleWatchedCollection: (collection, op, callback) ->
       for i, model of collection.models

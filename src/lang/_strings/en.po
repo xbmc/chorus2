@@ -867,3 +867,23 @@ msgstr "items selected"
 msgctxt ""
 msgid "item selected"
 msgstr "item selected"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Video library clean started"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Video library clean finished"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Audio library clean started"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Audio library clean finished"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
