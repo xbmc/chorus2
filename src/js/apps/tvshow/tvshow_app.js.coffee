@@ -75,6 +75,8 @@
           files.downloadFile model.get('file')
         when 'toggleWatched'
           videoLib.toggleWatched model, 'auto'
+        when 'gotoSeason'
+          App.navigate "#tvshow/" + model.get('tvshowid') + '/' + model.get('season'), {trigger: true}
         else
           ## nothing
 
@@ -104,19 +106,32 @@
   App.commands.setHandler 'tvshow:action', (op, view) ->
     API.tvShowAction op, view
 
+  App.reqres.setHandler 'episode:action:items', ->
+    {
+      actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
+      menu: {
+        'add': tr('Queue in Kodi')
+        'divider-1': ''
+        'download': tr('Download')
+        'localplay': tr('Play in browser')
+        'divider-2': ''
+        'goto-season': tr('Go to season')
+      }
+    }
+
   App.reqres.setHandler 'tvshow:action:items', ->
     {
-      actions: {watched: 'Watched', thumbs: 'Thumbs up'}
-      menu: {add: 'Add to Kodi playlist'}
+      actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
+      menu: {add: tr('Queue in Kodi')}
     }
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
     op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
     if viewItem.model.get('type') is 'season'
-      msg = t.gettext('Set all episodes for this season as') + ' ' + t.gettext(op)
+      msg = tr('Set all episodes for this season as') + ' ' + tr(op)
     else
-      msg = t.gettext('Set all episodes for this TV show as') + ' ' + t.gettext(op)
-    App.execute "ui:modal:confirm", t.gettext('Are you sure?'), msg, () ->
+      msg = tr('Set all episodes for this TV show as') + ' ' + tr(op)
+    App.execute "ui:modal:confirm", tr('Are you sure?'), msg, () ->
       API.toggleWatchedUiState parent.$el, setChildren
       API.tvShowAction op, viewItem
 

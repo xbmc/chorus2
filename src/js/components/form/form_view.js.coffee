@@ -35,6 +35,11 @@
         @focusFirstInput() if @config.focusFirstInput
         $('.btn').ripples({color: 'rgba(255,255,255,0.1)'})
         App.vent.trigger "form:onshow", @config
+        # Bind button triggers
+        $('.form-item .form-button', @$el).on 'click', (e) ->
+          e.preventDefault()
+          if $(@).data('trigger')
+            App.execute $(@).data('trigger')
 
     focusFirstInput: ->
       @$(":input:visible:enabled:first").focus()
@@ -93,6 +98,8 @@
 
         when 'button'
           attrs = {class: 'form-button btn btn-secondary'}
+          if @model.get('trigger')
+            attrs['data-trigger'] = @model.get('trigger')
           el = @themeTag 'button', _.extend(baseAttrs, attrs), @model.get('value')
 
         when 'textarea'

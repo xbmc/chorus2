@@ -59,6 +59,7 @@
       'click .local-playlist-header .delete' : 'list:delete'
       'click .local-playlist-header .play' : 'list:play'
       'click .local-playlist-header .localplay' : 'list:localplay'
+      'click .local-playlist-header .export' : 'list:export'
     onRender: ->
       if @options and @options.list
         $('h2', @$el).html( @options.list.get('name') )

@@ -18,6 +18,10 @@
         'subtitles.movie' : 'xbmc.subtitle.module'
         'audiocds.encoder' : 'xbmc.audioencoder'
 
+      # Enabled actions, A trigger must be supplied for each
+      actionLookups:
+        "musiclibrary.cleanup" : "command:kodi:audio:clean"
+        "videolibrary.cleanup" : "command:kodi:video:clean"
 
       # Turn the returned options into form friendly select options.
       parseOptions: (options) ->
@@ -25,6 +29,14 @@
         $(options).each (i, option) ->
           out[option.value] = option.label
         out
+
+      # Not ideal solution to vague labels introduced in v17+
+      labelRewrites: (item) ->
+        if item.id.lastIndexOf('videolibrary', 0) is 0
+          item.title += ' (video)'
+        if item.id.lastIndexOf('musiclibrary', 0) is 0
+          item.title += ' (music)'
+        item
 
     initialize: (options) ->
 
@@ -80,7 +92,6 @@
     getForm: (section, formStructure) ->
       options = {
         form: formStructure
-#        formState: {}
         config:
           attributes: {class: 'settings-form'}
           callback: (data, formView) =>
@@ -131,12 +142,22 @@
             type = 'textfield'
           when 'string'
             type = 'textfield'
+          when 'action'
+            if API.actionLookups[item.id]
+              type = 'button'
+              item.value = item.label
+              item.trigger = API.actionLookups[item.id]
+            else
+              type = 'hide'
           else
             type = 'hide'
 
         if item.options
           type = 'select'
           item.options = API.parseOptions item.options
+
+        # Update vague labels
+        item = API.labelRewrites item
 
         if type is 'hide'
           console.log 'no setting to field mapping for: ' + item.type + ' -> ' + item.id

@@ -1,6 +1,6 @@
 @Kodi.module "Shell", (Shell, App, Backbone, Marionette, $, _) ->
 
-  class Shell.Layout extends Backbone.Marionette.LayoutView
+  class Shell.Layout extends App.Views.LayoutView
     template: "apps/shell/show/shell"
 
     regions:
@@ -20,6 +20,7 @@
       regionRemote: '#remote'
       regionSearch: '#search-region'
       regionTitle: '#page-title .title'
+      regionOffscreen: '#offscreen'
 
     triggers:
       "click .playlist-toggle-open": "shell:playlist:toggle"
@@ -28,6 +29,9 @@
       "click .goto-lab": "shell:goto:lab"
       "click .send-input": "shell:send:input"
       "click .about": "shell:about"
+      "click .selected-play": "shell:selected:play"
+      "click .selected-add": "shell:selected:add"
+      "click .selected-localadd": "shell:selected:localadd"
 
     events:
       "click .player-menu > li": "closePlayerMenu"

@@ -3,17 +3,17 @@
 
   class Episode.EpisodeTeaser extends App.Views.CardView
     triggers:
-      "click .play"       : "episode:play"
-      "click .watched"    : "episode:watched"
-      "click .add"        : "episode:add"
-      "click .localplay"  : "episode:localplay"
-      "click .download"   : "episode:download"
+      "click .play"        : "episode:play"
+      "click .watched"     : "episode:watched"
+      "click .add"         : "episode:add"
+      "click .localplay"   : "episode:localplay"
+      "click .download"    : "episode:download"
+      "click .goto-season" : "episode:goto:season"
     initialize: ->
       super
       if @model?
         @model.set(@getMeta())
-        @model.set({actions: {watched: 'Watched'}})
-        @model.set({menu: {add: 'Add to Kodi playlist', divider: '', download: 'Download', localplay: 'Play in browser'}})
+        @model.set(App.request('episode:action:items'))
     attributes: ->
       @watchedAttributes 'card'
     getMeta: ->

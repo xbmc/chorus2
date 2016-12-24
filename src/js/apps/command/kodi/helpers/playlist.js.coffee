@@ -10,32 +10,45 @@
     ## If resume > 0 will resume from that point.
     play: (type, value, model, resume = 0, callback) ->
       stateObj = App.request "state:kodi"
-      if stateObj.isPlaying()
+      ## If playing, queue up next.
+      if stateObj.isPlaying(@getPlayerName())
         @insertAndPlay type, value, (stateObj.getPlaying('position') + 1), resume, callback
       else
         @clear =>
           @insertAndPlay type, value, 0, resume, callback
 
-    ## Add a collection of models
+    ## Add a collection of models wrapper, will clear if not playing
     addCollection: (collection, position = 0, callback) ->
-      @clear =>
-        models = collection.getRawCollection()
-        player = @getPlayer()
-        commands = []
-        ## build a set of commands so we can add all the models with one request.
-        for i, model of models
-          pos = parseInt(position) + parseInt(i)
-          type = if model.type is 'file' then 'file' else model.type + 'id'
-          params = [player, pos, @paramObj(type, model[type])]
-          commands.push {method: @getCommand('Insert'), params: params}
-        @multipleCommands commands, (resp) =>
-          @doCallback callback, resp
-          @refreshPlaylistView()
+      stateObj = App.request "state:kodi"
+      ## If playing, queue up next.
+      if stateObj.isPlaying(@getPlayerName())
+        position = (stateObj.getPlaying('position') + 1)
+        @addCollectionItems collection, position, callback
+      else
+        @clear =>
+          @addCollectionItems collection, position, callback
+      position
+
+    ## Add a collection of models
+    addCollectionItems: (collection, position = 0, callback) ->
+      App.execute "notification:show", t.gettext("Adding items to the queue")
+      models = collection.getRawCollection()
+      player = @getPlayer()
+      commands = []
+      ## build a set of commands so we can add all the models with one request.
+      for i, model of models
+        pos = parseInt(position) + parseInt(i)
+        type = if model.type is 'file' then 'file' else model.type + 'id'
+        params = [player, pos, @paramObj(type, model[type])]
+        commands.push {method: @getCommand('Insert'), params: params}
+      @multipleCommands commands, (resp) =>
+        @doCallback callback, resp
+        @refreshPlaylistView()
 
     # Add a collection of models.
     playCollection: (collection, position = 0) ->
-      @addCollection collection, position, (resp) =>
-        @playEntity 'position', parseInt(position), {}, =>
+      pos = @addCollection collection, position, (resp) =>
+        @playEntity 'position', parseInt(pos), {}, =>
         @refreshPlaylistView()
 
     ## Add a item to the end of the playlist

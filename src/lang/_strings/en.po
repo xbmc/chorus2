@@ -799,3 +799,111 @@ msgstr "Show device name"
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
 msgstr "Show the Kodi device name in the header of Chorus"
+
+msgctxt ""
+msgid "No results found"
+msgstr "No results found"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Have you done a library scan?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Play in browser"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Edit"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Add to Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Watched"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "New playlist"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Play in Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Export list"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Delete playlist"
+
+msgctxt ""
+msgid "title"
+msgstr "title"
+
+msgctxt ""
+msgid "tear"
+msgstr "tear"
+
+msgctxt ""
+msgid "date added"
+msgstr "date added"
+
+msgctxt ""
+msgid "rating"
+msgstr "rating"
+
+msgctxt ""
+msgid "actor"
+msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "style"
+msgstr "style"
+
+msgctxt ""
+msgid "items selected"
+msgstr "items selected"
+
+msgctxt ""
+msgid "item selected"
+msgstr "item selected"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Video library clean started"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Video library clean finished"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Audio library clean started"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Audio library clean finished"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Go to season"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Queue in Kodi"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Adding items to the queue"

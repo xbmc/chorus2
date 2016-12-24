@@ -7,11 +7,14 @@
     events:
       "click .dropdown > i": "populateMenu"
       "click .thumbs" : "toggleThumbs"
+      "click" : "toggleSelect"
 
     populateMenu: ->
       menu = ''
       if @model.get('menu')
         for key, val of @model.get('menu')
+          if key.lastIndexOf('divider', 0) is 0
+            key = 'divider'
           menu += @themeTag 'li', {class: key}, val
         this.$el.find('.dropdown-menu').html(menu)
 

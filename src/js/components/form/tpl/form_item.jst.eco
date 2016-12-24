@@ -2,7 +2,7 @@
     <label class="control-label"><%- @title %></label>
 <% end %>
 
-<% if @type is 'markup' or @type is 'button': %>
+<% if @type is 'markup': %>
     <%- @element %>
 <% else: %>
     <div class="element">

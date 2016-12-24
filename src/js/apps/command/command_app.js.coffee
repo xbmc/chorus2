@@ -64,5 +64,18 @@
         kodiVideo = App.request "command:kodi:controller", 'video', 'GUI'
         kodiVideo.setFullScreen true, callback
 
+  ###
+    Commands that are generally used by settings pages.
+  ###
+
+  ## Clean audio library.
+  App.commands.setHandler "command:kodi:audio:clean", () ->
+    App.request("command:kodi:controller", 'auto', 'AudioLibrary').clean()
+
+  ## Clean audio library.
+  App.commands.setHandler "command:kodi:video:clean", () ->
+    App.request("command:kodi:controller", 'auto', 'VideoLibrary').clean()
+
+
   ## Startup tasks.
   App.addInitializer ->

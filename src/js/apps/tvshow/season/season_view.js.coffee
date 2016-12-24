@@ -8,12 +8,12 @@
       "click .add"        : "season:add"
     initialize: ->
       super
-      subtitle = @model.get('episode') + ' ' + t.gettext('episodes')
+      subtitle = @model.get('episode') + ' ' + tr('episodes')
       @model.set subtitle: subtitle
       @model.set( App.request('tvshow:action:items') )
-      @model.set({label: 'Season ' + @model.get('season')})
+      @model.set({label: tr('Season') + ' ' + @model.get('season')})
     attributes: ->
-      @watchedAttributes 'card tv-season'
+      @watchedAttributes 'card tv-season prevent-select'
 
   class Season.Empty extends App.Views.EmptyViewResults
     tagName: "li"
