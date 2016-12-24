@@ -10,7 +10,7 @@
     getNavChildren: (path, title = 'default') ->
       navStructure = App.request 'navMain:entities', path
       if title isnt 'default'
-        navStructure.set({title: title})
+        navStructure.set({title: tr(title)})
       new NavMain.ItemList
         model: navStructure
 

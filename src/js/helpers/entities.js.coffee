@@ -32,9 +32,11 @@ helpers.entities.getFields = (set, type = 'small') ->
 
 ## Build a subtitle based on the content.
 helpers.entities.getSubtitle = (model) ->
+  subtitle = ''
   switch model.type
     when 'song'
-      subtitle = model.artist.join(',')
+      if model.artist
+        subtitle = model.artist.join(',')
     else
       subtitle = ''
   subtitle

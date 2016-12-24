@@ -45,5 +45,5 @@
   App.reqres.setHandler 'album:action:items', ->
     {
       actions: {thumbs: 'Thumbs up'}
-      menu: {add: 'Add to Kodi playlist', localadd: 'Add to local playlist', divider: '', localplay: 'Play in browser'}
+      menu: {add: 'Queue in Kodi', localadd: 'Add to playlist', divider: '', localplay: 'Play in browser'}
     }

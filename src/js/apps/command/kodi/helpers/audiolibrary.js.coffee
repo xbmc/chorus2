@@ -30,3 +30,8 @@
     scan: (callback) ->
       @singleCommand @getCommand('Scan'), (resp) =>
         @doCallback callback, resp
+
+    ## Clean library
+    clean: (callback) ->
+      @singleCommand @getCommand('Clean'), {showdialogs: false}, (resp) =>
+        @doCallback callback, resp

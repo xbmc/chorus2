@@ -76,7 +76,7 @@
     events:
       "click .dropdown > i": "menuPopulate"
     initialize: ->
-      menu = {'queue': 'Add to Kodi playlist'}
+      menu = {'queue': 'Queue in Kodi'}
       this.model.set({menu: menu})
 
 

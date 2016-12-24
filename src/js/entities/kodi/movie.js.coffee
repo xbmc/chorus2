@@ -77,6 +77,10 @@
     methods: read: ['VideoLibrary.GetMovies', 'arg1', 'arg2', 'arg3', 'arg4']
     arg4: -> @argFilter()
 
+  ## Movie Custom collection, assumed passed an array of raw entity data.
+  class KodiEntities.MovieCustomCollection extends App.KodiEntities.Collection
+    model: KodiEntities.Movie
+
   ###
    Request Handlers.
   ###
@@ -105,3 +109,7 @@
       filtered.filterByString('label', query)
       if callback
         callback filtered
+
+  ## Given an array of models, return as collection.
+  App.reqres.setHandler "movie:build:collection", (items) ->
+    new KodiEntities.MovieCustomCollection items

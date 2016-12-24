@@ -135,6 +135,11 @@
   App.commands.setHandler "ui:playermenu", (op) ->
     API.playerMenu op
 
+  ## Bind closing the f#@kn dropdown on item click
+  App.commands.setHandler "ui:dropdown:bind:close", ($el) ->
+    $el.on "click", '.dropdown-menu li, .dropdown-menu a', (e) ->
+      $(e.target).closest('.dropdown-menu').parent().removeClass('open').trigger('hide.bs.dropdown')
+
   ## When shell ready.
   App.vent.on "shell:ready", (options) =>
     ## Close player menu on anywhere click

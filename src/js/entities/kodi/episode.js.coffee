@@ -79,6 +79,9 @@
     arg2: -> @argLimit()
     parse: (resp, xhr) -> @getResult resp, 'episodes'
 
+  ## Episode Custom collection, assumed passed an array of raw entity data.
+  class KodiEntities.EpisodeCustomCollection extends App.KodiEntities.Collection
+    model: KodiEntities.Episode
 
   ###
    Request Handlers.
@@ -97,3 +100,7 @@
   ## Get a recently added episode collection
   App.reqres.setHandler "episode:recentlyadded:entities", (options = {}) ->
     API.getRecentlyAddedCollection options
+
+  ## Given an array of models, return as collection.
+  App.reqres.setHandler "episode:build:collection", (items) ->
+    new KodiEntities.EpisodeCustomCollection items

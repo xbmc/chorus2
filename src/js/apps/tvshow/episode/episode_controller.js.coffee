@@ -16,6 +16,8 @@
         App.execute 'episode:action', 'download', viewItem
       App.listenTo view, 'childview:episode:watched', (parent, viewItem) ->
         App.execute 'episode:action:watched', parent, viewItem
+      App.listenTo view, 'childview:episode:goto:season', (parent, viewItem) ->
+        App.execute 'episode:action', 'gotoSeason', viewItem
       view
 
     ## triggers for full view.

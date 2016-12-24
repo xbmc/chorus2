@@ -164,6 +164,10 @@ body.model-open {
   }
 }
 
+#offscreen {
+  display: none;
+}
+
 #modal-window {
   .close, .close:hover, .close:focus {
     color: $color-white;

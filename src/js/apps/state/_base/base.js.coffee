@@ -75,8 +75,11 @@
     setPlaying: (key, value) ->
       @playing[key] = value
 
-    isPlaying: ->
-      @getPlaying('playing')
+    isPlaying: (media = 'auto')->
+      if media is 'auto'
+        @getPlaying('playing')
+      else
+        media is @getState('media') and @getPlaying('playing')
 
     isPlayingItemChanged: ->
       @getPlaying('itemChanged')

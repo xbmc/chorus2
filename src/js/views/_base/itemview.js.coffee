@@ -33,3 +33,15 @@
       {
         class: classes.join(' ')
       }
+
+    ## Method to enable toggle selection. Needs to be added as an event to the
+    ## view that utilizes it
+    toggleSelect: (e) ->
+      if e.ctrlKey
+        e.preventDefault()
+        # Disable selection with items with prevent-select
+        # TODO: make it work on mixed collections (thumbsup) or move check elsewhere
+        if not @$el.hasClass('prevent-select') and helpers.url.arg(0) != 'thumbsup'
+          @$el.toggleClass('selected')
+          op = if @$el.hasClass('selected') then 'add' else 'remove'
+          App.execute "selected:update:items", op, @model.toJSON()

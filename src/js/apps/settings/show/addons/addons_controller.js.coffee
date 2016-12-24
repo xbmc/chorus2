@@ -51,6 +51,7 @@
         for i, el of elements
           elements[i] = $.extend el, {
             id: el.addonid
+            name: el.addonid
             type: 'checkbox'
             defaultValue: el.enabled
             title: el.name
@@ -67,7 +68,7 @@
     # Save only changed values
     saveCallback: (data, formView) ->
       updating = []
-      @getAllAddons (addons) =>
+      @getAllAddons (addons) ->
         for key, addon of addons
           addonid = addon.addonid
           # If form data differs from kodi

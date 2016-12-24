@@ -46,15 +46,13 @@
           @addToExistingList item.model.get('id'), entityType, id
 
     ## Add to a known playlist
-    addToExistingList: (playlistId, entityType, id) ->
-      if helpers.global.inArray(entityType, ['albumid', 'artistid'])
-        ## Save an audio entity
-        collection = App.request "song:filtered:entities", {filter: helpers.global.paramObj(entityType, id)}
-        App.execute "when:entity:fetched", collection, =>
-          @addCollectionToList collection, playlistId
-      else if entityType is 'songid'
-        ## Save a single song
-        App.request "song:byid:entities", [id], (collection) =>
+    addToExistingList: (playlistId, entityType, ids) ->
+      ## Normalise ids is always an array but accepts a single id too
+      if not _.isArray(ids)
+        ids = [ids]
+      if helpers.global.inArray(entityType, ['albumid', 'artistid', 'songid'])
+        # Get a custom collection of songs based on type and ids
+        App.request "song:custom:entities", entityType, ids, (collection) =>
           @addCollectionToList collection, playlistId
       else if entityType is 'playlist'
         ## Save current audio playlist
@@ -65,10 +63,11 @@
         ## TODO: movie/episode.
 
     ## Add the collection to the list
-    addCollectionToList: (collection, playlistId) ->
+    addCollectionToList: (collection, playlistId, notify = true) ->
       App.request "localplaylist:item:add:entities", playlistId, collection
       App.execute "ui:modal:close"
-      App.execute "notification:show", t.gettext("Added to your playlist")
+      if notify is true
+        App.execute "notification:show", t.gettext("Added to your playlist")
 
     ## Create a new list
     createNewList: (entityType, id) ->

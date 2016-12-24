@@ -28,6 +28,27 @@
       songs.fetch options
       songs
 
+    ## Retrieve collection of songs by type and ids, type can be albumid, artistid or songid
+    ## ids is an array of ids for the provided type. Returns song collection
+    getCustomSongsCollection: (type, ids, callback) ->
+      if type is 'songid'
+        @getSongsByIds ids, -1, callback
+      else
+        items = []
+        options = {filter: {}}
+        req = 0
+        for i, id of ids
+          options.filter[type] = id
+          ## On success, concat models into items and if last request then callback
+          options.success = (collection) ->
+            items = items.concat(collection.toJSON())
+            req++
+            if req is ids.length
+              collection = new KodiEntities.SongCustomCollection items
+              callback(collection)
+          ## Get each set of songs
+          @getFilteredSongs options
+
     ## Turn a collection of songs, e.g. all artist songs
     ## into an array of album song collections keyed by albumid.
     parseSongsToAlbumSongs: (songs) ->
@@ -124,7 +145,15 @@
 
   ## Get a filtered song collection.
   App.reqres.setHandler "song:filtered:entities", (options = {}) ->
-      API.getFilteredSongs options
+    API.getFilteredSongs options
+
+  ## Get a custom song collection (albums, artists, songs).
+  App.reqres.setHandler "song:custom:entities", (type, ids, callback) ->
+    API.getCustomSongsCollection type, ids, callback
+
+  ## Given an array of models, return as collection.
+  App.reqres.setHandler "song:build:collection", (items) ->
+    new KodiEntities.SongCustomCollection items
 
   ## Get a filtered song collection.
   App.reqres.setHandler "song:byid:entities", (songIds = [], callback) ->

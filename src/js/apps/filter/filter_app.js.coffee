@@ -8,33 +8,33 @@
 
     sortFields: [
       {
-        alias: 'Title'
+        alias: 'title'
         type: 'string'
         defaultSort: true
         defaultOrder: 'asc'
         key: 'title'
       }
       {
-        alias: 'Title'
+        alias: 'title'
         type: 'string'
         defaultSort: true
         defaultOrder: 'asc'
         key: 'label'
       }
       {
-        alias: 'Year'
+        alias: 'year'
         type: 'number'
         key: 'year'
         defaultOrder: 'desc'
       }
       {
-        alias: 'Date added'
+        alias: 'date added'
         type: 'string'
         key: 'dateadded'
         defaultOrder: 'desc'
       }
       {
-        alias: 'Rating'
+        alias: 'rating'
         type: 'float'
         key: 'rating'
         defaultOrder: 'desc'
@@ -50,63 +50,63 @@
     ## See applyFilter() for how filterCallback are handled.
     filterFields: [
       {
-        alias: 'Year'
+        alias: 'year'
         type: 'number'
         key: 'year'
         sortOrder: 'desc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Genre'
+        alias: 'genre'
         type: 'array'
         key: 'genre'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Mood'
+        alias: 'mood'
         type: 'array'
         key: 'mood'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Style'
+        alias: 'style'
         type: 'array'
         key: 'style'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Unwatched'
+        alias: 'unwatched'
         type: "boolean"
         key: 'unwatched'
         sortOrder: 'asc',
         filterCallback: 'unwatched'
       }
       {
-        alias: 'Thumbs Up'
+        alias: 'Thumbs up'
         type: "boolean"
         key: 'thumbsUp'
         sortOrder: 'asc',
         filterCallback: 'thumbsup'
       }
       {
-        alias: 'Writer'
+        alias: 'writer'
         type: 'array'
         key: 'writer'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Director'
+        alias: 'director'
         type: 'array'
         key: 'director'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Actor'
+        alias: 'actor'
         type: 'object'
         property: 'name'
         key: 'cast'
@@ -114,7 +114,7 @@
         filterCallback: 'multiple'
       }
       {
-        alias: 'Set'
+        alias: 'set'
         type: 'string'
         property: 'set'
         key: 'set'
@@ -122,7 +122,7 @@
         filterCallback: 'multiple'
       }
       {
-        alias: 'Rated'
+        alias: 'rated'
         type: 'string'
         property: 'mpaa'
         key: 'mpaa'
@@ -130,7 +130,7 @@
         filterCallback: 'multiple'
       }
       {
-        alias: 'Studio'
+        alias: 'studio'
         type: 'array'
         property: 'studio'
         key: 'studio'

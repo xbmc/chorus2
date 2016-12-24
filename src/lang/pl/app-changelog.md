@@ -1,7 +1,24 @@
+Wersja 2.3.6
+-------------
+* Dodano filtrowanie po polubieniach dla filmów, seriali, wykonawców i albumach
+* Naprawiono błąd dla nowo polubionych pozycji, które nie pojawiały się na stronie Lubię to!
+* Dodano możliwość wyświetlania nazwy urządzenia jako tytułu strony #98
+* Ulepszono style i interfejs użytkownika dla funkcji zaznaczania obejrzanych pozycji
+* Poprawiono panel informacji o filmie, dodano kategorię wiekową i możliwości przełączenia stanu obejrzenia
+* Ulepszono i przebudowano listę oraz panel informacji o serialu, sezonie i odcinku
+* Dodano możliwość oznaczenia serialu i sezonu jako obejrzane, a także dodanie ich do kolejki odtwarzania #74
+* Dodano aktualne tłumaczenie na język francuski i polski #160 i #161
+* Poprawiono działanie przycisku odtwarzania w zależności od stanu odtwarzacza #157
+* Poprawiono style w przeglądarce plików/dodatków
+* Dodano możliwość dodania za pomocą menu kontekstowego, do kolejki odtwarzania mediów, z poziomu przeglądarki plików/dodatków
+* Poprawiono wyrównanie kolumn na liście utworów albumu #37
+* Dodano możliwość filtrowania po roku dla albumów i utworów
+* Poprawiono błąd powodujący zawieszanie się przeglądarki, w przypadku przekazania do wirtualnej listy - pustej kolekcji
+
 Wersja 2.3.5
 -------------
-* Scalone zmiany tłumaczenia na język niemiecki #139
-* Scalone zmiany tłumaczenia język litewski #141
+* Zaktualizowano tłumaczenie na język niemiecki #139
+* Zaktualizowano tłumaczenie na język litewski #141
 * Usunięto część kodu diagnostycznego
 * Dodano poziom Ekspercki do ustawień Kodi
 * Dodano sortowanie albumów po dacie dodania #21

@@ -79,8 +79,6 @@
       ## Get stateObj - consider changing this to be current and work with local too?
       stateObj = App.request "state:kodi"
 
-      console.log e.which
-
       ## Respond to key code
       switch e.which
         when 37 # left

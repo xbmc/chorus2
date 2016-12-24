@@ -66,25 +66,10 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
-      # TODO - find a better for the following listeners (handler for the app menu)
+      ## Additional listeners
+      @bindListenersContextMenu shellLayout
+      @bindListenersSelectedMenu shellLayout
 
-      # Library scans - not a fan of this living here!
-      App.listenTo shellLayout, "shell:audio:scan", =>
-        App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
-      App.listenTo shellLayout, "shell:video:scan", =>
-        App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
-
-      # Screenshot.
-      App.listenTo shellLayout, "shell:goto:lab", =>
-        App.navigate "#lab", {trigger: true}
-
-      # Send input.
-      App.listenTo shellLayout, "shell:send:input", =>
-        App.execute "input:textbox", ''
-
-      # About.
-      App.listenTo shellLayout, "shell:about", =>
-        App.navigate "#help", {trigger: true}
 
     ## Alter region classes.
     alterRegionClasses: (op, classes, region = 'root') ->
@@ -107,6 +92,31 @@
         settingsController = App.request "command:kodi:controller", 'auto', 'Settings'
         settingsController.getSettingValue 'services.devicename', (title) ->
           App.getRegion('regionTitle').$el.html(title)
+
+    # Shell listeners for context menu.
+    bindListenersContextMenu: (shellLayout) ->
+      # Library
+      App.listenTo shellLayout, "shell:audio:scan", ->
+        App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
+      App.listenTo shellLayout, "shell:video:scan", ->
+        App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
+      # Pages
+      App.listenTo shellLayout, "shell:goto:lab", ->
+        App.navigate "#lab", {trigger: true}
+      App.listenTo shellLayout, "shell:about", ->
+        App.navigate "#help", {trigger: true}
+      # Input box
+      App.listenTo shellLayout, "shell:send:input", ->
+        App.execute "input:textbox", ''
+
+    # Shell listeners for selected menu
+    bindListenersSelectedMenu: (shellLayout) ->
+      App.listenTo shellLayout, "shell:selected:play", ->
+        App.execute "selected:action:play"
+      App.listenTo shellLayout, "shell:selected:add", ->
+        App.execute "selected:action:add"
+      App.listenTo shellLayout, "shell:selected:localadd", ->
+        App.execute "selected:action:localadd"
 
   App.addInitializer ->
 
