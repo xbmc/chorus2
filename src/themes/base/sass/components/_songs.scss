@@ -122,10 +122,32 @@
         display: table-cell;
       }
     }
+    // Selected row
     &.selected {
       border-left: 1px solid $color-kodi;
       background: lighten($color-kodi, 45%);
       .crop:after {
+        display: none;
+      }
+      .active-player-local & {
+        border-left: 1px solid $color-local;
+        background: lighten($color-local, 45%);
+      }
+    }
+    // Remove playlist item, hidden unless verbose
+    .cell-remove {
+      display: none;
+      padding-top: 12px;
+      padding-bottom: 0;
+    }
+    // Sortable item
+    &.sortable-ghost {
+      height: $song-row-height;
+      background: $color-greyscale-alto;
+      td {
+        opacity: 0;
+      }
+      .play {
         display: none;
       }
     }
@@ -152,6 +174,15 @@
         }
         .track {
           display: block;
+        }
+        .cell-remove {
+          .local-playlist & {
+            opacity: 1;
+            color: $color-playlist-remove;
+            i:before {
+              content: icon-code(navigation-cancel);
+            }
+          }
         }
       }
       &.local-row-playing,
@@ -185,6 +216,12 @@
           background-image: image-url('row-pause-pink.png') !important;
         }
       }
+      .cell-remove {
+        .local-playlist & {
+          display: block;
+          opacity: 0.3;
+        }
+      }
     }
   }
   &.basic {
@@ -198,6 +235,7 @@
   .kodi-row-playing,
   .kodi-row-paused {
     background: rgba($color-white, 0.9) !important;
+    &:hover td .crop,
     td .crop {
       @include text-fade($color-white);
     }

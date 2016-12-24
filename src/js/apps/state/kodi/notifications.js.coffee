@@ -109,11 +109,14 @@
           @refreshStateNow ->
             App.execute "player:kodi:timer", 'start'
 
-        # list cleared, add, remove
+        # list cleared, add, remove, use a timeout to prevent slowdown on bulk add
         when 'Playlist.OnClear', 'Playlist.OnAdd', 'Playlist.OnRemove'
-          playerController = App.request "command:kodi:controller", 'auto', 'Player'
-          App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
-          @refreshStateNow()
+          clearTimeout App.playlistUpdateTimeout
+          App.playlistUpdateTimeout = setTimeout((e) =>
+            playerController = App.request "command:kodi:controller", 'auto', 'Player'
+            App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
+            @refreshStateNow()
+          , 500)
 
         # volume change
         when 'Application.OnVolumeChanged'

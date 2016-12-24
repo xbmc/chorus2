@@ -31,6 +31,7 @@
 
     ## Add a collection of models
     addCollectionItems: (collection, position = 0, callback) ->
+      App.execute "notification:show", t.gettext("Adding items to the queue")
       models = collection.getRawCollection()
       player = @getPlayer()
       commands = []

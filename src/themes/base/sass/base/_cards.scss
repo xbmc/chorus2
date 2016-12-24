@@ -248,6 +248,10 @@ $card-layout: (
   &.selected {
     outline: 1px solid $color-kodi;
     box-shadow: 0 0 10px 1px rgba($color-kodi, 0.5);
+    .active-player-local & {
+      outline: 1px solid $color-local;
+      box-shadow: 0 0 10px 1px rgba($color-local, 0.5);
+    }
   }
   .dropdown-menu {
     left: auto;

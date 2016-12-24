@@ -18,6 +18,7 @@
       "click .song-download"   : "song:download"
       "click .song-localplay"  : "song:localplay"
       "click .song-musicvideo" : "song:musicvideo"
+      "click .song-remove"     : "song:remove"
 
     events:
       "click .dropdown > i": "menuPopulate"
@@ -33,7 +34,8 @@
       if App.request "thumbsup:check", @model
         classes.push 'thumbs-up'
       {
-        class: classes.join(' ')
+        'class': classes.join(' ')
+        'data-id': @model.id
       }
 
     onShow: ->

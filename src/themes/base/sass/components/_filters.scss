@@ -27,6 +27,9 @@
       &.active {
         color: $color-brand-primary;
         font-weight: bold;
+        .active-player-local & {
+          color: $color-local;
+        }
       }
     }
   }
@@ -58,6 +61,9 @@
       background-color: $color-greyscale-cloudy;
       &:hover {
         background-color: $color-brand-primary;
+        .active-player-local & {
+          background-color: $color-local;
+        }
       }
       @include icon(content-add-circle);
     }
@@ -78,6 +84,9 @@
       &:hover {
         &:before {
           color: $color-brand-primary;
+          .active-player-local & {
+            color: $color-local;
+          }
         }
       }
     }
