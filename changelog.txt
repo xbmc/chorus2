@@ -1,3 +1,17 @@
+Version 2.3.7
+-------------
+* Added ability to sort and remove items in local playlists
+* Added context link to season from TV episode #169
+* Added ability to thumbs up tv episodes
+* Added ability to clean audio and video library and add actions to Kodi settings form #177
+* Added ability to select multiple items with CTRL+click and perform bulk actions eg. play, queue and add to playlist
+* Fixed dropdown menu closing on click #173
+* Added Kodi saved and smart playlists to the Chorus browser #167
+* Added support for exporting and downloading local playlists to m3u
+* Fixed issue with addon enable/disable not saving #162
+* String updates and addition of many more translatables that were previously missing
+* Merged Polish translation update #166
+
 Version 2.3.6
 -------------
 * Added filtering by thumbs up to movies, tv, artists and albums
