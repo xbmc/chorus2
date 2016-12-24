@@ -24,7 +24,7 @@
             <i data-toggle="dropdown" class="menu-toggle"></i>
             <ul class="dropdown-menu pull-right">
                 <li class="selected-play"><%= tr('Play in Kodi') %></li>
-                <li class="selected-add"><%= tr('Add to Kodi') %></li>
+                <li class="selected-add"><%= tr('Queue in Kodi') %></li>
                 <li class="selected-localadd"><%= tr('Add to playlist') %></li>
             </ul>
         </div>

@@ -43,7 +43,7 @@
   App.reqres.setHandler 'movie:action:items', ->
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
-      menu: {add: tr('Add to Kodi playlist'), edit: tr('Edit'), divider: '', download: tr('Download'), localplay: tr('Play in browser')}
+      menu: {add: tr('Queue in Kodi'), edit: tr('Edit'), divider: '', download: tr('Download'), localplay: tr('Play in browser')}
     }
 
   App.commands.setHandler 'movie:action', (op, view) ->

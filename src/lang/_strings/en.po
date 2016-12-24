@@ -841,16 +841,16 @@ msgid "Delete playlist"
 msgstr "Delete playlist"
 
 msgctxt ""
-msgid "Title"
-msgstr "Title"
+msgid "title"
+msgstr "title"
 
 msgctxt ""
-msgid "Year"
-msgstr "Year"
+msgid "tear"
+msgstr "tear"
 
 msgctxt ""
-msgid "Date added"
-msgstr "Date added"
+msgid "date added"
+msgstr "date added"
 
 msgctxt ""
 msgid "rating"
@@ -859,6 +859,14 @@ msgstr "rating"
 msgctxt ""
 msgid "actor"
 msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "style"
+msgstr "style"
 
 msgctxt ""
 msgid "items selected"
@@ -891,3 +899,11 @@ msgstr "This is a tool to test out the api. Select a method then execute it with
 msgctxt ""
 msgid "Go to season"
 msgstr "Go to season"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Queue in Kodi"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Adding items to the queue"

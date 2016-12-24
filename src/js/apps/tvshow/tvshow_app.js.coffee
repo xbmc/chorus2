@@ -110,7 +110,7 @@
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
       menu: {
-        'add': tr('Add to Kodi')
+        'add': tr('Queue in Kodi')
         'divider-1': ''
         'download': tr('Download')
         'localplay': tr('Play in browser')
@@ -122,7 +122,7 @@
   App.reqres.setHandler 'tvshow:action:items', ->
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
-      menu: {add: tr('Add to Kodi playlist')}
+      menu: {add: tr('Queue in Kodi')}
     }
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
