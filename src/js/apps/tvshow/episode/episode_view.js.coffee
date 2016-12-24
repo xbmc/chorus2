@@ -3,11 +3,12 @@
 
   class Episode.EpisodeTeaser extends App.Views.CardView
     triggers:
-      "click .play"       : "episode:play"
-      "click .watched"    : "episode:watched"
-      "click .add"        : "episode:add"
-      "click .localplay"  : "episode:localplay"
-      "click .download"   : "episode:download"
+      "click .play"        : "episode:play"
+      "click .watched"     : "episode:watched"
+      "click .add"         : "episode:add"
+      "click .localplay"   : "episode:localplay"
+      "click .download"    : "episode:download"
+      "click .goto-season" : "episode:goto:season"
     initialize: ->
       super
       if @model?

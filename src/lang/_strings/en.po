@@ -887,3 +887,7 @@ msgstr "Audio library clean finished"
 msgctxt ""
 msgid "This is a tool to test out the api. Select a method then execute it with parameters."
 msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Go to season"

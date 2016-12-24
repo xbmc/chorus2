@@ -75,6 +75,8 @@
           files.downloadFile model.get('file')
         when 'toggleWatched'
           videoLib.toggleWatched model, 'auto'
+        when 'gotoSeason'
+          App.navigate "#tvshow/" + model.get('tvshowid') + '/' + model.get('season'), {trigger: true}
         else
           ## nothing
 
@@ -108,10 +110,12 @@
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
       menu: {
-        add: tr('Add to Kodi playlist')
-        divider: ''
-        download: tr('Download')
-        localplay: tr('Play in browser')
+        'add': tr('Add to Kodi')
+        'divider-1': ''
+        'download': tr('Download')
+        'localplay': tr('Play in browser')
+        'divider-2': ''
+        'goto-season': tr('Go to season')
       }
     }
 
