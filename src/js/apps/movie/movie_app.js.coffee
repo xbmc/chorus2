@@ -2,14 +2,10 @@
 
   class MovieApp.Router extends App.Router.Base
     appRoutes:
-      "movies/recent"   	: "landing"
       "movies"   	: "list"
       "movie/:id"	: "view"
 
   API =
-
-    landing: ->
-      new MovieApp.Landing.Controller()
 
     list: ->
       new MovieApp.List.Controller()

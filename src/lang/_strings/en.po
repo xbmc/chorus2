@@ -845,8 +845,8 @@ msgid "title"
 msgstr "title"
 
 msgctxt ""
-msgid "tear"
-msgstr "tear"
+msgid "year"
+msgstr "year"
 
 msgctxt ""
 msgid "date added"
@@ -859,6 +859,18 @@ msgstr "rating"
 msgctxt ""
 msgid "actor"
 msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "writer"
+msgstr "writer"
+
+msgctxt ""
+msgid "director"
+msgstr "director"
 
 msgctxt ""
 msgid "mood"
@@ -907,3 +919,35 @@ msgstr "Queue in Kodi"
 msgctxt ""
 msgid "Adding items to the queue"
 msgstr "Adding items to the queue"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Recently added albums"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Random albums"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Recently played albums"
+
+msgctxt ""
+msgid "Recently added movies"
+msgstr "Recently added movies"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Random movies"
+
+msgctxt ""
+msgid "Recently watched TV Shows"
+msgstr "Recently watched TV Shows"
+
+msgctxt ""
+msgid "Recently added episodes"
+msgstr "Recently added episodes"

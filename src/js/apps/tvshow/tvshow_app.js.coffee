@@ -2,16 +2,12 @@
 	
   class TVShowApp.Router extends App.Router.Base
     appRoutes:
-      "tvshows/recent"   	                  : "landing"
       "tvshows"   	                        : "list"
       "tvshow/:tvshowid"	                  : "view"
       "tvshow/:tvshowid/:season"	          : "season"
       "tvshow/:tvshowid/:season/:episodeid"	: "episode"
 
   API =
-
-    landing: ->
-      new TVShowApp.Landing.Controller()
 
     list: ->
       new TVShowApp.List.Controller()
@@ -54,7 +50,7 @@
       $layout
 
     getAllEpisodesCollection: (tvshowid, season, callback) ->
-      collectionAll = App.request "episode:entities", tvshowid, season
+      collectionAll = App.request "episode:tvshow:entities", tvshowid, season
       App.execute "when:entity:fetched", collectionAll, =>
         callback collectionAll
 

@@ -2,14 +2,10 @@
 
   class AlbumApp.Router extends App.Router.Base
     appRoutes:
-      "music"             : "recent"
       "music/albums"      : "list"
       "music/album/:id"   : "view"
 
   API =
-
-    recent: ->
-      new AlbumApp.Landing.Controller()
 
     list: ->
       new AlbumApp.List.Controller()
