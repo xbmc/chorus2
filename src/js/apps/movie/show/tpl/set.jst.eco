@@ -1,4 +1,6 @@
-<div class="set-collection">
-    <h2 class="set-name"></h2>
-    <div class="collection-items"></div>
+<div class="section-content">
+    <div class="set-collection">
+        <h2 class="set-name"></h2>
+        <div class="collection-items"></div>
+    </div>
 </div>
