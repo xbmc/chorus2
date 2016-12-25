@@ -51,7 +51,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['label']
+      sort: ['label', 'random']
       filter: ['mood', 'genre', 'style', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes

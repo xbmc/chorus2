@@ -967,3 +967,11 @@ msgstr "More movies staring %1$s"
 msgctxt ""
 msgid "Other movies released in %1$s"
 msgstr "Other movies released in %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "artist"
+
+msgctxt ""
+msgid "random"
+msgstr "random"
