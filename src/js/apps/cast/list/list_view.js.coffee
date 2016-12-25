@@ -6,6 +6,11 @@
     triggers:
       "click .imdb"       : "cast:imdb"
       "click .google"    : "cast:google"
+    onRender: ->
+      # Prevent broken images
+      defaultThumb = App.request "images:path:get", ''
+      $('img', @$el).on 'error', (e) ->
+        $(@).attr 'src', defaultThumb
 
   class List.CastList extends App.Views.CollectionView
     childView: List.CastTeaser
