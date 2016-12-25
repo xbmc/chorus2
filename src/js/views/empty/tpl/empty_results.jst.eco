@@ -1,4 +1,3 @@
 <div class="empty-result">
     <h2><%= t.gettext('No results found') %></h2>
-    <p><%= t.gettext('Have you done a library scan?') %></p>
 </div>

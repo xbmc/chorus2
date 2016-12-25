@@ -18,7 +18,7 @@
 
     ## Fetch an song collection.
     getFilteredSongs: (options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, useNamedParameters: true}
       options = _.extend defaultOptions, options
       if options.indexOnly
         options.expires = config.getLocal 'searchIndexCacheExpiry', 86400
@@ -117,24 +117,23 @@
         obj.fullyloaded = true
       @parseModel 'song', obj, obj.songid
 
-
   ## Song Filtered collection
   class KodiEntities.SongFilteredCollection extends App.KodiEntities.Collection
     model: KodiEntities.Song
-    methods: read: ['AudioLibrary.GetSongs', 'arg1', 'arg2', 'arg3', 'arg4']
-    arg1: -> helpers.entities.getFields(API.fields, 'small')
-    arg2: -> @argLimit()
-    arg3: -> @argSort("track", "ascending")
-    arg4: -> @argFilter()
+    methods: read: ['AudioLibrary.GetSongs', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
+      sort: @argSort("track", "ascending")
+      filter: @argFilter()
     parse: (resp, xhr) -> @getResult resp, 'songs'
-
 
   ## Song Custom collection, assumed passed an array of raw entity data.
   class KodiEntities.SongCustomCollection extends App.KodiEntities.Collection
     model: KodiEntities.Song
 
-
   ## Song search index collection (absolute minimal fields).
+  ## TODO: Now we are using named params, this can probably be removed
   class KodiEntities.SongSearchIndexCollection extends KodiEntities.SongFilteredCollection
     methods: read: ['AudioLibrary.GetSongs']
 

@@ -37,6 +37,7 @@
       ## When fetched.
       App.execute "when:entity:fetched", collection, =>
 
+
         ## Get and setup the layout
         @layout = @getLayoutView collection
         @listenTo @layout, "show", =>

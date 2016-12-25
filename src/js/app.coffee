@@ -12,7 +12,7 @@
     ignoreArticle: true
     pollInterval: 10000
     reverseProxy: false
-    albumAtristsOnly: true
+    albumArtistsOnly: true
     searchIndexCacheExpiry: (24 * 60 * 60) # 1 day
     collectionCacheExpiry: (7 * 24 * 60 * 60) # 1 week (gets wiped on library update)
     addOnsLoaded: false

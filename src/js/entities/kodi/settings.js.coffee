@@ -12,6 +12,7 @@
       settings: "SettingCollection"
 
     # Items s with matching ids will be skipped, weather ignored as it had no usable elements.
+    # Update: As of v17+ we might be able to use weather but requires a select.
     ignoreKeys: ['weather']
 
     fields:
@@ -31,6 +32,7 @@
     getCollection: (options = {type: 'sections'}) ->
       collectionMethod = @settingsType[options.type]
       collection = new KodiEntities[collectionMethod]()
+      options.useNamedParameters = true
       collection.fetch options
       if options.section and options.type is 'settings'
         collection.where {section: options.section}
@@ -104,10 +106,10 @@
   ## Categories collection
   class KodiEntities.SettingCategoryCollection extends App.KodiEntities.Collection
     model: KodiEntities.Setting
-    methods: read: ['Settings.GetCategories', 'arg1', 'arg2']
-    arg1: -> API.getSettingsLevel()
-    arg2: ->
-      @argCheckOption('section', 0)
+    methods: read: ['Settings.GetCategories', 'level', 'section']
+    args: -> @getArgs
+      level: API.getSettingsLevel()
+      section: @argCheckOption('section', 0)
     parse: (resp, xhr) ->
       items = @getResult resp, @options.type
       API.parseCollection items, @options.type
@@ -115,8 +117,9 @@
   ## Setting collection
   class KodiEntities.SettingCollection extends App.KodiEntities.Collection
     model: KodiEntities.Setting
-    methods: read: ['Settings.GetSettings', 'arg1']
-    arg1: -> API.getSettingsLevel()
+    methods: read: ['Settings.GetSettings', 'level']
+    args: -> @getArgs
+      level: API.getSettingsLevel()
     parse: (resp, xhr) ->
       items = @getResult resp, @options.type
       API.parseCollection items, @options.type

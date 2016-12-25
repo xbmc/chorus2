@@ -21,7 +21,7 @@
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
+      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
       options = _.extend defaultOptions, options
       ## try cache first.
       artists = helpers.cache.get "artist:entities"
@@ -31,6 +31,9 @@
       helpers.cache.set "artist:entities", artists
       artists
 
+  ###
+   Models and collections.
+  ###
 
   ## Single artist model.
   class KodiEntities.Artist extends App.KodiEntities.Model
@@ -49,20 +52,22 @@
         obj.fullyloaded = true
       @parseModel 'artist', obj, obj.artistid
 
-
-  ## artists collection
+  ## Artists collection
   class KodiEntities.ArtistCollection extends App.KodiEntities.Collection
     model: KodiEntities.Artist
-    methods: {
-      read: ['AudioLibrary.GetArtists', 'arg1', 'arg2', 'arg3', 'arg4']
-    }
-    arg1: ->
-      config.getLocal 'albumAtristsOnly', true
-    arg2: -> API.getArtistFields('small')
-    arg3: -> @argLimit()
-    arg4: -> @argSort("artist", "ascending")
+    methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly ', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs({
+      albumartistsonly: config.getLocal 'albumArtistsOnly', true
+      properties: @argFields(API.getArtistFields('small'))
+      limits: @argLimit()
+      sort: @argSort('title', 'ascending')
+      filter: @argFilter()
+    })
     parse: (resp, xhr) -> @getResult resp, 'artists'
 
+  ###
+   Request Handlers.
+  ###
 
   ## Get a single artist
   App.reqres.setHandler "artist:entity", (id, options = {}) ->

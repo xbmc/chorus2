@@ -13,7 +13,7 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: false}
+      defaultOptions = {cache: false, useNamedParameters: true}
       options = _.extend defaultOptions, options
       collection = new KodiEntities.PlaylistCollection()
       collection.fetch options
@@ -70,17 +70,14 @@
   ## Playlists collection
   class KodiEntities.PlaylistCollection extends App.KodiEntities.Collection
     model: KodiEntities.PlaylistItem
-    methods: read: ['Playlist.GetItems', 'arg1', 'arg2', 'arg3']
-    arg1: -> @argCheckOption('playlistid', 0)
-    arg2: -> helpers.entities.getFields(API.fields, 'small')
-    arg3: -> @argLimit()
-    arg4: -> @argSort("position", "ascending")
+    methods: read: ['Playlist.GetItems', 'playlistid', 'properties', 'limits']
+    args: -> @getArgs
+      playlistid: @argCheckOption('playlistid', 0)
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
     parse: (resp, xhr) ->
       items = @getResult resp, 'items'
       API.parseItems(items, @options)
-
-
-
 
   ###
    Request Handlers.
