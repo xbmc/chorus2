@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-12-12 16:51+0100\n"
+"PO-Revision-Date: 2016-12-27 15:21+0100\n"
 "Last-Translator: Marcin W.\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/"
 "pl_PL/)\n"
@@ -802,3 +802,113 @@ msgid "Show the Kodi device name in the header of Chorus"
 msgstr ""
 "Umożliwia wyświetlanie nazwy urządzenia, na którym uruchomiono Kodi, w nagłówku strony "
 "Chorusa."
+
+msgctxt ""
+msgid "No results found"
+msgstr "Brak wyników wyszukiwania"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Czy wykonałeś skanowanie biblioteki?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Odtwarzaj w przeglądarce"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Edytuj"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Dodaj do Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Obejrzane"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "Nowa lista"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Odtwarzaj w Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Eksportuj listę"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Usuń listę"
+
+msgctxt ""
+msgid "title"
+msgstr "tytuł"
+
+msgctxt ""
+msgid "tear"
+msgstr "tear"
+
+msgctxt ""
+msgid "date added"
+msgstr "data dodania"
+
+msgctxt ""
+msgid "rating"
+msgstr "ocena"
+
+msgctxt ""
+msgid "actor"
+msgstr "aktor"
+
+msgctxt ""
+msgid "mood"
+msgstr "nastrój"
+
+msgctxt ""
+msgid "style"
+msgstr "styl"
+
+msgctxt ""
+msgid "items selected"
+msgstr "pozycje zaznaczone"
+
+msgctxt ""
+msgid "item selected"
+msgstr "pozycja zaznaczona"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Rozpoczęto czyszczenie biblioteki wideo"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Zakończono czyszczenie biblioteki wideo"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Rozpoczęto czyszczenie biblioteki muzyki"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Zakończono czyszczenie biblioteki muzyki"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr ""
+"To jest narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a "
+"następnie wykonaj ją z zadanymi parametrami"
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Przejdź do sezonu"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Dodaj do kolejki Kodi"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Dodawanie pozycji do kolejki"
