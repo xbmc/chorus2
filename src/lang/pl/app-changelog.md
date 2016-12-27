@@ -1,3 +1,18 @@
+Wersja 2.3.7
+-------------
+* Dodamo możliwość sortowania i usuwania pozycji w lokalnych listach odtwarzania
+* Dodane łącze kontekstowe do sezonu z poziomu odcinka #169
+* Dodano możliwość polubienia odcinków serialu
+* Dodano możliwość czyszczenia biblioteki wideo i muzyki oraz dodano akcje do formatki ustawień Kodi #177
+* Added ability to select multiple items with CTRL+click and perform bulk actions eg. play, queue and add to playlist
+* Dodano możliwość zaznaczania wielu pozycji za pomocą przycisku CTRL i kliknięcia oraz wykonywania wsadowych akcji np. odtwarzania, kolejkowania i dodawania do listy odtwarzania
+* Naprawiono zamykanie się wysuwamego menu po naciśnięciu #173
+* Dodano zapisywanie pozycji na listach Kodi oraz funkcję inteligentych list do przeglądarki Chorusa #167
+* Dodano obsługę eksportowania i pobierania kolaknych list odtwarzania jako plik M3U
+* Naprawiono problem z zapisywaniem aktywacji/dezaktywacji dodatków #162
+* Zaktualizowano plik słownika i dodano możliwość tłumaczenia brakujących wcześniej wyrażeń
+* Zaktualizowano tłumaczenie na język polski #166
+
 Wersja 2.3.6
 -------------
 * Dodano filtrowanie po polubieniach dla filmów, seriali, wykonawców i albumach
