@@ -70,6 +70,8 @@
         teaser = new Show.AlbumDetailTeaser model: album
         API.bindTriggers teaser
         detail = new Show.Details model: album
+        @listenTo detail, "show", =>
+          API.bindTriggers detail
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout

@@ -975,3 +975,7 @@ msgstr "artist"
 msgctxt ""
 msgid "random"
 msgstr "random"
+
+msgctxt ""
+msgid "label"
+msgstr "label"

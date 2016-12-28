@@ -91,13 +91,6 @@
         filterCallback: 'unwatched'
       }
       {
-        alias: 'Thumbs up'
-        type: "boolean"
-        key: 'thumbsUp'
-        sortOrder: 'asc',
-        filterCallback: 'thumbsup'
-      }
-      {
         alias: 'writer'
         type: 'array'
         key: 'writer'
@@ -142,6 +135,21 @@
         key: 'studio'
         sortOrder: 'asc',
         filterCallback: 'multiple'
+      }
+      {
+        alias: 'label'
+        type: 'string'
+        property: 'albumlabel'
+        key: 'albumlabel'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Thumbs up'
+        type: "boolean"
+        key: 'thumbsUp'
+        sortOrder: 'asc',
+        filterCallback: 'thumbsup'
       }
     ] 
 

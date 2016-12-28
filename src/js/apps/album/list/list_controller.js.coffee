@@ -52,7 +52,7 @@
     ## See filter_app.js for available options
     getAvailableFilters: ->
       sort: ['label', 'year', 'rating', 'artist', 'dateadded', 'random']
-      filter: ['year', 'genre', 'thumbsUp']
+      filter: ['year', 'genre', 'style', 'albumlabel', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->
