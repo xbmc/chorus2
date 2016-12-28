@@ -45,6 +45,8 @@
           if collection.length > 0
             @renderSection section, collection
             @getFanArts collection
+      if section.filter
+        opts.filter = section.filter
       App.request "#{section.entity}:entities", opts
 
     renderSection: (section, collection) =>

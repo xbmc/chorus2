@@ -9,6 +9,8 @@
   API =
 
     ## This defines what we will see on each landing page
+    ## Example of a complex filter using rules
+    ## {"and": [{'operator': 'is', 'field': 'playcount', 'value': '0'}, {'operator': 'is', 'field': 'year', 'value': '2015'}]}
     settings:
       music:
         subnavId: 'music'
@@ -39,11 +41,20 @@
         subnavId: 'movies/recent'
         sections: [
           {
-            title: 'Recently added movies'
+            title: 'Recently added'
             entity: 'movie'
             sort: 'dateadded'
             order: 'descending'
             limit: 14
+            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
+          }
+          {
+            title: 'Continue watching'
+            entity: 'movie'
+            sort: 'lastplayed'
+            order: 'descending'
+            limit: 14,
+            filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
           }
           {
             title: 'Random movies'
@@ -57,18 +68,20 @@
         subnavId: 'tvshows/recent'
         sections: [
           {
-            title: 'Recently added episodes'
+            title: 'Recently added'
             entity: 'episode'
             sort: 'dateadded'
             order: 'descending'
-            limit: 14
+            limit: 12
+            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
           }
           {
-            title: 'Recently watched TV Shows'
+            title: 'Continue watching'
             entity: 'tvshow'
             sort: 'lastplayed'
             order: 'descending'
             limit: 14
+            filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
           }
         ]
 
