@@ -83,7 +83,7 @@
           @doCallback callback, songs.getRawCollection()
       else
         ## Else it's a filtered collection (artist, album, etc)
-        songs = App.request "song:filtered:entities", {filter: helpers.global.paramObj(type, value)}
+        songs = App.request "song:entities", {filter: helpers.global.paramObj(type, value)}
         App.execute "when:entity:fetched", songs, =>
           @doCallback callback, songs.getRawCollection()
 

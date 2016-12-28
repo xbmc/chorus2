@@ -16,16 +16,10 @@
       artist.fetch options
       artist
 
-    ## Fetch an song collection.
+    ## Fetch a song collection.
     getFilteredSongs: (options) ->
-      defaultOptions = {cache: true, useNamedParameters: true}
-      options = _.extend defaultOptions, options
-      if options.indexOnly
-        options.expires = config.getLocal 'searchIndexCacheExpiry', 86400
-        songs = new KodiEntities.SongSearchIndexCollection()
-      else
-        songs = new KodiEntities.SongFilteredCollection()
-      songs.fetch options
+      songs = new KodiEntities.SongFilteredCollection()
+      songs.fetch helpers.entities.buildOptions(options)
       songs
 
     ## Retrieve collection of songs by type and ids, type can be albumid, artistid or songid
@@ -142,8 +136,8 @@
   App.reqres.setHandler "song:entity", (id, options = {}) ->
     API.getSong id, options
 
-  ## Get a filtered song collection.
-  App.reqres.setHandler "song:filtered:entities", (options = {}) ->
+  ## Get a song collection - Filters are a must!
+  App.reqres.setHandler "song:entities", (options = {}) ->
     API.getFilteredSongs options
 
   ## Get a custom song collection (albums, artists, songs).
@@ -161,20 +155,3 @@
   ## Parse a song collection into albums
   App.reqres.setHandler "song:albumparse:entities", (songs) ->
     API.parseSongsToAlbumSongs songs
-
-  ## Get the songs matching a search query.
-  App.commands.setHandler "song:search:entities", (query, limit, callback) ->
-    allLimit = 20
-    options = helpers.global.paramObj 'indexOnly', true
-    collection = API.getFilteredSongs options
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      ids = filtered.pluck 'songid'
-      count = if limit is 'limit' then allLimit else -1
-      API.getSongsByIds ids, count, (loaded) ->
-        if ids.length > allLimit and limit is 'limit'
-          loaded.more = true
-        if callback
-          callback loaded
-    collection

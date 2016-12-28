@@ -20,10 +20,8 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
-      options = _.extend defaultOptions, options
       collection = new KodiEntities.TVShowCollection()
-      collection.fetch options
+      collection.fetch helpers.entities.buildOptions(options)
       collection
 
   ###
@@ -66,12 +64,3 @@
   ## Get an tvshow collection
   App.reqres.setHandler "tvshow:entities", (options = {}) ->
     API.getCollection options
-
-  ## Get a search collection
-  App.commands.setHandler "tvshow:search:entities", (query, limit, callback) ->
-    collection = API.getCollection {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered

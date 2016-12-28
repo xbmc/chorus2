@@ -3,12 +3,21 @@
   ## Main controller
   class List.Controller extends App.Controllers.Base
 
+    maxItemsCombinedSearch: 21
+
+    searchFieldMap:
+      artist: 'artist'
+      album: 'album'
+      song: 'title'
+      movie: 'title'
+      tvshow: 'title'
+
     initialize: ->
       @layout = @getLayout()
       @processed = [];
       media = @getOption('media')
       if media is 'all'
-        @entities = ['song', 'artist', 'album', 'tvshow', 'movie']
+        @entities = ['song', 'album', 'artist', 'tvshow', 'movie']
       else
         @entities = [media]
       @listenTo @layout, "show", =>
@@ -30,22 +39,34 @@
 
     getResult: (entity) ->
       query = @getOption('query')
-      limit = if @getOption('media') is 'all' then 'limit' else 'all'
-      App.execute "#{entity}:search:entities", query, limit, (loaded) =>
-        ## If result
-        if loaded.length > 0
-          ## Get the result view
-          view = App.request "#{entity}:list:view", loaded, true
-          ## Wrap it in a set view container and add a title
-          setView = new List.ListSet
-            entity: entity
-            more: (if loaded.more then true else false)
-            query: query
-          App.listenTo setView, "show", =>
-            setView.regionResult.show view
-          ## Add to layout
-          @layout["#{entity}Set"].show setView
-        @updateProgress entity
+      limit = {start: 0}
+      if @getOption('media') is 'all'
+        limit.end = @maxItemsCombinedSearch
+      opts =
+        limits: limit
+        filter: {'operator': 'contains', 'field': @searchFieldMap[entity], 'value': query}
+        success: (loaded) =>
+          # If result
+          if loaded.length > 0
+            # See if we need more
+            more = false
+            if loaded.length is @maxItemsCombinedSearch
+              more = true
+              loaded.first(20)
+            # Get the result view
+            view = App.request "#{entity}:list:view", loaded, true
+            # Wrap it in a set view container and add a title
+            setView = new List.ListSet
+              entity: entity
+              more: more
+              query: query
+            App.listenTo setView, "show", =>
+              setView.regionResult.show view
+            ## Add to layout
+            @layout["#{entity}Set"].show setView
+          @updateProgress entity
+      App.request "#{entity}:entities", opts
+
 
     ## Update the progress of the search
     updateProgress: (done) =>

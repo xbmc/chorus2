@@ -82,7 +82,7 @@
       options =
         filter: {albumid: id}
       ## Get all the songs and parse them into sepetate album collections.
-      songs = App.request "song:filtered:entities", options
+      songs = App.request "song:entities", options
       App.execute "when:entity:fetched", songs, =>
         albumView = new Show.WithSongsLayout()
         songView = App.request "song:list:view", songs

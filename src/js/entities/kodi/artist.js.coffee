@@ -21,15 +21,9 @@
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
-      options = _.extend defaultOptions, options
-      ## try cache first.
-      artists = helpers.cache.get "artist:entities"
-      if artists is false or options.reset is true
-        artists = new KodiEntities.ArtistCollection()
-        artists.fetch options
-      helpers.cache.set "artist:entities", artists
-      artists
+      collection = new KodiEntities.ArtistCollection()
+      collection.fetch helpers.entities.buildOptions(options)
+      collection
 
   ###
    Models and collections.
@@ -77,12 +71,3 @@
   ## Get an artist collection
   App.reqres.setHandler "artist:entities", (options = {}) ->
     API.getArtists options
-
-  ## Get a search collection
-  App.commands.setHandler "artist:search:entities", (query, limit, callback) ->
-    collection = API.getArtists {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered

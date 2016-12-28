@@ -20,10 +20,8 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
-      options = _.extend defaultOptions, options
       collection = new KodiEntities.MovieCollection()
-      collection.fetch options
+      collection.fetch helpers.entities.buildOptions(options)
       collection
 
   ###
@@ -69,15 +67,6 @@
   ## Get an movie collection
   App.reqres.setHandler "movie:entities", (options = {}) ->
     API.getCollection options
-
-  ## Get a search collection
-  App.commands.setHandler "movie:search:entities", (query, limit, callback) ->
-    collection = API.getCollection {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered
 
   ## Given an array of models, return as collection.
   App.reqres.setHandler "movie:build:collection", (items) ->

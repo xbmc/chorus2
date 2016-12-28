@@ -21,11 +21,15 @@
 
     ## Fetch an album collection.
     getAlbums: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
-      options = _.extend defaultOptions, options
-      albums = new KodiEntities.AlbumCollection()
-      albums.fetch options
-      albums
+      collection = new KodiEntities.AlbumCollection()
+      collection.fetch helpers.entities.buildOptions(options)
+      collection
+
+#      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
+#      options = _.extend defaultOptions, options
+#      albums = new KodiEntities.AlbumCollection()
+#      albums.fetch options
+#      albums
 
   ###
    Models and collections.
@@ -70,12 +74,3 @@
   ## Get an album collection
   App.reqres.setHandler "album:entities", (options = {}) ->
     API.getAlbums options
-
-  ## Get a search collection
-  App.commands.setHandler "album:search:entities", (query, limit, callback) ->
-    collection = API.getAlbums {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered

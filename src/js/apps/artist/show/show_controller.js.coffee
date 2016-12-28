@@ -60,8 +60,8 @@
       # Set artist id for fetch
       options =
         filter: {artistid: id}
-      # Get all the songs and parse them into sepetate album collections.
-      songs = App.request "song:filtered:entities", options
+      # Get all the songs and parse them into separate album collections.
+      songs = App.request "song:entities", options
       App.execute "when:entity:fetched", songs, =>
         songsCollections = App.request "song:albumparse:entities", songs
         albumsCollection = App.request "albums:withsongs:view", songsCollections
