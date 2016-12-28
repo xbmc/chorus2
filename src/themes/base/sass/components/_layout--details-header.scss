@@ -123,6 +123,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     max-height: 22px;
     overflow: hidden;
     cursor: pointer;
+    color: $color-detail-hightlight-text;
     &.expanded {
       max-height: none;
     }

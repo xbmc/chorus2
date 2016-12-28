@@ -26,7 +26,7 @@
         <% end %>
     </ul>
 
-    <div class="description" title="Click for more"><%= @description %></div>
+    <div class="description"><%= @description %></div>
 
     <ul class="inline-links">
         <li class="btn-flat-play play"><%= t.gettext('Play') %></li>

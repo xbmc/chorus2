@@ -31,7 +31,7 @@
       "click .localadd"   : "album:localadd"
       "click .localplay"  : "album:localplay"
     onRender: ->
-      $('.description', @$el).on 'click', (e) ->
+      $('.description', @$el).attr('title', tr('Click for more')).on 'click', (e) ->
         $(@).toggleClass('expanded')
 
   class Show.AlbumTeaser extends App.AlbumApp.List.AlbumTeaser

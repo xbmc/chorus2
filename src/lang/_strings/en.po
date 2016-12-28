@@ -979,3 +979,43 @@ msgstr "random"
 msgctxt ""
 msgid "label"
 msgstr "label"
+
+msgctxt ""
+msgid "formed"
+msgstr "formed"
+
+msgctxt ""
+msgid "born"
+msgstr "born"
+
+msgctxt ""
+msgid "died"
+msgstr "died"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "disbanded"
+
+msgctxt ""
+msgid "years active"
+msgstr "years active"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Click for more"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Loading albums"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
