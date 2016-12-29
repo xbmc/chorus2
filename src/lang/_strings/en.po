@@ -937,20 +937,12 @@ msgid "Recently played albums"
 msgstr "Recently played albums"
 
 msgctxt ""
-msgid "Recently added movies"
-msgstr "Recently added movies"
-
-msgctxt ""
 msgid "Random movies"
 msgstr "Random movies"
 
 msgctxt ""
-msgid "Recently watched TV Shows"
-msgstr "Recently watched TV Shows"
-
-msgctxt ""
-msgid "Recently added episodes"
-msgstr "Recently added episodes"
+msgid "Continue watching"
+msgstr "Continue watching"
 
 msgctxt ""
 msgid "More from %1$s"
@@ -1031,3 +1023,7 @@ msgstr "YouTube"
 msgctxt ""
 msgid "SoundCloud"
 msgstr "SoundCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "First aired"

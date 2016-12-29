@@ -6,7 +6,12 @@
 
 <% if @cast.length > 0: %>
     <div class="section-content">
-        <h2><%= t.gettext('Full cast') %></h2>
+        <h2><%= tr('Full cast') %></h2>
         <div class="region-cast"></div>
     </div>
 <% end %>
+
+<div class="section-content section-full-width">
+    <h2><%= tr('Season') %> <%= @season %></h2>
+    <div class="region-season"></div>
+</div>

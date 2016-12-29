@@ -65,3 +65,4 @@
     className: "episode-content content-sections"
     regions:
       regionCast: '.region-cast'
+      regionSeason: '.region-season'

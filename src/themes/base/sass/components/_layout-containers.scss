@@ -107,6 +107,9 @@
   h2 {
     margin-bottom: $spacing-base-unit;
   }
+  &.section-full-width {
+    max-width: none;
+  }
 }
 .content-sections {
   > .section-content:last-child {

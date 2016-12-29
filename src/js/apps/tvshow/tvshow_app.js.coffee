@@ -38,7 +38,6 @@
       progress = if op is 'watched' then 100 else 0
       $el[classOp]('is-watched')
       helpers.entities.setProgress($el, progress)
-      helpers.entities.setProgress($el.closest('.episode-show'), progress)
       $layout = $el.closest('.tv-collection')
       # If on a TV show or season page we also need set progress and watched on child collection
       if setChildren
