@@ -49,14 +49,13 @@
   ## Artists collection
   class KodiEntities.ArtistCollection extends App.KodiEntities.Collection
     model: KodiEntities.Artist
-    methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly ', 'properties', 'limits', 'sort', 'filter']
-    args: -> @getArgs({
+    methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs
       albumartistsonly: config.getLocal 'albumArtistsOnly', true
       properties: @argFields(API.getArtistFields('small'))
       limits: @argLimit()
       sort: @argSort('title', 'ascending')
       filter: @argFilter()
-    })
     parse: (resp, xhr) -> @getResult resp, 'artists'
 
   ###

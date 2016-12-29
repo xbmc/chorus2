@@ -16,17 +16,17 @@
         <% if @formed: %>
             <li><label><%= tr("formed") %>:</label> <span><%= @formed %></span></li>
         <% end %>
-        <% if @yearsactive: %>
-            <li><label><%= tr("years active") %>:</label> <span><span><%= @yearsactive %></span></span></li>
+        <% if @yearsactive and @yearsactive.length > 0: %>
+            <li><label><%= tr("years active") %>:</label> <span><%= @yearsactive %></span></li>
         <% end %>
         <% if @born: %>
-            <li><label><%= tr("born") %>:</label> <span><span><%= @born %></span></span></li>
+            <li><label><%= tr("born") %>:</label> <span><%= @born %></span></li>
         <% end %>
         <% if @died: %>
-            <li><label><%= tr("died") %>:</label> <span><span><%= @died %></span></span></li>
+            <li><label><%= tr("died") %>:</label> <span><%= @died %></span></li>
         <% end %>
         <% if @disbanded: %>
-            <li><label><%= tr("disbanded") %>:</label> <span><span><%= @disbanded %></span></span></li>
+            <li><label><%= tr("disbanded") %>:</label> <span><%= @disbanded %></span></li>
         <% end %>
     </ul>
 

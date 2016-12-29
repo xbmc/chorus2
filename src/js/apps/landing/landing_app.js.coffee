@@ -41,20 +41,20 @@
         subnavId: 'movies/recent'
         sections: [
           {
-            title: 'Recently added'
-            entity: 'movie'
-            sort: 'dateadded'
-            order: 'descending'
-            limit: 14
-            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
-          }
-          {
             title: 'Continue watching'
             entity: 'movie'
             sort: 'lastplayed'
             order: 'descending'
             limit: 14,
             filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
+          }
+          {
+            title: 'Recently added'
+            entity: 'movie'
+            sort: 'dateadded'
+            order: 'descending'
+            limit: 14
+            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
           }
           {
             title: 'Random movies'
@@ -68,20 +68,20 @@
         subnavId: 'tvshows/recent'
         sections: [
           {
-            title: 'Recently added'
-            entity: 'episode'
-            sort: 'dateadded'
-            order: 'descending'
-            limit: 12
-            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
-          }
-          {
             title: 'Continue watching'
             entity: 'tvshow'
             sort: 'lastplayed'
             order: 'descending'
             limit: 14
             filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
+          }
+          {
+            title: 'Recently added'
+            entity: 'episode'
+            sort: 'dateadded'
+            order: 'descending'
+            limit: 12
+            filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
           }
         ]
 

@@ -48,7 +48,7 @@
     parseSongsToAlbumSongs: (songs) ->
       songsRaw = songs.getRawCollection()
       parsedRaw = {}
-      collections = {}
+      collections = []
       ## Parse the songs into sets.
       for song in songsRaw
         if not parsedRaw[song.albumid]
@@ -56,7 +56,12 @@
         parsedRaw[song.albumid].push song
       ## Turn the sets into collections.
       for albumid, songSet of parsedRaw
-        collections[albumid] = new KodiEntities.SongCustomCollection songSet
+        year = if songSet[0].year then songSet[0].year else 0
+        collections.push
+          songs: new KodiEntities.SongCustomCollection songSet
+          albumid: parseInt(albumid)
+          sort: (0 - parseInt(year))
+      collections = _.sortBy collections, 'sort'
       collections
 
     ## Get a list of songs via an array of ids only, we don't use Backbone.jsonrpc for this

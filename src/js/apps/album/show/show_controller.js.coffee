@@ -26,12 +26,13 @@
           API.bindTriggers teaser
           albumView.regionMeta.show teaser
           ## Add the songs.
-          songView = App.request "song:list:view", songs[model.get('albumid')]
+          songSet = _.findWhere songs, {albumid: model.get('albumid')}
+          songView = App.request "song:list:view", songSet.songs
           albumView.regionSongs.show songView
       ## Loop over albums/song collections
-      for albumid, songCollection of songs
+      for albumSet in songs
         ## Get the album.
-        album = App.request "album:entity", albumid, success: (album) ->
+        album = App.request "album:entity", albumSet.albumid, success: (album) ->
           albumsCollectionView.addChild album, Show.WithSongsLayout
       ## Return the collection view
       albumsCollectionView
