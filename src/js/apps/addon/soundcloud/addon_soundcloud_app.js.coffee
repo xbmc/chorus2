@@ -10,13 +10,6 @@
       title: 'SoundCloud'
       media: 'music'
 
-
-    isEnabled: ->
-      App.request "addon:isEnabled", {addonid: @addonId}
-
-
-
-  ## Is a sc client enabled.
-  App.reqres.setHandler "addon:soundcloud:enabled", ->
-    API.isEnabled()
-
+  ## Provide search settings
+  App.reqres.setHandler "addon:search:settings:" + API.addonId, ->
+    API.searchAddon

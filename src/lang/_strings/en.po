@@ -1019,3 +1019,15 @@ msgstr ""
 "To prevent a mainframe implosion, you should probably give me some "
 "text. I don't really care what it is at this point, why not be creative? "
 "Do you have a %2$s? I won't tell..."
+
+msgctxt ""
+msgid "all media"
+msgstr "all media"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"

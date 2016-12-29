@@ -11,11 +11,7 @@
   }
   .region-content h3, // Depricated.
   h3.set-header {
-    background: $color-white;
-    padding: $spacing-base-unit $spacing-base-unit;
-    margin: 0;
-    font-size: $font-size-heading;
-    @extend .shadow-z-1;
+    @extend %set-header;
   }
   // Set a large max height so can scroll.
   .landing-sections {

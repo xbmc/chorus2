@@ -5,6 +5,6 @@
     isEnabled: ->
       App.request "addon:isEnabled", {type: 'xbmc.pvrclient'}
 
-  ## Is a pvr client enabled.
+  ## Is a pvr client enabled (used for menu visibility).
   App.reqres.setHandler "addon:pvr:enabled", ->
     API.isEnabled()
