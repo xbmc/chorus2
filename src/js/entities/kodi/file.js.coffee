@@ -30,7 +30,7 @@
 
     ## Fetch an entity collection.
     getCollection: (type, options) ->
-      defaultOptions = {cache: true}
+      defaultOptions = {cache: true, useNamedParameters: true}
       options = _.extend defaultOptions, options
       if type is 'sources'
         collection = new KodiEntities.SourceCollection()
@@ -189,11 +189,13 @@
   ## Files collection
   class KodiEntities.FileCollection extends App.KodiEntities.Collection
     model: KodiEntities.File
-    methods: read: ['Files.GetDirectory', 'arg1', 'arg2', 'arg3']
-    arg1: -> @argCheckOption('file', '')
-    arg2: -> @argCheckOption('media', '')
-    arg3: -> helpers.entities.getFields(API.fields, 'small')
-    arg4: -> @argSort("label", "ascending")
+    methods: read: ['Files.GetDirectory', 'directory', 'media', 'properties', 'sort']
+    args: -> @getArgs({
+      directory: @argCheckOption('file', '')
+      media: @argCheckOption('media', '')
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      sort: @argSort('label', 'ascending')
+    })
     parse: (resp, xhr) ->
       items = @getResult resp, 'files'
       API.parseFiles items, @options.media

@@ -6,6 +6,7 @@
         <%= @rating %> <i></i>
     </div>
 </div>
+
 <div class="region-details-meta-below">
 
     <div class="region-details-subtext">

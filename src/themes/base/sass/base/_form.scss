@@ -1,0 +1,15 @@
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  line-height: inherit;
+}
+
+.form-control-wrapper textarea,
+textarea {
+  &, &.form-control {
+    resize: vertical;
+    height: auto !important;
+  }
+}

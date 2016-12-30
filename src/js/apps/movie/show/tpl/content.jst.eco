@@ -1,8 +1,8 @@
 <div class="section-content">
     <h2><%= t.gettext('Synopsis') %></h2>
-    <% if @trailer.source is 'youtube': %>
-        <div class="trailer <%= @trailer.source %>">
-            <img src="<%- @trailer.img %>" />
+    <% if @mediaTrailer.source is 'youtube': %>
+        <div class="trailer <%= @mediaTrailer.source %>">
+            <img src="<%- @mediaTrailer.img %>" />
         </div>
     <% end %>
     <p><%= @plot %></p>
@@ -18,4 +18,8 @@
     </div>
 <% end %>
 
-<div class="region-sets section-content"></div>
+<div class="region-more-1"></div>
+<div class="region-more-2"></div>
+<div class="region-more-3"></div>
+<div class="region-more-4"></div>
+<div class="region-more-5"></div>

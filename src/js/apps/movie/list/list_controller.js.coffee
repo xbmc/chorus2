@@ -55,7 +55,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['title', 'year', 'dateadded', 'rating']
+      sort: ['title', 'year', 'dateadded', 'rating', 'random']
       filter: ['year', 'genre', 'writer', 'director', 'cast', 'set', 'unwatched', 'mpaa', 'studio', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes

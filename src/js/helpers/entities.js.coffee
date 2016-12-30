@@ -56,3 +56,12 @@ helpers.entities.isWatched = (model) ->
 helpers.entities.setProgress = ($el, progress) ->
   progress = progress + '%'
   $el.find('.current-progress').css('width', progress).attr('title', progress + ' ' + t.gettext('complete'))
+
+## Get default options
+helpers.entities.buildOptions = (options) ->
+  defaultOptions = {useNamedParameters: true}
+  # Only cache if we are not using filters.
+  if not options.filter
+    defaultOptions.cache = true
+    defaultOptions.expires = config.get('static', 'collectionCacheExpiry')
+  _.extend defaultOptions, options

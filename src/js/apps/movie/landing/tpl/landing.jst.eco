@@ -1,2 +1,0 @@
-<h3><%= t.gettext("Recently added") %></h3>
-<div class="landing-section region-recently-added"></div>

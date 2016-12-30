@@ -25,6 +25,14 @@
 
   class Show.Details extends App.Views.ItemView
     template: 'apps/album/show/details_meta'
+    triggers:
+      "click .play"       : "album:play"
+      "click .add"        : "album:add"
+      "click .localadd"   : "album:localadd"
+      "click .localplay"  : "album:localplay"
+    onRender: ->
+      $('.description', @$el).attr('title', tr('Click for more')).on 'click', (e) ->
+        $(@).toggleClass('expanded')
 
   class Show.AlbumTeaser extends App.AlbumApp.List.AlbumTeaser
     tagName: "div"

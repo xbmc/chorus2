@@ -49,7 +49,7 @@
           id: 'list'
           children:[
             {id: 'ignoreArticle', title: t.gettext("Ignore article"), type: 'checkbox', defaultValue: true, description: t.gettext("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
-            {id: 'albumAtristsOnly', title: t.gettext("Album artists only"), type: 'checkbox', defaultValue: true, description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
+            {id: 'albumArtistsOnly', title: t.gettext("Album artists only"), type: 'checkbox', defaultValue: true, description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
             {id: 'playlistFocusPlaying', title: t.gettext("Focus playlist on playing"), type: 'checkbox', defaultValue: true, description: t.gettext('Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed')}
           ]
         }

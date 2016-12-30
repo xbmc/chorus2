@@ -170,11 +170,12 @@
           # this is to prevent an open dialog preventing api requests
           # Instead of encouraging entering random shizzle how about it's just cancelled and a message saying why?
           App.inputTimeout = setTimeout((->
-            msg = wait + t.gettext(' seconds ago, an input dialog opened on xbmc and it is still open! To prevent ' +
-              'a mainframe implosion, you should probably give me some text. I don\'t really care what it is at this point, ' +
-              'why not be creative? Do you have a ') +
-              '<a href="http://goo.gl/PGE7wg" target="_blank">' + t.gettext('word of the day') + '</a>? ' +
-              t.gettext('I won\'t tell...')
+            wotd = '<a href="http://goo.gl/PGE7wg" target="_blank">word of the day</a>'
+            msg = t.sprintf(
+              "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent " +
+              "a mainframe implosion, you should probably give me some text. I don't really care what it " +
+              "is at this point, why not be creative? Do you have a %2$s? I won't tell...", wait, wotd
+            )
             App.execute "input:textbox", msg
             return
           ), 1000 * wait)

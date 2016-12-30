@@ -5,28 +5,31 @@
 
 </div>
 
-<div class="api-method--execute">
-    <h3>Execute <strong><%= @method %></strong> with these params:</h3>
-        <textarea class="api-method--params" placeholder='Eg. ["arg", "foo", true]'></textarea>
-        <p class="description">Parameters get parsed by
-            <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse</a>.
-            Check the console for response objects, you will get an 'unexpected token' error if parsing failed.
-            Params should be an array '[]' matching below 'Method params'. Only use double quotes for strings/keys.
-        </p>
-        <p class="description">
-            Eg. [true] or [255, ["born", "formed", "thumbnail"]] or [] or [255]. Brackets required.
-        </p>
-    <p><button class="btn btn-primary" id="send-command">Send Command</button></p>
+<% if @type is 'method': %>
+    <div class="api-method--execute">
+        <h3>Execute <strong><%= @method %></strong> with these params:</h3>
+            <textarea class="api-method--params" placeholder='Eg. ["arg", "foo", true]'></textarea>
+            <p class="description">Parameters get parsed by
+                <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse</a>.
+                Check the console for response objects, you will get an 'unexpected token' error if parsing failed.
+                Params should be an array '[]' matching below 'Method params'. Only use double quotes for strings/keys.
+            </p>
+            <p class="description">
+                Pass params as array Eg. [true] or [255, ["born", "formed", "thumbnail"]] or [] or [255]. Brackets required.<br />
+                Pass params as object Eg. {songid: 255} or {songid: 255, fields: ["born", "formed", "thumbnail"]}. Braces required.<br />
+            </p>
+        <p><button class="btn btn-primary" id="send-command">Send Command</button></p>
 
-</div>
+    </div>
+<% end %>
 
 <div class="api-method--result" id="api-result"></div>
 
-<h3>Method Params</h3>
+<h3><% if @type is 'method': %>Method <% end %>Params</h3>
 <div class="api-method--params"></div>
 
-<hr />
-
-<h3>Method Returns</h3>
-<div class="api-method--return"></div>
-
+<% if @type is 'method': %>
+    <hr />
+    <h3>Method Returns</h3>
+    <div class="api-method--return"></div>
+<% end %>

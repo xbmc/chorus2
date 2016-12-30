@@ -8,12 +8,39 @@
   }
   .region-content {
     padding: 0;
-    h3 {
-      background: $color-white;
-      padding: $spacing-base-unit $spacing-base-unit;
-      margin: 0;
-      font-size: $font-size-heading;
-      @extend .shadow-z-1;
+  }
+  .region-content h3, // Depricated.
+  h3.set-header {
+    @extend %set-header;
+  }
+  // Set a large max height so can scroll.
+  .landing-sections {
+    position: relative;
+    z-index: 10;
+  }
+  .landing-content {
+    .landing-loading & {
+      min-height: 3000px;
     }
   }
+}
+
+#landing-hero {
+  display: none;
+  background-color: $color-detail-header-background;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 600px;
+  position: relative;
+  z-index: 1;
+
+  @include at-bp(large) {
+    display: block;
+  }
+
+  // Uncomment to enable blur
+  //margin: 0 -10%;
+  //@include filter(blur(30px));
 }

@@ -1,0 +1,9 @@
+<div class="sidebar-section sidebar-section-media">
+    <h3>Local media</h3>
+    <ul class="search-media-links"></ul>
+</div>
+
+<div class="sidebar-section sidebar-section-addon">
+    <h3>Addons</h3>
+    <ul class="search-addon-links"></ul>
+</div>

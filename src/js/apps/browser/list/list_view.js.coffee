@@ -82,10 +82,12 @@
 
   class List.FolderList extends App.Views.CollectionView
     tagName: 'ul'
+    className: 'browser-folder-list'
     childView: List.Folder
 
   class List.FileList extends App.Views.CollectionView
     tagName: 'ul'
+    className: 'browser-file-list'
     childView: List.File
     emptyView: List.EmptyFiles
 

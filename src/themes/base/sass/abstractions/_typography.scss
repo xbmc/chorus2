@@ -18,3 +18,11 @@
   opacity: 0.4;
   font-size: 0.85em;
 }
+
+%set-header {
+  background: $color-white;
+  padding: $spacing-base-unit $spacing-base-unit;
+  margin: 0;
+  font-size: $font-size-heading;
+  @extend .shadow-z-1;
+}

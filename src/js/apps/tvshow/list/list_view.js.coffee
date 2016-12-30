@@ -8,6 +8,7 @@
       "click .play"       : "tvshow:play"
       "click .watched"    : "tvshow:watched"
       "click .add"        : "tvshow:add"
+      "click .edit"       : "tvshow:edit"
     initialize: ->
       super
       subtitle = ''

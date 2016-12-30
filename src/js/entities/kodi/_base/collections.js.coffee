@@ -7,7 +7,6 @@
     ## Common jsonrpc settings.
     url: -> helpers.url.baseKodiUrl "Collection"
     rpc: new Backbone.Rpc({
-      useNamedParameters: true,
       namespaceDelimiter: ''
     })
 
@@ -35,8 +34,8 @@
 
     ## Common arg patterns all checking if the params exist in options first.
     argCheckOption: (option, fallback) ->
-      if this.options? and this.options[option]?
-        this.options[option]
+      if @options? and @options[option]?
+        @options[option]
       else
         fallback
 
@@ -57,8 +56,26 @@
       arg = {}
       if name?
         arg[name] = value
+      else
+        arg = undefined
       @argCheckOption 'filter', arg
+
+    ## Allow replacing fields (fields) or adding additional fields (addFields) via options.
+    ## Both expect an array.
+    argFields: (fields) ->
+      if @options? and @options.fields?
+        fields = @options.fields
+      if @options? and @options.addFields?
+        for field in @options.addFields
+          if not helpers.global.inArray field, fields
+            fields.push field
+      fields
 
     ## Should we ignore article when sorting?
     isIgnoreArticle: ->
       config.getLocal 'ignoreArticle', true
+
+    ## Get Args
+    getArgs: (defaults) ->
+      args = if @options? then _.extend(defaults, @options) else defaults
+      args

@@ -71,7 +71,7 @@
 
     ## Get the episodes
     getEpisodes: (tvshow, seasonId) ->
-      collection = App.request "episode:entities", tvshow.get('tvshowid'), seasonId
+      collection = App.request "episode:tvshow:entities", tvshow.get('tvshowid'), seasonId
       App.execute "when:entity:fetched", collection, =>
         collection.sortCollection('episode', 'asc')
         view = App.request "episode:list:view", collection

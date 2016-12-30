@@ -9,7 +9,7 @@
     fields:
       minimal: ['title']
       small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes', 'cast', 'studio', 'mpaa']
-      full: ['fanart', 'imdbnumber', 'episodeguide', 'plot', 'tag']
+      full: ['fanart', 'imdbnumber', 'episodeguide', 'plot', 'tag', 'sorttitle', 'originaltitle', 'premiered', 'art']
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -20,10 +20,8 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
-      options = _.extend defaultOptions, options
       collection = new KodiEntities.TVShowCollection()
-      collection.fetch options
+      collection.fetch helpers.entities.buildOptions(options)
       collection
 
   ###
@@ -46,17 +44,14 @@
   ## TVShowss collection
   class KodiEntities.TVShowCollection extends App.KodiEntities.Collection
     model: KodiEntities.TVShow
-    methods: read: ['VideoLibrary.GetTVShows', 'arg1', 'arg2', 'arg3']
-    arg1: -> helpers.entities.getFields(API.fields, 'small')
-    arg2: -> @argLimit()
-    arg3: -> @argSort("title", "ascending")
+    methods: read: ['VideoLibrary.GetTVShows', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs({
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
+      sort: @argSort('title', 'ascending')
+      filter: @argFilter()
+    })
     parse: (resp, xhr) -> @getResult resp, 'tvshows'
-
-
-  ## Filtered TVShows collection
-  class KodiEntities.TVShowFilteredCollection extends KodiEntities.TVShowCollection
-    methods: read: ['VideoLibrary.GetTVShowss', 'arg1', 'arg2', 'arg3', 'arg4']
-    arg4: -> @argFilter()
 
   ###
    Request Handlers.
@@ -69,12 +64,3 @@
   ## Get an tvshow collection
   App.reqres.setHandler "tvshow:entities", (options = {}) ->
     API.getCollection options
-
-  ## Get a search collection
-  App.commands.setHandler "tvshow:search:entities", (query, limit, callback) ->
-    collection = API.getCollection {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered

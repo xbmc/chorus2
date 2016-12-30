@@ -91,6 +91,14 @@ $color-side: #F9F9F9;
       }
     }
   }
+  .empty--page-content {
+    @extend %text--dim;
+  }
+}
+
+.folder-layout,
+.browser-file-list,
+.browser-folder-list {
   .folder, .file, .back-button {
     height: $file-row-height + 2;
     position: relative;
@@ -144,8 +152,5 @@ $color-side: #F9F9F9;
         width: $file-row-height;
       }
     }
-  }
-  .empty--page-content {
-    @extend %text--dim;
   }
 }

@@ -21,18 +21,9 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry')}
+      defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
       options = _.extend defaultOptions, options
-      if options.season is 'all'
-        collection = new KodiEntities.EpisodeAllCollection()
-      else
-        collection = new KodiEntities.EpisodeCollection()
-      collection.fetch options
-      collection
-
-    ## Fetch a recently added entity collection.
-    getRecentlyAddedCollection: (options) ->
-      collection = new KodiEntities.EpisodeRecentlyAddedCollection()
+      collection = new KodiEntities.EpisodeCollection()
       collection.fetch options
       collection
 
@@ -56,27 +47,15 @@
   ## Episodes collection
   class KodiEntities.EpisodeCollection extends App.KodiEntities.Collection
     model: KodiEntities.Episode
-    methods: read: ['VideoLibrary.GetEpisodes', 'arg1', 'arg2', 'arg3']
-    arg1: ->@argCheckOption('tvshowid', 0)
-    arg2: ->@argCheckOption('season', 0)
-    arg3: -> helpers.entities.getFields(API.fields, 'small')
-    arg4: -> @argLimit()
-    arg5: -> @argSort("episode", "ascending")
-    parse: (resp, xhr) -> @getResult resp, 'episodes'
-
-  ## All Episodes collection (for adding to playlist)
-  class KodiEntities.EpisodeAllCollection extends App.KodiEntities.Collection
-    model: KodiEntities.Episode
-    methods: read: ['VideoLibrary.GetEpisodes', 'arg1']
-    arg1: ->@argCheckOption('tvshowid', 0)
-    parse: (resp, xhr) -> @getResult resp, 'episodes'
-
-  ## Episodes collection
-  class KodiEntities.EpisodeRecentlyAddedCollection extends App.KodiEntities.Collection
-    model: KodiEntities.Episode
-    methods: read: ['VideoLibrary.GetRecentlyAddedEpisodes', 'arg1', 'arg2']
-    arg1: -> helpers.entities.getFields(API.fields, 'small')
-    arg2: -> @argLimit()
+    methods: read: ['VideoLibrary.GetEpisodes', 'tvshowid', 'season', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs({
+      tvshowid: @argCheckOption('tvshowid', undefined)
+      season: @argCheckOption('season', undefined)
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
+      sort: @argSort("episode", "ascending")
+      filter: @argCheckOption('filter', undefined)
+    })
     parse: (resp, xhr) -> @getResult resp, 'episodes'
 
   ## Episode Custom collection, assumed passed an array of raw entity data.
@@ -92,14 +71,16 @@
     API.getEntity id, options
 
   ## Get an episode collection
-  App.reqres.setHandler "episode:entities", (tvshowid, season, options = {}) ->
-    options.tvshowid = tvshowid
-    options.season = season
+  App.reqres.setHandler "episode:entities", (options = {}) ->
     API.getCollection options
 
-  ## Get a recently added episode collection
-  App.reqres.setHandler "episode:recentlyadded:entities", (options = {}) ->
-    API.getRecentlyAddedCollection options
+  ## Get an episode collection
+  App.reqres.setHandler "episode:tvshow:entities", (tvshowid, season, options = {}) ->
+    if tvshowid isnt 'all'
+      options.tvshowid = tvshowid
+      if season isnt 'all'
+        options.season = season
+    API.getCollection options
 
   ## Given an array of models, return as collection.
   App.reqres.setHandler "episode:build:collection", (items) ->

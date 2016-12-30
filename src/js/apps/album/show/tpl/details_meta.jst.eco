@@ -1,19 +1,38 @@
-<div class="region-details-title">
-    <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
+<div class="region-details-top">
+    <div class="region-details-title">
+        <h2><span class="title"><%= @label %></span> <span class="sub"><a href="#music/albums?year=<%= @year %>"><%= @year %></a></span></h2>
+    </div>
+    <% if @rating: %>
+    <div class="region-details-rating">
+        <%= @rating %> <i></i>
+    </div>
+    <% end %>
 </div>
-
-
 
 <div class="region-details-meta-below">
 
-    <div class="artist"><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></div>
-
-    <% if @genre.length > 0: %>
-    <div class="album-genres">
-        <%- helpers.url.filterLinks('music/albums', 'genre', @genre) %>
-    </div>
-    <% end %>
+    <ul class="meta">
+        <% if @artist: %>
+            <li><label><%= tr("artist") %>:</label> <span><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></span></li>
+        <% end %>
+        <% if @genre.length > 0: %>
+            <li><label><%= t.ngettext("genre", "genres", @genre.length) %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'genre', @genre) %></span></li>
+        <% end %>
+        <% if @style.length: %>
+            <li><label><%= t.ngettext("style", "styles", @style.length) %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'style', @style) %></span></li>
+        <% end %>
+        <% if @albumlabel: %>
+            <li><label><%= tr("label") %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'albumlabel', [@albumlabel]) %></span></li>
+        <% end %>
+    </ul>
 
     <div class="description"><%= @description %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
+        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+        <li class="btn-flat-add localadd"><%= t.gettext('Add to playlist') %></li>
+        <li class="btn-flat-stream localplay"><%= t.gettext('Play in browser') %></li>
+    </ul>
 
 </div>

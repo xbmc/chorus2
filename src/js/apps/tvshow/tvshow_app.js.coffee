@@ -2,16 +2,12 @@
 	
   class TVShowApp.Router extends App.Router.Base
     appRoutes:
-      "tvshows/recent"   	                  : "landing"
       "tvshows"   	                        : "list"
       "tvshow/:tvshowid"	                  : "view"
       "tvshow/:tvshowid/:season"	          : "season"
       "tvshow/:tvshowid/:season/:episodeid"	: "episode"
 
   API =
-
-    landing: ->
-      new TVShowApp.Landing.Controller()
 
     list: ->
       new TVShowApp.List.Controller()
@@ -42,7 +38,6 @@
       progress = if op is 'watched' then 100 else 0
       $el[classOp]('is-watched')
       helpers.entities.setProgress($el, progress)
-      helpers.entities.setProgress($el.closest('.episode-show'), progress)
       $layout = $el.closest('.tv-collection')
       # If on a TV show or season page we also need set progress and watched on child collection
       if setChildren
@@ -54,7 +49,7 @@
       $layout
 
     getAllEpisodesCollection: (tvshowid, season, callback) ->
-      collectionAll = App.request "episode:entities", tvshowid, season
+      collectionAll = App.request "episode:tvshow:entities", tvshowid, season
       App.execute "when:entity:fetched", collectionAll, =>
         callback collectionAll
 
@@ -116,13 +111,15 @@
         'localplay': tr('Play in browser')
         'divider-2': ''
         'goto-season': tr('Go to season')
+        'divider-3': ''
+        'edit': tr('Edit')
       }
     }
 
   App.reqres.setHandler 'tvshow:action:items', ->
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
-      menu: {add: tr('Queue in Kodi')}
+      menu: {add: tr('Queue in Kodi'), 'divider-': '', 'edit': tr('Edit')}
     }
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
@@ -138,6 +135,19 @@
   App.commands.setHandler 'episode:action:watched', (parent, viewItem) ->
     API.toggleWatchedUiState parent.$el, false
     API.episodeAction 'toggleWatched', viewItem
+
+  App.commands.setHandler 'tvshow:edit', (model) ->
+    loadedModel = App.request "tvshow:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new TVShowApp.EditShow.Controller
+        model: loadedModel
+
+  App.commands.setHandler 'episode:edit', (model) ->
+    loadedModel = App.request "episode:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new TVShowApp.EditEpisode.Controller
+        model: loadedModel
+
 
   App.on "before:start", ->
     new TVShowApp.Router
