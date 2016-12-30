@@ -58,6 +58,12 @@ This looks like the best we can get until Kodi supports transcoding.
 You can change most of the settings you would find in Kodi via the settings page in the web interface.
 Some settings have been omitted as they require interaction with the GUI and others are just a basic text field with no options.
 
+## Kodi API browser
+There is a hidden feature in Chorus that allows you to play with the Kodi API and see what is capable via the JSON-RPC
+interface. If you are building an app or addon that uses the API this can be super useful for both finding and testing
+all the methods and types available. If you are thinking about a new feature for Chorus, this is also a great place to
+test if it is possible (and fast track development by adding a working example to an issue). You can find the API browser
+via "Chorus Lab" (bottom right 3 vertical dots > "The Lab") or directly via `http://localhost:8080/#lab/api-browser`.
 
 ## Contributing
 If you would like to make this project better I would appreciate any help. Please do pull requests against the `develop` branch.
