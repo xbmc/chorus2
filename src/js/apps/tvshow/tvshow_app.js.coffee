@@ -111,13 +111,15 @@
         'localplay': tr('Play in browser')
         'divider-2': ''
         'goto-season': tr('Go to season')
+        'divider-3': ''
+        'edit': tr('Edit')
       }
     }
 
   App.reqres.setHandler 'tvshow:action:items', ->
     {
       actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
-      menu: {add: tr('Queue in Kodi')}
+      menu: {add: tr('Queue in Kodi'), 'divider-': '', 'edit': tr('Edit')}
     }
 
   App.commands.setHandler 'tvshow:action:watched', (parent, viewItem, setChildren = false) ->
@@ -133,6 +135,19 @@
   App.commands.setHandler 'episode:action:watched', (parent, viewItem) ->
     API.toggleWatchedUiState parent.$el, false
     API.episodeAction 'toggleWatched', viewItem
+
+  App.commands.setHandler 'tvshow:edit', (model) ->
+    loadedModel = App.request "tvshow:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new TVShowApp.EditShow.Controller
+        model: loadedModel
+
+  App.commands.setHandler 'episode:edit', (model) ->
+    loadedModel = App.request "episode:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new TVShowApp.EditEpisode.Controller
+        model: loadedModel
+
 
   App.on "before:start", ->
     new TVShowApp.Router

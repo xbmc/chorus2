@@ -9,6 +9,7 @@
       "click .dropdown .add" : "artist:add"
       "click .dropdown .localadd" : "artist:localadd"
       "click .dropdown .localplay" : "artist:localplay"
+      "click .dropdown .edit" : "artist:edit"
 
     initialize: ->
       super

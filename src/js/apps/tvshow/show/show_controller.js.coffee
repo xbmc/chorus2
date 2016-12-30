@@ -9,8 +9,8 @@
         App.execute 'tvshow:action', 'add', view
       App.listenTo view, 'toggle:watched', (view) ->
         App.execute 'tvshow:action:watched', view.view, view.view, true
-      App.listenTo view, 'tvshow:edit', (view) ->
-        App.execute 'tvshow:action', 'edit', view
+      App.listenTo view, 'childview:tvshow:edit', (view) ->
+        App.execute 'tvshow:edit', view.model
 
     bindTriggersTVSeason: (view) ->
       App.listenTo view, 'childview:season:play', (parent, viewItem) ->

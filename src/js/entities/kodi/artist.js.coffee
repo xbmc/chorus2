@@ -5,7 +5,7 @@
     ## Get an artists fields.
     getArtistFields: (type = 'small')->
       baseFields = ['thumbnail', 'mood', 'genre', 'style']
-      extraFields = ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive']
+      extraFields = ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument']
       if type is 'full'
         fields = baseFields.concat( extraFields )
         fields

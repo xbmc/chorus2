@@ -9,6 +9,7 @@
       "click .localplay"   : "episode:localplay"
       "click .download"    : "episode:download"
       "click .goto-season" : "episode:goto:season"
+      "click .edit"        : "episode:edit"
     initialize: ->
       super
       if @model?

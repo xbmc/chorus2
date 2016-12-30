@@ -17,7 +17,7 @@
       App.listenTo view, 'childview:tvshow:watched', (parent, viewItem) ->
         App.execute 'tvshow:action:watched', parent, viewItem
       App.listenTo view, 'childview:tvshow:edit', (parent, viewItem) ->
-        App.execute 'tvshow:action', 'edit', viewItem
+        App.execute 'tvshow:edit', viewItem.model
 
   ## Main controller
   class List.Controller extends App.Controllers.Base

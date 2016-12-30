@@ -11,6 +11,8 @@
         App.execute 'album:action', 'localadd', item
       App.listenTo view, 'childview:album:localplay', (list, item) ->
         App.execute 'album:action', 'localplay', item
+      App.listenTo view, 'childview:album:edit', (parent, item) ->
+        App.execute 'album:edit', item.model
 
     getAlbumsList: (collection, set = false) ->
       viewName = if set then 'AlbumsSet' else 'Albums'

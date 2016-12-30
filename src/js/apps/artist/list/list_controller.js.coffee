@@ -11,6 +11,8 @@
         App.execute 'artist:action', 'localadd', item
       App.listenTo view, 'childview:artist:localplay', (list, item) ->
         App.execute 'artist:action', 'localplay', item
+      App.listenTo view, 'childview:artist:edit', (parent, item) ->
+        App.execute 'artist:edit', item.model
 
     getArtistList: (collection, set = false) ->
       viewName = if set then 'ArtistsSet' else 'Artists'

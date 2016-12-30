@@ -90,7 +90,7 @@ select[multiple].form-control {
     .input-lg ~ .material-input:after {
         height: 26px;
     }
-    textarea { resize: none; }
+    textarea { resize: inherit; }
     textarea ~ .form-control-highlight {
         margin-top: -11px;
     }

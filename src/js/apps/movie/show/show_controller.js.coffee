@@ -74,7 +74,7 @@
     getContentView: (movie) ->
       @contentLayout = new Show.Content model: movie
       @listenTo @contentLayout, "movie:youtube", (view) ->
-        trailer = movie.get('trailer')
+        trailer = movie.get('mediaTrailer')
         App.execute "ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id
       @listenTo @contentLayout, 'show', =>
         if movie.get('cast').length > 0

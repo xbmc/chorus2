@@ -20,7 +20,7 @@
         @doCallback callback, resp
 
     ## Set a song value
-    setArtistDetails: (id, fields = {}, callback) ->
+    setSongDetails: (id, fields = {}, callback) ->
       params = {songid: id}
       params = _.extend params, fields
       @singleCommand @getCommand('SetSongDetails'), params, (resp) =>

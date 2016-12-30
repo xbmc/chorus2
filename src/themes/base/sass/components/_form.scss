@@ -38,3 +38,9 @@ form {
 .form-type-hide {
   display: none;
 }
+
+.form-item-half-width {
+  width: 50%;
+  float: left;
+  padding-right: $spacing-half-unit;
+}

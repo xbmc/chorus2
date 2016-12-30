@@ -20,6 +20,7 @@
 
     formSubmit: (options) ->
       data = Backbone.Syphon.serialize @formLayout
+      data = App.request "form:value:entities", options.form, data
       @processFormSubmit data, options
 
     processFormSubmit: (data, options) ->
@@ -54,5 +55,6 @@
     formController = new Form.Controller options
     formContent = formController.formLayout.render().$el
     formController.formLayout.trigger 'show'
-    App.execute "ui:modal:form:show", options.title, formContent
+    popupStyle = if options.config.editForm then 'edit-form' else 'form'
+    App.execute "ui:modal:form:show", options.title, formContent, popupStyle
 

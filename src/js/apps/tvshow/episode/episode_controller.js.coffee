@@ -18,6 +18,8 @@
         App.execute 'episode:action:watched', parent, viewItem
       App.listenTo view, 'childview:episode:goto:season', (parent, viewItem) ->
         App.execute 'episode:action', 'gotoSeason', viewItem
+      App.listenTo view, 'childview:episode:edit', (parent, viewItem) ->
+        App.execute 'episode:edit', viewItem.model
       view
 
     ## triggers for full view.
@@ -32,7 +34,8 @@
         App.execute 'episode:action', 'download', viewItem
       App.listenTo view, 'toggle:watched', (viewItem) ->
         App.execute 'episode:action:watched', viewItem.view, viewItem.view
-
+      App.listenTo view, 'episode:edit', (viewItem) ->
+        App.execute 'episode:edit', viewItem.model
 
 
   ## Main controller

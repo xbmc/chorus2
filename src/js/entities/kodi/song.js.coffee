@@ -7,7 +7,7 @@
     fields:
       minimal: ['title', 'file']
       small: ['thumbnail', 'artist', 'artistid', 'album', 'albumid', 'lastplayed', 'track', 'year', 'duration']
-      full: ['fanart', 'genre', 'style', 'mood', 'born', 'formed', 'description', 'lyrics']
+      full: ['fanart', 'genre', 'disc', 'rating', 'albumartist']
 
     ## Fetch a single song
     getSong: (id, options) ->
@@ -108,7 +108,7 @@
     defaults: ->
       fields = _.extend(@modelDefaults, {songid: 1, artist: ''})
       @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
-    methods: read: ['AudioLibrary.GetSongDetails', 'songidid', 'properties']
+    methods: read: ['AudioLibrary.GetSongDetails', 'songid', 'properties']
     parse: (resp, xhr) ->
       ## If fetched directly, look in artist details and mark as fully loaded
       obj = if resp.songdetails? then resp.songdetails else resp

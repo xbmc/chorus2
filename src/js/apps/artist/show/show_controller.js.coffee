@@ -64,7 +64,6 @@
       songs = App.request "song:entities", options
       App.execute "when:entity:fetched", songs, =>
         songsCollections = App.request "song:albumparse:entities", songs
-        console.log songsCollections
         albumsCollection = App.request "albums:withsongs:view", songsCollections
         @layout.regionContent.show albumsCollection
 

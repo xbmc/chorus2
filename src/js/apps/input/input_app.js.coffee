@@ -68,6 +68,11 @@
       if $(e.target).is("input, textarea, select")
         return
 
+      ## Don't do anything for white listed commands like CTRL, ALT, SHIFT, etc
+      whiteListCommands = [17, 16, 9, 91, 18, 70]
+      if helpers.global.inArray e.which, whiteListCommands
+        return
+
       # If no Kodi control and not on the remote page
       if not kodiControl and not remotePage
         return

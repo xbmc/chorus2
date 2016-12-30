@@ -22,7 +22,8 @@
     parseAttributes: (attrs) ->
       a = []
       for attr, val of attrs
-        a.push "#{attr}='#{val}'"
+        val = String(val).split('"').join('&quot;')
+        a.push attr + '="' + val + '"'
       a.join(' ')
 
     # Make a tag

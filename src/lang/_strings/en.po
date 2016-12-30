@@ -1025,5 +1025,161 @@ msgid "SoundCloud"
 msgstr "SoundCloud"
 
 msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
 msgid "First aired"
 msgstr "First aired"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Updated %1$s details"
+
+msgctxt ""
+msgid "Title"
+msgstr "Title"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Plot"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Rating"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Original title"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Directors"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Writers"
+
+msgctxt ""
+msgid "File path"
+msgstr "File path"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Artist"
+
+msgctxt ""
+msgid "Description"
+msgstr "Description"
+
+msgctxt ""
+msgid "Label"
+msgstr "Label"
+
+msgctxt ""
+msgid "Year"
+msgstr "Year"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Styles"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Themes"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Moods"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Album artist"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Track"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Disc"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Tagline"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Content rating"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiered"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Sort title"
+
+msgctxt ""
+msgid "Country"
+msgstr "Country"
+
+msgctxt ""
+msgid "Set"
+msgstr "Set"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Formed"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Disbanded"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Years Active"
+
+msgctxt ""
+msgid "Born"
+msgstr "Born"
+
+msgctxt ""
+msgid "Died"
+msgstr "Died"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instruments"

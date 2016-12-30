@@ -25,12 +25,6 @@
       collection.fetch helpers.entities.buildOptions(options)
       collection
 
-#      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
-#      options = _.extend defaultOptions, options
-#      albums = new KodiEntities.AlbumCollection()
-#      albums.fetch options
-#      albums
-
   ###
    Models and collections.
   ###
@@ -47,6 +41,7 @@
     parse: (resp, xhr) ->
       ## If fetched directly, look in album details and mark as fully loaded
       obj = if resp.albumdetails? then resp.albumdetails else resp
+      obj.title = obj.label
       if resp.albumdetails?
         obj.fullyloaded = true
       @parseModel 'album', obj, obj.albumid

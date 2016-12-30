@@ -1,4 +1,4 @@
-@Kodi.module "MovieApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
+@Kodi.module "TVShowApp.EditShow", (Edit, App, Backbone, Marionette, $, _) ->
 
   class Edit.Controller extends App.Controllers.Base
 
@@ -24,7 +24,6 @@
           id: 'general'
           children:[
             {id: 'title', title: tr('Title'), type: 'textfield'},
-            {id: 'plotoutline', title: tr('Tagline'), type: 'textfield'},
             {id: 'plot', title: tr('Plot'), type: 'textarea'},
             {id: 'studio', title: tr('Studio'), type: 'textfield', format: 'array.string'},
             {id: 'mpaa', title: tr('Content rating'), type: 'textfield', attributes: {class: 'half-width'}},
@@ -39,26 +38,8 @@
           title: 'Tags'
           id: 'tags'
           children:[
-            {id: 'director', title: tr('Directors'), type: 'textfield', format: 'array.string'},
-            {id: 'writer', title: tr('Writers'), type: 'textfield', format: 'array.string'},
             {id: 'genre', title: tr('Genres'), type: 'textfield', format: 'array.string'},
-            {id: 'country', title: tr('Country'), type: 'textfield', format: 'array.string'},
-            {id: 'set', title: tr('Set'), type: 'textfield'},
             {id: 'tag', title: tr('Tags'), type: 'textarea', format: 'array.string'},
-          ]
-        }
-        {
-          title: 'Other media'
-          id: 'media'
-          children:[
-            {id: 'trailer', title: tr('Trailer'), type: 'textfield'},
-          ]
-        }
-        {
-          title: 'Information'
-          id: 'info'
-          children:[
-            {id: 'file', title: tr('File path'), type: 'textarea', attributes: {disabled: 'disabled', cols: 5}, format: 'prevent.submit'},
           ]
         }
       ]
@@ -66,5 +47,5 @@
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
-      controller.setMovieDetails @model.get('id'), data, ->
-        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'movie')
+      controller.setTVShowDetails @model.get('id'), data, ->
+        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'tvshow')
