@@ -15,27 +15,37 @@ A complete rebuild using Coffee Script, Backbone, Marionette and much, much more
 
 ## Current state
 Pretty good, most things work really well. Other things need [polish/finishing/fixing](https://github.com/xbmc/chorus2/issues). 
-
+Still considered beta software, expect bugs, changes, nuclear war, etc.
 
 ## Getting it working
-Disclaimer: Beta software, expect bugs, changes, nuclear war, etc.
+As of Kodi v17, Chorus2 comes pre-installed out of the box, you just need to enable it and tick a few boxes.
 
-### Installing
-Install via zip is the easiest way to go. Grab the latest release of webinterface.default.2.X.X.zip from the [releases page](https://github.com/xbmc/chorus2/releases) then install it [like this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file)
+### Enabling & Configuring
+Kodi > Settings (cog) > Services > Control
 
-### Configuring
-* Kodi > System > Settings > Services
-* Remote Control
-    * Enable "Allow programs on this system to control Kodi"
-    * Enable "Allow programs on other systems to control Kodi"
-* Webserver
-    * Enable "Allow control of Kodi via HTTP"
-    * Select Web interface
-    * Select Chorus2
+* Enable "Allow control of Kodi via HTTP"
+* Select Web interface
+* Select "Kodi web interface - Chorus2"
+* Enable "Allow programs on this system to control Kodi"
+* Enable "Allow programs on other systems to control Kodi"
 
+**For security reasons you should set a username and password to prevent unauthorised access**
+
+### Manual install
+For Kodi v16 and below or if you want to get the latest version ASAP, an install via zip is the easiest way to go. Grab the
+latest release of `webinterface.default.2.X.X.zip` from the [releases page](https://github.com/xbmc/chorus2/releases) then
+install it [like this](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file). **NOTE:** Chorus2 is intended to
+be used with the latest version of Kodi and some (or all) things might not work in older versions due to API changes.
+
+### Using it
+Point your web browser to `http://localhost:8080` - replace `localhost` with your IP address if using remotely and if
+you have changed your port to something other than `8080` be sure to change that too. More information and advanced
+usage can be found over on the [Kodi Wiki page](http://kodi.wiki/view/Web_interface).
 
 ## Feature requests / Bugs
-Add them to the [list](https://github.com/xbmc/chorus2/issues)
+Add them to the [list](https://github.com/xbmc/chorus2/issues). For bugs please include Kodi version, Web browser version,
+Chorus version and any errors that display in the console. For feature requests, checkout the API browser to see if your
+request is currently possible.
 
 
 ## Streaming 
@@ -52,7 +62,7 @@ playlists by clicking the menu buttons (three dots vertical) on most media items
 Video streaming via HTML5 "sort of" works, it really depends on the codec used. An embedded VLC player is also available with better codec support.
 This looks like the best we can get until Kodi supports transcoding.
 **Chrome users**: Chrome has removed support for vlc/divx plugins so streaming a video requires a [Chrome friendly codec](https://en.wikipedia.org/wiki/HTML5_video#Browser_support).
-
+For best results use Chrome with mp4 video that has 2 channel audio (5.1 audio doesn't seem to work).
 
 ## Kodi settings via the web interface
 You can change most of the settings you would find in Kodi via the settings page in the web interface.
@@ -67,17 +77,20 @@ via "Chorus Lab" (bottom right 3 vertical dots > "The Lab") or directly via `htt
 
 ## Contributing
 If you would like to make this project better I would appreciate any help. Please do pull requests against the `develop` branch.
+I am happy to assist with getting an development environment up and running if you are happy to contribute.
 
 ### Translations
-I only know English so definitely need help with this.  
-I also don't know heaps about javascript multilingual stuff but thanks to @mizaki we have a structure ready to go. 
-So it should be nice and easy to translate the UI. 
+I only know English so definitely need help with this. I also don't know heaps about javascript multilingual stuff but
+thanks to [@mizaki](https://github.com/mizaki) we have a structure ready to go. So it should be nice and easy to translate the UI.
 
-At the moment, there is 5 languages (english,french,german,dutch,chinese) more can be easily added.
-To contribute, send me a PR on a new branch against `develop`, or if you don't know git, a link to the language file.
+At the moment, there are [a handful](https://github.com/xbmc/chorus2/tree/master/src/lang/_strings) of languages available
+but more can be easily added. More strings are always being added so always consider english as the source of truth.
+
+So if you see something in english but want it in your language, I need you! To contribute, send me a PR on a new branch
+against `develop`, or if you don't know git, a link to the language file.
 
 Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
-English is the only real complete translation file so start with that as your base. 
+*English is the only real complete translation file so start with that as your base.*
 
 ### Compiling
 Sass and Grunt are used to compile css and js in the dist folder.
@@ -95,6 +108,11 @@ A build will also include translation files.
 
 ## Donate
 Are you a fan of Chorus? You can [buy Jeremy a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
+
+## License
+Chorus is licensed under the Creative Commons Attribution-Share Alike 3.0 United States License.
+[Click here for more information ](https://github.com/xbmc/chorus2/blob/master/src/lang/en/license.md).
+
 
 ## Screenshots
 
@@ -120,3 +138,6 @@ Are you a fan of Chorus? You can [buy Jeremy a beer](https://www.paypal.com/cgi-
 
 ### Add-ons
 ![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/addons.jpg "Add-ons")
+
+### Editing media
+![alt text](https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/edit-media.jpg "Editing Media")
