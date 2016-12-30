@@ -130,6 +130,11 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
     @include at-bp(xlarge) {
       padding-right: 10%;
     }
+    .movie-details & {
+      max-height: none;
+      cursor: default;
+      color: rgba($color-white, 0.8);
+    }
   }
   .meta {
     margin: $spacing-base-unit 0;
@@ -142,7 +147,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
   }
   .runtime {
     font-size: 120%;
-    margin-bottom: $spacing-half-unit;
+    margin-bottom: 0.6em;
     float: left;
   }
   .genres {

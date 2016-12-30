@@ -39,6 +39,7 @@
         {title: t.gettext('Changelog'), path: 'help/app-changelog'}
 	      {title: t.gettext('Keyboard'), path: 'help/keybind-readme'}
         {title: t.gettext('Translations'), path: 'help/lang-readme'}
+        {title: t.gettext('License'), path: 'help/license'}
       ]
 
   # Subnav for help
