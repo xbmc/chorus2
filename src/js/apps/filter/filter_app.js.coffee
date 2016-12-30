@@ -40,9 +40,15 @@
         defaultOrder: 'desc'
       }
       {
-        alias: 'Artist'
+        alias: 'artist'
         type: 'string'
         key: 'artist'
+        defaultOrder: 'asc'
+      }
+      {
+        alias: 'random'
+        type: 'other'
+        key: 'random'
         defaultOrder: 'asc'
       }
     ]
@@ -83,13 +89,6 @@
         key: 'unwatched'
         sortOrder: 'asc',
         filterCallback: 'unwatched'
-      }
-      {
-        alias: 'Thumbs up'
-        type: "boolean"
-        key: 'thumbsUp'
-        sortOrder: 'asc',
-        filterCallback: 'thumbsup'
       }
       {
         alias: 'writer'
@@ -136,6 +135,21 @@
         key: 'studio'
         sortOrder: 'asc',
         filterCallback: 'multiple'
+      }
+      {
+        alias: 'label'
+        type: 'string'
+        property: 'albumlabel'
+        key: 'albumlabel'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Thumbs up'
+        type: "boolean"
+        key: 'thumbsUp'
+        sortOrder: 'asc',
+        filterCallback: 'thumbsup'
       }
     ] 
 
@@ -370,14 +384,19 @@
   App.reqres.setHandler 'filter:init', (availableFilters) ->
     params = helpers.url.params()
     if not _.isEmpty params
-      ## Clear existing filters first
+      # Clear existing filters first
       API.setStoreFilters {}
+      # Set sort, no validation here, wrong param might break something
+      if params.sort
+        order = if params.order then params.order else 'asc'
+        API.setStoreSort params.sort, order
+      # Set Filter
       for key in availableFilters.filter
-        ## is one of the params an available filter
+        # is one of the params an available filter
         if params[key]
           values = API.getStoreFiltersKey key
           filterSettings = API.getFilterSettings key, false
-          ## If the filter doesn't exist, add and save.
+          # If the filter doesn't exist, add and save.
           if not helpers.global.inArray params[key], values
             if filterSettings.type is 'number'
               values.push parseInt params[key]

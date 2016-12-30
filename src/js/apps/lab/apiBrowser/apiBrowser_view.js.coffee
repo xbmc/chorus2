@@ -44,7 +44,8 @@
       'apiResult' : '#api-result'
     onShow: ->
       $('.api-method--params', @$el).html prettyPrint(@model.get('params'))
-      $('.api-method--return', @$el).html prettyPrint(@model.get('returns'))
+      if @model.get('type') is 'method'
+        $('.api-method--return', @$el).html prettyPrint(@model.get('returns'))
 
   # Api browser landing (home)
   class apiBrowser.apiBrowserLanding extends App.Views.ItemView

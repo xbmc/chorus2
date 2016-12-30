@@ -21,6 +21,8 @@
         @downloadSong item.model
       App.listenTo @songsView, 'childview:song:musicvideo', (list, item) =>
         @musicVideo item.model
+      App.listenTo @songsView, 'childview:song:edit', (parent, item) ->
+        App.execute 'song:edit', item.model
 
       ## Potentially one of the songs could be playing so trigger a content state update
       App.listenTo @songsView, "show", ->

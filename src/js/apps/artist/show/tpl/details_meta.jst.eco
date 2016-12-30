@@ -1,18 +1,42 @@
-<div class="region-details-title">
-    <h2><%= @label %> <span class="sub"><%= @formed %></span></h2>
+<div class="region-details-top">
+    <div class="region-details-title">
+        <h2><%= @label %></h2>
+    </div>
 </div>
-
 
 <div class="region-details-meta-below">
 
-    <div class="region-details-subtext">
+    <ul class="meta">
         <% if @genre.length > 0: %>
-        <div class="artist-genres">
-            <%- helpers.url.filterLinks('music/artists', 'genre', @genre) %>
-        </div>
+            <li><label><%= t.ngettext("genre", "genres", @genre.length) %>:</label> <span><%- helpers.url.filterLinks('music/artists', 'genre', @genre) %></span></li>
         <% end %>
-    </div>
+        <% if @style.length: %>
+        <li><label><%= t.ngettext("style", "styles", @style.length) %>:</label> <span><%- helpers.url.filterLinks('music/artists', 'style', @style) %></span></li>
+        <% end %>
+        <% if @formed: %>
+            <li><label><%= tr("formed") %>:</label> <span><%= @formed %></span></li>
+        <% end %>
+        <% if @yearsactive and @yearsactive.length > 0: %>
+            <li><label><%= tr("years active") %>:</label> <span><%= @yearsactive %></span></li>
+        <% end %>
+        <% if @born: %>
+            <li><label><%= tr("born") %>:</label> <span><%= @born %></span></li>
+        <% end %>
+        <% if @died: %>
+            <li><label><%= tr("died") %>:</label> <span><%= @died %></span></li>
+        <% end %>
+        <% if @disbanded: %>
+            <li><label><%= tr("disbanded") %>:</label> <span><%= @disbanded %></span></li>
+        <% end %>
+    </ul>
 
     <div class="description"><%= @description %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
+        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+        <li class="btn-flat-add localadd"><%= t.gettext('Add to playlist') %></li>
+        <li class="btn-flat-stream localplay"><%= t.gettext('Play in browser') %></li>
+    </ul>
 
 </div>

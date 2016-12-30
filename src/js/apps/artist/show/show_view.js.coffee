@@ -8,6 +8,14 @@
 
   class Show.Details extends App.Views.ItemView
     template: 'apps/artist/show/details_meta'
+    triggers:
+      "click .play"       : "artist:play"
+      "click .add"        : "artist:add"
+      "click .localadd"   : "artist:localadd"
+      "click .localplay"  : "artist:localplay"
+    onRender: ->
+      $('.description', @$el).attr('title', tr('Click for more')).on 'click', (e) ->
+        $(@).toggleClass('expanded')
 
   class Show.ArtistTeaser extends App.ArtistApp.List.ArtistTeaser
     tagName: "div"

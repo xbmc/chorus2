@@ -25,11 +25,15 @@
 
     ## Change sort comparator.
     sortCollection: (property, order = 'asc') ->
-      @comparator = (model) =>
-        @ignoreArticleParse model.get(property)
-      if order is 'desc'
-        @comparator = @reverseSortBy @comparator
-      @sort()
+      if property is 'random'
+        @comparator = false
+        @reset @shuffle(), {silent:true}
+      else
+        @comparator = (model) =>
+          @ignoreArticleParse model.get(property)
+        if order is 'desc'
+          @comparator = @reverseSortBy @comparator
+        @sort()
       return
 
     ## Reverse descending sort

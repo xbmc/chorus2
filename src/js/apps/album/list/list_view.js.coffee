@@ -9,6 +9,7 @@
       "click .dropdown .add"      : "album:add"
       "click .dropdown .localadd" : "album:localadd"
       "click .dropdown .localplay" : "album:localplay"
+      "click .dropdown .edit"     : "album:edit"
 
     initialize: ->
       super

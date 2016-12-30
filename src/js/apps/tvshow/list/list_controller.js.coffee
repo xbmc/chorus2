@@ -17,7 +17,7 @@
       App.listenTo view, 'childview:tvshow:watched', (parent, viewItem) ->
         App.execute 'tvshow:action:watched', parent, viewItem
       App.listenTo view, 'childview:tvshow:edit', (parent, viewItem) ->
-        App.execute 'tvshow:action', 'edit', viewItem
+        App.execute 'tvshow:edit', viewItem.model
 
   ## Main controller
   class List.Controller extends App.Controllers.Base
@@ -37,6 +37,7 @@
       ## When fetched.
       App.execute "when:entity:fetched", collection, =>
 
+
         ## Get and setup the layout
         @layout = @getLayoutView collection
         @listenTo @layout, "show", =>
@@ -54,7 +55,7 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['title', 'year', 'dateadded', 'rating']
+      sort: ['title', 'year', 'dateadded', 'rating', 'random']
       filter: ['year', 'genre', 'unwatched', 'cast', 'mpaa', 'studio', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes

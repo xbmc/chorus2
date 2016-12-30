@@ -31,6 +31,20 @@ $orbit-color: #ddd;
       margin-top: 33rem;
     }
   }
+  .loader-inline & {
+    position: relative;
+    bottom: 0;
+    left: 0 !important;
+    right: 0 !important;
+    h2 {
+      margin-top: 10rem;
+    }
+    @include at-desktop {
+      h2 {
+        margin-top: 12rem;
+      }
+    }
+  }
 }
 
 .loader {
@@ -181,6 +195,9 @@ $unit: $size / 20;
   border: $unit solid rgba($inactive, 0.2);
   //background-color: rgba($color-white, 0.1);
   @include animation(spinner $speed linear infinite);
+  .loader-inline & {
+    top: 5em;
+  }
 }
 @include keyframes(spinner) {
   0% { transform: rotate(0); }

@@ -26,16 +26,17 @@
       $('#search').on 'keyup', (e) ->
         $('#search-region').removeClass 'pre-search'
         val = $('#search').val()
+        media = if helpers.url.arg(0) is 'search' then helpers.url.arg(1) else 'all'
         clearTimeout App.searchAllTimeout
         # If enter key
         if e.which is 13
-          API.list 'all', val
+          API.list media, val
         else
           $('#search-region').addClass 'pre-search'
           # Start search in @keyUpTimeout
           App.searchAllTimeout = setTimeout(( ->
             $('#search-region').removeClass 'pre-search'
-            API.list 'all', val
+            API.list media, val
           ), API.keyUpTimeout)
 
 

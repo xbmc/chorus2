@@ -5,7 +5,7 @@
     ## Get an artists fields.
     getArtistFields: (type = 'small')->
       baseFields = ['thumbnail', 'mood', 'genre', 'style']
-      extraFields = ['fanart', 'born', 'formed', 'description']
+      extraFields = ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument']
       if type is 'full'
         fields = baseFields.concat( extraFields )
         fields
@@ -21,16 +21,13 @@
 
     ## Fetch an artist collection.
     getArtists: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
-      options = _.extend defaultOptions, options
-      ## try cache first.
-      artists = helpers.cache.get "artist:entities"
-      if artists is false or options.reset is true
-        artists = new KodiEntities.ArtistCollection()
-        artists.fetch options
-      helpers.cache.set "artist:entities", artists
-      artists
+      collection = new KodiEntities.ArtistCollection()
+      collection.fetch helpers.entities.buildOptions(options)
+      collection
 
+  ###
+   Models and collections.
+  ###
 
   ## Single artist model.
   class KodiEntities.Artist extends App.KodiEntities.Model
@@ -49,20 +46,21 @@
         obj.fullyloaded = true
       @parseModel 'artist', obj, obj.artistid
 
-
-  ## artists collection
+  ## Artists collection
   class KodiEntities.ArtistCollection extends App.KodiEntities.Collection
     model: KodiEntities.Artist
-    methods: {
-      read: ['AudioLibrary.GetArtists', 'arg1', 'arg2', 'arg3', 'arg4']
-    }
-    arg1: ->
-      config.getLocal 'albumAtristsOnly', true
-    arg2: -> API.getArtistFields('small')
-    arg3: -> @argLimit()
-    arg4: -> @argSort("artist", "ascending")
+    methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs
+      albumartistsonly: config.getLocal 'albumArtistsOnly', true
+      properties: @argFields(API.getArtistFields('small'))
+      limits: @argLimit()
+      sort: @argSort('title', 'ascending')
+      filter: @argFilter()
     parse: (resp, xhr) -> @getResult resp, 'artists'
 
+  ###
+   Request Handlers.
+  ###
 
   ## Get a single artist
   App.reqres.setHandler "artist:entity", (id, options = {}) ->
@@ -72,12 +70,3 @@
   ## Get an artist collection
   App.reqres.setHandler "artist:entities", (options = {}) ->
     API.getArtists options
-
-  ## Get a search collection
-  App.commands.setHandler "artist:search:entities", (query, limit, callback) ->
-    collection = API.getArtists {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered

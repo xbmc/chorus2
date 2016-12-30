@@ -18,6 +18,7 @@
     initialize: ->
       collection = App.request "introspect:entities"
       App.execute "when:entity:fetched", collection, =>
+        collection.dictionary = App.request "introspect:dictionary"
 
         @layout = @getLayoutView collection
 

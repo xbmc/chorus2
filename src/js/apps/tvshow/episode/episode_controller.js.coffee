@@ -18,6 +18,8 @@
         App.execute 'episode:action:watched', parent, viewItem
       App.listenTo view, 'childview:episode:goto:season', (parent, viewItem) ->
         App.execute 'episode:action', 'gotoSeason', viewItem
+      App.listenTo view, 'childview:episode:edit', (parent, viewItem) ->
+        App.execute 'episode:edit', viewItem.model
       view
 
     ## triggers for full view.
@@ -32,7 +34,8 @@
         App.execute 'episode:action', 'download', viewItem
       App.listenTo view, 'toggle:watched', (viewItem) ->
         App.execute 'episode:action:watched', viewItem.view, viewItem.view
-
+      App.listenTo view, 'episode:edit', (viewItem) ->
+        App.execute 'episode:edit', viewItem.model
 
 
   ## Main controller
@@ -74,14 +77,23 @@
       @layout.regionHeader.show headerLayout
 
     getContentView: (episode) ->
-      contentLayout = new Episode.Content model: episode
-      App.listenTo contentLayout, 'show', =>
+      @contentLayout = new Episode.Content model: episode
+      App.listenTo @contentLayout, 'show', =>
         if episode.get('cast').length > 0
-          contentLayout.regionCast.show @getCast(episode)
-      @layout.regionContent.show contentLayout
+          @contentLayout.regionCast.show @getCast(episode)
+        @getSeason episode
+      @layout.regionContent.show @contentLayout
 
     getCast: (episode) ->
       App.request 'cast:list:view', episode.get('cast'), 'tvshows'
+
+    getSeason: (episode) ->
+      collection = App.request "episode:tvshow:entities", episode.get('tvshowid'), episode.get('season')
+      App.execute "when:entity:fetched", collection, =>
+        collection.sortCollection('episode', 'asc')
+        view = App.request "episode:list:view", collection
+        @contentLayout.regionSeason.show view
+
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "episode:list:view", (collection) ->

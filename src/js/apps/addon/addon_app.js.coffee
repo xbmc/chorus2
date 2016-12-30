@@ -19,9 +19,23 @@
         @addonController().getEnabledAddons true, (addons) ->
           config.setLocal "addOnsEnabled", addons
           config.setLocal "addOnsLoaded", true
+          config.setLocal "addOnsSearchSettings", API.getSearchSettings(addons)
           if callback
             callback addons
       addons
+
+    ## Get search settings
+    getSearchSettings: (addons) ->
+      searchSettings = []
+      for addon in addons
+        searchSetting = App.request("addon:search:settings:" + addon.addonid)
+        if searchSetting
+          if not _.isArray(searchSetting)
+            searchSetting = [searchSetting]
+          for i, set of searchSetting
+            set.id = addon.addonid + '.' + i
+            searchSettings.push set
+      searchSettings
 
     # Given a filter check if addon is enabled, if addons not loaded returns false.
     isAddOnEnabled: (filter = {}, callback) ->
@@ -32,7 +46,7 @@
   # Store enabled addons.
   App.on "before:start", ->
     API.getEnabledAddons (resp) ->
-      ## Loaded, hopefully before anything needs it
+      # Addons loaded, hopefully before required
 
   # Request is addon enabled.
   App.reqres.setHandler 'addon:isEnabled', (filter, callback) ->
@@ -49,3 +63,7 @@
     if not excludedPaths?
       excludedPaths = []
     excludedPaths
+
+  # Request excluded breadcrumb paths
+  App.reqres.setHandler 'addon:search:enabled', ->
+    config.getLocal "addOnsSearchSettings", []

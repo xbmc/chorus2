@@ -17,14 +17,19 @@
 
     <div class="region-details-subtext">
 
-        <div class="runtime">
-            <%= helpers.global.formatTime helpers.global.secToTime( @runtime ) %>
-        </div>
+        <% if @runtime > 0: %>
+            <div class="runtime">
+                <%= helpers.global.formatTime helpers.global.secToTime( @runtime ) %>
+            </div>
+        <% end %>
 
     </div>
 
     <ul class="meta">
         <li><label><%= t.gettext('Season') %>:</label> <span><a href="#tvshow/<%= @tvshowid %>/<%= @season %>"><%= t.gettext('Season') %> <%= @season %></a></span></li>
+        <% if @firstaired: %>
+            <li><label><%= t.gettext('First aired') %>:</label> <span><%= @firstaired %> </span></li>
+        <% end %>
         <% if @director.length > 0: %>
             <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'director', @director %></span></li>
         <% end %>

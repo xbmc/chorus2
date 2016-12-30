@@ -2,14 +2,10 @@
 
   class AlbumApp.Router extends App.Router.Base
     appRoutes:
-      "music"             : "recent"
       "music/albums"      : "list"
       "music/album/:id"   : "view"
 
   API =
-
-    recent: ->
-      new AlbumApp.Landing.Controller()
 
     list: ->
       new AlbumApp.List.Controller()
@@ -45,5 +41,11 @@
   App.reqres.setHandler 'album:action:items', ->
     {
       actions: {thumbs: 'Thumbs up'}
-      menu: {add: 'Queue in Kodi', localadd: 'Add to playlist', divider: '', localplay: 'Play in browser'}
+      menu: {add: tr('Queue in Kodi'), 'divider-1': '', localadd: tr('Add to playlist'), localplay: tr('Play in browser'), 'divider-2': '', edit: tr('Edit')}
     }
+
+  App.commands.setHandler 'album:edit', (model) ->
+    loadedModel = App.request "album:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new AlbumApp.Edit.Controller
+        model: loadedModel

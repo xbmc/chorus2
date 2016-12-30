@@ -17,10 +17,11 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
+      defaultOptions = {useNamedParameters: true}
+      options = _.extend defaultOptions, options
       collection = new KodiEntities.ChannelCollection()
       collection.fetch options
       collection
-
 
   ###
    Models and collections.
@@ -37,13 +38,14 @@
   ## Channel collection
   class KodiEntities.ChannelCollection extends App.KodiEntities.Collection
     model: KodiEntities.Channel
-    methods: read: ['PVR.GetChannels', 'arg1', 'arg2', 'arg3']
-    arg1: ->@argCheckOption('group', 0)
-    arg2: -> helpers.entities.getFields(API.fields, 'small')
-    arg3: -> @argLimit()
+    methods: read: ['PVR.GetChannels', 'channelgroupid', 'properties', 'limits']
+    args: -> @getArgs({
+      channelgroupid: @argCheckOption('group', 0)
+      properties: helpers.entities.getFields(API.fields, 'small')
+      limits: @argLimit()
+    })
     parse: (resp, xhr) ->
       @getResult resp, 'channels'
-
 
   ###
    Request Handlers.

@@ -26,12 +26,13 @@
           API.bindTriggers teaser
           albumView.regionMeta.show teaser
           ## Add the songs.
-          songView = App.request "song:list:view", songs[model.get('albumid')]
+          songSet = _.findWhere songs, {albumid: model.get('albumid')}
+          songView = App.request "song:list:view", songSet.songs
           albumView.regionSongs.show songView
       ## Loop over albums/song collections
-      for albumid, songCollection of songs
+      for albumSet in songs
         ## Get the album.
-        album = App.request "album:entity", albumid, success: (album) ->
+        album = App.request "album:entity", albumSet.albumid, success: (album) ->
           albumsCollectionView.addChild album, Show.WithSongsLayout
       ## Return the collection view
       albumsCollectionView
@@ -70,6 +71,8 @@
         teaser = new Show.AlbumDetailTeaser model: album
         API.bindTriggers teaser
         detail = new Show.Details model: album
+        @listenTo detail, "show", =>
+          API.bindTriggers detail
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
@@ -80,7 +83,7 @@
       options =
         filter: {albumid: id}
       ## Get all the songs and parse them into sepetate album collections.
-      songs = App.request "song:filtered:entities", options
+      songs = App.request "song:entities", options
       App.execute "when:entity:fetched", songs, =>
         albumView = new Show.WithSongsLayout()
         songView = App.request "song:list:view", songs

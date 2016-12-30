@@ -9,6 +9,7 @@
       "click .localplay"   : "episode:localplay"
       "click .download"    : "episode:download"
       "click .goto-season" : "episode:goto:season"
+      "click .edit"        : "episode:edit"
     initialize: ->
       super
       if @model?
@@ -65,3 +66,4 @@
     className: "episode-content content-sections"
     regions:
       regionCast: '.region-cast'
+      regionSeason: '.region-season'

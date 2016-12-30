@@ -1,5 +1,22 @@
 @Kodi.module "BrowserApp.List", (List, App, Backbone, Marionette, $, _) ->
 
+  API =
+
+    bindTriggers: (view) ->
+      App.listenTo view, 'childview:file:play', (set, item) =>
+        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
+        playlist.play 'file', item.model.get('file')
+      App.listenTo view, 'childview:file:queue', (set, item) =>
+        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
+        playlist.add 'file', item.model.get('file')
+
+    getFileListView: (collection) ->
+      fileView = new List.FileList
+        collection: collection
+      API.bindTriggers(fileView)
+      fileView
+
+
   class List.Controller extends App.Controllers.Base
 
     sourceCollection: {}
@@ -66,15 +83,7 @@
       @getBackButton()
 
     getFileListView: (collection) ->
-      fileView = new List.FileList
-        collection: collection
-      @listenTo fileView, 'childview:file:play', (set, item) =>
-        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
-        playlist.play 'file', item.model.get('file')
-      @listenTo fileView, 'childview:file:queue', (set, item) =>
-        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
-        playlist.add 'file', item.model.get('file')
-      fileView
+      API.getFileListView collection
 
     getFileList: (collection) ->
       @folderLayout.regionFiles.show @getFileListView(collection)
@@ -114,6 +123,5 @@
 
 
   # Get view with a collection of files only
-  App.reqres.setHandler "browser:files:view", (path, media, callback) ->
-    browserController = new List.Controller()
-    browserController.getFileViewByPath path, media, callback
+  App.reqres.setHandler "browser:files:view", (collection) ->
+    API.getFileListView collection

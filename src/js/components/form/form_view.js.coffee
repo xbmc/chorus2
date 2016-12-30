@@ -30,7 +30,7 @@
         attrs = _.extend attrs, @options.config.attributes
       attrs
 
-    onShow: ->
+    onRender: ->
       _.defer =>
         @focusFirstInput() if @config.focusFirstInput
         $('.btn').ripples({color: 'rgba(255,255,255,0.1)'})
@@ -40,6 +40,8 @@
           e.preventDefault()
           if $(@).data('trigger')
             App.execute $(@).data('trigger')
+        if @config.tabs
+          @makeTabs @$el
 
     focusFirstInput: ->
       @$(":input:visible:enabled:first").focus()
@@ -67,6 +69,20 @@
         $el.fadeOut()
       ), 5000)
 
+    makeTabs: ($ctx) ->
+      $tabs = $('<ul>').addClass 'form-tabs'
+      $('.group-title', $ctx).each (i, d) ->
+        $('<li>')
+        .html($(d).html())
+        .click (e) ->
+          $('.group-parent').hide()
+          $(d).closest('.group-parent').show()
+          $(e.target).closest('.form-tabs').find('li').removeClass('active')
+          $(e.target).addClass('active')
+        .appendTo($tabs)
+      $('.form-groups', $ctx).before($tabs)
+      $tabs.find('li').first().trigger('click')
+      $ctx.addClass('with-tabs')
 
   ## Form item element - very basic copy of drupals form api format
   class Form.Item extends App.Views.ItemView
@@ -76,8 +92,9 @@
     initialize: ->
       # Base and base material attributes
       name = if @model.get('name') then @model.get('name') else @model.get('id')
-      baseAttrs = _.extend({id: 'form-edit-' + @model.get('id'), name: name}, @model.get('attributes'))
-      materialBaseAttrs = _.extend(baseAttrs, class: 'form-control')
+      baseAttrs = _.extend({id: 'form-edit-' + @model.get('id'), name: name, class: ''}, @model.get('attributes'))
+      materialBaseAttrs = _.extend {}, baseAttrs
+      materialBaseAttrs.class += ' form-control'
 
       # Create an element based on the type, extending base attrs
       switch @model.get('type')
@@ -88,8 +105,9 @@
             attrs.checked = 'checked'
           el = @themeTag 'input', _.extend(baseAttrs, attrs), ''
 
-        when 'textfield'
-          attrs = {type: 'text', value: @model.get('defaultValue')}
+        when 'textfield', 'number', 'date'
+          inputType = if @model.get('type') is 'textfield' then 'text' else @model.get('type')
+          attrs = {type: inputType, value: @model.get('defaultValue')}
           el = @themeTag 'input', _.extend(materialBaseAttrs, attrs), ''
 
         when 'hidden'
@@ -126,7 +144,18 @@
         @model.set({element: el})
 
     attributes: ->
-      {class: 'form-item form-group form-type-' + @model.get('type') + ' form-edit-' + @model.get('id')}
+      elClasses = []
+      elAttrs = @model.get('attributes')
+      if elAttrs.class
+        elClasses = _.map elAttrs.class.split(' '), (c) -> 'form-item-' + c
+      {class: 'form-item form-group form-type-' + @model.get('type') + ' form-edit-' + @model.get('id') + ' ' + elClasses.join(' ')}
+
+    onRender: ->
+      _.defer =>
+        if @model.get('prefix')
+          @$el.before @model.get('prefix')
+        if @model.get('suffix')
+          @$el.after @model.get('suffix')
 
   ## Form item list
   class Form.Group extends App.Views.CompositeView

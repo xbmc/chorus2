@@ -845,8 +845,8 @@ msgid "title"
 msgstr "title"
 
 msgctxt ""
-msgid "tear"
-msgstr "tear"
+msgid "year"
+msgstr "year"
 
 msgctxt ""
 msgid "date added"
@@ -859,6 +859,18 @@ msgstr "rating"
 msgctxt ""
 msgid "actor"
 msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "writer"
+msgstr "writer"
+
+msgctxt ""
+msgid "director"
+msgstr "director"
 
 msgctxt ""
 msgid "mood"
@@ -907,3 +919,267 @@ msgstr "Queue in Kodi"
 msgctxt ""
 msgid "Adding items to the queue"
 msgstr "Adding items to the queue"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Recently added albums"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Random albums"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Recently played albums"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Random movies"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Continue watching"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "More from %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "More %1$s movies"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "More movies staring %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Other movies released in %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "artist"
+
+msgctxt ""
+msgid "random"
+msgstr "random"
+
+msgctxt ""
+msgid "label"
+msgstr "label"
+
+msgctxt ""
+msgid "formed"
+msgstr "formed"
+
+msgctxt ""
+msgid "born"
+msgstr "born"
+
+msgctxt ""
+msgid "died"
+msgstr "died"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "disbanded"
+
+msgctxt ""
+msgid "years active"
+msgstr "years active"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Click for more"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Loading albums"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+
+msgctxt ""
+msgid "all media"
+msgstr "all media"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "First aired"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Updated %1$s details"
+
+msgctxt ""
+msgid "Title"
+msgstr "Title"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Plot"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Rating"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Original title"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Directors"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Writers"
+
+msgctxt ""
+msgid "File path"
+msgstr "File path"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Artist"
+
+msgctxt ""
+msgid "Description"
+msgstr "Description"
+
+msgctxt ""
+msgid "Label"
+msgstr "Label"
+
+msgctxt ""
+msgid "Year"
+msgstr "Year"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Styles"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Themes"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Moods"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Album artist"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Track"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Disc"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Tagline"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Content rating"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiered"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Sort title"
+
+msgctxt ""
+msgid "Country"
+msgstr "Country"
+
+msgctxt ""
+msgid "Set"
+msgstr "Set"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Formed"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Disbanded"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Years Active"
+
+msgctxt ""
+msgid "Born"
+msgstr "Born"
+
+msgctxt ""
+msgid "Died"
+msgstr "Died"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instruments"

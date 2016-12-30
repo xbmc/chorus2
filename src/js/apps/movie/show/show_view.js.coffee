@@ -33,14 +33,17 @@
       'click .youtube': 'movie:youtube'
     regions:
       regionCast: '.region-cast'
-      regionSets: '.region-sets'
+      regionMore1: '.region-more-1'
+      regionMore2: '.region-more-2'
+      regionMore3: '.region-more-3'
+      regionMore4: '.region-more-4'
+      regionMore5: '.region-more-5'
 
   class Show.Set extends App.Views.LayoutView
     template: 'apps/movie/show/set'
     className: 'movie-set'
     onRender: ->
-      if @options
-        if @options.set
+      if @options and @options.set
           $('h2.set-name', @$el).html( @options.set )
     regions: ->
       regionCollection: '.collection-items'

@@ -74,3 +74,14 @@
 %sidebar--list-with-icons {
   @include sidebar-list-with-icons();
 }
+
+// Generic sidebar section component class.
+.sidebar-section {
+  @extend %sidebar--section;
+  h3 {
+    @extend %sidebar--heading;
+  }
+  ul {
+    @extend %sidebar--list;
+  }
+}

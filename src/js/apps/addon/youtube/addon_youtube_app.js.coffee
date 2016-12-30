@@ -5,18 +5,13 @@
     addonId: 'plugin.video.youtube'
 
     searchAddon:
-      id: @addonId
-      url: 'plugin://plugin.video.youtube/search/list/?q=[QUERY]'
+      url: 'plugin://plugin.video.youtube/search/?q=[QUERY]'
       title: 'YouTube'
       media: 'video'
 
-    isEnabled: ->
-      App.request "addon:isEnabled", {addonid: @addonId}
-
-
-  ## Is a yt client enabled.
-  App.reqres.setHandler "addon:youtube:enabled", ->
-    API.isEnabled()
+  ## Provide search settings
+  App.reqres.setHandler "addon:search:settings:" + API.addonId, ->
+    API.searchAddon
 
   ##
   ## Get any excluded paths that should not appear in breadcrumbs.
@@ -29,7 +24,7 @@
   ##
   ## Note the naming convention of the handler has the plugin id in it.
   ##
-  App.reqres.setHandler "addon:excludedPaths:plugin.video.youtube", ->
+  App.reqres.setHandler "addon:excludedPaths:" + API.addonId, ->
     [
       'plugin://plugin.video.youtube/special/',
       'plugin://plugin.video.youtube/kodion/search/',

@@ -1,3 +1,22 @@
+Version 2.3.8
+-------------
+* Replaced imdb and google images with fontawesome icons. Added License documentation #179
+* Added the ability to edit and view the library metadata for songs, artists, albums, tvshows, episodes and movies. Solves #102
+* Updated API browser to also show types and updated readme re API browser
+* Sort albums by year on artist page
+* Added season episodes to episode details page
+* Improved search UX, added ability to search common addon content (SoundCloud, MixCloud, GoogleMusic, YouTube, Radio)
+* Big improvements to search performance
+* Added filters to landing page and refined sections
+* Updated album and artist details pages to show lots more metadata, improved layout and added action buttons to be more consistent with video pages
+* Added random sort to filters for albums, artists, tv and movies. Added ability to set sort via url eg. #music/albums?sort=random
+* Added related movies to movie detail page
+* Fixed broken images in cast list
+* Updated Backbone.RPC to support named params, improved all entity collections to use named params
+* Added airdate to episode view
+* New and improved landing pages for music, tv and movies with more content to explore #135
+* Merged Polish translation update #184
+
 Version 2.3.7
 -------------
 * Added ability to sort and remove items in local playlists
