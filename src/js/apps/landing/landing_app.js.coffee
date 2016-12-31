@@ -21,6 +21,7 @@
             sort: 'dateadded'
             order: 'descending'
             limit: 14
+            moreLink: 'music/albums?sort=dateadded&order=desc'
           }
           {
             title: 'Recently played albums'
@@ -35,6 +36,7 @@
             sort: 'random'
             order: 'descending'
             limit: 14
+            moreLink: 'music/albums?sort=random'
           }
         ]
       movies:
@@ -47,6 +49,7 @@
             order: 'descending'
             limit: 14,
             filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
+            moreLink: 'movies?sort=dateadded&order=desc&inprogress=in progress'
           }
           {
             title: 'Recently added'
@@ -55,6 +58,7 @@
             order: 'descending'
             limit: 14
             filter: {'operator': 'is', 'field': 'playcount', 'value': '0'}
+            moreLink: 'movies?sort=dateadded&order=desc&unwatched=unwatched'
           }
           {
             title: 'Random movies'
@@ -62,6 +66,7 @@
             sort: 'random'
             order: 'descending'
             limit: 14
+            moreLink: 'movies?sort=random'
           }
         ]
       tvshows:
@@ -74,6 +79,7 @@
             order: 'descending'
             limit: 14
             filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
+            moreLink: 'tvshows?sort=dateadded&order=desc&inprogress=in progress'
           }
           {
             title: 'Recently added'

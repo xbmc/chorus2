@@ -143,6 +143,7 @@
     display: block;
     margin: 0 $spacing-double-unit;
     @include text-crop($color-white);
+    text-transform: capitalize;
   }
   display: none;
 }

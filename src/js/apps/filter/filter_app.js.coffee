@@ -91,6 +91,13 @@
         filterCallback: 'unwatched'
       }
       {
+        alias: 'in progress'
+        type: "boolean"
+        key: 'inprogress'
+        sortOrder: 'asc',
+        filterCallback: 'inprogress'
+      }
+      {
         alias: 'writer'
         type: 'array'
         key: 'writer'
@@ -316,6 +323,8 @@
             collection.filterByMultiple(key, vals) ## data is not array
         when 'unwatched'
           collection.filterByUnwatched()
+        when 'inprogress'
+          collection.filterByInProgress()
         when 'thumbsup'
           collection.filterByThumbsUp()
         else

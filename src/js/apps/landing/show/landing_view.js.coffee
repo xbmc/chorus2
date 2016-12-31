@@ -19,9 +19,12 @@
   class Show.ListSet extends App.Views.LayoutView
     template: 'apps/landing/show/landing_set'
     className: "landing-set"
-    onRender: ->
+    onRender: =>
       if @options
+        $header = $('h3.set-header', @$el)
         if @options.section.title
-          $('h3.set-header', @$el).html( tr(@options.section.title) )
+          $header.html( tr(@options.section.title) )
+        if @options.section.moreLink
+          $header.append @themeLink tr('more'), @options.section.moreLink
     regions:
       regionResult: '.set-results'
