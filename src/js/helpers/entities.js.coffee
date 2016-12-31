@@ -65,3 +65,10 @@ helpers.entities.buildOptions = (options) ->
     defaultOptions.cache = true
     defaultOptions.expires = config.get('static', 'collectionCacheExpiry')
   _.extend defaultOptions, options
+
+## Trigger a update of a given model. Data is an object with all the properties that need updating
+## Used when a model has been updated (eg edit) to get listening collections to re-fetch the model.
+## Optionally add fields to add or remove when re-fetching.
+helpers.entities.triggerUpdate = (model, data, additionalFields = [], removeFields = []) ->
+  fields = _.map data, (val, key) -> key
+  Kodi.vent.trigger 'entity:kodi:refresh', model.get('type'), model.get('id'), _.difference(fields.concat(additionalFields), removeFields)

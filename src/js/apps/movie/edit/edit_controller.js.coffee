@@ -4,6 +4,7 @@
 
     initialize: ->
       @model = @getOption('model')
+
       options = {
         title: '<span>' + tr('Edit') + '</span>' + @model.get('title')
         form: @getSructure()
@@ -55,6 +56,26 @@
           ]
         }
         {
+          title: 'Poster'
+          id: 'poster'
+          children:[
+            {
+              id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'),
+              metadataImageHandler: 'metadata:themoviedb:movie:images', metadataLookupField: 'imdbnumber'
+            }
+          ]
+        }
+        {
+          title: 'Background'
+          id: 'background'
+          children:[
+            {
+              id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
+              metadataImageHandler: 'metadata:themoviedb:movie:images', metadataLookupField: 'imdbnumber'
+            }
+          ]
+        }
+        {
           title: 'Information'
           id: 'info'
           children:[
@@ -66,5 +87,6 @@
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
-      controller.setMovieDetails @model.get('id'), data, ->
-        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'movie')
+      controller.setMovieDetails @model.get('id'), data, =>
+        helpers.entities.triggerUpdate @model, data
+        App.execute "notification:show", t.sprintf("Updated %1$s details", 'movie')

@@ -4,6 +4,15 @@
 
   class KodiEntities.Collection extends App.Entities.Collection
 
+    initialize: () ->
+      # On model update (eg edit) reload the model
+      App.vent.on 'entity:kodi:refresh', (type, id, fields) =>
+        model = @findWhere({type: type, id: id})
+        if model
+          model.fetch({properties: fields, success: (updatedModel) =>
+            Backbone.fetchCache.clearItem(updatedModel)
+          })
+
     ## Common jsonrpc settings.
     url: -> helpers.url.baseKodiUrl "Collection"
     rpc: new Backbone.Rpc({
@@ -29,6 +38,7 @@
     ## When using cache, it doesn't respect the jsonrpc parsing
     ## so we use this to parse all collection results using cache.
     getResult: (response, key) ->
+      @responseKey = key
       result = if response.jsonrpc and response.result then response.result else response
       result[key]
 

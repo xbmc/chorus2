@@ -54,6 +54,10 @@
       movie = App.request "movie:entity", id
       ## Fetch the movie
       App.execute "when:entity:fetched", movie, =>
+        console.log movie
+        App.execute "metadata:themoviedb:images", movie.get('imdbnumber'), (resp) ->
+          console.log 'images', resp
+
         ## Get the layout.
         @layout = @getLayoutView movie
         ## Ensure background removed when we leave.

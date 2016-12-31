@@ -9,6 +9,10 @@
       "click .thumbs" : "toggleThumbs"
       "click" : "toggleSelect"
 
+    ## This triggers a re-render on model update
+    modelEvents:
+      'change': 'render'
+
     populateMenu: ->
       menu = ''
       if @model.get('menu')

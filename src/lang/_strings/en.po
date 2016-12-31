@@ -1191,3 +1191,19 @@ msgstr "more"
 msgctxt ""
 msgid "in progress"
 msgstr "in progress"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Add an image via an external URL"
+
+msgctxt ""
+msgid "Image Selector"
+msgstr "Image Selector"
+
+msgctxt ""
+msgid "Image URL"
+msgstr "Image URL"

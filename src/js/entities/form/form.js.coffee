@@ -14,6 +14,7 @@
       class: ''
       suffix: ''
       prefix: ''
+      formState: {}
 
   class Entities.Form extends Entities.Collection
     model: Entities.FormItem
@@ -22,9 +23,12 @@
   API =
 
     applyState: (item, formState) ->
+      item.formState = formState
       item.defaultValue = if item.defaultValue then item.defaultValue else ''
-      if formState[item.id]?
-        item.defaultValue = @formatDefaultValue item.format, formState[item.id]
+      # Use 'valueProperty' to override where the value comes from (default is the id of the element)
+      property = if item.valueProperty then item.valueProperty else item.id
+      if formState[property]?
+        item.defaultValue = @formatDefaultValue item.format, formState[property]
         item.defaultsApplied = true
       item
 
