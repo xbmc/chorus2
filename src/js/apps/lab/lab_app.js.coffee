@@ -16,9 +16,10 @@
   class LabApp.Router extends App.Router.Base
     appRoutes:
       "lab" : "labLanding"
-      "lab/api-browser"    : "apiBrowser"
+      "lab/api-browser"         : "apiBrowser"
       "lab/api-browser/:method"	: "apiBrowser"
-      "lab/screenshot": "screenShot"
+      "lab/screenshot"          : "screenShot"
+      "lab/icon-browser"        : "iconBrowser"
 
   # Lab API controller.
   API =
@@ -41,6 +42,11 @@
           description: 'Take a screenshot of Kodi right now.'
           path: 'lab/screenshot'
         }
+        {
+          title: 'Icon browser'
+          description: 'View all the icons available to Chorus.'
+          path: 'lab/icon-browser'
+        }
       ]
 
     # Open the api explorer.
@@ -53,6 +59,14 @@
       App.execute "notification:show", t.gettext("Screenshot saved to your screenshots folder")
       App.navigate "#lab", {trigger: true}
 
+    iconBrowser: ->
+      $.getJSON 'lib/icons/mdi.json', (mdiIcons) =>
+        $.getJSON 'lib/icons/icomoon.json', (customIcons) =>
+          console.log mdiIcons, customIcons
+          view = new LabApp.IconBrowser.IconsPage
+            materialIcons: mdiIcons
+            customIcons: customIcons
+          App.regionContent.show view
 
   App.on "before:start", ->
     new LabApp.Router
