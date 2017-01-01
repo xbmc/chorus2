@@ -5,7 +5,7 @@
     initialize: ->
       @model = @getOption('model')
       options = {
-        title: '<span>' + tr('Edit') + '</span>' + @model.get('showtitle') + ' - ' + @model.get('title') + ' (S' + @model.get('season') + ' E' + @model.get('season') + ')'
+        title: '<span>' + tr('Edit') + '</span>' + @model.get('showtitle') + ' - ' + @model.get('title') + ' (S' + @model.get('season') + ' E' + @model.get('episode') + ')'
         form: @getSructure()
         formState: @model.attributes
         config:
@@ -50,5 +50,6 @@
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
-      controller.setEpisodeDetails @model.get('id'), data, ->
+      controller.setEpisodeDetails @model.get('id'), data, =>
+        helpers.entities.triggerUpdate @model, data, ['resume', 'playcount']
         Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'episode')

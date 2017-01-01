@@ -6,13 +6,12 @@
   class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'tvshow-details'
 
-  class Show.Details extends App.Views.ItemView
+  class Show.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/show/details_meta'
     triggers:
       "click .play"       : "tvshow:play"
       "click .add"        : "tvshow:add"
-    events:
-      "click .watched"    : "toggleWatched"
+      "click .edit"       : "tvshow:edit"
     attributes: ->
       @watchedAttributes 'details-meta'
 

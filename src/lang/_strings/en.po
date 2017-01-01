@@ -1207,3 +1207,15 @@ msgstr "Image Selector"
 msgctxt ""
 msgid "Image URL"
 msgstr "Image URL"
+
+msgctxt ""
+msgid "External Search"
+msgstr "External Search"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Local media"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus Search"

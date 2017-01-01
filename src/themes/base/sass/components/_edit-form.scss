@@ -136,14 +136,14 @@ $bp-edit-form-large: medium;
       float: left;
       margin: 0 $spacing-half-unit $spacing-half-unit 0;
       cursor: pointer;
-      max-width: 106px;
+      width: 106px;
       overflow: hidden;
 
       &.selected {
         @include selected-card();
       }
       .form-edit-fanart & {
-        max-width: 222px;
+        width: 222px;
       }
     }
     img {
@@ -155,5 +155,25 @@ $bp-edit-form-large: medium;
     }
   }
 
+  &__loader {
+    @extend %clearfix;
+    display: none;
+    margin: $spacing-base-unit 0;
+    border-radius: 3px;
+    padding: $spacing-half-unit;
+    color: $color-greyscale-dust-gray;
+    .loader-small-inline {
+      margin-right: $spacing-half-unit;
+      float: left;
+    }
+    span {
+      display: inline-block;
+      line-height: $height-loader-small;
+      height: $height-loader-small;
+    }
+    .images-loading & {
+      display: block;
+    }
+  }
 
 }

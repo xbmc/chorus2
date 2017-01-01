@@ -205,6 +205,7 @@
       metadataHandler = @model.get('metadataImageHandler')
       metadataLookup = @model.get('metadataLookupField')
       # els in use.
+      $wrapper = $('.form-imageselect', @$el)
       $thumbs = $('.form-imageselect__thumbs', @$el)
       $input = $('.form-imageselect__url input', @$el)
       $tabs = $('.form-imageselect__tabs', @$el)
@@ -221,7 +222,9 @@
         $input.val $(@).addClass('selected').data('original')
       _.defer () ->
         if metadataHandler and metadataLookup and item[metadataLookup]
+          $wrapper.addClass('images-loading')
           App.execute metadataHandler, item[metadataLookup], (resp) ->
             if resp
               for image in resp[field]
                 $thumbs.append $('<li data-original="' + image.original + '"><img src="' + image.thumb + '" /></li>')
+            $wrapper.removeClass('images-loading')

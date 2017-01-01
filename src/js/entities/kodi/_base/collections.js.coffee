@@ -4,15 +4,6 @@
 
   class KodiEntities.Collection extends App.Entities.Collection
 
-    initialize: () ->
-      # On model update (eg edit) reload the model
-      App.vent.on 'entity:kodi:refresh', (type, id, fields) =>
-        model = @findWhere({type: type, id: id})
-        if model
-          model.fetch({properties: fields, success: (updatedModel) =>
-            Backbone.fetchCache.clearItem(updatedModel)
-          })
-
     ## Common jsonrpc settings.
     url: -> helpers.url.baseKodiUrl "Collection"
     rpc: new Backbone.Rpc({

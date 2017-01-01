@@ -1,6 +1,15 @@
 @Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
 
 	class KodiEntities.Model extends App.Entities.Model
+
+    initialize: () ->
+      # On model update (eg edit) reload the model
+      App.vent.on 'entity:kodi:refresh', (uid, fields) =>
+        if @get('uid') is uid
+          @fetch({properties: fields, success: (updatedModel) =>
+            Backbone.fetchCache.clearItem(updatedModel)
+          })
+
     url: -> helpers.url.baseKodiUrl "Model"
     rpc: new Backbone.Rpc({
       useNamedParameters: true,

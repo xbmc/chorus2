@@ -10,14 +10,15 @@
       "click .dropdown .localadd" : "album:localadd"
       "click .dropdown .localplay" : "album:localplay"
       "click .dropdown .edit"     : "album:edit"
-
     initialize: ->
       super
       if @model?
+        @setMeta()
         @model.set(App.request('album:action:items'))
-        artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
-        artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
-        @model.set subtitle: artistLink
+    setMeta: ->
+      artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
+      artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
+      @model.set subtitle: artistLink
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
