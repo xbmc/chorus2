@@ -1,4 +1,4 @@
-@Kodi.module "MetaData.TheMovieDB", (Provider, App, Backbone, Marionette, $, _) ->
+@Kodi.module "ExternalApp.TheMovieDB", (Provider, App, Backbone, Marionette, $, _) ->
 
 
   API =
@@ -78,7 +78,7 @@
 
 
   ## Find movie images via IMDb ID
-  App.commands.setHandler "metadata:themoviedb:movie:images", (imdbId, callback) ->
+  App.commands.setHandler "themoviedb:movie:images", (imdbId, callback) ->
     controller = API.getController()
     controller.find imdbId, 'imdb_id', (resp) ->
       if resp.movie_results and resp.movie_results.length > 0
@@ -88,7 +88,7 @@
         callback(false)
 
   ## Find tv images via IMDb ID (if starts with tt) or thetvdb ID if not.
-  App.commands.setHandler "metadata:themoviedb:tv:images", (id, callback) ->
+  App.commands.setHandler "themoviedb:tv:images", (id, callback) ->
     controller = API.getController()
     idType = if id.lastIndexOf('tt', 0) is 0 then 'imdb_id' else 'tvdb_id'
     controller.find id, idType, (resp) ->

@@ -1201,6 +1201,10 @@ msgid "Add an image via an external URL"
 msgstr "Add an image via an external URL"
 
 msgctxt ""
+msgid "Searching for more images"
+msgstr "Searching for more images"
+
+msgctxt ""
 msgid "Image Selector"
 msgstr "Image Selector"
 
@@ -1219,3 +1223,7 @@ msgstr "Local media"
 msgctxt ""
 msgid "Chorus Search"
 msgstr "Chorus Search"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Search"
