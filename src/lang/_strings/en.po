@@ -1227,3 +1227,35 @@ msgstr "Chorus Search"
 msgctxt ""
 msgid "YouTube Search"
 msgstr "YouTube Search"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Executed addon"
+
+msgctxt ""
+msgid "all"
+msgstr "all"
+
+msgctxt ""
+msgid "video"
+msgstr "video"
+
+msgctxt ""
+msgid "audio"
+msgstr "audio"
+
+msgctxt ""
+msgid "image"
+msgstr "image"
+
+msgctxt ""
+msgid "picture"
+msgstr "picture"
+
+msgctxt ""
+msgid "executable"
+msgstr "executable"
+
+msgctxt ""
+msgid "settings"
+msgstr "settings"

@@ -1,6 +1,22 @@
 @Kodi.module "AddonApp", (AddonApp, App, Backbone, Marionette, $, _) ->
 
+  class AddonApp.Router extends App.Router.Base
+    appRoutes:
+      "addons/:type"            : "list"
+      "addon/execute/:id" : "execute"
+
   API =
+
+    # Get list page
+    list: (type) ->
+      new AddonApp.List.Controller
+        type: type
+
+    # Execute addon
+    execute: (id) ->
+      API.addonController().executeAddon id, helpers.url.params(), () ->
+        Kodi.execute "notification:show", tr('Executed addon')
+      App.navigate "addons/executable", {trigger: true}
 
     # Get the addon controller
     addonController: ->
@@ -43,10 +59,13 @@
       _.findWhere addons, filter
 
 
-  # Store enabled addons.
   App.on "before:start", ->
+    new AddonApp.Router
+      controller: API
+    # Store enabled addons.
     API.getEnabledAddons (resp) ->
-      # Addons loaded, hopefully before required
+      # Addons loaded to cache, hopefully before required
+
 
   # Request is addon enabled.
   App.reqres.setHandler 'addon:isEnabled', (filter, callback) ->
