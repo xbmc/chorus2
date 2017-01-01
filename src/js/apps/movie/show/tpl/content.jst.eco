@@ -1,6 +1,6 @@
 <div class="section-content">
     <h2><%= t.gettext('Synopsis') %></h2>
-    <% if @mediaTrailer.source is 'youtube': %>
+    <% if @mediaTrailer and @mediaTrailer.source is 'youtube': %>
         <div class="trailer <%= @mediaTrailer.source %>">
             <img src="<%- @mediaTrailer.img %>" />
         </div>
