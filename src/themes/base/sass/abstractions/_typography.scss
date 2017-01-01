@@ -25,4 +25,5 @@
   margin: 0;
   font-size: $font-size-heading;
   @extend .shadow-z-1;
+  position: relative;
 }

@@ -42,6 +42,11 @@
       @filterBy key, (model) ->
         App.request "thumbsup:check", model
 
+    filterByInProgress: (key) ->
+      @filterBy key, (model) ->
+        inprogress = if model.get('progress') > 0 and model.get('progress') < 100 then true else false
+        inprogress
+
     filterByString: (key, query) ->
       @filterBy 'search', (model) ->
         if query.length < 3 ## 2 charachter min

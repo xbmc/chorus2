@@ -27,7 +27,7 @@
             {id: 'artist', title: tr('Artist'), type: 'textfield', format: 'array.string'},
             {id: 'description', title: tr('Description'), type: 'textarea'},
             {id: 'albumlabel', title: tr('Label'), type: 'textfield'},
-            {id: 'year', title: tr('Year'), type: 'textfield', format: 'integer', attributes: {class: 'half-width'}},
+            {id: 'year', title: tr('Year'), type: 'number', format: 'integer', attributes: {class: 'half-width', step: 1, min: 0, max: 9999}},
             {id: 'rating', title: tr('Rating'), type: 'number', format: 'float', attributes: {class: 'half-width', step: 0.1, min: 0, max: 10}, suffix: '<div class="clearfix"></div>'},
           ]
         }
@@ -46,5 +46,6 @@
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'audio', 'AudioLibrary'
-      controller.setAlbumDetails @model.get('id'), data, ->
+      controller.setAlbumDetails @model.get('id'), data, =>
+        helpers.entities.triggerUpdate @model, data
         Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'album')

@@ -9,7 +9,7 @@ helpers.entities.createUid = (model, type) ->
   type = if type then type else model.type
   id = model.id
   uid = 'none'
-  if typeof id is 'number'
+  if typeof id is 'number' or type is 'season'
     uid = id
   else
     file = model.file
@@ -65,3 +65,20 @@ helpers.entities.buildOptions = (options) ->
     defaultOptions.cache = true
     defaultOptions.expires = config.get('static', 'collectionCacheExpiry')
   _.extend defaultOptions, options
+
+## Trigger a update of a given model. Data is an object with all the properties that need updating
+## Used when a model has been updated (eg edit) to get listening collections to re-fetch the model.
+## Optionally add fields to add or remove when re-fetching.
+helpers.entities.triggerUpdate = (model, data, additionalFields = [], removeFields = []) ->
+  fields = _.map data, (val, key) -> key
+  Kodi.vent.trigger 'entity:kodi:refresh', model.get('uid'), _.difference(fields.concat(additionalFields), removeFields)
+
+## Returns the Chorus search menu items for local and addon search.
+helpers.entities.getAddonSearchMenuItems = (query) ->
+  addonSearches = Kodi.request "addon:search:enabled"
+  ret = '<li data-type="all" data-query="' + query + '">' + tr('Local media') + '</li>'
+  if addonSearches.length > 0
+    ret += '<li class="divider"></li>'
+    for addonSearch in addonSearches
+      ret += '<li data-type="' + addonSearch.id + '" data-query="' + query + '">' +  tr(addonSearch.title)+ '</li>'
+  ret

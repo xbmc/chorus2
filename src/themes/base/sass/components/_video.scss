@@ -133,6 +133,10 @@
   @include flat-button($icon: content-archive);
 }
 
+.btn-flat-more {
+  @include flat-button($icon: navigation-more-vert);
+}
+
 .btn-flat-watched {
   @include flat-button($icon: toggle-check-box);
   .action-watched {
@@ -153,7 +157,7 @@
 
 .entity-progress {
   @include set-position-absolute(top -2px right 0 left 0);
-  z-index: $z-index-delta;
+  z-index: 10;
   .current-progress {
     @include transition(width 0.3s linear);
     height: 3px;

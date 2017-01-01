@@ -32,6 +32,27 @@
         <li class="btn-flat-watched watched">
             <%= tr('set') %> <span class="action-watched"><%= tr('watched') %></span><span class="action-unwatched"><%= tr('unwatched') %></span>
         </li>
+        <li class="more-actions dropdown">
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <ul class="dropdown-menu pull-right">
+                <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
+                    <ul class="dropdown-menu">
+                        <%- helpers.entities.getAddonSearchMenuItems(@label) %>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu external-search"><%= tr('External Search') %>
+                    <ul class="dropdown-menu">
+                        <li data-type="google" data-query="<%= @label %>">Google</li>
+                        <li data-type="imdb" data-query="<%= @label %>">IMDb</li>
+                        <li data-type="tvdb" data-query="<%= @label %>">TVDb</li>
+                        <li data-type="tmdb" data-query="<%= @label %>">TMDb</li>
+                    </ul>
+                </li>
+                <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
+                <li class="divider"></li>
+                <li class="edit"><%= tr('Edit') %></li>
+            </ul>
+        </li>
     </ul>
 
 </div>

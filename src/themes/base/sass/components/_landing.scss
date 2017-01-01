@@ -12,6 +12,16 @@
   .region-content h3, // Depricated.
   h3.set-header {
     @extend %set-header;
+
+    a {
+      font-size: 75%;
+      line-height: 1.4;
+      float: right;
+      color: $color-greyscale-dust-gray;
+      &:hover {
+        color: $color-brand-primary;
+      }
+    }
   }
   // Set a large max height so can scroll.
   .landing-sections {

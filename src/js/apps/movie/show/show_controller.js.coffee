@@ -13,7 +13,8 @@
         App.execute 'movie:action', 'download', viewItem
       App.listenTo view, 'toggle:watched', (viewItem) ->
         App.execute 'movie:action:watched', viewItem.view, viewItem.view
-
+      App.listenTo view, 'movie:edit', (viewItem) ->
+        App.execute 'movie:edit', viewItem.model
 
     moreContent: [
       {
@@ -56,9 +57,6 @@
       App.execute "when:entity:fetched", movie, =>
         ## Get the layout.
         @layout = @getLayoutView movie
-        ## Ensure background removed when we leave.
-        @listenTo @layout, "destroy", =>
-          App.execute "images:fanart:set", 'none'
         ## Listen to the show of our layout.
         @listenTo @layout, "show", =>
           @getDetailsLayoutView movie

@@ -32,6 +32,10 @@
       "click .thumbs" : "toggleThumbs"
       "click": "toggleSelect"
 
+    ## This triggers a re-render on model update
+    modelEvents:
+      'change': 'render'
+
     toggleThumbs: ->
       App.request "thumbsup:toggle:entity", @model
       this.$el.toggleClass 'thumbs-up'

@@ -4,6 +4,7 @@
 
     ## Return the raw entities stored against this collection
     ## as an array of json objects (not models)
+    ## TODO: Remove this and use toJSON() instead
     getRawCollection: ->
       objs = [];
       if @models.length > 0

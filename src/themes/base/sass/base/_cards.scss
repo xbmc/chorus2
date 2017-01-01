@@ -246,12 +246,7 @@ $card-layout: (
     }
   }
   &.selected {
-    outline: 1px solid $color-kodi;
-    box-shadow: 0 0 10px 1px rgba($color-kodi, 0.5);
-    .active-player-local & {
-      outline: 1px solid $color-local;
-      box-shadow: 0 0 10px 1px rgba($color-local, 0.5);
-    }
+    @include selected-card();
   }
   .dropdown-menu {
     left: auto;
@@ -265,28 +260,6 @@ $card-layout: (
   }
 }
 
-.dropdown-menu {
-  padding: $spacing-half-unit 0;
-  background: $color-playlist-background;
-  color: $color-playlist-text;
-  border-radius: 0;
-  li {
-    padding: $spacing-half-unit / 2 $spacing-base-unit;
-    &:hover {
-      background: rgba($color-white, 0.1);
-      color: $color-white;
-      cursor: pointer;
-      &.divider {
-        cursor: none;
-        background: none;
-      }
-    }
-    &.divider {
-      padding: 0;
-      margin: $spacing-half-unit /2 0;
-    }
-  }
-}
 
 /**
  * Extendables.

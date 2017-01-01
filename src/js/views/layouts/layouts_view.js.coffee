@@ -28,7 +28,6 @@
       regionMetaBelow:  ".region-details-meta-below"
       regionFanart:  ".region-details-fanart"
     onRender: ->
-      $('.region-details-fanart', @$el).css('background-image', 'url("' + @model.get('fanart') + '")')
       ## Get swatches
       helpers.ui.getSwatch @model.get('thumbnail'), (swatches) ->
         helpers.ui.applyHeaderSwatch(swatches)

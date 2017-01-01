@@ -52,5 +52,6 @@
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'audio', 'AudioLibrary'
-      controller.setSongDetails @model.get('id'), data, ->
+      controller.setSongDetails @model.get('id'), data, =>
+        helpers.entities.triggerUpdate @model, data
         Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'song')

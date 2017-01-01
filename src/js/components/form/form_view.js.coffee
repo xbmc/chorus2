@@ -84,6 +84,7 @@
       $tabs.find('li').first().trigger('click')
       $ctx.addClass('with-tabs')
 
+
   ## Form item element - very basic copy of drupals form api format
   class Form.Item extends App.Views.ItemView
     template: 'components/form/form_item'
@@ -105,8 +106,9 @@
             attrs.checked = 'checked'
           el = @themeTag 'input', _.extend(baseAttrs, attrs), ''
 
-        when 'textfield', 'number', 'date'
-          inputType = if @model.get('type') is 'textfield' then 'text' else @model.get('type')
+        when 'textfield', 'number', 'date', 'imageselect'
+          textfields = ['textfield', 'imageselect']
+          inputType = if helpers.global.inArray(@model.get('type'), textfields) then 'text' else @model.get('type')
           attrs = {type: inputType, value: @model.get('defaultValue')}
           el = @themeTag 'input', _.extend(materialBaseAttrs, attrs), ''
 
@@ -161,8 +163,14 @@
   class Form.Group extends App.Views.CompositeView
     template: 'components/form/form_item_group'
     tagName: 'div'
-    childView: Form.Item
     childViewContainer: '.form-items'
+    # Dynamically assign child view depending on type
+    getChildView: (item) ->
+      if item.get('type') is 'imageselect'
+        Form.ItemImageSelect
+      else
+        # Default
+        Form.Item
     attributes: ->
       {
         class: 'form-group group-parent ' + @model.get('class')
@@ -177,3 +185,46 @@
   class Form.Groups extends App.Views.CollectionView
     childView: Form.Group
     className: 'form-groups'
+
+  ###
+    Custom Widgets that extend Form.Item
+  ###
+
+  ## Image selector widget (gets assigned in getChildView within Form.Group)
+  class Form.ItemImageSelect extends Form.Item
+    template: 'components/form/form_item_imageselect'
+    ## Add the current image and assign as default
+    initialize: ->
+      super
+      thumb = App.request "images:path:get", @model.get('defaultValue'), @model.get('id')
+      @model.set({image: {original: @model.get('defaultValue'), thumb: thumb}})
+    ## We wait til render to fetch the external images and build the UI
+    onRender: ->
+      item = @model.get('formState')
+      field = @model.get('id')
+      metadataHandler = @model.get('metadataImageHandler')
+      metadataLookup = @model.get('metadataLookupField')
+      # els in use.
+      $wrapper = $('.form-imageselect', @$el)
+      $thumbs = $('.form-imageselect__thumbs', @$el)
+      $input = $('.form-imageselect__url input', @$el)
+      $tabs = $('.form-imageselect__tabs', @$el)
+      $panes = $('.form-imageselect__panes', @$el)
+      # tabs toggle
+      $tabs.on 'click', 'li', (e) ->
+        $tabs.find('li').removeClass('active')
+        $(@).addClass('active')
+        $panes.find('.pane').removeClass('active')
+        $panes.find('.pane[rel=' + $(@).data('pane') + ']').addClass('active')
+      # Load images and allow selection
+      $thumbs.on 'click', 'li', (e) ->
+        $thumbs.find('li').removeClass('selected')
+        $input.val $(@).addClass('selected').data('original')
+      _.defer () ->
+        if metadataHandler and metadataLookup and item[metadataLookup]
+          $wrapper.addClass('images-loading')
+          App.execute metadataHandler, item[metadataLookup], (resp) ->
+            if resp
+              for image in resp[field]
+                $thumbs.append $('<li data-original="' + image.original + '"><img src="' + image.thumb + '" /></li>')
+            $wrapper.removeClass('images-loading')

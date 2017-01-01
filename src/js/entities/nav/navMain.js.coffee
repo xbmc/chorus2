@@ -38,6 +38,15 @@
       nav.push {id: 41, title: tr("Thumbs up"), path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
       nav.push {id: 42, title: tr("Playlists"), path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
 
+      ## Addons
+      nav.push {id: 71, title: tr("Add-ons"), path: 'addons/all', icon: 'mdi-action-extension', classes: 'nav-addons', parent: 0}
+      nav.push {id: 72, title: tr("all"), path: 'addons/all', icon: '', classes: '', parent: 71}
+      nav.push {id: 73, title: tr("video"), path: 'addons/video', icon: '', classes: '', parent: 71}
+      nav.push {id: 74, title: tr("audio"), path: 'addons/audio', icon: '', classes: '', parent: 71}
+      # Placeholder for pictures (75)
+      nav.push {id: 76, title: tr("executable"), path: 'addons/executable', icon: '', classes: '', parent: 71}
+      nav.push {id: 77, title: tr("settings"), path: 'settings/addons', icon: '', classes: '', parent: 71}
+
       ## Settings.
       nav.push {id: 51, title: tr("Settings"), path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
       nav.push {id: 52, title: tr("Web interface"), path: 'settings/web', icon: '', classes: '', parent: 51}

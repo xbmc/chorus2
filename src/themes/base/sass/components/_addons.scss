@@ -1,0 +1,24 @@
+
+
+.addon-list {
+
+  .region-first {
+    @extend %sidebar--padding;
+  }
+
+  .nav-sub {
+    li {
+      text-transform: capitalize;
+    }
+  }
+
+  .card {
+    .play {
+      display: none !important;
+    }
+    .subtitle {
+      text-transform: capitalize;
+    }
+  }
+
+}
