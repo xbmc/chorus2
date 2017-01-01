@@ -658,10 +658,10 @@ msgstr "Main Menu Structure"
 
 msgctxt ""
 msgid ""
-"Here you can change the title, url and icons for menu items. You can also "
+"Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 msgstr ""
-"Here you can change the title, url and icons for menu items. You can also "
+"Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 
 msgctxt ""
@@ -1183,3 +1183,79 @@ msgstr "Died"
 msgctxt ""
 msgid "Instruments"
 msgstr "Instruments"
+
+msgctxt ""
+msgid "more"
+msgstr "more"
+
+msgctxt ""
+msgid "in progress"
+msgstr "in progress"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Add an image via an external URL"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Searching for more images"
+
+msgctxt ""
+msgid "Image Selector"
+msgstr "Image Selector"
+
+msgctxt ""
+msgid "Image URL"
+msgstr "Image URL"
+
+msgctxt ""
+msgid "External Search"
+msgstr "External Search"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Local media"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus Search"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Search"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Executed addon"
+
+msgctxt ""
+msgid "all"
+msgstr "all"
+
+msgctxt ""
+msgid "video"
+msgstr "video"
+
+msgctxt ""
+msgid "audio"
+msgstr "audio"
+
+msgctxt ""
+msgid "image"
+msgstr "image"
+
+msgctxt ""
+msgid "picture"
+msgstr "picture"
+
+msgctxt ""
+msgid "executable"
+msgstr "executable"
+
+msgctxt ""
+msgid "settings"
+msgstr "settings"

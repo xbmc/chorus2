@@ -32,13 +32,11 @@
   class Season.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'season-details'
 
-  class Season.Details extends App.Views.ItemView
+  class Season.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/season/details_meta'
     triggers:
       "click .play"       : "season:play"
       "click .add"        : "season:add"
-    events:
-      "click .watched"    : "toggleWatched"
     attributes: ->
       @watchedAttributes 'details-meta'
 

@@ -246,3 +246,28 @@ $unit: $size / 20;
     top: 20em;
   }
 }
+
+/*
+ * Other Loader styles.
+ */
+
+// Small inline spinner.
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader-small-inline {
+  border-radius: 50%;
+  width: $height-loader-small;
+  height: $height-loader-small;
+  border: .25rem solid rgba($color-black, 0.1);
+  border-top-color: $color-brand-primary;
+  animation: spin 1s infinite linear;
+  display: inline-block;
+}
+
+

@@ -23,23 +23,24 @@
   class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'album-details'
 
-  class Show.Details extends App.Views.ItemView
+  class Show.Details extends App.Views.DetailsItem
     template: 'apps/album/show/details_meta'
     triggers:
       "click .play"       : "album:play"
       "click .add"        : "album:add"
       "click .localadd"   : "album:localadd"
       "click .localplay"  : "album:localplay"
-    onRender: ->
-      $('.description', @$el).attr('title', tr('Click for more')).on 'click', (e) ->
-        $(@).toggleClass('expanded')
+      "click .edit"       : "album:edit"
 
   class Show.AlbumTeaser extends App.AlbumApp.List.AlbumTeaser
     tagName: "div"
     className: "card-minimal"
     initialize: ->
-      @model.set subtitle: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
+      @setMeta()
       @model.set(App.request('album:action:items'))
+    setMeta: ->
+      @model.set
+        subtitle: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
 
   class Show.AlbumDetailTeaser extends Show.AlbumTeaser
     className: "card-detail"

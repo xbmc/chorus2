@@ -39,7 +39,7 @@
       else
         $body.removeAttr('style')
 
-    getImageUrl: (rawPath, type = 'thumbnail') ->
+    getImageUrl: (rawPath, type = 'thumbnail', useFallback = true) ->
       path = ''
       if not rawPath? or rawPath is ''
         switch type
@@ -61,8 +61,10 @@
   ## on the model attributes, typically during a model.parse()
   App.reqres.setHandler "images:path:entity", (model) ->
     if model.thumbnail?
+      model.thumbnailOriginal = model.thumbnail
       model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail')
     if model.fanart?
+      model.fanartOriginal = model.fanart
       model.fanart = API.getImageUrl(model.fanart, 'fanart')
     if model.cast? and model.cast.length > 0
       for i, person of model.cast

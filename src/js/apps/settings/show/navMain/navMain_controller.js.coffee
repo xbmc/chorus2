@@ -18,13 +18,14 @@
       @data = data
       # Form header/intro
       defaults = ' <a class="nav-restore-defaults">' + t.gettext('Click here restore defaults') + '</a>'
+      iconLink = '<a href="#lab/icon-browser">icons</a>'
       form = [
         title: t.gettext('Main Menu Structure')
         id: 'intro'
         children: [
           id: 'intro-text'
           type: 'markup'
-          markup: t.gettext('Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items.') + defaults
+          markup: t.sprintf('Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items.', iconLink) + defaults
         ]
       ]
       # Return a form structure

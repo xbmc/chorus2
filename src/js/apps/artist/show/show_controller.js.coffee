@@ -12,6 +12,8 @@
         App.execute 'artist:action', 'localadd', item
       App.listenTo view, 'artist:localplay', (item) ->
         App.execute 'artist:action', 'localplay', item
+      App.listenTo view, 'artist:edit', (item) ->
+        App.execute 'artist:edit', item.model
 
   class Show.Controller extends App.Controllers.Base
 

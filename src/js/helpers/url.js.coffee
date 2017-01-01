@@ -56,10 +56,11 @@ helpers.url.playlistUrl = (item) ->
       item.url 'music/albums'
   item.url
 
-## Get url args
+## Get url args (removing any queries)
 helpers.url.arg = (arg = 'none') ->
   hash = location.hash
-  args = hash.substring(1).split('/')
+  hashParts = hash.split('?')
+  args = hashParts[0].substring(1).split('/')
   if arg is 'none'
     args
   else if args[arg]?

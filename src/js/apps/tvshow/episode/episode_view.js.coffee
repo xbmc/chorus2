@@ -13,18 +13,18 @@
     initialize: ->
       super
       if @model?
-        @model.set(@getMeta())
+        @setMeta()
         @model.set(App.request('episode:action:items'))
     attributes: ->
       @watchedAttributes 'card'
-    getMeta: ->
+    setMeta: ->
       epNum = @themeTag('span', {class: 'ep-num'}, @model.get('season') + 'x' + @model.get('episode') + ' ')
       epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.get('episode'))
       showLink = @themeLink(@model.get('showtitle') + ' ', 'tvshow/' + @model.get('tvshowid'), {className: 'show-name'})
-      {
+      @model.set
         label: epNum + @model.get('title')
         subtitle: showLink + epNumFull
-      }
+
 
   class Episode.Empty extends App.Views.EmptyViewResults
     tagName: "li"
@@ -43,15 +43,14 @@
   class Episode.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'episode-details'
 
-  class Episode.Details extends App.Views.ItemView
+  class Episode.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/episode/details_meta'
     triggers:
       'click .play': 'episode:play'
       'click .add': 'episode:add'
       'click .stream': 'episode:localplay'
       'click .download': 'episode:download'
-    events:
-      "click .watched"    : "toggleWatched"
+      'click .edit': 'episode:edit'
     attributes: ->
       @watchedAttributes()
 
@@ -67,3 +66,8 @@
     regions:
       regionCast: '.region-cast'
       regionSeason: '.region-season'
+    modelEvents:
+      'change': 'modelChange'
+    modelChange: () ->
+      @render()
+      @trigger 'show'

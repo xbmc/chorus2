@@ -36,23 +36,8 @@ $bp-edit-form-large: medium;
   }
 
   .form-tabs {
-    background: $color-greyscale-alto;
-    margin-bottom: $spacing-base-unit;
-    padding: $spacing-half-unit $spacing-half-unit 0;
-    @extend %clearfix;
+    @extend %basic-tabs;
     @extend %edit-form-height;
-    li {
-      cursor: pointer;
-      float: left;
-      padding: $spacing-half-unit $spacing-base-unit;
-      &.active {
-        background: $color-white;
-        color: $color-brand-primary;
-      }
-      &:hover {
-        color: $color-brand-primary;
-      }
-    }
   }
 
   .form-groups {
@@ -123,4 +108,72 @@ $bp-edit-form-large: medium;
       width: 700px;
     }
   }
+}
+
+// Image widget
+.form-imageselect {
+
+  &__tabs {
+    @extend %basic-tabs;
+    margin: -1em -1em 1em;
+    background: $color-greyscale-mercury;
+    padding-left: 1em;
+  }
+
+  &__panes {
+    .pane {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+
+  &__thumbs {
+    @extend %clearfix;
+
+    li {
+      float: left;
+      margin: 0 $spacing-half-unit $spacing-half-unit 0;
+      cursor: pointer;
+      width: 106px;
+      overflow: hidden;
+
+      &.selected {
+        @include selected-card();
+      }
+      .form-edit-fanart & {
+        width: 222px;
+      }
+    }
+    img {
+      height: 160px;
+      width: auto;
+      .form-edit-fanart & {
+        height: 125px;
+      }
+    }
+  }
+
+  &__loader {
+    @extend %clearfix;
+    display: none;
+    margin: $spacing-base-unit 0;
+    border-radius: 3px;
+    padding: $spacing-half-unit;
+    color: $color-greyscale-dust-gray;
+    .loader-small-inline {
+      margin-right: $spacing-half-unit;
+      float: left;
+    }
+    span {
+      display: inline-block;
+      line-height: $height-loader-small;
+      height: $height-loader-small;
+    }
+    .images-loading & {
+      display: block;
+    }
+  }
+
 }

@@ -29,6 +29,7 @@
     ## When using cache, it doesn't respect the jsonrpc parsing
     ## so we use this to parse all collection results using cache.
     getResult: (response, key) ->
+      @responseKey = key
       result = if response.jsonrpc and response.result then response.result else response
       result[key]
 

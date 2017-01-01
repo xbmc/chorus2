@@ -33,10 +33,30 @@
     <div class="description"><%= @description %></div>
 
     <ul class="inline-links">
-        <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
-        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
-        <li class="btn-flat-add localadd"><%= t.gettext('Add to playlist') %></li>
-        <li class="btn-flat-stream localplay"><%= t.gettext('Play in browser') %></li>
+        <li class="btn-flat-play play"><%= tr('Play') %></li>
+        <li class="btn-flat-add add"><%= tr('Queue') %></li>
+        <li class="btn-flat-stream localplay"><%= tr('Stream') %></li>
+        <li class="more-actions dropdown">
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <ul class="dropdown-menu pull-right">
+                <li class="localadd"><%= tr('Add to playlist') %></li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
+                    <ul class="dropdown-menu">
+                        <%- helpers.entities.getAddonSearchMenuItems(@label) %>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu external-search"><%= tr('External Search') %>
+                    <ul class="dropdown-menu">
+                        <li data-type="google" data-query="<%= @label %>">Google</li>
+                        <li data-type="audiodb" data-query="<%= @label %>">AudioDb</li>
+                    </ul>
+                </li>
+                <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
+                <li class="divider"></li>
+                <li class="edit"><%= tr('Edit') %></li>
+            </ul>
+        </li>
     </ul>
 
 </div>

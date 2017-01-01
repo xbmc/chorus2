@@ -13,6 +13,7 @@
 
     </div></div>
 
-    <div class="region-details-fanart"><div class="gradient"></div></div>
-
+    <% if @fanart: %>
+        <div class="region-details-fanart" style="background-image: url('<%= @fanart %>')"><div class="gradient"></div></div>
+    <% end %>
 </div>

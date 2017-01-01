@@ -42,10 +42,31 @@
             {id: 'tag', title: tr('Tags'), type: 'textarea', format: 'array.string'},
           ]
         }
+        {
+          title: 'Poster'
+          id: 'poster'
+          children:[
+            {
+              id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'),
+              metadataImageHandler: 'themoviedb:tv:images', metadataLookupField: 'imdbnumber'
+            }
+          ]
+        }
+        {
+          title: 'Background'
+          id: 'background'
+          children:[
+            {
+              id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
+              metadataImageHandler: 'themoviedb:tv:images', metadataLookupField: 'imdbnumber'
+            }
+          ]
+        }
       ]
 
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
-      controller.setTVShowDetails @model.get('id'), data, ->
+      controller.setTVShowDetails @model.get('id'), data, =>
+        helpers.entities.triggerUpdate @model, data, ['watchedepisodes', 'episode']
         Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'tvshow')

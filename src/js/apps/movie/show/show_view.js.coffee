@@ -6,15 +6,14 @@
   class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'movie-details'
 
-  class Show.Details extends App.Views.ItemView
+  class Show.Details extends App.Views.DetailsItem
     template: 'apps/movie/show/details_meta'
     triggers:
       'click .play': 'movie:play'
       'click .add': 'movie:add'
       'click .stream': 'movie:localplay'
       'click .download': 'movie:download'
-    events:
-      "click .watched"    : "toggleWatched"
+      'click .edit': 'movie:edit'
     attributes: ->
       @watchedAttributes()
 
@@ -27,8 +26,6 @@
   class Show.Content extends App.Views.LayoutView
     template: 'apps/movie/show/content'
     className: "movie-content content-sections"
-    onRender:
-      $('[data-toggle="tooltip"]', @$el).tooltip()
     triggers:
       'click .youtube': 'movie:youtube'
     regions:
@@ -38,6 +35,11 @@
       regionMore3: '.region-more-3'
       regionMore4: '.region-more-4'
       regionMore5: '.region-more-5'
+    modelEvents:
+      'change': 'modelChange'
+    modelChange: () ->
+      @render()
+      @trigger 'show'
 
   class Show.Set extends App.Views.LayoutView
     template: 'apps/movie/show/set'

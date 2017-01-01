@@ -34,6 +34,7 @@ helpers.cache.clear = ->
 
 ## Update a property of a model in a backbone collection so we don't
 ## have to clear the entire collection cache.
+## TODO: See if this can be replaced with: Backbone.fetchCache.clearItem(updatedModel)
 helpers.cache.updateCollection = (collectionKey, responseKey, modelId, property, value) ->
   if Backbone.fetchCache._cache? and Backbone.fetchCache._cache[collectionKey]? and Backbone.fetchCache._cache[collectionKey].value.result?
     if Backbone.fetchCache._cache[collectionKey].value.result[responseKey]?

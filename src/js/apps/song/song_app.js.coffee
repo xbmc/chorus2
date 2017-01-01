@@ -2,7 +2,7 @@
 
 
   App.commands.setHandler 'song:edit', (model) ->
-    loadedModel = App.request "song:entity", model.get('id')
+    loadedModel = App.request "song:entity", model.get('songid')
     App.execute "when:entity:fetched", loadedModel, =>
       new SongApp.Edit.Controller
         model: loadedModel

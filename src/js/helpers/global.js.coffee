@@ -170,5 +170,5 @@ helpers.global.saveFileText = (content, filename = 'untitled.txt') ->
       blob = new Blob([content], {type: "text/plain;charset=utf-8"})
       saveAs(blob, filename, true)
   catch error
-    App.execute "notification:show", tr('Saving is not supported by your browser')
+    Kodi.execute "notification:show", tr('Saving is not supported by your browser')
 

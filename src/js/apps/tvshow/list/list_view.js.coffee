@@ -11,12 +11,13 @@
       "click .edit"       : "tvshow:edit"
     initialize: ->
       super
-      subtitle = ''
-      subtitle += ' ' + @model.get('rating')
-      @model.set subtitle: subtitle
+      @setMeta()
       @model.set( App.request('tvshow:action:items') )
     attributes: ->
       @watchedAttributes 'card tv-show prevent-select'
+    setMeta: ->
+      @model.set
+        subtitle: @model.get('rating')
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"
