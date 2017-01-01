@@ -238,6 +238,7 @@ module.exports = function (grunt) {
           injectChanges: true,
           hostname: "192.168.0.5",
           proxy: "192.168.0.92:8080",
+          open: false,
           ports: {
             min: 3102,
             max: 3103
