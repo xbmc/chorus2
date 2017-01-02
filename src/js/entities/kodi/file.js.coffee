@@ -19,7 +19,7 @@
       {media: 'video', label: 'Video add-ons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
     ]
 
-    directorySeperator: '/'
+    directorySeparator: '/'
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -96,7 +96,7 @@
 
     ## Create a url for an addon
     createAddonFile: (addon) ->
-      'plugin://' + addon.addonid + @directorySeperator
+      'plugin://' + addon.addonid + @directorySeparator
 
     ## Parse files for extra data
     parseFiles: (items, media) ->
@@ -141,11 +141,11 @@
       if parentSource.file
         items.push parentSource
         basePath = parentSource.file
-        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(@directorySeperator)
+        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(@directorySeparator)
         excludedPaths = App.request "addon:excludedPaths", parentSource.addonid
         for part in pathParts
           if part isnt ''
-            basePath += part + @directorySeperator
+            basePath += part + @directorySeparator
             if excludedPaths.indexOf(basePath) is -1 ## Don't add excluded paths
               items.push @createPathModel(parentSource.media, part, basePath)
       new KodiEntities.FileCustomCollection items
