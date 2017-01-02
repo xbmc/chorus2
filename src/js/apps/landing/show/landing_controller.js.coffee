@@ -35,6 +35,7 @@
         @getSection section
 
     getSection: (section) ->
+      section = @addFilterValue section
       opts =
         sort: {method: section.sort, order: section.order}
         limit: {start: 0, end: section.limit}
@@ -53,9 +54,18 @@
       view = App.request "#{section.entity}:list:view", collection, true
       setView = new Show.ListSet
         section: section
+        filter: @getOption('filter')
       App.listenTo setView, "show", =>
         setView.regionResult.show view
       @content["regionSection#{section.idx}"].show setView
+
+    addFilterValue: (section) ->
+      filterVal = @getOption('filter')
+      if filterVal isnt false
+        if section.filter and section.filter.value
+          # TODO: Deal with complex nested rules that us 'and' or 'or'
+          section.filter.value = filterVal
+      section
 
     getFanArts: (collection) ->
       $hero = $("#landing-hero")
