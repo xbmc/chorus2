@@ -2,7 +2,7 @@
 
   API =
 
-    ## Includes triggres for lists.
+    ## Includes triggers for lists.
     getEpisodeList: (collection) ->
       view = new Episode.Episodes
         collection: collection

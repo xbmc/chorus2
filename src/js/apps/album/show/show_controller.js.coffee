@@ -84,7 +84,7 @@
     getMusic: (id) ->
       options =
         filter: {albumid: id}
-      ## Get all the songs and parse them into sepetate album collections.
+      ## Get all the songs and parse them into separate album collections.
       songs = App.request "song:entities", options
       App.execute "when:entity:fetched", songs, =>
         albumView = new Show.WithSongsLayout()

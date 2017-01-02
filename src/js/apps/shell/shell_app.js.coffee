@@ -12,7 +12,7 @@
       home = new Shell.HomepageLayout()
       App.regionContent.show home
       @setFanart()
-      ## Change the famart when the state changes.
+      ## Change the fanart when the state changes.
       App.vent.on "state:changed", (state) =>
         stateObj = App.request "state:current"
         if stateObj.isPlayingItemChanged() and helpers.url.arg(0) is ''

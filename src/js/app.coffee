@@ -25,7 +25,7 @@
     showDeviceName: false
 }
 
-## The App Inance
+## The App Instance
 @Kodi = do (Backbone, Marionette) ->
 
   App = new Backbone.Marionette.Application()

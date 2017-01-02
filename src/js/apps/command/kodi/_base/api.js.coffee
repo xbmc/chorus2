@@ -36,7 +36,7 @@
     ## Namespace should be added in each extending class
     commandNameSpace: 'JSONRPC'
 
-    ## Namespace can be overriden when called
+    ## Namespace can be overridden when called
     getCommand: (command, namespace = @commandNameSpace) ->
       namespace + '.' + command
 

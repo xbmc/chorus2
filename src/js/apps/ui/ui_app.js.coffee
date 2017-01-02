@@ -83,7 +83,7 @@
         $wrap.append($newOption)
       $wrap
 
-  ## Open a text input modal window, callback recieves the entered text.
+  ## Open a text input modal window, callback receives the entered text.
   App.commands.setHandler "ui:textinput:show", (title, msg = '', callback, open = true) ->
     $input = $('<input>', {id: 'text-input', class: 'form-control', type: 'text'}).on('keyup', (e) ->
       if e.keyCode is 13 and callback
