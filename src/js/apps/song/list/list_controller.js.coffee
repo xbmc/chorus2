@@ -8,7 +8,7 @@
         collection: songs
         verbose: verbose
 
-      ## Trigers/Actions on a song
+      ## Triggers/Actions on a song
       App.listenTo @songsView, 'childview:song:play', (list, item) =>
         @playSong item.model.get('songid')
       App.listenTo @songsView, 'childview:song:add', (list, item) =>
