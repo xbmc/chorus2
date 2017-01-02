@@ -71,8 +71,8 @@
         @call 'find/' + id, {external_source: source}, callback
 
       ## Get Images
-      images: (type, tmbdbId, callback) ->
-        @call type + '/' + tmbdbId + '/images', {include_image_language: @defaultLang + ',null'}, (resp) =>
+      images: (type, tmdbId, callback) ->
+        @call type + '/' + tmdbId + '/images', {include_image_language: @defaultLang + ',null'}, (resp) =>
           callback @addImageUrls(resp)
 
 
