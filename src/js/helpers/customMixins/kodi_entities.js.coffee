@@ -113,21 +113,21 @@ KodiMixins.Entities =
   ###
     The types of fields we request, minimal for search, small for list, full for page.
   ###
-  entitiyFields:
+  entityFields:
     minimal: []
     small: []
     full: []
 
   setEntityFields: (type, fields = []) ->
-    @entitiyFields[type] = fields
+    @entityFields[type] = fields
     @
 
   getEntityFields: (type) ->
-    fields = @entitiyFields.minimal
+    fields = @entityFields.minimal
     if type is 'full'
-      fields.concat(@entitiyFields.small).concat(@entitiyFields.full)
+      fields.concat(@entityFields.small).concat(@entityFields.full)
     else if type is 'small'
-      fields.concat(@entitiyFields.small)
+      fields.concat(@entityFields.small)
     else
       fields
 
