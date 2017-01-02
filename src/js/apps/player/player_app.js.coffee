@@ -90,7 +90,7 @@
     timerStop: ->
       clearTimeout App.playingTimerInterval
 
-    ## Update virual timer.
+    ## Update virtual timer.
     timerUpdate: ->
       stateObj = App.request "state:kodi"
       # stop existing timers and restart if playing
