@@ -64,9 +64,9 @@
       commander.multipleCommands commands, (resp) =>
         for i, item of resp
           source = @sources[i]
-          repsonseKey = source.type + 's'
-          if item[repsonseKey]
-            for model in item[repsonseKey]
+          responseKey = source.type + 's'
+          if item[responseKey]
+            for model in item[responseKey]
               model.media = source.media
               model.sourcetype = source.type
               if source.type is 'addon'
