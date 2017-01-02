@@ -56,7 +56,7 @@
 
     failure: ->
       App.kodiPolling.failures++
-      ## Incriment the check interval the more failures we get
+      ## Increment the check interval the more failures we get
       if App.kodiPolling.failures > 10
         App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 5
       if App.kodiPolling.failures > 20
