@@ -41,7 +41,7 @@
       obj.unwatched = obj.episode - obj.watchedepisodes
       @parseModel 'tvshow', obj, obj.tvshowid
 
-  ## TVShowss collection
+  ## TVShows collection
   class KodiEntities.TVShowCollection extends App.KodiEntities.Collection
     model: KodiEntities.TVShow
     methods: read: ['VideoLibrary.GetTVShows', 'properties', 'limits', 'sort', 'filter']
