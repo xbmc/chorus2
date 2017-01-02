@@ -34,7 +34,7 @@
           App.vent.trigger "sockets:unavailable"
 
         ws.onmessage = (resp) =>
-          @messageRecieved resp
+          @messageReceived resp
 
         ws.onclose = (resp) =>
           helpers.debug.msg "Websockets Closed", "warning", resp
@@ -54,7 +54,7 @@
       jQuery.parseJSON(resp.data)
 
     ## Deal with a message.
-    messageRecieved: (resp) ->
+    messageReceived: (resp) ->
       data = @parseResponse resp
       @onMessage data
 
