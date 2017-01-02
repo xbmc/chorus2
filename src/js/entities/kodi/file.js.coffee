@@ -48,7 +48,7 @@
       collections
 
     ## Get a source media types, we don't use backbone.rpc because it's multiple
-    ## calls seem really flakey on collections as it is geared towards models.
+    ## calls seem really flaky on collections as it is geared towards models.
     ## This allows better parsing anyway as we can add the media to each model.
     ## We also parse in available addon sources.
     getSources: ->
