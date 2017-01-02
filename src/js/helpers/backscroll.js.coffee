@@ -11,5 +11,6 @@ helpers.backscroll =
 
   scrollToLast: ->
     scrollPos = if @lastPath is location.hash then @lastScroll else 0
-    window.scrollTo(0, scrollPos);
+    if scrollPos > 0
+      window.scrollTo(0, scrollPos)
 

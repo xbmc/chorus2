@@ -12,59 +12,45 @@
     preload: 20
     originalChildView: {}
     buffer: 30
-    isTicking: false
+    cardSelector: '.card'
+    animateFrameTrigger: "ui:animate:stop"
+    placeHolderViewName: 'CardViewPlaceholder'
 
-    ## inital render before scrolling
+    ## Inital render before scrolling
     addChild: (child, ChildView, index) ->
       if index > @preload
-        ChildView = App.Views.CardViewPlaceholder
+        ChildView = App.Views[@placeHolderViewName]
       Backbone.Marionette.CollectionView.prototype.addChild.apply(this, arguments)
 
-    ## Listen for scroll change
-    bindScroll: ->
-      ## ScrollStop/resizeStop gives us 250ms between changes so UI doesn't lock
-      $(window).scrollStopped =>
-         @requestTick()
-      $(window).resizeStopped =>
-        @requestTick()
 
     ## Store the various views and bind scroll.
     initialize: ->
       @originalChildView = @getOption('childView')
-      @placeholderChildView = App.Views.CardViewPlaceholder
-      @bindScroll()
+      @placeholderChildView = App.Views[@placeHolderViewName]
+      App.vent.on @animateFrameTrigger, () =>
+        @renderItemsInViewport()
 
     ## incase the view re-rendered when we are not at the top.
     onRender: ->
-      # If this is called on an empty collection it causes a nasty memory
-      # leak and kills the browser with an "Aw Snap!"
-      if @collection.length > 0
-        @requestTick()
-
-    ## Use requestAnimationFrame for smoother redraw
-    ## http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-    requestTick: ->
-      if !@isTicking
-        requestAnimationFrame( =>
-          @renderItemsInViewport()
-        )
-      @isTicking = true
+      @renderItemsInViewport()
 
     ## Our callback for updating the viewport with visible items.
     renderItemsInViewport: () ->
-      @isTicking = false
-      $cards = $(".card", @$el);
+      $cards = $(@cardSelector, @$el);
       visibleIndexes = []
-      ## Get visible cards
+      ## Get visible cards (show all if collection is less than preload)
       $cards.each (i, d) =>
-        if $(d).visible(true)
+        if $cards.length <= @preload || $(d).visible(true)
           visibleIndexes.push i
-      min = _.min visibleIndexes
-      max = _.max visibleIndexes
-      ## Add the buffer.
-      min = if (min - @buffer) < 0 then 0 else (min - @buffer)
-      max = if (max + @buffer) >= $cards.length then ($cards.length - 1) else (max + @buffer)
-      visibleRange = [min..max]
+      # Check we have visible items before building a range
+      visibleRange = []
+      if visibleIndexes.length > 0
+        min = _.min visibleIndexes
+        max = _.max visibleIndexes
+        ## Add the buffer.
+        min = if (min - @buffer) < 0 then 0 else (min - @buffer)
+        max = if (max + @buffer) >= $cards.length then ($cards.length - 1) else (max + @buffer)
+        visibleRange = [min..max]
       ## Loop over the cards, show visible, hide the rest
       $cards.each (i, d) =>
         if $(d).hasClass('ph') and helpers.global.inArray(i, visibleRange)
@@ -91,7 +77,3 @@
 
     onShow: ->
       helpers.backscroll.scrollToLast()
-
-    onDestroy: ->
-      $(window).unbind('scroll')
-      $(window).unbind('resize')
