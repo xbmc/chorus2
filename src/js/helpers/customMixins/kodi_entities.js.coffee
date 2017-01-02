@@ -146,7 +146,7 @@ KodiMixins.Entities =
 
 
   ###
-    JsonRPC common paterns and helpers.
+    JsonRPC common patterns and helpers.
   ###
   callMethodName: ''
   callArgs: []
