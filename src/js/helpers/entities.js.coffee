@@ -22,6 +22,8 @@ helpers.entities.createUid = (model, type) ->
 
 ## Get fields for an entity given the set and type.
 helpers.entities.getFields = (set, type = 'small') ->
+  if not _.isObject(set) or not set[type]
+    []
   fields = set.minimal
   if type is 'full'
     fields.concat(set.small).concat(set.full)
@@ -65,13 +67,6 @@ helpers.entities.buildOptions = (options) ->
     defaultOptions.cache = true
     defaultOptions.expires = config.get('static', 'collectionCacheExpiry')
   _.extend defaultOptions, options
-
-## Trigger a update of a given model. Data is an object with all the properties that need updating
-## Used when a model has been updated (eg edit) to get listening collections to re-fetch the model.
-## Optionally add fields to add or remove when re-fetching.
-helpers.entities.triggerUpdate = (model, data, additionalFields = [], removeFields = []) ->
-  fields = _.map data, (val, key) -> key
-  Kodi.vent.trigger 'entity:kodi:refresh', model.get('uid'), _.difference(fields.concat(additionalFields), removeFields)
 
 ## Returns the Chorus search menu items for local and addon search.
 helpers.entities.getAddonSearchMenuItems = (query) ->

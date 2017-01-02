@@ -71,3 +71,7 @@
   ## Given an array of models, return as collection.
   App.reqres.setHandler "movie:build:collection", (items) ->
     new KodiEntities.MovieCustomCollection items
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "movie:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

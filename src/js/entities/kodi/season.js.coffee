@@ -63,3 +63,7 @@
   App.reqres.setHandler "season:entities", (tvshowid, options = {}) ->
     options.tvshowid = tvshowid
     API.getCollection options
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "season:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

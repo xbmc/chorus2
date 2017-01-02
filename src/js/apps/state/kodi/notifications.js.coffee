@@ -73,6 +73,14 @@
             callback state
       ), 1000)
 
+    ## An item in the library has been updated, trigger a model refresh
+    onLibraryUpdate: (data) ->
+      # This feels like a bug (different structure for audio vs video) and might be fixed one day
+      model = if data.params.data.item then data.params.data.item else data.params.data
+      ## Trigger a update of model in ui
+      model.uid = helpers.entities.createUid model, model.type
+      App.vent.trigger 'entity:kodi:refresh', model.uid
+
     ## Deal with message responses.
     onMessage: (data) ->
 
@@ -161,6 +169,10 @@
         # Video Library clean stop
         when 'VideoLibrary.OnCleanFinished'
           App.execute "notification:show", t.gettext("Video library clean finished")
+
+        # Audio Library update
+        when 'AudioLibrary.OnUpdate', 'VideoLibrary.OnUpdate'
+          @onLibraryUpdate data
 
         # input box has opened
         when 'Input.OnInputRequested'

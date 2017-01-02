@@ -9,7 +9,9 @@
       "click .youtube-search"      : "youtubeSearch"
     modelEvents:
       # This triggers a re-render on model update
-      'change': 'render'
+      'change': 'modelChange'
+    modelChange: ->
+      @render()
     onRender: ->
       if @model.get('fanart')
         @$el.closest('.detail-container').find('.region-details-fanart').css('background-image', 'url(' + @model.get('fanart') + ')')
