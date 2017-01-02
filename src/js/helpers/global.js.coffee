@@ -102,7 +102,7 @@ helpers.global.stringStartsWith = (start, data) ->
   new RegExp('^' + helpers.global.regExpEscape(start)).test(data)
 
 
-## Strip a string from the begining of another string
+## Strip a string from the beginning of another string
 helpers.global.stringStripStartsWith = (start, data) ->
   data.substring(start.length)
 
