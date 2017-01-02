@@ -7,7 +7,7 @@
 
       options = {
         title: '<span>' + tr('Edit') + '</span>' + @model.get('title')
-        form: @getSructure()
+        form: @getStructure()
         formState: @model.attributes
         config:
           attributes: {class: 'edit-form'}
@@ -18,7 +18,7 @@
       }
       form = App.request "form:popup:wrapper", options
 
-    getSructure: ->
+    getStructure: ->
       [
         {
           title: 'General'

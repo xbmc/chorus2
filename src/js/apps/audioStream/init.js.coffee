@@ -17,7 +17,7 @@ soundManager.setup({
   onready: ->
     $(window).trigger 'audiostream:ready'
   ontimeout: ->
-    $(window).trigger 'audiostream:timout'
+    $(window).trigger 'audiostream:timeout'
     soundManager.flashLoadTimeout = 0 # When restarting, wait indefinitely for flash
     soundManager.onerror = {} # Prevent an infinite loop, in case it's not flashblock
     soundManager.reboot()  # Reboot

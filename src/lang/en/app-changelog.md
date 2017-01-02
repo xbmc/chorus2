@@ -1,3 +1,16 @@
+Version 2.3.9
+-------------
+* Added Add-on section with the ability to browse and execute enabled addons #182
+* Updated and patched backbone-fetch-cache to prevent errors on model fetch when no jqXHR obj
+* Added internal, external and youtube search to contextual menus on media details pages
+* Lots of improvements to editing with improved live reloading of entities on save.
+* Added dropdown menu with edit link to all details views
+* Bugfix - movie page not loading if no trailer (introduced in previous release)
+* Ability to edit/update poster and fanart images via the media editor
+* Added more links to landing page sections
+* Added in progress filter to tv and movie lists
+* Added lab icon browser to lab so you van view all chorus icons
+
 Version 2.3.8
 -------------
 * Replaced imdb and google images with fontawesome icons. Added License documentation #179

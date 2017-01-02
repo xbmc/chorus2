@@ -7,7 +7,6 @@
       App.vent.on 'entity:kodi:refresh', (uid, fields) =>
         if @get('uid') is uid
           @fetch({properties: fields, success: (updatedModel) =>
-            console.log 'updated model', updatedModel
             Backbone.fetchCache.clearItem(updatedModel)
           })
 

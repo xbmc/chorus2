@@ -25,7 +25,7 @@
         appController.quit()
       App.regionRemote.show view
 
-      ## Change the famart when the state changes.
+      ## Change the fanart when the state changes.
       App.vent.on "state:changed", (state) ->
         stateObj = App.request "state:current"
         if stateObj.isPlayingItemChanged()

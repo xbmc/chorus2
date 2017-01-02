@@ -14,7 +14,7 @@ Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 All photos used within Chorus are licensed under [Creative Commons Zero](https://creativecommons.org/publicdomain/zero/1.0/)
 which means you can copy, modify, distribute and use the photos for free. Images have been sourced from:
 
-* [Unslplash](https://unsplash.com) - [CC0 License](https://unsplash.com/license)
+* [Unsplash](https://unsplash.com) - [CC0 License](https://unsplash.com/license)
 * [Pexels](https://www.pexels.com) - [CC0 License](https://www.pexels.com/photo-license/)
 
 Other included images and gifs have been hand crafted by [Jeremy Graham](http://jez.me)

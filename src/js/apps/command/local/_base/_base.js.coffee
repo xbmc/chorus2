@@ -54,12 +54,12 @@
           onpause: =>
             stateObj.setPlaying 'paused', true
             stateObj.setPlaying 'playState', 'paused'
-            ## trigger listenters
+            ## trigger listeners
             @localStateUpdate()
           onresume: =>
             stateObj.setPlaying 'paused', false
             stateObj.setPlaying 'playState', 'playing'
-            ## trigger listenters
+            ## trigger listeners
             @localStateUpdate()
           onfinish: =>
             @localFinished()

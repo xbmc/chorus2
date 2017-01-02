@@ -49,7 +49,7 @@
 
     filterByString: (key, query) ->
       @filterBy 'search', (model) ->
-        if query.length < 3 ## 2 charachter min
+        if query.length < 3 ## 2 character min
           false
         else
           value = model.get(key).toLowerCase()

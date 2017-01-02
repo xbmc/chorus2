@@ -294,7 +294,7 @@ msgstr ""
 "updates. Which makes things slower and uses more resources. Please ensure "
 "you have 'Allow programs on other systems to control Kodi' ENABLED in the "
 "Kodi settings (System > Services > Remote control). You may also get this if "
-"you are using proxies or accessing via an IP addess when localhost will "
+"you are using proxies or accessing via an IP address when localhost will "
 "suffice. If websockets normally works, you might just need to refresh your "
 "browser."
 

@@ -67,7 +67,7 @@ helpers.stream.langMap =
   'zho': 'Chinese'
   'ces': 'Czech'
   'dan': 'Danish'
-  'nld': 'Netherland'
+  'nld': 'Netherlands'
   'fin': 'Finish'
   'fra': 'French'
   'deu': 'German'

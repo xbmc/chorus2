@@ -1,7 +1,7 @@
 @Kodi.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 
   ## This is an extension of the list view that shows a placeholder until
-  ## the child view is visible which greatly imrpoves performance by removing
+  ## the child view is visible which greatly improves performance by removing
   ## 95% of the markup added to to the dom that is not visible until you
   ## scroll to it.
   ##
