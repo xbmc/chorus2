@@ -48,5 +48,5 @@
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'audio', 'AudioLibrary'
       controller.setArtistDetails @model.get('id'), data, =>
-        helpers.entities.triggerUpdate @model, data, [], ['artist']
+        Kodi.vent.trigger 'entity:kodi:refresh', @model.get('uid')
         Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'album')

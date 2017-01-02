@@ -85,3 +85,7 @@
   ## Given an array of models, return as collection.
   App.reqres.setHandler "episode:build:collection", (items) ->
     new KodiEntities.EpisodeCustomCollection items
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "episode:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

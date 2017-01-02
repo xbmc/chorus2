@@ -2,20 +2,15 @@
 
   API =
 
-    ## Get an albums fields.
-    getAlbumFields: (type = 'small')->
-      baseFields = ['thumbnail', 'playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year', 'dateadded', 'style']
-      extraFields = ['fanart', 'mood', 'description', 'genreid', 'rating', 'type', 'theme']
-      if type is 'full'
-        fields = baseFields.concat( extraFields )
-        fields
-      else
-        baseFields
+    fields:
+      minimal: ['thumbnail']
+      small: ['playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year', 'dateadded', 'style']
+      full: ['fanart', 'mood', 'description', 'genreid', 'rating', 'type', 'theme']
 
     ## Fetch a single album
     getAlbum: (id, options) ->
       album = new App.KodiEntities.Album()
-      album.set({albumid: parseInt(id), properties:  API.getAlbumFields('full')})
+      album.set({albumid: parseInt(id), properties: helpers.entities.getFields(API.fields, 'full')})
       album.fetch options
       album
 
@@ -33,11 +28,10 @@
   class KodiEntities.Album extends App.KodiEntities.Model
     defaults: ->
       fields = _.extend(@modelDefaults, {albumid: 1, album: ''})
-      @parseFieldsToDefaults API.getAlbumFields('full'), fields
+      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
     methods: {
       read: ['AudioLibrary.GetAlbumDetails', 'albumid', 'properties']
     }
-    arg2: API.getAlbumFields('full')
     parse: (resp, xhr) ->
       ## If fetched directly, look in album details and mark as fully loaded
       obj = if resp.albumdetails? then resp.albumdetails else resp
@@ -50,12 +44,11 @@
   class KodiEntities.AlbumCollection extends App.KodiEntities.Collection
     model: KodiEntities.Album
     methods: read: ['AudioLibrary.GetAlbums', 'properties', 'limits', 'sort', 'filter']
-    args: -> @getArgs({
-      properties: @argFields(API.getAlbumFields('small'))
+    args: -> @getArgs
+      properties: @argFields helpers.entities.getFields(API.fields, 'small')
       limits: @argLimit()
-      sort: @argSort('title', 'ascending')
+      sort: @argSort 'title', 'ascending'
       filter: @argFilter()
-    })
     parse: (resp, xhr) -> @getResult resp, 'albums'
 
   ###
@@ -69,3 +62,7 @@
   ## Get an album collection
   App.reqres.setHandler "album:entities", (options = {}) ->
     API.getAlbums options
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "album:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

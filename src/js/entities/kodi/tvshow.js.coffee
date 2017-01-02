@@ -64,3 +64,7 @@
   ## Get an tvshow collection
   App.reqres.setHandler "tvshow:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "tvshow:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

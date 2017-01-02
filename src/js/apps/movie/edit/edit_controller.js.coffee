@@ -88,5 +88,5 @@
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       controller.setMovieDetails @model.get('id'), data, =>
-        helpers.entities.triggerUpdate @model, data, ['resume', 'playcount', 'year']
+        Kodi.vent.trigger 'entity:kodi:refresh', @model.get('uid')
         App.execute "notification:show", t.sprintf("Updated %1$s details", 'movie')
