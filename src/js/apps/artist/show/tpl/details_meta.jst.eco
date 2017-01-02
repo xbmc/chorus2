@@ -49,7 +49,7 @@
                 <li class="dropdown-submenu external-search"><%= tr('External Search') %>
                     <ul class="dropdown-menu">
                         <li data-type="google" data-query="<%= @label %>">Google</li>
-                        <li data-type="audiodb" data-query="<%= @label %>">AudioDb</li>
+                        <li data-type="soundcloud" data-query="<%= @label %>">SoundCloud</li>
                     </ul>
                 </li>
                 <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
