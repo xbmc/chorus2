@@ -44,7 +44,7 @@ helpers.debug.msg = (msg, severity = 'info', data) ->
 
 
 ###
-  Log a deubg error message.
+  Log a debug error message.
 ###
 helpers.debug.log = (msg, data = 'No data provided', severity = 'error', caller) ->
   caller ?= arguments.callee.caller.toString()
