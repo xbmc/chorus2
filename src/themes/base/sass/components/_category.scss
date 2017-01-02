@@ -1,0 +1,25 @@
+
+.card.category {
+  height: 50px;
+  width: 185px;
+
+  a {
+    padding: $spacing-base-unit $spacing-half-unit;
+    display: block;
+    @include text-crop($color-white);
+  }
+
+  &:hover {
+    background: $color-greyscale-mercury;
+    a {
+      @include text-crop($color-greyscale-mercury);
+    }
+
+  }
+}
+
+.category-list {
+  .region-first {
+    @extend %sidebar--padding;
+  }
+}

@@ -19,6 +19,7 @@
       nav.push {id: 3, title: tr("Artists"), path: 'music/artists', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: tr("Albums"), path: 'music/albums', icon: '', classes: '', parent: 1}
       nav.push {id: 5, title: tr("Digital radio"), path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
+      nav.push {id: 6, title: tr("Genres"), path: 'music/genres', icon: '', classes: '', parent: 1}
 
       ## Movies.
       nav.push {id: 11, title: tr("Movies"), path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
