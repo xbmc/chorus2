@@ -45,7 +45,7 @@
           App.kodiPolling.failure()
       })
       commander.onError = ->
-        ## replace current error handler so we don't polute the console.
+        ## replace current error handler so we don't pollute the console.
       commander.sendCommand 'Ping', [], ->
         App.kodiPolling.alive()
 
