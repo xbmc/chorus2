@@ -18,7 +18,7 @@
   App.commands.setHandler "when:entity:fetched", (entities, callback) ->
     helpers.global.loading "start"
     ## When collections are returned from cache they don't seem to have
-    ## params so am using this as our check if it is an xhrs reqiest or
+    ## params so am using this as our check if it is an xhrs request or
     ## a cachehit.
     ## TODO: Keep an eye on this - https://github.com/madglory/backbone-fetch-cache/issues/113
     if not entities.params
