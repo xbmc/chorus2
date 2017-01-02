@@ -26,7 +26,7 @@
       stateObj.getCurrentState()
 
     ## As most of this is called out of context, we are calling everything
-    ## around the timeout in the golbal instace scope.
+    ## around the timeout in the global instace scope.
     update: ->
       if App.kodiPolling.failures < App.kodiPolling.maxFailures
         App.kodiPolling.updateState()
