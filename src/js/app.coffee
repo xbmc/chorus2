@@ -49,3 +49,5 @@ $(document).ready =>
     Kodi.start()
     # Start material
     $.material.init()
+    # Bind to scroll/resize for redraw trigger
+    helpers.ui.bindOnScrollResize()

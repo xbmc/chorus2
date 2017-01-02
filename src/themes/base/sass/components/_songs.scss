@@ -6,6 +6,10 @@
     cursor: pointer;
     font-size: 13px;
     @include user-select(none);
+    // Placholder row.
+    &.ph td {
+      height: $song-row-height;
+    }
     td {
       vertical-align: middle;
       position: relative;

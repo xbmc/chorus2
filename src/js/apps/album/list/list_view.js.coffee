@@ -30,10 +30,3 @@
     tagName: "ul"
     sort: 'artist'
     className: "card-grid--square"
-
-  class List.AlbumsSet extends App.Views.CollectionView
-    childView: List.AlbumTeaser
-    emptyView: List.Empty
-    tagName: "ul"
-    sort: 'artist'
-    className: "card-grid--square"

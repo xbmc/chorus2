@@ -25,9 +25,3 @@
     emptyView: List.Empty
     tagName: "ul"
     className: "card-grid--wide"
-
-  class List.ArtistsSet extends App.Views.CollectionView
-    childView: List.ArtistTeaser
-    emptyView: List.Empty
-    tagName: "ul"
-    className: "card-grid--wide"
