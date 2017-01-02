@@ -29,7 +29,7 @@
       path = if config.getLocal 'reverseProxy' then 'image/' + encodeURIComponent(rawPath) else '/image/' + encodeURIComponent(rawPath)
       path
 
-    ## set background fanart, stting to 'none' removes fanart
+    ## set background fanart, string to 'none' removes fanart
     setFanartBackground: (path, region) ->
       $body = App.getRegion(region).$el
       if path isnt 'none'
