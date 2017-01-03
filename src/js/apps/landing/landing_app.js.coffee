@@ -3,6 +3,7 @@
   class LandingApp.Router extends App.Router.Base
     appRoutes:
       "music"               : "landingPage"
+      "music/top"           : "landingPage"
       "movies/recent"       : "landingPage"
       "tvshows/recent"      : "landingPage"
       "music/genre/:filter" : "filteredPage"
@@ -40,7 +41,27 @@
             moreLink: 'music/albums?sort=random'
           }
         ]
-      movies:
+      musictop:
+        subnavId: 'music'
+        sections: [
+          {
+            title: 'Top Albums'
+            entity: 'album'
+            sort: 'playcount'
+            order: 'descending'
+            limit: 56
+            filter: {'operator': 'greaterthan', 'field': 'playcount', 'value': '0'}
+          }
+          {
+            title: 'Top Songs'
+            entity: 'song'
+            sort: 'playcount'
+            order: 'descending'
+            limit: 100
+            filter: {'operator': 'greaterthan', 'field': 'playcount', 'value': '0'}
+          }
+        ]
+      moviesrecent:
         subnavId: 'movies/recent'
         sections: [
           {
@@ -70,7 +91,7 @@
             moreLink: 'movies?sort=random'
           }
         ]
-      tvshows:
+      tvshowsrecent:
         subnavId: 'tvshows/recent'
         sections: [
           {
@@ -127,7 +148,7 @@
 
 
     landingPage: () ->
-      type = helpers.url.arg 0
+      type = helpers.url.arg(0) + helpers.url.arg(1)
       settings = API.landingSettings[type]
       new LandingApp.Show.Controller
         settings: settings
