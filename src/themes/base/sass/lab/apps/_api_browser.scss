@@ -61,3 +61,12 @@
 .api-browser--content {
   margin: $spacing-double-unit 0;
 }
+
+.json-syntax-highlight {
+  background: rgba(245, 245, 245, 0.74);
+  .string { color: green; }
+  .number { color: darkorange; }
+  .boolean { color: blue; }
+  .null { color: #bd09bd; }
+  .key { color: #bb1313; }
+}
