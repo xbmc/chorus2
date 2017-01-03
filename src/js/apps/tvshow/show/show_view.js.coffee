@@ -9,9 +9,11 @@
   class Show.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/show/details_meta'
     triggers:
-      "click .play"       : "tvshow:play"
-      "click .add"        : "tvshow:add"
-      "click .edit"       : "tvshow:edit"
+      "click .play"               : "tvshow:play"
+      "click .add"                : "tvshow:add"
+      "click .edit"               : "tvshow:edit"
+      "click .refresh"            : "tvshow:refresh"
+      "click .refresh-episodes"   : "tvshow:refresh:episodes"
     attributes: ->
       @watchedAttributes 'details-meta'
 

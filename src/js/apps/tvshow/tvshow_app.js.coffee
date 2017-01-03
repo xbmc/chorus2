@@ -72,6 +72,8 @@
           videoLib.toggleWatched model, 'auto'
         when 'gotoSeason'
           App.navigate "#tvshow/" + model.get('tvshowid') + '/' + model.get('season'), {trigger: true}
+        when 'refresh'
+          helpers.entities.refreshEntity model, videoLib, 'refreshEpisode'
         else
           ## nothing
 
@@ -79,6 +81,7 @@
       model = view.model
       playlist = App.request "command:kodi:controller", 'video', 'PlayList'
       season = if model.get('type') is 'season' then model.get('season') else 'all'
+      videoLib = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       switch op
         when 'play'
           API.getAllEpisodesCollection model.get('tvshowid'), season, (collection) ->
@@ -92,6 +95,10 @@
           API.toggleWatched model, season, op
         when 'edit'
           App.execute 'tvshow:edit', model
+        when 'refresh'
+          helpers.entities.refreshEntity model, videoLib, 'refreshTVShow'
+        when 'refreshEpisodes'
+          helpers.entities.refreshEntity model, videoLib, 'refreshTVShow', {refreshepisodes: true}
         else
           ## nothing
 

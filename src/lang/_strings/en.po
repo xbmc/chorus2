@@ -1259,3 +1259,33 @@ msgstr "executable"
 msgctxt ""
 msgid "settings"
 msgstr "settings"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Refresh"
+
+msgctxt ""
+msgid ""
+"Refreshing '%1$s' will remove it from the library then re-add it, so the "
+"ID may change. I'll attempt to reload this page with the new ID in a few "
+"seconds. Click 'YES' to confirm refresh"
+msgstr ""
+"Refreshing '%1$s' will remove it from the library then re-add it, so the "
+"ID may change. I'll attempt to reload this page with the new ID in a few "
+"seconds. Click 'YES' to confirm refresh"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Refresh Ignore NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignore local NFO files when manually refreshing media."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Show only"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Show and episodes"

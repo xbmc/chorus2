@@ -71,6 +71,7 @@
             {id: 'pollInterval', title: t.gettext("Poll interval"), type: 'select', defaultValue: '10000', options: {'5000': "5 " + t.gettext('sec'), '10000': "10 " + t.gettext('sec'), '30000': "30 " + t.gettext('sec'), '60000': "60 " + t.gettext('sec')}, description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")}
             {id: 'kodiSettingsLevel', title: t.gettext("Kodi settings level"), type: 'select', defaultValue: 'standard', options: {'standard': 'Standard', 'advanced': 'Advanced', 'expert': 'Expert'}, description: t.gettext('Advanced setting level is recommended for those who know what they are doing.')}
             {id: 'reverseProxy', title: t.gettext("Reverse proxy support"), type: 'checkbox', defaultValue: false, description: t.gettext('Enable support for reverse proxying.')}
+            {id: 'refreshIgnoreNFO', title: t.gettext("Refresh Ignore NFO"), type: 'checkbox', defaultValue: true, description: t.gettext('Ignore local NFO files when manually refreshing media.')}
           ]
         }
       ]

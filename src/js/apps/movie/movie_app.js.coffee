@@ -32,6 +32,8 @@
           videoLib.toggleWatched model, 'auto'
         when 'edit'
           App.execute 'movie:edit', model
+        when 'refresh'
+          helpers.entities.refreshEntity model, videoLib, 'refreshMovie'
         else
         ## nothing
 

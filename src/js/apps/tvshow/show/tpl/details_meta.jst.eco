@@ -50,6 +50,12 @@
                 </li>
                 <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
                 <li class="divider"></li>
+                <li class="dropdown-submenu"><%= tr('Refresh') %>
+                    <ul class="dropdown-menu">
+                        <li class="refresh"><%= tr('Show only') %></li>
+                        <li class="refresh-episodes"><%= tr('Show and episodes') %></li>
+                    </ul>
+                </li>
                 <li class="edit"><%= tr('Edit') %></li>
             </ul>
         </li>
