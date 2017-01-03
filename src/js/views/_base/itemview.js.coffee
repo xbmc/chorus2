@@ -10,6 +10,10 @@
           menu += @themeTag 'li', {class: key}, val
         this.$el.find('.dropdown-menu').html(menu)
 
+    # Close dropdown on blur
+    onShow: ->
+      @menuBlur()
+
     ## Toggle menu open class on row. Call this in onShow().
     menuBlur: ->
       $('.dropdown', @$el).on 'show.bs.dropdown', =>
