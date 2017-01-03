@@ -1289,3 +1289,7 @@ msgstr "Show only"
 msgctxt ""
 msgid "Show and episodes"
 msgstr "Show and episodes"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Top music"

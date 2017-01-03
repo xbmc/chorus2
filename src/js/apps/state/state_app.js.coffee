@@ -46,7 +46,11 @@
         className = '.item-' + item.uid
         $(className).addClass( @playerClass('row-' + playState, player) )
         ## playlist item
-        $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        $plItem = $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        ## force playing item thumb and title @see http://forum.kodi.tv/showthread.php?tid=300522
+        if $plItem.data('type') is 'file'
+          $('.thumb', $plItem).css "background-image", "url('" + item.thumbnail + "')"
+          $('.title', $plItem).html helpers.entities.playingLink(item)
         App.vent.trigger "state:" + player + ":playing:updated", stateObj
 
     ## Set the now playing info in the player
