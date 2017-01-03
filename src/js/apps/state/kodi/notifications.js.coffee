@@ -79,7 +79,15 @@
       model = if data.params.data.item then data.params.data.item else data.params.data
       ## Trigger a update of model in ui
       model.uid = helpers.entities.createUid model, model.type
-      App.vent.trigger 'entity:kodi:refresh', model.uid
+      App.vent.trigger 'entity:kodi:update', model.uid
+      ## Episode updates might affect parent show and happen in bulk, so we defer a show update after 2 seconds.
+      if model.type is 'episode'
+        clearTimeout App.episodeRecheckTimeout
+        App.episodeRecheckTimeout = setTimeout(() ->
+          App.request 'episode:entity', model.id, {success: (epModel) ->
+            App.vent.trigger 'entity:kodi:update', 'tvshow-' + epModel.get('tvshowid')
+          }
+        , 2000)
 
     ## Deal with message responses.
     onMessage: (data) ->

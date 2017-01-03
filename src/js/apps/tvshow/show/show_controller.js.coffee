@@ -9,6 +9,10 @@
         App.execute 'tvshow:action', 'add', view
       App.listenTo view, 'toggle:watched', (view) ->
         App.execute 'tvshow:action:watched', view.view, view.view, true
+      App.listenTo view, 'tvshow:refresh', (view) ->
+        App.execute 'tvshow:action', 'refresh', view
+      App.listenTo view, 'tvshow:refresh:episodes', (view) ->
+        App.execute 'tvshow:action', 'refreshEpisodes', view
       App.listenTo view, 'tvshow:edit', (view) ->
         App.execute 'tvshow:edit', view.model
 
@@ -63,3 +67,7 @@
         view = App.request "season:list:view", collection
         API.bindTriggersTVSeason view
         @layout.regionContent.show view
+        # On update to show, reload seasons
+        App.vent.on 'entity:kodi:update', (uid) =>
+          if tvshow.get('uid') is uid
+            @getSeasons tvshow

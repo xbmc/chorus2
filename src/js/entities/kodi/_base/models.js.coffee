@@ -5,7 +5,7 @@
     initialize: () ->
       if @methods
         # On model update (eg edit) reload the model
-        App.vent.on 'entity:kodi:refresh', (uid) =>
+        App.vent.on 'entity:kodi:update', (uid) =>
           if @get('uid') is uid
             fields = App.request @get('type') + ":fields"
             if fields and fields.length > 0

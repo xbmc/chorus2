@@ -51,6 +51,7 @@
       'click .stream': 'episode:localplay'
       'click .download': 'episode:download'
       'click .edit': 'episode:edit'
+      'click .refresh': 'episode:refresh'
     attributes: ->
       @watchedAttributes()
 

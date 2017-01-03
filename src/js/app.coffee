@@ -23,6 +23,7 @@
     keyboardControl: 'kodi'
     disableThumbs: false
     showDeviceName: false
+    refreshIgnoreNFO: true
 }
 
 ## The App Instance

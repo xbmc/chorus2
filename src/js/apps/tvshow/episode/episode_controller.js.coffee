@@ -34,6 +34,8 @@
         App.execute 'episode:action', 'download', viewItem
       App.listenTo view, 'toggle:watched', (viewItem) ->
         App.execute 'episode:action:watched', viewItem.view, viewItem.view
+      App.listenTo view, 'episode:refresh', (viewItem) ->
+        App.execute 'episode:action', 'refresh', viewItem
       App.listenTo view, 'episode:edit', (viewItem) ->
         App.execute 'episode:edit', viewItem.model
 
