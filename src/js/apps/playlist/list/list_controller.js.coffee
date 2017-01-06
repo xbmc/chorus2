@@ -102,6 +102,7 @@
       $ctx = $('.' + type + '-playlist');
       playlist = @playlistController type, media
       $('ul.playlist-items', $ctx).sortable({
+        filter: '.row-playing,.row-paused'
         onEnd: (e) ->
           playlist.moveItem $(e.item).data('type'), $(e.item).data('id'), e.oldIndex, e.newIndex
       });
