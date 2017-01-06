@@ -14,6 +14,7 @@ helpers.translate.getLanguages = ->
     lt: "Lithuanian"
     nl: "Dutch"
     pl: "Polish",
+    es: "Spanish"
     zh_hans: "Chinese, Simplified"
   }
 
