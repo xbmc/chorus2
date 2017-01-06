@@ -61,6 +61,9 @@
 
   ## Get an artist collection
   App.reqres.setHandler "artist:entities", (options = {}) ->
+    # If using filters, search all artists
+    if options.filter and options.albumartistsonly isnt true
+      options.albumartistsonly = false
     API.getArtists options
 
   ## Get full field/property list for entity
