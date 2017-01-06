@@ -7,17 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-12-27 15:21+0100\n"
+"PO-Revision-Date: 2017-01-05 11:09+0100\n"
 "Last-Translator: Marcin W.\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/"
-"pl_PL/)\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
-"1 : 2);\n"
-"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.0beta1\n"
 "X-Poedit-Bookmarks: -1,-1,132,-1,-1,-1,-1,-1,-1,-1\n"
 
 msgctxt ""
@@ -60,13 +58,8 @@ msgid "Ignore terms such as 'The' and 'A' when sorting lists"
 msgstr "Ignoruj wyrażenia takie, jak 'The' i 'A' podczas sortowania list"
 
 msgctxt ""
-msgid ""
-"When listing artists should we only see artists with albums or all artists found. Warning: "
-"turning this off can impact performance with large libraries"
-msgstr ""
-"W trakcie przeglądania listy wykonawców, widoczni będą tylko wykonawcy z własnymi albumami "
-"lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć "
-"negatywny wpływ na wydajność w przypadku dużych bibliotek."
+msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
+msgstr "W trakcie przeglądania listy wykonawców, widoczni będą tylko wykonawcy z własnymi albumami lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć negatywny wpływ na wydajność w przypadku dużych bibliotek."
 
 msgctxt ""
 msgid "is the default"
@@ -74,15 +67,11 @@ msgstr "jest domyślny"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr ""
-"Nazwa serwera używanego do połączenia WebSocket. Ustaw na 'auto', aby używać nazwy lokalnego "
-"komputera."
+msgstr "Nazwa serwera używanego do połączenia WebSocket. Ustaw na 'auto', aby używać nazwy lokalnego komputera."
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr ""
-"Określa częstotliwość aktualizacji zawartości z Kodi (używane tylko w przypadku nieaktywnego "
-"połączenia WebSocket)"
+msgstr "Określa częstotliwość aktualizacji zawartości z Kodi (używane tylko w przypadku nieaktywnego połączenia WebSocket)"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -98,8 +87,7 @@ msgstr "Proszę czekać..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr ""
-"Komunikacja z Kodi była niemożliwa przez dłuższy czas. Prawdopodobnie program się zawiesił!"
+msgstr "Komunikacja z Kodi była niemożliwa przez dłuższy czas. Prawdopodobnie program się zawiesił!"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -159,7 +147,7 @@ msgstr "Listy odtwarzania"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr "Opuszczanie list odtwarzania"
+msgstr "Istniejące listy odtwarzania"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
@@ -281,20 +269,11 @@ msgstr "sek."
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr ""
-"Twoja przeglądarka nie obsługuje połączeń WebSocket! Idź z duchem czasu i zaktualizuj swoją "
-"przeglądarkę."
+msgstr "Twoja przeglądarka nie obsługuje połączeń WebSocket! Idź z duchem czasu i zaktualizuj swoją przeglądarkę."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr ""
-"Nieudane połączenie WebSocket, awaryjna aktywacja połączenia bezstanowego z cykliczną "
-"aktualizacją zawartości. Połączenie tego typu jest wolniejsze i używa więcej zasobów. "
-"Upewnij się, że aktywowałeś opcję 'Zezwalaj zdalnym programom na sterowanie aplikacją' w "
-"ustawieniach Kodi (System -> Usługi -> Sterowanie). Innym powodem tego problemu może być "
-"korzystanie z serwera proxy lub dostęp za pośrednictwem adresu IP, gdy możliwy jest dostęp "
-"przy pomocy nazwy localhost. W przypadku poprawnego działania połączenia WebSocket, "
-"wystarczy odświeżyć zawartość przeglądarki."
+msgstr "Nieudane połączenie WebSocket, awaryjna aktywacja połączenia bezstanowego z cykliczną aktualizacją zawartości. Połączenie tego typu jest wolniejsze i używa więcej zasobów. Upewnij się, że aktywowałeś opcję 'Zezwalaj zdalnym programom na sterowanie aplikacją' w ustawieniach Kodi (System -> Usługi -> Sterowanie). Innym powodem tego problemu może być korzystanie z serwera proxy lub dostęp za pośrednictwem adresu IP, gdy możliwy jest dostęp przy pomocy nazwy localhost. W przypadku poprawnego działania połączenia WebSocket, wystarczy odświeżyć zawartość przeglądarki."
 
 msgctxt ""
 msgid "Video"
@@ -311,16 +290,16 @@ msgstr "Obsada"
 msgctxt ""
 msgid "Director"
 msgid_plural "Directors"
-msgstr[0] "Reżyseria"
-msgstr[1] "Reżyseria"
-msgstr[2] "Reżyseria"
+msgstr[0] "Reżyser"
+msgstr[1] "Reżyserzy"
+msgstr[2] "Reżyserzy"
 
 msgctxt ""
 msgid "Writer"
 msgid_plural "Writers"
-msgstr[0] "Scenariusz"
-msgstr[1] "Scenariusz"
-msgstr[2] "Scenariusz"
+msgstr[0] "Scenarzysta"
+msgstr[1] "Scenarzyści"
+msgstr[2] "Scenarzyści"
 
 msgctxt ""
 msgid "Subtitle"
@@ -393,12 +372,8 @@ msgid "Now Playing Playlists"
 msgstr "Listy Teraz odtwarzane"
 
 msgctxt ""
-msgid ""
-"Switch between Kodi and local playback via the tabs. You can toggle visibility with the "
-"arrow in the top right"
-msgstr ""
-"Umożliwia wybór odtwarzacza mediów, pomiędzy Kodi a przeglądarką, przy pomocy zakładek. "
-"Możesz zmienić widoczność zakładek przy pomocy strzałki w prawym górnym rogu."
+msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
+msgstr "Umożliwia wybór odtwarzacza mediów, pomiędzy Kodi a przeglądarką, przy pomocy zakładek. Możesz zmienić widoczność zakładek przy pomocy strzałki w prawym górnym rogu."
 
 msgctxt ""
 msgid "Current playlist"
@@ -477,12 +452,8 @@ msgid "Browse files and add-ons"
 msgstr "Przeglądaj pliki i dodatki"
 
 msgctxt ""
-msgid ""
-"This is where you can browse all Kodi content, not just what is in the library. Browse by "
-"source or add-on."
-msgstr ""
-"Miejsce, w którym możesz przeglądać całą zawartość Kodi, nie tylko to co znajduje się w "
-"bibliotece. Przeglądanie w podziale na źródła i dodatki."
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "Miejsce, w którym możesz przeglądać całą zawartość Kodi, nie tylko to co znajduje się w bibliotece. Przeglądanie w podziale na źródła i dodatki."
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -510,17 +481,11 @@ msgstr "Przeglądarka API Kodi"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr ""
-"Narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a następnie "
-"wykonaj ją z zadanymi parametrami"
+msgstr "Narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami"
 
 msgctxt ""
-msgid ""
-"You could potentially damage your system with this and there are no sanity checks. Use at "
-"own risk."
-msgstr ""
-"Istnieje potencjalna szansa na uszkodzenie Twojego systemu, ponieważ nie ma żadnej kontroli "
-"poprawności. Używasz na własną odpowiedzialność."
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "Istnieje potencjalna szansa na uszkodzenie Twojego systemu, ponieważ nie ma żadnej kontroli poprawności. Używasz na własną odpowiedzialność."
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -611,12 +576,8 @@ msgid "Focus playlist on playing"
 msgstr "Zaznaczaj odtwarzaną pozycję"
 
 msgctxt ""
-msgid ""
-"Automatically scroll the playlist to the current playing item. This happens whenever the "
-"playing item is changed"
-msgstr ""
-"Umożliwia automatyczne przewijanie listy do aktualnie odtwarzanej pozycji. Ta operacja jest "
-"wykonywana za każdym razem, gdy zmienia się odtwarzana pozycja."
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "Umożliwia automatyczne przewijanie listy do aktualnie odtwarzanej pozycji. Ta operacja jest wykonywana za każdym razem, gdy zmienia się odtwarzana pozycja."
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -628,9 +589,7 @@ msgstr "Sterowanie klawiaturą"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr ""
-"Umożliwia sterowanie przy pomocy klawiatury działaniem Kodi, przeglądarki lub oboma "
-"jednocześnie"
+msgstr "Umożliwia sterowanie przy pomocy klawiatury działaniem Kodi, przeglądarki lub oboma jednocześnie"
 
 msgctxt ""
 msgid "Learn more"
@@ -657,12 +616,8 @@ msgid "Main Menu Structure"
 msgstr "Struktura menu"
 
 msgctxt ""
-msgid ""
-"Here you can change the title, url and icons for menu items. You can also remove, re-order "
-"and add new items."
-msgstr ""
-"W tym miejscu możesz zmienić tytuł, adres URL i ikonę pozycji menu. Dodatkowo możesz usunąć, "
-"zmienić kolejność oraz dodać nową pozycję."
+msgid "Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items."
+msgstr "Umożliwia zmianę tytułu, adresu URL i %1$s pozycji menu. Możesz także usunąć pozycje, zmienić ich kolejność lub dodać nowe pozycje."
 
 msgctxt ""
 msgid "Main Nav"
@@ -717,17 +672,12 @@ msgid "Disable Thumbs Up"
 msgstr "Dezaktywuj funkcję 'Lubię to!'"
 
 msgctxt ""
-msgid ""
-"Remove the thumbs up button from media. Note: you may also want to remove the menu item from "
-"the "
-msgstr ""
-"Umożliwia usunięcie przycisku 'Lubię to' z panelu informacji o mediach. Uwaga: Możesz także "
-"usunąć pozycję menu z "
+msgid "Remove the thumbs up button from media. Note: you may also want to remove the menu item from the "
+msgstr "Umożliwia usunięcie przycisku 'Lubię to' z panelu informacji o mediach. Uwaga: Możesz także usunąć pozycję menu z "
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
-msgstr ""
-"Wymagana aktywacja opcji 'Zezwalaj na zdalne sterowanie Kodi przez HTTP'. Możesz to zrobić"
+msgstr "Wymagana aktywacja opcji 'Zezwalaj na zdalne sterowanie Kodi przez HTTP'. Możesz to zrobić"
 
 msgctxt ""
 msgid "here"
@@ -779,7 +729,7 @@ msgstr "wytwórnia"
 
 msgctxt ""
 msgid "rated"
-msgstr "kategoria wiekowa"
+msgstr "kategoria"
 
 msgctxt ""
 msgid "episodes"
@@ -799,9 +749,7 @@ msgstr "Pokazuj nazwę urządzenia"
 
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
-msgstr ""
-"Umożliwia wyświetlanie nazwy urządzenia, na którym uruchomiono Kodi, w nagłówku strony "
-"Chorusa."
+msgstr "Umożliwia wyświetlanie nazwy urządzenia, na którym uruchomiono Kodi, w nagłówku strony Chorusa."
 
 msgctxt ""
 msgid "No results found"
@@ -848,8 +796,8 @@ msgid "title"
 msgstr "tytuł"
 
 msgctxt ""
-msgid "tear"
-msgstr "tear"
+msgid "year"
+msgstr "rok"
 
 msgctxt ""
 msgid "date added"
@@ -862,6 +810,18 @@ msgstr "ocena"
 msgctxt ""
 msgid "actor"
 msgstr "aktor"
+
+msgctxt ""
+msgid "mood"
+msgstr "nastrój"
+
+msgctxt ""
+msgid "writer"
+msgstr "scenarzysta"
+
+msgctxt ""
+msgid "director"
+msgstr "reżyser"
 
 msgctxt ""
 msgid "mood"
@@ -897,9 +857,7 @@ msgstr "Zakończono czyszczenie biblioteki muzyki"
 
 msgctxt ""
 msgid "This is a tool to test out the api. Select a method then execute it with parameters."
-msgstr ""
-"To jest narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a "
-"następnie wykonaj ją z zadanymi parametrami"
+msgstr "To jest narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami"
 
 msgctxt ""
 msgid "Go to season"
@@ -912,3 +870,335 @@ msgstr "Dodaj do kolejki Kodi"
 msgctxt ""
 msgid "Adding items to the queue"
 msgstr "Dodawanie pozycji do kolejki"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Telewizja"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Albumy ostatnio dodane"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Albumy losowe"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Albumy ostatnio odtwarzane"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Filmy losowe"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Kontynuuj odtwarzanie"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "Więcej z %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "Więcej filmów z %1$s"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "Więcej filmów z aktorem %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Inne premiery filmów w %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "wykonawca"
+
+msgctxt ""
+msgid "random"
+msgstr "losowo"
+
+msgctxt ""
+msgid "label"
+msgstr "wytwórnia"
+
+msgctxt ""
+msgid "formed"
+msgstr "założone"
+
+msgctxt ""
+msgid "born"
+msgstr "urodzony"
+
+msgctxt ""
+msgid "died"
+msgstr "zmarły"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "rozwiązany"
+
+msgctxt ""
+msgid "years active"
+msgstr "lata aktywności"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Naciśnij po więcej informacji"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Wczytywanie albumów"
+
+msgctxt ""
+msgid "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent a mainframe implosion, you should probably give me some text. I don't really care what it is at this point, why not be creative? Do you have a %2$s? I won't tell..."
+msgstr "%1$d sekund temu okno dialogowe zostało otworzone i ciągle jest otwarte! Aby zapobiec implozji systemu, powinieneś wprowadzić jakiś tekst. Obecnie nie dbamy co to powinno być, więc dlaczego nie być kreatywnym? Czy posiadasz %2$s? Nie powiem..."
+
+msgctxt ""
+msgid "all media"
+msgstr "wszystkie media"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "Premiera"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Zaktualizowano informacje o %1$s"
+
+msgctxt ""
+msgid "Title"
+msgstr "Tytuł"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Fabuła"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Ocena"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Tytuł oryginalny"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Reżyseria"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Scenariusz"
+
+msgctxt ""
+msgid "File path"
+msgstr "Ścieżka pliku"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Wykonawca"
+
+msgctxt ""
+msgid "Description"
+msgstr "Opis"
+
+msgctxt ""
+msgid "Label"
+msgstr "Wytwórnia"
+
+msgctxt ""
+msgid "Year"
+msgstr "Rok"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Gatunki"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Style"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Motywy"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Nastroje"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Wykonawca albumu"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Utwór"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Dysk"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Motto"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Wytwórnia"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Kategoria wiekowa"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiera"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Tytuł sortowania"
+
+msgctxt ""
+msgid "Country"
+msgstr "Kraj"
+
+msgctxt ""
+msgid "Set"
+msgstr "Seria"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Znaczniki"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Zwiastun"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Założony"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Rozwiązany"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Lata aktywności"
+
+msgctxt ""
+msgid "Born"
+msgstr "Urodzony"
+
+msgctxt ""
+msgid "Died"
+msgstr "Zmarły"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instrumenty"
+
+msgctxt ""
+msgid "more"
+msgstr "więcej"
+
+msgctxt ""
+msgid "in progress"
+msgstr "W trakcie"
+
+msgctxt ""
+msgid "URL"
+msgstr "Adres URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Dodaj obraz za pomocą adresu URL"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Wyszukiwanie obrazów"
+
+msgctxt ""
+msgid "Image Selector"
+msgstr "Wybór obrazu"
+
+msgctxt ""
+msgid "Image URL"
+msgstr "Adres URL obrazu"
+
+msgctxt ""
+msgid "External Search"
+msgstr "Wyszukiwanie w internecie"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Media lokalne"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Wyszukiwanie w Chorusie"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "Wyszukiwanie w YouTube"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Uruchomiony dodatek"
+
+msgctxt ""
+msgid "all"
+msgstr "wszystkie"
+
+msgctxt ""
+msgid "video"
+msgstr "wideo"
+
+msgctxt ""
+msgid "audio"
+msgstr "muzyka"
+
+msgctxt ""
+msgid "image"
+msgstr "obraz"
+
+msgctxt ""
+msgid "picture"
+msgstr "zdjęcie"
+
+msgctxt ""
+msgid "executable"
+msgstr "program"
+
+msgctxt ""
+msgid "settings"
+msgstr "ustawienia"
