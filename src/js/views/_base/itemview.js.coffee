@@ -41,7 +41,7 @@
     ## Method to enable toggle selection. Needs to be added as an event to the
     ## view that utilizes it
     toggleSelect: (e) ->
-      if e.ctrlKey
+      if e.ctrlKey || e.metaKey
         e.preventDefault()
         # Disable selection with items with prevent-select
         # TODO: make it work on mixed collections (thumbsup) or move check elsewhere
