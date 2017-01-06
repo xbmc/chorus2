@@ -12,7 +12,9 @@
       stateObj = App.request "state:kodi"
       ## If playing, queue up next.
       if stateObj.isPlaying(@getPlayerName())
-        @insertAndPlay type, value, (stateObj.getPlaying('position') + 1), resume, callback
+        @getItems (resp) =>
+          pos = if resp.items then (stateObj.getPlaying('position') + 1) else 0
+          @insertAndPlay type, value, pos, resume, callback
       else
         @clear =>
           @insertAndPlay type, value, 0, resume, callback
