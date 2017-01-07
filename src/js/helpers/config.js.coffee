@@ -1,5 +1,7 @@
 ###
   Config Helpers.
+  - Use config.get/set with 'app' as the type, to get/set persistent settings (localstorage)
+  - Use config.getLocal/setLocal to get set temp storage
 ###
 
 # A wrapper for getting a config value.
