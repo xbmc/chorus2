@@ -1,6 +1,26 @@
 <div class="folder-layout">
-    <div class="loading-bar"><div class="inner"><span><%= t.gettext('Loading folder...') %></span></div></div>
+    <div class="loading-bar"><div class="inner"><div class="loader-small-inline"></div> <span><%= tr('Loading folder...') %></span></div></div>
     <div class="path"></div>
+    <ul class="actions">
+        <li class="dropdown sort-wrapper">
+            <i class="sort-toggle" data-toggle="dropdown" title="<%= tr('Sort') %>"></i>
+            <ul class="sorts dropdown-menu pull-right">
+                <li data-sort="none"><%= tr('default') %><i></i></li>
+                <li data-sort="label"><%= tr('title') %><i></i></li>
+                <li data-sort="dateadded"><%= tr('date added') %><i></i></li>
+                <li data-sort="random"><%= tr('random') %><i></i></li>
+            </ul>
+        </li>
+        <li class="dropdown context-wrapper">
+            <i class="context-toggle" data-toggle="dropdown" title="<%= tr('Actions') %>"></i>
+            <ul class="dropdown-menu pull-right">
+                <li class="play"><%= tr('play files') %><i></i></li>
+                <li class="queue"><%= tr('queue files') %><i></i></li>
+            </ul>
+        </li>
+    </ul>
+
+
     <div class="folder-container">
         <div class="files">
         </div>
@@ -8,8 +28,8 @@
             <div class="back"></div>
             <div class="folders">
                 <div class="intro">
-                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> <%= t.gettext('Browse files and add-ons') %></h3>
-                    <p><%= t.gettext('This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on.') %></p>
+                    <h3><span class="mdi-navigation-arrow-back text-dim"></span> <%= tr('Browse files and add-ons') %></h3>
+                    <p><%= tr('This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on.') %></p>
                 </div>
             </div>
         </div>

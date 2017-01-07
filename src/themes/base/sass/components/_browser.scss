@@ -35,7 +35,8 @@ $color-side: #F9F9F9;
   .loading-bar,
   .path {
     height: $path-height;
-    background: rgba($color-white, 0.3);
+    padding-right: $path-height + 2;
+    background: rgba($color-black, 0.05);
     .loading & {
       display: none;
     }
@@ -73,6 +74,9 @@ $color-side: #F9F9F9;
         padding: 0 $spacing-base-unit;
       }
     }
+    .loader-small-inline {
+      margin: 0.7em 0 0 0.7em;
+    }
   }
   .folder-container {
     @extend %clearfix;
@@ -93,6 +97,40 @@ $color-side: #F9F9F9;
   }
   .empty--page-content {
     @extend %text--dim;
+  }
+}
+
+.actions {
+  @include set-position-absolute(top 1px right 10px);
+  .sort-toggle, .context-toggle {
+    @include icon-button(content-sort, 30px, 39px);
+    font-size: 1.5em;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .context-toggle:before {
+    content: icon-code(navigation-more-vert);
+  }
+  > li {
+    display: inline-block;
+  }
+  .dropdown-menu {
+    text-transform: capitalize;
+  }
+}
+.sort-wrapper {
+  li {
+    i {
+      @include icon(navigation-expand-more, $pseudo: 'after');
+    }
+    &.order-descending i {
+      @include icon(navigation-expand-less, $pseudo: 'after');
+    }
+    &.active {
+      color: $color-white;
+    }
   }
 }
 
@@ -130,17 +168,24 @@ $color-side: #F9F9F9;
       @include text-crop($color-background);
       margin-right: $spacing-triple-unit;
     }
+  }
+  // Folder specific styles.
+  .folder {
+    @include text-crop($color-side);
+  }
+  // Files and folders.
+  .file, .folder {
     .menu {
       @include actions-menu();
     }
     .actions {
       @include actions-song(1);
       display: block;
+      z-index: $z-index-gamma;
+      > li > i {
+        opacity: 0.4;
+      }
     }
-  }
-  // Folder specific styles.
-  .folder {
-    @include text-crop($color-side);
   }
   .back-button {
     i {

@@ -2,18 +2,26 @@
 
   API =
 
-    bindTriggers: (view) ->
+    bindFileTriggers: (view) ->
       App.listenTo view, 'childview:file:play', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
         playlist.play 'file', item.model.get('file')
       App.listenTo view, 'childview:file:queue', (set, item) =>
         playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
         playlist.add 'file', item.model.get('file')
+      App.listenTo view, 'childview:file:download', (set, item) =>
+        App.request("command:kodi:controller", 'auto', 'Files').downloadFile item.model.get('file')
+
+    bindFolderTriggers: (view) ->
+      App.listenTo view, 'childview:folder:play', (set, item) =>
+        App.request("command:kodi:controller", item.model.get('player'), 'PlayList').play 'directory', item.model.get('file')
+      App.listenTo view, 'childview:folder:queue', (set, item) =>
+        App.request("command:kodi:controller", item.model.get('player'), 'PlayList').add 'directory', item.model.get('file')
 
     getFileListView: (collection) ->
       fileView = new List.FileList
         collection: collection
-      API.bindTriggers(fileView)
+      API.bindFileTriggers(fileView)
       fileView
 
 
@@ -33,8 +41,33 @@
       new List.ListLayout()
 
     getFolderLayout: ->
-      @folderLayout = new List.FolderLayout()
+      options = {sortSettings: @getSort()}
+      @folderLayout = new List.FolderLayout options
+      @listenTo @folderLayout, 'browser:sort', (sort, $el) =>
+        @setSort sort, $el
+      @listenTo @folderLayout, 'browser:play', (view) =>
+        if @model
+          App.request("command:kodi:controller", @model.get('player'), 'PlayList').play 'directory', @model.get('file')
+      @listenTo @folderLayout, 'browser:queue', (view) =>
+        if @model
+          App.request("command:kodi:controller", @model.get('player'), 'PlayList').add 'directory', @model.get('file')
       @layout.regionContent.show @folderLayout
+
+    setSort: (sort, $el) ->
+      sortSettings = @getSort()
+      if sortSettings.method is sort
+        sortSettings.order = if sortSettings.order is 'ascending' then 'descending' else 'ascending'
+      if $el
+        $el.removeClassStartsWith('order-').addClass('order-' + sortSettings.order).addClass 'active'
+      sortSettings.method = sort
+      if sortSettings.method
+        config.set 'app', 'browserSort', sortSettings
+      if @model
+        @getFolder @model
+
+    getSort: ->
+      config.get('app', 'browserSort', {method: 'none', order: 'ascending'})
+
 
     ## Get the source lists
     getSources: (options) ->
@@ -56,10 +89,12 @@
         @getFolder model
 
     getFolder: (model) ->
+      @model = model
       ## Do a virtual navigate and load up the folder view
       App.navigate model.get('url')
       ## Get the collection
-      collection = App.request "file:entities", {file: model.get('file'), media: model.get('media')}
+      sortSettings = @getSort()
+      collection = App.request "file:entities", {file: model.get('file'), media: model.get('media'), sort: sortSettings}
       pathCollection = App.request "file:path:entities", model.get('file'), @sourceCollection
       @getPathList pathCollection
       App.execute "when:entity:fetched", collection, =>
@@ -73,9 +108,7 @@
         collection: collection
       @listenTo folderView, 'childview:folder:open', (set, item) =>
         @getFolder item.model
-      @listenTo folderView, 'childview:folder:play', (set, item) =>
-        playlist = App.request "command:kodi:controller", item.model.get('player'), 'PlayList'
-        playlist.play 'directory', item.model.get('file')
+      API.bindFolderTriggers folderView
       folderView
 
     getFolderList: (collection) ->

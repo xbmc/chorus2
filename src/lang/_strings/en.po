@@ -1302,3 +1302,19 @@ msgstr "%1$s Albums"
 msgctxt ""
 msgid "%1$s Songs"
 msgstr "%1$s Songs"
+
+msgctxt ""
+msgid "default"
+msgstr "default"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Actions"
+
+msgctxt ""
+msgid "play files"
+msgstr "play files"
+
+msgctxt ""
+msgid "queue files"
+msgstr "queue files"

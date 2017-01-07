@@ -8,7 +8,7 @@
 
     fields:
       minimal: ['title', 'file', 'mimetype']
-      small: ['thumbnail']
+      small: ['thumbnail', 'dateadded']
       full: ['fanart', 'streamdetails']
     addonFields: ['path', 'name']
 
@@ -108,6 +108,7 @@
           items[i].player = @getPlayer(media)
           items[i].url = @createFileUrl media, item.file
           items[i].parsed = true
+          items[i].defaultSort = parseInt i
       items
 
     ## Add music and video playlist sources.
@@ -190,12 +191,11 @@
   class KodiEntities.FileCollection extends App.KodiEntities.Collection
     model: KodiEntities.File
     methods: read: ['Files.GetDirectory', 'directory', 'media', 'properties', 'sort']
-    args: -> @getArgs({
+    args: -> @getArgs
       directory: @argCheckOption('file', '')
       media: @argCheckOption('media', '')
       properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
-      sort: @argSort('label', 'ascending')
-    })
+      sort: @argSort('none', 'ascending')
     parse: (resp, xhr) ->
       items = @getResult resp, 'files'
       API.parseFiles items, @options.media

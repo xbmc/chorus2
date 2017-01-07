@@ -48,6 +48,18 @@
       regionFolders: '.folders'
       regionFiles: '.files'
       regionBack: '.back'
+    triggers:
+      'click .play' : 'browser:play'
+      'click .queue' : 'browser:queue'
+    events:
+      'click .sorts li' : 'sortList'
+    sortList: (e) ->
+      $('.sorts li', @$el).removeClass 'active'
+      @trigger 'browser:sort', $(e.target).data('sort'), $(e.target)
+    onRender: ->
+      $('.sorts li', @$el).addClass 'order-' + @options.sortSettings.order
+      $('.sorts li[data-sort=' + @options.sortSettings.method + ']', @$el).addClass 'active'
+
 
   class List.Item extends App.Views.ItemView
     template: 'apps/browser/list/file'
@@ -60,7 +72,14 @@
     className: 'folder'
     triggers:
       'click .title' : 'folder:open'
+      'dblclick .title' : 'file:play'
       'click .play' : 'folder:play'
+      'click .queue' : 'folder:queue'
+    events:
+      "click .dropdown > i": "menuPopulate"
+    initialize: ->
+      menu = {queue: tr('Queue in Kodi')}
+      @model.set({menu: menu})
 
   class List.EmptyFiles extends App.Views.EmptyViewPage
     tagName: 'li'
@@ -71,13 +90,16 @@
     className: 'file'
     triggers:
       'click .play' : 'file:play'
-      "dblclick .title" : "file:play"
+      'dblclick .title' : 'file:play'
       'click .queue' : 'file:queue'
+      'click .download' : 'file:download'
     events:
       "click .dropdown > i": "menuPopulate"
     initialize: ->
-      menu = {'queue': 'Queue in Kodi'}
-      this.model.set({menu: menu})
+      menu = {queue: tr('Queue in Kodi')}
+      if @model.get('filetype') is 'file' and @model.get('file').lastIndexOf('plugin://', 0) isnt 0
+        menu.download = tr('Download')
+      @model.set({menu: menu})
 
 
   class List.FolderList extends App.Views.CollectionView
