@@ -19,6 +19,9 @@
 
   class Show.TVShowTeaser extends App.Views.CardView
     tagName: "div"
-    className: "card-detail"
     triggers:
       "click .play"       : "tvshow:play"
+    initialize: ->
+        @model.set(actions: {thumbs: tr('Thumbs up')})
+    attributes: ->
+      @watchedAttributes 'card-detail'

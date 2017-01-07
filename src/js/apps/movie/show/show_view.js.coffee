@@ -20,9 +20,12 @@
 
   class Show.MovieTeaser extends App.Views.CardView
     tagName: "div"
-    className: "card-detail"
     triggers:
       'click .play': 'movie:play'
+    initialize: ->
+      @model.set(actions: {thumbs: tr('Thumbs up')})
+    attributes: ->
+      @watchedAttributes 'card-detail'
 
   class Show.Content extends App.Views.LayoutView
     template: 'apps/movie/show/content'

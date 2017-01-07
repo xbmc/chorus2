@@ -17,4 +17,7 @@
 
   class Show.ArtistTeaser extends App.ArtistApp.List.ArtistTeaser
     tagName: "div"
-    className: "card-detail"
+    initialize: ->
+      @model.set(actions: {thumbs: tr('Thumbs up')})
+    attributes: ->
+      @watchedAttributes 'card-detail'
