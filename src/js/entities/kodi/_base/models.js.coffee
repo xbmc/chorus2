@@ -13,7 +13,7 @@
                 Backbone.fetchCache.clearItem(updatedModel)
               })
 
-    url: -> helpers.url.baseKodiUrl "Model"
+    url: -> helpers.url.baseKodiUrl @constructor.name
     rpc: new Backbone.Rpc({
       useNamedParameters: true,
       namespaceDelimiter: ''
