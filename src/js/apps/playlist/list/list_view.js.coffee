@@ -35,12 +35,22 @@
     triggers:
       "click .remove" : "playlist:item:remove"
       "click .play" : "playlist:item:play"
+    events:
+      "click .thumbs" : "toggleThumbs"
     attributes: ->
+      classes = ['item', 'pos-' + @model.get('position'), 'plitem-' + @model.get('type') + '-' + @model.get('id')]
+      if @model.get('canThumbsUp') and App.request 'thumbsup:check', @model
+        classes.push 'thumbs-up'
       {
-        class: 'item pos-' + @model.get('position')
+        class: classes.join(' ')
         'data-type': @model.get('type')
         'data-id': @model.get('id')
+        'data-pos': @model.get('position')
       }
+    toggleThumbs: ->
+      App.request "thumbsup:toggle:entity", @model
+      this.$el.toggleClass 'thumbs-up'
+      $('.item-' + @model.get('type') + '-' + @model.get('id')).toggleClass 'thumbs-up'
 
   class List.Items extends App.Views.CollectionView
     childView: List.Item

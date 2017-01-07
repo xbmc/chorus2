@@ -11,6 +11,9 @@
       small: ['artist', 'genre', 'year', 'rating', 'album', 'track', 'duration', 'playcount', 'dateadded', 'episode', 'artistid', 'albumid', 'tvshowid']
       full: ['fanart']
 
+    ## Types that can be thumbed up
+    canThumbsUp: ['song', 'movie', 'episode']
+
     ## Fetch an entity collection.
     getCollection: (options) ->
       defaultOptions = {cache: false, useNamedParameters: true}
@@ -48,6 +51,8 @@
       if item.type is 'file'
         item.id = item.file
       item.uid = helpers.entities.createUid(item)
+      item.canThumbsUp = helpers.global.inArray(item.type, API.canThumbsUp)
+      item.thumbsUp = false
       item
 
 

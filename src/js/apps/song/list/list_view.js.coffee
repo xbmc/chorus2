@@ -40,6 +40,7 @@
     toggleThumbs: ->
       App.request "thumbsup:toggle:entity", @model
       this.$el.toggleClass 'thumbs-up'
+      $('.plitem-' + @model.get('type') + '-' + @model.get('id')).toggleClass 'thumbs-up'
 
     attributes: ->
       if @model
