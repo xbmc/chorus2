@@ -16,7 +16,7 @@
       App.listenTo @songsView, 'childview:song:localadd', (list, item) =>
         @localAddSong item.model.get('songid')
       App.listenTo @songsView, 'childview:song:localplay', (list, item) =>
-        @localPlaySong item.model
+        @localPlaySong item.model.get('songid')
       App.listenTo @songsView, 'childview:song:download', (list, item) =>
         @downloadSong item.model
       App.listenTo @songsView, 'childview:song:musicvideo', (list, item) =>
@@ -45,9 +45,9 @@
       App.execute "localplaylist:addentity", 'songid', songId
 
     ## play the song locally
-    localPlaySong: (model) ->
+    localPlaySong: (songId) ->
       localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
-      localPlaylist.play model.attributes
+      localPlaylist.play 'songid', songId
 
     ## Download the song
     downloadSong: (model) ->
