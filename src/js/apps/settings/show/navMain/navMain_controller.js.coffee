@@ -25,7 +25,7 @@
         children: [
           id: 'intro-text'
           type: 'markup'
-          markup: t.sprintf('Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items.', iconLink) + defaults
+          markup: t.sprintf(tr('Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items.'), iconLink) + defaults
         ]
       ]
       # Return a form structure

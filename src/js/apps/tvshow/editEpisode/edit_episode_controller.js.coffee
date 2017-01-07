@@ -52,4 +52,4 @@
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       controller.setEpisodeDetails @model.get('id'), data, =>
         Kodi.vent.trigger 'entity:kodi:update', @model.get('uid')
-        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'episode')
+        Kodi.execute "notification:show", t.sprintf(tr("Updated %1$s details"), 'episode')

@@ -91,9 +91,7 @@ helpers.entities.refreshEntity = (model, controller, method, params = {}) ->
   thumbs = Kodi.request "thumbsup:check", model
   params.ignorenfo = config.getLocal 'refreshIgnoreNFO', true
   # Show confirm box
-  msg = "Refreshing '%1$s' will remove it from the library then re-add it, so the ID may change. I'll attempt to " +
-    "reload this page with the new ID in a few seconds. Click 'YES' to confirm refresh"
-  Kodi.execute "ui:modal:confirm", tr('Are you sure?'), t.sprintf(msg, title), () ->
+  Kodi.execute "ui:modal:confirm", tr('Are you sure?'), t.sprintf(tr('Confirm refresh'), title), () ->
     # Clear model from cache and remove thumbs up
     Backbone.fetchCache.clearItem(model)
     if thumbs

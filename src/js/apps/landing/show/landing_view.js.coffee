@@ -23,7 +23,7 @@
       if @options
         $header = $('h3.set-header', @$el)
         if @options.filter isnt false and @options.section.title
-          $header.html( t.sprintf(@options.section.title, @options.filter) )
+          $header.html( t.sprintf(tr(@options.section.title), @options.filter) )
         else if @options.section.title
           $header.html( tr(@options.section.title) )
         if @options.filter isnt false and @options.section.moreLink
