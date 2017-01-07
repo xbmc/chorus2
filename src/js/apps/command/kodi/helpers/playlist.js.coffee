@@ -6,18 +6,29 @@
 
     commandNameSpace: 'Playlist'
 
-    ## Play an item. If currently playing, insert it next, else clear playlist and add.
-    ## If resume > 0 will resume from that point.
+    ## Play an item. Rules:
+    ## - If in the playlist already, play that item
+    ## - If currently playing, insert it next and play
+    ## - If not playing clear playlist, add and play
+    ## - If resume > 0 will resume from that point
     play: (type, value, model, resume = 0, callback) ->
-      stateObj = App.request "state:kodi"
-      ## If playing, queue up next.
-      if stateObj.isPlaying(@getPlayerName())
-        @getItems (resp) =>
-          pos = if resp.items then (stateObj.getPlaying('position') + 1) else 0
-          @insertAndPlay type, value, pos, resume, callback
-      else
-        @clear =>
-          @insertAndPlay type, value, 0, resume, callback
+      # Get items in the playlist
+      @getItems (currentPlaylist) =>
+        # If item is already in th playlist, play that
+        plItem = {type: type.replace('id', ''), id: value}
+        inPlaylist = if currentPlaylist.items then _.findWhere(currentPlaylist.items, plItem) else false
+        if inPlaylist
+          @playPosition inPlaylist.position, resume, callback
+        else
+          # Item needs to be added to playlist
+          stateObj = App.request "state:kodi"
+          ## If playing, queue up next.
+          if stateObj.isPlaying(@getPlayerName())
+            pos = if currentPlaylist.items then (stateObj.getPlaying('position') + 1) else 0
+            @insertAndPlay type, value, pos, resume, callback
+          else
+            @clear =>
+              @insertAndPlay type, value, 0, resume, callback
 
     ## Add a collection of models wrapper, will clear if not playing
     addCollection: (collection, position = 0, callback) ->
@@ -78,16 +89,28 @@
     ## Get items in a playlist
     getItems: (callback) ->
       @singleCommand @getCommand('GetItems'), [@getPlayer(), ['title']], (resp) =>
-        @doCallback callback, resp
+        @doCallback callback, @parseItems(resp)
+
+    ## Add position to each item in the playlist
+    parseItems: (resp) ->
+      if resp.items
+        resp.items = _.map resp.items, (item, idx) ->
+          item.position = parseInt(idx)
+          item
+      resp
 
     ## Insert a song at a position and play it
     insertAndPlay: (type, value, position = 0, resume = 0, callback) ->
       @insert type, value, position, (resp) =>
-        @playEntity 'position', parseInt(position), {}, =>
-          if resume > 0
-            # Seek to resume point if not 0. Setting option {resume: true} does not work :(
-            App.execute "player:kodi:progress:update", resume
-          @doCallback callback, resp
+        @playPosition position, resume, callback
+
+    ## Play a position in the playlist with optional resume
+    playPosition: (position = 0, resume = 0, callback) ->
+      @playEntity 'position', parseInt(position), {}, =>
+        if resume > 0
+          # Seek to resume point if not 0. Setting option {resume: true} does not work :(
+          App.execute "player:kodi:progress:update", resume
+        @doCallback callback
 
     ## Get the size of the current playlist
     playlistSize: (callback) ->
