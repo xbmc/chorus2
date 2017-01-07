@@ -191,10 +191,10 @@
           # Instead of encouraging entering random shizzle how about it's just cancelled and a message saying why?
           App.inputTimeout = setTimeout((->
             wotd = '<a href="http://goo.gl/PGE7wg" target="_blank">word of the day</a>'
-            msg = t.sprintf(
+            msg = t.sprintf(tr(
               "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent " +
               "a mainframe implosion, you should probably give me some text. I don't really care what it " +
-              "is at this point, why not be creative? Do you have a %2$s? I won't tell...", wait, wotd
+              "is at this point, why not be creative? Do you have a %2$s? I won't tell..."), wait, wotd
             )
             App.execute "input:textbox", msg
             return

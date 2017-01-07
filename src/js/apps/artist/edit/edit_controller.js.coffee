@@ -49,4 +49,4 @@
       controller = App.request "command:kodi:controller", 'audio', 'AudioLibrary'
       controller.setArtistDetails @model.get('id'), data, =>
         Kodi.vent.trigger 'entity:kodi:update', @model.get('uid')
-        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'album')
+        Kodi.execute "notification:show", t.sprintf(tr("Updated %1$s details"), 'album')
