@@ -136,9 +136,7 @@
 
         # volume change
         when 'Application.OnVolumeChanged'
-          @setState 'volume', data.params.data.volume
-          @setState 'muted', data.params.data.muted
-          @refreshStateNow()
+          App.request("state:kodi").getCurrentState()
 
         # Video Library scan
         when 'VideoLibrary.OnScanStarted'
