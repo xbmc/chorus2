@@ -66,8 +66,9 @@
       App.execute "when:entity:fetched", collection, =>
         view = App.request "season:list:view", collection
         API.bindTriggersTVSeason view
-        @layout.regionContent.show view
-        # On update to show, reload seasons
-        App.vent.on 'entity:kodi:update', (uid) =>
-          if tvshow.get('uid') is uid
-            @getSeasons tvshow
+        if @layout.regionContent
+          @layout.regionContent.show view
+          # On update to show, reload seasons
+          App.vent.on 'entity:kodi:update', (uid) =>
+            if tvshow.get('uid') is uid
+              @getSeasons tvshow

@@ -37,6 +37,7 @@ $card-detail-side-width: 238px;
 $card-detail-poster-side-height: 357px;
 $card-detail-episode-side-height: 150px;
 .card-detail {
+  position: relative;
   .entity-progress {
     display: none;
   }
@@ -57,6 +58,37 @@ $card-detail-episode-side-height: 150px;
   }
   .card-episode {
     @include responsive-card-artwork-size($card-detail-side-width, $card-detail-episode-side-height);
+  }
+  .actions {
+    @include set-position-absolute(top 10px right 10px);
+    z-index: $z-index-gamma;
+  }
+  .thumbs {
+    @include icon-button-square(action-thumb-up, $spacing-half-unit * 3);
+    font-size: 200%;
+    color: rgba($color-white, 0.8);
+    display: none;
+    text-shadow: 1px 1px 5px rgba($color-black, 0.3);
+    .disable-thumbs & {
+      display: none !important;
+    }
+  }
+  &.thumbs-up {
+    .thumbs {
+      color: rgba($color-white, 0.6);
+      opacity: 1;
+      display: table;
+    }
+  }
+  &:hover {
+    .thumbs {
+      display: table;
+    }
+    &.thumbs-up {
+      .thumbs {
+        color: $color-brand-primary;
+      }
+    }
   }
 }
 
