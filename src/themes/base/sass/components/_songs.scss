@@ -234,34 +234,36 @@
     }
   }
   // Playing states
-  .local-row-playing,
-  .local-row-paused,
-  .kodi-row-playing,
-  .kodi-row-paused {
-    background: rgba($color-white, 0.9) !important;
-    &:hover td .crop,
-    td .crop {
-      @include text-fade($color-white);
+  tr.song {
+    &.local-row-playing,
+    &.local-row-paused,
+    &.kodi-row-playing,
+    &.kodi-row-paused {
+      background: rgba($color-white, 0.9) !important;
+      &:hover td .crop,
+      td .crop {
+        @include text-fade($color-white);
+      }
+      .track {
+        background: image-url('row-pause-blue.png') 50% 50% no-repeat;
+        text-indent: -99999px;
+      }
     }
-    .track {
-      background: image-url('row-pause-blue.png') 50% 50% no-repeat;
-      text-indent: -99999px;
+    &.local-row-paused {
+      .track {
+        background: image-url('row-pause-pink.png') 50% 50% no-repeat;
+      }
     }
-  }
-  .local-row-paused {
-    .track {
-      background: image-url('row-pause-pink.png') 50% 50% no-repeat;
+    &.local-row-playing,
+    &.kodi-row-playing {
+      .track {
+        background-image: image-url('row-playing-blue.gif');
+      }
     }
-  }
-  .local-row-playing,
-  .kodi-row-playing {
-    .track {
-      background-image: image-url('row-playing-blue.gif');
-    }
-  }
-  .local-row-playing {
-    .track {
-      background-image: image-url('row-playing-pink.gif');
+    &.local-row-playing {
+      .track {
+        background-image: image-url('row-playing-pink.gif');
+      }
     }
   }
 }
