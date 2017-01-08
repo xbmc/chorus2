@@ -6,7 +6,7 @@
       @model = @getOption('model')
       options = {
         title: '<span>' + tr('Edit') + '</span>' + @model.get('title')
-        form: @getSructure()
+        form: @getStructure()
         formState: @model.attributes
         config:
           attributes: {class: 'edit-form'}
@@ -17,7 +17,7 @@
       }
       form = App.request "form:popup:wrapper", options
 
-    getSructure: ->
+    getStructure: ->
       [
         {
           title: 'General'
@@ -68,5 +68,5 @@
     saveCallback: (data, formView) ->
       controller = App.request "command:kodi:controller", 'video', 'VideoLibrary'
       controller.setTVShowDetails @model.get('id'), data, =>
-        helpers.entities.triggerUpdate @model, data, ['watchedepisodes', 'episode']
-        Kodi.execute "notification:show", t.sprintf("Updated %1$s details", 'tvshow')
+        Kodi.vent.trigger 'entity:kodi:update', @model.get('uid')
+        Kodi.execute "notification:show", t.sprintf(tr("Updated %1$s details"), 'tvshow')

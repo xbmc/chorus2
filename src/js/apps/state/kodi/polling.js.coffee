@@ -26,7 +26,7 @@
       stateObj.getCurrentState()
 
     ## As most of this is called out of context, we are calling everything
-    ## around the timeout in the golbal instace scope.
+    ## around the timeout in the global instance scope.
     update: ->
       if App.kodiPolling.failures < App.kodiPolling.maxFailures
         App.kodiPolling.updateState()
@@ -45,7 +45,7 @@
           App.kodiPolling.failure()
       })
       commander.onError = ->
-        ## replace current error handler so we don't polute the console.
+        ## replace current error handler so we don't pollute the console.
       commander.sendCommand 'Ping', [], ->
         App.kodiPolling.alive()
 
@@ -56,7 +56,7 @@
 
     failure: ->
       App.kodiPolling.failures++
-      ## Incriment the check interval the more failures we get
+      ## Increment the check interval the more failures we get
       if App.kodiPolling.failures > 10
         App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 5
       if App.kodiPolling.failures > 20

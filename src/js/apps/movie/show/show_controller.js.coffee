@@ -13,6 +13,8 @@
         App.execute 'movie:action', 'download', viewItem
       App.listenTo view, 'toggle:watched', (viewItem) ->
         App.execute 'movie:action:watched', viewItem.view, viewItem.view
+      App.listenTo view, 'movie:refresh', (viewItem) ->
+        App.execute 'movie:action', 'refresh', viewItem
       App.listenTo view, 'movie:edit', (viewItem) ->
         App.execute 'movie:edit', viewItem.model
 
@@ -116,7 +118,7 @@
             cache: false
             sort: {method: 'random', order: 'ascending'}
             filter: {}
-            title: t.sprintf(more.title, '<a href="#movies?' + more.key + '=' + filterVal + '">' + filterVal + '</a>')
+            title: t.sprintf(tr(more.title), '<a href="#movies?' + more.key + '=' + filterVal + '">' + filterVal + '</a>')
             idx: idx
           opts.filter[more.filter] = filterVal
 

@@ -23,7 +23,7 @@
       obj
 
     singleCommand: (command, params, callback) ->
-      command = {method: command}
+      command = {method: command, url: helpers.url.baseKodiUrl(command)}
       if params? and (params.length > 0 or _.isObject(params))
         command.params = params
       obj = @multipleCommands [command], callback

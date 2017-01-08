@@ -14,9 +14,8 @@
       App.listenTo view, 'childview:album:edit', (parent, item) ->
         App.execute 'album:edit', item.model
 
-    getAlbumsList: (collection, set = false) ->
-      viewName = if set then 'AlbumsSet' else 'Albums'
-      view = new List[viewName]
+    getAlbumsList: (collection) ->
+      view = new List.Albums
         collection: collection
       API.bindTriggers(view)
       view
@@ -74,4 +73,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "album:list:view", (collection) ->
-    API.getAlbumsList collection, true
+    API.getAlbumsList collection

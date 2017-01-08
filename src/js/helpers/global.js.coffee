@@ -102,7 +102,7 @@ helpers.global.stringStartsWith = (start, data) ->
   new RegExp('^' + helpers.global.regExpEscape(start)).test(data)
 
 
-## Strip a string from the begining of another string
+## Strip a string from the beginning of another string
 helpers.global.stringStripStartsWith = (start, data) ->
   data.substring(start.length)
 
@@ -172,3 +172,5 @@ helpers.global.saveFileText = (content, filename = 'untitled.txt') ->
   catch error
     Kodi.execute "notification:show", tr('Saving is not supported by your browser')
 
+helpers.global.removeBBCode = (string) ->
+  string.replace(/\[\/?(?:b|i|u|url|quote|code|img|color|size|B|I|U|URL|QUOTE|CODE|IMG|COLOR|SIZE)*?.*?\]/img, '')

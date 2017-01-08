@@ -294,7 +294,7 @@ msgstr ""
 "updates. Which makes things slower and uses more resources. Please ensure "
 "you have 'Allow programs on other systems to control Kodi' ENABLED in the "
 "Kodi settings (System > Services > Remote control). You may also get this if "
-"you are using proxies or accessing via an IP addess when localhost will "
+"you are using proxies or accessing via an IP address when localhost will "
 "suffice. If websockets normally works, you might just need to refresh your "
 "browser."
 
@@ -719,10 +719,10 @@ msgstr "Disable Thumbs Up"
 msgctxt ""
 msgid ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
-"the menu item from the "
+"the menu item from the %1$s"
 msgstr ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
-"the menu item from the "
+"the menu item from the %1$s"
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
@@ -1259,3 +1259,93 @@ msgstr "executable"
 msgctxt ""
 msgid "settings"
 msgstr "settings"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Refresh"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"Refreshing '%1$s' will remove it from the library then re-add it, so the "
+"ID may change. I'll attempt to reload this page with the new ID in a few "
+"seconds. Click 'YES' to confirm refresh"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Refresh Ignore NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignore local NFO files when manually refreshing media."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Show only"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Show and episodes"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Top music"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Artists"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Albums"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Songs"
+
+msgctxt ""
+msgid "default"
+msgstr "default"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Actions"
+
+msgctxt ""
+msgid "play files"
+msgstr "play files"
+
+msgctxt ""
+msgid "queue files"
+msgstr "queue files"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Sent text"
+
+msgctxt ""
+msgid "License"
+msgstr "License"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Main Menu"
+
+msgctxt ""
+msgid "Search"
+msgstr "Search"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Custom Add-on search"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus search supports searching not only local media but add-on content too. For example, you can use the "
+"search to find videos in YouTube or audio in SoundCloud. This page allows you to add custom add-on searches "
+"that are not included out of the box. See the %1$s for more information."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Add-ons help page"

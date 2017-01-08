@@ -160,3 +160,7 @@
   ## Parse a song collection into albums
   App.reqres.setHandler "song:albumparse:entities", (songs) ->
     API.parseSongsToAlbumSongs songs
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "song:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

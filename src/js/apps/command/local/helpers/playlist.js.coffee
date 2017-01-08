@@ -19,7 +19,7 @@
     playCollection: (models) ->
       if not _.isArray models
         models = models.getRawCollection()
-      ## TODO: Add logic for if something is alreadly playing (like kodi controller)
+      ## TODO: Add logic for if something is already playing (like kodi controller)
       @clear =>
         @insertAndPlay models, 0
 

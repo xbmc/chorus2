@@ -111,20 +111,24 @@
         file: addonSearch.url.replace('[QUERY]', @getOption('query'))
         media: addonSearch.media
         addonId: addonSearch.id
-        success: (collection) =>
-          collection.reset collection.where({filetype: 'file'}), {silent: true}
-          # If result
-          if collection.length > 0
-            @processedItems = @processedItems + collection.length
-            filesView = App.request "browser:files:view", collection
-            setView = new List.ListSet
-              entity: addonSearch.title
-              title: addonSearch.title
-              more: false
-              query: @getOption('query')
-            App.listenTo setView, "show", =>
-              setView.regionResult.show filesView
-            @layout.appendAddonView collection.options.addonId, setView
+        success: (fullCollection) =>
+          i = 0
+          typeCollection = App.request "file:parsed:entities", fullCollection
+          for type in ['file', 'directory']
+            collection = typeCollection[type]
+            # If result
+            if collection.length > 0
+              i++
+              @processedItems = @processedItems + collection.length
+              filesView = App.request "browser:" + type + ":view", collection
+              setView = new List.ListSet
+                entity: addonSearch.title
+                title: if i is 1 then addonSearch.title else ''
+                more: false
+                query: @getOption('query')
+              App.listenTo setView, "show", =>
+                setView.regionResult.show filesView
+              @layout.appendAddonView addonId + type, setView
           @updateProgress addonId
       App.request "file:entities", opts
 

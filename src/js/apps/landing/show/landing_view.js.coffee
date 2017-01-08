@@ -22,9 +22,13 @@
     onRender: =>
       if @options
         $header = $('h3.set-header', @$el)
-        if @options.section.title
+        if @options.filter isnt false and @options.section.title
+          $header.html( t.sprintf(tr(@options.section.title), @options.filter) )
+        else if @options.section.title
           $header.html( tr(@options.section.title) )
-        if @options.section.moreLink
+        if @options.filter isnt false and @options.section.moreLink
+          $header.append @themeLink tr('more'), @options.section.moreLink + @options.filter
+        else if @options.section.moreLink
           $header.append @themeLink tr('more'), @options.section.moreLink
     regions:
       regionResult: '.set-results'

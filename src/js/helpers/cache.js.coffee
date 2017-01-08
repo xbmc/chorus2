@@ -1,5 +1,5 @@
 ###
-  Our cache storage, persists only for app lifycle
+  Our cache storage, persists only for app lifecycle
   Eg. gets wiped when page reloaded.
 ###
 helpers.cache =

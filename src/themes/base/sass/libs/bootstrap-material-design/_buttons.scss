@@ -35,7 +35,7 @@
     }
     outline: none !important;
 }
-// This is needed to style buttons which has not a variation suffix (they must stiled as btn-default)
+// This is needed to style buttons which has not a variation suffix (they must styled as btn-default)
 .btn-link, .btn:not([class^="btn btn-"]), .btn-default {
     color: $lightbg-text;
     &:hover {

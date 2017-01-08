@@ -2,16 +2,18 @@
 
   class LandingApp.Router extends App.Router.Base
     appRoutes:
-      "music"          : "list"
-      "movies/recent"  : "list"
-      "tvshows/recent" : "list"
+      "music"               : "landingPage"
+      "music/top"           : "landingPage"
+      "movies/recent"       : "landingPage"
+      "tvshows/recent"      : "landingPage"
+      "music/genre/:filter" : "filteredPage"
 
   API =
 
     ## This defines what we will see on each landing page
     ## Example of a complex filter using rules
     ## {"and": [{'operator': 'is', 'field': 'playcount', 'value': '0'}, {'operator': 'is', 'field': 'year', 'value': '2015'}]}
-    settings:
+    landingSettings:
       music:
         subnavId: 'music'
         sections: [
@@ -39,7 +41,27 @@
             moreLink: 'music/albums?sort=random'
           }
         ]
-      movies:
+      musictop:
+        subnavId: 'music'
+        sections: [
+          {
+            title: 'Top Albums'
+            entity: 'album'
+            sort: 'playcount'
+            order: 'descending'
+            limit: 56
+            filter: {'operator': 'greaterthan', 'field': 'playcount', 'value': '0'}
+          }
+          {
+            title: 'Top Songs'
+            entity: 'song'
+            sort: 'playcount'
+            order: 'descending'
+            limit: 100
+            filter: {'operator': 'greaterthan', 'field': 'playcount', 'value': '0'}
+          }
+        ]
+      moviesrecent:
         subnavId: 'movies/recent'
         sections: [
           {
@@ -69,7 +91,7 @@
             moreLink: 'movies?sort=random'
           }
         ]
-      tvshows:
+      tvshowsrecent:
         subnavId: 'tvshows/recent'
         sections: [
           {
@@ -91,11 +113,53 @@
           }
         ]
 
-    list: () ->
-      type = helpers.url.arg 0
-      settings = API.settings[type]
+    ## Filtered sections require an argument passed and are used for pages such as genere
+    ## Key name should be "arg0 + arg1", filter should be "arg2"
+    ## Filter gets replaced in sections[i].filter.value and prepended to moreLink
+    filteredSettings:
+      musicgenre:
+        subnavId: 'music'
+        sections: [
+          {
+            title: '%1$s Artists'
+            entity: 'artist'
+            sort: 'title'
+            order: 'ascending'
+            limit: 500
+            filter: {'operator': 'is', 'field': 'genre', 'value': '[FILTER]'}
+          }
+          {
+            title: '%1$s Albums'
+            entity: 'album'
+            sort: 'title'
+            order: 'ascending'
+            limit: 500
+            filter: {'operator': 'is', 'field': 'genre', 'value': '[FILTER]'}
+          }
+          {
+            title: '%1$s Songs'
+            entity: 'song'
+            sort: 'title'
+            order: 'ascending'
+            limit: 1000
+            filter: {'operator': 'is', 'field': 'genre', 'value': '[FILTER]'}
+          }
+        ]
+
+
+    landingPage: () ->
+      type = helpers.url.arg(0) + helpers.url.arg(1)
+      settings = API.landingSettings[type]
       new LandingApp.Show.Controller
         settings: settings
+        filter: false
+
+    filteredPage: (filter) ->
+      type = helpers.url.arg(0) + helpers.url.arg(1)
+      settings = API.filteredSettings[type]
+      new LandingApp.Show.Controller
+        settings: settings
+        filter: decodeURIComponent(filter)
 
 
   ## Register controller

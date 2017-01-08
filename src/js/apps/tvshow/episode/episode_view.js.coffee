@@ -51,14 +51,18 @@
       'click .stream': 'episode:localplay'
       'click .download': 'episode:download'
       'click .edit': 'episode:edit'
+      'click .refresh': 'episode:refresh'
     attributes: ->
       @watchedAttributes()
 
   class Episode.EpisodeDetailTeaser extends App.Views.CardView
     tagName: "div"
-    className: "card-detail"
     triggers:
       "click .menu" : "episode-menu:clicked"
+    initialize: ->
+      @model.set(actions: {thumbs: tr('Thumbs up')})
+    attributes: ->
+      @watchedAttributes 'card-detail'
 
   class Episode.Content extends App.Views.LayoutView
     template: 'apps/tvshow/episode/content'

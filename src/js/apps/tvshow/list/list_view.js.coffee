@@ -16,8 +16,9 @@
     attributes: ->
       @watchedAttributes 'card tv-show prevent-select'
     setMeta: ->
-      @model.set
-        subtitle: @model.get('rating')
+      if @model
+        @model.set
+          subtitle: @model.get('rating')
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

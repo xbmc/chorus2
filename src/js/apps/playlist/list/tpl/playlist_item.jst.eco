@@ -2,6 +2,9 @@
     <div class="artwork">
         <div class="thumb" title="<%= @label %>" style="background-image: url('<%= @thumbnail %>')">
             <div class="mdi play"></div>
+            <% if @canThumbsUp: %>
+                <div class="mdi thumbs"></div>
+            <% end %>
         </div>
     </div>
     <div class="meta">

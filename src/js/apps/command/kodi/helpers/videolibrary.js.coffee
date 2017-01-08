@@ -50,15 +50,30 @@
         setPlaycount = 1
       else if op is 'unwatched'
         setPlaycount = 0
-      setProgress = setPlaycount * 100
       fields = helpers.global.paramObj 'playcount', setPlaycount
       if model.get('type') is 'movie'
         @setMovieDetails model.get('id'), fields, =>
-          helpers.cache.updateCollection 'MovieCollection', 'movies', model.get('id'), 'playcount', setPlaycount
-          helpers.cache.updateCollection 'MovieCollection', 'movies', model.get('id'), 'progress', setProgress
+          App.vent.trigger 'entity:kodi:update', model.get('uid')
           @doCallback callback, setPlaycount
       if model.get('type') is 'episode'
         @setEpisodeDetails model.get('id'), fields, =>
-          helpers.cache.updateCollection 'TVShowCollection', 'tvshows', model.get('tvshowid'), 'playcount', setPlaycount
-          helpers.cache.updateCollection 'TVShowCollection', 'tvshows', model.get('tvshowid'), 'progress', setProgress
+          App.vent.trigger 'entity:kodi:update', model.get('uid')
           @doCallback callback, setPlaycount
+
+    ## Refresh a movie
+    refreshMovie: (id, params, callback) ->
+      params = _.extend {movieid: id, ignorenfo: false}, params
+      @singleCommand @getCommand('RefreshMovie'), params, (resp) =>
+        @doCallback callback, resp
+
+    ## Refresh a tvshow
+    refreshTVShow: (id, params, callback) ->
+      params = _.extend {tvshowid: id, ignorenfo: false}, params
+      @singleCommand @getCommand('RefreshTVShow'), params, (resp) =>
+        @doCallback callback, resp
+
+    ## Refresh an episode
+    refreshEpisode: (id, params, callback) ->
+      params = _.extend {episodeid: id, ignorenfo: false}, params
+      @singleCommand @getCommand('RefreshEpisode'), params, (resp) =>
+        @doCallback callback, resp

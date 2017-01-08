@@ -10,6 +10,10 @@
           menu += @themeTag 'li', {class: key}, val
         this.$el.find('.dropdown-menu').html(menu)
 
+    # Close dropdown on blur
+    onShow: ->
+      @menuBlur()
+
     ## Toggle menu open class on row. Call this in onShow().
     menuBlur: ->
       $('.dropdown', @$el).on 'show.bs.dropdown', =>
@@ -37,7 +41,7 @@
     ## Method to enable toggle selection. Needs to be added as an event to the
     ## view that utilizes it
     toggleSelect: (e) ->
-      if e.ctrlKey
+      if e.ctrlKey || e.metaKey
         e.preventDefault()
         # Disable selection with items with prevent-select
         # TODO: make it work on mixed collections (thumbsup) or move check elsewhere

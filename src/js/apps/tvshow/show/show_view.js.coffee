@@ -9,14 +9,19 @@
   class Show.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/show/details_meta'
     triggers:
-      "click .play"       : "tvshow:play"
-      "click .add"        : "tvshow:add"
-      "click .edit"       : "tvshow:edit"
+      "click .play"               : "tvshow:play"
+      "click .add"                : "tvshow:add"
+      "click .edit"               : "tvshow:edit"
+      "click .refresh"            : "tvshow:refresh"
+      "click .refresh-episodes"   : "tvshow:refresh:episodes"
     attributes: ->
       @watchedAttributes 'details-meta'
 
   class Show.TVShowTeaser extends App.Views.CardView
     tagName: "div"
-    className: "card-detail"
     triggers:
       "click .play"       : "tvshow:play"
+    initialize: ->
+        @model.set(actions: {thumbs: tr('Thumbs up')})
+    attributes: ->
+      @watchedAttributes 'card-detail'

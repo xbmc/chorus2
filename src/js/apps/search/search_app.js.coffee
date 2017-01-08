@@ -15,7 +15,6 @@
       imdb       : 'http://www.imdb.com/find?s=all&q=[QUERY]'
       tmdb       : 'https://www.themoviedb.org/search?query=[QUERY]'
       tvdb       : 'http://thetvdb.com/?searchseriesid=&tab=listseries&function=Search&string=[QUERY]'
-      audiodb    : 'http://theaqudiodb.com/browse.php?search=[QUERY]'
       soundcloud : 'https://soundcloud.com/search?q=[QUERY]'
       youtube    : 'https://www.youtube.com/results?search_query=[QUERY]'
 

@@ -81,6 +81,7 @@
                 </li>
                 <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
                 <li class="divider"></li>
+                <li class="refresh"><%= tr('Refresh') %></li>
                 <li class="edit"><%= tr('Edit') %></li>
             </ul>
         </li>

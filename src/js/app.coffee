@@ -23,9 +23,10 @@
     keyboardControl: 'kodi'
     disableThumbs: false
     showDeviceName: false
+    refreshIgnoreNFO: true
 }
 
-## The App Inance
+## The App Instance
 @Kodi = do (Backbone, Marionette) ->
 
   App = new Backbone.Marionette.Application()
@@ -49,3 +50,5 @@ $(document).ready =>
     Kodi.start()
     # Start material
     $.material.init()
+    # Bind to scroll/resize for redraw trigger
+    helpers.ui.bindOnScrollResize()

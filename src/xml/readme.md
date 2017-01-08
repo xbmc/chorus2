@@ -17,5 +17,5 @@ Toggling the xml in the dist folder can be done using `build.sh`.
 
 NOTE:
 
-* When commiting any changes to `dist/addon.xml` it should always be the release version with the id `webinterface.default`
+* When committing any changes to `dist/addon.xml` it should always be the release version with the id `webinterface.default`
 * Each time `build.sh` is run it will replace `dist/addon.xml` with the appropriate version so any changes to `dist/addon.xml` should be done to `src/addon.release.xml`

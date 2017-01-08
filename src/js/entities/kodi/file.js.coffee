@@ -8,7 +8,7 @@
 
     fields:
       minimal: ['title', 'file', 'mimetype']
-      small: ['thumbnail']
+      small: ['thumbnail', 'dateadded']
       full: ['fanart', 'streamdetails']
     addonFields: ['path', 'name']
 
@@ -19,7 +19,7 @@
       {media: 'video', label: 'Video add-ons', type: 'addon', provides: 'files', addonType: 'xbmc.addon.video', content: 'unknown'}
     ]
 
-    directorySeperator: '/'
+    directorySeparator: '/'
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -48,7 +48,7 @@
       collections
 
     ## Get a source media types, we don't use backbone.rpc because it's multiple
-    ## calls seem really flakey on collections as it is geared towards models.
+    ## calls seem really flaky on collections as it is geared towards models.
     ## This allows better parsing anyway as we can add the media to each model.
     ## We also parse in available addon sources.
     getSources: ->
@@ -64,9 +64,9 @@
       commander.multipleCommands commands, (resp) =>
         for i, item of resp
           source = @sources[i]
-          repsonseKey = source.type + 's'
-          if item[repsonseKey]
-            for model in item[repsonseKey]
+          responseKey = source.type + 's'
+          if item[responseKey]
+            for model in item[responseKey]
               model.media = source.media
               model.sourcetype = source.type
               if source.type is 'addon'
@@ -96,7 +96,7 @@
 
     ## Create a url for an addon
     createAddonFile: (addon) ->
-      'plugin://' + addon.addonid + @directorySeperator
+      'plugin://' + addon.addonid + @directorySeparator
 
     ## Parse files for extra data
     parseFiles: (items, media) ->
@@ -108,6 +108,8 @@
           items[i].player = @getPlayer(media)
           items[i].url = @createFileUrl media, item.file
           items[i].parsed = true
+          items[i].defaultSort = parseInt i
+          items[i].label = helpers.global.removeBBCode item.label
       items
 
     ## Add music and video playlist sources.
@@ -141,11 +143,11 @@
       if parentSource.file
         items.push parentSource
         basePath = parentSource.file
-        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(@directorySeperator)
+        pathParts = helpers.global.stringStripStartsWith(parentSource.file, file).split(@directorySeparator)
         excludedPaths = App.request "addon:excludedPaths", parentSource.addonid
         for part in pathParts
           if part isnt ''
-            basePath += part + @directorySeperator
+            basePath += part + @directorySeparator
             if excludedPaths.indexOf(basePath) is -1 ## Don't add excluded paths
               items.push @createPathModel(parentSource.media, part, basePath)
       new KodiEntities.FileCustomCollection items
@@ -190,12 +192,11 @@
   class KodiEntities.FileCollection extends App.KodiEntities.Collection
     model: KodiEntities.File
     methods: read: ['Files.GetDirectory', 'directory', 'media', 'properties', 'sort']
-    args: -> @getArgs({
+    args: -> @getArgs
       directory: @argCheckOption('file', '')
       media: @argCheckOption('media', '')
       properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
-      sort: @argSort('label', 'ascending')
-    })
+      sort: @argSort('none', 'ascending')
     parse: (resp, xhr) ->
       items = @getResult resp, 'files'
       API.parseFiles items, @options.media

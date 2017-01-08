@@ -34,7 +34,7 @@
           App.vent.trigger "sockets:unavailable"
 
         ws.onmessage = (resp) =>
-          @messageRecieved resp
+          @messageReceived resp
 
         ws.onclose = (resp) =>
           helpers.debug.msg "Websockets Closed", "warning", resp
@@ -54,7 +54,7 @@
       jQuery.parseJSON(resp.data)
 
     ## Deal with a message.
-    messageRecieved: (resp) ->
+    messageReceived: (resp) ->
       data = @parseResponse resp
       @onMessage data
 
@@ -72,6 +72,22 @@
           if callback
             callback state
       ), 1000)
+
+    ## An item in the library has been updated, trigger a model refresh
+    onLibraryUpdate: (data) ->
+      # This feels like a bug (different structure for audio vs video) and might be fixed one day
+      model = if data.params.data.item then data.params.data.item else data.params.data
+      ## Trigger a update of model in ui
+      model.uid = helpers.entities.createUid model, model.type
+      App.vent.trigger 'entity:kodi:update', model.uid
+      ## Episode updates might affect parent show and happen in bulk, so we defer a show update after 2 seconds.
+      if model.type is 'episode'
+        clearTimeout App.episodeRecheckTimeout
+        App.episodeRecheckTimeout = setTimeout(() ->
+          App.request 'episode:entity', model.id, {success: (epModel) ->
+            App.vent.trigger 'entity:kodi:update', 'tvshow-' + epModel.get('tvshowid')
+          }
+        , 2000)
 
     ## Deal with message responses.
     onMessage: (data) ->
@@ -120,9 +136,7 @@
 
         # volume change
         when 'Application.OnVolumeChanged'
-          @setState 'volume', data.params.data.volume
-          @setState 'muted', data.params.data.muted
-          @refreshStateNow()
+          App.request("state:kodi").getCurrentState()
 
         # Video Library scan
         when 'VideoLibrary.OnScanStarted'
@@ -162,6 +176,10 @@
         when 'VideoLibrary.OnCleanFinished'
           App.execute "notification:show", t.gettext("Video library clean finished")
 
+        # Audio Library update
+        when 'AudioLibrary.OnUpdate', 'VideoLibrary.OnUpdate'
+          @onLibraryUpdate data
+
         # input box has opened
         when 'Input.OnInputRequested'
           App.execute "input:textbox", ''
@@ -171,10 +189,10 @@
           # Instead of encouraging entering random shizzle how about it's just cancelled and a message saying why?
           App.inputTimeout = setTimeout((->
             wotd = '<a href="http://goo.gl/PGE7wg" target="_blank">word of the day</a>'
-            msg = t.sprintf(
+            msg = t.sprintf(tr(
               "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent " +
               "a mainframe implosion, you should probably give me some text. I don't really care what it " +
-              "is at this point, why not be creative? Do you have a %2$s? I won't tell...", wait, wotd
+              "is at this point, why not be creative? Do you have a %2$s? I won't tell..."), wait, wotd
             )
             App.execute "input:textbox", msg
             return

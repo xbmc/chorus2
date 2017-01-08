@@ -7,8 +7,8 @@
   API =
 
     fields:
-      minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa']
+      minimal: ['title', 'thumbnail']
+      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa']
       full: ['fanart', 'plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'premiered', 'sorttitle', 'originaltitle', 'country', 'tag']
 
     ## Fetch a single entity
@@ -71,3 +71,7 @@
   ## Given an array of models, return as collection.
   App.reqres.setHandler "movie:build:collection", (items) ->
     new KodiEntities.MovieCustomCollection items
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "movie:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

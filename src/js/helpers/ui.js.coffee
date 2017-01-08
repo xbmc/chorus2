@@ -3,6 +3,26 @@
 ###
 helpers.ui = {}
 
+## Bind to scroll and resize stop. This should only be bound once during app init.
+helpers.ui.bindOnScrollResize = () ->
+  $(window).scrollStopped =>
+    helpers.ui.requestTick()
+  $(window).resizeStopped =>
+    helpers.ui.requestTick()
+
+## Callback for resize/scroll stop, it uses requestAnimationFrame to trigger an event
+## when scrolling has actually stopped, this prevents locking the UI with a redraw.
+## Views, etc can listen to App.vent.on("ui:animate:stop") to trigger redraws.
+## Used by VirtualListView.
+helpers.ui.isTicking = false
+helpers.ui.requestTick = () ->
+  if !helpers.ui.isTicking
+    requestAnimationFrame( =>
+      Kodi.vent.trigger "ui:animate:stop"
+      helpers.ui.isTicking = false
+    )
+  helpers.ui.isTicking = true
+
 ## Get a swatch from an image (Vibrant.js)
 helpers.ui.getSwatch = (imgSrc, callback) ->
   ret = {}

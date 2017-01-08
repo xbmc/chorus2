@@ -16,9 +16,12 @@
       ## Music.
       nav.push {id: 1, title: tr("Music"), path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
       nav.push {id: 2, title: tr("Music"), path: 'music', icon: '', classes: '', parent: 1}
+      nav.push {id: 6, title: tr("Genres"), path: 'music/genres', icon: '', classes: '', parent: 1}
+      nav.push {id: 7, title: tr("Top music"), path: 'music/top', icon: '', classes: '', parent: 1}
       nav.push {id: 3, title: tr("Artists"), path: 'music/artists', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: tr("Albums"), path: 'music/albums', icon: '', classes: '', parent: 1}
       nav.push {id: 5, title: tr("Digital radio"), path: 'music/radio', icon: '', classes: 'pvr-link', parent: 1, visibility: "addon:pvr:enabled"}
+
 
       ## Movies.
       nav.push {id: 11, title: tr("Movies"), path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
@@ -50,8 +53,10 @@
       ## Settings.
       nav.push {id: 51, title: tr("Settings"), path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
       nav.push {id: 52, title: tr("Web interface"), path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 54, title: tr("Main Menu"), path: 'settings/nav', icon: '', classes: '', parent: 51}
       nav.push {id: 53, title: tr("Add-ons"), path: 'settings/addons', icon: '', classes: '', parent: 51}
-      nav.push {id: 54, title: tr("Main Nav"), path: 'settings/nav', icon: '', classes: '', parent: 51}
+      nav.push {id: 55, title: tr("Search"), path: 'settings/search', icon: '', classes: '', parent: 51}
+
 
       ## Help
       nav.push {id: 61, title: tr("Help"), path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}

@@ -34,13 +34,15 @@
 
   class Show.AlbumTeaser extends App.AlbumApp.List.AlbumTeaser
     tagName: "div"
-    className: "card-minimal"
     initialize: ->
       @setMeta()
       @model.set(App.request('album:action:items'))
     setMeta: ->
       @model.set
         subtitle: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
+    attributes: ->
+      @watchedAttributes 'card-minimal'
 
   class Show.AlbumDetailTeaser extends Show.AlbumTeaser
-    className: "card-detail"
+    attributes: ->
+      @watchedAttributes 'card-detail'
