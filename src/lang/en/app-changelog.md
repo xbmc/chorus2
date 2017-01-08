@@ -21,7 +21,8 @@ Version 2.4.0
 * Added Spanish translation #194
 * Updated Polish translation #193
 * Spelling Corrections #192
-
+* New settings page for adding custom add-on search to main Chorus search
+* Browser updates: ability to download files, ability to sort #188, added folder actions (queue/play folder) #131
 
 Version 2.3.9
 -------------

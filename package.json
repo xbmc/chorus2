@@ -1,6 +1,6 @@
 {
   "name": "kodi-webinterface",
-  "version": "2.3.9",
+  "version": "2.4.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.2",
