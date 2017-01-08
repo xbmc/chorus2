@@ -25,7 +25,10 @@
     className: "search-set"
     onRender: ->
       if @options and @options.entity
-        $('h2.set-header', @$el).html( t.gettext( @options.title ) )
+        if @options.title
+          $('h2.set-header', @$el).html( t.gettext( @options.title ) )
+        else
+          $('h2.set-header', @$el).remove()
         if @options.more and @options.query
           moreLink = @themeLink t.gettext('Show more'), 'search/' + @options.entity + '/' + @options.query
           $('.more', @$el).html( moreLink )

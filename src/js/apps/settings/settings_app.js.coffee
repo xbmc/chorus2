@@ -7,6 +7,7 @@
       "settings/kodi/:section" : "kodi"
       "settings/addons" : "addons"
       "settings/nav" : "navMain"
+      "settings/search" : "search"
 
   API =
 
@@ -20,6 +21,9 @@
 
     navMain: ->
       new SettingsApp.Show.navMain.Controller()
+
+    search: ->
+      new SettingsApp.Show.Search.Controller()
 
     kodi: (section, category) ->
       new SettingsApp.Show.Kodi.Controller

@@ -35,7 +35,7 @@
         @addonController().getEnabledAddons true, (addons) ->
           config.setLocal "addOnsEnabled", addons
           config.setLocal "addOnsLoaded", true
-          config.setLocal "addOnsSearchSettings", API.getSearchSettings(addons)
+          config.set 'app', "addOnsSearchSettings", API.getSearchSettings(addons)
           if callback
             callback addons
       addons
@@ -85,4 +85,6 @@
 
   # Request excluded breadcrumb paths
   App.reqres.setHandler 'addon:search:enabled', ->
-    config.getLocal "addOnsSearchSettings", []
+    settings = config.get 'app', "addOnsSearchSettings", []
+    settings = settings.concat App.request('searchAddons:entities').toJSON()
+    settings

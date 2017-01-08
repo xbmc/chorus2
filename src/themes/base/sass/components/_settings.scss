@@ -69,7 +69,7 @@
     padding: $spacing-base-unit $spacing-half-unit;
     cursor: move;
     &:nth-child(even) {
-      background: rgba($color-greyscale-mercury, 0.4);
+      background: rgba($color-greyscale-mercury, 0.2);
     }
     .form-group {
       padding-bottom: $spacing-half-unit;

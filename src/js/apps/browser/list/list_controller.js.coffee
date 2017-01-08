@@ -24,6 +24,15 @@
       API.bindFileTriggers(fileView)
       fileView
 
+    getFolderListView: (collection) ->
+      folderView = new List.FolderList
+        collection: collection
+      App.listenTo folderView, 'childview:folder:open', (set, item) =>
+        App.navigate item.model.get('url'), {trigger: true}
+      API.bindFolderTriggers folderView
+      folderView
+
+
 
   class List.Controller extends App.Controllers.Base
 
@@ -156,5 +165,10 @@
 
 
   # Get view with a collection of files only
-  App.reqres.setHandler "browser:files:view", (collection) ->
+  App.reqres.setHandler "browser:file:view", (collection) ->
     API.getFileListView collection
+
+  # Get view with a collection of files only
+  App.reqres.setHandler "browser:directory:view", (collection) ->
+    API.getFolderListView collection
+

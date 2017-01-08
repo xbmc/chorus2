@@ -172,3 +172,5 @@ helpers.global.saveFileText = (content, filename = 'untitled.txt') ->
   catch error
     Kodi.execute "notification:show", tr('Saving is not supported by your browser')
 
+helpers.global.removeBBCode = (string) ->
+  string.replace(/\[\/?(?:b|i|u|url|quote|code|img|color|size|B|I|U|URL|QUOTE|CODE|IMG|COLOR|SIZE)*?.*?\]/img, '')
