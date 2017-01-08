@@ -48,6 +48,9 @@ $color-side: #F9F9F9;
         padding: 0 $spacing-base-unit;
         cursor: pointer;
         border-right: 1px dotted rgba($color-black, 0.05);
+        max-width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
         &:last-child {
           border: none;
           font-weight: bold;

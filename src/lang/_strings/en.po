@@ -1318,3 +1318,34 @@ msgstr "play files"
 msgctxt ""
 msgid "queue files"
 msgstr "queue files"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Sent text"
+
+msgctxt ""
+msgid "License"
+msgstr "License"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Main Menu"
+
+msgctxt ""
+msgid "Search"
+msgstr "Search"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Custom Add-on search"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus search supports searching not only local media but add-on content too. For example, you can use the "
+"search to find videos in YouTube or audio in SoundCloud. This page allows you to add custom add-on searches "
+"that are not included out of the box. See the %1$s for more information."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Add-ons help page"

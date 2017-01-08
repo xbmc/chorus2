@@ -109,6 +109,7 @@
           items[i].url = @createFileUrl media, item.file
           items[i].parsed = true
           items[i].defaultSort = parseInt i
+          items[i].label = helpers.global.removeBBCode item.label
       items
 
     ## Add music and video playlist sources.

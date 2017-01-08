@@ -53,8 +53,10 @@
       ## Settings.
       nav.push {id: 51, title: tr("Settings"), path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}
       nav.push {id: 52, title: tr("Web interface"), path: 'settings/web', icon: '', classes: '', parent: 51}
+      nav.push {id: 54, title: tr("Main Menu"), path: 'settings/nav', icon: '', classes: '', parent: 51}
       nav.push {id: 53, title: tr("Add-ons"), path: 'settings/addons', icon: '', classes: '', parent: 51}
-      nav.push {id: 54, title: tr("Main Nav"), path: 'settings/nav', icon: '', classes: '', parent: 51}
+      nav.push {id: 55, title: tr("Search"), path: 'settings/search', icon: '', classes: '', parent: 51}
+
 
       ## Help
       nav.push {id: 61, title: tr("Help"), path: 'help', icon: 'mdi-action-help', classes: 'nav-help', parent: 0}
