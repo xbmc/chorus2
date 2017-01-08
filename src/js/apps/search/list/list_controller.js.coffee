@@ -113,8 +113,8 @@
         addonId: addonSearch.id
         success: (fullCollection) =>
           i = 0
+          typeCollection = App.request "file:parsed:entities", fullCollection
           for type in ['file', 'directory']
-            typeCollection = App.request "file:parsed:entities", fullCollection
             collection = typeCollection[type]
             # If result
             if collection.length > 0

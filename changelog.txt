@@ -1,3 +1,29 @@
+Version 2.4.0
+-------------
+* Fixed edge case bug when navigating away from large lists
+* Fixed issue with volume bar bouncing around after vol change
+* Ensure all strings using sprintf are translatable #198
+* Added ability to thumbs up currently playing item via playlist
+* If item is already in playlist when click play, it will play the item in the playlist rather than adding it again
+* Fixed bug where you were unable to local play a single song
+* Added ability to thumbs up media from details page
+* Search artists looks at all artists not just album artists
+* Prevented moving the currently playing item within the playlist due to the adverse effects it causes #196
+* Fix playing position after playlist clear then add whilst item is still playing #195
+* Enabled selecting items using command key in osX
+* Added workaround for addons and files missing title and thumb in playlist
+* Added 'Top music' section to browse most played albums and songs
+* Added ability to refresh/re-scrape movies, tv and episodes
+* Listen for media updates from Kodi and refresh the UI if that media is visible
+* Removed theaudiodb external search
+* Rendering performance improvements with large collections, especially songs
+* Added section to browse all music genres, added landing page per genre with artist/album/songs in that genre
+* Added Spanish translation #194
+* Updated Polish translation #193
+* Spelling Corrections #192
+* New settings page for adding custom add-on search to main Chorus search
+* Browser updates: ability to download files, ability to sort #188, added folder actions (queue/play folder) #131
+
 Version 2.3.9
 -------------
 * Added Add-on section with the ability to browse and execute enabled addons #182
