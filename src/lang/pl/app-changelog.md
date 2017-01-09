@@ -51,7 +51,6 @@ Wersja 2.3.8
 * Dodano sorotwanie losowe do filtrów w sekcji albumy, wykonawcy, seriale i filmy. Dodano możliwość sortowania za pomocą adresu URL np. #music/albums?sort=random
 * Dodano do strony informacji o filmie, łącze do filmów powiązanych
 * Naprawiono błędne obrazy na liście obsady
-* Updated Backbone.RPC to support named params, improved all entity collections to use named params
 * Zaktualizowano Backbone.RPC o obsługę nazwanych parametrów, ulepszono wszystkie kolekcje encji o nazwane parametry
 * Dodano datę pierwszej emisji do strony infromacji o odcinku
 * Rozbudowano strony startowe dla sekcji muzyki, seriali i fimów o dodatkówą zawartość #135
