@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-01-09 13:13+0100\n"
+"PO-Revision-Date: 2017-01-09 15:55+0100\n"
 "Last-Translator: Marcin W.\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.8.11\n"
-"X-Poedit-Bookmarks: -1,-1,132,-1,-1,-1,-1,-1,-1,-1\n"
 
 msgctxt ""
 msgid "Nothing playing"
@@ -240,7 +239,7 @@ msgstr "Ignoruj przedimki"
 
 msgctxt ""
 msgid "Album artists only"
-msgstr "Tylko wykonawcy z własnymi albumami"
+msgstr "Tylko wykonawcy albumów"
 
 msgctxt ""
 msgid "Poll interval"
@@ -313,7 +312,7 @@ msgid "Result"
 msgid_plural "Results"
 msgstr[0] "Wynik"
 msgstr[1] "Wyniki"
-msgstr[2] "Wyniki"
+msgstr[2] "Wyników"
 
 msgctxt ""
 msgid "Loading things..."
@@ -445,7 +444,7 @@ msgstr "seriale"
 
 msgctxt ""
 msgid "no media in this folder"
-msgstr "Pusty folder"
+msgstr "Brak mediów w folderze"
 
 msgctxt ""
 msgid "Browse files and add-ons"
@@ -529,7 +528,7 @@ msgstr "Dziennik zmian"
 
 msgctxt ""
 msgid "Translations"
-msgstr "Tłumaczenie"
+msgstr "Tłumaczenia"
 
 msgctxt ""
 msgid "Help topics"
@@ -573,7 +572,7 @@ msgstr "w"
 
 msgctxt ""
 msgid "Focus playlist on playing"
-msgstr "Zaznaczaj odtwarzaną pozycję"
+msgstr "Zaznaczaj odtwarzaną pozycję na liście"
 
 msgctxt ""
 msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
@@ -1203,3 +1202,86 @@ msgctxt ""
 msgid "settings"
 msgstr "ustawienia"
 
+msgctxt ""
+msgid "Refresh"
+msgstr "Odśwież"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr "Odświeżenie informacji o pozycji '%1$s' spowoduje usunięcie jej z biblioteki, a następnie ponowne jej dodanie, co może zmienić jej identyfikator. Za kilka sekund nastąpi próba przeładowania strony z nowym identyfikatorem. Naciśnij 'TAK', aby potwierdzić odświeżenie"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Odświeżaj ignroując pliki NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Umożliwia ignorowanie lokalnych plików NFO podczas manualnego odświeżania informacji o mediach."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Tylko seriale"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Seriale i odcinki"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Najlepsza muzyka"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Wykonawcy"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Albumy"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Utwory"
+
+msgctxt ""
+msgid "default"
+msgstr "domyślne"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Akcje"
+
+msgctxt ""
+msgid "play files"
+msgstr "odtwarzaj pliki"
+
+msgctxt ""
+msgid "queue files"
+msgstr "dodaj pliki do kolejki"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Wyślij tekst"
+
+msgctxt ""
+msgid "License"
+msgstr "Licencja"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Menu startowe"
+
+msgctxt ""
+msgid "Search"
+msgstr "Szukaj"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Wyszukiwanie zawartości dodatku"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr "Mechanizm wyszukiwania Chorusa obsługuje nie tylko lokalne media, ale także zawartość dodatków. Dla przykładu, możesz użyć wyszukiwania, aby znaleźć wideo w YouTube lub muzykę w usłudze SoundCloud. Ta strona umożliwia dodanie niestandardowego wyszukiwania w zawartości dodatku, które domyślnie nie jest dostępne. Zobacz %1$s, aby dowiedzieć się więcej."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Strona pomocy dodatków"
