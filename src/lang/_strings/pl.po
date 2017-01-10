@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-01-09 15:55+0100\n"
+"PO-Revision-Date: 2017-01-10 16:45+0100\n"
 "Last-Translator: Marcin W.\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -1212,7 +1212,7 @@ msgstr "Odświeżenie informacji o pozycji '%1$s' spowoduje usunięcie jej z bib
 
 msgctxt ""
 msgid "Refresh Ignore NFO"
-msgstr "Odświeżaj ignroując pliki NFO"
+msgstr "Odświeżaj ignorując pliki NFO"
 
 msgctxt ""
 msgid "Ignore local NFO files when manually refreshing media."
@@ -1285,3 +1285,4 @@ msgstr "Mechanizm wyszukiwania Chorusa obsługuje nie tylko lokalne media, ale t
 msgctxt ""
 msgid "Add-ons help page"
 msgstr "Strona pomocy dodatków"
+
