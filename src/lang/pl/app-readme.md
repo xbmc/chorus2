@@ -37,9 +37,9 @@ kilka opcji.
 ### Instalacja manualna
 W przypadku Kodi w wersji 16 i starszych lub gdy chcesz natychmiast korzystać z najnowszej wersji, instalacja
 przy pomocy pliku ZIP jest najprostszym rozwiązaniem. Pobierz najnowszą wersję `webinterface.default.2.X.X.zip`
-ze [strony wydań](https://github.com/xbmc/chorus2/releases), a następnie zainstaluj je w [opisany sposób](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file).
-**UWAGA:** Chorus2 jest przeznaczony do używania z najnowszą wersją Kodi i niektóre (lub wszystkie) funkcje mogą nie
-działać ze starszymi wersjami Kodi, z powodu zmian w API.
+ze [strony wydań](https://github.com/xbmc/chorus2/releases), a następnie zainstaluj ją w [opisany sposób](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file).
+**UWAGA:** Chorus2 jest przeznaczony do używania z najnowszą wersją Kodi i niektóre (lub wszystkie) funkcje,
+z powodu zmian w API, mogą nie działać ze starszymi wersjami Kodi.
 
 ### Używanie
 Skieruj swoją przeglądarkę na adres `http://localhost:8080` - zastąp adres `localhost` adresem zdalnego systemu, jeśli
@@ -79,7 +79,7 @@ Najlepszy efekt można uzyskać używając przeglądarki Chrome, w kombinacji z 
 ## Konfiguracja Kodi przy pomocy interfejsu webowego
 Za pomocą dedykowanej strony ustawień w interfejsie webowym, możesz zmienić większość ustawień Kodi.
 Niektórych ustawień może brakować, gdyż wymagają one interakcji użytkownika w natywnym interfejsie Kodi,
-inne natomiast, są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
+inne natomiast są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
 
 ## Przeglądarka API Kodi
 W Chorusie istnieje ukryta funkcja, która umożliwia zabawę z interfejsem programistycznym Kodi za pomocą wywołań
@@ -97,8 +97,8 @@ Z przyjemnością pomogę każdemu, kto chciałbym wspomóc mnie w pracach, w ur
 
 ### Tłumaczenia
 Znam tylko język angielski, więc niezbędna będzie Wasza pomoc przy tłumaczeniu.
-Mimo, że nie wiem wszystkiego na temat obsługi języków przez JavaScript, to dzięki pomocy @mizaki mamy gotowe mechanizmy obsługi
-wielu języków. Z tego powodu, tłumaczenie interfejsu użytkownika nie powinno nastręczać problemów.
+Mimo, że nie wiem wszystkiego na temat obsługi języków przez JavaScript, to dzięki pomocy @mizaki mamy gotowe mechanizmy
+obsługi wielu języków. Z tego powodu, tłumaczenie interfejsu użytkownika nie powinno nastręczać problemów.
 
 Aktualnie dostępne są tłumaczenia dla [kilku](https://github.com/xbmc/chorus2/tree/master/src/lang/_strings) języków, ale
 kolejne mogą zostać z łatwością dodane. Kolejne wyrażenia są sukcesywnie dodawane, więc słownik wyrażeń
