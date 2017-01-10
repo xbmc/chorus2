@@ -1,8 +1,8 @@
 # Chorus 2.0 - interfejs webowy Kodi
 Domyślny interfejs webowy Kodi.
 
-Nowoczesny webowy interfejs użytkownika dla programu Kodi. Umożliwia komfortowe przeglądanie biblioteki
-Muzyki, Filmów i Seriali przy pomocy przeglądarki internetowej.
+Nowoczesny webowy interfejs użytkownika dla Kodi. Umożliwia komfortowe przeglądanie biblioteki Muzyki,
+Filmów i Seriali przy pomocy przeglądarki internetowej.
 Umożliwia odtwarzanie mediów bezpośrednio w Kodi lub ich transmisję do przeglądarki.
 Odtwarzanie transmitowanych mediów najlepiej działa w przeglądarce Chrome, aczkolwiek
 nie powinno być żadnych problemów z większością nowoczesnych przeglądarek.
@@ -16,7 +16,7 @@ Kompletnie przebudowany, bazujący na bibliotekach Coffee Script, Backbone, Mari
 
 
 ## Aktualny stan
-Całkiem dobry, większość rzeczy działa poprawnie. Inne rzeczy potrzebują [dopracowania/dokończenia/naprawienia](https://github.com/xbmc/chorus2/issues). 
+Całkiem dobry, większość rzeczy działa poprawnie. Inne rzeczy potrzebują [dopracowania/dokończenia/naprawienia](https://github.com/xbmc/chorus2/issues).
 Oprogramowanie ciągle w fazie beta, możliwe błędy, zmiany, wojna nuklearna, etc.
 
 ## Uruchomienie interfejsu
@@ -32,23 +32,23 @@ kilka opcji.
 * Aktywuj opcję "Zezwalaj lokalnym programom na sterowanie aplikacją"
 * Aktywuj opcję "Zezwalaj zdalnym programom na sterowanie aplikacją"
 
-**Z powodów bezpieczństwa powienieś ustawić nazwę użytkownika i hasło, aby zapobiec nieautoryzowanemu dostępowi**
+**Ze względów bezpieczeństwa powinieneś ustawić nazwę użytkownika i hasło, aby zapobiec nieautoryzowanemu dostępowi**
 
 ### Instalacja manualna
-W przypadku Kodi w wersji 16 lub wcześniejszej lub gdy chcesz natychmiast korzystać z najnowszej wersji, instalacja
+W przypadku Kodi w wersji 16 i starszych lub gdy chcesz natychmiast korzystać z najnowszej wersji, instalacja
 przy pomocy pliku ZIP jest najprostszym rozwiązaniem. Pobierz najnowszą wersję `webinterface.default.2.X.X.zip`
 ze [strony wydań](https://github.com/xbmc/chorus2/releases), a następnie zainstaluj je w [opisany sposób](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file).
 **UWAGA:** Chorus2 jest przeznaczony do używania z najnowszą wersją Kodi i niektóre (lub wszystkie) funkcje mogą nie
-działać ze starszymi wersjami, z powodu zmian w API.
+działać ze starszymi wersjami Kodi, z powodu zmian w API.
 
 ### Używanie
 Skieruj swoją przeglądarkę na adres `http://localhost:8080` - zastąp adres `localhost` adresem zdalnego systemu, jeśli
 korzystasz z Kodi na nim zainstalowanego, a w przypadku zmiany domyślnego numeru portu, na inny niż `8080`, zmień
 go także. Więcej informacji na ten temat i opis zaawansowanego użycia może znaleźć na [stronach Wiki Kodi](http://kodi.wiki/view/Web_interface).
 
-## Prośby o funkcje / Błędy
+## Zgłoszenia / Błędy
 Dodaj je do aktualnej [listy zagadnień](https://github.com/xbmc/chorus2/issues). Zgłaszając błędy zawrzyj informacje
-o wersji Kodi, wersji przeglądarki internetowej, wersji Chorusa i jakiekielkowiek błędy pojawiąjące się w konsoli
+o wersji Kodi, wersji przeglądarki internetowej, wersji Chorusa i jakiekolwiek błędy pojawiąjące się w konsoli
 przeglądarki. Zgłaszając prośby o funkcje, sprawdź w przeglądarce API, czy realizacja Twojej prośby jest w ogóle
 możliwa.
 
@@ -58,13 +58,13 @@ Zastrzeżenie: Powodzenie odtwarzania zależy od wspieranych przez przeglądark�
 W większości przypadków nie powinno być z tym żadnych problemów.
 
 ### Transmisja dźwięku
-W prawym górnym roku znajdują się różne zakładki, w tym dwie o nazwie Kodi i Lokalnie, które służą do przełączania
-się między odtwarzaniem mediów w Kodi i przeglądarce. W trybie Lokalnie logo i etykieta są w kolorze wiśniowym, a
-w trybie Kodi niebieskie. W poszczególnych trybach wykonywane operacje przekazywane są do aktualnego odtwarzacza,
-więc naciśnięcie przycisku Odtwarzaj w trybie Lokalnie, spowoduje rozpoczęcie odtwarzania w przeglądarce. Podobnie
-sprawa wygląda z trybem Kodi, w którym naciśnięcie przycisku Odtwarzaj spowoduje rozpoczęcie odtwarzania w Kodi.
-Isnieje także możliwość, dla większości typów mediów, dodania ich do innych list odtwarzania, za pomocą przycisków
-dostępnych po wybraniu odpowiedniego menu na pasku odtwarzacza (trzy pionowe kropki).
+W prawym górnym roku znajdują się różne zakładki, w tym dwie o nazwie Kodi i Przeglądarka, które służą do
+przełączania się między odtwarzaniem mediów w Kodi i przeglądarce. W trybie Lokalnie logo i etykieta są w kolorze
+wiśniowym, a w trybie Kodi niebieskie. W poszczególnych trybach wykonywane operacje przekazywane są do aktualnego
+odtwarzacza, więc naciśnięcie przycisku Odtwarzaj w trybie Lokalnie, spowoduje rozpoczęcie odtwarzania w przeglądarce.
+Podobnie sprawa wygląda z trybem Kodi, w którym naciśnięcie przycisku Odtwarzaj, spowoduje rozpoczęcie odtwarzania
+w Kodi. Isnieje także możliwość, dla większości typów mediów, dodania ich do innych list odtwarzania, za pomocą
+przycisków dostępnych po wybraniu odpowiedniego menu na pasku odtwarzacza (trzy pionowe kropki).
 
 ### Transmisja wideo
 Odtwarzanie transmisji wideo przy pomocy HTML5 "prawie działa", tak naprawdę wszystko zależy od użytego kodeka.
@@ -77,14 +77,14 @@ Najlepszy efekt można uzyskać używając przeglądarki Chrome, w kombinacji z 
 ścieżką dźwiękową (ścieżki dźwiękowe w formacie 5.1 nie są poprawnie odtwarzane).
 
 ## Konfiguracja Kodi przy pomocy interfejsu webowego
-Możesz zmienić większość ustawień Kodi za pomocą dedykowanej strony ustawień w interfejsie webowym.
-Niektórych ustawień może brakować, gdyż wymagają one interacji użytkownika w natywnym interfejsie Kodi,
-inne natomiast są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
+Za pomocą dedykowanej strony ustawień w interfejsie webowym, możesz zmienić większość ustawień Kodi.
+Niektórych ustawień może brakować, gdyż wymagają one interakcji użytkownika w natywnym interfejsie Kodi,
+inne natomiast, są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
 
 ## Przeglądarka API Kodi
 W Chorusie istnieje ukryta funkcja, która umożliwia zabawę z interfejsem programistycznym Kodi za pomocą wywołań
 interfejsu JSON-RPC i sprawdzenie co jest możliwe. Jeśli tworzysz aplikację lub dodatek, który korzysta z API, ta
-funkcja może się okazać bardzo użyteczna, zarówno podczas odkrywania i testowania wszystkich dostępnych metod i typów.
+funkcja może się okazać bardzo użyteczna, podczas odkrywania i testowania wszystkich dostępnych metod i typów.
 Jeśli myślisz o nowej funkcji Chorusa, przeglądarka API jest idealnym miejscem, aby przetestować czy w ogóle jest
 możliwe jej wdrożenie (i umożliwienie szybkiej rozbudowy przez dodanie działające przykładu dla zagadnienia).
 Przeglądarkę API odnajdziesz w "Laboratorium Chorusa" (przycisk z trzema kropkami na dolnym pasku) lub bezpośrednio
@@ -92,8 +92,8 @@ poprzez skierowanie przeglądarki internetowej na adres `http://localhost:8080/#
 
 ## Współudział
 Jeśli chciałbyś wesprzeć rozwoju projektu, będę wdzięczny za każdą pomoc.
-Pamiętaj proszę, aby modyfikacje kodu, dodawane za pomocą Pull Request, znajdowany się w gałęzi `develop`.
-Z przyjemnością pomogę każdemu, kto chciałbym wspomóc mie w pracach, w uruchomieniu środowiska deweloperskiego.
+Pamiętaj, aby modyfikacje kodu dodawane za pomocą funkcji Pull Request, znajdowany się w gałęzi `develop`.
+Z przyjemnością pomogę każdemu, kto chciałbym wspomóc mnie w pracach, w uruchomieniu środowiska deweloperskiego.
 
 ### Tłumaczenia
 Znam tylko język angielski, więc niezbędna będzie Wasza pomoc przy tłumaczeniu.
@@ -101,11 +101,9 @@ Mimo, że nie wiem wszystkiego na temat obsługi języków przez JavaScript, to 
 wielu języków. Z tego powodu, tłumaczenie interfejsu użytkownika nie powinno nastręczać problemów.
 
 Aktualnie dostępne są tłumaczenia dla [kilku](https://github.com/xbmc/chorus2/tree/master/src/lang/_strings) języków, ale
-kolejne mogą zostać z łatwością dodane. Kolejne wyrażenia są sukcesywnie dodawane, więc zawsze należy traktować słownik wyrażeń
-w języku angielskim jako źródło.
+kolejne mogą zostać z łatwością dodane. Kolejne wyrażenia są sukcesywnie dodawane, więc słownik wyrażeń
+w języku angielskim, należy traktować jako referencyjne źródło dla tłumaczeń.
 
-So if you see something in english but want it in your language, I need you! To contribute, send me a PR on a new branch
-against `develop`, or if you don't know git, a link to the language file.
 Jeśli widzisz coś w języku angielskim, a chciałbyś to zobaczyć w swoim ojczystym języku, potrzebujemy Twojej pomocy!
 Jeśli chcesz dodać własne tłumaczenie, stwórz dla niego nową gałąź, a następnie skorzystaj z funkcji Pull Request do gałęzi `develop`.
 Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze do plików z tłumaczeniem.
