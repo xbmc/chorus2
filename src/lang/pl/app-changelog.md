@@ -2,35 +2,35 @@ Wersja 2.4.0
 -------------
 * Naprawiono rzadki błąd widoczny po opuszczeniu list z dużą ilością pozycji
 * Naprawawiono błąd powodujący, że pasek głośności podskakiwał, po zmianie poziomu głośności
-* Dodano mechanizm gwarantujący, że wszystkie wyrażenia używający funkcji sprintf, mogą zostać przetłumaczone #198
+* Dodano mechanizm gwarantujący, że wszystkie wyrażenia używające funkcji sprintf, mogą zostać przetłumaczone #198
 * Dodano możliwość polubienia aktualnie odtwarzanej pozycji na liście odtwarzania
-* Naprawiono błąd powodujący ponowne dodanie do listy odtwarzania odtwarzanego utworu po naciśnięciu na niego
+* Naprawiono błąd powodujący ponowne dodanie do listy odtwarzania odtwarzanego utworu, po naciśnięciu na niego
 * Naprawiono błąd uniemożliwiający odtwarzanie w przeglądarce pojedynczego utworu
-* Dodano możliwość polubienia mediów z poziomu strony informacji
-* Ulepszono wyszukiwanie wykonawców tak, aby wyszukiwało także wykonawców utworów, a nie tylko wykonawców albumów
-* Dodano mechanizm zapobiegający przenoszeniu aktualnie odtwarzanej pozycji na liście odtwarzania ze względu na negatywne skutki jakie to powoduje #196
-* Naprawiono pozycjonowania odtwarzania po wyczyszczeniu listy i dodaniu nowej pozycji, w trakcie odtwarzania poprzedniej pozycji #195
+* Dodano możliwość polubienia mediów z poziomu stron informacji
+* Ulepszono wyszukiwanie wykonawców tak, aby wyszukiwani byli także wykonawcy utworów, a nie tylko wykonawcy albumów
+* Dodano mechanizm zapobiegający przenoszeniu aktualnie odtwarzanej pozycji na liście odtwarzania, ze względu na negatywne skutki jakie to powoduje #196
+* Naprawiono pozycjonowanie odtwarzania po wyczyszczeniu listy i dodaniu nowej pozycji, w trakcie odtwarzania poprzedniej pozycji #195
 * Dodano możliwość wybierania pozycji przy użyciu klawisza komendy w systemie OSX
-* Dodano obejście dla plików i dodatków z brakującym tytułem i miniaturą na liście odtwarzania
-* Dodano sekcję 'Najlepsza muzyka' umożliwijącą przeglądanie najczęściej odtwarzane albumy i utwory
+* Dodano obejście dla plików i dodatków, z brakującym tytułem i miniaturą, na liście odtwarzania
+* Dodano sekcję 'Najlepsza muzyka' umożliwiającą przeglądanie najczęściej odtwarzanych albumów i utworów
 * Dodano możliwość odświeżania/pobierania informacji o filmach, serialach i odcinkach
-* Dodano mechanizm nasłuchiwania zmian w Kodi i odświeżana interfejsu użytkownika, gdy media są widoczne
+* Dodano mechanizm nasłuchiwania zmian w Kodi i odświeżania interfejsu użytkownika, gdy media są widoczne
 * Usunięto zewnętrzne wyszukiwanie w serwisie TheAudioDb
-* Ulepszono wydajność renderowania wielki kolekcji, w szczególności kolekcji utworów
+* Ulepszono wydajność renderowania wielkich kolekcji, w szczególności kolekcji utworów
 * Dodano sekcję umożliwiającą przeglądanie muzyki po gatunkach, dodano stronę startową dla gatunków muzyki z wykonawcami/albumami/utworami w tym gatunku
 * Dodano tłumaczenie na język hiszpański #194
 * Zaktualizowano tłumaczenie na język polski #193
-* Poprawiono literówki i błędy w pisowni #192
-* Dodano nową stronę ustawień umożliwiającą konfigurację wyszukiwania za pomocą dodatków
+* Poprawiono literówki i błędy w pisowni oryginalnej #192
+* Dodano nową stronę ustawień, umożliwiającą konfigurację wyszukiwania zawartości dodatków
 * Zaktualizowano przeglądarkę: możliwość pobierania plików, możliwość sortowania #188, dodano akcje do folderu (dodanie folderu do kolejki/odtwarzanie zawartości folderu) #131
 
 Wersja 2.3.9
 -------------
 * Dodano sekcję Dodatki z możliwością przeglądania i uruchamiania aktywnych dodatków #182
-* Zaktalizowano i załatano backbone-fetch-cache, w celu uniknięcia błędów podczas pobierania modelu
-* Dodano wyszukiwanie w Chorusie, w Internecie i YouTube do menu kontekstowego stron informacji o mediach
-* Dodano wiele ulepszeń do mechanizmu edytowania, włącznie funkcją odświeżania informacji po zapisaniu
-* Dodano menu rozwijane z łączem do edycji dla wszystkich stron informacji o mediach
+* Zaktualizowano i załatano backbone-fetch-cache, w celu uniknięcia błędów podczas pobierania modelu
+* Dodano do menu kontekstowego stron informacji o mediach, wyszukiwanie w Chorusie, w Internecie i YouTube
+* Dodano wiele ulepszeń do mechanizmu edytowania, wraz z funkcją odświeżania informacji po zapisaniu
+* Dodano menu rozwijane, z łączem do edycji, do wszystkich stron informacji o mediach
 * Poprawiono błąd na stronie informacji o filmie w przypadku braku zwiastuna (zainicjowany w poprzedniej wersji)
 * Dodano możliwości edycji/aktualizacji plakatu i fototapety przy pomocy edytora mediów
 * Dodano dodatkowe łącza do stron startowych sekcji
@@ -40,20 +40,19 @@ Wersja 2.3.8
 -------------
 * Zastąpiono obrazy IMDb i Google ikonami czcionki Font Awesome. Dodano dokumentację licencyjną #179
 * Dodano możliwość edytowania i przeglądania metadanych utworów, wykonawców, albumów, odcinków i filmów. #102
-* Zaktualizowano przeglądarkę API o funkcję wyświetlania typów oraz zaktualizowano jej dokumentację
-* Dodano sortowanie albumów po latach na stronie informacji o wykonawcy
-* Dodano do strony wyknawcy możliwość sortowania albumów wg lat
-* Dodano listę odcinków danego sezonu do strony informacji o odcinku
-* Ulepszono interfejs wyszukiwania, dodano możliwość wyszukiwania zawartość popularnych dodatków (SoundCloud, MixCloud, GoogleMusic, YouTube, Radio)
-* Ulepszono znacznie wydajność wyszukiwanie
+* Zaktualizowano przeglądarkę API, o funkcję wyświetlania typów oraz zaktualizowano jej dokumentację
+* Dodano do strony informacji o wykonawcy, sortowanie albumów po latach
+* Dodano do strony informacji o odcinku, listę odcinków danego sezonu
+* Ulepszono interfejs wyszukiwania, dodano możliwość wyszukiwania zawartości popularnych dodatków (SoundCloud, MixCloud, GoogleMusic, YouTube, Radio)
+* Ulepszono znacznie wydajność wyszukiwania
 * Dodano filtry do stron startowych sekcji
-* Zaktualizowano strony informacji o albumie i wykonawcy o dodatkowe metadane, poprawiano układ i dodano przyciski akcji, aby były bardziej spójne ze stronami wideo
-* Dodano sorotwanie losowe do filtrów w sekcji albumy, wykonawcy, seriale i filmy. Dodano możliwość sortowania za pomocą adresu URL np. #music/albums?sort=random
+* Zaktualizowano strony informacji o albumie i wykonawcy o dodatkowe metadane, poprawiano układ interfejsu i dodano przyciski akcji, aby były bardziej spójne ze stronami wideo
+* Dodano sortowanie losowe do filtrów w sekcji albumy, wykonawcy, seriale i filmy. Dodano możliwość sortowania za pomocą adresu URL np. #music/albums?sort=random
 * Dodano do strony informacji o filmie, łącze do filmów powiązanych
 * Naprawiono błędne obrazy na liście obsady
 * Zaktualizowano Backbone.RPC o obsługę nazwanych parametrów, ulepszono wszystkie kolekcje encji o nazwane parametry
 * Dodano datę pierwszej emisji do strony infromacji o odcinku
-* Rozbudowano strony startowe dla sekcji muzyki, seriali i fimów o dodatkówą zawartość #135
+* Rozbudowano strony startowe, dla sekcji muzyki, seriali i fimów, o dodatkową zawartość #135
 * Zaktualizowano tłumaczenie na język polski #184
 
 Wersja 2.3.7
