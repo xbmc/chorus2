@@ -110,8 +110,22 @@ A build will also include translation files.
 Are you a fan of Chorus? You can [buy Jeremy a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
 
 ## License
-Chorus is licensed under the Creative Commons Attribution-Share Alike 3.0 United States License.
-[Click here for more information ](https://github.com/xbmc/chorus2/blob/master/src/lang/en/license.md).
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+[Click here for more information ](src/lang/en/license.md).
 
 
 ## Screenshots
