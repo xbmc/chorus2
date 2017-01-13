@@ -8,13 +8,13 @@
 
     fields:
       minimal: []
-      small: ['title', 'runtime', 'starttime', 'endtime', 'genre']
-      full: ['plot', 'progress', 'progresspercentage' ,'episodename', 'episodenum', 'episodepart','firstaired', 'hastimer', 'isactive', 'parentalrating','wasactive', 'thumbnail']
+      small: ['title', 'runtime', 'starttime', 'endtime', 'genre', 'progress']
+      full: ["plot", "plotoutline", "progresspercentage", "episodename", "episodenum", "episodepart", "firstaired", "hastimer", "isactive", "parentalrating", "wasactive", "thumbnail", "rating", "originaltitle", "cast", "director", "writer", "year", "imdbnumber", "hastimerrule", "hasrecording", "recording", "isseries"]
 
     ## Fetch a single entity
     getEntity: (channelid, options) ->
       entity = new App.KodiEntities.Broadcast()
-      entity.set({channelid: parseInt(channelid), properties:  helpers.entities.getFields(API.fields, 'full')})
+      entity.set({channelid: parseInt(channelid), properties: helpers.entities.getFields(API.fields, 'full')})
       entity.fetch options
       entity
 
@@ -45,12 +45,11 @@
   ## Channel collection
   class KodiEntities.BroadcastCollection extends App.KodiEntities.Collection
     model: KodiEntities.Broadcast
-    methods: read: ['PVR.GetBroadcasts', 'channelid ', 'properties', 'limits']
-    args: -> @getArgs({
-      channelid: parseInt @argCheckOption('channelid', 0)
+    methods: read: ['PVR.GetBroadcasts', 'channelid', 'properties', 'limits']
+    args: -> @getArgs
+      channelid: @argCheckOption('channelid', 0)
       properties: helpers.entities.getFields(API.fields, 'full')
       limits: @argLimit()
-    })
     parse: (resp, xhr) ->
       @getResult resp, 'broadcasts'
 
@@ -60,9 +59,9 @@
 
   # Get a single channel
   App.reqres.setHandler "broadcast:entity", (collection, channelid) ->
-    API.getEntity collection, channelid,
+    API.getEntity collection, parseInt(channelid)
 
   ## Get an channel collection
   App.reqres.setHandler "broadcast:entities", (channelid, options = {}) ->
-    options.channelid = channelid
+    options.channelid = parseInt(channelid)
     API.getCollection options
