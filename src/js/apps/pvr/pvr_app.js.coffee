@@ -2,8 +2,8 @@
 
   class ChannelApp.Router extends App.Router.Base
     appRoutes:
-      "tvshows/live"   : "tv"
-      "music/radio"    : "radio"
+      "pvr/tv"       : "tv"
+      "pvr/radio"    : "radio"
 
   API =
 

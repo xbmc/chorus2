@@ -46,6 +46,8 @@
           model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
         if type is 'episode' or type is 'movie' and model.progress is 0
           model.progress = if model.playcount is 0 then 0 else 100
+        if type is 'album' or type is 'artist'
+          model.progress = 0
 
         # Set URL.
         if type is 'episode'
