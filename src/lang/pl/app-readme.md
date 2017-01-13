@@ -63,7 +63,7 @@ przełączania się między odtwarzaniem mediów w Kodi i przeglądarce. W trybi
 wiśniowym, a w trybie Kodi niebieskie. W poszczególnych trybach wykonywane operacje przekazywane są do aktualnego
 odtwarzacza, więc naciśnięcie przycisku Odtwarzaj w trybie Lokalnie, spowoduje rozpoczęcie odtwarzania w przeglądarce.
 Podobnie sprawa wygląda z trybem Kodi, w którym naciśnięcie przycisku Odtwarzaj, spowoduje rozpoczęcie odtwarzania
-w Kodi. Isnieje także możliwość, dla większości typów mediów, dodania ich do innych list odtwarzania, za pomocą
+w Kodi. Istnieje także możliwość, dla większości typów mediów, dodania ich do innych list odtwarzania, za pomocą
 przycisków dostępnych po wybraniu odpowiedniego menu na pasku odtwarzacza (trzy pionowe kropki).
 
 ### Transmisja wideo
@@ -82,7 +82,7 @@ Niektórych ustawień może brakować, gdyż wymagają one interakcji użytkowni
 inne natomiast są tylko podstawowymi polami tekstowymi, bez żadnych dostępnych opcji.
 
 ## Przeglądarka API Kodi
-W Chorusie istnieje ukryta funkcja, która umożliwia zabawę z interfejsem programistycznym Kodi za pomocą wywołań
+W Chorusie istnieje ukryta funkcja, która umożliwia zabawę z interfejsem programistycznym Kodi za pomocą metod
 interfejsu JSON-RPC i sprawdzenie co jest możliwe. Jeśli tworzysz aplikację lub dodatek, który korzysta z API, ta
 funkcja może się okazać bardzo użyteczna, podczas odkrywania i testowania wszystkich dostępnych metod i typów.
 Jeśli myślisz o nowej funkcji Chorusa, przeglądarka API jest idealnym miejscem, aby przetestować czy w ogóle jest

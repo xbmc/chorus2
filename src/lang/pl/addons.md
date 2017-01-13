@@ -1,7 +1,7 @@
 # Obsługa dodatków
 
 Chorus obsługuje dodatki, ale tylko na poziomie podstawowym. Każdy dodatek działa nieco inaczej, więc nie wszystkie
-funckje będą dostępne. Na stronie [Dodatki](#addons/all) widoczna jest lista dodatków wykonywalnych oraz dodatków, które 
+funkcje będą dostępne. Na stronie [Dodatki](#addons/all) widoczna jest lista dodatków wykonywalnych oraz dodatków, które 
 udostępniają muzykę/wideo (np. YouTube). Dostęp do dodatków, widocznych na tej liście, można uzyskać za pośrednictwem
 [przeglądarki](#browser).
 
@@ -9,7 +9,7 @@ udostępniają muzykę/wideo (np. YouTube). Dostęp do dodatków, widocznych na 
 
 Po instalacji Kodi, Chorus zawiera wyszukiwanie zawartości dla niektórych popularniejszy dodatków, co umożliwia
 przeszukiwanie zawartości dodatków za pomocą strony wyszukiwania. Dla przykładu, możesz wprowadzić wyrażenie
-"szalone koty" w polu wyszukiwania, naciśnąć "YouTube", aby pobrać listę odnalezionych materiałów w serwisie YouTube.
+"szalone koty" w polu wyszukiwania, nacisnąć "YouTube", aby pobrać listę odnalezionych materiałów w serwisie YouTube.
 
 Jeśli chciałbyś przeszukiwać zawartość udostępnianą przez dodatki, które nie są zawarte w Chorusie, możesz dodać
 swoją własną [metodę wyszukiwania](#settings/search) dla wybranego dodatku, która poinformuje Chorusa, jak przeszukiwać zawartość
@@ -28,9 +28,9 @@ dziennika Kodi, aby określi poprawny format adresu URL. Przy czym Chorus zastą
 
 ### Współudział
 
-Jeśli znasz jakiś dobry dodatek, którego można użyć do wyszukiwania zawartości i uważasz, żepowinien być dostępny razem
+Jeśli znasz jakiś dobry dodatek, którego można użyć do wyszukiwania zawartości i uważasz, że powinien być dostępny razem
 z instalacją Kodi, powinieneś rozważyć przesłanie modyfikacji kodu za pomocą funkcji [Pull Request](https://github.com/xbmc/chorus2/pulls).
-Przyjrzyj się [modułowi SoundCloud](https://github.com/xbmc/chorus2/blob/master/src/js/apps/addon/soundcloud/addon_soundcloud_app.js.coffee) jako przykład sktruktury kodu.
+Przyjrzyj się [modułowi SoundCloud](https://github.com/xbmc/chorus2/blob/master/src/js/apps/addon/soundcloud/addon_soundcloud_app.js.coffee) jako przykład struktury kodu.
 UWAGA: Tylko dodatki z oficjalnego repozytorium zostaną zaakceptowane.
 
 ## Zarządzanie dodatkami
@@ -43,7 +43,7 @@ pewnych dodatków może mieć niekorzystne skutki, więc używaj tej funkcji z o
 Zaobserwowano kilka problemów związanych z używanie dodatków w Chorusie
 
 * Nie można pobrać zawartości dodatku.
-* Zawartość dodatku można odtwarzać tylko w Kodi, nie można jej transmitować to przegląarki.
+* Zawartość dodatku można odtwarzać tylko w Kodi, nie można jej transmitować to przeglądarki.
 * Rezultatem dodania pojedynczej zawartości dodatku do listy odtwarzania, często jest pozycja o dziwnym lub brakującym
   tytule. Przy czym dodawanie zawartości folderów dodatku do listy odtwarzania  wydaje się działać poprawnie. Stąd wniosek,
   że jest to jakiś problem z interfejsem programistycznym Kodi.
