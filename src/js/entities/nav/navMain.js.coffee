@@ -33,13 +33,14 @@
       nav.push {id: 22, title: tr("TV shows"), path: 'tvshows/recent', icon: '', classes: '', parent: 21}
       nav.push {id: 23, title: tr("All TV shows"), path: 'tvshows', icon: '', classes: '', parent: 21}
 
-
       ## Browser.
       nav.push {id: 31, title: tr("Browser"), path: 'browser', icon: 'mdi-action-view-list', classes: 'nav-browser', parent: 0}
 
-      ## Thumbs up.
-      nav.push {id: 41, title: tr("Thumbs up"), path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
-      nav.push {id: 42, title: tr("Playlists"), path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
+      ## PVR
+      nav.push {id: 81, title: tr("PVR"), path: 'pvr/tv', icon: 'mdi-action-settings-input-antenna', classes: 'pvr-link', parent: 0, visibility: "addon:pvr:enabled"}
+      nav.push {id: 82, title: tr("TV Channels"), path: 'pvr/tv', icon: '', classes: '', parent: 81}
+      nav.push {id: 83, title: tr("Radio Stations"), path: 'pvr/radio', icon: '', classes: '', parent: 81}
+      nav.push {id: 84, title: tr("Recordings"), path: 'pvr/recordings', icon: '', classes: '', parent: 81}
 
       ## Addons
       nav.push {id: 71, title: tr("Add-ons"), path: 'addons/all', icon: 'mdi-action-extension', classes: 'nav-addons', parent: 0}
@@ -50,10 +51,11 @@
       nav.push {id: 76, title: tr("executable"), path: 'addons/executable', icon: '', classes: '', parent: 71}
       nav.push {id: 77, title: tr("settings"), path: 'settings/addons', icon: '', classes: '', parent: 71}
 
-      ## PVR
-      nav.push {id: 81, title: tr("PVR"), path: 'pvr/tv', icon: 'mdi-action-settings-input-antenna', classes: 'pvr-link', parent: 0, visibility: "addon:pvr:enabled"}
-      nav.push {id: 82, title: tr("Live TV"), path: 'pvr/tv', icon: '', classes: 'pvr-link', parent: 81}
-      nav.push {id: 83, title: tr("Digital radio"), path: 'pvr/radio', icon: '', classes: 'pvr-link', parent: 81}
+      ## Thumbs up.
+      nav.push {id: 41, title: tr("Thumbs up"), path: 'thumbsup', icon: 'mdi-action-thumb-up', classes: 'nav-thumbs-up', parent: 0}
+
+      ## Playlists.
+      nav.push {id: 42, title: tr("Playlists"), path: 'playlists', icon: 'mdi-action-assignment', classes: 'playlists', parent: 0}
 
       ## Settings.
       nav.push {id: 51, title: tr("Settings"), path: 'settings/web', icon: 'mdi-action-settings', classes: 'nav-settings', parent: 0}

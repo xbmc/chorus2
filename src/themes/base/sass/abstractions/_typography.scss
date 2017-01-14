@@ -27,3 +27,10 @@
   @extend .shadow-z-1;
   position: relative;
 }
+
+%no-reults {
+  text-align: center;
+  margin-top: 10%;
+  font-size: 1.8em;
+  color: $color-greyscale-cloudy;
+}

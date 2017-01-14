@@ -1,0 +1,21 @@
+<div class="title">
+    <strong><%= @label %></strong> <span>- <%= @channel %></span>
+</div>
+<div class="date">
+    <%= @start.toString('h:mmtt').toLowerCase() %> -
+    <% if @end.toString('yyyy') isnt '1970': %>
+        <%= @end.toString('h:mmtt').toLowerCase() %>
+        (<%= helpers.global.formatTime(helpers.global.secToTime(@runtime)) %>)
+    <% else: %>
+        <%= tr('Now') %>
+    <% end %>
+
+    <br /><%= @start.toString('dddd, dS MMM') %>
+</div>
+<div class="plot"><%= @plot %></div>
+<div class="entity-progress">
+    <div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div>
+</div>
+<ul class="actions">
+    <li class="play"></li>
+</ul>

@@ -1,0 +1,21 @@
+<div class="title">
+    <strong><%= @label %></strong>
+</div>
+<div class="date">
+    <%= @start.toString('h:mmtt').toLowerCase() %> - <%= @end.toString('h:mmtt').toLowerCase() %> (<%= @runtime %>min)<br />
+    <%= @start.toString('dddd, dS MMM') %>
+</div>
+<div class="plot"><%= @plot %></div>
+<div class="entity-progress">
+    <div class="current-progress" style="width: <%= @progresspercentage %>%" title="<%= Math.round(@progresspercentage) %>% <%= tr('complete') %>"></div>
+</div>
+<ul class="actions">
+    <% if @isactive: %>
+        <li class="play" title="<%= tr('Play') %>"></li>
+        <li class="record" title="<%= tr('Record') %>"></li>
+    <% else: %>
+        <% if not @wasactive: %>
+            <li class="toggle-timer" title="<%= tr('Toggle timer') %>"></li>
+        <% end %>
+    <% end %>
+</ul>

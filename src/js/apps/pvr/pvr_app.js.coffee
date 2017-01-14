@@ -1,22 +1,26 @@
-@Kodi.module "ChannelApp", (ChannelApp, App, Backbone, Marionette, $, _) ->
+@Kodi.module "PVR", (PVR, App, Backbone, Marionette, $, _) ->
 
-  class ChannelApp.Router extends App.Router.Base
+  class PVR.Router extends App.Router.Base
     appRoutes:
-      "pvr/tv"       : "tv"
-      "pvr/radio"    : "radio"
+      "pvr/tv"          : "tv"
+      "pvr/radio"       : "radio"
+      "pvr/recordings"  : "recordings"
 
   API =
 
     tv: ->
-      new ChannelApp.List.Controller
+      new PVR.ChannelList.Controller
         group: 'alltv'
 
     radio: ->
-      new ChannelApp.List.Controller
+      new PVR.ChannelList.Controller
         group: 'allradio'
+
+    recordings: ->
+      new PVR.RecordingList.Controller()
 
 
   App.on "before:start", ->
-    new ChannelApp.Router
+    new PVR.Router
       controller: API
 

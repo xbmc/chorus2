@@ -1,0 +1,5 @@
+<h3><%= @channel %></h3>
+<ul class="items">
+    <li class="play"><%= tr('Play') %></li>
+    <li class="record"><%= tr('Record') %></li>
+</ul>

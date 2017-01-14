@@ -42,6 +42,10 @@
           model.progress = if model.resume.position is 0 then 0 else Math.round((model.resume.position / model.resume.total) * 100)
         if model.trailer
           model.mediaTrailer = helpers.url.parseTrailerUrl model.trailer
+        if model.starttime
+          model.start = helpers.global.dateStringToObj(model.starttime)
+        if model.endtime
+          model.end = helpers.global.dateStringToObj(model.endtime)
         if type is 'tvshow' or type is 'season'
           model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
         if type is 'episode' or type is 'movie' and model.progress is 0

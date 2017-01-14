@@ -40,7 +40,7 @@
       obj = if resp.broadcasts? then resp.broadcasts else resp
       if resp.broadcasts?
         obj.fullyloaded = true
-      @parseModel 'broadcast', obj, obj.channelid
+      @parseModel 'broadcast', obj, obj.broadcastid
 
   ## Channel collection
   class KodiEntities.BroadcastCollection extends App.KodiEntities.Collection

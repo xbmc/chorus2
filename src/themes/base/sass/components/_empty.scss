@@ -1,0 +1,11 @@
+
+.empty-result {
+  text-align: center;
+  h2 {
+    @extend %no-reults;
+  }
+  .empty-actions {
+    margin-top: $spacing-base-unit;
+    font-size: 120%;
+  }
+}
