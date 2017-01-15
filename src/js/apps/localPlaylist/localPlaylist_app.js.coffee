@@ -12,6 +12,8 @@
 
   API =
 
+    playlistNameMsg: 'Give your playlist a name'
+
     ## if no id, find the first list, else id is 0
     list: (id) ->
       if id is null
@@ -36,12 +38,12 @@
           collection: playlists
         $content = view.render().$el
         ## New list button
-        $new = $('<button>').html( t.gettext('Create a new list') ).addClass('btn btn-primary')
+        $new = $('<button>').html( tr('Create a new list') ).addClass('btn btn-primary')
         $new.on 'click', =>
           _.defer ->
             API.createNewList(entityType, id)
         ## Show the list of playlists.
-        App.execute "ui:modal:show", t.gettext('Add to playlist'), $content, $new
+        App.execute "ui:modal:show", tr('Add to playlist'), $content, $new
         App.listenTo view, 'childview:item:selected', (list, item) =>
           @addToExistingList item.model.get('id'), entityType, id
 
@@ -67,11 +69,11 @@
       App.request "localplaylist:item:add:entities", playlistId, collection
       App.execute "ui:modal:close"
       if notify is true
-        App.execute "notification:show", t.gettext("Added to your playlist")
+        App.execute "notification:show", tr("Added to your playlist")
 
     ## Create a new list
     createNewList: (entityType, id) ->
-      App.execute "ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (text) =>
+      App.execute "ui:textinput:show", tr('Add a new playlist'), {msg: tr(API.playlistNameMsg)}, (text) =>
         if text isnt ''
           playlistId = App.request "localplaylist:add:entity", text, 'song'
           @addToExistingList playlistId, entityType, id
@@ -79,10 +81,17 @@
 
     ## Create a new empty list.
     createEmptyList: ->
-      App.execute "ui:textinput:show", t.gettext('Add a new playlist'), t.gettext('Give your playlist a name'), (text) =>
+      App.execute "ui:textinput:show", tr('Add a new playlist'), {msg: tr(API.playlistNameMsg)}, (text) =>
         if text isnt ''
           playlistId = App.request "localplaylist:add:entity", text, 'song'
           App.navigate "playlist/#{playlistId}", {trigger: true}
+
+    ## Rename a playlist.
+    rename: (id) ->
+      listModel = App.request "localplaylist:entity", id
+      App.execute "ui:textinput:show", tr('Rename playlist'), {msg: tr(API.playlistNameMsg), defaultVal: listModel.get('name')}, (text) =>
+        listModel.set({name: text}).save()
+        API.list id
 
 
   ###
@@ -98,6 +107,8 @@
   App.commands.setHandler "localplaylist:reload", (id) ->
     API.list(id)
 
+  App.commands.setHandler "localplaylist:rename", (id) ->
+    API.rename(id)
 
   ###
     Init the router

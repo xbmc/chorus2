@@ -5,6 +5,7 @@
     <div class="mdi play"></div>
 </td>
 <td class="cell-label song-title"><span class="crop"><%= @label %></span></td>
+<td class="cell-label song-album"><a class="crop" href="#music/album/<%= @albumid %>"><%= @album %></a></td>
 <td class="cell-label song-artist"><a class="crop" href="#music/artist/<%= @artistid %>"><%= @artist %></a></td>
 <td class="cell-last">
     <li class="thumbed-up"></li>

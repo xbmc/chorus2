@@ -26,7 +26,7 @@
     getEnabledAddons: (callback) ->
       addons = []
       # If loaded, return from static
-      if config.getLocal "addOnsLoaded", false
+      if config.getLocal("addOnsLoaded", false) is true
         addons = config.getLocal("addOnsEnabled", [])
         if callback
           callback addons
@@ -64,6 +64,7 @@
       controller: API
     # Store enabled addons.
     API.getEnabledAddons (resp) ->
+      App.vent.trigger "navMain:refresh"
       # Addons loaded to cache, hopefully before required
 
 

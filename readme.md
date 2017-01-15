@@ -121,11 +121,12 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+[along with this program](https://github.com/xbmc/chorus2/blob/master/LICENSE);
+if not, write to the Free Software Foundation, Inc., 51 Franklin Street,
+Fifth Floor, Boston, MA 02110-1301 USA.
 
-[Click here for more information ](src/lang/en/license.md).
+[Click here for more information ](https://github.com/xbmc/chorus2/blob/master/src/lang/en/license.md).
 
 
 ## Screenshots

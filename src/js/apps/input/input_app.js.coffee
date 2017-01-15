@@ -124,7 +124,7 @@
 
 
   App.commands.setHandler "input:textbox", (msg) ->
-    App.execute "ui:textinput:show", "Input required", msg, (text) ->
+    App.execute "ui:textinput:show", "Input required", {msg: msg}, (text) ->
       API.inputController().sendText(text)
       App.execute "notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi')
 

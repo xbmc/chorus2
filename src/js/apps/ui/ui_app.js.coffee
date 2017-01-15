@@ -84,8 +84,12 @@
       $wrap
 
   ## Open a text input modal window, callback receives the entered text.
-  App.commands.setHandler "ui:textinput:show", (title, msg = '', callback, open = true) ->
-    $input = $('<input>', {id: 'text-input', class: 'form-control', type: 'text'}).on('keyup', (e) ->
+  ## Options properties: {msg: 'string', open: 'bool', defaultVal: 'string'}
+  App.commands.setHandler "ui:textinput:show", (title, options = {}, callback) ->
+    msg = if options.msg then options.msg else ''
+    open = if options.open then true else false
+    val = if options.defaultVal then options.defaultVal else ''
+    $input = $('<input>', {id: 'text-input', class: 'form-control', type: 'text', value: val}).on('keyup', (e) ->
       if e.keyCode is 13 and callback
         callback( $('#text-input').val() )
         API.closeModal()

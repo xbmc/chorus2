@@ -3,12 +3,17 @@
   class Views.LayoutWithSidebarFirstView extends App.Views.LayoutView
     template: "views/layouts/layout_with_sidebar_first"
     regions:
-      regionSidebarFirst:  ".region-first"
+      regionSidebarFirst:  ".region-first-primary"
       regionContent:  ".region-content"
     events:
       "click .region-first-toggle": "toggleRegionFirst"
     toggleRegionFirst: ->
       @$el.toggleClass('region-first-open');
+    # Allow dynamically adding multiple sidebar views to a region
+    appendSidebarView: (viewId, appendView) ->
+      $('.region-first-secondary', @$el).append '<div id="' + viewId + '">'
+      @regionManager.addRegion viewId, '#' + viewId
+      this[viewId].show appendView
 
   class Views.LayoutWithHeaderView extends App.Views.LayoutView
     template: "views/layouts/layout_with_header"

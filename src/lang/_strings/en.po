@@ -1349,3 +1349,51 @@ msgstr ""
 msgctxt ""
 msgid "Add-ons help page"
 msgstr "Add-ons help page"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "No %1$s found"
+
+msgctxt ""
+msgid "results"
+msgstr "results"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "EPG data"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Recordings"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Channel recording toggled"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "TV Channels"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Radio Stations"
+
+msgctxt ""
+msgid "Record"
+msgstr "Record"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Toggle timer"
+
+msgctxt ""
+msgid "Now"
+msgstr "Now"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Rename playlist"

@@ -1,3 +1,15 @@
+Version 2.4.1
+-------------
+* Added album to song table #212
+* Minor regression fixes
+* Bugfix for movie page not loading for Kodi v16 #207
+* Added ability to rename playlists #55
+* Lots of PVR updates, improved UX and added recordings
+* Fixed direct route to PVR #17
+* Fixed bug with epg not loading #211
+* Updated Polish Translations #205 #210
+* Updated License for Chorus2 to GPL-2+ #179 #208
+
 Version 2.4.0
 -------------
 * Fixed edge case bug when navigating away from large lists

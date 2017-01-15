@@ -12,8 +12,8 @@ helpers.url.map =
   tvshow: 'tvshow/:id'
   season: 'tvshow/:id'
   episode: 'tvshow/:tvshowid/:season/:id'
-  channeltv: 'tvshows/live/:id'
-  channelradio: 'music/radio/:id'
+  channeltv: 'pvr/tv/:id'
+  channelradio: 'pvr/radio/:id'
   file: 'browser/file/:id'
   playlist: 'playlist/:id'
 
