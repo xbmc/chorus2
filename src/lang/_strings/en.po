@@ -1393,3 +1393,7 @@ msgstr "Toggle timer"
 msgctxt ""
 msgid "Now"
 msgstr "Now"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Rename playlist"

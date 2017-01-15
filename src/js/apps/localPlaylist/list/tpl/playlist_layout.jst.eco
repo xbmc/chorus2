@@ -7,6 +7,7 @@
             <li class="localplay"><%= tr('Play in browser') %></li>
             <li class="export"><%= tr('Export list') %></li>
             <div class="divider"></div>
+            <li class="rename"><%= tr('Rename playlist') %></li>
             <li class="clear"><%= tr('Clear playlist') %></li>
             <li class="delete"><%= tr('Delete playlist') %></li>
         </ul>

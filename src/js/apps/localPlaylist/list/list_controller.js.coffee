@@ -56,6 +56,8 @@
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:remove:entity", id
         App.navigate "playlists", {trigger: true}
+      App.listenTo @itemLayout, 'list:rename', ->
+        App.execute "localplaylist:rename", id
       App.listenTo @itemLayout, 'list:play', ->
         kodiPlaylist = App.request "command:kodi:controller", 'audio', 'PlayList'
         kodiPlaylist.playCollection(collection)
