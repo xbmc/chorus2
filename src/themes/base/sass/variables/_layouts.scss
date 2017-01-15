@@ -25,6 +25,7 @@ $width-playlist-large: $size-region-unit * 12;
 
 // Sidebar first
 $width-sidebar-first: $size-region-unit * 5;
+$width-sidebar-first-medium: $width-sidebar-first - 60;
 
 // Page
 $width-page: 58em;
@@ -73,14 +74,14 @@ $layouts: (
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
     width-remote: 371px,
-    width-sidebar-first: $width-sidebar-first,
-
+    width-sidebar-first: $width-sidebar-first-medium,
   ),
   xlarge: (
     width-playlist: $width-playlist,
     width-playlist-closed: $size-region-unit,
     width-header-fanart: 0,
     width-details-side: 280px,
+    width-sidebar-first: $width-sidebar-first,
   )
 );
 
