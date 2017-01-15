@@ -42,7 +42,7 @@ Bardzo ważne jest to, abyś dostarczył możliwie jak największą ilość info
 
 ### Nowe pomysły
 
-Masz fajny pomysł lub listę życzeń z funkcjami Chorusa? Możesz je dodać do listy zagadanień, a nawet możesz 
+Masz fajny pomysł lub listę życzeń z funkcjami Chorusa? Możesz je dodać do listy zagadnień, a nawet możesz 
 przesłać gotowe modyfikacje do repozytorium [GitHuba](https://github.com/xbmc/chorus2/issues), wykorzystując
 funkcji Pull Request.
 
