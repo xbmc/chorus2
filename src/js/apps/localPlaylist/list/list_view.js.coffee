@@ -55,6 +55,7 @@
     regions:
       regionListItems: '.item-container'
     triggers:
+      'click .local-playlist-header .rename' : 'list:rename'
       'click .local-playlist-header .clear' : 'list:clear'
       'click .local-playlist-header .delete' : 'list:delete'
       'click .local-playlist-header .play' : 'list:play'

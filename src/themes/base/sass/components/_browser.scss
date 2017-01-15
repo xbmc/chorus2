@@ -29,6 +29,41 @@ $color-side: #F9F9F9;
   .region-content {
     padding: 0;
   }
+
+  .actions {
+    @include set-position-absolute(top 1px right 10px);
+    .sort-toggle, .context-toggle {
+      @include icon-button(content-sort, 30px, 39px);
+      font-size: 1.5em;
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .context-toggle:before {
+      content: icon-code(navigation-more-vert);
+    }
+    > li {
+      display: inline-block;
+    }
+    .dropdown-menu {
+      text-transform: capitalize;
+    }
+  }
+  .sort-wrapper {
+    li {
+      i {
+        @include icon(navigation-expand-more, $pseudo: 'after');
+      }
+      &.order-descending i {
+        @include icon(navigation-expand-less, $pseudo: 'after');
+      }
+      &.active {
+        color: $color-white;
+      }
+    }
+  }
+
 }
 
 .folder-layout {
@@ -100,40 +135,6 @@ $color-side: #F9F9F9;
   }
   .empty--page-content {
     @extend %text--dim;
-  }
-}
-
-.actions {
-  @include set-position-absolute(top 1px right 10px);
-  .sort-toggle, .context-toggle {
-    @include icon-button(content-sort, 30px, 39px);
-    font-size: 1.5em;
-    opacity: 0.6;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  .context-toggle:before {
-    content: icon-code(navigation-more-vert);
-  }
-  > li {
-    display: inline-block;
-  }
-  .dropdown-menu {
-    text-transform: capitalize;
-  }
-}
-.sort-wrapper {
-  li {
-    i {
-      @include icon(navigation-expand-more, $pseudo: 'after');
-    }
-    &.order-descending i {
-      @include icon(navigation-expand-less, $pseudo: 'after');
-    }
-    &.active {
-      color: $color-white;
-    }
   }
 }
 

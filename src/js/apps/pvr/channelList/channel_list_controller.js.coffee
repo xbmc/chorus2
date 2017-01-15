@@ -1,4 +1,4 @@
-@Kodi.module "ChannelApp.List", (List, App, Backbone, Marionette, $, _) ->
+@Kodi.module "PVR.ChannelList", (List, App, Backbone, Marionette, $, _) ->
 
 
   ## Main controller
@@ -31,13 +31,11 @@
         player.playEntity 'channelid', child.model.get('id'), {},  =>
           ## update state?
       @listenTo view, 'childview:channel:record', (parent, child) ->
-        #App.request "command:kodi:controller", 'PVR', child.model.get('id'), 'SetPVRRecord'
-        record = App.request "command:kodi:controller", 'auto', 'PVR'
-        record.setPVRRecord child.model.get('id'), {"record": "toggle"},  =>
-          App.execute "notification:show", t.gettext("Channel recording toggled")
+        pvr = App.request "command:kodi:controller", 'auto', 'PVR'
+        pvr.setRecord child.model.get('id'), {}, ->
+          App.execute "notification:show", tr("Channel recording toggled")
       @layout.regionContent.show view
 
     getSubNav: ->
-      subNavId = if @getOption('group') is 'alltv' then 'tvshows/recent' else 'music'
-      subNav = App.request "navMain:children:show", subNavId, 'Sections'
+      subNav = App.request "navMain:children:show", 'pvr/tv', 'PVR'
       @layout.regionSidebarFirst.show subNav

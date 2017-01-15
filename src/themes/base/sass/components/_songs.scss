@@ -126,6 +126,9 @@
         display: table-cell;
       }
     }
+    .song-album {
+      display: none;
+    }
     // Selected row
     &.selected {
       border-left: 1px solid $color-kodi;
@@ -168,6 +171,24 @@
       .thumb {
         display: block;
       }
+      td {
+        &.song-album {
+          @include at-desktop {
+            display: table-cell;
+          }
+          width: 30%;
+        }
+        &.song-title {
+          width: 80%;
+          @include at-desktop {
+            width: 45%;
+          }
+        }
+        &.song-artist {
+          width: 25%;
+        }
+      }
+
       &:hover {
         .play {
           width: $song-row-height - 1;

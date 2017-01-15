@@ -81,7 +81,7 @@ $card-layout: (
   .record {
     color: rgba($color-white, 0.8);
     &:hover {
-      color: #f00;
+      color: $color-record;
     }
   }
 }
@@ -127,7 +127,8 @@ $card-layout: (
   .artwork {
     @include image-crop(get-card-size($size, height-image), get-card-size($size, width), get-card-size($size, offset-image));
     position: relative;
-    background: #ccc;
+    background: #ccc 50% 50% no-repeat;
+    background-size: cover;
     a {
       display: block;
     }
@@ -198,8 +199,8 @@ $card-layout: (
   }
   .record {
     @include icon-button-square(image-brightness-1, $spacing-half-unit * 3);
-    @include set-position-absolute(bottom 2px right 5px);
-    font-size: 200%;
+    @include set-position-absolute(bottom 7px right 10px);
+    font-size: 150%;
     display: none;
     z-index: $z-index-beta;
 

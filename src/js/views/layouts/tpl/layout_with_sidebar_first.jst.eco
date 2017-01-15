@@ -1,7 +1,10 @@
 <div class="layout-container with-sidebar-first">
 
     <div class="region-first-toggle"></div>
-    <section class="region-first"></section>
+    <section class="region-first">
+        <div class="region-first-primary"></div>
+        <div class="region-first-secondary"></div>
+    </section>
 
     <section class="region-content-wrapper">
         <div class="region-content-top"></div>

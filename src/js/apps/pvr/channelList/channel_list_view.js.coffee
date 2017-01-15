@@ -1,4 +1,4 @@
-@Kodi.module "ChannelApp.List", (List, App, Backbone, Marionette, $, _) ->
+@Kodi.module "PVR.ChannelList", (List, App, Backbone, Marionette, $, _) ->
 
   class List.Layout extends App.Views.LayoutWithSidebarFirstView
     className: "pvr-page"

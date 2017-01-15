@@ -3,33 +3,82 @@
     @extend %sidebar--padding;
   }
 }
+
 .epg-page {
   .region-first {
     @extend %sidebar--padding;
   }
-  .programmes {
-    background-color: #f9f9f9;
+}
+
+.pvr-card {
+  background: $color-white;
+  padding: $spacing-base-unit;
+  margin-bottom: $spacing-half-unit;
+  position: relative;
+
+  &.aired {
+    background-color: darken($color-white, 6%);
   }
-  .programme {
-    border-bottom: 2px solid #eee;
-    padding: 5px;
+
+  &.airing {
+    background: $color-brand-highlight;
   }
-  .aired {
-    background-color: rgba(130,130,130,0.5)
+
+  .title {
+    margin-bottom: $spacing-half-unit;
   }
-  .programme-progress {
-    background-color: #ddd;
-    
+
+  .entity-progress {
+    top: auto;
+    bottom: 0;
+
     .current-progress {
       height: 4px;
       background: #12b2e7;
     }
   }
-  .hastimer {
-    @include icon(action-schedule);
-    color: $color-kodi;
-    font-size: 110%;
-    margin-left: 3px;
-    display: inline;
+
+  .plot,
+  .title span {
+    color: $color-greyscale-gray;
+    font-size: 90%;
+  }
+
+  .plot {
+    margin-top: $spacing-half-unit;
+  }
+
+  .actions {
+    @include set-position-absolute(top $spacing-half-unit right $spacing-half-unit);
+    li {
+      @include icon-button-square(av-play-arrow, $spacing-half-unit * 3);
+      color: rgba($color-black, 0.3);
+      float: left;
+      font-size: 140%;
+
+      &:hover {
+        color: rgba($color-black, 0.6);
+      }
+
+      &.play {
+        font-size: 190%;
+        margin-top: -5px;
+      }
+
+      &.record:before {
+        content: icon-code(image-brightness-1);
+      }
+
+      &.toggle-timer:before {
+        content: icon-code(action-schedule);
+      }
+    }
+  }
+
+  &.has-timer {
+    .actions li.toggle-timer,
+    .actions li.record {
+      color: $color-record;
+    }
   }
 }

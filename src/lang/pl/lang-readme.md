@@ -5,7 +5,7 @@ kontroli wersji GIT. Ta strona zawiera informacje o strukturze plików tłumacze
 
 ## Gdzie znajdują się pliki dla danego języka?
 
-Pliki tłumaczeń znadują się w dwóch miejscach. LANG_CODE - dwuliterowy, niepowtarzalny
+Pliki tłumaczeń znajdują się w dwóch miejscach. LANG_CODE - dwuliterowy, niepowtarzalny
 kod dla każdego języka. Np.: en, fr, de, pl
 
 ### Wyrażenia
@@ -39,12 +39,12 @@ z folderu `en`, a następnie zmodyfikować.
 ### Poinformuj aplikację o zmianach
 
 Wymagane jest poinformowanie aplikacji o dostępności nowego języka. W tym celu musisz
-wydedytować plik `/src/js/helpers/translate.js.coffee` i dodać `pl: "Polski"` do listy
+zmodyfikować plik `/src/js/helpers/translate.js.coffee` i dodać `pl: "Polski"` do listy
 języków w funkcji `getLanguages`.
 
 ### Powielanie struktury folderu/plików z języka angielskiego
 
-Skopiuj pliki, które chcesz pretłumaczyć na nowy język:
+Skopiuj pliki, które chcesz przetłumaczyć na nowy język:
 
 * **Wyrażenia:** skopiuj `/src/_strings/en.po` do `/src/_strings/pl.po`
 * **Strony:** skopiuj `/src/en/readme.md` do `/src/pl/readme.md`
