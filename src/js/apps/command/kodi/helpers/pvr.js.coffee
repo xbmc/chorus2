@@ -22,7 +22,6 @@
     addTimer: (id, timerRule = false, callback) ->
       params = {broadcastid: id, timerrule: timerRule}
       @singleCommand @getCommand('AddTimer'), params, (resp) =>
-        console.log resp
         @doCallback callback, resp
 
     ## Remove a timer id
