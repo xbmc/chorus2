@@ -2,7 +2,7 @@
 <p>Mechanizm aktualizacji plików tłumaczeń, wymaga odrobiny wiedzy na temat systemu
 kontroli wersji GIT. Ta strona zawiera informacje o strukturze plików tłumaczeń.</p>
 <h2 id="gdzie-znajduj-si-pliki-dla-danego-j-zyka-">Gdzie znajdują się pliki dla danego języka?</h2>
-<p>Pliki tłumaczeń znadują się w dwóch miejscach. LANG_CODE - dwuliterowy, niepowtarzalny
+<p>Pliki tłumaczeń znajdują się w dwóch miejscach. LANG_CODE - dwuliterowy, niepowtarzalny
 kod dla każdego języka. Np.: en, fr, de, pl</p>
 <h3 id="wyra-enia">Wyrażenia</h3>
 <p><code>src/lang/_strings/LANG_CODE.po</code></p>
@@ -28,10 +28,10 @@ z folderu <code>en</code>, a następnie zmodyfikować.</li>
 <p><strong>Przykład:</strong> Jeśli nowym językiem tłumaczenia jest język <code>polski</code> to jego <em>LANG_CODE</em> jest równy <code>pl</code>.</p>
 <h3 id="poinformuj-aplikacj-o-zmianach">Poinformuj aplikację o zmianach</h3>
 <p>Wymagane jest poinformowanie aplikacji o dostępności nowego języka. W tym celu musisz
-wydedytować plik <code>/src/js/helpers/translate.js.coffee</code> i dodać <code>pl: &quot;Polski&quot;</code> do listy
+zmodyfikować plik <code>/src/js/helpers/translate.js.coffee</code> i dodać <code>pl: &quot;Polski&quot;</code> do listy
 języków w funkcji <code>getLanguages</code>.</p>
 <h3 id="powielanie-struktury-folderu-plik-w-z-j-zyka-angielskiego">Powielanie struktury folderu/plików z języka angielskiego</h3>
-<p>Skopiuj pliki, które chcesz pretłumaczyć na nowy język:</p>
+<p>Skopiuj pliki, które chcesz przetłumaczyć na nowy język:</p>
 <ul>
 <li><strong>Wyrażenia:</strong> skopiuj <code>/src/_strings/en.po</code> do <code>/src/_strings/pl.po</code></li>
 <li><strong>Strony:</strong> skopiuj <code>/src/en/readme.md</code> do <code>/src/pl/readme.md</code></li>
