@@ -129,8 +129,24 @@ Wynik budowania zawiera także pliki tłumaczeń.
 ## Wsparcie
 Jesteś fanem Chorusa? Możesz [zasponsorować](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) Jeremy'iemu piwo, aby okazać swoją wdzięczność. :)
 
-## License
-Chorus jest udostępniany na licencji Creative Commons Uznanie autorstwa - Na tych samych warunkach 3.0 Stany Zjednoczone.
+## Licencja
+
+Ta aplikacja jest darmowym oprogramowaniem; możesz ją dystrybuować
+i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU
+opublikowanej przez Fundację Wolnego Oprogramowania, w wersji
+drugiej lub późniejszej.
+
+Ten program jest dystrybuowany w nadziei, że będzie użyteczny,
+aczkolwiek BEZ ŻADNEJ GWARANCJI, nawet bez domyślnej gwarancji
+HANDLOWEJ lub PRZYDATNOŚCI DLA OKREŚLONEGO CELU. Zapoznaj się
+z treścią Powszechnej Licencji Publicznej GNU, aby dowiedzieć
+się więcej.
+
+Powinienieś otrzymać kopię Powszechnej Licencji Publicznej GNU
+[razem z programem](https://github.com/xbmc/chorus2/blob/master/LICENSE);
+jeśli nie, napisz do Fundacji Wolnego Oprogramowania, Inc, na adres
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+
 [Naciśnij tutaj, aby dowiedzieć się więcej](https://github.com/xbmc/chorus2/blob/master/src/lang/en/license.md).
 
 
