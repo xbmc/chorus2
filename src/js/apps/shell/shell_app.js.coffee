@@ -66,6 +66,10 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
+      ## Listen to reconnect.
+      App.listenTo shellLayout, "shell:reconnect", () =>
+        App.execute 'shell:reconnect'
+
       ## Additional listeners
       @bindListenersContextMenu shellLayout
       @bindListenersSelectedMenu shellLayout
@@ -118,6 +122,8 @@
       App.listenTo shellLayout, "shell:selected:localadd", ->
         App.execute "selected:action:localadd"
 
+
+  ## On start
   App.addInitializer ->
 
     App.commands.setHandler "shell:view:ready", ->
@@ -135,3 +141,22 @@
       ## Add, Remove, Toggle classes on body.
       App.commands.setHandler "body:state", (op, state) ->
         API.alterRegionClasses op, state
+
+
+  ## Attempt Kodi reconnect
+  App.commands.setHandler 'shell:reconnect', () ->
+    API.alterRegionClasses 'add', 'reconnecting'
+    helpers.connection.reconnect () ->
+      # Success.
+      API.alterRegionClasses 'remove', 'lost-connection'
+      API.alterRegionClasses 'remove', 'reconnecting'
+
+
+
+
+  ## Kodi disconnected
+  App.commands.setHandler 'shell:disconnect', () ->
+    API.alterRegionClasses 'add', 'lost-connection'
+    API.alterRegionClasses 'remove', 'reconnecting'
+    helpers.connection.disconnect () ->
+      # Kodi disconnect.

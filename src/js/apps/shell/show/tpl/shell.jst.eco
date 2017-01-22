@@ -87,4 +87,13 @@
     </div>
 </div>
 
+<div id="disconnected">
+    <div class="message">
+        <i class="mdi-file-cloud-off"></i>
+        <h2><%= tr('Lost connection to Kodi') %></h2>
+        <p class="try-connect"><button class="reconnect btn btn-primary"><%= tr('Attempt to reconnect') %></button></p>
+        <p class="load-connect"><span class="loader-small-inline"></span><br /><%= tr('Attempting reconnect') %></p>
+    </div>
+</div>
+
 <div id="offscreen"></div>

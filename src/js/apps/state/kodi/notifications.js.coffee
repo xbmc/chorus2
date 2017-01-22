@@ -180,7 +180,7 @@
         when 'AudioLibrary.OnUpdate', 'VideoLibrary.OnUpdate'
           @onLibraryUpdate data
 
-        # input box has opened
+        # Input box has opened
         when 'Input.OnInputRequested'
           App.execute "input:textbox", ''
           wait = 60
@@ -198,14 +198,19 @@
             return
           ), 1000 * wait)
 
-        # input box has closed
+        # Input box has closed
         when 'Input.OnInputFinished'
           clearTimeout App.inputTimeout
           App.execute "input:textbox:close"
 
-        # xbmc shutdown
+        # Kodi shutdown
         when 'System.OnQuit'
           App.execute "notification:show", t.gettext("Kodi has quit")
+          App.execute "shell:disconnect"
+
+        # Kodi wake or restart
+        when 'System.OnWake', 'System.OnRestart'
+          App.execute "shell:reconnect"
 
         else
           ## do nothing.

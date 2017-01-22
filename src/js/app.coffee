@@ -7,6 +7,7 @@
     socketsHost: location.hostname
     socketsPort: 9090
     ajaxTimeout: 5000
+    connected: true
     hashKey: 'kodi'
     defaultPlayer: 'auto'
     ignoreArticle: true
