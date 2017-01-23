@@ -26,6 +26,13 @@
       @singleCommand @getCommand('SetTVShowDetails'), params, (resp) =>
         @doCallback callback, resp
 
+    ## Set a music video value
+    setMusicVideoDetails: (id, fields = {}, callback) ->
+      params = {musicvideoid: id}
+      params = _.extend params, fields
+      @singleCommand @getCommand('SetMusicVideoDetails'), params, (resp) =>
+        @doCallback callback, resp
+
     ## Scan library
     scan: (callback) ->
       @singleCommand @getCommand('Scan'), (resp) =>

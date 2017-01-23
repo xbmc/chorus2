@@ -16,6 +16,7 @@ helpers.url.map =
   channelradio: 'pvr/radio/:id'
   file: 'browser/file/:id'
   playlist: 'playlist/:id'
+  musicvideo: 'music/video/:id'
 
 ## Get base endpoint
 helpers.url.baseKodiUrl = (query = 'Kodi') ->

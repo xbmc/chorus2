@@ -12,6 +12,7 @@
       songSet:   '.entity-set-song'
       movieSet:  '.entity-set-movie'
       tvshowSet: '.entity-set-tvshow'
+      musicvideoSet: '.entity-set-musicvideo'
       loadingSet: '.entity-set-loading'
     # Allow dynamically adding multiple addon views to a region
     appendAddonView: (addonId, addonView) ->

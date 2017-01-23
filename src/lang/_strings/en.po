@@ -1397,3 +1397,31 @@ msgstr "Now"
 msgctxt ""
 msgid "Rename playlist"
 msgstr "Rename playlist"
+
+msgctxt ""
+msgid "album"
+msgstr "album"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Videos"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Lost connection to Kodi"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Attempt to reconnect"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Attempting reconnect"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Top Songs"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Top Albums"

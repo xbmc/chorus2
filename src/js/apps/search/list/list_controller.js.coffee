@@ -5,7 +5,7 @@
 
     maxItemsCombinedSearch: 21
 
-    allEntities: ['movie', 'tvshow', 'artist', 'album', 'song']
+    allEntities: ['movie', 'tvshow', 'artist', 'album', 'song', 'musicvideo']
 
     searchFieldMap:
       artist: 'artist'
@@ -13,6 +13,10 @@
       song: 'title'
       movie: 'title'
       tvshow: 'title'
+      musicvideo: 'title'
+
+    entityTitles:
+      musicvideo: 'music video'
 
     initialize: ->
       @pageLayout = @getPageLayout()
@@ -51,7 +55,7 @@
       for media in @allEntities
         medias.push
           id: media
-          title: media + 's'
+          title: @getTitle(media) + 's'
       opts =
         links: {media: medias, addon: @addonSearches}
         query: @getOption('query')
@@ -96,7 +100,7 @@
               entity: entity
               more: more
               query: query
-              title: entity + 's'
+              title: @getTitle(entity) + 's'
             App.listenTo setView, "show", =>
               setView.regionResult.show view
             ## Add to layout
@@ -131,6 +135,11 @@
               @layout.appendAddonView addonId + type, setView
           @updateProgress addonId
       App.request "file:entities", opts
+
+    ## Get title for an entity
+    getTitle: (entity) ->
+      title = if @entityTitles[entity] then @entityTitles[entity] else entity
+      title
 
     ## Update the progress of the search
     updateProgress: (done) =>

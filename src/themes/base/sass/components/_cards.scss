@@ -17,6 +17,7 @@
   }
 }
 
+.card-grid--musicvideo,
 .card-grid--episode {
   @extend %cards--grid;
   .card {
@@ -56,6 +57,7 @@ $card-detail-episode-side-height: 150px;
   .card-season {
     @include responsive-card-artwork-size($card-detail-side-width, $card-detail-poster-side-height);
   }
+  .card-musicvideo,
   .card-episode {
     @include responsive-card-artwork-size($card-detail-side-width, $card-detail-episode-side-height);
   }
