@@ -34,4 +34,4 @@
     childView: List.TVShowTeaser
     emptyView: List.Empty
     tagName: "ul"
-    className: "card-grid--episode"
+    className: "card-grid--tall"

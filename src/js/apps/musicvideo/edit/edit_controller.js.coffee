@@ -46,7 +46,8 @@
           id: 'poster'
           children:[
             {
-              id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'),
+              id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'), attributes: {class: 'fanart-size'},
+              metadataImageHandler: 'fanarttv:artist:images', metadataLookupField: 'artist'
             }
           ]
         }
@@ -56,6 +57,7 @@
           children:[
             {
               id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
+              metadataImageHandler: 'fanarttv:artist:images', metadataLookupField: 'artist'
             }
           ]
         }

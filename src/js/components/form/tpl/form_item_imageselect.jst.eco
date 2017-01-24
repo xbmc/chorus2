@@ -7,7 +7,7 @@
         <div class="pane active" rel="select">
             <ul class="form-imageselect__thumbs">
                 <% if @image: %>
-                    <li data-original="<%= @image.original %>" class="selected"><img src="<%= @image.thumb %>" /></li>
+                    <li data-original="<%= @image.original %>" class="selected" style="background-image: url('<%= @image.thumb %>')"></li>
                 <% end %>
             </ul>
             <div class="form-imageselect__loader"><div class="loader-small-inline"></div> <span><%= tr('Searching for more images') %></span></div>

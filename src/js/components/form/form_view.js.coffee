@@ -226,5 +226,5 @@
           App.execute metadataHandler, item[metadataLookup], (resp) ->
             if resp
               for image in resp[field]
-                $thumbs.append $('<li data-original="' + image.original + '"><img src="' + image.thumb + '" /></li>')
+                $thumbs.append $('<li data-original="' + image.original + '" style="background-image: url(' + image.thumb + ')"></li>')
             $wrapper.removeClass('images-loading')
