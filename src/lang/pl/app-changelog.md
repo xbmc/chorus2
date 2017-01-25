@@ -1,3 +1,15 @@
+Wersja 2.4.1
+-------------
+* Dodano album do tabeli utworu #212
+* Naprawiono kilka drobych błędów regresyjnych
+* Naprawiono błąd wczytywania strony filmu w Kodi dla wersji 16 #207
+* Dodano możliwość zmiany nazwy list odtwarzania #55
+* Zaktualizowano sekcję Telewizja, ulepszono interfejs użytkownika i dodano listę nagrań
+* Naprawiono ściężkę dostępu do sekcji Telewizja #17
+* Naprawiono błąd wczytywania danych przewodnika #211
+* Zaktualizowano tłumaczenie na język polski #205 #210
+* Zmieniono typ licencji Chorusa na GPL-2+ #179 #208
+
 Wersja 2.4.0
 -------------
 * Naprawiono rzadki błąd widoczny po opuszczeniu list z dużą ilością pozycji

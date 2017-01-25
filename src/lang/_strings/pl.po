@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-01-10 16:45+0100\n"
+"PO-Revision-Date: 2017-01-16 12:02+0100\n"
 "Last-Translator: Marcin W.\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -392,7 +392,7 @@ msgstr "Tryb Imprezy"
 
 msgctxt ""
 msgid "Save Kodi playlist"
-msgstr "Zapisz listę odtwarzania Kodi"
+msgstr "Zapisz listę w Kodi"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
@@ -432,7 +432,7 @@ msgstr "filmy"
 
 msgctxt ""
 msgid "Searching for"
-msgstr "Wyszukiwanie"
+msgstr "Szukaj"
 
 msgctxt ""
 msgid "and"
@@ -1156,7 +1156,7 @@ msgstr "Adres URL obrazu"
 
 msgctxt ""
 msgid "External Search"
-msgstr "Wyszukiwanie w internecie"
+msgstr "Szukaj w Internecie"
 
 msgctxt ""
 msgid "Local media"
@@ -1164,11 +1164,11 @@ msgstr "Media lokalne"
 
 msgctxt ""
 msgid "Chorus Search"
-msgstr "Wyszukiwanie w Chorusie"
+msgstr "Szukaj w Chorusie"
 
 msgctxt ""
 msgid "YouTube Search"
-msgstr "Wyszukiwanie w YouTube"
+msgstr "Szukaj w YouTube"
 
 msgctxt ""
 msgid "Executed addon"
@@ -1272,7 +1272,7 @@ msgstr "Menu startowe"
 
 msgctxt ""
 msgid "Search"
-msgstr "Szukaj"
+msgstr "Wyszukiwanie"
 
 msgctxt ""
 msgid "Custom Add-on search"
@@ -1285,4 +1285,52 @@ msgstr "Mechanizm wyszukiwania Chorusa obsługuje nie tylko lokalne media, ale t
 msgctxt ""
 msgid "Add-ons help page"
 msgstr "Strona pomocy dodatków"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "Brak %1$s"
+
+msgctxt ""
+msgid "results"
+msgstr "wyniki"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "danych przewodnika"
+
+msgctxt ""
+msgid "PVR"
+msgstr "Telewizja"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Nagrania"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Zmieniono status nagrywania kanału"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "Kanały telewizyjne"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Stacje radiowe"
+
+msgctxt ""
+msgid "Record"
+msgstr "Nagraj"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Przełącz zadanie"
+
+msgctxt ""
+msgid "Now"
+msgstr "Teraz"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Przemianuj listę"
 
