@@ -30,6 +30,7 @@
         ## Listen to the show of our layout.
         @listenTo @layout, "show", =>
           @getDetailsLayoutView musicvideo
+          @getRelatedVideos musicvideo
         ## Add the layout to content.
         App.regionContent.show @layout
 
@@ -51,3 +52,9 @@
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
 
+    ## Get some extra vids from youtube.
+    getRelatedVideos: (musicvideo) ->
+      title = tr 'Related music videos on YouTube'
+      opts = {maxResults: 8}
+      App.execute 'youtube:list:view', musicvideo.get('title') + ' ' + musicvideo.get('artist'), title, opts, (view) =>
+        @layout.regionContent.show view

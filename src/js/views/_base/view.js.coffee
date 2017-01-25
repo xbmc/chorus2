@@ -10,8 +10,13 @@
         external: false,
         className: ''
 
-      attrs =
-        href: "#" + url unless options.external
+      attrs = {}
+
+      if options.external
+        attrs.target = '_blank'
+        attrs.href = url
+      else
+        attrs.href = '#' + url
 
       if options.className isnt ''
         attrs.class = options.className

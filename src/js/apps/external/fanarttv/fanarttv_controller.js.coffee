@@ -41,18 +41,21 @@
         artTypes = @[artType + 'FieldTranslate']
         for type, field of artTypes
           ret[field] = []
-          collection[type] = collection[type].slice(0, @maxImageCount)
-          for i, item of collection[type]
-            row = item
-            row.original = item.url
-            row.thumb = item.url
-            ret[field].push row
+          if collection[type]?
+            collection[type] = collection[type].slice(0, @maxImageCount)
+            for i, item of collection[type]
+              row = item
+              row.original = item.url
+              row.thumb = @getThumbnailUrl(item.url)
+              ret[field].push row
         ret
+
+      getThumbnailUrl: (url) =>
+        url.replace 'assets.fanart.tv/', 'fanart.tv/detailpreview/'
 
       ## Get Images
       images: (type, id, callback) ->
         @call type + '/' + id, {}, (resp) =>
-          console.log resp
           callback @parseImageUrls('artist', resp)
 
 

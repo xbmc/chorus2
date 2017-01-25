@@ -40,6 +40,10 @@
       $('.dropdown', @$el).on 'click', ->
         $(@).removeClass('open').trigger('hide.bs.dropdown')
 
+    ## Make the links external
+    makeLinksExternal: ->
+      $('.title, .thumb', @$el).attr('href', @model.get('url')).attr('target', '_blank')
+
     ## This triggers when a model has been updated, instances can add updates to setMeta()
     ## so init is not used (which doesn't get called on a re-render)
     modelChange: ->

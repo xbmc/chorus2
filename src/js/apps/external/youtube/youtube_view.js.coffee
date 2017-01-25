@@ -16,3 +16,25 @@
     tagName: 'ul'
     className: 'youtube-list'
 
+  class Youtube.Card extends App.Views.CardView
+    triggers:
+      'click .play': 'youtube:kodiplay'
+      'click .localplay': 'youtube:localplay'
+    initialize: ->
+      @getMeta()
+    getMeta: ->
+      if @model
+        @model.set {subtitle: @themeLink 'YouTube', @model.get('url'), {external: true}}
+        if @model.get('addonEnabled')
+          @model.set {menu: {localplay: 'Local play'}}
+    onRender: () ->
+      @makeLinksExternal()
+
+  class Youtube.CardList extends App.Views.CompositeView
+    template: 'apps/external/youtube/set'
+    childView: Youtube.Card
+    tagName: 'div'
+    className: "section-content"
+    childViewContainer: ".set-container"
+    onRender: ->
+      $('.set-title', @$el).html @options.title
