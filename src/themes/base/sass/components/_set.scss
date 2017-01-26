@@ -1,0 +1,22 @@
+.set {
+  &__header {
+    @extend %set-header;
+  }
+  &__collection {
+    @extend %region-content;
+  }
+  &__actions {
+    @include set-position-absolute(top 0.75em right $spacing-base-unit);
+    z-index: $z-index-beta;
+    i {
+      @include icon-button-square(navigation-more-vert, $spacing-half-unit * 3);
+    }
+  }
+  &__more {
+    @extend %region-content;
+    margin-top: -$spacing-double-unit;
+    a {
+      @include flat-button($color-kodi, communication-call-made);
+    }
+  }
+}

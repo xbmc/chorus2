@@ -1425,3 +1425,15 @@ msgstr "Top Songs"
 msgctxt ""
 msgid "Top Albums"
 msgstr "Top Albums"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Toggle select all"
+
+msgctxt ""
+msgid "More like this"
+msgstr "More like this"
+
+msgctxt ""
+msgid "music videos"
+msgstr "music videos"

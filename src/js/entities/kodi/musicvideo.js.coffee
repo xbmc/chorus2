@@ -49,6 +49,11 @@
       filter: @argFilter()
     parse: (resp, xhr) -> @getResult resp, 'musicvideos'
 
+  ## Video Custom collection, assumed passed an array of raw entity data.
+  class KodiEntities.MusicVideoCustomCollection extends App.KodiEntities.Collection
+    model: KodiEntities.MusicVideo
+
+
   ###
    Request Handlers.
   ###
@@ -64,3 +69,7 @@
   ## Get full field/property list for entity
   App.reqres.setHandler "musicvideo:fields", (type = 'full') ->
     helpers.entities.getFields(API.fields, type)
+
+  ## Given an array of models, return as collection.
+  App.reqres.setHandler "musicvideo:build:collection", (items) ->
+    new KodiEntities.MusicVideoCustomCollection items

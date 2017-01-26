@@ -18,12 +18,16 @@
     entityTitles:
       musicvideo: 'music video'
 
+    entityPreventSelect:
+      ['tvshow']
+
     initialize: ->
       @pageLayout = @getPageLayout()
       @layout = @getLayout()
       @processed = [];
       @processedItems = 0;
       @addonSearches = App.request "addon:search:enabled"
+      App.execute "selected:clear:items"
       media = @getOption('media')
       if media is 'all'
         @entities = @allEntities
@@ -101,8 +105,9 @@
               more: more
               query: query
               title: @getTitle(entity) + 's'
+              noMenuDefault: helpers.global.inArray entity, @entityPreventSelect
             App.listenTo setView, "show", =>
-              setView.regionResult.show view
+              setView.regionCollection.show view
             ## Add to layout
             @layout["#{entity}Set"].show setView
           @updateProgress entity
@@ -130,6 +135,7 @@
                 title: if i is 1 then addonSearch.title else ''
                 more: false
                 query: @getOption('query')
+                noMenuDefault: true
               App.listenTo setView, "show", =>
                 setView.regionResult.show filesView
               @layout.appendAddonView addonId + type, setView

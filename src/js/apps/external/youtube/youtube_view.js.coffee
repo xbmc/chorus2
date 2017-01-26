@@ -30,11 +30,6 @@
     onRender: () ->
       @makeLinksExternal()
 
-  class Youtube.CardList extends App.Views.CompositeView
-    template: 'apps/external/youtube/set'
+  class Youtube.CardList extends App.Views.SetCompositeView
     childView: Youtube.Card
-    tagName: 'div'
-    className: "section-content"
-    childViewContainer: ".set-container"
-    onRender: ->
-      $('.set-title', @$el).html @options.title
+    className: "section-content card-grid--musicvideo"

@@ -20,12 +20,17 @@
 }
 
 %set-header {
-  background: $color-white;
+  background: rgba($color-white, 0.75);
   padding: $spacing-base-unit $spacing-base-unit;
-  margin: 0;
-  font-size: $font-size-heading;
   @extend .shadow-z-1;
   position: relative;
+  &, h2, h3 {
+    font-size: $font-size-heading;
+    margin: 0;
+  }
+  h2, h3 {
+    text-transform: capitalize;
+  }
 }
 
 %no-reults {

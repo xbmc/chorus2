@@ -2,14 +2,6 @@
 
   class Views.ItemView extends Backbone.Marionette.ItemView
 
-    # Populate a dropdown menu with menu links in the model.
-    menuPopulate: ->
-      menu = ''
-      if @model.get('menu')
-        for key, val of @model.get('menu')
-          menu += @themeTag 'li', {class: key}, val
-        this.$el.find('.dropdown-menu').html(menu)
-
     # Close dropdown on blur
     onShow: ->
       @menuBlur()
