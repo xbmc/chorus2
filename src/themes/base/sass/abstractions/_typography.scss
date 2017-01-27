@@ -39,3 +39,20 @@
   font-size: 1.8em;
   color: $color-greyscale-cloudy;
 }
+
+%modal-list {
+  @include reset-edges();
+  li {
+    @include transition(0.2s all linear);
+    padding: $spacing-half-unit;
+    border-bottom: 1px solid rgba($color-greyscale-mercury, 0.6);
+    cursor: pointer;
+    text-transform: capitalize;
+    &:hover {
+      background: rgba($color-greyscale-mercury, 0.7);
+    }
+    &:last-child {
+      border: 0;
+    }
+  }
+}

@@ -109,12 +109,14 @@
   ## Open a confirm modal
   App.commands.setHandler "ui:modal:confirm", (title, msg = '', callback) ->
     API.confirmButtons -> callback true
-    API.openModal(title, msg, true)
+    API.openModal(title, msg, true, 'confirm')
 
   ## Open a modal window
-  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '') ->
+  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '', closeButton = false, style = '') ->
     API.getModalButtonContainer().html(footer)
-    API.openModal(title, msg, open)
+    if closeButton
+      API.getModalButtonContainer().prepend API.closeModalButton()
+    API.openModal(title, msg, true, style)
 
   ## Open a form modal window
   App.commands.setHandler "ui:modal:form:show", (title, msg = '', style = 'form') ->

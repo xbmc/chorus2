@@ -22,3 +22,14 @@
       App.execute "input:remote:toggle"
 
     class Remote.Landing extends App.Views.ItemView
+
+
+  class Remote.System extends App.Views.ItemView
+    template: 'apps/input/remote/system'
+    className: 'system-menu'
+    events:
+      'click li': 'doAction'
+    doAction: (e) ->
+      action = $(e.target).data('action')
+      @trigger 'system:action', action
+
