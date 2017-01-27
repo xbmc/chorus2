@@ -1437,3 +1437,11 @@ msgstr "More like this"
 msgctxt ""
 msgid "music videos"
 msgstr "music videos"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Lost websocket connection"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Attempting websockets reconnect"

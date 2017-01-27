@@ -39,6 +39,12 @@
         ws.onclose = (resp) =>
           helpers.debug.msg "Websockets Closed", "warning", resp
           @wsActive = false;
+          App.execute "notification:show", tr("Lost websocket connection")
+          # Schedule an attempt at a reconnect to web sockets in 60 secs
+          setTimeout () ->
+            App.execute "notification:show", tr("Attempting websockets reconnect")
+            App.execute 'state:ws:init'
+          , 60000
 
       else
         ## Sockets not available
