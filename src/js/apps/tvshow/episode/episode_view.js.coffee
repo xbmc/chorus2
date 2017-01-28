@@ -21,9 +21,10 @@
       epNum = @themeTag('span', {class: 'ep-num'}, @model.get('season') + 'x' + @model.get('episode') + ' ')
       epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.get('episode'))
       showLink = @themeLink(@model.get('showtitle') + ' ', 'tvshow/' + @model.get('tvshowid'), {className: 'show-name'})
+      subTitleTip = if @model.get('firstaired') then {title: tr('First aired') + ': ' + @model.get('firstaired')} else {}
       @model.set
         label: epNum + @model.get('title')
-        subtitle: showLink + epNumFull
+        subtitle: @themeTag('div', subTitleTip, showLink + epNumFull)
 
 
   class Episode.Empty extends App.Views.EmptyViewResults

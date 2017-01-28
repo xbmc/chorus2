@@ -1,3 +1,21 @@
+Version 2.4.2
+-------------
+* Added trailer selector to movie editor
+* Added ability to quit, shutdown, reboot, suspend and hibernate when remote power button clicked #28
+* Attempt to reconnect to websockets after closed connection #15
+* Added ability to select all items from a set and perform action on items #156
+* Added tooltip with episode air date to episode teaser #170
+* Added ChromeCast support to local video player #220
+* Changed all video player libs to local assets, Minor style and bugfixes #219
+* Volume can now be controlled via - and = keys for keyboards without numpad #202
+* Removed cocktail and mixins as not in use #179
+* Added external videos to music video details page
+* Added fanarttv and musicbrainz external lookups for musicvideo fanart and thumb
+* Added support for music videos #217
+* Added disconnect notice when kodi has quit #10
+* Updated Polish Translation #216
+
+
 Version 2.4.1
 -------------
 * Added album to song table #212

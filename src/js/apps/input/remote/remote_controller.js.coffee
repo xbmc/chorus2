@@ -19,10 +19,8 @@
           App.execute 'input:action', 'osd'
         else
           App.execute "input:send", 'Info'
-      @listenTo view, "remote:power", ->
-        ## TODO: Add a shutdown menu.
-        appController = App.request "command:kodi:controller", 'auto', 'Application'
-        appController.quit()
+      @listenTo view, "remote:power", =>
+        @getShutdownMenu()
       App.regionRemote.show view
 
       ## Change the fanart when the state changes.
@@ -32,3 +30,38 @@
           playingItem = stateObj.getPlaying 'item'
           fanart = App.request "images:path:get", playingItem.fanart, 'fanart'
           $('#remote-background').css('background-image', 'url(' + playingItem.fanart + ')')
+
+    getShutdownMenu: ->
+      system = App.request "command:kodi:controller", 'auto', 'System'
+      system.getProperties (props) ->
+        actions = []
+        optionalActions = ['shutdown', 'reboot', 'suspend', 'hibernate']
+        actions.push {id: 'quit', title: 'Quit Kodi'}
+        for action in optionalActions
+          prop = 'can' + action
+          if props[prop]
+            actions.push {id: action, title: action}
+        # Build modal with options
+        model = new Backbone.Model {id: 1, actions: actions}
+        view = new Remote.System {model: model}
+        $content = view.render().$el
+        # Open modal and bind actions
+        App.execute "ui:modal:show", tr('Shutdown menu'), $content, '', false, 'system'
+        App.listenTo view, 'system:action', (action) =>
+          switch action
+            when 'quit'
+              App.request("command:kodi:controller", 'auto', 'Application').quit()
+            when 'shutdown'
+              system.shutdown()
+            when 'reboot'
+              system.reboot()
+            when 'suspend'
+              system.suspend()
+            when 'hibernate'
+              system.hibernate()
+            else
+              # nothing
+          App.execute "ui:modal:close"
+
+
+

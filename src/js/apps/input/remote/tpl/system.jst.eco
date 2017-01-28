@@ -1,0 +1,5 @@
+<ul class="system-menu__options options">
+    <% for action in @actions: %>
+        <li data-action="<%= action.id %>"><%= action.title %></li>
+    <% end %>
+</ul>

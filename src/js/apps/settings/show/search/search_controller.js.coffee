@@ -60,13 +60,14 @@
       $('.settings-form').addClass('settings-form-draggable')
       @binds()
 
-      # Reordering and dragging
-      $('.form-groups', $ctx).sortable({
-        draggable: ".draggable-row"
-        onEnd: (e) ->
-          $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
-            $(d).attr 'value', i
-      });
+      # Reordering and dragging (large screen only)
+      if $(window).width() > config.getLocal('largeBreakpoint')
+        $('.form-groups', $ctx).sortable({
+          draggable: ".draggable-row"
+          onEnd: (e) ->
+            $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
+              $(d).attr 'value', i
+        });
 
       # Add another button callback
       $('#form-edit-add-another', $ctx).click (e) ->

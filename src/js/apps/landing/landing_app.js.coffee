@@ -102,6 +102,7 @@
             limit: 14
             filter: {'operator': 'true', 'field': 'inprogress', 'value': ''}
             moreLink: 'tvshows?sort=dateadded&order=desc&inprogress=in progress'
+            preventSelect: true
           }
           {
             title: 'Recently added'

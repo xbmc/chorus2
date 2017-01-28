@@ -11,9 +11,10 @@
     setOptions: (options) ->
       @ajaxOptions = options
 
-    multipleCommands: (commands, callback) ->
+    multipleCommands: (commands, callback, fail) ->
       obj = $.jsonrpc commands, @ajaxOptions
       obj.fail (error) =>
+        @doCallback fail, error
         @onError commands, error
       obj.done (response) =>
         response = @parseResponse commands, response
@@ -22,11 +23,11 @@
           @doCallback callback, response
       obj
 
-    singleCommand: (command, params, callback) ->
+    singleCommand: (command, params, callback, fail) ->
       command = {method: command, url: helpers.url.baseKodiUrl(command)}
       if params? and (params.length > 0 or _.isObject(params))
         command.params = params
-      obj = @multipleCommands [command], callback
+      obj = @multipleCommands [command], callback, fail
       obj
 
     parseResponse: (commands, response) ->

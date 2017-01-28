@@ -144,6 +144,10 @@
         stateObj = if App.kodiState.getPlayer() is 'kodi' then App.kodiState else App.localState
         stateObj
 
+      # Reconnect websockets.
+      App.commands.setHandler 'state:ws:init', () ->
+        App.kodiSockets = new StateApp.Kodi.Notifications()
+
       ## Let things know the state object is now available
       App.vent.trigger "state:changed"
 

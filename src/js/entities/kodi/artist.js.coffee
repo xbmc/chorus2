@@ -5,7 +5,7 @@
     fields:
       minimal: []
       small: ['thumbnail', 'mood', 'genre', 'style']
-      full: ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument']
+      full: ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument', 'musicbrainzartistid']
 
     ## Fetch a single artist
     getArtist: (id, options) ->
@@ -45,7 +45,7 @@
     methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly', 'properties', 'limits', 'sort', 'filter']
     args: -> @getArgs
       albumartistsonly: config.getLocal 'albumArtistsOnly', true
-      properties: @argFields helpers.entities.getFields(API.fields, 'full')
+      properties: @argFields helpers.entities.getFields(API.fields, 'small')
       limits: @argLimit()
       sort: @argSort('title', 'ascending')
       filter: @argFilter()

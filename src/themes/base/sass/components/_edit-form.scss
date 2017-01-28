@@ -136,20 +136,21 @@ $bp-edit-form-large: medium;
       float: left;
       margin: 0 $spacing-half-unit $spacing-half-unit 0;
       cursor: pointer;
-      width: 106px;
       overflow: hidden;
+      background: $color-greyscale-cloudy 50% 50% no-repeat;
+      background-size: cover;
 
       &.selected {
         @include selected-card();
       }
+      &,
+      .form-item-poster-size & {
+        width: 106px;
+        height: 160px;
+      }
+      .form-item-fanart-size &,
       .form-edit-fanart & {
         width: 222px;
-      }
-    }
-    img {
-      height: 160px;
-      width: auto;
-      .form-edit-fanart & {
         height: 125px;
       }
     }

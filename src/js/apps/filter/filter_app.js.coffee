@@ -51,6 +51,12 @@
         key: 'random'
         defaultOrder: 'asc'
       }
+      {
+        alias: 'album'
+        type: 'string'
+        key: 'album'
+        defaultOrder: 'asc'
+      }
     ]
 
     ## See applyFilter() for how filterCallback are handled.
@@ -157,6 +163,20 @@
         key: 'thumbsUp'
         sortOrder: 'asc',
         filterCallback: 'thumbsup'
+      }
+      {
+        alias: 'album'
+        type: 'string'
+        key: 'album'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'artist'
+        type: 'array'
+        key: 'artist'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
       }
     ] 
 

@@ -4,8 +4,8 @@
     template: 'apps/external/youtube/youtube'
     tagName: 'li'
     triggers:
-      'click .play-kodi': 'youtube:kodiplay'
-      'click .play-local': 'youtube:localplay'
+      'click .play': 'youtube:play'
+      'click .localplay': 'youtube:localplay'
     events:
       'click .action': 'closeModal'
     closeModal: ->
@@ -16,3 +16,20 @@
     tagName: 'ul'
     className: 'youtube-list'
 
+  class Youtube.Card extends App.Views.CardView
+    triggers:
+      'click .play': 'youtube:play'
+      'click .localplay': 'youtube:localplay'
+    initialize: ->
+      @getMeta()
+    getMeta: ->
+      if @model
+        @model.set {subtitle: @themeLink 'YouTube', @model.get('url'), {external: true}}
+        if @model.get('addonEnabled')
+          @model.set {menu: {localplay: 'Local play'}}
+    onRender: () ->
+      @makeLinksExternal()
+
+  class Youtube.CardList extends App.Views.SetCompositeView
+    childView: Youtube.Card
+    className: "section-content card-grid--musicvideo"

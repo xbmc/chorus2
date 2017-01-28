@@ -45,9 +45,15 @@
         switch type
           when 'fanart' then path = API.getRandomFanart()
           else path = API.getDefaultThumbnail()
+      else if type is 'trailer'
+        path = API.getTrailerUrl(rawPath)
       else
         path = API.parseRawPath(rawPath)
       path
+
+    getTrailerUrl: (rawpath) ->
+      trailer = helpers.url.parseTrailerUrl (rawpath)
+      trailer.img
 
   ## Handler to set the background fanart pic.
   App.commands.setHandler "images:fanart:set", (path, region = 'regionFanart') ->

@@ -13,6 +13,7 @@
 
     getDefaultItems: (onlyVisible = true)->
       nav = []
+
       ## Music.
       nav.push {id: 1, title: tr("Music"), path: 'music', icon: 'mdi-av-my-library-music', classes: 'nav-music', parent: 0}
       nav.push {id: 2, title: tr("Music"), path: 'music', icon: '', classes: '', parent: 1}
@@ -20,8 +21,7 @@
       nav.push {id: 7, title: tr("Top music"), path: 'music/top', icon: '', classes: '', parent: 1}
       nav.push {id: 3, title: tr("Artists"), path: 'music/artists', icon: '', classes: '', parent: 1}
       nav.push {id: 4, title: tr("Albums"), path: 'music/albums', icon: '', classes: '', parent: 1}
-
-
+      nav.push {id: 8, title: tr("Videos"), path: 'music/videos', icon: '', classes: '', parent: 1}
 
       ## Movies.
       nav.push {id: 11, title: tr("Movies"), path: 'movies/recent', icon: 'mdi-av-movie', classes: 'nav-movies', parent: 0}
