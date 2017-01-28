@@ -32,6 +32,7 @@
       "click .selected-play": "shell:selected:play"
       "click .selected-add": "shell:selected:add"
       "click .selected-localadd": "shell:selected:localadd"
+      "click .reconnect": "shell:reconnect"
 
     events:
       "click .player-menu > li": "closePlayerMenu"

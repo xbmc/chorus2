@@ -39,6 +39,12 @@
         ws.onclose = (resp) =>
           helpers.debug.msg "Websockets Closed", "warning", resp
           @wsActive = false;
+          App.execute "notification:show", tr("Lost websocket connection")
+          # Schedule an attempt at a reconnect to web sockets in 60 secs
+          setTimeout () ->
+            App.execute "notification:show", tr("Attempting websockets reconnect")
+            App.execute 'state:ws:init'
+          , 60000
 
       else
         ## Sockets not available
@@ -180,7 +186,7 @@
         when 'AudioLibrary.OnUpdate', 'VideoLibrary.OnUpdate'
           @onLibraryUpdate data
 
-        # input box has opened
+        # Input box has opened
         when 'Input.OnInputRequested'
           App.execute "input:textbox", ''
           wait = 60
@@ -198,14 +204,19 @@
             return
           ), 1000 * wait)
 
-        # input box has closed
+        # Input box has closed
         when 'Input.OnInputFinished'
           clearTimeout App.inputTimeout
           App.execute "input:textbox:close"
 
-        # xbmc shutdown
+        # Kodi shutdown
         when 'System.OnQuit'
           App.execute "notification:show", t.gettext("Kodi has quit")
+          App.execute "shell:disconnect"
+
+        # Kodi wake or restart
+        when 'System.OnWake', 'System.OnRestart'
+          App.execute "shell:reconnect"
 
         else
           ## do nothing.

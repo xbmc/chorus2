@@ -5,7 +5,7 @@
 
     maxItemsCombinedSearch: 21
 
-    allEntities: ['movie', 'tvshow', 'artist', 'album', 'song']
+    allEntities: ['movie', 'tvshow', 'artist', 'album', 'song', 'musicvideo']
 
     searchFieldMap:
       artist: 'artist'
@@ -13,6 +13,13 @@
       song: 'title'
       movie: 'title'
       tvshow: 'title'
+      musicvideo: 'title'
+
+    entityTitles:
+      musicvideo: 'music video'
+
+    entityPreventSelect:
+      ['tvshow']
 
     initialize: ->
       @pageLayout = @getPageLayout()
@@ -20,6 +27,7 @@
       @processed = [];
       @processedItems = 0;
       @addonSearches = App.request "addon:search:enabled"
+      App.execute "selected:clear:items"
       media = @getOption('media')
       if media is 'all'
         @entities = @allEntities
@@ -51,7 +59,7 @@
       for media in @allEntities
         medias.push
           id: media
-          title: media + 's'
+          title: @getTitle(media) + 's'
       opts =
         links: {media: medias, addon: @addonSearches}
         query: @getOption('query')
@@ -96,9 +104,10 @@
               entity: entity
               more: more
               query: query
-              title: entity + 's'
+              title: @getTitle(entity) + 's'
+              noMenuDefault: helpers.global.inArray entity, @entityPreventSelect
             App.listenTo setView, "show", =>
-              setView.regionResult.show view
+              setView.regionCollection.show view
             ## Add to layout
             @layout["#{entity}Set"].show setView
           @updateProgress entity
@@ -126,11 +135,17 @@
                 title: if i is 1 then addonSearch.title else ''
                 more: false
                 query: @getOption('query')
+                noMenuDefault: true
               App.listenTo setView, "show", =>
                 setView.regionResult.show filesView
               @layout.appendAddonView addonId + type, setView
           @updateProgress addonId
       App.request "file:entities", opts
+
+    ## Get title for an entity
+    getTitle: (entity) ->
+      title = if @entityTitles[entity] then @entityTitles[entity] else entity
+      title
 
     ## Update the progress of the search
     updateProgress: (done) =>

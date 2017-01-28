@@ -56,8 +56,11 @@
         section: section
         filter: @getOption('filter')
       App.listenTo setView, "show", =>
-        setView.regionResult.show view
-      @content["regionSection#{section.idx}"].show setView
+        setView.regionCollection.show view
+      App.listenTo setView, 'landing:set:more', (viewItem) ->
+        App.navigate viewItem.model.get('section').moreLink, {trigger: true}
+      if @content["regionSection#{section.idx}"]
+        @content["regionSection#{section.idx}"].show setView
 
     addFilterValue: (section) ->
       filterVal = @getOption('filter')

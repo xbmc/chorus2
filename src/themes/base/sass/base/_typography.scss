@@ -47,3 +47,7 @@ h1, h2, h3, h4 {
 .text-dim {
   @extend %text--dim;
 }
+
+.modal ul.options {
+  @extend %modal-list;
+}

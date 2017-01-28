@@ -5,13 +5,14 @@
 
   class List.ListLayout extends App.Views.LayoutView
     template: 'apps/search/list/search_layout'
-    className: "search-page set-page"
+    className: "search-page"
     regions:
       artistSet: '.entity-set-artist'
       albumSet:  '.entity-set-album'
       songSet:   '.entity-set-song'
       movieSet:  '.entity-set-movie'
       tvshowSet: '.entity-set-tvshow'
+      musicvideoSet: '.entity-set-musicvideo'
       loadingSet: '.entity-set-loading'
     # Allow dynamically adding multiple addon views to a region
     appendAddonView: (addonId, addonView) ->
@@ -20,20 +21,15 @@
       @regionManager.addRegion addonViewId, '#' + addonViewId
       this[addonViewId].show addonView
 
-  class List.ListSet extends App.Views.LayoutView
-    template: 'apps/search/list/search_set'
-    className: "search-set"
-    onRender: ->
-      if @options and @options.entity
-        if @options.title
-          $('h2.set-header', @$el).html( t.gettext( @options.title ) )
-        else
-          $('h2.set-header', @$el).remove()
+    class List.ListSet extends App.Views.SetLayoutView
+      className: "search-set landing-set"
+      initialize: () ->
+        @setOptions()
+        @createModel()
+      setOptions: () ->
         if @options.more and @options.query
-          moreLink = @themeLink t.gettext('Show more'), 'search/' + @options.entity + '/' + @options.query
-          $('.more', @$el).html( moreLink )
-    regions:
-      regionResult: '.set-results'
+          @options.more = @themeLink t.gettext('Show more'), 'search/' + @options.entity + '/' + @options.query
+
 
   ## List of sidebar links for media and addons
   class List.Sidebar extends App.Views.LayoutView

@@ -45,6 +45,10 @@ $orbit-color: #ddd;
       }
     }
   }
+  .search-page & {
+    position: static;
+    width: 100%;
+  }
 }
 
 .loader {

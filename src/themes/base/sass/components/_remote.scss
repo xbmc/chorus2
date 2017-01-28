@@ -241,3 +241,10 @@ $open-remote-desktop-player-controls-secondary: get-layout($desktop, width-playe
   }
 }
 
+#modal-window.style-system {
+  .modal-dialog {
+    width: 300px;
+    min-width: 300px;
+  }
+}
+

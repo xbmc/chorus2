@@ -20,10 +20,9 @@
 .modal {
   .playlist-selection-list {
     h3 {
-      @extend %sidebar--heading;
+      display: none;
     }
     .lists {
-      @extend %sidebar--list;
       li:after {
         display: none;
       }

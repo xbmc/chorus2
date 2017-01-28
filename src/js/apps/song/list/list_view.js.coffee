@@ -29,7 +29,7 @@
       "click .song-edit"            : "song:edit"
 
     events:
-      "click .dropdown > i": "menuPopulate"
+      "click .dropdown > i": "populateModelMenu"
       "click .thumbs" : "toggleThumbs"
       "click": "toggleSelect"
 

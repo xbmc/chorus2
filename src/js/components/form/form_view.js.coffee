@@ -223,8 +223,9 @@
       _.defer () ->
         if metadataHandler and metadataLookup and item[metadataLookup]
           $wrapper.addClass('images-loading')
-          App.execute metadataHandler, item[metadataLookup], (resp) ->
-            if resp
-              for image in resp[field]
-                $thumbs.append $('<li data-original="' + image.original + '"><img src="' + image.thumb + '" /></li>')
+          App.execute metadataHandler, item[metadataLookup], (collection) ->
+            for image in collection.where({type: field})
+              $('<li>').data('original', image.get('url'))
+                .css('background-image', 'url(' + image.get('thumbnail') + ')')
+                .attr('title', image.get('title')).appendTo($thumbs)
             $wrapper.removeClass('images-loading')
