@@ -1,7 +1,7 @@
 <div class="form-imageselect">
     <ul class="form-imageselect__tabs">
-        <li data-pane="select" class="active"><%= tr('Image Selector') %></li>
-        <li data-pane="url"><%= tr('Image URL') %></li>
+        <li data-pane="select" class="active"><%= tr('Selector') %></li>
+        <li data-pane="url"><%= tr('URL') %></li>
     </ul>
     <div class="form-imageselect__panes">
         <div class="pane active" rel="select">

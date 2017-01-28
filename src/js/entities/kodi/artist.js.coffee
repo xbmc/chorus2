@@ -5,7 +5,7 @@
     fields:
       minimal: []
       small: ['thumbnail', 'mood', 'genre', 'style']
-      full: ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument']
+      full: ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument', 'musicbrainzartistid']
 
     ## Fetch a single artist
     getArtist: (id, options) ->

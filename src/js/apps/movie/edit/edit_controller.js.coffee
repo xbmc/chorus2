@@ -48,10 +48,14 @@
           ]
         }
         {
-          title: 'Other media'
-          id: 'media'
+          title: 'Trailer'
+          id: 'trailers'
           children:[
-            {id: 'trailer', title: tr('Trailer'), type: 'textfield'},
+            {
+              id: 'trailer', title: tr('URL'), type: 'imageselect', attributes: {class: 'fanart-size'},
+              description: t.sprintf(tr('This should be the play path for the trailer. Eg. %1$s'), 'plugin://plugin.video.youtube/?action=play_video&videoid=[YOUTUBE_ID]'),
+              metadataImageHandler: 'youtube:trailer:entities', metadataLookupField: 'title'
+            }
           ]
         }
         {
@@ -60,7 +64,7 @@
           children:[
             {
               id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'),
-              metadataImageHandler: 'themoviedb:movie:images', metadataLookupField: 'imdbnumber'
+              metadataImageHandler: 'themoviedb:movie:image:entities', metadataLookupField: 'imdbnumber'
             }
           ]
         }
@@ -70,7 +74,7 @@
           children:[
             {
               id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
-              metadataImageHandler: 'themoviedb:movie:images', metadataLookupField: 'imdbnumber'
+              metadataImageHandler: 'themoviedb:movie:image:entities', metadataLookupField: 'imdbnumber'
             }
           ]
         }

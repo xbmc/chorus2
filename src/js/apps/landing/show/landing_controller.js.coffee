@@ -59,7 +59,8 @@
         setView.regionCollection.show view
       App.listenTo setView, 'landing:set:more', (viewItem) ->
         App.navigate viewItem.model.get('section').moreLink, {trigger: true}
-      @content["regionSection#{section.idx}"].show setView
+      if @content["regionSection#{section.idx}"]
+        @content["regionSection#{section.idx}"].show setView
 
     addFilterValue: (section) ->
       filterVal = @getOption('filter')

@@ -48,7 +48,7 @@
           children:[
             {
               id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'),
-              metadataImageHandler: 'themoviedb:tv:images', metadataLookupField: 'imdbnumber'
+              metadataImageHandler: 'themoviedb:tv:image:entities', metadataLookupField: 'imdbnumber'
             }
           ]
         }
@@ -58,7 +58,7 @@
           children:[
             {
               id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
-              metadataImageHandler: 'themoviedb:tv:images', metadataLookupField: 'imdbnumber'
+              metadataImageHandler: 'themoviedb:tv:image:entities', metadataLookupField: 'imdbnumber'
             }
           ]
         }

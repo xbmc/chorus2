@@ -25,11 +25,11 @@
           children:[
             {id: 'artist', title: tr('Title'), type: 'textfield'},
             {id: 'description', title: tr('Description'), type: 'textarea'},
-            {id: 'formed', title: tr('Formed'), type: 'textfield'},
-            {id: 'disbanded', title: tr('Disbanded'), type: 'textfield'},
-            {id: 'yearsactive', title: tr('Years Active'), type: 'textfield', format: 'array.string'},
+            {id: 'formed', title: tr('Formed'), type: 'textfield', attributes: {class: 'half-width'}},
+            {id: 'disbanded', title: tr('Disbanded'), type: 'textfield', attributes: {class: 'half-width'}, suffix: '<div class="clearfix"></div>'},
             {id: 'born', title: tr('Born'), type: 'textfield', attributes: {class: 'half-width'}},
             {id: 'died', title: tr('Died'), type: 'textfield', attributes: {class: 'half-width'}, suffix: '<div class="clearfix"></div>'},
+            {id: 'yearsactive', title: tr('Years Active'), type: 'textfield', format: 'array.string'},
           ]
         }
         {

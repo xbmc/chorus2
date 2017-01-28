@@ -1205,12 +1205,8 @@ msgid "Searching for more images"
 msgstr "Searching for more images"
 
 msgctxt ""
-msgid "Image Selector"
-msgstr "Image Selector"
-
-msgctxt ""
-msgid "Image URL"
-msgstr "Image URL"
+msgid "Selector"
+msgstr "Selector"
 
 msgctxt ""
 msgid "External Search"
@@ -1439,9 +1435,17 @@ msgid "music videos"
 msgstr "music videos"
 
 msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Related music videos from YouTube"
+
+msgctxt ""
 msgid "Lost websocket connection"
 msgstr "Lost websocket connection"
 
 msgctxt ""
 msgid "Attempting websockets reconnect"
 msgstr "Attempting websockets reconnect"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "This should be the play path for the trailer. Eg. %1$s"

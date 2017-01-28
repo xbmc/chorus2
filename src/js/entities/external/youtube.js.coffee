@@ -9,6 +9,9 @@
     searchUrl: 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDefinition=any&videoEmbeddable=true&order=relevance&safeSearch=none'
     maxResults: 5
 
+    kodiUrl: 'plugin://plugin.video.youtube/?action=play_video&videoid='
+    ytURL: 'https://youtu.be/'
+
     getSearchUrl: ->
       @searchUrl + '&key=' + @apiKey
 
@@ -22,21 +25,14 @@
           label: item.snippet.title
           desc: item.snippet.description
           thumbnail: item.snippet.thumbnails.medium.url
-          url: 'https://youtu.be/' + item.id.videoId
+          url: API.ytURL + item.id.videoId
           addonEnabled: enabled
         items.push resp
       items
 
 
-  class Entities.youtubeItem extends Entities.Model
-    defaults:
-      id: ''
-      title: ''
-      desc: ''
-      thumbnail: ''
-
-  class Entities.youtubeCollection extends Entities.Collection
-    model: Entities.youtubeItem
+  class Entities.YouTubeCollection extends Entities.ExternalCollection
+    model: Entities.ExternalEntity
     url: API.getSearchUrl()
     sync: (method, collection, options) ->
       options.dataType = "jsonp"
@@ -47,7 +43,7 @@
 
 
   App.commands.setHandler "youtube:search:entities", (query, options = {}, callback) ->
-    yt = new Entities.youtubeCollection()
+    yt = new Entities.YouTubeCollection()
     data = _.extend {q: query, maxResults: API.maxResults}, options
     yt.fetch({
       data: data
@@ -56,3 +52,12 @@
       error: (collection) ->
         helpers.debug.log 'Youtube search error', 'error', collection
     })
+
+  App.commands.setHandler "youtube:trailer:entities", (title, callback) ->
+    App.execute "youtube:search:entities", title + ' trailer', {}, (collection) ->
+      collection.map (item) ->
+        item.set
+          type: 'trailer'
+          url: API.kodiUrl + item.id
+        item
+      callback collection

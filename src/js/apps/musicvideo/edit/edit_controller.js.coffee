@@ -47,7 +47,7 @@
           children:[
             {
               id: 'thumbnail', title: tr('URL'), type: 'imageselect', valueProperty: 'thumbnailOriginal', description: tr('Add an image via an external URL'), attributes: {class: 'fanart-size'},
-              metadataImageHandler: 'fanarttv:artist:images', metadataLookupField: 'artist'
+              metadataImageHandler: 'fanarttv:artist:image:entities', metadataLookupField: 'artist'
             }
           ]
         }
@@ -57,7 +57,7 @@
           children:[
             {
               id: 'fanart', title: tr('URL'), type: 'imageselect', valueProperty: 'fanartOriginal', description: tr('Add an image via an external URL'),
-              metadataImageHandler: 'fanarttv:artist:images', metadataLookupField: 'artist'
+              metadataImageHandler: 'fanarttv:artist:image:entities', metadataLookupField: 'artist'
             }
           ]
         }

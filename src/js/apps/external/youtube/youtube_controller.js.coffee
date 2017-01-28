@@ -7,13 +7,22 @@
         view = new Youtube[viewName]
           collection: collection
           title: title
-        App.listenTo view, 'childview:youtube:kodiplay', (parent, item) ->
-          playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-          playlist.play 'file', 'plugin://plugin.video.youtube/play/?video_id=' + item.model.get('id')
+        App.listenTo view, 'childview:youtube:play', (parent, item) ->
+          if item.model.get('addonEnabled')
+            API.playKodi item.model.get('id')
+          else
+            API.playLocal item.model.get('id')
         App.listenTo view, 'childview:youtube:localplay', (parent, item) ->
-          localPlayer = "videoPlayer.html?yt=" + item.model.get('id')
-          helpers.global.localVideoPopup localPlayer, 530
+          API.playLocal item.model.get('id')
         callback view
+
+    playLocal: (id) ->
+      localPlayer = "videoPlayer.html?yt=" + id
+      helpers.global.localVideoPopup localPlayer, 530
+
+    playKodi: (id) ->
+      playlist = App.request "command:kodi:controller", 'video', 'PlayList'
+      playlist.play 'file', 'plugin://plugin.video.youtube/play/?video_id=' + id
 
 
   App.commands.setHandler "youtube:search:view", (query, callback) ->

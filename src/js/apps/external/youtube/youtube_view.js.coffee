@@ -4,8 +4,8 @@
     template: 'apps/external/youtube/youtube'
     tagName: 'li'
     triggers:
-      'click .play-kodi': 'youtube:kodiplay'
-      'click .play-local': 'youtube:localplay'
+      'click .play': 'youtube:play'
+      'click .localplay': 'youtube:localplay'
     events:
       'click .action': 'closeModal'
     closeModal: ->
@@ -18,7 +18,7 @@
 
   class Youtube.Card extends App.Views.CardView
     triggers:
-      'click .play': 'youtube:kodiplay'
+      'click .play': 'youtube:play'
       'click .localplay': 'youtube:localplay'
     initialize: ->
       @getMeta()
