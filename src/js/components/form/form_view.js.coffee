@@ -229,11 +229,3 @@
                 .css('background-image', 'url(' + image.get('thumbnail') + ')')
                 .attr('title', image.get('title')).appendTo($thumbs)
             $wrapper.removeClass('images-loading')
-
-#            if resp
-#              for image in resp[field]
-#                title = if image.title then image.title else ''
-#                $('<li>').data('original', image.original)
-#                  .css('background-image', 'url(' + image.thumb + ')')
-#                  .attr('title', title).appendTo($thumbs)
-#            $wrapper.removeClass('images-loading')
