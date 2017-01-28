@@ -15,7 +15,6 @@ Version 2.4.2
 * Added disconnect notice when kodi has quit #10
 * Updated Polish Translation #216
 
-
 Version 2.4.1
 -------------
 * Added album to song table #212
