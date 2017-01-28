@@ -54,7 +54,7 @@
 
     ## Get some extra vids from youtube.
     getRelatedVideos: (musicvideo) ->
-      title = tr 'Related music videos on YouTube'
+      title = tr 'Related music videos from YouTube'
       opts = {maxResults: 8}
       App.execute 'youtube:list:view', musicvideo.get('title') + ' ' + musicvideo.get('artist'), title, opts, (view) =>
         @layout.regionContent.show view

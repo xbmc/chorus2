@@ -25,6 +25,7 @@
     disableThumbs: false
     showDeviceName: false
     refreshIgnoreNFO: true
+    largeBreakpoint: 910
 }
 
 ## The App Instance

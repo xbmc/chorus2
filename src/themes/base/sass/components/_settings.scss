@@ -66,8 +66,11 @@
   .form-groups .draggable-row {
     position: relative;
     border-bottom: 1px solid rgba($color-greyscale-alto, 0.6);
-    padding: $spacing-base-unit $spacing-half-unit;
-    cursor: move;
+    padding: $spacing-base-unit $spacing-double-unit $spacing-half-unit $spacing-half-unit;
+    @include at-bp(large) {
+      cursor: move;
+      padding-right: $spacing-base-unit;
+    }
     &:nth-child(even) {
       background: rgba($color-greyscale-mercury, 0.2);
     }
@@ -90,12 +93,14 @@
     }
     .remove-item {
       @include set-position-absolute(top 0 right 0);
-      padding: 0 $spacing-half-unit $spacing-quarter-unit;
+      padding: $spacing-half-unit $spacing-half-unit $spacing-quarter-unit;
       color: rgb(146, 18, 18);
-      display: none;
       font-size: 1.5em;
       cursor: pointer;
       opacity: 0.5;
+      @include at-bp(large) {
+        display: none;
+      }
       &:hover {
         opacity: 0.9;
       }

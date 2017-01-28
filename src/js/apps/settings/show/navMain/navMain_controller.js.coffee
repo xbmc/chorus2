@@ -76,13 +76,14 @@
         $(@).closest('.add-another-wrapper').before formView.render().$el
         self.binds()
 
-      # Reordering and dragging
-      $('.form-groups', $ctx).sortable({
-        draggable: ".draggable-row"
-        onEnd: (e) ->
-          $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
-            $(d).attr 'value', i
-      });
+      # Reordering and dragging (large screen only)
+      if $(window).width() > config.getLocal('largeBreakpoint')
+        $('.form-groups', $ctx).sortable({
+          draggable: ".draggable-row"
+          onEnd: (e) ->
+            $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
+              $(d).attr 'value', i
+        });
 
       # Reset default link
       $('.nav-restore-defaults', $ctx).on "click", (e) =>
