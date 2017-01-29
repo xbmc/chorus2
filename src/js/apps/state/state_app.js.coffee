@@ -30,6 +30,7 @@
         newClasses.push ( stateObj.getPlaying('playState') )
       else
         newClasses.push ('not-playing')
+#      $body.removeClass('local-partymode-on')
       for c in newClasses
         $body.addClass @playerClass(c, player)
 

@@ -8,14 +8,18 @@
 ## usage: $('#hello').removeClassRegex(/^color-/)
 $.fn.removeClassRegex = (regex) ->
   $(@).removeClass (index, classes) ->
+    console.log classes
     classes.split(/\s+/).filter (c) ->
       regex.test c
     .join ' '
 
 ## Remove classes starting with...
 $.fn.removeClassStartsWith = (startsWith) ->
-  regex = new RegExp('^' + startsWith, 'g');
-  $(@).removeClassRegex(regex)
+  @each (i, el) ->
+    classes = el.className.split(" ").filter (c) ->
+      c.lastIndexOf(startsWith, 0) isnt 0
+    el.className = $.trim classes.join(" ")
+    @
 
 ## On scroll stop
 ## http://stackoverflow.com/a/14035162

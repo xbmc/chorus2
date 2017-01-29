@@ -234,7 +234,8 @@ $playlist-item-open-height: 80px;
         .party-mode {
           i {
             display: none;
-            .kodi-partymode-on & {
+            .active-player-local.local-partymode-on &,
+            .active-player-kodi.kodi-partymode-on & {
               display: inline-block;
             }
           }
