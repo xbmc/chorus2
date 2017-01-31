@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-01-16 12:02+0100\n"
+"PO-Revision-Date: 2017-01-31 13:15+0100\n"
 "Last-Translator: Marcin W.\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -1228,7 +1228,7 @@ msgstr "Seriale i odcinki"
 
 msgctxt ""
 msgid "Top music"
-msgstr "Najlepsza muzyka"
+msgstr "Ulubiona muzyka"
 
 msgctxt ""
 msgid "%1$s Artists"
@@ -1333,4 +1333,60 @@ msgstr "Teraz"
 msgctxt ""
 msgid "Rename playlist"
 msgstr "Przemianuj listę"
+
+msgctxt ""
+msgid "album"
+msgstr "album"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Wideo"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Zerwane połączenie z Kodi"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Próba ponownego połączenia"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Trwa próba ponownego połączenia"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Ulubione Utwory"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Ulubione Albumy"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Zmień zaznaczenie wszystkich pozycji"
+
+msgctxt ""
+msgid "More like this"
+msgstr "Podobne"
+
+msgctxt ""
+msgid "music videos"
+msgstr "teledyski"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Powiązane teledyski na YouTube"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Zerwane połączenie WebSocket"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Trwa próba ponownego połączenia WebSocket"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "To powinna być ścieżka odtwarzania zwiastuna. Np. %1$s"
 
