@@ -25,7 +25,7 @@ Taste "<" = Vorheriger
 Taste "\" = Vollbild
 ```
 
-[Verbesserungsverschläge? klicke hier](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
+[Verbesserungsverschläge? Klicke hier.](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
 
 ## Browser
 
