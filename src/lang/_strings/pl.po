@@ -106,7 +106,7 @@ msgstr "Zakończono skanowanie biblioteki muzyki"
 
 msgctxt ""
 msgid "Kodi has quit"
-msgstr "Proces Kodi został zamknięty"
+msgstr "Program Kodi został zamknięty"
 
 msgctxt ""
 msgid "Sections"
