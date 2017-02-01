@@ -311,7 +311,7 @@ msgctxt ""
 msgid "Result"
 msgid_plural "Results"
 msgstr[0] "Wynik"
-msgstr[1] "Wyniki"
+msgstr[1] "Wyników"
 msgstr[2] "Wyników"
 
 msgctxt ""
