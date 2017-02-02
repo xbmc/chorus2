@@ -76,7 +76,7 @@
       'click .play' : 'folder:play'
       'click .queue' : 'folder:queue'
     events:
-      "click .dropdown > i": "menuPopulate"
+      "click .dropdown > i": "populateModelMenu"
     initialize: ->
       menu = {queue: tr('Queue in Kodi')}
       @model.set({menu: menu})
@@ -94,7 +94,7 @@
       'click .queue' : 'file:queue'
       'click .download' : 'file:download'
     events:
-      "click .dropdown > i": "menuPopulate"
+      "click .dropdown > i": "populateModelMenu"
     initialize: ->
       menu = {queue: tr('Queue in Kodi')}
       if @model.get('filetype') is 'file' and @model.get('file').lastIndexOf('plugin://', 0) isnt 0
