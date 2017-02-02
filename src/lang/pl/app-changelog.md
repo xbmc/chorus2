@@ -1,3 +1,20 @@
+Wersja 2.4.2
+-------------
+* Dodano do edytora filmu możliwość wyboru zwiastuna
+* Dodano obsługę przyciku Power na pilocie dzięku czemu możliwe jest: Zamknięcie Kodi, Zamknięcie systemu, Uruchomienie ponownie, Uśpienie i Hibernacja #28
+* Dodano funkcję ponownego połączenia WebSocket po zerwaniu połączenia #15
+* Dodano możliwość zaznaczenia wszystkich pozycji i wykonanie na nich akcji #156
+* Dodano do strony informacji o odcinku, pole z datą emisji #170
+* Dodano obsługę ChromeCast do funkcji odtwarzania w przeglądarce #220
+* Zamieniono biblioteki odtwarzacza wideo na lokalne odpowiedniki, ulepszono wygląd i naprawiono drobne błędy #219
+* Dodano możliwość sterowania głośnością przy pomocy klawiszy (- i =), użyteczne w przypadku braku klawiatury numerycznej #202
+* Usunięto biblioteki Cocktail i Mixins, które nie są już używane #179
+* Dodano zewnętrzne łącza do strony informacji o teledysku
+* Dodano możliwość wyszukiwania fototapet i miniatur dla teledysków w serwisach Fanart.tv i MusicBrainz
+* Dodano obsługę teledysków #217
+* Dodano powiadomienie o rozłączeniu w przypadku zamknięcia programu Kodi #10
+* Zaktualizowano tłumaczenie na język polski #216
+
 Wersja 2.4.1
 -------------
 * Dodano album do tabeli utworu #212
