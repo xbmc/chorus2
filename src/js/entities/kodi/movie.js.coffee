@@ -7,9 +7,9 @@
   API =
 
     fields:
-      minimal: ['title']
-      small: ['thumbnail', 'playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set']
-      full: ['fanart', 'plotoutline', 'studio', 'mpaa', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer']
+      minimal: ['title', 'thumbnail']
+      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa']
+      full: ['fanart', 'plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country', 'tag']
 
     ## Fetch a single entity
     getEntity: (id, options) ->
@@ -20,22 +20,8 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: true, expires: config.get('static', 'collectionCacheExpiry')}
-      options = _.extend defaultOptions, options
       collection = new KodiEntities.MovieCollection()
-      collection.fetch options
-      collection
-
-    ## Fetch a recent entity collection.
-    getRecentlyAddedCollection: (options) ->
-      collection = new KodiEntities.MovieRecentlyAddedCollection()
-      collection.fetch options
-      collection
-
-    ## Fetch a filtered collection.
-    getFilteredCollection: (options) ->
-      collection = new KodiEntities.MovieFilteredCollection()
-      collection.fetch options
+      collection.fetch helpers.entities.buildOptions(options)
       collection
 
   ###
@@ -58,24 +44,17 @@
   ## Movies collection
   class KodiEntities.MovieCollection extends App.KodiEntities.Collection
     model: KodiEntities.Movie
-    methods: read: ['VideoLibrary.GetMovies', 'arg1', 'arg2', 'arg3']
-    arg1: -> helpers.entities.getFields(API.fields, 'small')
-    arg2: -> @argLimit()
-    arg3: -> @argSort("title", "ascending")
+    methods: read: ['VideoLibrary.GetMovies', 'properties', 'limits', 'sort', 'filter']
+    args: -> @getArgs
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
+      sort: @argSort('title', 'ascending')
+      filter: @argFilter()
     parse: (resp, xhr) -> @getResult resp, 'movies'
 
-  ## Movies collection
-  class KodiEntities.MovieRecentlyAddedCollection extends App.KodiEntities.Collection
+  ## Movie Custom collection, assumed passed an array of raw entity data.
+  class KodiEntities.MovieCustomCollection extends App.KodiEntities.Collection
     model: KodiEntities.Movie
-    methods: read: ['VideoLibrary.GetRecentlyAddedMovies', 'arg1', 'arg2']
-    arg1: -> helpers.entities.getFields(API.fields, 'small')
-    arg2: -> @argLimit()
-    parse: (resp, xhr) -> @getResult resp, 'movies'
-
-  ## Filtered Movie collection
-  class KodiEntities.MovieFilteredCollection extends KodiEntities.MovieCollection
-    methods: read: ['VideoLibrary.GetMovies', 'arg1', 'arg2', 'arg3', 'arg4']
-    arg4: -> @argFilter()
 
   ###
    Request Handlers.
@@ -89,19 +68,10 @@
   App.reqres.setHandler "movie:entities", (options = {}) ->
     API.getCollection options
 
-  ## Get an movie collection
-  App.reqres.setHandler "movie:filtered:entities", (options = {}) ->
-    API.getFilteredCollection options
+  ## Given an array of models, return as collection.
+  App.reqres.setHandler "movie:build:collection", (items) ->
+    new KodiEntities.MovieCustomCollection items
 
-  ## Get an movie collection
-  App.reqres.setHandler "movie:recentlyadded:entities", (options = {}) ->
-    API.getRecentlyAddedCollection options
-
-  ## Get a search collection
-  App.commands.setHandler "movie:search:entities", (query, limit, callback) ->
-    collection = API.getCollection {}
-    App.execute "when:entity:fetched", collection, =>
-      filtered = new App.Entities.Filtered(collection)
-      filtered.filterByString('label', query)
-      if callback
-        callback filtered
+  ## Get full field/property list for entity
+  App.reqres.setHandler "movie:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

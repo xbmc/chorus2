@@ -294,7 +294,7 @@ msgstr ""
 "updates. Which makes things slower and uses more resources. Please ensure "
 "you have 'Allow programs on other systems to control Kodi' ENABLED in the "
 "Kodi settings (System > Services > Remote control). You may also get this if "
-"you are using proxies or accessing via an IP addess when localhost will "
+"you are using proxies or accessing via an IP address when localhost will "
 "suffice. If websockets normally works, you might just need to refresh your "
 "browser."
 
@@ -658,10 +658,10 @@ msgstr "Main Menu Structure"
 
 msgctxt ""
 msgid ""
-"Here you can change the title, url and icons for menu items. You can also "
+"Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 msgstr ""
-"Here you can change the title, url and icons for menu items. You can also "
+"Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 
 msgctxt ""
@@ -719,10 +719,10 @@ msgstr "Disable Thumbs Up"
 msgctxt ""
 msgid ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
-"the menu item from the "
+"the menu item from the %1$s"
 msgstr ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
-"the menu item from the "
+"the menu item from the %1$s"
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
@@ -731,3 +731,721 @@ msgstr "You need to 'Allow remote control' for Kodi. You can do that"
 msgctxt ""
 msgid "here"
 msgstr "here"
+
+msgctxt ""
+msgid "yes"
+msgstr "yes"
+
+msgctxt ""
+msgid "no"
+msgstr "no"
+
+msgctxt ""
+msgid "close"
+msgstr "close"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "Set all episodes for this season as"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Set all episodes for this TV show as"
+
+msgctxt ""
+msgid "watched"
+msgstr "watched"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "unwatched"
+
+msgctxt ""
+msgid "genre"
+msgstr "genre"
+
+msgctxt ""
+msgid "studio"
+msgstr "studio"
+
+msgctxt ""
+msgid "rated"
+msgstr "rated"
+
+msgctxt ""
+msgid "episodes"
+msgstr "episodes"
+
+msgctxt ""
+msgid "total"
+msgstr "total"
+
+msgctxt ""
+msgid "set"
+msgstr "set"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Show device name"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Show the Kodi device name in the header of Chorus"
+
+msgctxt ""
+msgid "No results found"
+msgstr "No results found"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Have you done a library scan?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Play in browser"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Edit"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Add to Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Watched"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "New playlist"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Play in Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Export list"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Delete playlist"
+
+msgctxt ""
+msgid "title"
+msgstr "title"
+
+msgctxt ""
+msgid "year"
+msgstr "year"
+
+msgctxt ""
+msgid "date added"
+msgstr "date added"
+
+msgctxt ""
+msgid "rating"
+msgstr "rating"
+
+msgctxt ""
+msgid "actor"
+msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "writer"
+msgstr "writer"
+
+msgctxt ""
+msgid "director"
+msgstr "director"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "style"
+msgstr "style"
+
+msgctxt ""
+msgid "items selected"
+msgstr "items selected"
+
+msgctxt ""
+msgid "item selected"
+msgstr "item selected"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Video library clean started"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Video library clean finished"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Audio library clean started"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Audio library clean finished"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Go to season"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Queue in Kodi"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Adding items to the queue"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Recently added albums"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Random albums"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Recently played albums"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Random movies"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Continue watching"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "More from %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "More %1$s movies"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "More movies staring %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Other movies released in %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "artist"
+
+msgctxt ""
+msgid "random"
+msgstr "random"
+
+msgctxt ""
+msgid "label"
+msgstr "label"
+
+msgctxt ""
+msgid "formed"
+msgstr "formed"
+
+msgctxt ""
+msgid "born"
+msgstr "born"
+
+msgctxt ""
+msgid "died"
+msgstr "died"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "disbanded"
+
+msgctxt ""
+msgid "years active"
+msgstr "years active"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Click for more"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Loading albums"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+
+msgctxt ""
+msgid "all media"
+msgstr "all media"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "First aired"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Updated %1$s details"
+
+msgctxt ""
+msgid "Title"
+msgstr "Title"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Plot"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Rating"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Original title"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Directors"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Writers"
+
+msgctxt ""
+msgid "File path"
+msgstr "File path"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Artist"
+
+msgctxt ""
+msgid "Description"
+msgstr "Description"
+
+msgctxt ""
+msgid "Label"
+msgstr "Label"
+
+msgctxt ""
+msgid "Year"
+msgstr "Year"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Styles"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Themes"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Moods"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Album artist"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Track"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Disc"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Tagline"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Content rating"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiered"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Sort title"
+
+msgctxt ""
+msgid "Country"
+msgstr "Country"
+
+msgctxt ""
+msgid "Set"
+msgstr "Set"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Formed"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Disbanded"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Years Active"
+
+msgctxt ""
+msgid "Born"
+msgstr "Born"
+
+msgctxt ""
+msgid "Died"
+msgstr "Died"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instruments"
+
+msgctxt ""
+msgid "more"
+msgstr "more"
+
+msgctxt ""
+msgid "in progress"
+msgstr "in progress"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Add an image via an external URL"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Searching for more images"
+
+msgctxt ""
+msgid "Selector"
+msgstr "Selector"
+
+msgctxt ""
+msgid "External Search"
+msgstr "External Search"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Local media"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus Search"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Search"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Executed addon"
+
+msgctxt ""
+msgid "all"
+msgstr "all"
+
+msgctxt ""
+msgid "video"
+msgstr "video"
+
+msgctxt ""
+msgid "audio"
+msgstr "audio"
+
+msgctxt ""
+msgid "image"
+msgstr "image"
+
+msgctxt ""
+msgid "picture"
+msgstr "picture"
+
+msgctxt ""
+msgid "executable"
+msgstr "executable"
+
+msgctxt ""
+msgid "settings"
+msgstr "settings"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Refresh"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"Refreshing '%1$s' will remove it from the library then re-add it, so the "
+"ID may change. I'll attempt to reload this page with the new ID in a few "
+"seconds. Click 'YES' to confirm refresh"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Refresh Ignore NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignore local NFO files when manually refreshing media."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Show only"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Show and episodes"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Top music"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Artists"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Albums"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Songs"
+
+msgctxt ""
+msgid "default"
+msgstr "default"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Actions"
+
+msgctxt ""
+msgid "play files"
+msgstr "play files"
+
+msgctxt ""
+msgid "queue files"
+msgstr "queue files"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Sent text"
+
+msgctxt ""
+msgid "License"
+msgstr "License"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Main Menu"
+
+msgctxt ""
+msgid "Search"
+msgstr "Search"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Custom Add-on search"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus search supports searching not only local media but add-on content too. For example, you can use the "
+"search to find videos in YouTube or audio in SoundCloud. This page allows you to add custom add-on searches "
+"that are not included out of the box. See the %1$s for more information."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Add-ons help page"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "No %1$s found"
+
+msgctxt ""
+msgid "results"
+msgstr "results"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "EPG data"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Recordings"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Channel recording toggled"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "TV Channels"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Radio Stations"
+
+msgctxt ""
+msgid "Record"
+msgstr "Record"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Toggle timer"
+
+msgctxt ""
+msgid "Now"
+msgstr "Now"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Rename playlist"
+
+msgctxt ""
+msgid "album"
+msgstr "album"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Videos"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Lost connection to Kodi"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Attempt to reconnect"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Attempting reconnect"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Top Songs"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Top Albums"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Toggle select all"
+
+msgctxt ""
+msgid "More like this"
+msgstr "More like this"
+
+msgctxt ""
+msgid "music videos"
+msgstr "music videos"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Related music videos from YouTube"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Lost websocket connection"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Attempting websockets reconnect"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "This should be the play path for the trailer. Eg. %1$s"

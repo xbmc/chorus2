@@ -1,0 +1,52 @@
+
+.icon-browser {
+  max-width: none;
+  background: rgba($color-white, 0.5);
+
+  h3 {
+    padding-bottom: $spacing-half-unit;
+    border-bottom: 1px solid $color-greyscale-alto;
+    margin-bottom: $spacing-half-unit;
+  }
+
+  ul {
+    @extend %clearfix;
+  }
+
+  i {
+    font-size: 3.1em;
+    margin-right: $spacing-quarter-unit;
+    float: left;
+  }
+
+  li {
+    border-radius: 5px;
+    width: 210px;
+    padding: $spacing-half-unit;
+    margin: $spacing-half-unit;
+    overflow: hidden;
+    float: left;
+    height: 65px;
+    position: relative;
+
+    span {
+      display: block;
+      font-size: 85%
+    }
+
+    small {
+      @include set-position-absolute(left 0 right 0 bottom 0);
+      padding: 4px;
+      background: rgba($color-greyscale-dust-gray, 0.5);
+      text-align: center;
+      display: none;
+    }
+
+    &:hover {
+      background: $color-white;
+      small {
+        display: block;
+      }
+    }
+  }
+}

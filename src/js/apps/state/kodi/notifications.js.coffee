@@ -34,11 +34,17 @@
           App.vent.trigger "sockets:unavailable"
 
         ws.onmessage = (resp) =>
-          @messageRecieved resp
+          @messageReceived resp
 
         ws.onclose = (resp) =>
           helpers.debug.msg "Websockets Closed", "warning", resp
           @wsActive = false;
+          App.execute "notification:show", tr("Lost websocket connection")
+          # Schedule an attempt at a reconnect to web sockets in 60 secs
+          setTimeout () ->
+            App.execute "notification:show", tr("Attempting websockets reconnect")
+            App.execute 'state:ws:init'
+          , 60000
 
       else
         ## Sockets not available
@@ -54,7 +60,7 @@
       jQuery.parseJSON(resp.data)
 
     ## Deal with a message.
-    messageRecieved: (resp) ->
+    messageReceived: (resp) ->
       data = @parseResponse resp
       @onMessage data
 
@@ -72,6 +78,22 @@
           if callback
             callback state
       ), 1000)
+
+    ## An item in the library has been updated, trigger a model refresh
+    onLibraryUpdate: (data) ->
+      # This feels like a bug (different structure for audio vs video) and might be fixed one day
+      model = if data.params.data.item then data.params.data.item else data.params.data
+      ## Trigger a update of model in ui
+      model.uid = helpers.entities.createUid model, model.type
+      App.vent.trigger 'entity:kodi:update', model.uid
+      ## Episode updates might affect parent show and happen in bulk, so we defer a show update after 2 seconds.
+      if model.type is 'episode'
+        clearTimeout App.episodeRecheckTimeout
+        App.episodeRecheckTimeout = setTimeout(() ->
+          App.request 'episode:entity', model.id, {success: (epModel) ->
+            App.vent.trigger 'entity:kodi:update', 'tvshow-' + epModel.get('tvshowid')
+          }
+        , 2000)
 
     ## Deal with message responses.
     onMessage: (data) ->
@@ -109,17 +131,18 @@
           @refreshStateNow ->
             App.execute "player:kodi:timer", 'start'
 
-        # list cleared, add, remove
+        # list cleared, add, remove, use a timeout to prevent slowdown on bulk add
         when 'Playlist.OnClear', 'Playlist.OnAdd', 'Playlist.OnRemove'
-          playerController = App.request "command:kodi:controller", 'auto', 'Player'
-          App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
-          @refreshStateNow()
+          clearTimeout App.playlistUpdateTimeout
+          App.playlistUpdateTimeout = setTimeout((e) =>
+            playerController = App.request "command:kodi:controller", 'auto', 'Player'
+            App.execute "playlist:refresh", 'kodi', playerController.playerIdToName(data.params.data.playlistid)
+            @refreshStateNow()
+          , 500)
 
         # volume change
         when 'Application.OnVolumeChanged'
-          @setState 'volume', data.params.data.volume
-          @setState 'muted', data.params.data.muted
-          @refreshStateNow()
+          App.request("state:kodi").getCurrentState()
 
         # Video Library scan
         when 'VideoLibrary.OnScanStarted'
@@ -143,7 +166,27 @@
           Backbone.fetchCache.clearItem('AlbumCollection');
           Backbone.fetchCache.clearItem('ArtistCollection');
 
-        # input box has opened
+        # Audio Library clean start
+        when 'AudioLibrary.OnCleanStarted'
+          App.execute "notification:show", t.gettext("Audio library clean started")
+
+        # Audio Library clean stop
+        when 'AudioLibrary.OnCleanFinished'
+          App.execute "notification:show", t.gettext("Audio library clean finished")
+
+        # Video Library clean start
+        when 'VideoLibrary.OnCleanStarted'
+          App.execute "notification:show", t.gettext("Video library clean started")
+
+        # Video Library clean stop
+        when 'VideoLibrary.OnCleanFinished'
+          App.execute "notification:show", t.gettext("Video library clean finished")
+
+        # Audio Library update
+        when 'AudioLibrary.OnUpdate', 'VideoLibrary.OnUpdate'
+          @onLibraryUpdate data
+
+        # Input box has opened
         when 'Input.OnInputRequested'
           App.execute "input:textbox", ''
           wait = 60
@@ -151,23 +194,29 @@
           # this is to prevent an open dialog preventing api requests
           # Instead of encouraging entering random shizzle how about it's just cancelled and a message saying why?
           App.inputTimeout = setTimeout((->
-            msg = wait + t.gettext(' seconds ago, an input dialog opened on xbmc and it is still open! To prevent ' +
-              'a mainframe implosion, you should probably give me some text. I don\'t really care what it is at this point, ' +
-              'why not be creative? Do you have a ') +
-              '<a href="http://goo.gl/PGE7wg" target="_blank">' + t.gettext('word of the day') + '</a>? ' +
-              t.gettext('I won\'t tell...')
+            wotd = '<a href="http://goo.gl/PGE7wg" target="_blank">word of the day</a>'
+            msg = t.sprintf(tr(
+              "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent " +
+              "a mainframe implosion, you should probably give me some text. I don't really care what it " +
+              "is at this point, why not be creative? Do you have a %2$s? I won't tell..."), wait, wotd
+            )
             App.execute "input:textbox", msg
             return
           ), 1000 * wait)
 
-        # input box has closed
+        # Input box has closed
         when 'Input.OnInputFinished'
           clearTimeout App.inputTimeout
           App.execute "input:textbox:close"
 
-        # xbmc shutdown
+        # Kodi shutdown
         when 'System.OnQuit'
           App.execute "notification:show", t.gettext("Kodi has quit")
+          App.execute "shell:disconnect"
+
+        # Kodi wake or restart
+        when 'System.OnWake', 'System.OnRestart'
+          App.execute "shell:reconnect"
 
         else
           ## do nothing.

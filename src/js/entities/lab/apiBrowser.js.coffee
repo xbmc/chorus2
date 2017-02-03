@@ -15,6 +15,8 @@
 
   API =
 
+    dictionary: {}
+
     fields:
       minimal: []
       small: ['method', 'description', 'thumbnail', 'params', 'permission', 'returns', 'type', 'namespace', 'methodname']
@@ -22,21 +24,26 @@
 
     ## Fetch a single entity
     getEntity: (id, collection) ->
-      model = collection.where({method: id}).shift()
+      model = collection.where({id: id}).shift()
       model
 
     ## Fetch an entity collection.
     getCollection: (options = {}) ->
       collection = new KodiEntities.ApiMethodCollection()
-      collection.fetch options
+      collection.fetch helpers.entities.buildOptions(options)
       collection
 
-    parseCollection: (itemsRaw = []) ->
+    parseCollection: (itemsRaw = [], type = 'method') ->
       items = []
       for method, item of itemsRaw
         item.method = method
         item.id = method
-        methodParts = method.split('.')
+        API.dictionary[item.id] = item.id
+        if type is 'type'
+          item.params = _.extend {}, item
+          item.description = 'API Type'
+        item.type = type
+        methodParts = method.replace('.', '[SPLIT]').split('[SPLIT]')
         item.namespace = methodParts[0]
         item.methodname = methodParts[1]
         items.push item
@@ -56,12 +63,14 @@
   ## Method collection
   class KodiEntities.ApiMethodCollection extends App.KodiEntities.Collection
     model: KodiEntities.ApiMethod
-    methods: read: ['JSONRPC.Introspect', 'arg1', 'arg2', 'arg3']
-    arg1: -> true
-    arg2: -> true
+    methods: read: ['JSONRPC.Introspect', 'getdescriptions', 'getmetadata']
+    args: -> @getArgs
+      getdescriptions: true
+      getmetadata: true
     parse: (resp, xhr) ->
-      items = @getResult resp, 'methods'
-      API.parseCollection(items)
+      methods = API.parseCollection(@getResult(resp, 'methods'), 'method')
+      types = API.parseCollection(@getResult(resp, 'types'), 'type')
+      methods.concat(types)
 
 
   ###
@@ -75,3 +84,7 @@
   ## Get the introspect collection of methods
   App.reqres.setHandler "introspect:entities", (options = {}) ->
     API.getCollection options
+
+  ## Get a dictionary of all known methods/types, must be called after fetch
+  App.reqres.setHandler "introspect:dictionary", () ->
+    API.dictionary

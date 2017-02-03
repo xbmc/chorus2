@@ -4,6 +4,7 @@
 
     ## Return the raw entities stored against this collection
     ## as an array of json objects (not models)
+    ## TODO: Remove this and use toJSON() instead
     getRawCollection: ->
       objs = [];
       if @models.length > 0
@@ -25,11 +26,15 @@
 
     ## Change sort comparator.
     sortCollection: (property, order = 'asc') ->
-      @comparator = (model) =>
-        @ignoreArticleParse model.get(property)
-      if order is 'desc'
-        @comparator = @reverseSortBy @comparator
-      @sort()
+      if property is 'random'
+        @comparator = false
+        @reset @shuffle(), {silent:true}
+      else
+        @comparator = (model) =>
+          @ignoreArticleParse model.get(property)
+        if order is 'desc'
+          @comparator = @reverseSortBy @comparator
+        @sort()
       return
 
     ## Reverse descending sort

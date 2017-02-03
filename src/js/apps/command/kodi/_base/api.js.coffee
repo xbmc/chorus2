@@ -36,14 +36,16 @@
     ## Namespace should be added in each extending class
     commandNameSpace: 'JSONRPC'
 
-    ## Namespace can be overriden when called
+    ## Namespace can be overridden when called
     getCommand: (command, namespace = @commandNameSpace) ->
       namespace + '.' + command
 
     ## Send a command
-    sendCommand: (command, params, callback) ->
-      @singleCommand @getCommand(command), params, (resp) =>
+    sendCommand: (command, params, callback, fail) ->
+      @singleCommand @getCommand(command), params, ((resp) =>
         @doCallback callback, resp
+      ), (err) =>
+        @doCallback fail, err
 
 
   ## Player commander.
@@ -75,10 +77,12 @@
         else
           @doCallback callback, @playerActive
 
-    sendCommand: (command, params = [], callback) ->
+    sendCommand: (command, params = [], callback, fail) ->
       @getParams params, (playerParams) =>
-        @singleCommand @getCommand(command), playerParams, (resp) =>
+        @singleCommand @getCommand(command), playerParams, ((resp) =>
           @doCallback callback, resp
+        ), (err) =>
+          @doCallback fail, err
 
     playEntity: (type, value, options = {}, callback) ->
       params = {'item': @paramObj(type, value), 'options': options}

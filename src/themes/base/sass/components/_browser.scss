@@ -1,4 +1,4 @@
-$file-row-height: 35px;
+$file-row-height: $song-row-height;
 $path-height: $spacing-base-unit * 3;
 $color-side: #F9F9F9;
 
@@ -20,19 +20,58 @@ $color-side: #F9F9F9;
         &.type-addon:before {
             content: icon-code(av-my-library-add);
         }
+        &.type-playlist:before {
+            content: icon-code(action-assignment);
+        }
       }
     }
   }
   .region-content {
     padding: 0;
   }
+
+  .actions {
+    @include set-position-absolute(top 1px right 10px);
+    .sort-toggle, .context-toggle {
+      @include icon-button(content-sort, 30px, 39px);
+      font-size: 1.5em;
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .context-toggle:before {
+      content: icon-code(navigation-more-vert);
+    }
+    > li {
+      display: inline-block;
+    }
+    .dropdown-menu {
+      text-transform: capitalize;
+    }
+  }
+  .sort-wrapper {
+    li {
+      i {
+        @include icon(navigation-expand-more, $pseudo: 'after');
+      }
+      &.order-descending i {
+        @include icon(navigation-expand-less, $pseudo: 'after');
+      }
+      &.active {
+        color: $color-white;
+      }
+    }
+  }
+
 }
 
 .folder-layout {
   .loading-bar,
   .path {
     height: $path-height;
-    background: rgba($color-white, 0.3);
+    padding-right: $path-height + 2;
+    background: rgba($color-black, 0.05);
     .loading & {
       display: none;
     }
@@ -44,6 +83,9 @@ $color-side: #F9F9F9;
         padding: 0 $spacing-base-unit;
         cursor: pointer;
         border-right: 1px dotted rgba($color-black, 0.05);
+        max-width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
         &:last-child {
           border: none;
           font-weight: bold;
@@ -70,6 +112,9 @@ $color-side: #F9F9F9;
         padding: 0 $spacing-base-unit;
       }
     }
+    .loader-small-inline {
+      margin: 0.7em 0 0 0.7em;
+    }
   }
   .folder-container {
     @extend %clearfix;
@@ -88,6 +133,14 @@ $color-side: #F9F9F9;
       }
     }
   }
+  .empty--page-content {
+    @extend %text--dim;
+  }
+}
+
+.folder-layout,
+.browser-file-list,
+.browser-folder-list {
   .folder, .file, .back-button {
     height: $file-row-height + 2;
     position: relative;
@@ -95,6 +148,7 @@ $color-side: #F9F9F9;
     @include thumb-crop($file-row-height, $file-row-height);
     .thumb {
       @include set-position-absolute(top 1px left 0 bottom 1px);
+      z-index: $z-index-beta;
       &:hover {
         .play {
           display: table;
@@ -102,16 +156,40 @@ $color-side: #F9F9F9;
       }
     }
     .title {
-      padding: 7px;
+      @include user-select(none);
+      padding: 0 7px;
       padding-left: $file-row-height + 10;
       cursor: pointer;
+      line-height: $file-row-height;
     }
     .play {
       @include overlay-icon($height: $file-row-height, $font-size: 150%)
     }
   }
+  // File specific styles.
+  .file {
+    .title {
+      @include text-crop($color-background);
+      margin-right: $spacing-triple-unit;
+    }
+  }
+  // Folder specific styles.
   .folder {
     @include text-crop($color-side);
+  }
+  // Files and folders.
+  .file, .folder {
+    .menu {
+      @include actions-menu();
+    }
+    .actions {
+      @include actions-song(1);
+      display: block;
+      z-index: $z-index-gamma;
+      > li > i {
+        opacity: 0.4;
+      }
+    }
   }
   .back-button {
     i {
@@ -123,8 +201,5 @@ $color-side: #F9F9F9;
         width: $file-row-height;
       }
     }
-  }
-  .empty--page-content {
-    @extend %text--dim;
   }
 }

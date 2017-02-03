@@ -1,0 +1,3 @@
+<a href="#<%= @url %>">
+    <span><%= @title %></span>
+</a>

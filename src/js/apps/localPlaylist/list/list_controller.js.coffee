@@ -41,10 +41,12 @@
           media = playlist.get('media')
           view = App.request "#{media}:list:view", collection, true
           @itemLayout.regionListItems.show view
+          @bindRemove id, view
+          @initSortable id, view
       @bindLayout id
       @layout.regionContent.show @itemLayout
 
-    ## Binds
+    ## Binds to layout
     bindLayout: (id) ->
       collection = App.request "localplaylist:item:entities", id
       App.listenTo @itemLayout, 'list:clear', ->
@@ -54,9 +56,42 @@
         App.execute "localplaylist:clear:entities", id
         App.execute "localplaylist:remove:entity", id
         App.navigate "playlists", {trigger: true}
+      App.listenTo @itemLayout, 'list:rename', ->
+        App.execute "localplaylist:rename", id
       App.listenTo @itemLayout, 'list:play', ->
         kodiPlaylist = App.request "command:kodi:controller", 'audio', 'PlayList'
         kodiPlaylist.playCollection(collection)
       App.listenTo @itemLayout, 'list:localplay', ->
         localPlaylist = App.request "command:local:controller", 'audio', 'PlayList'
         localPlaylist.playCollection(collection)
+      App.listenTo @itemLayout, 'list:export', ->
+        App.execute "playlist:export", collection
+
+    ## Binds to items
+    bindRemove: (id, view) ->
+      App.listenTo view, 'childview:song:remove', (parent, viewItem) =>
+        # Update the order, exclude removed item
+        @updateOrder id, view.$el, [parent.$el.data('id')]
+
+    ## Bind sortable
+    initSortable: (id, view) ->
+      self = @
+      $('tbody', view.$el).sortable({
+        onEnd: (e) =>
+          self.updateOrder id, @el
+      });
+
+    ## Rebuild the order of items after sort or item removal, excluded items
+    ## will get removed from the collection
+    updateOrder: (playlistId, $ctx, exclude = []) ->
+      order = []
+      pos = 0
+      $('tr', $ctx).each (i, d) ->
+        id = $(d).data('id')
+        if helpers.global.inArray(id, exclude)
+          $(d).remove()
+        else
+          order.push id
+          $(d).data('id', pos)
+          pos++
+      App.request "localplaylist:item:updateorder", playlistId, order

@@ -1,19 +1,58 @@
-<div class="region-details-title">
-    <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
+<div class="region-details-top">
+    <div class="region-details-title">
+        <h2><span class="title"><%= @label %></span> <span class="sub"><a href="#music/albums?year=<%= @year %>"><%= @year %></a></span></h2>
+    </div>
+    <% if @rating: %>
+    <div class="region-details-rating">
+        <%= @rating %> <i></i>
+    </div>
+    <% end %>
 </div>
-
-
 
 <div class="region-details-meta-below">
 
-    <div class="artist"><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></div>
-
-    <% if @genre.length > 0: %>
-    <div class="album-genres">
-        <%- helpers.url.filterLinks('music/albums', 'genre', @genre) %>
-    </div>
-    <% end %>
+    <ul class="meta">
+        <% if @artist: %>
+            <li><label><%= tr("artist") %>:</label> <span><a href="#music/artist/<%= @artistid %>"><%= @artist %></a></span></li>
+        <% end %>
+        <% if @genre.length > 0: %>
+            <li><label><%= t.ngettext("genre", "genres", @genre.length) %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'genre', @genre) %></span></li>
+        <% end %>
+        <% if @style.length: %>
+            <li><label><%= t.ngettext("style", "styles", @style.length) %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'style', @style) %></span></li>
+        <% end %>
+        <% if @albumlabel: %>
+            <li><label><%= tr("label") %>:</label> <span><%- helpers.url.filterLinks('music/albums', 'albumlabel', [@albumlabel]) %></span></li>
+        <% end %>
+    </ul>
 
     <div class="description"><%= @description %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= tr('Play') %></li>
+        <li class="btn-flat-add add"><%= tr('Queue') %></li>
+        <li class="btn-flat-stream localplay"><%= tr('Stream') %></li>
+        <li class="more-actions dropdown">
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <ul class="dropdown-menu pull-right">
+                <li class="localadd"><%= tr('Add to playlist') %></li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
+                    <ul class="dropdown-menu">
+                        <%- helpers.entities.getAddonSearchMenuItems(@label) %>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu external-search"><%= tr('External Search') %>
+                    <ul class="dropdown-menu">
+                        <li data-type="google" data-query="<%= @artist %> <%= @label %>">Google</li>
+                        <li data-type="soundcloud" data-query="<%= @artist %>">SoundCloud</li>
+                    </ul>
+                </li>
+                <li class="youtube-search" data-query="<%= @artist %> <%= @label %>"><%= tr('YouTube Search') %></li>
+                <li class="divider"></li>
+                <li class="edit"><%= tr('Edit') %></li>
+            </ul>
+        </li>
+    </ul>
 
 </div>

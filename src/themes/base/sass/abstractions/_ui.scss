@@ -35,15 +35,17 @@
   }
 }
 
-@mixin flat-button($color: $color-greyscale-cloudy, $icon: false) {
+@mixin flat-button($color: rgba($color-white, 0.1), $icon: false) {
   display: inline-block;
   @extend %transition--all;
+  @include user-select(none);
   background: $color;
   padding: $spacing-half-unit $spacing-base-unit;
   position: relative;
   cursor: pointer;
-  margin-bottom: $spacing-half-unit;
+  margin: 0 $spacing-half-unit $spacing-half-unit 0;
   color: $color-white;
+  text-transform: capitalize;
   .text {
     @include text-crop($color);
     display: block;
@@ -69,4 +71,54 @@
 }
 %flat-button {
   @include flat-button();
+}
+
+// Turn ul list into tabs, active class to select/
+@mixin basic-tabs() {
+  background: $color-greyscale-alto;
+  margin-bottom: $spacing-base-unit;
+  padding: $spacing-half-unit $spacing-half-unit 0;
+  @extend %clearfix;
+  li {
+    cursor: pointer;
+    float: left;
+    padding: $spacing-half-unit $spacing-base-unit;
+    &.active {
+      background: $color-white;
+      color: $color-brand-primary;
+    }
+    &:hover {
+      color: $color-brand-primary;
+    }
+  }
+}
+
+%basic-tabs {
+  @include basic-tabs();
+}
+
+// Selected item
+@mixin selected-card() {
+  outline: 2px solid $color-kodi;
+  box-shadow: 0 0 10px 1px rgba($color-kodi, 0.5);
+  position: relative;
+  .active-player-local & {
+    outline: 2px solid $color-local;
+    box-shadow: 0 0 10px 1px rgba($color-local, 0.5);
+    &:before {
+      border-color: $color-local;
+    }
+  }
+  &:before {
+    @include set-position-absolute(bottom -10px right -10px);
+    transform: rotate(-45deg);
+    content: '';
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: $color-brand-primary;
+  }
+  .current-progress {
+    display: none;
+  }
 }

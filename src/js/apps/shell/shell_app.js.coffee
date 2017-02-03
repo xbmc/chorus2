@@ -12,7 +12,7 @@
       home = new Shell.HomepageLayout()
       App.regionContent.show home
       @setFanart()
-      ## Change the famart when the state changes.
+      ## Change the fanart when the state changes.
       App.vent.on "state:changed", (state) =>
         stateObj = App.request "state:current"
         if stateObj.isPlayingItemChanged() and helpers.url.arg(0) is ''
@@ -29,7 +29,7 @@
       else
         App.execute "images:fanart:set"
 
-  ## Render the shell.
+    ## Render the shell.
     renderLayout: ->
 
       ## Render Shell and assign its regions to the app.
@@ -39,6 +39,9 @@
 
       ## Kick of loading.
       App.execute "loading:show:page"
+
+      ## Set title.
+      @setAppTitle()
 
       ## Get playlist state.
       playlistState = config.get 'app', 'shell:playlist:state', 'open'
@@ -50,6 +53,12 @@
       App.vent.on "config:local:updated", (data) =>
         @configUpdated()
 
+      ## Listen for active filtering
+      App.vent.on "filter:filtering:start", () =>
+        @alterRegionClasses 'add', "filters-loading"
+      App.vent.on "filter:filtering:stop", () =>
+        @alterRegionClasses 'remove', "filters-loading"
+
       ## Listen for changes to the playlist state.
       App.listenTo shellLayout, "shell:playlist:toggle", (child, args) =>
         playlistState = config.get 'app', 'shell:playlist:state', 'open'
@@ -57,25 +66,14 @@
         config.set 'app', 'shell:playlist:state', state
         @alterRegionClasses 'toggle', "shell-playlist-closed"
 
-      # TODO - find a better for the following listeners (handler for the app menu)
+      ## Listen to reconnect.
+      App.listenTo shellLayout, "shell:reconnect", () =>
+        App.execute 'shell:reconnect'
 
-      # Library scans - not a fan of this living here!
-      App.listenTo shellLayout, "shell:audio:scan", =>
-        App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
-      App.listenTo shellLayout, "shell:video:scan", =>
-        App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
+      ## Additional listeners
+      @bindListenersContextMenu shellLayout
+      @bindListenersSelectedMenu shellLayout
 
-      # Screenshot.
-      App.listenTo shellLayout, "shell:goto:lab", =>
-        App.navigate "#lab", {trigger: true}
-
-      # Send input.
-      App.listenTo shellLayout, "shell:send:input", =>
-        App.execute "input:textbox", ''
-
-      # About.
-      App.listenTo shellLayout, "shell:about", =>
-        App.navigate "#help", {trigger: true}
 
     ## Alter region classes.
     alterRegionClasses: (op, classes, region = 'root') ->
@@ -89,8 +87,43 @@
       disableThumbs = config.getLocal 'disableThumbs', false
       disableThumbsClassOp = if disableThumbs is true then 'add' else 'remove'
       @alterRegionClasses disableThumbsClassOp, 'disable-thumbs'
+      @setAppTitle()
+
+    ## Set app title.
+    setAppTitle: ->
+      App.getRegion('regionTitle').$el.html('')
+      if config.getLocal('showDeviceName', false) is true
+        settingsController = App.request "command:kodi:controller", 'auto', 'Settings'
+        settingsController.getSettingValue 'services.devicename', (title) ->
+          App.getRegion('regionTitle').$el.html(title)
+
+    # Shell listeners for context menu.
+    bindListenersContextMenu: (shellLayout) ->
+      # Library
+      App.listenTo shellLayout, "shell:audio:scan", ->
+        App.request("command:kodi:controller", 'auto', 'AudioLibrary').scan()
+      App.listenTo shellLayout, "shell:video:scan", ->
+        App.request("command:kodi:controller", 'auto', 'VideoLibrary').scan()
+      # Pages
+      App.listenTo shellLayout, "shell:goto:lab", ->
+        App.navigate "#lab", {trigger: true}
+      App.listenTo shellLayout, "shell:about", ->
+        App.navigate "#help", {trigger: true}
+      # Input box
+      App.listenTo shellLayout, "shell:send:input", ->
+        App.execute "input:textbox", ''
+
+    # Shell listeners for selected menu
+    bindListenersSelectedMenu: (shellLayout) ->
+      App.listenTo shellLayout, "shell:selected:play", ->
+        App.execute "selected:action:play"
+      App.listenTo shellLayout, "shell:selected:add", ->
+        App.execute "selected:action:add"
+      App.listenTo shellLayout, "shell:selected:localadd", ->
+        App.execute "selected:action:localadd"
 
 
+  ## On start
   App.addInitializer ->
 
     App.commands.setHandler "shell:view:ready", ->
@@ -108,3 +141,22 @@
       ## Add, Remove, Toggle classes on body.
       App.commands.setHandler "body:state", (op, state) ->
         API.alterRegionClasses op, state
+
+
+  ## Attempt Kodi reconnect
+  App.commands.setHandler 'shell:reconnect', () ->
+    API.alterRegionClasses 'add', 'reconnecting'
+    helpers.connection.reconnect () ->
+      # Success.
+      API.alterRegionClasses 'remove', 'lost-connection'
+      API.alterRegionClasses 'remove', 'reconnecting'
+
+
+
+
+  ## Kodi disconnected
+  App.commands.setHandler 'shell:disconnect', () ->
+    API.alterRegionClasses 'add', 'lost-connection'
+    API.alterRegionClasses 'remove', 'reconnecting'
+    helpers.connection.disconnect () ->
+      # Kodi disconnect.

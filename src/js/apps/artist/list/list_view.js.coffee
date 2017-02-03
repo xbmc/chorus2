@@ -9,6 +9,7 @@
       "click .dropdown .add" : "artist:add"
       "click .dropdown .localadd" : "artist:localadd"
       "click .dropdown .localplay" : "artist:localplay"
+      "click .dropdown .edit" : "artist:edit"
 
     initialize: ->
       super
@@ -20,12 +21,6 @@
     className: "artist-empty-result"
 
   class List.Artists extends App.Views.VirtualListView
-    childView: List.ArtistTeaser
-    emptyView: List.Empty
-    tagName: "ul"
-    className: "card-grid--wide"
-
-  class List.ArtistsSet extends App.Views.CollectionView
     childView: List.ArtistTeaser
     emptyView: List.Empty
     tagName: "ul"

@@ -5,10 +5,23 @@
     getSeasonList: (collection) ->
       view = new Season.Seasons
         collection: collection
-      App.listenTo view, 'childview:season:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        ## playlist.play 'tvshowid', item.model.get('tvshowid')
       view
+
+    bindTriggers: (view) ->
+      App.listenTo view, 'season:play', (view) ->
+        App.execute 'tvshow:action', 'play', view
+      App.listenTo view, 'season:add', (view) ->
+        App.execute 'tvshow:action', 'add', view
+      App.listenTo view, 'toggle:watched', (view) ->
+        App.execute 'tvshow:action:watched', view.view, view.view, true
+
+    mergeSeasonDetails: (tvshow, season, seasons) ->
+      mergeAttributes = ['season', 'thumbnail', 'episode', 'unwatched', 'playcount', 'progress', 'watchedepisodes']
+      attributes = {seasons: seasons, type: 'season'}
+      for prop in mergeAttributes
+        attributes[prop] = season.get(prop)
+      tvshow.set(attributes)
+      tvshow
 
 
   ## Main controller
@@ -23,39 +36,42 @@
       tvshow = App.request "tvshow:entity", id
       App.execute "when:entity:fetched", tvshow, =>
 
-        ## Get the layout.
-        @layout = @getLayoutView tvshow
+        ## Fetch the seasons
+        seasons = App.request "season:entities", tvshow.get('id')
+        App.execute "when:entity:fetched", seasons, =>
+          ## Merge current season
+          season = seasons.findWhere({season: seasonId})
+          tvshow = API.mergeSeasonDetails tvshow, season, seasons
 
-        ## Listen to the show of our layout.
-        @listenTo @layout, "show", =>
-          @getDetailsLayoutView tvshow, seasonId
-          @getEpisodes tvshow, seasonId
+          ## Get the layout.
+          @layout = @getLayoutView tvshow
 
-        ## Add the layout to content.
-        App.regionContent.show @layout
+          ## Listen to the show of our layout.
+          @listenTo @layout, "show", =>
+            @getDetailsLayoutView tvshow
+            @getEpisodes tvshow, seasonId
+
+          ## Add the layout to content.
+          App.regionContent.show @layout
 
     getLayoutView: (tvshow) ->
       new Season.PageLayout
-        tvshow: tvshow
+        model: tvshow
 
     ## Build the details layout.
-    getDetailsLayoutView: (tvshow, seasonId) ->
-      ## Fetch the seasons
-      seasons = App.request "season:entities", tvshow.get('id')
-      App.execute "when:entity:fetched", seasons, =>
-        season = seasons.findWhere({season: seasonId})
-        tvshow.set({season: seasonId, thumbnail: season.get('thumbnail'), seasons: seasons})
+    getDetailsLayoutView: (tvshow) ->
         headerLayout = new Season.HeaderLayout model: tvshow
         @listenTo headerLayout, "show", =>
           teaser = new Season.SeasonDetailTeaser model: tvshow
           detail = new Season.Details model: tvshow
+          API.bindTriggers detail
           headerLayout.regionSide.show teaser
           headerLayout.regionMeta.show detail
         @layout.regionHeader.show headerLayout
 
     ## Get the episodes
     getEpisodes: (tvshow, seasonId) ->
-      collection = App.request "episode:entities", tvshow.get('tvshowid'), seasonId
+      collection = App.request "episode:tvshow:entities", tvshow.get('tvshowid'), seasonId
       App.execute "when:entity:fetched", collection, =>
         collection.sortCollection('episode', 'asc')
         view = App.request "episode:list:view", collection

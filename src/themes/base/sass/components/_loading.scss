@@ -31,6 +31,24 @@ $orbit-color: #ddd;
       margin-top: 33rem;
     }
   }
+  .loader-inline & {
+    position: relative;
+    bottom: 0;
+    left: 0 !important;
+    right: 0 !important;
+    h2 {
+      margin-top: 10rem;
+    }
+    @include at-desktop {
+      h2 {
+        margin-top: 12rem;
+      }
+    }
+  }
+  .search-page & {
+    position: static;
+    width: 100%;
+  }
 }
 
 .loader {
@@ -181,6 +199,9 @@ $unit: $size / 20;
   border: $unit solid rgba($inactive, 0.2);
   //background-color: rgba($color-white, 0.1);
   @include animation(spinner $speed linear infinite);
+  .loader-inline & {
+    top: 5em;
+  }
 }
 @include keyframes(spinner) {
   0% { transform: rotate(0); }
@@ -229,3 +250,28 @@ $unit: $size / 20;
     top: 20em;
   }
 }
+
+/*
+ * Other Loader styles.
+ */
+
+// Small inline spinner.
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader-small-inline {
+  border-radius: 50%;
+  width: $height-loader-small;
+  height: $height-loader-small;
+  border: .25rem solid rgba($color-black, 0.1);
+  border-top-color: $color-brand-primary;
+  animation: spin 1s infinite linear;
+  display: inline-block;
+}
+
+

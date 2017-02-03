@@ -17,7 +17,7 @@
 
     ## Fetch an entity collection.
     getCollection: (options) ->
-      defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry')}
+      defaultOptions = {cache: false, expires: config.get('static', 'collectionCacheExpiry'), useNamedParameters: true}
       options = _.extend defaultOptions, options
       collection = new KodiEntities.SeasonCollection()
       collection.fetch options
@@ -39,17 +39,17 @@
       obj.unwatched = obj.episode - obj.watchedepisodes
       @parseModel 'season', obj, obj.tvshowid + '/' + obj.season
 
-  ## Seasonss collection
+  ## Seasons collection
   class KodiEntities.SeasonCollection extends App.KodiEntities.Collection
     model: KodiEntities.Season
-    methods: read: ['VideoLibrary.GetSeasons', 'arg1', 'arg2', 'arg3', 'arg4']
-    arg1: ->@argCheckOption('tvshowid', 0)
-    arg2: -> helpers.entities.getFields(API.fields, 'small')
-    arg3: -> @argLimit()
-    arg4: -> @argSort("season", "ascending")
+    methods: read: ['VideoLibrary.GetSeasons', 'tvshowid', 'properties', 'limits', 'sort']
+    args: -> @getArgs
+      tvshowid: @argCheckOption('tvshowid', 0)
+      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
+      limits: @argLimit()
+      sort: @argSort("season", "ascending")
     parse: (resp, xhr) ->
       @getResult resp, 'seasons'
-
 
   ###
    Request Handlers.
@@ -63,3 +63,7 @@
   App.reqres.setHandler "season:entities", (tvshowid, options = {}) ->
     options.tvshowid = tvshowid
     API.getCollection options
+
+  ## Get full field/property list for entity
+  App.reqres.setHandler "season:fields", (type = 'full') ->
+    helpers.entities.getFields(API.fields, type)

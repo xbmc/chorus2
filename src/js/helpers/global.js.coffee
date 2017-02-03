@@ -64,13 +64,12 @@ helpers.global.timeToSec = (time) ->
 
   
 ## Convert EPG time to JS date
-helpers.global.epgDateTimeToJS = (datetime) ->
+helpers.global.dateStringToObj = (datetime) ->
   if not datetime
     new Date 0 # Will equal start of epoch?
   else
     ## This will add the offset which should make the time correct as the EPG date time is UTC
     new Date(datetime.replace(" ","t"))
-
 
 ## format a nowplaying time object for display
 helpers.global.formatTime = (time) ->
@@ -102,7 +101,7 @@ helpers.global.stringStartsWith = (start, data) ->
   new RegExp('^' + helpers.global.regExpEscape(start)).test(data)
 
 
-## Strip a string from the begining of another string
+## Strip a string from the beginning of another string
 helpers.global.stringStripStartsWith = (start, data) ->
   data.substring(start.length)
 
@@ -153,10 +152,24 @@ helpers.global.stripTags = (string) ->
   else
     ''
 
-# Round to decimal places.
+## Round to decimal places.
 helpers.global.round = (x, places = 0) ->
   parseFloat(x.toFixed(places))
 
 ## Given a position and total, return percent to 2 decimal places
 helpers.global.getPercent = (pos, total, places = 2) ->
   Math.floor((pos / total) * (100 * Math.pow(10, places))) / 100
+
+## Trigger save dialog to save a text file
+helpers.global.saveFileText = (content, filename = 'untitled.txt') ->
+  try
+    isFileSaverSupported = !!new Blob
+    if isFileSaverSupported
+      content = content.replace(String.fromCharCode(65279), "" )
+      blob = new Blob([content], {type: "text/plain;charset=utf-8"})
+      saveAs(blob, filename, true)
+  catch error
+    Kodi.execute "notification:show", tr('Saving is not supported by your browser')
+
+helpers.global.removeBBCode = (string) ->
+  string.replace(/\[\/?(?:b|i|u|url|quote|code|img|color|size|B|I|U|URL|QUOTE|CODE|IMG|COLOR|SIZE)*?.*?\]/img, '')

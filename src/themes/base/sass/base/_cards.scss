@@ -4,7 +4,7 @@
 // =============================================================================
 
 // Common dimensions.
-$card-width: 160px;
+$card-width: 159px;
 $card-width-mobile: 60px;
 $card-wide-width: 276px;
 $card-spacing: 5px;
@@ -34,7 +34,7 @@ $card-layout: (
     width: $card-wide-width - 1,
     height: 196px,
     height-image: 138px,
-    offset-image: 0
+    offset-image: 50%
   ),
   tall: (
     width: $card-width,
@@ -81,7 +81,7 @@ $card-layout: (
   .record {
     color: rgba($color-white, 0.8);
     &:hover {
-      color: #f00;
+      color: $color-record;
     }
   }
 }
@@ -127,7 +127,8 @@ $card-layout: (
   .artwork {
     @include image-crop(get-card-size($size, height-image), get-card-size($size, width), get-card-size($size, offset-image));
     position: relative;
-    background: #ccc;
+    background: #ccc 50% 50% no-repeat;
+    background-size: cover;
     a {
       display: block;
     }
@@ -159,11 +160,13 @@ $card-layout: (
   .watched {
     @include icon-button-square(toggle-check-box-outline-blank, $spacing-half-unit * 3);
     font-size: 135%;
+    // Hide on thumbs page because collection is cached in local storage.
+    // TODO: make this work.
+    .thumbs-page & {
+      display: none;
+    }
   }
   &.is-watched {
-    .watched-tick {
-      display: block;
-    }
     .watched {
       @include icon(toggle-check-box);
       color: $color-kodi;
@@ -196,8 +199,8 @@ $card-layout: (
   }
   .record {
     @include icon-button-square(image-brightness-1, $spacing-half-unit * 3);
-    @include set-position-absolute(bottom 2px right 5px);
-    font-size: 200%;
+    @include set-position-absolute(bottom 7px right 10px);
+    font-size: 150%;
     display: none;
     z-index: $z-index-beta;
 
@@ -243,6 +246,9 @@ $card-layout: (
       display: table;
     }
   }
+  &.selected {
+    @include selected-card();
+  }
   .dropdown-menu {
     left: auto;
     right: 0px;
@@ -255,28 +261,6 @@ $card-layout: (
   }
 }
 
-.dropdown-menu {
-  padding: $spacing-half-unit 0;
-  background: $color-playlist-background;
-  color: $color-playlist-text;
-  border-radius: 0;
-  li {
-    padding: $spacing-half-unit / 2 $spacing-base-unit;
-    &:hover {
-      background: rgba($color-white, 0.1);
-      color: $color-white;
-      cursor: pointer;
-      &.divider {
-        cursor: none;
-        background: none;
-      }
-    }
-    &.divider {
-      padding: 0;
-      margin: $spacing-half-unit /2 0;
-    }
-  }
-}
 
 /**
  * Extendables.

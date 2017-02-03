@@ -1,0 +1,31 @@
+
+// Actions on a song or file row.
+@mixin actions-song($action-count: 3) {
+  @include set-position-absolute(top 0 right 0px bottom 0);
+  display: none;
+  width: $song-row-action-width * $action-count;
+  > li {
+    width: $song-row-action-width;
+    text-align: center;
+    float: left;
+    i:before,
+    &:before {
+      @include vertical-align-element();
+      width: $song-row-action-width;
+      height: $song-row-height;
+      color: $color-greyscale-dust-gray;
+      cursor: pointer;
+    }
+  }
+}
+
+// Styles for an action menu including icon.
+@mixin actions-menu() {
+  i {
+    @include icon(navigation-more-horiz);
+    font-size: 150%;
+  }
+  .dropdown-menu {
+    top: 0;
+  }
+}

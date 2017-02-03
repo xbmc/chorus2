@@ -41,6 +41,50 @@
   }
 }
 
+#selected-region {
+  display: none;
+  position: absolute;
+  top: 0;
+  height: $size-region-unit;
+  @include set-layout('width-search', 'right');
+
+  .menu-toggle {
+    font-size: 150%;
+    @include icon-button-square(navigation-more-vert, $size-region-unit);
+    float: right;
+  }
+
+  .dropdown-menu {
+    margin: 0;
+  }
+
+  .selected-text {
+    display: inline-block;
+    height: $size-region-unit;
+    line-height: $size-region-unit;
+  }
+
+  &.media-video {
+    .selected-watched,
+    .selected-unwatched {
+      display: block;
+    }
+    .selected-localadd {
+      display: none;
+    }
+  }
+
+  &.media-audio {
+    .selected-watched,
+    .selected-unwatched {
+      display: none;
+    }
+    .selected-localadd {
+      display: block;
+    }
+  }
+}
+
 /**
  * Page title.
  */

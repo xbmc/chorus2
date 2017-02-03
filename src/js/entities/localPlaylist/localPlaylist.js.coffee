@@ -5,7 +5,7 @@
 
   API =
 
-    savedFields: ['id', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url']
+    savedFields: ['id', 'uid', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'albumid', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url']
 
     playlistKey: 'localplaylist:list'
     playlistItemNamespace: 'localplaylist:item:'
@@ -141,28 +141,40 @@
     collection.findWhere {id: parseInt(id)}
 
   ## Handler to get list items
-  App.reqres.setHandler "localplaylist:item:entities", (key) ->
-    API.getItemCollection key
+  App.reqres.setHandler "localplaylist:item:entities", (playlistId) ->
+    API.getItemCollection playlistId
 
   ## Handler to add items to a playlist
   App.reqres.setHandler "localplaylist:item:add:entities", (playlistId, collection) ->
     API.addItemsToPlaylist playlistId, collection
+
+  ## Handler to update the order of items in the playlist. This will
+  ## rebuild the list including only positions found in order.
+  App.reqres.setHandler "localplaylist:item:updateorder", (playlistId, order) ->
+    newList = []
+    collection = API.getItemCollection playlistId
+    for newPos, oldPos of order
+      model = collection.findWhere({position: parseInt(oldPos)}).toJSON()
+      model.position = newPos
+      model.id = newPos
+      newList.push model
+    API.clearPlaylist playlistId
+    API.addItemsToPlaylist playlistId, newList
 
 
   ###
     Thumbs up lists
   ###
 
-  ## Handler togle thumbs up on an entity
+  ## Handler toggle thumbs up on an entity
   App.reqres.setHandler "thumbsup:toggle:entity", (model) ->
     media = model.get('type')
     collection = API.getItemCollection API.getThumbsKey(media)
-    position = if collection then collection.length + 1 else 1
     existing = collection.findWhere {id: model.get('id')}
     if existing
       existing.destroy()
     else
-      collection.create(API.getSavedModelFromSource(model.attributes, position))
+      collection.create(API.getSavedModelFromSource(model.attributes, model.get('id')))
     collection
 
   ## Handler to get a thumbs up collection

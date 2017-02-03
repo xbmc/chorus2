@@ -6,6 +6,7 @@
 // Spacing units
 $spacing-base-unit: 1em;
 $spacing-double-unit: 2em;
+$spacing-triple-unit: 3em;
 $spacing-half-unit: 0.5em;
 $spacing-one-n-half-unit: 1.5em;
 $spacing-quarter-unit: 0.25em;
@@ -14,7 +15,7 @@ $spacing-quarter-unit: 0.25em;
 $size-region-unit: 50px;
 
 // Width container
-$width-containter: 95%;
+$width-container: 95%;
 $width-container-max: 50em;
 
 // Width playlist
@@ -24,6 +25,7 @@ $width-playlist-large: $size-region-unit * 12;
 
 // Sidebar first
 $width-sidebar-first: $size-region-unit * 5;
+$width-sidebar-first-medium: $width-sidebar-first - 60;
 
 // Page
 $width-page: 58em;
@@ -31,6 +33,7 @@ $width-page: 58em;
 // Heights
 $height-player: 70px;
 $height-player-small: $height-player;
+$height-loader-small: 20px;
 
 // Z-indexes
 $z-index-below: -10;
@@ -71,14 +74,14 @@ $layouts: (
     width-player-controls-primary: 300px,
     width-player-controls-secondary: 300px,
     width-remote: 371px,
-    width-sidebar-first: $width-sidebar-first,
-
+    width-sidebar-first: $width-sidebar-first-medium,
   ),
   xlarge: (
     width-playlist: $width-playlist,
     width-playlist-closed: $size-region-unit,
     width-header-fanart: 0,
     width-details-side: 280px,
+    width-sidebar-first: $width-sidebar-first,
   )
 );
 

@@ -3,10 +3,17 @@
 
   class Season.SeasonTeaser extends App.Views.CardView
     triggers:
-      "click .play" : "season:play"
+      "click .play"       : "season:play"
+      "click .watched"    : "season:watched"
+      "click .add"        : "season:add"
     initialize: ->
       super
-      @model.set({label: 'Season ' + @model.get('season')})
+      subtitle = @model.get('episode') + ' ' + tr('episodes')
+      @model.set subtitle: subtitle
+      @model.set( App.request('tvshow:action:items') )
+      @model.set({label: tr('Season') + ' ' + @model.get('season')})
+    attributes: ->
+      @watchedAttributes 'card tv-season prevent-select'
 
   class Season.Empty extends App.Views.EmptyViewResults
     tagName: "li"
@@ -20,17 +27,21 @@
 
 
   class Season.PageLayout extends App.Views.LayoutWithHeaderView
-    className: 'season-show detail-container'
+    className: 'season-show tv-collection detail-container'
 
   class Season.HeaderLayout extends App.Views.LayoutDetailsHeaderView
     className: 'season-details'
 
-  class Season.Details extends App.Views.ItemView
+  class Season.Details extends App.Views.DetailsItem
     template: 'apps/tvshow/season/details_meta'
+    triggers:
+      "click .play"       : "season:play"
+      "click .add"        : "season:add"
+    attributes: ->
+      @watchedAttributes 'details-meta'
 
   class Season.SeasonDetailTeaser extends App.Views.CardView
     tagName: "div"
     className: "card-detail"
-    triggers:
-      "click .menu" : "season-menu:clicked"
+
 

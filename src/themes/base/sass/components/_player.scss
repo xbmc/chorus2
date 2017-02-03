@@ -210,6 +210,9 @@
         border-top-color: $brand-color;
       }
     }
+    .#{$player}-paused & {
+      .control-play:before { content: icon-code(av-play-arrow); }
+    }
     .#{$player}-mute-on & {
       .control-mute {
         &:hover {

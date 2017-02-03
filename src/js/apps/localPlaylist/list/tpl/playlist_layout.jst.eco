@@ -3,12 +3,13 @@
     <div class="dropdown">
         <i data-toggle="dropdown"></i>
         <ul class="dropdown-menu">
-            <li class="play">Play in Kodi</li>
-            <li class="localplay">Play in browser</li>
-            <li class="list">Export list</li>
+            <li class="play"><%= tr('Play in Kodi') %></li>
+            <li class="localplay"><%= tr('Play in browser') %></li>
+            <li class="export"><%= tr('Export list') %></li>
             <div class="divider"></div>
-            <li class="clear">Clear playlist</li>
-            <li class="delete">Delete playlist</li>
+            <li class="rename"><%= tr('Rename playlist') %></li>
+            <li class="clear"><%= tr('Clear playlist') %></li>
+            <li class="delete"><%= tr('Delete playlist') %></li>
         </ul>
     </div>
 </div>

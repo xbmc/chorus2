@@ -67,6 +67,28 @@
       text-align: right;
     }
   }
-
+  h2.set-header {
+    padding-left: 5px;
+  }
+  .browser-folder-list {
+    background: rgba($color-white, 0.7);
+  }
 }
 
+.search-page-layout {
+  .region-first {
+    @extend %sidebar--padding;
+  }
+  .search-media-links {
+    a {
+      text-transform: capitalize;
+    }
+  }
+  .region-content {
+    padding: 0;
+  }
+}
+
+.search-no-result {
+  @extend %no-reults;
+}

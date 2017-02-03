@@ -69,6 +69,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
       font-size: $font-size-base;
       color: rgba($color-white, 0.4);
     }
+    @include at-bp(medium) {
+      @include span(6 of 8);
+    }
   }
   .region-details-rating {
     width: 73px;
@@ -83,6 +86,9 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
       font-size: 150%;
       @include set-position-absolute(top -5px right 0);
       @include icon(action-grade);
+    }
+    @include at-bp(medium) {
+      @include span(2 of 8 last);
     }
   }
   .region-details-subtext {
@@ -112,19 +118,37 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
       opacity: 0.8;
     }
   }
-  .region-details-meta-below {
-    height: 146px;
-    overflow: hidden;
-  }
+  .tagline,
   .description {
-    margin-top: $spacing-half-unit;
+    margin-bottom: $spacing-half-unit;
+    max-height: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    color: $color-detail-hightlight-text;
+    &.expanded {
+      max-height: none;
+    }
+    @include at-bp(xlarge) {
+      padding-right: 10%;
+    }
   }
-  .people {
+  .tagline {
+    max-height: none;
+    cursor: default;
+    color: rgba($color-white, 0.8);
+  }
+  .meta {
     margin: $spacing-base-unit 0;
+    span {
+      color: $color-detail-hightlight-text;
+    }
+    label {
+      text-transform: capitalize;
+    }
   }
   .runtime {
     font-size: 120%;
-    margin-bottom: $spacing-half-unit;
+    margin-bottom: 0.6em;
     float: left;
   }
   .genres {
@@ -188,14 +212,7 @@ $color-detail-hightlight-text: rgba($color-white, 0.6);
       height: auto;
       overflow: initial;
     }
-    @include at-bp(medium) {
-      .region-details-title {
-        @include span(6 of 8);
-      }
-      .region-details-rating {
-        @include span(2 of 8 last);
-      }
-    }
+
   }
 
 }

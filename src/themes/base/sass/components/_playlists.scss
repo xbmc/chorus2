@@ -43,6 +43,19 @@ $playlist-item-open-height: 80px;
         .play {
           display: none !important;
         }
+        .thumbs {
+          @include overlay-icon($height: $playlist-item-hover-height, $font-size: 200%, $icon: action-thumb-up);
+          width: $playlist-item-open-height;
+          &:before {
+            width: $playlist-item-open-height;
+            height: $playlist-item-open-height;
+          }
+        }
+        &:hover {
+          .thumbs {
+            display: block;
+          }
+        }
       }
       .meta {
         margin-right: $playlist-item-open-height + 10;
@@ -60,6 +73,14 @@ $playlist-item-open-height: 80px;
       height: $playlist-item-hover-height;
       background: rgba($color-white, 0.3);
       opacity: 0.5;
+    }
+    &.thumbs-up {
+      .thumbs {
+        color: $color-kodi !important;
+        .active-player-local & {
+          color: $color-local !important;
+        }
+      }
     }
   }
   .thumb {

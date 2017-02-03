@@ -1,29 +1,26 @@
 <div class="region-details-top">
     <div class="region-details-title">
-        <h2><span class="title"><%= @label %></span> <span class="sub"><%= @year %></span></h2>
+        <h2><span class="title"><%= @label %></span> <span class="sub"><a href="#movies?year=<%= @year %>"><%= @year %></a></span></h2>
     </div>
     <div class="region-details-rating">
         <%= @rating %> <i></i>
     </div>
 </div>
+
 <div class="region-details-meta-below">
 
     <div class="region-details-subtext">
-
         <div class="runtime">
             <%= helpers.global.formatTime helpers.global.secToTime( @runtime ) %>
         </div>
-
-        <% if @genre.length > 0: %>
-        <div class="genres">
-            <%- helpers.url.filterLinks 'movies', 'genre', @genre %>
-        </div>
-        <% end %>
     </div>
 
-    <div class="description"><%= @plotoutline %></div>
+    <div class="tagline"><%= @plotoutline %></div>
 
-    <ul class="people">
+    <ul class="meta">
+        <% if @genre.length > 0: %>
+            <li><label><%= t.gettext("genre") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'genre', @genre %></span></li>
+        <% end %>
         <% if @director.length > 0: %>
             <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'movies', 'director', @director %></span></li>
         <% end %>
@@ -33,11 +30,18 @@
         <% if @cast.length > 0: %>
             <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'movies', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
+        <% if @mpaa: %>
+            <li><label><%= t.gettext("rated") %>:</label> <span><%- helpers.url.filterLinks 'movies', 'mpaa', [@mpaa] %></span></li>
+        <% end %>
     </ul>
 
     <ul class="streams">
-        <li><label><%= t.gettext("Video") %>:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
-        <li><label><%= t.gettext("Audio") %>:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <% if @streamdetails.video.length > 0: %>
+            <li><label><%= t.gettext('Video') %>:</label> <span><%= _.pluck( @streamdetails.video, 'label' ).join(', ') %></span></li>
+        <% end %>
+        <% if @streamdetails.audio.length > 0: %>
+            <li><label><%= t.gettext('Audio') %>:</label> <span><%= _.pluck( @streamdetails.audio, 'label' ).join(', ') %></span></li>
+        <% end %>
         <% if @streamdetails.subtitle.length > 0 and @streamdetails.subtitle[0].label isnt '': %>
             <li><label><%= t.ngettext("Subtitle", "Subtitles", @streamdetails.subtitle.length) %>:</label>
                 <span class="dropdown"><span data-toggle="dropdown"><%= _.pluck( @streamdetails.subtitle, 'label' ).join(', ') %></span>
@@ -53,8 +57,33 @@
 
     <ul class="inline-links">
         <li class="btn-flat-play play"><%= t.gettext('Play') %></li>
-        <li class="btn-flat-add add"><%= t.gettext('Queue') %></li>
+        <li class="btn-flat-add add"><%= tr('Queue') %></li>
         <li class="btn-flat-stream stream"><%= t.gettext('Stream') %></li>
-        <li class="btn-flat-download download"><%= t.gettext('Download') %></li>
+        <li class="btn-flat-watched watched">
+            <%= t.gettext('set') %> <span class="action-watched"><%= t.gettext('watched') %></span><span class="action-unwatched"><%= t.gettext('unwatched') %></span>
+        </li>
+        <li class="more-actions dropdown">
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <ul class="dropdown-menu pull-right">
+                <li class="download"><%= tr('Download') %></li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
+                    <ul class="dropdown-menu">
+                        <%- helpers.entities.getAddonSearchMenuItems(@label) %>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu external-search"><%= tr('External Search') %>
+                    <ul class="dropdown-menu">
+                        <li data-type="google" data-query="<%= @label %>">Google</li>
+                        <li data-type="imdb" data-query="<%= @label %>">IMDb</li>
+                        <li data-type="tmdb" data-query="<%= @label %>">TVDb</li>
+                    </ul>
+                </li>
+                <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
+                <li class="divider"></li>
+                <li class="refresh"><%= tr('Refresh') %></li>
+                <li class="edit"><%= tr('Edit') %></li>
+            </ul>
+        </li>
     </ul>
 </div>

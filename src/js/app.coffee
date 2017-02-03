@@ -7,12 +7,13 @@
     socketsHost: location.hostname
     socketsPort: 9090
     ajaxTimeout: 5000
+    connected: true
     hashKey: 'kodi'
     defaultPlayer: 'auto'
     ignoreArticle: true
     pollInterval: 10000
     reverseProxy: false
-    albumAtristsOnly: true
+    albumArtistsOnly: true
     searchIndexCacheExpiry: (24 * 60 * 60) # 1 day
     collectionCacheExpiry: (7 * 24 * 60 * 60) # 1 week (gets wiped on library update)
     addOnsLoaded: false
@@ -22,9 +23,12 @@
     playlistFocusPlaying: true
     keyboardControl: 'kodi'
     disableThumbs: false
+    showDeviceName: false
+    refreshIgnoreNFO: true
+    largeBreakpoint: 910
 }
 
-## The App Inance
+## The App Instance
 @Kodi = do (Backbone, Marionette) ->
 
   App = new Backbone.Marionette.Application()
@@ -48,3 +52,5 @@ $(document).ready =>
     Kodi.start()
     # Start material
     $.material.init()
+    # Bind to scroll/resize for redraw trigger
+    helpers.ui.bindOnScrollResize()

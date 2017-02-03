@@ -43,7 +43,7 @@
       if @model.get('active') is true
         classes.push 'active'
       classes.push 'order-' + @model.get('order')
-      tag = @themeTag('span', {'class': classes.join(' ')}, @model.get('alias'))
+      tag = @themeTag('span', {'class': classes.join(' ')}, t.gettext(@model.get('alias')))
       @model.set(title: tag)
 
   class Show.SortList extends Show.List
@@ -59,7 +59,7 @@
       classes = ['option', 'option filterable']
       if @model.get('active')
         classes.push 'active'
-      tag = @themeTag('span', {'class': classes.join(' ')}, @model.get('alias'))
+      tag = @themeTag('span', {'class': classes.join(' ')}, t.gettext(@model.get('alias')))
       @model.set(title: tag)
 
 
@@ -100,7 +100,7 @@
     triggers:
       "click .filterable-remove" : "filter:option:remove"
     initialize: ->
-      tooltip = t.gettext('Remove') + ' ' + t.gettext(@model.get('key')) + ' ' + t.gettext('filter')
+      tooltip = t.gettext('Remove') + ' ' + @model.get('key') + ' ' + t.gettext('filter')
       text = @themeTag('span', {'class': 'text'}, @model.get('values').join(', '))
       tag = @themeTag('span', {'class': 'filter-btn filterable-remove', title: tooltip}, text)
       @model.set(title: tag)

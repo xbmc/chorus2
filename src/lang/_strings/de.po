@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-11-20 21:07+0100\n"
+"PO-Revision-Date: 2017-02-01 16:42+0100\n"
 "Last-Translator: XBMC Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/"
 "language/en/)\n"
@@ -661,7 +661,7 @@ msgstr "Hauptmenüstruktur"
 
 msgctxt ""
 msgid ""
-"Here you can change the title, url and icons for menu items. You can also "
+"Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 msgstr ""
 "Bezeichnung, URL und Icon von Menüpunkten ändern. Hinzufügen, Löschen und "
@@ -678,3 +678,598 @@ msgstr "Neue Wiedergabeliste"
 msgctxt ""
 msgid "Keyboard"
 msgstr "Tastatur"
+
+msgctxt ""
+msgid "Music"
+msgstr "Musik"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "Digitalradio"
+
+msgctxt ""
+msgid "Movies"
+msgstr "Filme"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "TV-Sendungen"
+
+msgctxt ""
+msgid "TV"
+msgstr "TV"
+
+msgctxt ""
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "Daumen hoch"
+
+msgctxt ""
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgctxt ""
+msgid "Help"
+msgstr "Hilfe"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "Daumen hoch deaktiveren"
+
+# String ist unvollständig.
+msgctxt ""
+msgid ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the "
+msgstr ""
+"Daumen hoch Funktion entfernen. Hinweis: Vielleicht möchtest du den "
+"Menüpunkt auch entfernen"
+
+# Sieht unvollständig aus
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr ""
+"Du must die \"Fernbedienung\" für Kodi erlauben. Du findest diese Option"
+
+msgctxt ""
+msgid "here"
+msgstr "hier "
+
+msgctxt ""
+msgid "yes"
+msgstr "Ja"
+
+msgctxt ""
+msgid "no"
+msgstr "Nein"
+
+msgctxt ""
+msgid "close"
+msgstr "Schließen"
+
+msgctxt ""
+msgid "ok"
+msgstr "Ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Bist du sicher?"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "Alle Folgen dieser Staffel markieren als "
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Alle Folgen dieser Serie markieren als "
+
+msgctxt ""
+msgid "watched"
+msgstr "gesehen"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "ungesehen"
+
+msgctxt ""
+msgid "genre"
+msgstr "Genre"
+
+msgctxt ""
+msgid "studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "rated"
+msgstr "bewertet"
+
+msgctxt ""
+msgid "episodes"
+msgstr "Folgen"
+
+msgctxt ""
+msgid "total"
+msgstr "gesamt"
+
+msgctxt ""
+msgid "set"
+msgstr "einstellen"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Gerätenamen anzeigen"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Den Namen des Kodi-Geräts in der Kopfzeile von Chorus anzeigen"
+
+msgctxt ""
+msgid "No results found"
+msgstr "Keine Ergebnisse"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Hast du die Bibliothek eingelesen?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Im Webbrowser abspielen"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Zu Kodi hinzufügen"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Gesehen"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "Neue Wiedergabeliste"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "In Kodi abspielen"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Liste exportieren"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Liste löschen"
+
+msgctxt ""
+msgid "title"
+msgstr "Titel"
+
+msgctxt ""
+msgid "year"
+msgstr "Jahr"
+
+msgctxt ""
+msgid "date added"
+msgstr "hinzugefügt am"
+
+msgctxt ""
+msgid "rating"
+msgstr "Bewertung"
+
+msgctxt ""
+msgid "actor"
+msgstr "Schauspieler"
+
+msgctxt ""
+msgid "writer"
+msgstr "Autor"
+
+msgctxt ""
+msgid "director"
+msgstr "Regisseur"
+
+msgctxt ""
+msgid "mood"
+msgstr "Stimmung"
+
+msgctxt ""
+msgid "style"
+msgstr "Stil"
+
+msgctxt ""
+msgid "items selected"
+msgstr "ausgewählte Einträge"
+
+msgctxt ""
+msgid "item selected"
+msgstr "ausgewählter Eintrag"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Video-Bibliothek wird gelöscht"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Video-Bibliothek gelöscht"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Audio-Bibliothek wird gelöscht"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Audio-Bibliothek gelöscht"
+
+msgctxt ""
+msgid ""
+"This is a tool to test out the api. Select a method then execute it with "
+"parameters."
+msgstr ""
+"Diese Funktion testet die API. Wähle eine Methode, dann führe sie mit "
+"Parametern aus."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Gehe zur Staffel"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "In Kodi einreihen"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Einträge werden eingereiht"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Live Fernsehen"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Kürzlich hinzugefügte Alben"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Zufallsalben"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Kürzlich abgespielte Alben"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Zufallsvideos"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Weiter ansehen"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "Mehr von %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "Mehr %1$s Filme"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "Mehr Filme mit %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Andere Filme aus dem Jahr %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "Künstler"
+
+msgctxt ""
+msgid "random"
+msgstr "Zufall"
+
+msgctxt ""
+msgid "label"
+msgstr "Stichwort"
+
+msgctxt ""
+msgid "formed"
+msgstr "gegründet"
+
+msgctxt ""
+msgid "born"
+msgstr "geboren"
+
+msgctxt ""
+msgid "died"
+msgstr "gestorben"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "aufgelöst"
+
+msgctxt ""
+msgid "years active"
+msgstr "Jahre aktiv"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Für mehr klicken"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Alben werden geladen"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! To "
+"prevent a mainframe implosion, you should probably give me some text. I "
+"don't really care what it is at this point, why not be creative? Do you have "
+"a %2$s? I won't tell..."
+msgstr ""
+"Vor %1$d Sekunden wurde von Kodi ein Dialog geöffnet. Er ist noch offen! Um "
+"eine Kernimplusion zu verhindern solltest du dort etwas eingeben. Mir ist "
+"total egal was du dort eingibst, warum bist du dabei nicht einfach kreativ? "
+"Hast du ein %2$s? Ich kann's nicht sagen..."
+
+msgctxt ""
+msgid "all media"
+msgstr "Alle Medien"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "Veröffentlicht am"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "%1$s aktualisiert"
+
+msgctxt ""
+msgid "Title"
+msgstr "Titel"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Zusammenfassung"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Bewertung"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Originaltitel"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Regisseure"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Autoren"
+
+msgctxt ""
+msgid "File path"
+msgstr "Dateipfad"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Künstler"
+
+msgctxt ""
+msgid "Description"
+msgstr "Beschreibung"
+
+msgctxt ""
+msgid "Label"
+msgstr "Beschriftung"
+
+msgctxt ""
+msgid "Year"
+msgstr "Jahr"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Stile"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Aussehen"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Stimmungen"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Album Künstler"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Stück"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Disk"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Slogan"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Bewertung des Inhalts"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiere am"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Titel sortieren"
+
+msgctxt ""
+msgid "Country"
+msgstr "Land"
+
+msgctxt ""
+msgid "Set"
+msgstr "Einstellen"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Beschriftungen"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Gegründet"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Aufgelöst"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Jahre aktiv"
+
+msgctxt ""
+msgid "Born"
+msgstr "Geboren"
+
+msgctxt ""
+msgid "Died"
+msgstr "Gestorben"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instumente"
+
+msgctxt ""
+msgid "more"
+msgstr "mehr"
+
+msgctxt ""
+msgid "in progress"
+msgstr "in Arbeit"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Gib eine gültige externe URL ein"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Suche mehr Bilder"
+
+msgctxt ""
+msgid "Image Selector"
+msgstr "Bildauswahl"
+
+msgctxt ""
+msgid "Image URL"
+msgstr "Bild-URL"
+
+msgctxt ""
+msgid "External Search"
+msgstr "Externe Suche"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Lokale Medien"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus Suche"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Suche"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Ausgeführtes Addon"
+
+msgctxt ""
+msgid "all"
+msgstr "alle"
+
+msgctxt ""
+msgid "video"
+msgstr "Video"
+
+msgctxt ""
+msgid "audio"
+msgstr "Audio"
+
+msgctxt ""
+msgid "image"
+msgstr "Bild"
+
+msgctxt ""
+msgid "picture"
+msgstr "Foto"
+
+msgctxt ""
+msgid "executable"
+msgstr "ausführbar"
+
+msgctxt ""
+msgid "settings"
+msgstr "Einstellungen"
+
+#~ msgctxt ""
+#~ msgid ""
+#~ "Here you can change the title, url and icons for menu items. You can also "
+#~ "remove, re-order and add new items."
+#~ msgstr ""
+#~ "Bezeichnung, URL und Icon von Menüpunkten ändern. Hinzufügen, Löschen und "
+#~ "Ordnen der Einträge."

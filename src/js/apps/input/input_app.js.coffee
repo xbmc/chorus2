@@ -68,6 +68,11 @@
       if $(e.target).is("input, textarea, select")
         return
 
+      ## Don't do anything for white listed commands like CTRL, ALT, SHIFT, etc
+      whiteListCommands = [17, 16, 9, 91, 18, 70]
+      if helpers.global.inArray e.which, whiteListCommands
+        return
+
       # If no Kodi control and not on the remote page
       if not kodiControl and not remotePage
         return
@@ -78,8 +83,6 @@
 
       ## Get stateObj - consider changing this to be current and work with local too?
       stateObj = App.request "state:kodi"
-
-      console.log e.which
 
       ## Respond to key code
       switch e.which
@@ -97,10 +100,10 @@
           @doInput "Select"
         when 67 # c (context)
           @doInput "ContextMenu"
-        when 107 || 187 # + (vol up)
+        when 107, 187 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
-        when 109 || 189 # - (vol down)
+        when 109, 189 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)
@@ -121,7 +124,7 @@
 
 
   App.commands.setHandler "input:textbox", (msg) ->
-    App.execute "ui:textinput:show", "Input required", msg, (text) ->
+    App.execute "ui:textinput:show", "Input required", {msg: msg}, (text) ->
       API.inputController().sendText(text)
       App.execute "notification:show", t.gettext('Sent text') + ' "' + text + '" ' + t.gettext('to Kodi')
 

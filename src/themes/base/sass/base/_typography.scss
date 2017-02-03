@@ -38,12 +38,16 @@ h1, h2, h3, h4 {
 
 .inline-links {
   margin-top: $spacing-half-unit * 3;
-  li {
+  > li {
     display: inline-block;
-    margin-right: $spacing-base-unit;
+    margin-right: $spacing-half-unit;
   }
 }
 
 .text-dim {
   @extend %text--dim;
+}
+
+.modal ul.options {
+  @extend %modal-list;
 }

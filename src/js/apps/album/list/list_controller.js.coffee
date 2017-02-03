@@ -11,10 +11,11 @@
         App.execute 'album:action', 'localadd', item
       App.listenTo view, 'childview:album:localplay', (list, item) ->
         App.execute 'album:action', 'localplay', item
+      App.listenTo view, 'childview:album:edit', (parent, item) ->
+        App.execute 'album:edit', item.model
 
-    getAlbumsList: (collection, set = false) ->
-      viewName = if set then 'AlbumsSet' else 'Albums'
-      view = new List[viewName]
+    getAlbumsList: (collection) ->
+      view = new List.Albums
         collection: collection
       API.bindTriggers(view)
       view
@@ -51,8 +52,8 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['label', 'year', 'rating', 'artist'] 
-      filter: ['year', 'genre']
+      sort: ['label', 'year', 'rating', 'artist', 'dateadded', 'random']
+      filter: ['year', 'genre', 'style', 'albumlabel', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->
@@ -72,4 +73,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "album:list:view", (collection) ->
-    API.getAlbumsList collection, true
+    API.getAlbumsList collection

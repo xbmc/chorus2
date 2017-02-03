@@ -20,7 +20,7 @@
         @doCallback callback, resp
 
     ## Set a song value
-    setArtistDetails: (id, fields = {}, callback) ->
+    setSongDetails: (id, fields = {}, callback) ->
       params = {songid: id}
       params = _.extend params, fields
       @singleCommand @getCommand('SetSongDetails'), params, (resp) =>
@@ -29,4 +29,9 @@
     ## Scan library
     scan: (callback) ->
       @singleCommand @getCommand('Scan'), (resp) =>
+        @doCallback callback, resp
+
+    ## Clean library
+    clean: (callback) ->
+      @singleCommand @getCommand('Clean'), {showdialogs: false}, (resp) =>
         @doCallback callback, resp

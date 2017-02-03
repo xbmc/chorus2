@@ -1,0 +1,180 @@
+
+$bp-edit-form-large: medium;
+
+%edit-form-height {
+  @include at-bp($bp-edit-form-large) {
+    height: 420px;
+    overflow-y: auto;
+  }
+}
+
+.edit-form {
+
+  .form-item {
+    @include pie-clearfix();
+    margin-bottom: $spacing-base-unit;
+  }
+
+  label {
+    color: $color-greyscale-dove-gray;
+  }
+
+  .form-control {
+    padding: 7px;
+    background: $color-greyscale-alabaster;
+    height: auto !important;
+    border-bottom-color: $color-greyscale-alto;
+
+    &:focus {
+      border-bottom-color: $color-brand-primary;
+      background: lighten($color-brand-primary, 48%);
+    }
+
+    &[type="date"] {
+      padding-bottom: 5px;
+    }
+  }
+
+  .form-tabs {
+    @extend %basic-tabs;
+    @extend %edit-form-height;
+  }
+
+  .form-groups {
+    padding: $spacing-base-unit;
+  }
+
+  &.with-tabs {
+    .group-title {
+      display: none;
+    }
+    .form-groups {
+      @extend %edit-form-height;
+    }
+
+    @include at-bp($bp-edit-form-large) {
+      .form-tabs {
+        @include span(2 of 7);
+        @include box-shadow(inset 1px 1px 8px 0 rgba($color-greyscale-outer-space, 0.1));
+        padding: $spacing-base-unit 0 $spacing-base-unit $spacing-half-unit;
+        margin-bottom: 0;
+        li {
+          float: none;
+          &.active {
+            @include box-shadow(1px 1px 8px 0 rgba($color-greyscale-outer-space, 0.1));
+          }
+        }
+      }
+      .form-groups {
+        @include span(5 of 7 last);
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  textarea {
+    min-height: 115px;
+  }
+
+  .form-edit-file textarea {
+    padding: $spacing-half-unit;
+    border: none;
+  }
+}
+
+
+#modal-window.style-edit-form {
+  .modal-body {
+    padding: 0;
+  }
+  form footer {
+    margin-top: 0;
+    .inline-list {
+      padding: 0 $spacing-double-unit;
+    }
+  }
+  .form-content-region {
+    @extend %clearfix;
+  }
+  .modal-title span {
+    color: rgba($color-white, 0.5);
+    &:after {
+      content: ": ";
+    }
+  }
+
+  @include at-bp($bp-edit-form-large) {
+    .modal-dialog {
+      width: 700px;
+    }
+  }
+}
+
+// Image widget
+.form-imageselect {
+
+  &__tabs {
+    @extend %basic-tabs;
+    margin: -1em -1em 1em;
+    background: $color-greyscale-mercury;
+    padding-left: 1em;
+  }
+
+  &__panes {
+    .pane {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+
+  &__thumbs {
+    @extend %clearfix;
+
+    li {
+      float: left;
+      margin: 0 $spacing-half-unit $spacing-half-unit 0;
+      cursor: pointer;
+      overflow: hidden;
+      background: $color-greyscale-cloudy 50% 50% no-repeat;
+      background-size: cover;
+
+      &.selected {
+        @include selected-card();
+      }
+      &,
+      .form-item-poster-size & {
+        width: 106px;
+        height: 160px;
+      }
+      .form-item-fanart-size &,
+      .form-edit-fanart & {
+        width: 222px;
+        height: 125px;
+      }
+    }
+  }
+
+  &__loader {
+    @extend %clearfix;
+    display: none;
+    margin: $spacing-base-unit 0;
+    border-radius: 3px;
+    padding: $spacing-half-unit;
+    color: $color-greyscale-dust-gray;
+    .loader-small-inline {
+      margin-right: $spacing-half-unit;
+      float: left;
+    }
+    span {
+      display: inline-block;
+      line-height: $height-loader-small;
+      height: $height-loader-small;
+    }
+    .images-loading & {
+      display: block;
+    }
+  }
+
+}

@@ -8,26 +8,23 @@
 
     fields:
       minimal: []
-      small: ['title', 'runtime', 'starttime', 'endtime', 'genre']
-      full: ['plot', 'progress', 'progresspercentage' ,'episodename', 'episodenum', 'episodepart','firstaired', 'hastimer', 'isactive', 'parentalrating','wasactive', 'thumbnail']
-
-    ## Fetch a single entity, requires a channel collection passed.
-    ###getEntity: (collection, channel) ->
-      collection.findWhere({channel: channel})###
+      small: ['title', 'runtime', 'starttime', 'endtime', 'genre', 'progress']
+      full: ["plot", "plotoutline", "progresspercentage", "episodename", "episodenum", "episodepart", "firstaired", "hastimer", "isactive", "parentalrating", "wasactive", "thumbnail", "rating", "originaltitle", "cast", "director", "writer", "year", "imdbnumber", "hastimerrule", "hasrecording", "recording", "isseries"]
 
     ## Fetch a single entity
     getEntity: (channelid, options) ->
       entity = new App.KodiEntities.Broadcast()
-      entity.set({channelid: parseInt(channelid), properties:  helpers.entities.getFields(API.fields, 'full')})
+      entity.set({channelid: parseInt(channelid), properties: helpers.entities.getFields(API.fields, 'full')})
       entity.fetch options
       entity
 
     ## Fetch an entity collection.
     getCollection: (options) ->
+      defaultOptions = {useNamedParameters: true}
+      options = _.extend defaultOptions, options
       collection = new KodiEntities.BroadcastCollection()
       collection.fetch options
       collection
-
 
   ###
    Models and collections.
@@ -43,23 +40,18 @@
       obj = if resp.broadcasts? then resp.broadcasts else resp
       if resp.broadcasts?
         obj.fullyloaded = true
-      @parseModel 'broadcast', obj, obj.channelid
-    ###defaults: ->
-      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), {}
-    parse: (obj, xhr) ->
-      obj.fullyloaded = true
-      @parseModel 'broadcast', obj, obj.channelid###
+      @parseModel 'broadcast', obj, obj.broadcastid
 
   ## Channel collection
   class KodiEntities.BroadcastCollection extends App.KodiEntities.Collection
     model: KodiEntities.Broadcast
-    methods: read: ['PVR.GetBroadcasts', 'arg1', 'arg2', 'arg3']
-    arg1: -> parseInt @argCheckOption('channelid', 0)
-    arg2: -> helpers.entities.getFields(API.fields, 'full')
-    arg3: -> @argLimit()
+    methods: read: ['PVR.GetBroadcasts', 'channelid', 'properties', 'limits']
+    args: -> @getArgs
+      channelid: @argCheckOption('channelid', 0)
+      properties: helpers.entities.getFields(API.fields, 'full')
+      limits: @argLimit()
     parse: (resp, xhr) ->
       @getResult resp, 'broadcasts'
-
 
   ###
    Request Handlers.
@@ -67,9 +59,9 @@
 
   # Get a single channel
   App.reqres.setHandler "broadcast:entity", (collection, channelid) ->
-    API.getEntity collection, channelid,
+    API.getEntity collection, parseInt(channelid)
 
   ## Get an channel collection
   App.reqres.setHandler "broadcast:entities", (channelid, options = {}) ->
-    options.channelid = channelid
+    options.channelid = parseInt(channelid)
     API.getCollection options

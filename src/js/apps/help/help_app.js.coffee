@@ -27,18 +27,20 @@
 
     # Get second level nav
     getSubNav: ->
-      collection = App.request "navMain:array:entities", @getSideBarSructure()
+      collection = App.request "navMain:array:entities", @getSideBarStructure()
       App.request "navMain:collection:show", collection, t.gettext('Help topics')
 
     # Get second level nav structure
     # TODO: refactor into navMain
-    getSideBarSructure: ->
+    getSideBarStructure: ->
       [
-	      {title: t.gettext('About'), path: 'help'}
+        {title: t.gettext('About'), path: 'help'}
         {title: t.gettext('Readme'), path: 'help/app-readme'}
         {title: t.gettext('Changelog'), path: 'help/app-changelog'}
-	      {title: t.gettext('Keyboard'), path: 'help/keybind-readme'}
+        {title: t.gettext('Keyboard'), path: 'help/keybind-readme'}
+        {title: t.gettext('Add-ons'), path: 'help/addons'}
         {title: t.gettext('Translations'), path: 'help/lang-readme'}
+        {title: t.gettext('License'), path: 'help/license'}
       ]
 
   # Subnav for help

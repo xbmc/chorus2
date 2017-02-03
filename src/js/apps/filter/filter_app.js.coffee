@@ -8,41 +8,53 @@
 
     sortFields: [
       {
-        alias: 'Title'
+        alias: 'title'
         type: 'string'
         defaultSort: true
         defaultOrder: 'asc'
         key: 'title'
       }
       {
-        alias: 'Title'
+        alias: 'title'
         type: 'string'
         defaultSort: true
         defaultOrder: 'asc'
         key: 'label'
       }
       {
-        alias: 'Year'
+        alias: 'year'
         type: 'number'
         key: 'year'
         defaultOrder: 'desc'
       }
       {
-        alias: 'Date added'
+        alias: 'date added'
         type: 'string'
         key: 'dateadded'
         defaultOrder: 'desc'
       }
       {
-        alias: 'Rating'
+        alias: 'rating'
         type: 'float'
         key: 'rating'
         defaultOrder: 'desc'
       }
       {
-        alias: 'Artist'
+        alias: 'artist'
         type: 'string'
         key: 'artist'
+        defaultOrder: 'asc'
+      }
+      {
+        alias: 'random'
+        type: 'other'
+        key: 'random'
+        defaultOrder: 'asc'
+      }
+      {
+        alias: 'album'
+        type: 'string'
+        key: 'album'
         defaultOrder: 'asc'
       }
     ]
@@ -50,56 +62,63 @@
     ## See applyFilter() for how filterCallback are handled.
     filterFields: [
       {
-        alias: 'Year'
+        alias: 'year'
         type: 'number'
         key: 'year'
         sortOrder: 'desc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Genre'
+        alias: 'genre'
         type: 'array'
         key: 'genre'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Mood'
+        alias: 'mood'
         type: 'array'
         key: 'mood'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Style'
+        alias: 'style'
         type: 'array'
         key: 'style'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Unwatched'
+        alias: 'unwatched'
         type: "boolean"
         key: 'unwatched'
         sortOrder: 'asc',
         filterCallback: 'unwatched'
       }
       {
-        alias: 'Writer'
+        alias: 'in progress'
+        type: "boolean"
+        key: 'inprogress'
+        sortOrder: 'asc',
+        filterCallback: 'inprogress'
+      }
+      {
+        alias: 'writer'
         type: 'array'
         key: 'writer'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Director'
+        alias: 'director'
         type: 'array'
         key: 'director'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
       {
-        alias: 'Actor'
+        alias: 'actor'
         type: 'object'
         property: 'name'
         key: 'cast'
@@ -107,10 +126,55 @@
         filterCallback: 'multiple'
       }
       {
-        alias: 'Set'
+        alias: 'set'
         type: 'string'
         property: 'set'
         key: 'set'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'rated'
+        type: 'string'
+        property: 'mpaa'
+        key: 'mpaa'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'studio'
+        type: 'array'
+        property: 'studio'
+        key: 'studio'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'label'
+        type: 'string'
+        property: 'albumlabel'
+        key: 'albumlabel'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'Thumbs up'
+        type: "boolean"
+        key: 'thumbsUp'
+        sortOrder: 'asc',
+        filterCallback: 'thumbsup'
+      }
+      {
+        alias: 'album'
+        type: 'string'
+        key: 'album'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
+        alias: 'artist'
+        type: 'array'
+        key: 'artist'
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
@@ -235,7 +299,7 @@
       items = []
       ## Get the properties requested
       collectionItems = collection.pluck(key)
-      ## Deal with more complex nested propeties (e.g. cast)
+      ## Deal with more complex nested properties (e.g. cast)
       if s.filterCallback is 'multiple' and s.type is 'object'
         ## Limit to first 5 for each otherwise it kills the browser.
         limited = []
@@ -279,13 +343,18 @@
             collection.filterByMultiple(key, vals) ## data is not array
         when 'unwatched'
           collection.filterByUnwatched()
+        when 'inprogress'
+          collection.filterByInProgress()
+        when 'thumbsup'
+          collection.filterByThumbsUp()
         else
           collection
       collection
 
     ## Get settings for a given filter
-    getFilterSettings: (key) ->
-      _.findWhere(API.getFilterFields('filter'), {key: key})
+    getFilterSettings: (key, availableOnly = true) ->
+      filters = if availableOnly is true then API.getFilterFields('filter') else API.filterFields
+      _.findWhere(filters, {key: key})
 
     ## Get the active filters.
     getFilterActive: ->
@@ -328,7 +397,9 @@
   ## Apply filters to a collection.
   App.reqres.setHandler 'filter:apply:entities', (collection)  ->
     API.setAvailable collection.availableFilters
-    API.applyFilters collection
+    newCollection = API.applyFilters collection
+    App.vent.trigger 'filter:filtering:stop'
+    newCollection
 
   ## Get a sortable collection
   App.reqres.setHandler 'filter:sortable:entities', ->
@@ -342,15 +413,24 @@
   App.reqres.setHandler 'filter:init', (availableFilters) ->
     params = helpers.url.params()
     if not _.isEmpty params
-      ## Clear existing filters first
+      # Clear existing filters first
       API.setStoreFilters {}
+      # Set sort, no validation here, wrong param might break something
+      if params.sort
+        order = if params.order then params.order else 'asc'
+        API.setStoreSort params.sort, order
+      # Set Filter
       for key in availableFilters.filter
-        ## is one of the params an available filter
+        # is one of the params an available filter
         if params[key]
           values = API.getStoreFiltersKey key
-          ## If the filter doesn't exist, add and save.
+          filterSettings = API.getFilterSettings key, false
+          # If the filter doesn't exist, add and save.
           if not helpers.global.inArray params[key], values
-            values.push decodeURIComponent(params[key])
+            if filterSettings.type is 'number'
+              values.push parseInt params[key]
+            else
+              values.push decodeURIComponent(params[key])
             API.updateStoreFiltersKey key, values
 
   ## Storage.

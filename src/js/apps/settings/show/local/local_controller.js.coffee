@@ -39,37 +39,39 @@
           title: 'General options'
           id: 'general'
           children:[
-            {id: 'lang', title: t.gettext("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: t.gettext('Preferred language, need to refresh browser to take effect')}
-            {id: 'defaultPlayer', title: t.gettext("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: t.gettext('Which player to start with')}
-            {id: 'keyboardControl', title: t.gettext("Keyboard controls"), type: 'select', options: {kodi: 'Kodi', local: 'Browser', both: 'Both'}, defaultValue: 'kodi', description: t.gettext('In Chorus, will you keyboard control Kodi, the browser or both') + '. <a href="#help/keybind-readme">' + t.gettext('Learn more') + '</a>'}
+            {id: 'lang', title: tr("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: tr('Preferred language, need to refresh browser to take effect')}
+            {id: 'defaultPlayer', title: tr("Default player"), type: 'select', options: {auto: 'Auto', kodi: 'Kodi', local: 'Local'}, defaultValue: 'auto', description: tr('Which player to start with')}
+            {id: 'keyboardControl', title: tr("Keyboard controls"), type: 'select', options: {kodi: 'Kodi', local: 'Browser', both: 'Both'}, defaultValue: 'kodi', description: tr('In Chorus, will you keyboard control Kodi, the browser or both') + '. <a href="#help/keybind-readme">' + tr('Learn more') + '</a>'}
           ]
         }
         {
           title: 'List options'
           id: 'list'
           children:[
-            {id: 'ignoreArticle', title: t.gettext("Ignore article"), type: 'checkbox', defaultValue: true, description: t.gettext("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
-            {id: 'albumAtristsOnly', title: t.gettext("Album artists only"), type: 'checkbox', defaultValue: true, description: t.gettext('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
-            {id: 'playlistFocusPlaying', title: t.gettext("Focus playlist on playing"), type: 'checkbox', defaultValue: true, description: t.gettext('Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed')}
+            {id: 'ignoreArticle', title: tr("Ignore article"), type: 'checkbox', defaultValue: true, description: tr("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
+            {id: 'albumArtistsOnly', title: tr("Album artists only"), type: 'checkbox', defaultValue: true, description: tr('When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries')}
+            {id: 'playlistFocusPlaying', title: tr("Focus playlist on playing"), type: 'checkbox', defaultValue: true, description: tr('Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed')}
           ]
         }
         {
           title: 'Appearance'
           id: 'appearance'
           children:[
-            {id: 'vibrantHeaders', title: t.gettext("Vibrant headers"), type: 'checkbox', defaultValue: true, description: t.gettext("Use colourful headers for media pages")}
-            {id: 'disableThumbs', title: t.gettext("Disable Thumbs Up"), type: 'checkbox', defaultValue: false, description: t.gettext("Remove the thumbs up button from media. Note: you may also want to remove the menu item from the ") + '<a href="#settings/nav">' + t.gettext('Main Nav') + '</a>'}
+            {id: 'vibrantHeaders', title: tr("Vibrant headers"), type: 'checkbox', defaultValue: true, description: tr("Use colourful headers for media pages")}
+            {id: 'disableThumbs', title: tr("Disable Thumbs Up"), type: 'checkbox', defaultValue: false, description: t.sprintf(tr("Remove the thumbs up button from media. Note: you may also want to remove the menu item from the %1$s"), '<a href="#settings/nav">' + tr('Main Nav') + '</a>')}
+            {id: 'showDeviceName', title: tr("Show device name"), type: 'checkbox', defaultValue: false, description: tr("Show the Kodi device name in the header of Chorus")}
           ]
         }
         {
           title: 'Advanced options'
           id: 'advanced'
           children:[
-            {id: 'socketsPort', title: t.gettext("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + t.gettext("is the default")}
-            {id: 'socketsHost', title: t.gettext("Websockets host"), type: 'textfield', defaultValue: 'auto', description: t.gettext("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")}
-            {id: 'pollInterval', title: t.gettext("Poll interval"), type: 'select', defaultValue: '10000', options: {'5000': "5 " + t.gettext('sec'), '10000': "10 " + t.gettext('sec'), '30000': "30 " + t.gettext('sec'), '60000': "60 " + t.gettext('sec')}, description: t.gettext("How often do I poll for updates from Kodi (Only applies when websockets inactive)")}
-            {id: 'kodiSettingsLevel', title: t.gettext("Kodi settings level"), type: 'select', defaultValue: 'standard', options: {'standard': 'Standard', 'advanced': 'Advanced'}, description: t.gettext('Advanced setting level is recommended for those who know what they are doing.')}
-            {id: 'reverseProxy', title: t.gettext("Reverse proxy support"), type: 'checkbox', defaultValue: false, description: t.gettext('Enable support for reverse proxying.')}
+            {id: 'socketsPort', title: tr("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + tr("is the default")}
+            {id: 'socketsHost', title: tr("Websockets host"), type: 'textfield', defaultValue: 'auto', description: tr("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")}
+            {id: 'pollInterval', title: tr("Poll interval"), type: 'select', defaultValue: '10000', options: {'5000': "5 " + tr('sec'), '10000': "10 " + tr('sec'), '30000': "30 " + tr('sec'), '60000': "60 " + tr('sec')}, description: tr("How often do I poll for updates from Kodi (Only applies when websockets inactive)")}
+            {id: 'kodiSettingsLevel', title: tr("Kodi settings level"), type: 'select', defaultValue: 'standard', options: {'standard': 'Standard', 'advanced': 'Advanced', 'expert': 'Expert'}, description: tr('Advanced setting level is recommended for those who know what they are doing.')}
+            {id: 'reverseProxy', title: tr("Reverse proxy support"), type: 'checkbox', defaultValue: false, description: tr('Enable support for reverse proxying.')}
+            {id: 'refreshIgnoreNFO', title: tr("Refresh Ignore NFO"), type: 'checkbox', defaultValue: true, description: tr('Ignore local NFO files when manually refreshing media.')}
           ]
         }
       ]
@@ -85,5 +87,5 @@
       # Update current session
       config.static = _.extend config.static, config.get('app', 'config:local', config.static)
       # Notify.
-      Kodi.vent.trigger("config:local:updated", config.static);
-      Kodi.execute "notification:show", t.gettext("Web Settings saved.")
+      Kodi.vent.trigger("config:local:updated", config.static)
+      Kodi.execute "notification:show", tr("Web Settings saved.")

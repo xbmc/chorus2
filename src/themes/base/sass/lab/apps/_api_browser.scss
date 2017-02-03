@@ -1,0 +1,72 @@
+.api-browser--methods {
+  padding: $spacing-base-unit;
+}
+
+.api-browser--method {
+  padding: $spacing-half-unit 0 0;
+
+  h4 {
+    font-size: 1.05em;
+    margin: 0 0 $spacing-quarter-unit 0;
+  }
+
+  p {
+    font-size: 90%;
+    opacity: 0.5;
+    height: 0;
+    overflow: hidden;
+    margin: 0 0 $spacing-quarter-unit;
+  }
+
+  .api-method--item {
+    border-bottom: 1px solid $color-greyscale-alto;
+    cursor: pointer;
+  }
+
+  &:hover {
+    h4 {
+      color: $color-kodi;
+      font-weight: 700;
+    }
+    p {
+      height: 100%;
+    }
+  }
+}
+
+.api-browser--page {
+  padding: 0 $spacing-half-unit;
+  margin-bottom: $spacing-double-unit;
+  .description {
+    font-size: 90%;
+    opacity: 0.6;
+  }
+}
+
+.api-method--execute {
+  max-width: $width-page;
+  @extend %page-secondary;
+  @extend %page-padding;
+  textarea {
+    display: block;
+    width: 100%;
+    margin: $spacing-half-unit 0;
+    padding: $spacing-half-unit;
+    height: 200px;
+    @include border-radius(2px);
+    border: 1px solid $color-greyscale-alto;
+  }
+}
+
+.api-browser--content {
+  margin: $spacing-double-unit 0;
+}
+
+.json-syntax-highlight {
+  background: rgba(245, 245, 245, 0.74);
+  .string { color: green; }
+  .number { color: darkorange; }
+  .boolean { color: blue; }
+  .null { color: #bd09bd; }
+  .key { color: #bb1313; }
+}

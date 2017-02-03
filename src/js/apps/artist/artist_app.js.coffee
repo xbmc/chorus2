@@ -40,6 +40,12 @@
 
   App.reqres.setHandler 'artist:action:items', ->
     {
-    actions: {thumbs: 'Thumbs up'}
-    menu: {add: 'Add to Kodi playlist', localadd: 'Add to local playlist', divider: '', localplay: 'Play in browser'}
+      actions: {thumbs: tr('Thumbs up')}
+      menu: {add: tr('Queue in Kodi'), 'divider-1': '', localadd: tr('Add to playlist'), localplay: tr('Play in browser'), 'divider-1': '', edit: tr('Edit')}
     }
+
+  App.commands.setHandler 'artist:edit', (model) ->
+    loadedModel = App.request "artist:entity", model.get('id')
+    App.execute "when:entity:fetched", loadedModel, =>
+      new ArtistApp.Edit.Controller
+        model: loadedModel

@@ -1,0 +1,40 @@
+
+// Dropdown menu.
+.dropdown-menu {
+  padding: $spacing-half-unit 0;
+  background: $color-playlist-background;
+  color: $color-playlist-text;
+  border-radius: 0;
+  li {
+    padding: $spacing-half-unit / 2 $spacing-base-unit;
+    &:hover {
+      background: rgba($color-white, 0.1);
+      color: $color-white;
+      cursor: pointer;
+      &.divider {
+        cursor: none;
+        background: none;
+      }
+    }
+    &.divider {
+      padding: 0;
+      margin: $spacing-half-unit /2 0;
+    }
+    &.dropdown-submenu {
+      position: relative;
+      overflow: visible;
+
+      > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -4px;
+        white-space: nowrap;
+      }
+
+      &:hover > .dropdown-menu {
+        display: block;
+      }
+    }
+  }
+}

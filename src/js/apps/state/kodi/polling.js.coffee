@@ -26,8 +26,10 @@
       stateObj.getCurrentState()
 
     ## As most of this is called out of context, we are calling everything
-    ## around the timeout in the golbal instace scope.
+    ## around the timeout in the global instance scope.
     update: ->
+      if config.getLocal('connected', true) is false
+        return
       if App.kodiPolling.failures < App.kodiPolling.maxFailures
         App.kodiPolling.updateState()
         ## Set the timeout.
@@ -35,6 +37,7 @@
       else
         ## We have exceeded the failure count, probably dead!
         App.execute "notification:show", t.gettext("Unable to communicate with Kodi in a long time. I think it's dead Jim!")
+        App.execute "shell:disconnect"
 
     ## Do a ping and deal with the results.
     ping: ->
@@ -45,7 +48,7 @@
           App.kodiPolling.failure()
       })
       commander.onError = ->
-        ## replace current error handler so we don't polute the console.
+        ## replace current error handler so we don't pollute the console.
       commander.sendCommand 'Ping', [], ->
         App.kodiPolling.alive()
 
@@ -56,7 +59,7 @@
 
     failure: ->
       App.kodiPolling.failures++
-      ## Incriment the check interval the more failures we get
+      ## Increment the check interval the more failures we get
       if App.kodiPolling.failures > 10
         App.kodiPolling.currentInterval = App.kodiPolling.checkInterval * 5
       if App.kodiPolling.failures > 20

@@ -1,6 +1,4 @@
 
-<div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
-
 <div class="section-content">
     <h2><%= t.gettext('Synopsis') %></h2>
     <p><%= @plot %></p>
@@ -8,7 +6,12 @@
 
 <% if @cast.length > 0: %>
     <div class="section-content">
-        <h2><%= t.gettext('Full Cast') %></h2>
+        <h2><%= tr('Full cast') %></h2>
         <div class="region-cast"></div>
     </div>
 <% end %>
+
+<div class="section-content section-full-width">
+    <h2><%= tr('Season') %> <%= @season %></h2>
+    <div class="region-season"></div>
+</div>

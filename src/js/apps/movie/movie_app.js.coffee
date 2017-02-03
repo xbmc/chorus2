@@ -2,14 +2,10 @@
 
   class MovieApp.Router extends App.Router.Base
     appRoutes:
-      "movies/recent"   	: "landing"
       "movies"   	: "list"
       "movie/:id"	: "view"
 
   API =
-
-    landing: ->
-      new MovieApp.Landing.Controller()
 
     list: ->
       new MovieApp.List.Controller()
@@ -33,21 +29,31 @@
         when 'download'
           files.downloadFile model.get('file')
         when 'toggleWatched'
-          videoLib.toggleWatched model
+          videoLib.toggleWatched model, 'auto'
         when 'edit'
           App.execute 'movie:edit', model
+        when 'refresh'
+          helpers.entities.refreshEntity model, videoLib, 'refreshMovie'
         else
         ## nothing
 
 
   App.reqres.setHandler 'movie:action:items', ->
     {
-    actions: {watched: 'Watched', thumbs: 'Thumbs up'}
-    menu: {add: 'Add to Kodi playlist', edit: 'Edit', divider: '', download: 'Download', localplay: 'Play in browser'}
+      actions: {watched: tr('Watched'), thumbs: tr('Thumbs up')}
+      menu: {add: tr('Queue in Kodi'), 'divider-1': '', download: tr('Download'), localplay: tr('Play in browser'), 'divider-2': '', edit: tr('Edit')}
     }
 
   App.commands.setHandler 'movie:action', (op, view) ->
     API.action op, view
+
+  App.commands.setHandler 'movie:action:watched', (parent, viewItem) ->
+    op = if parent.$el.hasClass('is-watched') then 'unwatched' else 'watched'
+    progress = if op is 'watched' then 100 else 0
+    parent.$el.toggleClass('is-watched')
+    helpers.entities.setProgress(parent.$el, progress)
+    helpers.entities.setProgress(parent.$el.closest('.movie-show').find('.region-content-wrapper'), progress)
+    API.action 'toggleWatched', viewItem
 
   App.commands.setHandler 'movie:edit', (model) ->
     loadedModel = App.request "movie:entity", model.get('id')

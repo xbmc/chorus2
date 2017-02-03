@@ -1,4 +1,6 @@
 <div class="empty-result">
-    <h2>No results found</h2>
-    <p>Have you done a library scan?</p>
+    <h2><%- t.sprintf(tr('No %1$s found'), '<span class="empty-key">' + tr('results') + '</span>') %></h2>
+    <div class="empty-actions">
+        <div class="back-link"></div>
+    </div>
 </div>

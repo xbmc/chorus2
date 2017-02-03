@@ -9,11 +9,14 @@
       "click .dropdown .add"      : "album:add"
       "click .dropdown .localadd" : "album:localadd"
       "click .dropdown .localplay" : "album:localplay"
-
+      "click .dropdown .edit"     : "album:edit"
     initialize: ->
       super
       if @model?
+        @setMeta()
         @model.set(App.request('album:action:items'))
+    setMeta: ->
+      if @model
         artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
         artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
         @model.set subtitle: artistLink
@@ -23,13 +26,6 @@
     className: "album-empty-result"
 
   class List.Albums extends App.Views.VirtualListView
-    childView: List.AlbumTeaser
-    emptyView: List.Empty
-    tagName: "ul"
-    sort: 'artist'
-    className: "card-grid--square"
-
-  class List.AlbumsSet extends App.Views.CollectionView
     childView: List.AlbumTeaser
     emptyView: List.Empty
     tagName: "ul"

@@ -9,6 +9,8 @@
       songSet:   '.entity-set-song'
       movieSet:  '.entity-set-movie'
       tvshowSet: '.entity-set-tvshow'
+      episodeSet: '.entity-set-episode'
+      musicvideoSet: '.entity-set-musicvideo'
 
   class List.ListSet extends App.Views.LayoutView
     template: 'apps/thumbs/list/thumbs_set'

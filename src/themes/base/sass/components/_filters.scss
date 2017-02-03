@@ -2,6 +2,11 @@
   .layout-container > .region-first {
     overflow: hidden;
   }
+  .region-content-wrapper .region-content {
+    .filters-loading & {
+      opacity: 0.3;
+    }
+  }
 }
 
 .filters-container {
@@ -22,7 +27,15 @@
       &.active {
         color: $color-brand-primary;
         font-weight: bold;
+        .active-player-local & {
+          color: $color-local;
+        }
       }
+    }
+  }
+  .selection-list {
+    a, .option {
+      text-transform: capitalize;
     }
   }
   .sortable.active {
@@ -48,6 +61,9 @@
       background-color: $color-greyscale-cloudy;
       &:hover {
         background-color: $color-brand-primary;
+        .active-player-local & {
+          background-color: $color-local;
+        }
       }
       @include icon(content-add-circle);
     }
@@ -68,6 +84,9 @@
       &:hover {
         &:before {
           color: $color-brand-primary;
+          .active-player-local & {
+            color: $color-local;
+          }
         }
       }
     }
@@ -124,6 +143,7 @@
     display: block;
     margin: 0 $spacing-double-unit;
     @include text-crop($color-white);
+    text-transform: capitalize;
   }
   display: none;
 }

@@ -11,10 +11,11 @@
         App.execute 'artist:action', 'localadd', item
       App.listenTo view, 'childview:artist:localplay', (list, item) ->
         App.execute 'artist:action', 'localplay', item
+      App.listenTo view, 'childview:artist:edit', (parent, item) ->
+        App.execute 'artist:edit', item.model
 
-    getArtistList: (collection, set = false) ->
-      viewName = if set then 'ArtistsSet' else 'Artists'
-      view = new List[viewName]
+    getArtistList: (collection) ->
+      view = new List.Artists
         collection: collection
       API.bindTriggers view
       view
@@ -51,8 +52,8 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['label']
-      filter: ['mood', 'genre', 'style']
+      sort: ['label', 'random']
+      filter: ['mood', 'genre', 'style', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->
@@ -72,4 +73,4 @@
 
   ## handler for other modules to get a list view.
   App.reqres.setHandler "artist:list:view", (collection) ->
-    API.getArtistList collection, true
+    API.getArtistList collection

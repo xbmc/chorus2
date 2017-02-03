@@ -1,5 +1,29 @@
 @Kodi.module "TVShowApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
+  API =
+
+    bindTriggersTVShow: (view) ->
+      App.listenTo view, 'tvshow:play', (view) ->
+        App.execute 'tvshow:action', 'play', view
+      App.listenTo view, 'tvshow:add', (view) ->
+        App.execute 'tvshow:action', 'add', view
+      App.listenTo view, 'toggle:watched', (view) ->
+        App.execute 'tvshow:action:watched', view.view, view.view, true
+      App.listenTo view, 'tvshow:refresh', (view) ->
+        App.execute 'tvshow:action', 'refresh', view
+      App.listenTo view, 'tvshow:refresh:episodes', (view) ->
+        App.execute 'tvshow:action', 'refreshEpisodes', view
+      App.listenTo view, 'tvshow:edit', (view) ->
+        App.execute 'tvshow:edit', view.model
+
+    bindTriggersTVSeason: (view) ->
+      App.listenTo view, 'childview:season:play', (parent, viewItem) ->
+        App.execute 'tvshow:action', 'play', viewItem
+      App.listenTo view, 'childview:season:add', (parent, viewItem) ->
+        App.execute 'tvshow:action', 'add', viewItem
+      App.listenTo view, 'childview:season:watched', (parent, viewItem) ->
+        App.execute 'tvshow:action:watched', parent, viewItem, false
+
   class Show.Controller extends App.Controllers.Base
 
     ## The TVShow page.
@@ -31,6 +55,8 @@
       @listenTo headerLayout, "show", =>
         teaser = new Show.TVShowTeaser model: tvshow
         detail = new Show.Details model: tvshow
+        API.bindTriggersTVShow detail
+        API.bindTriggersTVShow teaser
         headerLayout.regionSide.show teaser
         headerLayout.regionMeta.show detail
       @layout.regionHeader.show headerLayout
@@ -39,4 +65,10 @@
       collection = App.request "season:entities", tvshow.get('tvshowid')
       App.execute "when:entity:fetched", collection, =>
         view = App.request "season:list:view", collection
-        @layout.regionContent.show view
+        API.bindTriggersTVSeason view
+        if @layout.regionContent
+          @layout.regionContent.show view
+          # On update to show, reload seasons
+          App.vent.on 'entity:kodi:update', (uid) =>
+            if tvshow.get('uid') is uid
+              @getSeasons tvshow

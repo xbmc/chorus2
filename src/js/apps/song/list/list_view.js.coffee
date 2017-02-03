@@ -4,11 +4,18 @@
   class List.Song extends App.Views.ItemView
     template: 'apps/song/list/song'
     tagName: "tr"
-
     initialize: ->
-      duration = helpers.global.secToTime this.model.get('duration')
-      menu = {'song-localadd': 'Add to playlist', 'song-download': 'Download song', 'song-localplay': 'Play in browser', 'song-musicvideo': 'Music video'}
-      this.model.set({displayDuration: helpers.global.formatTime(duration), menu: menu})
+      super
+      if @model
+        duration = helpers.global.secToTime this.model.get('duration')
+        menu =
+          'song-localadd': 'Add to playlist'
+          'song-download': 'Download song'
+          'song-localplay': 'Play in browser'
+          'song-musicvideo': 'Music video'
+          'divider' : ''
+          'song-edit': 'Edit'
+        this.model.set({displayDuration: helpers.global.formatTime(duration), menu: menu})
 
     triggers:
       "click .play"            : "song:play"
@@ -18,42 +25,46 @@
       "click .song-download"   : "song:download"
       "click .song-localplay"  : "song:localplay"
       "click .song-musicvideo" : "song:musicvideo"
+      "click .song-remove"     : "song:remove"
+      "click .song-edit"            : "song:edit"
 
     events:
-      "click .dropdown > i": "populateMenu"
+      "click .dropdown > i": "populateModelMenu"
       "click .thumbs" : "toggleThumbs"
+      "click": "toggleSelect"
 
-    populateMenu: ->
-      menu = ''
-      if @model.get('menu')
-        for key, val of @model.get('menu')
-          menu += @themeTag 'li', {class: key}, val
-        this.$el.find('.dropdown-menu').html(menu)
+    ## This triggers a re-render on model update
+    modelEvents:
+      'change': 'render'
 
     toggleThumbs: ->
       App.request "thumbsup:toggle:entity", @model
       this.$el.toggleClass 'thumbs-up'
+      $('.plitem-' + @model.get('type') + '-' + @model.get('id')).toggleClass 'thumbs-up'
 
     attributes: ->
-      classes = ['song', 'table-row', 'can-play', 'item-' + @model.get('uid')]
-      if App.request "thumbsup:check", @model
-        classes.push 'thumbs-up'
-      {
-        class: classes.join(' ')
-      }
+      if @model
+        classes = ['song', 'table-row', 'can-play', 'item-' + @model.get('uid')]
+        if App.request "thumbsup:check", @model
+          classes.push 'thumbs-up'
+        {
+          'class': classes.join(' ')
+          'data-id': @model.id
+        }
 
     onShow: ->
-      ## Toggle menu open class on song row.
-      $('.dropdown', @$el).on 'show.bs.dropdown', =>
-        @$el.addClass('menu-open')
-      $('.dropdown', @$el).on 'hide.bs.dropdown', =>
-        @$el.removeClass('menu-open')
-      $('.dropdown', @$el).on 'click', ->
-        $(@).removeClass('open').trigger('hide.bs.dropdown')
+      @menuBlur()
+
+    onRender: ->
+      @$el.data('model', @model)
+
 
   ## Song list
-  class List.Songs extends App.Views.CollectionView
+  class List.Songs extends App.Views.VirtualListView
     childView: List.Song
+    placeHolderViewName: 'SongViewPlaceholder'
+    cardSelector: '.song'
+    preload: 40
     tagName: "table"
     attributes: ->
       verbose = if @options.verbose then 'verbose' else 'basic'

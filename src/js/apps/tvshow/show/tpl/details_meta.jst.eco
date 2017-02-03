@@ -8,20 +8,57 @@
 </div>
 <div class="region-details-meta-below">
 
-    <div class="region-details-subtext">
+    <ul class="meta">
         <% if @genre.length > 0: %>
-        <div class="genres">
-            <%- helpers.url.filterLinks 'tvshows', 'genre', @genre %>
-        </div>
+        <li><label><%= tr("genre") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'genre', @genre %></span></li>
         <% end %>
-    </div>
-
-    <ul class="people">
         <% if @cast.length > 0: %>
-        <li><label><%= t.gettext("Cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
+        <li><label><%= tr("cast") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'cast', _.pluck(@cast, 'name') %></span></li>
         <% end %>
+        <% if @studio.length > 0: %>
+        <li><label><%= tr("studio") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'studio', @studio %></span></li>
+        <% end %>
+        <% if @mpaa: %>
+        <li><label><%= tr("rated") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'mpaa', [@mpaa] %></span></li>
+        <% end %>
+        <li><label><%= tr("episodes") %>:</label> <span><span class="episode-total"><%= @episode %></span> <%= tr("total") %> (<span class="episode-unwatched"><%= @unwatched %></span> <%= tr("unwatched") %>)</span></li>
     </ul>
 
     <div class="description"><%= @plot %></div>
+
+    <ul class="inline-links">
+        <li class="btn-flat-play play"><%= tr('Play') %></li>
+        <li class="btn-flat-add add"><%= tr('Queue') %></li>
+        <li class="btn-flat-watched watched">
+            <%= tr('set') %> <span class="action-watched"><%= tr('watched') %></span><span class="action-unwatched"><%= tr('unwatched') %></span>
+        </li>
+        <li class="more-actions dropdown">
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <ul class="dropdown-menu pull-right">
+                <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
+                    <ul class="dropdown-menu">
+                        <%- helpers.entities.getAddonSearchMenuItems(@label) %>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu external-search"><%= tr('External Search') %>
+                    <ul class="dropdown-menu">
+                        <li data-type="google" data-query="<%= @label %>">Google</li>
+                        <li data-type="imdb" data-query="<%= @label %>">IMDb</li>
+                        <li data-type="tvdb" data-query="<%= @label %>">TVDb</li>
+                        <li data-type="tmdb" data-query="<%= @label %>">TMDb</li>
+                    </ul>
+                </li>
+                <li class="youtube-search" data-query="<%= @label %>"><%= tr('YouTube Search') %></li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu"><%= tr('Refresh') %>
+                    <ul class="dropdown-menu">
+                        <li class="refresh"><%= tr('Show only') %></li>
+                        <li class="refresh-episodes"><%= tr('Show and episodes') %></li>
+                    </ul>
+                </li>
+                <li class="edit"><%= tr('Edit') %></li>
+            </ul>
+        </li>
+    </ul>
 
 </div>

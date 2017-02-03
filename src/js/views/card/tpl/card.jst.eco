@@ -1,7 +1,7 @@
 <div class="card-<%= @type %>">
     <div class="artwork">
         <a href="#<%= @url %>" class="thumb" title="<%= helpers.global.stripTags(@label) %>" style="background-image: url('<%= @thumbnail %>')"></a>
-        <div class="mdi play"></div>
+        <div class="mdi play" title="<%= tr('Play') %>"></div>
         <% if @type is "channeltv" or @type is "channelradio": %>
           <div class="mdi record"></div>
         <% end %>
@@ -23,8 +23,6 @@
             <ul class="dropdown-menu"></ul>
         </div>
     <% end %>
-    <% if @progress: %>
-        <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
-    <% end %>
-    <i class="mdi watched-tick"></i>
+    <% @progress = if @progress? then @progress else 0 %>
+    <div class="entity-progress"><div class="current-progress" style="width: <%= @progress %>%" title="<%= @progress %>% <%= t.gettext('complete') %>"></div></div>
 </div>

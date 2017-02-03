@@ -46,7 +46,11 @@
         className = '.item-' + item.uid
         $(className).addClass( @playerClass('row-' + playState, player) )
         ## playlist item
-        $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        $plItem = $('.pos-' + stateObj.getPlaying('position'), $playlistCtx).addClass( 'row-' + playState )
+        ## force playing item thumb and title @see http://forum.kodi.tv/showthread.php?tid=300522
+        if $plItem.data('type') is 'file'
+          $('.thumb', $plItem).css "background-image", "url('" + item.thumbnail + "')"
+          $('.title', $plItem).html helpers.entities.playingLink(item)
         App.vent.trigger "state:" + player + ":playing:updated", stateObj
 
     ## Set the now playing info in the player
@@ -139,6 +143,10 @@
       App.reqres.setHandler "state:current", ->
         stateObj = if App.kodiState.getPlayer() is 'kodi' then App.kodiState else App.localState
         stateObj
+
+      # Reconnect websockets.
+      App.commands.setHandler 'state:ws:init', () ->
+        App.kodiSockets = new StateApp.Kodi.Notifications()
 
       ## Let things know the state object is now available
       App.vent.trigger "state:changed"

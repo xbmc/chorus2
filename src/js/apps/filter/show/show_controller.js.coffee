@@ -101,6 +101,7 @@
 
     ## When something has changed. rerender the actives and notify other watchers.
     triggerChange: (clearOptions = true) ->
+      App.vent.trigger 'filter:filtering:start'
       @getFilters(clearOptions)
       @getActive()
       App.navigate helpers.url.path()

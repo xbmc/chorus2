@@ -6,11 +6,18 @@
       viewName = if set then 'TVShowsSet' else 'TVShows'
       view = new List[viewName]
         collection: tvshows
-      App.listenTo view, 'childview:tvshow:play', (list, item) ->
-        playlist = App.request "command:kodi:controller", 'video', 'PlayList'
-        playlist.play 'tvshowid', item.model.get('tvshowid')
+      API.bindTriggers view
       view
 
+    bindTriggers: (view) ->
+      App.listenTo view, 'childview:tvshow:play', (parent, viewItem) ->
+        App.execute 'tvshow:action', 'play', viewItem
+      App.listenTo view, 'childview:tvshow:add', (parent, viewItem) ->
+        App.execute 'tvshow:action', 'add', viewItem
+      App.listenTo view, 'childview:tvshow:watched', (parent, viewItem) ->
+        App.execute 'tvshow:action:watched', parent, viewItem
+      App.listenTo view, 'childview:tvshow:edit', (parent, viewItem) ->
+        App.execute 'tvshow:edit', viewItem.model
 
   ## Main controller
   class List.Controller extends App.Controllers.Base
@@ -30,6 +37,7 @@
       ## When fetched.
       App.execute "when:entity:fetched", collection, =>
 
+
         ## Get and setup the layout
         @layout = @getLayoutView collection
         @listenTo @layout, "show", =>
@@ -47,8 +55,8 @@
     ## Available sort and filter options
     ## See filter_app.js for available options
     getAvailableFilters: ->
-      sort: ['title', 'year', 'dateadded', 'rating']
-      filter: ['year', 'genre', 'unwatched', 'cast']
+      sort: ['title', 'year', 'dateadded', 'rating', 'random']
+      filter: ['year', 'genre', 'unwatched', 'inprogress', 'cast', 'mpaa', 'studio', 'thumbsUp']
 
     ## Apply filter view and provide a handler for applying changes
     getFiltersView: (collection) ->

@@ -37,3 +37,11 @@
     getAllAddons: (callback) =>
       @getAddons "unknown", "all", @addonAllFields, (resp) =>
         @doCallback callback, resp
+
+    # Execute an addon
+    executeAddon: (addonId, params = {}, callback) ->
+      opts = {addonid: addonId}
+      if not _.isEmpty params
+        opts.params = params
+      @singleCommand @getCommand('ExecuteAddon'), opts, (resp) =>
+        @doCallback callback, resp.addons

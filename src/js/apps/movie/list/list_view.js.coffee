@@ -5,26 +5,23 @@
 
   class List.MovieTeaser extends App.Views.CardView
     triggers:
-      "click .play"       : "movie:play"
-      "click .watched"    : "movie:watched"
-      "click .add"        : "movie:add"
-      "click .localplay"  : "movie:localplay"
-      "click .download"   : "movie:download"
-      "click .edit"       : "movie:edit"
+      "click .play"          : "movie:play"
+      "click .watched"       : "movie:watched"
+      "click .add"           : "movie:add"
+      "click .localplay"     : "movie:localplay"
+      "click .download"      : "movie:download"
+      "click .edit"          : "movie:edit"
     initialize: ->
       super
+      @setMeta()
       if @model?
-        @model.set subtitle: @model.get('year')
         @model.set( App.request('movie:action:items') )
-
     attributes: ->
-      classes = ['card']
-      if helpers.entities.isWatched @model
-        classes.push 'is-watched'
-      {
-        class: classes.join(' ')
-      }
-
+      @watchedAttributes 'card'
+    setMeta: ->
+      if @model
+        @model.set
+          subtitle: @themeLink @model.get('year'), 'movies?year=' + @model.get('year')
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

@@ -19,7 +19,7 @@
     playCollection: (models) ->
       if not _.isArray models
         models = models.getRawCollection()
-      ## TODO: Add logic for if something is alreadly playing (like kodi controller)
+      ## TODO: Add logic for if something is already playing (like kodi controller)
       @clear =>
         @insertAndPlay models, 0
 
@@ -83,7 +83,7 @@
           @doCallback callback, songs.getRawCollection()
       else
         ## Else it's a filtered collection (artist, album, etc)
-        songs = App.request "song:filtered:entities", {filter: helpers.global.paramObj(type, value)}
+        songs = App.request "song:entities", {filter: helpers.global.paramObj(type, value)}
         App.execute "when:entity:fetched", songs, =>
           @doCallback callback, songs.getRawCollection()
 

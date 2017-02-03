@@ -18,13 +18,14 @@
       @data = data
       # Form header/intro
       defaults = ' <a class="nav-restore-defaults">' + t.gettext('Click here restore defaults') + '</a>'
+      iconLink = '<a href="#lab/icon-browser">icons</a>'
       form = [
         title: t.gettext('Main Menu Structure')
         id: 'intro'
         children: [
           id: 'intro-text'
           type: 'markup'
-          markup: t.gettext('Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items.') + defaults
+          markup: t.sprintf(tr('Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items.'), iconLink) + defaults
         ]
       ]
       # Return a form structure
@@ -75,13 +76,14 @@
         $(@).closest('.add-another-wrapper').before formView.render().$el
         self.binds()
 
-      # Reordering and dragging
-      $('.form-groups', $ctx).sortable({
-        draggable: ".draggable-row"
-        onEnd: (e) ->
-          $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
-            $(d).attr 'value', i
-      });
+      # Reordering and dragging (large screen only)
+      if $(window).width() > config.getLocal('largeBreakpoint')
+        $('.form-groups', $ctx).sortable({
+          draggable: ".draggable-row"
+          onEnd: (e) ->
+            $('input[id^="form-edit-weight-"]', e.target).each (i, d) ->
+              $(d).attr 'value', i
+        });
 
       # Reset default link
       $('.nav-restore-defaults', $ctx).on "click", (e) =>
