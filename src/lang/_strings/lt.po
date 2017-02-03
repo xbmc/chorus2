@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: XBMC Translation Team\n"
-"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"PO-Revision-Date: 2017-02-03 09:53+0200\n"
+"Last-Translator: Raimondas Duzinskas\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/"
+"language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
 
 msgctxt ""
 msgid "Nothing playing"
@@ -56,20 +58,32 @@ msgid "Ignore terms such as 'The' and 'A' when sorting lists"
 msgstr "Rūšiuojant sąrašus ignoruoti terminus, tokius kaip 'The' ir 'A'"
 
 msgctxt ""
-msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "Atvaizduojant atlikėjus rodyti tik atlikėjus su albumais ar visus rastus atlikėjus. Įspėjimas: šios parinkties išjungimas gali įtakoti našumą esant didelėms bibliotekoms"
+msgid ""
+"When listing artists should we only see artists with albums or all artists "
+"found. Warning: turning this off can impact performance with large libraries"
+msgstr ""
+"Atvaizduojant atlikėjus rodyti tik atlikėjus su albumais ar visus rastus atlikėjus. "
+"Įspėjimas: šios parinkties išjungimas gali įtakoti našumą esant didelėms bibliotekoms"
 
 msgctxt ""
 msgid "is the default"
 msgstr "yra numatytasis"
 
 msgctxt ""
-msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr "Serverio vardas naudojamas WebSockets prisijungimui. Nustatykite 'auto', jei norite naudoti esamo serverio vardą."
+msgid ""
+"The hostname used for websockets connection. Set to 'auto' to use the "
+"current hostname."
+msgstr ""
+"Serverio vardas naudojamas WebSockets prisijungimui. Nustatykite 'auto', "
+"jei norite naudoti esamo serverio vardą."
 
 msgctxt ""
-msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "Kaip dažnai gauti atnaujintą informaciją iš Kodi (Galioja tik, jei WebSockets yra neaktyvus)"
+msgid ""
+"How often do I poll for updates from Kodi (Only applies when websockets "
+"inactive)"
+msgstr ""
+"Kaip dažnai gauti atnaujintą informaciją iš Kodi (Galioja tik, jei WebSockets "
+"yra neaktyvus)"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -149,7 +163,7 @@ msgstr "Esami grojaraščiai"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Tuščias grojaraštis, tikriausiai vertėtų ką nors pridėti?"
+msgstr "Grojaraštis tuščias, tikriausiai vertėtų ką nors pridėti?"
 
 msgctxt ""
 msgid "Create a new list"
@@ -266,12 +280,22 @@ msgid "sec"
 msgstr "sek"
 
 msgctxt ""
-msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr "Jūsų naršyklė nepalaiko WebSockets! Neatsilikite nuo laikmečio ir atnaujinkite savo naršyklę."
+msgid ""
+"Your browser doesn't support websockets! Get with the times and update your "
+"browser."
+msgstr ""
+"Jūsų naršyklė nepalaiko WebSockets! Neatsilikite nuo laikmečio ir atnaujinkite savo "
+"naršyklę."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Nepavyko prisijungti prie WebSockets, todėl nepavyksta gauti atnaujinimų. Tai sulėtins veikimą ir naudos daugiau resursų. Įsitikinkite, kad nustatymas 'Leisti nuotolinį valdymą iš kitose sistemose esančių programų' yra ĮJUNGTAS Kodi nustatymuose (Sistema > Paslaugos > Nuotolinis valdymas). Tai taip pat galėjo atsitikti, jei naudojate įgaliotuosius serverius ar jungianties naudodami IP adresą, kai pakaktų 'localhost'. Jei WebSockets veikia normaliai, turėtų užtekti atnaujinti naršyklės vaizdą."
+msgstr ""
+"Nepavyko prisijungti prie WebSockets, todėl nepavyksta gauti atnaujinimų. Tai sulėtins "
+"veikimą ir naudos daugiau resursų. Įsitikinkite, kad nustatymas 'Leisti nuotolinį valdymą "
+"iš kitose sistemose esančių programų' yra ĮJUNGTAS Kodi nustatymuose (Sistema > Paslaugos > "
+"Nuotolinis valdymas). Tai taip pat galėjo atsitikti, jei naudojate įgaliotuosius serverius "
+"ar jungianties naudodami IP adresą, kai pakaktų 'localhost'. Jei WebSockets veikia normaliai, "
+"turėtų užtekti atnaujinti naršyklės vaizdą."
 
 msgctxt ""
 msgid "Video"
@@ -351,7 +375,7 @@ msgstr "Naujausi epizodai"
 
 msgctxt ""
 msgid "All TV shows"
-msgstr "VIsos TV laidos"
+msgstr "Visos TV laidos"
 
 msgctxt ""
 msgid "Web settings"
@@ -363,11 +387,15 @@ msgstr "Kodi nustatymai"
 
 msgctxt ""
 msgid "Now Playing Playlists"
-msgstr "Šiuo metu atkuriamų įrašų grojaraštis"
+msgstr "Šiuo metu atkuriami grojaraščiai"
 
 msgctxt ""
-msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "Persijunkite tarp Kodi ir lokalaus atkūrimo naudodami korteles. Matomumą galite perjungti naudodami rodyklę viršutiniame dešiniajame kampe"
+msgid ""
+"Switch between Kodi and local playback via the tabs. You can toggle "
+"visibility with the arrow in the top right"
+msgstr ""
+"Persijunkite tarp Kodi ir lokalaus atkūrimo naudodami korteles. "
+"Matomumą galite perjungti naudodami rodyklę viršutiniame dešiniajame kampe"
 
 msgctxt ""
 msgid "Current playlist"
@@ -391,7 +419,7 @@ msgstr "Išsaugoti Kodi grojaraštį"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "Pageidaujama kalba, reikia iš naujo įkelti puslapį, kad pakeitimas įsigaliotų"
+msgstr "Pageidaujama kalba.Rreikia iš naujo įkelti puslapį, kad pakeitimas įsigaliotų"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
@@ -446,8 +474,12 @@ msgid "Browse files and add-ons"
 msgstr "Naršyti failus ir priedus"
 
 msgctxt ""
-msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
-msgstr "Čia jūs galite naršyti Kodi turinį, o ne tik tai kas yra bibliotekoje. Naršykite šaltiniuose ir prieduose."
+msgid ""
+"This is where you can browse all Kodi content, not just what is in the "
+"library. Browse by source or add-on."
+msgstr ""
+"Čia jūs galite naršyti Kodi turinį, o ne tik tai kas yra bibliotekoje. "
+"Naršykite šaltiniuose ir prieduose."
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -474,16 +506,20 @@ msgid "Kodi API browser"
 msgstr "Kodi API naršyklė"
 
 msgctxt ""
-msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "Tai yra įrankis API testavimui. Pasirinkite metodą ir įvykdykite jį su parametrais."
+msgid ""
+"This is a tool to test out the API. Select a method then execute it with "
+"parameters."
+msgstr ""
+"Tai yra įrankis, skirtas API testavimui. Pasirinkite metodą ir įvykdykite jį su "
+"parametrais."
 
 msgctxt ""
-msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
-msgstr "Naudodami tai galite sugadinti savo sistemą ir nuo to nėra jokios apsaugos. Naudokite savo pačių rizika."
-
-msgctxt ""
-msgid "Kodi settings"
-msgstr "Kodi nustatymai"
+msgid ""
+"You could potentially damage your system with this and there are no sanity "
+"checks. Use at own risk."
+msgstr ""
+"Naudodami tai galite sugadinti savo sistemą ir nuo to nėra jokios apsaugos. "
+"Naudokite savo pačių rizika."
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -494,16 +530,10 @@ msgid "General"
 msgstr "Pagrindiniai"
 
 msgctxt ""
-msgid "Web settings"
-msgstr "Žiniatinklio nustatymai"
-
-msgctxt ""
-msgid "Advanced setting level is recommended for those who know what they are doing."
-msgstr "Išplėstiniai nustatymai rekomenduojami tiems, kurie žino ką daro."
-
-msgctxt ""
-msgid "Web settings saved."
-msgstr "Žiniatinklio nustatymai išsaugoti."
+msgid ""
+"Advanced setting level is recommended for those who know what they are doing."
+msgstr ""
+"Išplėstiniai nustatymai rekomenduojami tiems, kurie žino ką daro."
 
 msgctxt ""
 msgid "Kodi settings level"
@@ -582,8 +612,12 @@ msgid "Focus playlist on playing"
 msgstr "Fokusuoti grojaraštį atkuriant"
 
 msgctxt ""
-msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
-msgstr "Automatiškai slinkti grojaraštį kartu su šiuo metu atkuriamu elementu. Tai nutinka keičiantis atkuriamam elementui"
+msgid ""
+"Automatically scroll the playlist to the current playing item. This happens "
+"whenever the playing item is changed"
+msgstr ""
+"Automatiškai slinkti grojaraštį kartu su šiuo metu atkuriamu elementu. "
+"Tai nutinka keičiantis atkuriamam elementui"
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -622,8 +656,12 @@ msgid "Main Menu Structure"
 msgstr "Pagrindinio meniu struktūra"
 
 msgctxt ""
-msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
-msgstr "Čia jūs galite pakeisti meniu elementų pavadinimus, nuorodas ir piktogramas. Taip galite pašalinti, perrikiuoti ir pridėti naujus elementus."
+msgid ""
+"Here you can change the title, url and %1$s for menu items. You can also "
+"remove, re-order and add new items."
+msgstr ""
+"Čia jūs galite pakeisti meniu elementų pavadinimus, nuorodas ir piktogramas. "
+"Taip pat galite pašalinti, perrikiuoti ir pridėti naujus elementus."
 
 msgctxt ""
 msgid "Main Nav"
@@ -678,8 +716,12 @@ msgid "Disable Thumbs Up"
 msgstr "Išjungti nykščius aukštyn"
 
 msgctxt ""
-msgid "Remove the thumbs up button from media. Note: you may also want to remove the menu item from the "
-msgstr "Pašalinti nykščių aukštyn mygtuką media įrašams. Pastaba: galbūt jus taip pat norėsite pašalinti meniu elementą iš čia: "
+msgid ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the %1$s"
+msgstr ""
+"Pašalinti nykščių aukštyn mygtuką media įrašams. Pastaba: galbūt jus taip "
+"pat norėsite pašalinti meniu elementą iš čia: %1$s"
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
@@ -688,3 +730,721 @@ msgstr "Jums reikia 'Leisti nuotolinį valdymą' Kodi programoje. Jūs tai sugeb
 msgctxt ""
 msgid "here"
 msgstr "čia"
+
+msgctxt ""
+msgid "yes"
+msgstr "taip"
+
+msgctxt ""
+msgid "no"
+msgstr "ne"
+
+msgctxt ""
+msgid "close"
+msgstr "uždaryti"
+
+msgctxt ""
+msgid "ok"
+msgstr "gerai"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Ar esatae įsitikinęs?"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "Nustatyti visus šio sezono epizodus kaip"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Nustatyti visus šios TV laidos epizodus kaip"
+
+msgctxt ""
+msgid "watched"
+msgstr "peržiūrėtus"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "neperžiūrėtus"
+
+msgctxt ""
+msgid "genre"
+msgstr "žanras"
+
+msgctxt ""
+msgid "studio"
+msgstr "studija"
+
+msgctxt ""
+msgid "rated"
+msgstr "įvertinta"
+
+msgctxt ""
+msgid "episodes"
+msgstr "epizodai"
+
+msgctxt ""
+msgid "total"
+msgstr "viso"
+
+msgctxt ""
+msgid "set"
+msgstr "rinkinys"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Rodyti įrenginio vardą"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Rodyti Kodi įrenginio vardą Chorus antraštėje"
+
+msgctxt ""
+msgid "No results found"
+msgstr "Nėra rezultatų"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Ar atlikote bibliotekos nuskaitymą?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Atkurti naršyklėje"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Pridėti į Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Peržiūrėta"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "Naujas grojaraštis"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Atkurti naudojant Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Eksportuoti sąrašą"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Pašalinti grojaraštį"
+
+msgctxt ""
+msgid "title"
+msgstr "pavadinimas"
+
+msgctxt ""
+msgid "year"
+msgstr "metai"
+
+msgctxt ""
+msgid "date added"
+msgstr "įkėlimo data"
+
+msgctxt ""
+msgid "rating"
+msgstr "reitingas"
+
+msgctxt ""
+msgid "actor"
+msgstr "aktorius"
+
+msgctxt ""
+msgid "mood"
+msgstr "nuotaika"
+
+msgctxt ""
+msgid "writer"
+msgstr "scenaristas"
+
+msgctxt ""
+msgid "director"
+msgstr "režisierius"
+
+msgctxt ""
+msgid "mood"
+msgstr "nuotaika"
+
+msgctxt ""
+msgid "style"
+msgstr "stilius"
+
+msgctxt ""
+msgid "items selected"
+msgstr "pasirinkti elementai"
+
+msgctxt ""
+msgid "item selected"
+msgstr "pasiriktas elementas"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Vaizdo bibliotekos valymas pradėtas"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Vaizdo bibliotekos valymas baigtas"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Muzikos bibliotekos valymas pradėtas"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Muzikos bibliotekos valymas baigtas"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "Tai yra įrankis, skirtas API testavimui. Pasirinkite metodą ir įvykdykite jį su parametrais."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Eiti į sezoną"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Pridėti į Kodi eilę"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Elementai pridedami į eilę"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Televizija"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Neseniai pridėti albumai"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Atsitiktiniai albumai"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Neseniai atkurti albumai"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Atsitiktiniai filmai"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Žiūrėti toliau"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "Daugiau iš %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "Daugiau %1$s filmų"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "Daugiau filmų su %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Kiti su %1$s susiję filmai"
+
+msgctxt ""
+msgid "artist"
+msgstr "atlikėjas"
+
+msgctxt ""
+msgid "random"
+msgstr "atsitiktinis"
+
+msgctxt ""
+msgid "label"
+msgstr "leidybinė kompanija"
+
+msgctxt ""
+msgid "formed"
+msgstr "susikūrė"
+
+msgctxt ""
+msgid "born"
+msgstr "gimė"
+
+msgctxt ""
+msgid "died"
+msgstr "mirė"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "išsiskyrė"
+
+msgctxt ""
+msgid "years active"
+msgstr "veiklos metai"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Rodyti daugiau"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Įkeliami albumai"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"Prieš %1$d sek., Kodi programoje buvo atidarytas įvesties langas ir jis vis dar aktyvus! "
+"Norėdami išvengti sistemos griūties, turėtumėte man pateikti kokį nors "
+"tekstą. Šiuo metu man tikrai nesvarbu koks jis bus, kodėl gi nepabūti kūrybingu? "
+"Ar turite %2$s? Aš niekam nesakysiu..."
+
+msgctxt ""
+msgid "all media"
+msgstr "visi media įrašai"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radijas"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "Pirma transliacija"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Atnaujinti %1$s duomenys"
+
+msgctxt ""
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Siužetas"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Reitingas"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Originalus pavadinimas"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Režisieriai"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Scenaristai"
+
+msgctxt ""
+msgid "File path"
+msgstr "Failo kelias"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Atlikėjas"
+
+msgctxt ""
+msgid "Description"
+msgstr "Aprašymas"
+
+msgctxt ""
+msgid "Label"
+msgstr "Leidybinė kompanija"
+
+msgctxt ""
+msgid "Year"
+msgstr "Metai"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Žanrai"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Stiliai"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Temos"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Nuotaikos"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Albumo atlikėjas"
+
+msgctxt ""
+msgid "Album"
+msgstr "Albumas"
+
+msgctxt ""
+msgid "Track"
+msgstr "Takelis"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Diskas"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Šūkis"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studija"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Turinio įvertinimas"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premjera"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Rūšiavimo pavadinimas"
+
+msgctxt ""
+msgid "Country"
+msgstr "Šalis"
+
+msgctxt ""
+msgid "Set"
+msgstr "Rinkinys"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Žymos"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Anonsas"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Susikūrė"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Išsiskyrė"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Veiklos metai"
+
+msgctxt ""
+msgid "Born"
+msgstr "Gimė"
+
+msgctxt ""
+msgid "Died"
+msgstr "Mirė"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instrumentai"
+
+msgctxt ""
+msgid "more"
+msgstr "daugiau"
+
+msgctxt ""
+msgid "in progress"
+msgstr "vykdoma"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Pridėti atvaizdą naudojant išorinį URL"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Ieškoma daugiau atvaizdų"
+
+msgctxt ""
+msgid "Selector"
+msgstr "Parinkiklis"
+
+msgctxt ""
+msgid "External Search"
+msgstr "Išorinė paieška"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Lokalūs media įrašai"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus paieška"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube paieška"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Paleistas priedas"
+
+msgctxt ""
+msgid "all"
+msgstr "viskas"
+
+msgctxt ""
+msgid "video"
+msgstr "vaizdo įrašas"
+
+msgctxt ""
+msgid "audio"
+msgstr "muzika"
+
+msgctxt ""
+msgid "image"
+msgstr "atvaizdas"
+
+msgctxt ""
+msgid "picture"
+msgstr "paveikslėlis"
+
+msgctxt ""
+msgid "executable"
+msgstr "vykdomasis failas"
+
+msgctxt ""
+msgid "settings"
+msgstr "nustatymai"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Atnaujinti"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"Atnaujinant '%1$s', jis bus pašalintas iš bibliotekos ir vėl pridėtas iš naujo, todėl "
+"ID gali pasikeisti. Aš pamėginsiu įkelti šį puslapį iš naujo su nauju ID po kelių "
+"sekundžių. Paspauskite 'TAIP' norėdami patvirtinti atnaujinimą"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Atnaujinti ignoruojant NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignoruoti lokalius NFO failus atnaujinant media įrašus rankiniu būdu."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Tik TV laidos"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "TV laidos ir epizodai"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Top muzika"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s atlikėjai"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s albumai"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s dainos"
+
+msgctxt ""
+msgid "default"
+msgstr "numatytasis"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Veiksmai"
+
+msgctxt ""
+msgid "play files"
+msgstr "atkurti failus"
+
+msgctxt ""
+msgid "queue files"
+msgstr "pridėti failus į eilę"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Siųsti tekstą"
+
+msgctxt ""
+msgid "License"
+msgstr "Licenzija"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Pagrindinis meniu"
+
+msgctxt ""
+msgid "Search"
+msgstr "Paieška"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Sava priedo paieška"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus paieška palaiko ne tik lokalių media įrašų, bet ir priedų turinio paiešką. Pavyzdžiui, jūs galite naudoti "
+"paiešką norėdami rasti vaizdo įrašų YouTube ar muzikos SoundCloud paslaugose. Šis puslapis leidžia pridėti savas priedų paieškas, "
+"kurios nėra įtrauktos pagal nutylėjimą. Daugiau informacijos galite rasti čia: %1$s."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Priedų pagalbos puslapis"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "Nerastas joks %1$s"
+
+msgctxt ""
+msgid "results"
+msgstr "rezultatai"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "EPG duomenys"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Įrašai"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Kanalo įrašymas perjungtas"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "TV kanalai"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Radijo stotys"
+
+msgctxt ""
+msgid "Record"
+msgstr "Įrašyti"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Perjungti laikmatį"
+
+msgctxt ""
+msgid "Now"
+msgstr "Dabar"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Pervadinti grojaraštį"
+
+msgctxt ""
+msgid "album"
+msgstr "albumas"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Nutrūko ryšys su Kodi"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Mėginama prisjungti iš naujo"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Mėginama prisjungti iš naujo"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Top dainos"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Top albumai"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Perjungti pažymėjimą"
+
+msgctxt ""
+msgid "More like this"
+msgstr "Panašu į šį"
+
+msgctxt ""
+msgid "music videos"
+msgstr "muzikiniai vaizdo įrašai"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Susiję vaizdo įrašai iš YouTube"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Nutrūko WebSocket ryšys"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Mėginama iš naujo prisijungti prie WebSockets"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "Tai turėtų būti anonso atkūrimo kelias. Pvz., %1$s"
