@@ -30,6 +30,7 @@
         newClasses.push ( stateObj.getPlaying('playState') )
       else
         newClasses.push ('not-playing')
+#      $body.removeClass('local-partymode-on')
       for c in newClasses
         $body.addClass @playerClass(c, player)
 
@@ -87,6 +88,13 @@
         else
           helpers.global.appTitle()
 
+    ## Get the most appropriate player on first load.
+    getDefaultPlayer: () ->
+      player = config.getLocal('defaultPlayer', 'auto')
+      if player is 'auto'
+        player = config.get 'app', 'state:lastplayer', 'kodi'
+      player
+
     ## Kick off all things kodi statewise
     initKodiState: ->
 
@@ -95,7 +103,7 @@
       App.localState = new StateApp.Local.State()
 
       ## Set the initial active player
-      App.kodiState.setPlayer config.get('state', 'lastplayer', 'kodi')
+      App.kodiState.setPlayer @getDefaultPlayer()
 
       ## Load up the Kodi state
       App.kodiState.getCurrentState (state) ->

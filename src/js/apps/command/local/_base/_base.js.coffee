@@ -135,6 +135,7 @@
             else if currentPos < collection.length
               ## Standard next
               posToPlay = currentPos + 1
+            @localStateNext()
           ## Prev action
           if param is 'previous'
             ## repeat all, go to the end
@@ -145,7 +146,7 @@
               posToPlay = currentPos - 1
       ## Check we have a position to play, if so, play it.
       if posToPlay isnt false
-        model = collection.findWhere {position: posToPlay}
+        model = collection.findWhere {position: parseInt(posToPlay)}
         @localLoad model, =>
           @localPlay()
           @localStateUpdate()
@@ -188,6 +189,10 @@
     ## Triggers when something changes in the player.
     localStateUpdate: ->
       App.vent.trigger "state:local:changed"
+
+    ## Trigger when we have moved to the next song
+    localStateNext: ->
+      App.vent.trigger "state:local:next"
 
     paramObj: (key, val) ->
       helpers.global.paramObj key, val

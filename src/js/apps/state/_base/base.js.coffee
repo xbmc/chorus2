@@ -98,6 +98,7 @@
       $body = App.getRegion('root').$el
       $body.removeClassStartsWith('active-player-').addClass('active-player-' + player);
       config.set 'state', 'lastplayer', player
+      config.set 'app', 'state:lastplayer', player
 
     getPlayer: ->
       player = 'kodi'

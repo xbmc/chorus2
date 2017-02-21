@@ -94,6 +94,10 @@
           App.request 'state:kodi:update'
         @doCallback callback, resp
 
+    setPartyMode: (op = 'toggle', callback) ->
+      @sendCommand 'SetPartymode', [op], (resp) =>
+        @doCallback callback, resp
+
     getPlaying: (callback) ->
       obj = {active: false, properties: false, item: false}
       @singleCommand @getCommand('GetActivePlayers'), {}, (resp) =>

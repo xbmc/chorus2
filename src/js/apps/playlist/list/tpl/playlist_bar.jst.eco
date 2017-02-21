@@ -9,8 +9,8 @@
             <li class="dropdown-header"><%= t.gettext('Current playlist') %></li>
             <li><a href="#" class="clear-playlist"><%= t.gettext('Clear playlist') %></a></li>
             <li><a href="#" class="refresh-playlist"><%= t.gettext('Refresh playlist') %></a></li>
-            <li class="dropdown-header"><%= t.gettext('Kodi') %></li>
             <li><a href="#" class="party-mode"><%= t.gettext('Party mode') %> <i class="mdi-navigation-check"></i></a></li>
+            <li class="dropdown-header"><%= t.gettext('Kodi') %></li>
             <li><a href="#" class="save-playlist"><%= t.gettext('Save Kodi playlist') %></a></li>
             </li>
         </ul>
