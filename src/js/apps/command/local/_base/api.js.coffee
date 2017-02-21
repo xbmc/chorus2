@@ -36,3 +36,8 @@
         else
           ## nothing
       @localStateUpdate()
+
+    ## Start, stop, toggle local party mode
+    setPartyMode: (op = 'toggle', callback) ->
+      App.execute 'playlist:local:partymode', op, (resp) =>
+        @doCallback callback, resp

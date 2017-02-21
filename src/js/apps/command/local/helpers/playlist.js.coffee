@@ -17,21 +17,21 @@
 
     ## Play a collection of song models.
     playCollection: (models) ->
-      if not _.isArray models
-        models = models.getRawCollection()
+      models = @itemsJson models
       ## TODO: Add logic for if something is already playing (like kodi controller)
       @clear =>
         @insertAndPlay models, 0
 
     ## Add a item to the end of the playlist
     addCollection: (models) ->
+      models = @itemsJson models
       @playlistSize (size) =>
         @insert models, size
 
     ## Remove an item from the list
     remove: (position, callback) ->
       @getItems (collection) =>
-        raw = collection.getRawCollection()
+        raw = @itemsJson collection
         ret = []
         for pos, item of raw
           if parseInt(pos) isnt parseInt(position)
@@ -49,7 +49,7 @@
     ## Insert a song at a position models can be a sing model or an array. Expects raw json (not collection)
     insert: (models, position = 0, callback) ->
       @getItems (collection) =>
-        raw = collection.getRawCollection()
+        raw = @itemsJson collection
         if raw.length is 0
           ## Empty list
           ret = _.flatten( [models] )
@@ -73,7 +73,9 @@
     ## Add items to the end of a list
     addItems: (items) ->
       App.request "localplayer:item:add:entities", items
+      @updatePlayingPosition items
       @refreshPlaylistView()
+      items
 
     ## Get the songs in a collection based on type type/value.
     getSongs: (type, value, callback) ->
@@ -91,6 +93,11 @@
     getItems: (callback) ->
       collection = App.request "localplayer:get:entities"
       @doCallback callback, collection
+
+    ## If collection, normalise to JSON, if JSON pass through.
+    itemsJson: (collection) ->
+      items = if _.isArray(collection) then collection else collection.toJSON()
+      items
 
     ## Insert a song at a position and play it
     insertAndPlay: (models, position = 0, callback) ->
@@ -115,3 +122,22 @@
         @remove position1, =>
           @insert item, position2, =>
             @doCallback callback, position2
+
+    ## After items in playlist have changed, this updates the playing position
+    ## TODO: Make this less buggy, does weird things when tracks changed in party mode
+    updatePlayingPosition: (collection) ->
+      stateObj = App.request "state:local"
+      if stateObj.isPlaying()
+        model = stateObj.getPlaying('item')
+        if model.uid
+          set = false
+          pos = 0
+          for i, m of @itemsJson(collection)
+            if set is true
+              continue
+            if m.uid is model.uid
+              pos = parseInt(i)
+              set = true
+          model.position = pos
+          stateObj.setPlaying 'item', model
+          stateObj.setPlaying 'position', pos

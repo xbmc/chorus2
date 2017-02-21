@@ -10,6 +10,9 @@
     playlistController: (player, media) ->
       App.request "command:#{player}:controller", media, 'PlayList'
 
+    playerController: (player, media) ->
+      App.request "command:#{player}:controller", media, 'Player'
+
     playerCommand: (player, command, params = []) ->
       App.request "command:#{player}:player", command, params, ->
         App.request "state:kodi:update"
@@ -42,15 +45,16 @@
         @playlistController(@stateObj().getPlayer(), @stateObj().getState('media')).clear()
       @listenTo @layout, 'playlist:refresh', =>
         @renderList @stateObj().getPlayer(), @stateObj().getState('media')
-        App.execute "notification:show", t.gettext('Playlist refreshed')
+        App.execute "notification:show", tr('Playlist refreshed')
       @listenTo @layout, 'playlist:party', =>
-        @playerCommand 'kodi', 'SetPartymode', ['toggle']
+        @playerController(@stateObj().getPlayer(), @stateObj().getState('media')).setPartyMode 'toggle', (resp) =>
+          App.request "state:" + @stateObj().getPlayer() + ":update"
+          App.execute "notification:show", t.sprintf(tr('%1$s party mode toggled'), @stateObj().getPlayer())
       @listenTo @layout, 'playlist:save', =>
         App.execute "localplaylist:addentity", 'playlist'
 
       ## Render the layout
       App.regionPlaylist.show @layout
-
 
     getLayout: ->
       new List.Layout()
