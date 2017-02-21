@@ -1,3 +1,14 @@
+Version 2.4.3
+-------------
+* Fixed context menu in browser #226
+* Fixed BBcode tag stripping in browser #223
+* Added party mode functionality to local browser player #218
+* Updated to latest Soundmanager2 (297a-20150601)
+* Fixed selecting kodi/local/auto player on load
+* Updated Polish translation #227
+* German language updates #225
+
+
 Version 2.4.2
 -------------
 * Added trailer selector to movie editor
