@@ -6,7 +6,6 @@ Wersja 2.4.3
 * Dodano funkcjonalność Trybu Imprezy do odtwarzacza w przeglądarce #218
 * Updated to latest Soundmanager2 (297a-20150601)
 * Zaktualizowano bibliotekę Soundmanager2 do najnowszej wersji (297a-20150601)
-* Fixed selecting kodi/local/auto player on load
 * Naprawiono mechanizm wyboru trybu odtwarzania po wczytaniu
 * Zaktualizowano tłumaczenie na język polski #227
 * Zaktualizowano tłumaczenie na język niemiecki #225
