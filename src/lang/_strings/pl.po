@@ -1390,3 +1390,6 @@ msgctxt ""
 msgid "This should be the play path for the trailer. Eg. %1$s"
 msgstr "To powinna być ścieżka odtwarzania zwiastuna. Np. %1$s"
 
+msgctxt ""
+msgid "%1$s party mode toggled"
+msgstr "Przełączono Tryb imprezy %1$s"
