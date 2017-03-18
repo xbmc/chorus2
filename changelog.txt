@@ -1,3 +1,12 @@
+Version 2.4.4
+-------------
+* Added year to movie edit form #231
+* Added additional keys 61/173 for vol control and removed tab from whitelist #242
+* Fixed media progress bar appearing over filters bar #253
+* Fixed issue with volume resetting to 50% in local playback song change #254 #230 #235
+* Removed debugging that was spamming console
+* Polish translation - updates #249
+
 Version 2.4.3
 -------------
 * Fixed context menu in browser #226
@@ -7,7 +16,6 @@ Version 2.4.3
 * Fixed selecting kodi/local/auto player on load
 * Updated Polish translation #227
 * German language updates #225
-
 
 Version 2.4.2
 -------------
