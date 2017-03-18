@@ -33,6 +33,7 @@
           autoplay: false
           autoLoad: true
           stream: true
+          volume: stateObj.getState('volume')
           onerror: ->
             console.log 'SM ERROR!'
           onplay: =>
