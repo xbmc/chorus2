@@ -129,7 +129,7 @@
   background: $color-white;
   padding: $spacing-quarter-unit * 3;
   text-align: center;
-  z-index: $z-index-beta;
+  z-index: $z-index-gamma;
   .remove {
     @include set-position-absolute(right 0 top 0 bottom 0);
     @include icon-button-square(content-clear, $spacing-double-unit);
