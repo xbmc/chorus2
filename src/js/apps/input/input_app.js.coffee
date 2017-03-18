@@ -69,7 +69,7 @@
         return
 
       ## Don't do anything for white listed commands like CTRL, ALT, SHIFT, etc
-      whiteListCommands = [17, 16, 9, 91, 18, 70]
+      whiteListCommands = [17, 16, 91, 18, 70]
       if helpers.global.inArray e.which, whiteListCommands
         return
 
@@ -100,10 +100,10 @@
           @doInput "Select"
         when 67 # c (context)
           @doInput "ContextMenu"
-        when 107, 187 # + (vol up)
+        when 107, 187, 61 # + (vol up)
           vol = stateObj.getState('volume') + 5
           @appController().setVolume ((if vol > 100 then 100 else Math.ceil(vol)))
-        when 109, 189 # - (vol down)
+        when 109, 189, 173 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
         when 32 # spacebar (play/pause)
