@@ -8,7 +8,6 @@
 ## usage: $('#hello').removeClassRegex(/^color-/)
 $.fn.removeClassRegex = (regex) ->
   $(@).removeClass (index, classes) ->
-    console.log classes
     classes.split(/\s+/).filter (c) ->
       regex.test c
     .join ' '
