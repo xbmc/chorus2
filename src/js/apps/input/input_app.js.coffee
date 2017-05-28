@@ -86,13 +86,13 @@
 
       ## Respond to key code
       switch e.which
-        when 37 # left
+        when 37, 72 # left
           @doInput "Left"
-        when 38 # up
+        when 38, 75 # up
           @doInput "Up"
-        when 39 # right
+        when 39, 76 # right
           @doInput "Right"
-        when 40 # down
+        when 40, 74 # down
           @doInput "Down"
         when 8 # backspace
           @doInput "Back"
