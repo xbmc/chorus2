@@ -1,0 +1,1386 @@
+# Kodi Media Center language file
+# Addon Name: Default Webinterface?
+# Addon id: webinterface.default?
+# Addon Provider: Team Kodi?
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-09-15 13:47+0200\n"
+"Last-Translator: bcs78 <bcs78@protonmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.3\n"
+
+msgctxt ""
+msgid "Nothing playing"
+msgstr "Nincs lejátszás"
+
+msgctxt ""
+msgid "Deselect all"
+msgstr "Összes kijelölés törlése"
+
+msgctxt ""
+msgid "Filters"
+msgstr "Szűrők"
+
+msgctxt ""
+msgid "Sort"
+msgstr "Rendezés"
+
+msgctxt ""
+msgid "Select a filter"
+msgstr "Válasszon egy szűrőt"
+
+msgctxt ""
+msgid "Select an option"
+msgstr "Válasszon egy lehetőséget"
+
+msgctxt ""
+msgid "filter"
+msgstr "szűrő"
+
+msgctxt ""
+msgid "Add filter"
+msgstr "Szűrő hozzáadása"
+
+msgid "Which player to start with"
+msgstr "Mivel játsszuk le"
+
+msgctxt ""
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "Listázás során figyelmen kívül hagyjuk a névelőket"
+
+msgctxt ""
+msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
+msgstr "Az előadók listázása során csak azokat a zenészeket listázzuk, akikhez album is tartozik, vagy az összes zenészt. Figyelem: ha ezt kikapcsolja, akkor az nagyméretű katalógus esetén nagy terhet ró a rendszerre"
+
+msgctxt ""
+msgid "is the default"
+msgstr "az alapértelmezett"
+
+msgctxt ""
+msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
+msgstr "A websocket kapcsolatokhoz használt gépnév. Állítsa 'auto'-ra, ha a jelenlegi gépnevet akarja használni."
+
+msgctxt ""
+msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
+msgstr "Milyen gyakran keressen a rendszer rendelkezésre álló frissítéseket (csak ha a websocket inaktív)"
+
+msgctxt ""
+msgid "Enable support for reverse proxy."
+msgstr "Reverse proxy támogatás bekapcsolása."
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Web beállítások mentve."
+
+msgctxt ""
+msgid "Just a sec..."
+msgstr "Egy pillanat..."
+
+msgctxt ""
+msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+msgstr "Már egy ideje nincs kapcsolat a Kodival. Lehet, hogy meghalt, Jim!"
+
+msgctxt ""
+msgid "Video library scan started"
+msgstr "Videókönyvtár frissítése megkezdődött"
+
+msgctxt ""
+msgid "Video library scan complete"
+msgstr "Videókönyvtár frissítése befejeződött"
+
+msgctxt ""
+msgid "Audio library scan started"
+msgstr "Hangkönyvtár frissítése megkezdődött"
+
+msgctxt ""
+msgid "Audio library scan complete"
+msgstr "Hangkönyvtár frissítése befejeződött"
+
+msgctxt ""
+msgid "Kodi has quit"
+msgstr "A Kodi kilépett"
+
+msgctxt ""
+msgid "Sections"
+msgstr ""
+
+msgctxt ""
+msgid "Back"
+msgstr "Vissza"
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr "Könyvtár betöltése..."
+
+msgctxt ""
+msgid "Show more"
+msgstr "Többet"
+
+msgctxt ""
+msgid "to Kodi"
+msgstr "Kodinak"
+
+msgctxt ""
+msgid "Playlist refreshed"
+msgstr "A lejátszási lista firssült"
+
+msgctxt ""
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt ""
+msgid "Local"
+msgstr "Helyi"
+
+msgctxt ""
+msgid "Playlists"
+msgstr "Lejátszási listák"
+
+msgctxt ""
+msgid "Existing playlists"
+msgstr "Jelenlegi listák"
+
+msgctxt ""
+msgid "Empty playlist, you should probably add something to it?"
+msgstr "Üres lista. Esetleg hozzáadna valamit?"
+
+msgctxt ""
+msgid "Create a new list"
+msgstr "Új lista készítése"
+
+msgctxt ""
+msgid "Add to playlist"
+msgstr "Listához adás"
+
+msgctxt ""
+msgid "Added to your playlist"
+msgstr "Listához hozzáadva"
+
+msgctxt ""
+msgid "Give your playlist a name"
+msgstr "Adja meg a lista nevét"
+
+msgctxt ""
+msgid "Recently added"
+msgstr "Nemrég hozzáadva"
+
+msgctxt ""
+msgid "Recently played"
+msgstr "Nemrég lejátszott"
+
+msgctxt ""
+msgid "Season"
+msgstr "Évad"
+
+msgctxt ""
+msgid "Episode"
+msgstr "Epizód"
+
+msgctxt ""
+msgid "Play"
+msgstr "Lejátszás"
+
+msgctxt ""
+msgid "Queue"
+msgstr "Lejátszási sor"
+
+msgctxt ""
+msgid "View on IMDb"
+msgstr "Megnézem az IMDb-n"
+
+# Video and audio stream, such as 720, x264, AC3, etc.
+msgctxt ""
+msgid "Stream"
+msgstr "Stream"
+
+msgctxt ""
+msgid "Download"
+msgstr "Letöltés"
+
+msgctxt ""
+msgid "complete"
+msgstr "kész"
+
+msgctxt ""
+msgid "Synopsis"
+msgstr "Tartalom"
+
+msgctxt ""
+msgid "Full cast"
+msgstr "Teljes stáblista"
+
+msgctxt ""
+msgid "Websockets closed"
+msgstr "Websocket zárva"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websocket kiszolgáló"
+
+msgctxt ""
+msgid "Websockets port"
+msgstr "Websocket port"
+
+msgctxt ""
+msgid "Default player"
+msgstr "Alapértelmezett lejátszó"
+
+msgctxt ""
+msgid "Ignore article"
+msgstr "Névelők figyelmen kívül hagyása"
+
+msgctxt ""
+msgid "Album artists only"
+msgstr "Csak az előadók"
+
+msgctxt ""
+msgid "Poll interval"
+msgstr "Ellenőrzési időköz"
+
+msgctxt ""
+msgid "Reverse proxy support"
+msgstr "Reverse proxy támogatás"
+
+msgctxt ""
+msgid "Language"
+msgstr "Nyelv"
+
+msgctxt ""
+msgid "Preferred language"
+msgstr "Előnyben részesített nyelv"
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "Listázás során figyelmen kívül hagyjuk a névelőket"
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr "mp"
+
+msgctxt ""
+msgid "Your browser doesn't support websockets! Get with the times and update your browser."
+msgstr "Az Ön böngészője elavult, és nem támogatja a websocketet. Frissítse a böngészőjét."
+
+msgctxt ""
+msgid "Failed to connect to websockets"
+msgstr "Nem sikerült a csatlakozás a websockethez"
+
+msgctxt ""
+msgid "Video"
+msgstr "Videó"
+
+msgctxt ""
+msgid "Audio"
+msgstr "Hang"
+
+msgctxt ""
+msgid "Cast"
+msgstr "Szereplők"
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] "Rendező"
+msgstr[1] "Rendezők"
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] "Forgatókönyvíró"
+msgstr[1] "Forgatókönyvírók"
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] "Felirat"
+msgstr[1] "Feliratok"
+
+msgctxt ""
+msgid "Result"
+msgid_plural "Results"
+msgstr[0] "Eredmény"
+msgstr[1] "Eredmények"
+
+msgctxt ""
+msgid "Loading things..."
+msgstr "Betöltés..."
+
+msgctxt ""
+msgid "Scan video library"
+msgstr "Videókönyvtár frissítése"
+
+msgctxt ""
+msgid "Scan audio library"
+msgstr "Hangkönyvtár frissítése"
+
+msgctxt ""
+msgid "About Chorus"
+msgstr "A Chorusról"
+
+msgctxt ""
+msgid "Recent"
+msgstr "Legutóbbi"
+
+msgctxt ""
+msgid "Artists"
+msgstr "Előadók"
+
+msgctxt ""
+msgid "Albums"
+msgstr "Albumok"
+
+msgctxt ""
+msgid "Recent movies"
+msgstr "Legutóbbi filmek"
+
+msgctxt ""
+msgid "All movies"
+msgstr "Összes film"
+
+msgctxt ""
+msgid "Recent episodes"
+msgstr "Legutóbbi epizódok"
+
+msgctxt ""
+msgid "All TV shows"
+msgstr "Összes sorozat"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Web beállítások"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi beállításai"
+
+msgctxt ""
+msgid "Now Playing Playlists"
+msgstr "Jelenleg lejátszott listák"
+
+msgctxt ""
+msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
+msgstr "Váltás a fülekkel a Kodi és a helyi lejátszó között. A jobb felső sarokban lévő nyíllal lehet megjeleníteni vagy bezárni"
+
+msgctxt ""
+msgid "Current playlist"
+msgstr "Jelenlegi lista"
+
+msgctxt ""
+msgid "Clear playlist"
+msgstr "Lejátszási lista törlése"
+
+msgctxt ""
+msgid "Refresh playlist"
+msgstr "Lejátszási lista frissítése"
+
+msgctxt ""
+msgid "Party mode"
+msgstr "Buli üzemmód"
+
+msgctxt ""
+msgid "Save Kodi playlist"
+msgstr "Kodi lejátszási lista mentése"
+
+msgctxt ""
+msgid "Preferred language, need to refresh browser to take effect"
+msgstr "Előnyben részesített nyelv. Változtatás után frissítse a böngészőablakot"
+
+msgctxt ""
+msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr "Listázás során figyelmen kívül hagyjuk a névelőket"
+
+msgctxt ""
+msgid "Vibrant headers"
+msgstr "Élénk fejlécek"
+
+msgctxt ""
+msgid "Use colourful headers for media pages"
+msgstr "Erős színek használata a média oldalakon"
+
+msgctxt ""
+msgid "Enable support for reverse proxying."
+msgstr "Reverse proxy támogatásának engedélyezése."
+
+msgctxt ""
+msgid "songs"
+msgstr "dalok"
+
+msgctxt ""
+msgid "artists"
+msgstr "előadók"
+
+msgctxt ""
+msgid "albums"
+msgstr "albumok"
+
+msgctxt ""
+msgid "movies"
+msgstr "filmek"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "Keresés"
+
+msgctxt ""
+msgid "and"
+msgstr "és"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "sorozatok"
+
+msgctxt ""
+msgid "no media in this folder"
+msgstr "nincs médiafájl ebben a mappában"
+
+msgctxt ""
+msgid "Browse files and add-ons"
+msgstr "Fájlok és bővítmények tallózása"
+
+msgctxt ""
+msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
+msgstr "Itt lehet tallózni a Kodi minden eleme között, nem csak a videó- és hangtárban."
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "Szöveges üzenet küldése a Kodinak"
+
+msgctxt ""
+msgid "The lab"
+msgstr "A labor"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Chorus labor"
+
+msgctxt ""
+msgid "Warning"
+msgstr "Figyelem"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "Kísérleti kód, használat csak saját felelősségre"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API tallózó"
+
+msgctxt ""
+msgid "This is a tool to test out the API. Select a method then execute it with parameters."
+msgstr "A Kodi API tesztelésére szolgáló eszköz. Válasszon ki egy metódust, majd futtassa valamilyen paraméterekkel"
+
+msgctxt ""
+msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
+msgstr "Elképzelhető, hogy ez kárt okoz a rendszerben! Csak saját felelősségre futtassa!"
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "Kodi beállítások mentve"
+
+msgctxt ""
+msgid "General"
+msgstr "Általános"
+
+msgctxt ""
+msgid "Advanced setting level is recommended for those who know what they are doing."
+msgstr "A Haladó beállítási szint azoknak javasolt, akik tudják, mit csinálnak."
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi beállítási szint"
+
+msgctxt ""
+msgid "Remove"
+msgstr "Eltávolítás"
+
+msgctxt ""
+msgid "cast"
+msgstr "szereplők"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "Bővítmények"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Web interfész"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Tudnivalók"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Változások"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Fordítások"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Súgó témakörök"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Áttekintés"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Labor"
+
+msgctxt ""
+msgid "version"
+msgstr "verzió"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Távirányítás"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "A távirányítás be van állítva"
+
+msgctxt ""
+msgid "About"
+msgstr "Névjegy"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Helyi hang"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Állapot jelentés"
+
+msgctxt ""
+msgid "in"
+msgstr ""
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Ugrás az éppen lejátszott elemre"
+
+msgctxt ""
+msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
+msgstr "Automatikusan az aktuális elemhez gördül a lista amikor egy új tétel lejátszása kezdődik"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "We beállítások mentve."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Billentyűzet vezérlés"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "A Choruson keresztül billentyűzettel csak a Kodit, a böngészőt, vagy mindkettőt akarja vezérelni"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Tudjon meg többet"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Folytatás"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Folytatás innen"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Kezdés az elejétől"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "Kattintson ide az alaphelyzetre állításhoz"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "Főmenü sturktúra"
+
+msgctxt ""
+msgid "Here you can change the title, url and %1$s for menu items. You can also remove, re-order and add new items."
+msgstr "Itt lehet módosítani a menü elemek neveit, az URL-t és a %1$sokat. Eltávolíthatja, átrendezheti az elemeket, vagy új elemet adhat hozzá."
+
+msgctxt ""
+msgid "Main Nav"
+msgstr "Főmenü"
+
+msgctxt ""
+msgid "Add a new playlist"
+msgstr "Új lejátszási lista létrehozása"
+
+msgctxt ""
+msgid "Keyboard"
+msgstr "Billentyűzet"
+
+msgctxt ""
+msgid "Music"
+msgstr "Zene"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "Digitális rádió"
+
+msgctxt ""
+msgid "Movies"
+msgstr "Filmek"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "Sorozatok"
+
+msgctxt ""
+msgid "TV"
+msgstr "TV"
+
+msgctxt ""
+msgid "Browser"
+msgstr "Böngésző"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "Értékelés"
+
+msgctxt ""
+msgid "Settings"
+msgstr "Beállítások"
+
+msgctxt ""
+msgid "Help"
+msgstr "Súgó"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "Értékelés kikapcsolása"
+
+msgctxt ""
+msgid "Remove the thumbs up button from media. Note: you may also want to remove the menu item from the %1$s"
+msgstr "Eltávolítja az értékelő ikont a média elemektől. Megjegyzés: javasolt a kapcsolódó menüpont eltávolítása is a %1$sből"
+
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "Ehhez engedélyezned kell a Kodi távirányítását. Ezt megteheted"
+
+msgctxt ""
+msgid "here"
+msgstr "itt"
+
+msgctxt ""
+msgid "yes"
+msgstr "igen"
+
+msgctxt ""
+msgid "no"
+msgstr "nem"
+
+msgctxt ""
+msgid "close"
+msgstr "bezár"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Biztos benne?"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "Állítsa be minden évadnál, hogy"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Állítsa be minden epizódnál, hogy"
+
+msgctxt ""
+msgid "watched"
+msgstr "megtekintve"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "még nem látott"
+
+msgctxt ""
+msgid "genre"
+msgstr "műfaj"
+
+msgctxt ""
+msgid "studio"
+msgstr "stúdió"
+
+msgctxt ""
+msgid "rated"
+msgstr "besorolás"
+
+msgctxt ""
+msgid "episodes"
+msgstr "epizódok"
+
+msgctxt ""
+msgid "total"
+msgstr "összesen"
+
+msgctxt ""
+msgid "set"
+msgstr ""
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Eszköz név mutatása"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Mutassa a Kodi eszköz nevét a Chorus címsorában"
+
+msgctxt ""
+msgid "No results found"
+msgstr "Nincs találat"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Futtatott már könyvtár frissítést?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Lejátszás a böngészőben"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Hozzáadás Kodihoz"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Megtekintve"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "Új lejátszási lista"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Lejátszás a Kodin"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Lista exportálása"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Lista törlése"
+
+msgctxt ""
+msgid "title"
+msgstr "cím"
+
+msgctxt ""
+msgid "year"
+msgstr "év"
+
+msgctxt ""
+msgid "date added"
+msgstr "felvétel dátuma"
+
+msgctxt ""
+msgid "rating"
+msgstr "besorolás"
+
+msgctxt ""
+msgid "actor"
+msgstr "színész"
+
+msgctxt ""
+msgid "mood"
+msgstr "hangulat"
+
+msgctxt ""
+msgid "writer"
+msgstr "forgatókönyvíró"
+
+msgctxt ""
+msgid "director"
+msgstr "rendező"
+
+msgctxt ""
+msgid "style"
+msgstr ""
+
+msgctxt ""
+msgid "items selected"
+msgstr "kiválasztva"
+
+msgctxt ""
+msgid "item selected"
+msgstr "kiválasztva"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Videókönyvtár tisztítása elkezdődött"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Videótár tisztítása befejeződött"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Hangkönyvtár tisztítása elkezdődött"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Hangkönyvtár tisztítása befejeződött"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "A Kodi API tesztelésére szolgáló eszköz. Válasszon ki egy metódust, majd futtassa valamilyen paraméterekkel."
+
+#, fuzzy
+msgctxt ""
+msgid "Go to season"
+msgstr "Ugrás"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Lejátszási sorba rakás a Kodin"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Elemek hozzáadása a sorhoz"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Élő TV adás"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Legutóbb hozzáadott"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Véletlenszerű"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Legutóbb lejátszott"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Véletlenszerű"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Folytatás"
+
+#, fuzzy
+msgctxt ""
+msgid "More from %1$s"
+msgstr "Még több %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "Még több %1$s"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "Még böbb film amelyben %1$s szerepel"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Még több film ebből az évből: %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "előadó"
+
+msgctxt ""
+msgid "random"
+msgstr "véletlenszerű"
+
+msgctxt ""
+msgid "label"
+msgstr "kiadó"
+
+msgctxt ""
+msgid "formed"
+msgstr "megalakulás"
+
+msgctxt ""
+msgid "born"
+msgstr "született"
+
+msgctxt ""
+msgid "died"
+msgstr "meghalt"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "feloszlott"
+
+msgctxt ""
+msgid "years active"
+msgstr "éve aktív"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Kattintson a részletekért"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Albumok betöltése"
+
+msgctxt ""
+msgid "%1$d seconds ago, an input dialog opened in Kodi and it is still open! To prevent a mainframe implosion, you should probably give me some text. I don't really care what it is at this point, why not be creative? Do you have a %2$s? I won't tell..."
+msgstr ""
+
+msgctxt ""
+msgid "all media"
+msgstr "összes média"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Rádió"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "Premier"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "%1$s részletei frissítve"
+
+msgctxt ""
+msgid "Title"
+msgstr "Cím"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Tartalom"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Értékelés"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Eredeti cím"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Rendezők"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Forgatókönyvírók"
+
+msgctxt ""
+msgid "File path"
+msgstr "Elérési útvonal"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Előadó"
+
+msgctxt ""
+msgid "Description"
+msgstr "Leírás"
+
+msgctxt ""
+msgid "Label"
+msgstr "Kiadó"
+
+msgctxt ""
+msgid "Year"
+msgstr "Év"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Műfaj"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Stílusok"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Témák"
+
+msgctxt ""
+msgid "Moods"
+msgstr ""
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Előadó"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr ""
+
+msgctxt ""
+msgid "Disc"
+msgstr "Lemez"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Mottó"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Stúdió"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Korhatár besorolás"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premier"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Sorbarendezés cím szerint"
+
+msgctxt ""
+msgid "Country"
+msgstr "Ország"
+
+msgctxt ""
+msgid "Set"
+msgstr "Beállít"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Címkék"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Előzetes"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Megalakulás"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Feloszlott"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Éve Aktív"
+
+msgctxt ""
+msgid "Born"
+msgstr "Született"
+
+msgctxt ""
+msgid "Died"
+msgstr "Meghalt"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Hangszerek"
+
+msgctxt ""
+msgid "more"
+msgstr "több"
+
+msgctxt ""
+msgid "in progress"
+msgstr "folyamatban"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Kép hozzáadása külső URL-lel"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "További képek keresése"
+
+msgctxt ""
+msgid "Selector"
+msgstr "Választó"
+
+msgctxt ""
+msgid "External Search"
+msgstr "Külső keresés"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Helyi média"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus Keresés"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Keresés"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Futtatott bővítmény"
+
+msgctxt ""
+msgid "all"
+msgstr "összes"
+
+msgctxt ""
+msgid "video"
+msgstr "videó"
+
+msgctxt ""
+msgid "audio"
+msgstr "hang"
+
+msgctxt ""
+msgid "image"
+msgstr "kép"
+
+msgctxt ""
+msgid "picture"
+msgstr "kép"
+
+msgctxt ""
+msgid "executable"
+msgstr "futtatható"
+
+msgctxt ""
+msgid "settings"
+msgstr "beállítások"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Frissítés"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr "Frissítés megerősítése"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "NFO fájl figyelmen kívül hagyása"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Helyi NFO fájl figyelmen kívül hagyása frissítés esetén."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Csak a sorozatcím"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Sorozatcím és epizódok"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Top zene"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Előadók"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Albumok"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Dalok"
+
+msgctxt ""
+msgid "default"
+msgstr "alapértelmezett"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Parancsok"
+
+msgctxt ""
+msgid "play files"
+msgstr "fájlok lejátszása"
+
+msgctxt ""
+msgid "queue files"
+msgstr "lejátszási lista"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Szöveges üzenet küldése"
+
+msgctxt ""
+msgid "License"
+msgstr "Licensz"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Főmenű"
+
+msgctxt ""
+msgid "Search"
+msgstr "Keresés"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Egyedi kereső bővítmény"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr "Egyedi kereső bővítmény hozzáadása"
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Bővítmények súgója"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "Nincs találat erre: %1$s"
+
+msgctxt ""
+msgid "results"
+msgstr "eredmények"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "Elektronikus műsorújság"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr ""
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Csatorna rögzítés bekapcsolva"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "TV csatornák"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Rádió állomások"
+
+msgctxt ""
+msgid "Record"
+msgstr ""
+
+#, fuzzy
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Időzídő"
+
+msgctxt ""
+msgid "Now"
+msgstr "Most"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Lejátszási lista folytatása"
+
+msgctxt ""
+msgid "album"
+msgstr "album"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Videók"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "A Kodival megszakadt a kapcsolat"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Újrakapcsolódás"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Újrakapcsolódás"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Top Dalok"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Top Albumok"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Mindet kiválaszt"
+
+msgctxt ""
+msgid "More like this"
+msgstr "Még több hasonlót"
+
+msgctxt ""
+msgid "music videos"
+msgstr "videóklippek"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Kapcsolódó videók YouTube-on"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Megszakadt a kapcsolat"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Újrakapcsolódás"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "Ez az előzetesre mutató elérési útvonal. Pl. %1$s"
+
+msgctxt ""
+msgid "%1$s party mode toggled"
+msgstr "%1$s buli üzemmód beállítva"
