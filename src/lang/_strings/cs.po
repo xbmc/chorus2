@@ -1,0 +1,1455 @@
+# Kodi Media Center language file
+# Addon Name: Default Webinterface?
+# Addon id: webinterface.default?
+# Addon Provider: Team Kodi?
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2018-01-06 22:50+0100\n"
+"PO-Revision-Date: 2018-01-06 22:50+0100\n"
+"Last-Translator: XBMC Translation Team\n"
+"Language-Team: Czech"
+"language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs_CZ\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
+
+msgctxt ""
+msgid "Nothing playing"
+msgstr "Nic nehraje"
+
+msgctxt ""
+msgid "Deselect all"
+msgstr "Odoznačit vše"
+
+msgctxt ""
+msgid "Filters"
+msgstr "Filtry"
+
+msgctxt ""
+msgid "Sort"
+msgstr "Řazení"
+
+msgctxt ""
+msgid "Select a filter"
+msgstr "Vyber filtr"
+
+msgctxt ""
+msgid "Select an option"
+msgstr "Vyber možnost"
+
+msgctxt ""
+msgid "filter"
+msgstr "filtr"
+
+msgctxt ""
+msgid "Add filter"
+msgstr "Přidej filtr"
+
+msgid "Which player to start with"
+msgstr "S jakým přehrávěčem začít"
+
+msgctxt ""
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "Ignoruj slova jako 'The' a 'A' při řazení seznamů"
+
+msgctxt ""
+msgid ""
+"When listing artists should we only see artists with albums or all artists "
+"found. Warning: turning this off can impact performance with large libraries"
+msgstr ""
+"V seznamu zpěváků budou vidět zpěváci s alby nebo všichni zpěváci. "
+"Upozornění : vypnutí této volby může mít dopad v případě velkých knihoven"
+
+msgctxt ""
+msgid "is the default"
+msgstr "je vychozí"
+
+msgctxt ""
+msgid ""
+"The hostname used for websockets connection. Set to 'auto' to use the "
+"current hostname."
+msgstr ""
+"Jméno hostitele pro webosocker připojení. Nastavením na 'auto' se použije "
+"současné jméno hostile."
+
+msgctxt ""
+msgid ""
+"How often do I poll for updates from Kodi (Only applies when websockets "
+"inactive)"
+msgstr ""
+"How often do I poll for updates from Kodi (Only applies when websockets "
+"inactive)"
+
+msgctxt ""
+msgid "Enable support for reverse proxy."
+msgstr "Zapne podporu pro reverní proxy."
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "Nastavení uloženo."
+
+msgctxt ""
+msgid "Just a sec..."
+msgstr "Chvilku strpení..."
+
+msgctxt ""
+msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+msgstr "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+
+msgctxt ""
+msgid "Video library scan started"
+msgstr "Prohledávání video knihovny spuštěno"
+
+msgctxt ""
+msgid "Video library scan complete"
+msgstr "Prohledávání video knihovny hotové"
+
+msgctxt ""
+msgid "Audio library scan started"
+msgstr "Prohledávání audio knihovny spuštěno"
+
+msgctxt ""
+msgid "Audio library scan complete"
+msgstr "Prohledávání audio knihovny hotové"
+
+msgctxt ""
+msgid "Kodi has quit"
+msgstr "Kodi ukončeno"
+
+msgctxt ""
+msgid "Sections"
+msgstr "Sekce"
+
+msgctxt ""
+msgid "Back"
+msgstr "Zpět"
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr "Nahrávám adresář..."
+
+msgctxt ""
+msgid "Show more"
+msgstr "Ukaž víc"
+
+msgctxt ""
+msgid "to Kodi"
+msgstr "do Kodi"
+
+msgctxt ""
+msgid "Playlist refreshed"
+msgstr "Playlist obnoven"
+
+msgctxt ""
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt ""
+msgid "Local"
+msgstr "Místní"
+
+msgctxt ""
+msgid "Playlists"
+msgstr "Playlisty"
+
+msgctxt ""
+msgid "Existing playlists"
+msgstr "Existující playlisty"
+
+msgctxt ""
+msgid "Empty playlist, you should probably add something to it?"
+msgstr "Prázdná playlist. Asi bys měl něco přidat, ne?"
+
+msgctxt ""
+msgid "Create a new list"
+msgstr "Vytvoř nový seznam"
+
+msgctxt ""
+msgid "Add to playlist"
+msgstr "Přidej do playlistu"
+
+msgctxt ""
+msgid "Added to your playlist"
+msgstr "Přidáno do tvého playlistu"
+
+msgctxt ""
+msgid "Give your playlist a name"
+msgstr "Pojmenuj svůj playlist"
+
+msgctxt ""
+msgid "Recently added"
+msgstr "Nedávno přidané"
+
+msgctxt ""
+msgid "Recently played"
+msgstr "Nedávno hrané"
+
+msgctxt ""
+msgid "Season"
+msgstr "Sezóna"
+
+msgctxt ""
+msgid "Episode"
+msgstr "Epizoda"
+
+msgctxt ""
+msgid "Play"
+msgstr "Hrát"
+
+msgctxt ""
+msgid "Queue"
+msgstr "Fronta"
+
+msgctxt ""
+msgid "View on IMDb"
+msgstr "Ukaž na IMDb"
+
+# Video and audio stream, such as 720, x264, AC3, etc.
+msgctxt ""
+msgid "Stream"
+msgstr "Stream"
+
+msgctxt ""
+msgid "Download"
+msgstr "Download"
+
+msgctxt ""
+msgid "complete"
+msgstr "hotovo"
+
+msgctxt ""
+msgid "Synopsis"
+msgstr "Synopse"
+
+msgctxt ""
+msgid "Full cast"
+msgstr "Plné obsazení"
+
+msgctxt ""
+msgid "Websockets closed"
+msgstr "Websockets closed"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websockets host"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websockets host"
+
+msgctxt ""
+msgid "Default player"
+msgstr "Výchozí přehrávač"
+
+msgctxt ""
+msgid "Ignore article"
+msgstr "Ignoruj article"
+
+msgctxt ""
+msgid "Album artists only"
+msgstr "Album artists only"
+
+msgctxt ""
+msgid "Poll interval"
+msgstr "Poll interval"
+
+msgctxt ""
+msgid "Reverse proxy support"
+msgstr "Podpora reverzní proxy"
+
+msgctxt ""
+msgid "Language"
+msgstr "Jazyk"
+
+msgctxt ""
+msgid "Preferred language"
+msgstr "Preferovaný jazyk"
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr "sec"
+
+msgctxt ""
+msgid ""
+"Your browser doesn't support websockets! Get with the times and update your "
+"browser."
+msgstr ""
+"Tvůj browser nepodporuje websockety! Najdi si si čas a aktualizuj svůj "
+"browser."
+
+msgctxt ""
+msgid "Failed to connect to websockets"
+msgstr ""
+"Failed to connect to websockets, so I am falling back to polling for "
+"updates. Which makes things slower and uses more resources. Please ensure "
+"you have 'Allow programs on other systems to control Kodi' ENABLED in the "
+"Kodi settings (System > Services > Remote control). You may also get this if "
+"you are using proxies or accessing via an IP address when localhost will "
+"suffice. If websockets normally works, you might just need to refresh your "
+"browser."
+
+msgctxt ""
+msgid "Video"
+msgstr "Video"
+
+msgctxt ""
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt ""
+msgid "Cast"
+msgstr "Obsazení"
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] "Režisér"
+msgstr[1] "Režiséři"
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] "Spisovatel"
+msgstr[1] "Spisovatelé"
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] "Subtitle"
+msgstr[1] "Subtitles"
+
+msgctxt ""
+msgid "Result"
+msgid_plural "Results"
+msgstr[0] "Výsledek"
+msgstr[1] "Výsledky"
+
+msgctxt ""
+msgid "Loading things..."
+msgstr "Nahrávám..."
+
+msgctxt ""
+msgid "Scan video library"
+msgstr "Prohledej video knihovnu"
+
+msgctxt ""
+msgid "Scan audio library"
+msgstr "Prohledej audio knihovnu"
+
+msgctxt ""
+msgid "About Chorus"
+msgstr "O Chorus"
+
+msgctxt ""
+msgid "Recent"
+msgstr "Nedávné"
+
+msgctxt ""
+msgid "Artists"
+msgstr "Herci"
+
+msgctxt ""
+msgid "Albums"
+msgstr "Alba"
+
+msgctxt ""
+msgid "Recent movies"
+msgstr "Nedávné filmy"
+
+msgctxt ""
+msgid "All movies"
+msgstr "Všechny filmy"
+
+msgctxt ""
+msgid "Recent episodes"
+msgstr "Nedávné epizody"
+
+msgctxt ""
+msgid "All TV shows"
+msgstr "Všechny Seriály"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "Nastavené webu"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Nastavení Kodi"
+
+msgctxt ""
+msgid "Now Playing Playlists"
+msgstr "Nyné přehrávám playlist"
+
+msgctxt ""
+msgid ""
+"Switch between Kodi and local playback via the tabs. You can toggle "
+"visibility with the arrow in the top right"
+msgstr ""
+"Switch between Kodi and local playback via the tabs. You can toggle "
+"visibility with the arrow in the top right"
+
+msgctxt ""
+msgid "Current playlist"
+msgstr "Aktuální playlist"
+
+msgctxt ""
+msgid "Clear playlist"
+msgstr "Vymaž playlist"
+
+msgctxt ""
+msgid "Refresh playlist"
+msgstr "Obnov playlist"
+
+msgctxt ""
+msgid "Party mode"
+msgstr "Party mód"
+
+msgctxt ""
+msgid "Save Kodi playlist"
+msgstr "Ulož Kodi playlist"
+
+msgctxt ""
+msgid "Preferred language, need to refresh browser to take effect"
+msgstr "Preferovyný jazyk, je potřeba obnovit browser aby se nastavení stalo platné"
+
+msgctxt ""
+msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+
+msgctxt ""
+msgid "Vibrant headers"
+msgstr "Vibrant headers"
+
+msgctxt ""
+msgid "Use colourful headers for media pages"
+msgstr "Use colourful headers for media pages"
+
+msgctxt ""
+msgid "Enable support for reverse proxying."
+msgstr "Zapni podporu pro reverzní proxy."
+
+msgctxt ""
+msgid "songs"
+msgstr "písně"
+
+msgctxt ""
+msgid "artists"
+msgstr "herci"
+
+msgctxt ""
+msgid "albums"
+msgstr "alba"
+
+msgctxt ""
+msgid "movies"
+msgstr "filmy"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "Hledám"
+
+msgctxt ""
+msgid "and"
+msgstr "a"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "seriály"
+
+msgctxt ""
+msgid "no media in this folder"
+msgstr "v tomto adresáři není nic k přehrátí"
+
+msgctxt ""
+msgid "Browse files and add-ons"
+msgstr "Browse files and add-ons"
+
+msgctxt ""
+msgid ""
+"This is where you can browse all Kodi content, not just what is in the "
+"library. Browse by source or add-on."
+msgstr ""
+"This is where you can browse all Kodi content, not just what is in the "
+"library. Browse by source or add-on."
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "Odešli do Kodi"
+
+msgctxt ""
+msgid "The lab"
+msgstr "Laboratoř"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Laboratoř Chorusu"
+
+msgctxt ""
+msgid "Warning"
+msgstr "Varování"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "Experimentalní kód, používás na vlastní riziko"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API browser"
+
+msgctxt ""
+msgid ""
+"This is a tool to test out the API. Select a method then execute it with "
+"parameters."
+msgstr ""
+"This is a tool to test out the API. Select a method then execute it with "
+"parameters."
+
+msgctxt ""
+msgid ""
+"You could potentially damage your system with this and there are no sanity "
+"checks. Use at own risk."
+msgstr ""
+"You could potentially damage your system with this and there are no sanity "
+"checks. Use at own risk."
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "Kodi nastavení uloženo"
+
+msgctxt ""
+msgid "General"
+msgstr "Obecné"
+
+msgctxt ""
+msgid ""
+"Advanced setting level is recommended for those who know what they are doing."
+msgstr ""
+"Advanced setting level is recommended for those who know what they are doing."
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Úroveň Kodi nastavení"
+
+msgctxt ""
+msgid "Remove"
+msgstr "Odstranit"
+
+msgctxt ""
+msgid "cast"
+msgstr "cast"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "Doplňky"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "Webové rozhraní"
+
+msgctxt ""
+msgid "Readme"
+msgstr "Čti mě"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "Seznam změn"
+
+msgctxt ""
+msgid "Translations"
+msgstr "Překlady"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "Help topics"
+
+msgctxt ""
+msgid "Overview"
+msgstr "Přehled"
+
+msgctxt ""
+msgid "Lab"
+msgstr "Laboratoř"
+
+msgctxt ""
+msgid "version"
+msgstr "verze"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "Dálkové ovládání"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "Remote control is set up correctly"
+
+msgctxt ""
+msgid "About"
+msgstr "O Chorus"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "Místní audio"
+
+msgctxt ""
+msgid "Status report"
+msgstr "Status report"
+
+msgctxt ""
+msgid "in"
+msgstr "v"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "Focus playlist on playing"
+
+msgctxt ""
+msgid ""
+"Automatically scroll the playlist to the current playing item. This happens "
+"whenever the playing item is changed"
+msgstr ""
+"Automatically scroll the playlist to the current playing item. This happens "
+"whenever the playing item is changed"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "Web Settings saved."
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "Keyboard controls"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "In Chorus, will your keyboard control Kodi, the browser or both"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "Learn more"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "Resume playback"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "Obnov od"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "Začni od začátku"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "Click here restore defaults"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "Struktura hlavního menu"
+
+msgctxt ""
+msgid ""
+"Here you can change the title, url and %1$s for menu items. You can also "
+"remove, re-order and add new items."
+msgstr ""
+"Here you can change the title, url and %1$s for menu items. You can also "
+"remove, re-order and add new items."
+
+msgctxt ""
+msgid "Main Nav"
+msgstr "Main Nav"
+
+msgctxt ""
+msgid "Add a new playlist"
+msgstr "Přidej nový playlist"
+
+msgctxt ""
+msgid "Keyboard"
+msgstr "Klávesnice"
+
+msgctxt ""
+msgid "Music"
+msgstr "Hudba"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "Digitalní radio"
+
+msgctxt ""
+msgid "Movies"
+msgstr "Filmy"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "Seriály"
+
+msgctxt ""
+msgid "TV"
+msgstr "TV"
+
+msgctxt ""
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "Palec nahoru"
+
+msgctxt ""
+msgid "Settings"
+msgstr "Nastavení"
+
+msgctxt ""
+msgid "Help"
+msgstr "Pomoc"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "Disable Thumbs Up"
+
+msgctxt ""
+msgid ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the %1$s"
+msgstr ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the %1$s"
+
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "You need to 'Allow remote control' for Kodi. You can do that"
+
+msgctxt ""
+msgid "here"
+msgstr "zde"
+
+msgctxt ""
+msgid "yes"
+msgstr "ano"
+
+msgctxt ""
+msgid "no"
+msgstr "ne"
+
+msgctxt ""
+msgid "close"
+msgstr "zavři"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "Jsi si jist?"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "Set all episodes for this season as"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "Nastav všechny epizody tohoto seriálu jako shlédnuté"
+
+msgctxt ""
+msgid "watched"
+msgstr "shlédnuto"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "neshlédnuto"
+
+msgctxt ""
+msgid "genre"
+msgstr "žánr"
+
+msgctxt ""
+msgid "studio"
+msgstr "studio"
+
+msgctxt ""
+msgid "rated"
+msgstr "rated"
+
+msgctxt ""
+msgid "episodes"
+msgstr "episody"
+
+msgctxt ""
+msgid "total"
+msgstr "celkem"
+
+msgctxt ""
+msgid "set"
+msgstr "nastav jako"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "Show device name"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "Show the Kodi device name in the header of Chorus"
+
+msgctxt ""
+msgid "No results found"
+msgstr "Nenalezeno"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "Have you done a library scan?"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "Hraj v browser"
+
+msgctxt ""
+msgid "Edit"
+msgstr "Edit"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "Přidej do Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "Shlédnuto"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "Nový playlist"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "Hrej v Kodi"
+
+msgctxt ""
+msgid "Export list"
+msgstr "Exportuj seznam"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "Smaž playlist"
+
+msgctxt ""
+msgid "title"
+msgstr "název"
+
+msgctxt ""
+msgid "year"
+msgstr "rok"
+
+msgctxt ""
+msgid "date added"
+msgstr "datum přidání"
+
+msgctxt ""
+msgid "rating"
+msgstr "hodnocení"
+
+msgctxt ""
+msgid "actor"
+msgstr "actor"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "writer"
+msgstr "scénář"
+
+msgctxt ""
+msgid "director"
+msgstr "režisér"
+
+msgctxt ""
+msgid "mood"
+msgstr "mood"
+
+msgctxt ""
+msgid "style"
+msgstr "styl"
+
+msgctxt ""
+msgid "items selected"
+msgstr "items selected"
+
+msgctxt ""
+msgid "item selected"
+msgstr "item selected"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "Úklid video knihovny spuštěn"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "Úklid video knihovny dokončen"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "Úklid audio knihovny spuštěn"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "Úklid audio klihovny dokončen"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "This is a tool to test out the api. Select a method then execute it with parameters."
+
+msgctxt ""
+msgid "Go to season"
+msgstr "Go to season"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "Do fronty v Kodi"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "Přidávám do fronty"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "Nadávno přidaná alba"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "Náhodná alba"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "Nedávno hraná alba"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "Náhodné filmy"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "Pokračuj ve sledování"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "More from %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "Více %1$s filmů"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "Více filmů začínajících na %1$s"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "Další filmy z roku %1$s"
+
+msgctxt ""
+msgid "artist"
+msgstr "artist"
+
+msgctxt ""
+msgid "random"
+msgstr "náhodná"
+
+msgctxt ""
+msgid "label"
+msgstr "label"
+
+msgctxt ""
+msgid "formed"
+msgstr "formed"
+
+msgctxt ""
+msgid "born"
+msgstr "born"
+
+msgctxt ""
+msgid "died"
+msgstr "zemřel"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "disbanded"
+
+msgctxt ""
+msgid "years active"
+msgstr "aktivních let"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "Click for more"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "Nahrávám alba"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+
+msgctxt ""
+msgid "all media"
+msgstr "all media"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "First aired"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "Updated %1$s details"
+
+msgctxt ""
+msgid "Title"
+msgstr "Název"
+
+msgctxt ""
+msgid "Plot"
+msgstr "Plot"
+
+msgctxt ""
+msgid "Rating"
+msgstr "Hodnocení"
+
+msgctxt ""
+msgid "Original title"
+msgstr "Původní název"
+
+msgctxt ""
+msgid "Directors"
+msgstr "Directors"
+
+msgctxt ""
+msgid "Writers"
+msgstr "Writers"
+
+msgctxt ""
+msgid "File path"
+msgstr "File path"
+
+msgctxt ""
+msgid "Artist"
+msgstr "Artist"
+
+msgctxt ""
+msgid "Description"
+msgstr "Description"
+
+msgctxt ""
+msgid "Label"
+msgstr "Label"
+
+msgctxt ""
+msgid "Year"
+msgstr "Year"
+
+msgctxt ""
+msgid "Genres"
+msgstr "Žánry"
+
+msgctxt ""
+msgid "Styles"
+msgstr "Styly"
+
+msgctxt ""
+msgid "Themes"
+msgstr "Themes"
+
+msgctxt ""
+msgid "Moods"
+msgstr "Moods"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "Album artist"
+
+msgctxt ""
+msgid "Album"
+msgstr "Album"
+
+msgctxt ""
+msgid "Track"
+msgstr "Stopa"
+
+msgctxt ""
+msgid "Disc"
+msgstr "Disk"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "Tagline"
+
+msgctxt ""
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "Hodnocení obsahu"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "Premiéra"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "Sort title"
+
+msgctxt ""
+msgid "Country"
+msgstr "Země"
+
+msgctxt ""
+msgid "Set"
+msgstr "Nastavení"
+
+msgctxt ""
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt ""
+msgid "Formed"
+msgstr "Formed"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "Disbanded"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "Years Active"
+
+msgctxt ""
+msgid "Born"
+msgstr "Narozen"
+
+msgctxt ""
+msgid "Died"
+msgstr "Zemřel"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "Instruments"
+
+msgctxt ""
+msgid "more"
+msgstr "více"
+
+msgctxt ""
+msgid "in progress"
+msgstr "Rozkoukáno"
+
+msgctxt ""
+msgid "URL"
+msgstr "URL"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "Add an image via an external URL"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "Searching for more images"
+
+msgctxt ""
+msgid "Selector"
+msgstr "Selector"
+
+msgctxt ""
+msgid "External Search"
+msgstr "Externí vyhledávání"
+
+msgctxt ""
+msgid "Local media"
+msgstr "Localní media"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Vyhledávání v Chorus"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube Search"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "Executed addon"
+
+msgctxt ""
+msgid "all"
+msgstr "vše"
+
+msgctxt ""
+msgid "video"
+msgstr "video"
+
+msgctxt ""
+msgid "audio"
+msgstr "audio"
+
+msgctxt ""
+msgid "image"
+msgstr "obrázek"
+
+msgctxt ""
+msgid "picture"
+msgstr "fotka"
+
+msgctxt ""
+msgid "executable"
+msgstr "executable"
+
+msgctxt ""
+msgid "settings"
+msgstr "settings"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Obnov"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"Refreshing '%1$s' will remove it from the library then re-add it, so the "
+"ID may change. I'll attempt to reload this page with the new ID in a few "
+"seconds. Click 'YES' to confirm refresh"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Refresh Ignore NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignore local NFO files when manually refreshing media."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Ukaž jen"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Show and episodes"
+
+msgctxt ""
+msgid "Top music"
+msgstr "Nej hudba"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Artists"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Albums"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Songs"
+
+msgctxt ""
+msgid "default"
+msgstr "výchozí"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Akce"
+
+msgctxt ""
+msgid "play files"
+msgstr "play files"
+
+msgctxt ""
+msgid "queue files"
+msgstr "queue files"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Sent text"
+
+msgctxt ""
+msgid "License"
+msgstr "Licence"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Hlavní Menu"
+
+msgctxt ""
+msgid "Search"
+msgstr "Vyhledávání"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Custom Add-on search"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus search supports searching not only local media but add-on content too. For example, you can use the "
+"search to find videos in YouTube or audio in SoundCloud. This page allows you to add custom add-on searches "
+"that are not included out of the box. See the %1$s for more information."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Add-ons help page"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "Žádné %1$s nenalezeny"
+
+msgctxt ""
+msgid "results"
+msgstr "výsledky"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "EPG data"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Nahrávky"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Channel recording toggled"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "TV Channels"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Radio stanice"
+
+msgctxt ""
+msgid "Record"
+msgstr "Nahrávka"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Toggle timer"
+
+msgctxt ""
+msgid "Now"
+msgstr "Nyní"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Rename playlist"
+
+msgctxt ""
+msgid "album"
+msgstr "album"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Videa"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Připojení do Kodi ztraceno"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Zkus se připojit"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Zkouším se připojit"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Nej písně"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Nej Alba"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Toggle select all"
+
+msgctxt ""
+msgid "More like this"
+msgstr "Více jako je toto"
+
+msgctxt ""
+msgid "music videos"
+msgstr "hudba z filmů"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Related music videos from YouTube"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Ztraceno websocket připojení"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Attempting websockets reconnect"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "This should be the play path for the trailer. Eg. %1$s"
+
+msgctxt ""
+msgid "%1$s party mode toggled"
+msgstr "%1$s party mode toggled"
