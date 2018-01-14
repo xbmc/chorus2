@@ -3,7 +3,7 @@
   API =
 
     # Using the Kodi API key
-    apiKey: 'f7f51775877e0bb6703520952b3c7840'
+    apiKey: 'ecbc86c92da237cb9faff6d3ddc4be6d'
 
     # V3 of API
     baseURL: 'https://api.themoviedb.org/3/'
