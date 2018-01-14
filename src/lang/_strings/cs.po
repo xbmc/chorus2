@@ -163,7 +163,7 @@ msgstr "Existující playlisty"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Prázdná playlist. Asi bys měl něco přidat, ne?"
+msgstr "Tento playlist je zcela prázdný. Měl bys do něho něco přidat."
 
 msgctxt ""
 msgid "Create a new list"
@@ -216,7 +216,7 @@ msgstr "Stream"
 
 msgctxt ""
 msgid "Download"
-msgstr "Download"
+msgstr "Stáhni"
 
 msgctxt ""
 msgid "complete"
@@ -404,7 +404,7 @@ msgstr "Aktuální playlist"
 
 msgctxt ""
 msgid "Clear playlist"
-msgstr "Vymaž playlist"
+msgstr "Vyprázdni playlist"
 
 msgctxt ""
 msgid "Refresh playlist"
@@ -416,7 +416,7 @@ msgstr "Party mód"
 
 msgctxt ""
 msgid "Save Kodi playlist"
-msgstr "Ulož Kodi playlist"
+msgstr "Ulož playlist do Kodi"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
@@ -534,7 +534,7 @@ msgctxt ""
 msgid ""
 "Advanced setting level is recommended for those who know what they are doing."
 msgstr ""
-"Advanced setting level is recommended for those who know what they are doing."
+"Pokročilé nastavení je doporučeno pouze pro ty kteří vědí co dělají."
 
 msgctxt ""
 msgid "Kodi settings level"
@@ -622,19 +622,19 @@ msgstr ""
 
 msgctxt ""
 msgid "Web Settings saved."
-msgstr "Web Settings saved."
+msgstr "Nastavení uloženo."
 
 msgctxt ""
 msgid "Keyboard controls"
-msgstr "Keyboard controls"
+msgstr "Ovládání pomocí klávesnice"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr "In Chorus, will your keyboard control Kodi, the browser or both"
+msgstr "V Chorusu bude klávesnice ovládat Kodi, prohlížeč nebo oboje"
 
 msgctxt ""
 msgid "Learn more"
-msgstr "Learn more"
+msgstr "Více"
 
 msgctxt ""
 msgid "Resume playback"
@@ -650,7 +650,7 @@ msgstr "Začni od začátku"
 
 msgctxt ""
 msgid "Click here restore defaults"
-msgstr "Click here restore defaults"
+msgstr "Klikni zde pro obnovení výchozích hodnot"
 
 msgctxt ""
 msgid "Main Menu Structure"
@@ -661,8 +661,8 @@ msgid ""
 "Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
 msgstr ""
-"Here you can change the title, url and %1$s for menu items. You can also "
-"remove, re-order and add new items."
+"Zde můžeš změnit název, URL and %1$s jednotlivých položek menu. Také můžeš"
+"odstranit, změnit nebo přidat polořky menu."
 
 msgctxt ""
 msgid "Main Nav"
@@ -698,7 +698,7 @@ msgstr "TV"
 
 msgctxt ""
 msgid "Browser"
-msgstr "Browser"
+msgstr "Prohlížeč"
 
 msgctxt ""
 msgid "Thumbs up"
@@ -754,7 +754,7 @@ msgstr "Jsi si jist?"
 
 msgctxt ""
 msgid "Set all episodes for this season as"
-msgstr "Set all episodes for this season as"
+msgstr "Nastav všechny epizody z této sezóny jako"
 
 msgctxt ""
 msgid "Set all episodes for this TV show as"
@@ -810,11 +810,11 @@ msgstr "Have you done a library scan?"
 
 msgctxt ""
 msgid "Play in browser"
-msgstr "Hraj v browser"
+msgstr "Spusť v prohlížeči"
 
 msgctxt ""
 msgid "Edit"
-msgstr "Edit"
+msgstr "Uprav"
 
 msgctxt ""
 msgid "Add to Kodi"
@@ -830,7 +830,7 @@ msgstr "Nový playlist"
 
 msgctxt ""
 msgid "Play in Kodi"
-msgstr "Hrej v Kodi"
+msgstr "Spusť v Kodi"
 
 msgctxt ""
 msgid "Export list"
@@ -962,11 +962,11 @@ msgstr "Další filmy z roku %1$s"
 
 msgctxt ""
 msgid "artist"
-msgstr "artist"
+msgstr "umělec"
 
 msgctxt ""
 msgid "random"
-msgstr "náhodná"
+msgstr "náhodně"
 
 msgctxt ""
 msgid "label"
@@ -1214,11 +1214,11 @@ msgstr "Externí vyhledávání"
 
 msgctxt ""
 msgid "Local media"
-msgstr "Localní media"
+msgstr "Místní media"
 
 msgctxt ""
 msgid "Chorus Search"
-msgstr "Vyhledávání v Chorus"
+msgstr "Vyhledej v Chorusu"
 
 msgctxt ""
 msgid "YouTube Search"
@@ -1250,11 +1250,11 @@ msgstr "fotka"
 
 msgctxt ""
 msgid "executable"
-msgstr "executable"
+msgstr "spustitelné"
 
 msgctxt ""
 msgid "settings"
-msgstr "settings"
+msgstr "nastavení"
 
 msgctxt ""
 msgid "Refresh"
@@ -1277,11 +1277,11 @@ msgstr "Ignore local NFO files when manually refreshing media."
 
 msgctxt ""
 msgid "Show only"
-msgstr "Ukaž jen"
+msgstr "Jen Seriál"
 
 msgctxt ""
 msgid "Show and episodes"
-msgstr "Show and episodes"
+msgstr "Seriál a epizody"
 
 msgctxt ""
 msgid "Top music"
@@ -1392,7 +1392,7 @@ msgstr "Nyní"
 
 msgctxt ""
 msgid "Rename playlist"
-msgstr "Rename playlist"
+msgstr "Přejmenuj playlist"
 
 msgctxt ""
 msgid "album"
@@ -1424,7 +1424,7 @@ msgstr "Nej Alba"
 
 msgctxt ""
 msgid "Toggle select all"
-msgstr "Toggle select all"
+msgstr "Vyber/Zruš výběr všech"
 
 msgctxt ""
 msgid "More like this"
@@ -1444,7 +1444,7 @@ msgstr "Ztraceno websocket připojení"
 
 msgctxt ""
 msgid "Attempting websockets reconnect"
-msgstr "Attempting websockets reconnect"
+msgstr "Zkouším se znovu připojit"
 
 msgctxt ""
 msgid "This should be the play path for the trailer. Eg. %1$s"
