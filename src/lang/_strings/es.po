@@ -135,7 +135,7 @@ msgstr "Cargando carpeta..."
 
 msgctxt ""
 msgid "Show more"
-msgstr "Mostrar mas"
+msgstr "Mostrar más"
 
 msgctxt ""
 msgid "to Kodi"
@@ -240,7 +240,7 @@ msgstr "Equipo Websockets"
 
 msgctxt ""
 msgid "Websockets port"
-msgstr "Puerto Websockets"
+msgstr "Puerto websockets"
 
 msgctxt ""
 msgid "Default player"
@@ -252,7 +252,7 @@ msgstr "Ignorar artículos"
 
 msgctxt ""
 msgid "Album artists only"
-msgstr "Sólo Intérpretes con Álbum"
+msgstr "Sólo intérpretes con álbum"
 
 msgctxt ""
 msgid "Poll interval"
@@ -290,8 +290,8 @@ msgstr ""
 msgctxt ""
 msgid "Failed to connect to websockets"
 msgstr ""
-"Fallo al conectar a los websockets, asi que se vuelve a preguntar por "
-"actualizaciones. Esto hace todo mas lento y mas pesado. Se debe verificar "
+"Fallo al conectar a los websockets, así que se vuelve a preguntar por "
+"actualizaciones. Esto hace todo más lento y más pesado. Se debe verificar "
 "que esté ACTIVA 'Permitir control remoto desde aplicaciones en otros equipos' "
 "en los ajustes de Kodi (Ajustes > Servicio > Control). También podría ser que "
 "se usen proxies o accediendo desde alguna IP no permitida. "
@@ -499,7 +499,7 @@ msgstr "Atención"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
-msgstr "Código Experimental. Úselo bajo su propio riesgo"
+msgstr "Código experimental. Úselo bajo su propio riesgo"
 
 msgctxt ""
 msgid "Kodi API browser"
@@ -597,7 +597,7 @@ msgstr "Sobre"
 
 msgctxt ""
 msgid "Local audio"
-msgstr "Audio Local"
+msgstr "Audio local"
 
 msgctxt ""
 msgid "Status report"
@@ -633,7 +633,7 @@ msgstr "En Chorus, qué va a controlar el teclado: Kodi, el navegador o ambos"
 
 msgctxt ""
 msgid "Learn more"
-msgstr "Ver mas"
+msgstr "Ver más"
 
 msgctxt ""
 msgid "Resume playback"
@@ -681,7 +681,7 @@ msgstr "Música"
 
 msgctxt ""
 msgid "Digital radio"
-msgstr "Radio Digital"
+msgstr "Radio digital"
 
 msgctxt ""
 msgid "Movies"
@@ -720,7 +720,7 @@ msgid ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
 "the menu item from the "
 msgstr ""
-"Elimina el boton de Me gusta de los medios. Nota: Puede que tambien quiera "
+"Elimina el boton de Me gusta de los medios. Nota: Puede que también quiera "
 "eliminar el elemento Me gusta de "
 
 msgctxt ""
@@ -865,7 +865,7 @@ msgstr "talante"
 
 msgctxt ""
 msgid "writer"
-msgstr "guiónista"
+msgstr "guionista"
 
 msgctxt ""
 msgid "director"
@@ -945,15 +945,15 @@ msgstr "Continuar viendo"
 
 msgctxt ""
 msgid "More from %1$s"
-msgstr "Mas de %1$s"
+msgstr "Más de %1$s"
 
 msgctxt ""
 msgid "More %1$s movies"
-msgstr "Mas películas %1$s"
+msgstr "Más películas %1$s"
 
 msgctxt ""
 msgid "More movies staring %1$s"
-msgstr "Mas películas de %1$s"
+msgstr "Más películas de %1$s"
 
 msgctxt ""
 msgid "Other movies released in %1$s"
@@ -969,7 +969,7 @@ msgstr "aleatorio"
 
 msgctxt ""
 msgid "label"
-msgstr "sello"
+msgstr "etiqueta"
 
 msgctxt ""
 msgid "formed"
@@ -993,7 +993,7 @@ msgstr "años en activo"
 
 msgctxt ""
 msgid "Click for more"
-msgstr "Click para mas"
+msgstr "Click para más"
 
 msgctxt ""
 msgid "Loading albums"
@@ -1008,7 +1008,7 @@ msgid ""
 msgstr ""
 "Hace %1$d segundos se abrió un cuadro de diálogo en Kodi y todavía está abierto. "
 "Para evitar una implosión del servicio principal, supongo que debería decirme algo. "
-"A estas alturas, no me importa mucho qué ha pasado, asi que sea original. "
+"A estas alturas, no me importa mucho qué ha pasado, así que sea original. "
 "¿Tiene un %2$s? No lo contaré..."
 
 msgctxt ""
@@ -1081,7 +1081,7 @@ msgstr "Descripción"
 
 msgctxt ""
 msgid "Label"
-msgstr "Sello"
+msgstr "Etiqueta"
 
 msgctxt ""
 msgid "Year"
@@ -1133,7 +1133,7 @@ msgstr "Calificación de contenido"
 
 msgctxt ""
 msgid "Premiered"
-msgstr "Estreno"
+msgstr "Estrenado"
 
 msgctxt ""
 msgid "IMDb"
@@ -1185,7 +1185,7 @@ msgstr "Instrumentos"
 
 msgctxt ""
 msgid "more"
-msgstr "mas"
+msgstr "más"
 
 msgctxt ""
 msgid "in progress"
@@ -1201,15 +1201,11 @@ msgstr "Añadir una imagen via URL"
 
 msgctxt ""
 msgid "Searching for more images"
-msgstr "Buscar mas imágenes"
+msgstr "Buscar más imágenes"
 
 msgctxt ""
-msgid "Image Selector"
-msgstr "Selector de imagen"
-
-msgctxt ""
-msgid "Image URL"
-msgstr "URL de imagen"
+msgid "Selector"
+msgstr "Selector"
 
 msgctxt ""
 msgid "External Search"
@@ -1258,3 +1254,201 @@ msgstr "ejecutable"
 msgctxt ""
 msgid "settings"
 msgstr "ajustes"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "Refrescar"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"Refrescando '%1$s' lo quitará de la librería y lo volverá a añadir, "
+"por lo que el ID puede cambiar. Intentaré recargar esta página con la nueva "
+"ID en unos pocos segundos. Haz clic en 'SÍ' para confirmar el refresco"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "Refrescar Ignorar Archivos NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "Ignorar ficheros NFO locales cuando se refresque manualmente."
+
+msgctxt ""
+msgid "Show only"
+msgstr "Ver sólo"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "Programa y episodios"
+
+msgctxt ""
+msgid "Top music"
+msgstr "La mejor música"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s Artistas"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s Álbumes"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s Canciones"
+
+msgctxt ""
+msgid "default"
+msgstr "por defecto"
+
+msgctxt ""
+msgid "Actions"
+msgstr "Acciones"
+
+msgctxt ""
+msgid "play files"
+msgstr "reproducir ficheros"
+
+msgctxt ""
+msgid "queue files"
+msgstr "encolar ficheros"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "Enviar texto"
+
+msgctxt ""
+msgid "License"
+msgstr "Licencia"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "Menú principal"
+
+msgctxt ""
+msgid "Search"
+msgstr "Búsqueda"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "Búsqueda de Complementos personalizadas"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Las búsquedas en Chorus soportan no sólo medios locales sino contenido de complementos también. Por ejemplo, puedes usar la "
+"búsqueda para encontrar videos en YouTube o audios en SoundCloud. Esta página te permite añadir búsquedas de complementos "
+"personalizadas. Mira el %1$s para más información."
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "Página de ayuda de complementos"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "No se ha encontrado %1$s"
+
+msgctxt ""
+msgid "results"
+msgstr "resultados"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "Datos EPG"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "Grabaciones"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "Channel recording toggled"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "Canales de TV"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "Estaciones de Radio"
+
+msgctxt ""
+msgid "Record"
+msgstr "Grabación"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "Temporizador"
+
+msgctxt ""
+msgid "Now"
+msgstr "Ahora"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "Renombrar lista de reproducción"
+
+msgctxt ""
+msgid "album"
+msgstr "álbum"
+
+msgctxt ""
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "Se ha perdido la conexión a Kodi"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "Intentar la reconexión"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "Intentando reconectar"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "Las mejores canciones"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "Los mejores álbumes"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "Seleccionar todos"
+
+msgctxt ""
+msgid "More like this"
+msgstr "Más como esta"
+
+msgctxt ""
+msgid "music videos"
+msgstr "Vídeos musicales"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "Videos musicales relacionados en YouTube"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "Se ha peridod la conexión de los websockets"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "Intentando reconectar con los websockets"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "Este debe ser la ruta de reproducción para el trailer. Ej. %1$s"
+
+msgctxt ""
+msgid "%1$s party mode toggled"
+msgstr "Modo fiesta %1$s"
