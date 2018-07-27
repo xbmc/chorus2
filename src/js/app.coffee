@@ -26,6 +26,10 @@
     showDeviceName: false
     refreshIgnoreNFO: true
     largeBreakpoint: 910
+    apiKeyTMDB: ''
+    apiKeyTVDB: ''
+    apiKeyFanartTv: ''
+    apiKeyYouTube: ''
 }
 
 ## The App Instance

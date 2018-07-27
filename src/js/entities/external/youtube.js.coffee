@@ -5,7 +5,7 @@
 
   API =
 
-    apiKey: 'AIzaSyBxvaR6mCnUWN8cv2TiPRmuEh0FykBTAH0'
+    apiKey: 'QUl6YVN5Qnh2YVI2bUNuVVdOOGN2MlRpUFJtdUVoMEZ5a0JUQUgw'
     searchUrl: 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDefinition=any&videoEmbeddable=true&order=relevance&safeSearch=none'
     maxResults: 5
 
@@ -13,7 +13,7 @@
     ytURL: 'https://youtu.be/'
 
     getSearchUrl: ->
-      @searchUrl + '&key=' + @apiKey
+      @searchUrl + '&key=' + config.getAPIKey('apiKeyYouTube', @apiKey)
 
     parseItems: (response) ->
       items = []

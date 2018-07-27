@@ -2,8 +2,8 @@
 
   API =
 
-    # Using the Kodi API key
-    apiKey: 'ecbc86c92da237cb9faff6d3ddc4be6d'
+    # API Key
+    apiKey: 'NzFiYTFmMDdlZDBmYzhmYjM2MWNmMDRhNThkNzUwNTE='
 
     # V3 of API
     baseURL: 'https://api.themoviedb.org/3/'
@@ -29,7 +29,7 @@
     ## Make a call to API
     call: (path, params, callback) ->
       defaultParams =
-        api_key: @apiKey
+        api_key: config.getAPIKey('apiKeyTMDB', @apiKey)
       params = _.extend defaultParams, params
       url = @baseURL + path + helpers.url.buildParams(params) + '&callback=?'
       $.getJSON url, (resp) ->

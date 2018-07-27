@@ -29,6 +29,11 @@ config.setLocal = (id, data, callback) ->
 config.setLocalApp = () ->
   config.set 'static', id, data, callback
 
+# A wrapper for getting an API Key.
+config.getAPIKey = (id, defaultData = '') ->
+  key = config.getLocal id, ''
+  return if key is '' then atob(defaultData) else key
+
 # Wrapper for getting a config value before app has started.
 # Should always try and use config.get() before this.
 config.preStartGet = (id, defaultData = '') ->
