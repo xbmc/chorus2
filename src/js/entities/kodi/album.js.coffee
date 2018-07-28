@@ -5,7 +5,7 @@
     fields:
       minimal: ['thumbnail']
       small: ['playcount', 'artistid', 'artist', 'genre', 'albumlabel', 'year', 'dateadded', 'style']
-      full: ['fanart', 'mood', 'description', 'genreid', 'rating', 'type', 'theme']
+      full: ['fanart', 'mood', 'description', 'rating', 'type', 'theme']
 
     ## Fetch a single album
     getAlbum: (id, options) ->
