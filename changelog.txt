@@ -1,5 +1,6 @@
-Version 17.x-2.4.5
+Version 18.x-2.4.5
 -------------
+* Fixed issue with unable to view album page in Kodi Leia (v18) #327
 * Updated version scheme to support multiple versions of Kodi
 * Updated API keys for external services, allow API key override #309
 * Add OnResume to websockets notifications #328
