@@ -1,3 +1,20 @@
+Version 17.x-2.4.5
+-------------
+* Updated version scheme to support multiple versions of Kodi
+* Updated API keys for external services, allow API key override #309
+* Add OnResume to websockets notifications #328
+* Updated opensans-light font files for improved multilingual support #297
+* Add PAL SD video size to streams helper #315
+* New literals and some corrections #317
+* Improved Chinese translation #321
+* Czech translation #312
+* Portuguese translation #304
+* Hungarian translations #296
+* Add support for vim-like hjkl movement keys. #278
+* Dutch translation of keybind-readme.md #279
+* Update pngs with optimized versions #263
+* Update fanart with optimized versions #263
+
 Version 2.4.4
 -------------
 * Added year to movie edit form #231
