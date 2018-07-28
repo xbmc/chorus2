@@ -74,6 +74,15 @@
             {id: 'refreshIgnoreNFO', title: tr("Refresh Ignore NFO"), type: 'checkbox', defaultValue: true, description: tr('Ignore local NFO files when manually refreshing media.')}
           ]
         }
+        {
+          title: 'API Keys'
+          id: 'apikeys'
+          children:[
+            {id: 'apiKeyTMDB', title: tr("The Movie DB"), type: 'textfield', defaultValue: '', description: tr("Set your own TMDB API key.")}
+            {id: 'apiKeyFanartTv', title: tr("FanartTV"), type: 'textfield', defaultValue: '', description: tr("Set your own FanartTv API key.")}
+            {id: 'apiKeyYouTube', title: tr("YouTube"), type: 'textfield', defaultValue: '', description: tr("Set your own YouTube API key.")}
+          ]
+        }
       ]
 
     ## Get settings from local storage

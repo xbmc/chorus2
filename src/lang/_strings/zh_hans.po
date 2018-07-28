@@ -53,7 +53,7 @@ msgstr "用哪一个播放器来开始"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "排序时忽略'The'和'A'之类的词"
+msgstr "排序时忽略像'The'和'A'这样的冠词"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
@@ -65,11 +65,11 @@ msgstr "是默认的"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr "用于websockets连接的服务器名字。设置为‘auto’来使用当前的服务器名字。"
+msgstr "用于websockets连接的服务器名字。设置为‘auto’(自动)来使用当前的服务器的名字。"
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "多久从Kodi更新一次（仅当websockets关闭是生效）"
+msgstr "多久从Kodi更新一次（仅当websockets关闭时生效）"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -81,15 +81,15 @@ msgstr "设置已保存"
 
 msgctxt ""
 msgid "Just a sec..."
-msgstr "稍等。。。"
+msgstr "请稍候......"
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "无法与Kodi连接。怪我咯。"
+msgstr "现在还仍然无法与Kodi建立连接，怪我咯。"
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr "视频库扫描开始"
+msgstr "开始扫描视频库"
 
 msgctxt ""
 msgid "Video library scan complete"
@@ -97,7 +97,7 @@ msgstr "视频库扫描完毕"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr "音频库扫描开始"
+msgstr "开始扫描音频库"
 
 msgctxt ""
 msgid "Audio library scan complete"
@@ -117,7 +117,7 @@ msgstr "后退"
 
 msgctxt ""
 msgid "Loading folder..."
-msgstr "正在加载文件夹。。。"
+msgstr "正在加载文件夹......"
 
 msgctxt ""
 msgid "Show more"
@@ -125,11 +125,11 @@ msgstr "显示更多"
 
 msgctxt ""
 msgid "to Kodi"
-msgstr "to Kodi"
+msgstr "到Kodi"
 
 msgctxt ""
 msgid "Playlist refreshed"
-msgstr "播放列表已刷新"
+msgstr "已刷新播放列表"
 
 msgctxt ""
 msgid "Kodi"
@@ -145,11 +145,11 @@ msgstr "播放列表"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr "已有播放列表"
+msgstr "现有的播放列表"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "空的播放列表，放点东西进去吧？"
+msgstr "这是空的播放列表，放点东西进去吧？"
 
 msgctxt ""
 msgid "Create a new list"
@@ -165,15 +165,15 @@ msgstr "添加到你的播放列表"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "命名你的播放列表"
+msgstr "给你的播放列表起一个名字"
 
 msgctxt ""
 msgid "Recently added"
-msgstr "最近添加的"
+msgstr "最近添加"
 
 msgctxt ""
 msgid "Recently played"
-msgstr "最近播放的"
+msgstr "最近播放"
 
 msgctxt ""
 msgid "Season"
@@ -254,11 +254,11 @@ msgstr "语言"
 
 msgctxt ""
 msgid "Preferred language"
-msgstr "选择语言"
+msgstr "首选语言"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "排序时忽略类似'The'和'A'这样的字段"
+msgstr "排序时忽略类似'The'和'A'这样的冠词字段"
 
 # Short for "second"
 msgctxt ""
@@ -267,7 +267,7 @@ msgstr "秒"
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr "你的浏览器不支持websockets！是时候升级浏览器了。"
+msgstr "你的浏览器不支持websockets！该升级浏览器了。"
 
 msgctxt ""
 msgid "Failed to connect to websockets"
@@ -311,7 +311,7 @@ msgstr[1] "结果"
 
 msgctxt ""
 msgid "Loading things..."
-msgstr "加载中。。。"
+msgstr "正在加载......"
 
 msgctxt ""
 msgid "Scan video library"
@@ -327,7 +327,7 @@ msgstr "关于Chorus"
 
 msgctxt ""
 msgid "Recent"
-msgstr "最新"
+msgstr "最近"
 
 msgctxt ""
 msgid "Artists"
@@ -339,7 +339,7 @@ msgstr "专辑"
 
 msgctxt ""
 msgid "Recent movies"
-msgstr "最新电影"
+msgstr "最近电影"
 
 msgctxt ""
 msgid "All movies"
@@ -355,11 +355,11 @@ msgstr "所有电视节目"
 
 msgctxt ""
 msgid "Web settings"
-msgstr "网页设置"
+msgstr "设置Chorus网页"
 
 msgctxt ""
 msgid "Kodi settings"
-msgstr "Kodi设置"
+msgstr "Kodi播放器的设置"
 
 msgctxt ""
 msgid "Now Playing Playlists"
@@ -367,7 +367,7 @@ msgstr "现在正在播放播放列表"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "用标签在Kodi和本地播放间切换。你可以用右上角的箭头来显示或隐藏它。"
+msgstr "在这个标签上切换在Kodi或本计算机上播放媒体。你可以点击右上角的箭头来显示或隐藏它。"
 
 msgctxt ""
 msgid "Current playlist"
@@ -375,7 +375,7 @@ msgstr "当前播放列表"
 
 msgctxt ""
 msgid "Clear playlist"
-msgstr "清楚播放列表"
+msgstr "清空播放列表"
 
 msgctxt ""
 msgid "Refresh playlist"
@@ -391,19 +391,19 @@ msgstr "保存Kodi播放列表"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "你喜欢的语言，刷新浏览器后生效"
+msgstr "这是你喜欢的语言，在刷新浏览器后生效"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "当排序时忽略类似'The'和'A'的字段"
+msgstr "当排序时忽略类似'The'和'A'的冠词字段"
 
 msgctxt ""
 msgid "Vibrant headers"
-msgstr "炫丽标头"
+msgstr "华丽标头"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
-msgstr "为媒体页面使用多彩的标头"
+msgstr "为媒体页面使用彩色标头"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
@@ -443,15 +443,15 @@ msgstr "这个文件夹里没有媒体文件"
 
 msgctxt ""
 msgid "Browse files and add-ons"
-msgstr "浏览文件和插件"
+msgstr "浏览文件和Kodi插件"
 
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
-msgstr "这里不仅可以浏览库，还可以浏览所有的Kodi内容。选择Source或插件来浏览。"
+msgstr "这里不仅可以浏览媒体库中的内容，还可以浏览所有的在Kodi上的内容。选择Source(源)或插件来浏览。"
 
 msgctxt ""
 msgid "Send text to Kodi"
-msgstr "发消息给Kodi"
+msgstr "像Kodi发送文字消息"
 
 msgctxt ""
 msgid "The lab"
@@ -459,7 +459,7 @@ msgstr "实验室"
 
 msgctxt ""
 msgid "Chorus lab"
-msgstr "Chorus 实验室"
+msgstr "Chorus的实验功能"
 
 msgctxt ""
 msgid "Warning"
@@ -467,15 +467,15 @@ msgstr "警告"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
-msgstr "实验阶段代码，使用者风险自担"
+msgstr "这些不稳定的代码还在试验中，请谨慎使用"
 
 msgctxt ""
 msgid "Kodi API browser"
-msgstr "Kodi API 浏览器"
+msgstr "浏览Kodi的API"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "这是用于测试API的工具。选择一个方法，添加一些参数来执行它。"
+msgstr "这是用于测试API的工具。选择一个API，并添加一些参数来执行它。"
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
@@ -499,7 +499,7 @@ msgstr "Web设置"
 
 msgctxt ""
 msgid "Advanced setting level is recommended for those who know what they are doing."
-msgstr "高级设置只适合清楚自己在做什么的用户"
+msgstr "高级设置只适合知道自己在做什么的用户"
 
 msgctxt ""
 msgid "Web settings saved."
@@ -543,7 +543,7 @@ msgstr "帮助主题"
 
 msgctxt ""
 msgid "Overview"
-msgstr "概观"
+msgstr "概览"
 
 msgctxt ""
 msgid "Lab"
@@ -555,11 +555,11 @@ msgstr "版本"
 
 msgctxt ""
 msgid "Remote control"
-msgstr "遥控"
+msgstr "远程控制"
 
 msgctxt ""
 msgid "Remote control is set up correctly"
-msgstr "遥控设置正确"
+msgstr "成功设置远程控制"
 
 msgctxt ""
 msgid "About"
@@ -583,7 +583,7 @@ msgstr "播放时聚焦在播放列表上"
 
 msgctxt ""
 msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
-msgstr "自动滚动播放列表到当前播放内容。当播放内容变化时生效。"
+msgstr "自动滚动播放列表到当前播放内容，当播放内容变化时生效。"
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -595,7 +595,7 @@ msgstr "键盘控制"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr "在Chorus里, 你希望用键盘控制Kodi，浏览器或是两者一起"
+msgstr "在Chorus里, 你希望用键盘控制Kodi，浏览器或是两者"
 
 msgctxt ""
 msgid "Learn more"
@@ -607,7 +607,7 @@ msgstr "继续播放"
 
 msgctxt ""
 msgid "Resume from"
-msgstr "继续从"
+msgstr "从这里继续"
 
 msgctxt ""
 msgid "Start from the beginning"
@@ -631,7 +631,7 @@ msgstr "主菜单"
 
 msgctxt ""
 msgid "Add a new playlist"
-msgstr "新增一个播放列表"
+msgstr "新建一个播放列表"
 
 msgctxt ""
 msgid "Keyboard"

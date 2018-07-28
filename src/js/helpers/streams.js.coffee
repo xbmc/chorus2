@@ -23,6 +23,11 @@ helpers.stream.videoSizeMap = [
     }
     {
       min: 481
+      max: 576
+      label: '576'
+    }
+    {
+      min: 577
       max: 720
       label: '720p'
     }

@@ -3,7 +3,7 @@
   API =
 
     # Using the Kodi API key
-    apiKey: 'ed4b784f97227358b31ca4dd966a04f1'
+    apiKey: 'ZWQ0Yjc4NGY5NzIyNzM1OGIzMWNhNGRkOTY2YTA0ZjE='
 
     # V3 of API
     baseURL: 'http://webservice.fanart.tv/v3/'
@@ -18,7 +18,7 @@
     ## Make a call to API
     call: (path, params, callback) ->
       defaultParams =
-        api_key: @apiKey
+        api_key: config.getAPIKey('apiKeyFanartTv', @apiKey)
       params = _.extend defaultParams, params
       url = @baseURL + path + helpers.url.buildParams(params)
       req = $.getJSON url, (resp) ->

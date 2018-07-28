@@ -237,7 +237,7 @@ module.exports = function (grunt) {
           watchTask: true,
           injectChanges: true,
           hostname: "192.168.0.5",
-          proxy: "192.168.0.92:8080",
+          proxy: "192.168.0.10:8080",
           open: false,
           ports: {
             min: 3102,

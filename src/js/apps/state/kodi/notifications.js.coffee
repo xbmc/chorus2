@@ -107,6 +107,13 @@
           @setPlaying('playState', 'playing')
           App.execute "player:kodi:timer", 'start'
           @refreshStateNow()
+          
+        # playback started
+        when 'Player.OnResume'
+          @setPlaying('paused', false)
+          @setPlaying('playState', 'playing')
+          App.execute "player:kodi:timer", 'start'
+          @refreshStateNow()
 
         # playback stopped
         when 'Player.OnStop'
