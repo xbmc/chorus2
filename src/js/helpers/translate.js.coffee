@@ -9,14 +9,16 @@ helpers.translate = {}
 helpers.translate.getLanguages = ->
   {
     en: "English"
-    fr: "French"
+    cs: "Czech"
     de: "German"
+    es: "Spanish"
+    fr: "French"
+    hu: "Hungarian"
     lt: "Lithuanian"
     nl: "Dutch"
     pl: "Polish"
-    es: "Spanish"
+    pt: "Portuguese"
     zh_hans: "Chinese, Simplified"
-    cs: "Czech"
   }
 
 ## Init language and translations.

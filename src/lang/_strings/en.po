@@ -1453,3 +1453,15 @@ msgstr "This should be the play path for the trailer. Eg. %1$s"
 msgctxt ""
 msgid "%1$s party mode toggled"
 msgstr "%1$s party mode toggled"
+
+msgctxt ""
+msgid "Set your personal API key"
+msgstr "Set your personal API key"
+
+msgctxt ""
+msgid "The Movie DB"
+msgstr "The Movie DB"
+
+msgctxt ""
+msgid "FanartTV"
+msgstr "FanartTV

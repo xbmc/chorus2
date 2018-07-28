@@ -78,9 +78,9 @@
           title: 'API Keys'
           id: 'apikeys'
           children:[
-            {id: 'apiKeyTMDB', title: tr("The Movie DB"), type: 'textfield', defaultValue: '', description: tr("Set your own TMDB API key.")}
-            {id: 'apiKeyFanartTv', title: tr("FanartTV"), type: 'textfield', defaultValue: '', description: tr("Set your own FanartTv API key.")}
-            {id: 'apiKeyYouTube', title: tr("YouTube"), type: 'textfield', defaultValue: '', description: tr("Set your own YouTube API key.")}
+            {id: 'apiKeyTMDB', title: tr("The Movie DB"), type: 'textfield', defaultValue: '', description: tr("Set your personal API key")}
+            {id: 'apiKeyFanartTv', title: tr("FanartTV"), type: 'textfield', defaultValue: '', description: tr("Set your personal API key")}
+            {id: 'apiKeyYouTube', title: tr("YouTube"), type: 'textfield', defaultValue: '', description: tr("Set your personal API key")}
           ]
         }
       ]
