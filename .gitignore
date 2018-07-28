@@ -10,3 +10,4 @@ atlassian-ide-plugin.xml
 dist/js/build/*
 *.mo
 .vscode
+webinterface.default*.zip
