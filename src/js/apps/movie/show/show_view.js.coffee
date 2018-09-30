@@ -50,6 +50,6 @@
     className: 'movie-set'
     onRender: ->
       if @options and @options.set
-          $('h2.set-name', @$el).html( @options.set )
+          $('h2.set-name', @$el).text( @options.set )
     regions: ->
       regionCollection: '.collection-items'

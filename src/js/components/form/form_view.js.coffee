@@ -64,7 +64,7 @@
 
     addSuccessMsg: (msg) ->
       $el = $(".response", @$el)
-      $el.html(msg).show()
+      $el.text(msg).show()
       setTimeout((->
         $el.fadeOut()
       ), 5000)

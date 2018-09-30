@@ -38,7 +38,7 @@
           collection: playlists
         $content = view.render().$el
         ## New list button
-        $new = $('<button>').html( tr('Create a new list') ).addClass('btn btn-primary')
+        $new = $('<button>').text( tr('Create a new list') ).addClass('btn btn-primary')
         $new.on 'click', =>
           _.defer ->
             API.createNewList(entityType, id)

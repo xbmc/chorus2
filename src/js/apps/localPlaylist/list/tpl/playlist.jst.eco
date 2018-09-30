@@ -1,1 +1,9 @@
-<span class="item"><%- @title %></span>
+<span class="item">
+    <% if @path: %>
+        <a href="#<%= @path %>"<% if @active: %> class="active"<% end %>>
+            <%= @title %>
+        </a>
+    <% else: %>
+        <%= @title %>
+    <% end %>
+</span>

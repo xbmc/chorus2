@@ -24,7 +24,7 @@
       subTitleTip = if @model.get('firstaired') then {title: tr('First aired') + ': ' + @model.get('firstaired')} else {}
       @model.set
         label: epNum + @model.get('title')
-        subtitle: @themeTag('div', subTitleTip, showLink + epNumFull)
+        subtitleHtml: @themeTag('div', subTitleTip, showLink + epNumFull)
 
 
   class Episode.Empty extends App.Views.EmptyViewResults
