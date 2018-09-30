@@ -6,7 +6,7 @@
       @model = @getOption('model')
 
       options = {
-        title: '<span>' + tr('Edit') + '</span>' + @model.get('title')
+        titleHtml: '<span>' + tr('Edit') + '</span>' + @model.escape('title')
         form: @getStructure()
         formState: @model.attributes
         config:

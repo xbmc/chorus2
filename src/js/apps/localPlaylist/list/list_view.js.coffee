@@ -17,11 +17,9 @@
     tagName: "li"
     initialize: ->
       path = helpers.url.get 'playlist', @model.get('id')
-      classes = []
+      @model.set(title: @model.get('name'), path: path)
       if path is helpers.url.path()
-        classes.push 'active'
-      tag = @themeLink(@model.get('name'), path, {'className': classes.join(' ')})
-      @model.set(title: tag)
+        @model.set(active: true)
 
   class List.Lists extends App.Views.CompositeView
     template: 'apps/localPlaylist/list/playlist_list'
@@ -29,7 +27,7 @@
     tagName: "div"
     childViewContainer: 'ul.lists'
     onRender: ->
-      $('h3', @$el).html( t.gettext('Playlists') )
+      $('h3', @$el).text( t.gettext('Playlists') )
 
   class List.Selection extends App.Views.ItemView
     template: 'apps/localPlaylist/list/playlist'
@@ -46,7 +44,7 @@
     className: 'playlist-selection-list'
     childViewContainer: 'ul.lists'
     onRender: ->
-      $('h3', @$el).html( t.gettext('Existing playlists') )
+      $('h3', @$el).text( t.gettext('Existing playlists') )
 
   class List.Layout extends App.Views.LayoutView
     template: 'apps/localPlaylist/list/playlist_layout'
@@ -63,4 +61,4 @@
       'click .local-playlist-header .export' : 'list:export'
     onRender: ->
       if @options and @options.list
-        $('h2', @$el).html( @options.list.get('name') )
+        $('h2', @$el).text( @options.list.get('name') )

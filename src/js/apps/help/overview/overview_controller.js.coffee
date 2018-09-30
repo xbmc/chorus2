@@ -54,20 +54,20 @@
     # Chorus version.
     getReportChorusVersion: ->
       $.get "addon.xml", (data) =>
-	      $('.report-chorus-version > span', @$pageView).html $('addon', data).attr('version')
+	      $('.report-chorus-version > span', @$pageView).text $('addon', data).attr('version')
 
     # Kodi version
     getReportKodiVersion: ->
       state = App.request "state:kodi"
       kodiVersion = state.getState('version')
-      $('.report-kodi-version > span', @$pageView).html kodiVersion.major + '.' + kodiVersion.minor
+      $('.report-kodi-version > span', @$pageView).text kodiVersion.major + '.' + kodiVersion.minor
 
     # Web sockets.
     getReportWebsocketsActive: ->
       wsActive = App.request "sockets:active"
       $ws = $('.report-websockets', @$pageView)
       if wsActive
-        $('span', $ws).html tr("Remote control is set up correctly")
+        $('span', $ws).text tr("Remote control is set up correctly")
         $ws.removeClass 'warning'
       else
         $('span', $ws).html tr("You need to 'Allow remote control' for Kodi. You can do that") + ' <a href="#settings/kodi/services">' + tr('here') + '</a>'
@@ -76,4 +76,4 @@
     # Local audio
     getReportLocalAudio: ->
       localAudio = if soundManager.useHTML5Audio then "HTML 5" else "Flash"
-      $('.report-local-audio > span', @$pageView) .html localAudio
+      $('.report-local-audio > span', @$pageView) .text localAudio
