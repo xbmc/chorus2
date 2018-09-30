@@ -66,12 +66,12 @@
         item = stateObj.getPlaying('item')
         $title.html helpers.entities.playingLink(item)
         $subtitle.html helpers.entities.getSubtitle(item)
-        $dur.html helpers.global.formatTime(stateObj.getPlaying('totaltime'))
+        $dur.text helpers.global.formatTime(stateObj.getPlaying('totaltime'))
         $img.css "background-image", "url('" + item.thumbnail + "')"
       else
         $title.html t.gettext('Nothing playing')
         $subtitle.html ''
-        $dur.html '0'
+        $dur.text '0'
         $img.attr 'src', App.request("images:path:get")
 
 

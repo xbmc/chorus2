@@ -75,7 +75,7 @@
       @contentLayout = new Show.Content model: movie
       @listenTo @contentLayout, "movie:youtube", (view) ->
         trailer = movie.get('mediaTrailer')
-        App.execute "ui:modal:youtube", movie.get('title') + ' Trailer', trailer.id
+        App.execute "ui:modal:youtube", movie.escape('title') + ' Trailer', trailer.id
       @listenTo @contentLayout, 'show', =>
         if movie.get('cast').length > 0
           @contentLayout.regionCast.show @getCast(movie)
@@ -118,7 +118,7 @@
             cache: false
             sort: {method: 'random', order: 'ascending'}
             filter: {}
-            title: t.sprintf(tr(more.title), '<a href="#movies?' + more.key + '=' + filterVal + '">' + filterVal + '</a>')
+            title: t.sprintf(tr(more.title), '<a href="#movies?' + more.key + '=' + _.escape(filterVal) + '">' + _.escape(filterVal) + '</a>')
             idx: idx
           opts.filter[more.filter] = filterVal
 
