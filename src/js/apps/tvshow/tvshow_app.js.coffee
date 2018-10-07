@@ -45,7 +45,7 @@
         helpers.entities.setProgress($layout, progress)
       # Update the unwatched episodes
       unwatched = parseInt($layout.find('.episode-total').text()) - $layout.find('.region-content .is-watched').length
-      $layout.find('.episode-unwatched').html(unwatched)
+      $layout.find('.episode-unwatched').text(unwatched)
       $layout
 
     getAllEpisodesCollection: (tvshowid, season, callback) ->

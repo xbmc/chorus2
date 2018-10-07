@@ -91,11 +91,11 @@
 
     ## Set app title.
     setAppTitle: ->
-      App.getRegion('regionTitle').$el.html('')
+      App.getRegion('regionTitle').$el.text('')
       if config.getLocal('showDeviceName', false) is true
         settingsController = App.request "command:kodi:controller", 'auto', 'Settings'
         settingsController.getSettingValue 'services.devicename', (title) ->
-          App.getRegion('regionTitle').$el.html(title)
+          App.getRegion('regionTitle').$el.text(title)
 
     # Shell listeners for context menu.
     bindListenersContextMenu: (shellLayout) ->

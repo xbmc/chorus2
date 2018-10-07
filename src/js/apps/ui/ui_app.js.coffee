@@ -4,7 +4,7 @@
 
   API =
 
-    openModal: (title, msg, open = true, style = '') ->
+    openModal: (titleHtml, msgHtml, open = true, style = '') ->
       ## Get the modal parts
       $title = App.getRegion('regionModalTitle').$el
       $body = App.getRegion('regionModalBody').$el
@@ -12,8 +12,8 @@
       $modal.removeClassStartsWith 'style-'
       $modal.addClass 'style-' + style
       ## Populate its content
-      $title.html(title)
-      $body.html(msg)
+      $title.html(titleHtml)
+      $body.html(msgHtml)
       ## Open model
       if open
         $modal.modal();
@@ -32,7 +32,7 @@
       App.getRegion('regionModalFooter').$el.empty()
 
     getButton: (text, type = 'primary') ->
-      $('<button>').addClass('btn btn-' + type).html(text)
+      $('<button>').addClass('btn btn-' + type).text(text)
 
     defaultButtons: (callback) ->
       $ok = API.getButton(t.gettext('ok'), 'primary').on('click', ->
@@ -69,6 +69,7 @@
     ## Open a options modal.
     ## options is an object with a title and items, items is an array of single objects with
     ## a title and callback key. when the option is clicked the callback is called.
+    ## Options are HTML (must be pre-escaped).
     buildOptions: (options) ->
       if options.length is 0
         return
@@ -84,7 +85,7 @@
       $wrap
 
   ## Open a text input modal window, callback receives the entered text.
-  ## Options properties: {msg: 'string', open: 'bool', defaultVal: 'string'}
+  ## Options properties: {msgHtml: 'string', open: 'bool', defaultVal: 'string'}
   App.commands.setHandler "ui:textinput:show", (title, options = {}, callback) ->
     msg = if options.msg then options.msg else ''
     open = if options.open then true else false
@@ -94,7 +95,7 @@
         callback( $('#text-input').val() )
         API.closeModal()
     )
-    $msg = $('<p>').html(msg)
+    $msg = $('<p>').text(msg)
     API.defaultButtons -> callback $('#text-input').val()
     API.openModal(title, $msg, callback, open)
     el = App.getRegion('regionModalBody').$el.append($input.wrap('<div class="form-control-wrapper"></div>'))
@@ -107,35 +108,35 @@
     API.closeModal()
 
   ## Open a confirm modal
-  App.commands.setHandler "ui:modal:confirm", (title, msg = '', callback) ->
+  App.commands.setHandler "ui:modal:confirm", (titleHtml, msgHtml = '', callback) ->
     API.confirmButtons -> callback true
-    API.openModal(title, msg, true, 'confirm')
+    API.openModal(titleHtml, msgHtml, true, 'confirm')
 
   ## Open a modal window
-  App.commands.setHandler "ui:modal:show", (title, msg = '', footer = '', closeButton = false, style = '') ->
-    API.getModalButtonContainer().html(footer)
+  App.commands.setHandler "ui:modal:show", (titleHtml, msgHtml = '', footerHtml = '', closeButton = false, style = '') ->
+    API.getModalButtonContainer().html(footerHtml)
     if closeButton
       API.getModalButtonContainer().prepend API.closeModalButton()
-    API.openModal(title, msg, true, style)
+    API.openModal(titleHtml, msgHtml, true, style)
 
   ## Open a form modal window
-  App.commands.setHandler "ui:modal:form:show", (title, msg = '', style = 'form') ->
-    API.openModal(title, msg, true, style)
+  App.commands.setHandler "ui:modal:form:show", (titleHtml, msgHtml = '', style = 'form') ->
+    API.openModal(titleHtml, msgHtml, true, style)
 
   ## Close a modal window
   App.commands.setHandler "ui:modal:close", ->
     API.closeModal()
 
   ## Open a youtube video in a modal
-  App.commands.setHandler "ui:modal:youtube", (title, videoid) ->
+  App.commands.setHandler "ui:modal:youtube", (titleHtml, videoid) ->
     API.getModalButtonContainer().html('')
-    msg = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoid + '?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>'
-    API.openModal(title, msg, true, 'video')
+    msgHtml = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoid + '?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>'
+    API.openModal(titleHtml, msgHtml, true, 'video')
 
   ## Open an options modal
-  App.commands.setHandler "ui:modal:options", (title, items) ->
+  App.commands.setHandler "ui:modal:options", (titleHtml, items) ->
     $options = API.buildOptions(items)
-    API.openModal(title, $options, true, 'options')
+    API.openModal(titleHtml, $options, true, 'options')
 
   ## Toggle player menu
   App.commands.setHandler "ui:playermenu", (op) ->
