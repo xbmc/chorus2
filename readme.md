@@ -78,8 +78,9 @@ via "Chorus Lab" (bottom right 3 vertical dots > "The Lab") or directly via `htt
 ## Contributing
 If you would like to make this project better I would appreciate any help. There is a develop branch for each version of
 Kodi. Please do pull requests against the `dev` branch for the correct version (even better if you can do a PR for both).
-Leia (v18) dev branch is `18.x-dev`, Krypton (v17) dev branch is `17.x-dev`. I am happy to assist with getting an
-development environment up and running if you are happy to contribute.
+Leia (v18) dev branch is `18.x-dev`, Krypton (v17) dev branch is `17.x-dev`. See the
+[developers documentation](https://github.com/xbmc/chorus2/tree/master/src/lang/en/developers.md) for information about
+getting a dev environment up and running then compiling the project using docker.
 
 ### Translations
 I only know English so definitely need help with this. I also don't know heaps about javascript multilingual stuff but
@@ -93,20 +94,6 @@ against `18.x-dev` and/or `17.x-dev`, or if you don't know git, a link to the la
 
 Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
 *English is the only real complete translation file so start with that as your base.*
-
-### Compiling
-Sass and Grunt are used to compile css and js in the dist folder.
-To get your environment setup first install [Bundler](http://bundler.io) and [npm](https://www.npmjs.org/).
-
-* Install required gems with `bundle install`
-* Install NodeJs packages with `npm install`
-* Run grunt `grunt`
-
-If you are updating (eg. git pull), always do an `npm update` and `bundle update` to ensure all the tools are in the toolbox.
- 
-### Build
-A build will also include translation files.
-- Run grunt `grunt build`
 
 ## Donate
 Are you a fan of Chorus? You can [buy Jeremy a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) to say thanks :)
