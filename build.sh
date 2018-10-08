@@ -2,7 +2,13 @@
 
 if [ "$1" == "" ]; then
   echo "Missing version number. I did nothing"
-  
+fi
+
+if [ "$1" == "install" ]; then
+  echo "Installing dev dependencies"
+  npm install
+  bundle install
+  exit 1
 fi
 
 if [ "$1" == "dev" ]; then

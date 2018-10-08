@@ -34,7 +34,7 @@
   }
 
   .search-toggle {
-    @include set-position-absolute(top 0 right #{$size-region-unit * 3});
+    @include set-position-absolute(top 0 right ($size-region-unit * 3));
     i {
       @include icon-button-square(navigation-more-vert, $size-region-unit);
     }
