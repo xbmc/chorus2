@@ -5,7 +5,10 @@
 
   API =
 
-    savedFields: ['id', 'uid', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'albumid', 'artistid', 'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url']
+    savedFields: [
+      'id', 'uid', 'position', 'file', 'type', 'label', 'thumbnail', 'artist', 'album', 'albumid', 'artistid',
+      'artistid', 'tvshowid', 'tvshow', 'year', 'rating', 'duration', 'track', 'url', 'season', 'episode', 'title'
+    ]
 
     playlistKey: 'localplaylist:list'
     playlistItemNamespace: 'localplaylist:item:'

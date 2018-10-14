@@ -32,7 +32,7 @@
     API.getSearchView query, 'List', '', {}, (view) ->
       $footer = $('<a>', {class: 'btn btn-primary', href: 'https://www.youtube.com/results?search_query=' + query, target: '_blank'})
       $footer.html('More videos')
-      App.execute "ui:modal:show", query, view.render().$el, $footer
+      App.execute "ui:modal:show", _.escape(query), view.render().$el, $footer
 
   App.commands.setHandler "youtube:list:view", (query, title, options = {}, callback) ->
     API.getSearchView query, 'CardList', title, options, callback

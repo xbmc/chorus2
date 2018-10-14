@@ -114,7 +114,7 @@
       $playerCtx = $('#player-' + player)
       $('.playing-progress', $playerCtx).val(percent)
       $cur = $('.playing-time-current', $playerCtx)
-      $cur.html helpers.global.formatTime(currentTime)
+      $cur.text helpers.global.formatTime(currentTime)
 
     ## Init progress.
     initProgress: (player, percent = 0) ->

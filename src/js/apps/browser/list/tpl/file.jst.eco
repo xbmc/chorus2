@@ -1,5 +1,5 @@
 <div class="thumb" style="background-image: url('<%= @thumbnail %>')"><div class="mdi play"></div></div>
-<div class="title" title="<%= helpers.global.stripTags(@label) %>"><%- @label %></div>
+<div class="title" title="<%= helpers.global.stripTags(@labelHtml) %>"><%- @labelHtml %></div>
 <ul class="actions">
     <li class="menu dropdown">
         <i data-toggle="dropdown" class="mdi"></i>

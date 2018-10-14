@@ -1,6 +1,13 @@
 {
   "name": "kodi-webinterface",
-  "version": "17.x-2.4.5",
+  "version": "2.4.5",
+  "description": "Kodi web interface",
+  "homepage": "https://github.com/xbmc/chorus2",
+  "license": "GPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xbmc/chorus2.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.2",
