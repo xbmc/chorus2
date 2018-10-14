@@ -17,9 +17,7 @@
         @model.set(App.request('album:action:items'))
     setMeta: ->
       if @model
-        artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
-        artistLink = @themeLink artist, helpers.url.get('artist', @model.get('artistid'))
-        @model.set subtitle: artistLink
+        @model.set subtitleHtml: @themeLink @model.get('artist'), helpers.url.get('artist', @model.get('artistid'))
 
   class List.Empty extends App.Views.EmptyViewResults
     tagName: "li"

@@ -18,13 +18,13 @@
     attributes: ->
       @watchedAttributes 'card'
     setMeta: ->
-      epNum = @themeTag('span', {class: 'ep-num'}, @model.get('season') + 'x' + @model.get('episode') + ' ')
-      epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.get('episode'))
-      showLink = @themeLink(@model.get('showtitle') + ' ', 'tvshow/' + @model.get('tvshowid'), {className: 'show-name'})
-      subTitleTip = if @model.get('firstaired') then {title: tr('First aired') + ': ' + @model.get('firstaired')} else {}
+      epNum = @themeTag('span', {class: 'ep-num'}, @model.escape('season') + 'x' + @model.escape('episode') + ' ')
+      epNumFull = @themeTag('span', {class: 'ep-num-full'}, t.gettext('Episode') + ' ' + @model.escape('episode'))
+      showLink = @themeLink(@model.escape('showtitle') + ' ', 'tvshow/' + @model.escape('tvshowid'), {className: 'show-name'})
+      subTitleTip = if @model.escape('firstaired') then {title: tr('First aired') + ': ' + @model.escape('firstaired')} else {}
       @model.set
-        label: epNum + @model.get('title')
-        subtitle: @themeTag('div', subTitleTip, showLink + epNumFull)
+        labelHtml: epNum + @model.get('title')
+        subtitleHtml: @themeTag('div', subTitleTip, showLink + epNumFull)
 
 
   class Episode.Empty extends App.Views.EmptyViewResults

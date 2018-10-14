@@ -18,6 +18,6 @@
     onRender: ->
       if @options
         if @options.entity
-          $('h2.set-header', @$el).html( t.gettext( @options.entity + 's'  ) )
+          $('h2.set-header', @$el).text( t.gettext( @options.entity + 's'  ) )
     regions:
       regionResult: '.set-results'

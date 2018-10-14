@@ -45,7 +45,7 @@ helpers.entities.getSubtitle = (model) ->
 
 ## Basic link to entity
 helpers.entities.playingLink = (model) ->
-  "<a href='##{model.url}'>#{model.label}</a>"
+  "<a href='##{model.url}'>#{_.escape(model.label)}</a>"
 
 ## Is watched
 helpers.entities.isWatched = (model) ->
@@ -91,7 +91,7 @@ helpers.entities.refreshEntity = (model, controller, method, params = {}) ->
   thumbs = Kodi.request "thumbsup:check", model
   params.ignorenfo = config.getLocal 'refreshIgnoreNFO', true
   # Show confirm box
-  Kodi.execute "ui:modal:confirm", tr('Are you sure?'), t.sprintf(tr('Confirm refresh'), title), () ->
+  Kodi.execute "ui:modal:confirm", tr('Are you sure?'), _.escape(t.sprintf(tr('Confirm refresh'), title)), () ->
     # Clear model from cache and remove thumbs up
     Backbone.fetchCache.clearItem(model)
     if thumbs

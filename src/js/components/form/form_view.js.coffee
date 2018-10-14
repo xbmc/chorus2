@@ -64,7 +64,7 @@
 
     addSuccessMsg: (msg) ->
       $el = $(".response", @$el)
-      $el.html(msg).show()
+      $el.text(msg).show()
       setTimeout((->
         $el.fadeOut()
       ), 5000)
@@ -96,6 +96,10 @@
       baseAttrs = _.extend({id: 'form-edit-' + @model.get('id'), name: name, class: ''}, @model.get('attributes'))
       materialBaseAttrs = _.extend {}, baseAttrs
       materialBaseAttrs.class += ' form-control'
+
+      # Escape raw titles.
+      if !@model.get('titleHtml')?
+        @model.set 'titleHtml', @model.escape('title')
 
       # Create an element based on the type, extending base attrs
       switch @model.get('type')
