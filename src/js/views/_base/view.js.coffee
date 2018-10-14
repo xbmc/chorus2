@@ -4,7 +4,7 @@
 
   _.extend Marionette.View::,
 
-    # Build a link.
+    # Build a link. Link text gets escaped.
     themeLink: (name, url, options = {}) ->
       _.defaults options,
         external: false,
@@ -21,22 +21,13 @@
       if options.className isnt ''
         attrs.class = options.className
 
-      @themeTag 'a', attrs, name
+      $("<a>").attr(attrs).text(name).wrap('<div/>').parent().html()
 
-    # Parse tag attributes into a string.
-    parseAttributes: (attrs) ->
-      a = []
-      for attr, val of attrs
-        val = String(val).split('"').join('&quot;')
-        a.push attr + '="' + val + '"'
-      a.join(' ')
-
-    # Make a tag
+    # Make a tag. Contents can be HTML (they are not escaped)
     themeTag: (el, attrs, value) ->
-      attrsString = @parseAttributes(attrs)
-      "<#{el} #{attrsString}>#{value}</#{el}>"
+      $("<#{el}>").attr(attrs).html(value).wrap('<div/>').parent().html()
 
-    # Formats dynamic text using filers.
+    # Formats dynamic text using filers. Returns HTML.
     formatText: (text, addInLineBreaks = false) ->
       # Filter via bb code (used in browser folder names)
       res = XBBCODE.process

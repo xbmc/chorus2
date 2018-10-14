@@ -5,7 +5,7 @@
     initialize: ->
       @model = @getOption('model')
       options = {
-        title: '<span>' + tr('Edit') + '</span>' + @model.get('showtitle') + ' - ' + @model.get('title') + ' (S' + @model.get('season') + ' E' + @model.get('episode') + ')'
+        titleHtml: '<span>' + tr('Edit') + '</span>' + @model.escape('showtitle') + ' - ' + @model.escape('title') + ' (S' + @model.escape('season') + ' E' + @model.escape('episode') + ')'
         form: @getStructure()
         formState: @model.attributes
         config:

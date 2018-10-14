@@ -66,7 +66,11 @@
     tagName: 'li'
     initialize: ->
     # Parse title text
-      @model.set {label: @formatText(@model.get('label'))}
+      @model.set {labelHtml: @formatText(@model.get('label'))}
+      
+    onBeforeRender: ->
+      if !@model.get('labelHtml')
+        @model.set {labelHtml: @model.escape('label')}
 
   class List.Folder extends List.Item
     className: 'folder'

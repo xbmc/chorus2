@@ -56,5 +56,6 @@
     formContent = formController.formLayout.render().$el
     formController.formLayout.trigger 'show'
     popupStyle = if options.config.editForm then 'edit-form' else 'form'
-    App.execute "ui:modal:form:show", options.title, formContent, popupStyle
+    titleHtml = options.titleHtml ? _.escape(options.title)
+    App.execute "ui:modal:form:show", titleHtml, formContent, popupStyle
 

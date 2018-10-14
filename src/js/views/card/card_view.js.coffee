@@ -24,6 +24,12 @@
         class: classes.join(' ')
       }
 
+    onBeforeRender: ->
+      if !@model.get('labelHtml')?
+        @model.set 'labelHtml', @model.escape('label')
+      if !@model.get('subtitleHtml')?
+        @model.set 'subtitleHtml', @model.escape('subtitle')
+
     onRender: ->
       @$el.data('model', @model)
 

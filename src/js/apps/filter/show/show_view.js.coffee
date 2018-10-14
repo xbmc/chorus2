@@ -100,7 +100,7 @@
     triggers:
       "click .filterable-remove" : "filter:option:remove"
     initialize: ->
-      tooltip = t.gettext('Remove') + ' ' + @model.get('key') + ' ' + t.gettext('filter')
+      tooltip = t.gettext('Remove') + ' ' + @model.escape('key') + ' ' + t.gettext('filter')
       text = @themeTag('span', {'class': 'text'}, @model.get('values').join(', '))
       tag = @themeTag('span', {'class': 'filter-btn filterable-remove', title: tooltip}, text)
       @model.set(title: tag)
@@ -125,6 +125,6 @@
     className: "filters-active-bar"
     onRender: ->
       if @options.filters
-        $('.filters-active-all', @$el).html( @options.filters.join(', ') )
+        $('.filters-active-all', @$el).text( @options.filters.join(', ') )
     triggers:
       'click .remove': 'filter:remove:all'
