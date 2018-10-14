@@ -24,7 +24,7 @@
       @getMeta()
     getMeta: ->
       if @model
-        @model.set {subtitle: @themeLink 'YouTube', @model.get('url'), {external: true}}
+        @model.set {subtitleHtml: @themeLink 'YouTube', @model.get('url'), {external: true}}
         if @model.get('addonEnabled')
           @model.set {menu: {localplay: 'Local play'}}
     onRender: () ->

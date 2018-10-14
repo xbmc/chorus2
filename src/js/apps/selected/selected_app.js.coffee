@@ -56,7 +56,7 @@
     # Update the count in the selected action area, toggle visibility and and media class
     updateUi: ->
       selectedText = @items.length + ' ' + t.ngettext("item selected", "items selected", @items.length)
-      $('#selected-count').html(selectedText)
+      $('#selected-count').text(selectedText)
       $selectedRegion = $('#selected-region');
       $selectedRegion.removeClassStartsWith('media-');
       $selectedRegion.addClass('media-' + @media)

@@ -5,7 +5,7 @@
     initialize: ->
       @model = @getOption('model')
       options = {
-        title: '<span>' + tr('Edit') + '</span>' + @model.get('artist')
+        titleHtml: '<span>' + tr('Edit') + '</span>' + @model.escape('artist')
         form: @getStructure()
         formState: @model.attributes
         config:

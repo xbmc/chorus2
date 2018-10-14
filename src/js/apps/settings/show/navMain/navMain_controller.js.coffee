@@ -112,7 +112,7 @@
         children: [
           {id: 'title-' + i, name: 'title[]', type: 'textfield', title: 'Title', defaultValue: item.title}
           {id: 'path-' + i, name: 'path[]', type: 'textfield', title: 'Url', defaultValue: item.path}
-          {id: 'icon-' + i, name: 'icon[]', type: 'select', title: 'Icon' + icon, defaultValue: item.icon, options: icons}
+          {id: 'icon-' + i, name: 'icon[]', type: 'select', titleHtml: 'Icon' + icon, defaultValue: item.icon, options: icons}
           {id: 'weight-' + i, name: 'weight[]', type: 'hidden', title: '', defaultValue: i}
           {id: 'id-' + i, name: 'id[]', type: 'hidden', title: '', defaultValue: (1000 + i)}
           {id: 'remove-' + i, type: 'markup', markup: '<span class="remove-item">&times;</span>'}

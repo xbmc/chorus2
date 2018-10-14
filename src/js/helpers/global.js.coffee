@@ -109,16 +109,17 @@ helpers.global.stringStripStartsWith = (start, data) ->
 ## Turn an array of strings into a collective sentence.
 ## eg. ['foo', 'bar', 'other'] = 'foo, bar and other'
 ## Pluralise = 'foos, bars and others'
+## Returns HTML
 helpers.global.arrayToSentence = (arr, pluralise = true) ->
   str = ''
   prefix = if pluralise then 's' else ''
   last = arr.pop()
   if arr.length > 0
     for i, item of arr
-      str += '<strong>' + item + prefix + '</strong>'
+      str += '<strong>' + _.escape(item + prefix) + '</strong>'
       str += if parseInt(i) isnt (arr.length - 1) then ', ' else ''
     str += ' ' + t.gettext('and') + ' ';
-  str += '<strong>' + last + prefix + '</strong>'
+  str += '<strong>' + _.escape(last + prefix) + '</strong>'
 
 
 # Encode/Decode a string which is typically a file path that we want to use

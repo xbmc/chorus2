@@ -2,14 +2,14 @@
 
   API =
 
-    getLoaderView: (msgText = 'Just a sec...', inline = false) ->
+    getLoaderView: (msgTextHtml = 'Just a sec...', inline = false) ->
       new LoadingApp.Show.Page
-        text: msgText
+        textHtml: msgTextHtml
         # Inline is used when the loader is not full page
         inline: inline
 
-  App.commands.setHandler "loading:show:view", (region, msgText) ->
-    view = API.getLoaderView msgText
+  App.commands.setHandler "loading:show:view", (region, msgTextHtml) ->
+    view = API.getLoaderView msgTextHtml
     region.show view
 
   ## Replace whole page with loader.
