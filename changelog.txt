@@ -1,3 +1,8 @@
+Version 18.x-2.4.6
+-------------
+* Added developer documentation and Dockerfile #331
+* Fix lots of XSS due to missing escaping of HTML entities (CVE-2018-8831), thanks @pkerling #340
+
 Version 18.x-2.4.5
 -------------
 * Fixed issue with unable to view album page in Kodi Leia (v18) #327
