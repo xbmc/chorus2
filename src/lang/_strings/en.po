@@ -861,10 +861,6 @@ msgid "actor"
 msgstr "actor"
 
 msgctxt ""
-msgid "mood"
-msgstr "mood"
-
-msgctxt ""
 msgid "writer"
 msgstr "writer"
 
