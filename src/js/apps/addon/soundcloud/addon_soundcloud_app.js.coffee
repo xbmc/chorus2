@@ -6,7 +6,7 @@
 
     searchAddon:
       id: @addonId
-      url: 'plugin://plugin.audio.soundcloud/search/query/?q=[QUERY]'
+      url: 'plugin://plugin.audio.soundcloud/search/?query=[QUERY]'
       title: 'SoundCloud'
       media: 'music'
 
