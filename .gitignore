@@ -10,3 +10,5 @@ dist/js/build/*
 *.mo
 .vscode
 webinterface.default*.zip
+elm-stuff
+dist/js/kodi-webinterface.js
