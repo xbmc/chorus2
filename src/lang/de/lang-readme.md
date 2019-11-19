@@ -5,7 +5,7 @@ Diese Seite hilft dir dabei, mit Sprachdateien umzugehen.
 
 ## Wo sind die Sprachdateien?
 
-Die Sprachdateien werden an zwei Orten gespeichert. Das Sprachkürzel LANG_CODE 
+Die Sprachdateien werden an zwei Orten gespeichert. Das Sprachkürzel LANG_CODE
 ist der zweistellige Code für diese Sprache, z.B. en, fr, de, pl, nl.
 
 ### Zeichenketten (Strings)
@@ -17,7 +17,7 @@ ist der zweistellige Code für diese Sprache, z.B. en, fr, de, pl, nl.
 * Wenn `msgstr` für die Zeichenkette nicht vorhanden ist, kopier sie von en.po und
   aktualisiere deine Sprachdatei, etwa de.po für Deutsch.
 
-``` 
+```
 msgctxt ""
 msgid "Select a filter"
 msgstr "Filter wählen"
@@ -54,7 +54,7 @@ Kopiere die Dateien, die du übersetzen möchtest:
 ## Ausprobieren
 
 Um deine Version zu testen, muss ein neue Version (build) erstellt werden,
-vielleicht klappt es aber auch ohne, wenn du dich an die vorhandene Struktur 
+vielleicht klappt es aber auch ohne, wenn du dich an die vorhandene Struktur
 gehalten hast.
 
 Wenn du **wirklich** deine neue Sprache in der Anwendung mit einer neuen Version
@@ -65,7 +65,7 @@ testen möchtest, kannst du:
 3. `npm install` (nur beim ersten Mal)
 4. `grunt lang` (das wird nur die Sprachen im Ordner `dist/lang` erneuern)
 5. Chorus2 aktualisieren
-  
+
 ## Rückgriff auf Englisch
 
 Solange `msgid` in deiner `LANG_CODE.po` noch nicht vorhanden sind, wird die

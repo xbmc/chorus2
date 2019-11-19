@@ -178,7 +178,7 @@
         sortOrder: 'asc',
         filterCallback: 'multiple'
       }
-    ] 
+    ]
 
     ## Wrapper for returning the available fields for sort/filter
     ## Available fields are defined in the entity controller and passed

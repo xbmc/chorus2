@@ -7,7 +7,7 @@
     template: 'apps/category/list/item'
     tagName: "li"
     className: "card category"
-        
+
   class List.CategoryList extends App.Views.CollectionView
     childView: List.Item
     tagName: "ul"

@@ -1,5 +1,5 @@
 @Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
-	
+
   API =
 
     cacheSynced: (entities, callback) ->

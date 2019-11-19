@@ -108,7 +108,7 @@ Jeśli widzisz coś w języku angielskim, a chciałbyś to zobaczyć w swoim ojc
 Jeśli chcesz dodać własne tłumaczenie, stwórz dla niego nową gałąź, a następnie skorzystaj z funkcji Pull Request do gałęzi `develop`.
 Jeśli nie potrafisz posługiwać się GITem, prześlij mi łącze do plików z tłumaczeniem.
 
-Pliki tłumaczeń są dostępne [tutaj](https://github.com/xbmc/chorus2/tree/master/src/lang). 
+Pliki tłumaczeń są dostępne [tutaj](https://github.com/xbmc/chorus2/tree/master/src/lang).
 *Pliki języka angielskiego są jedynymi kompletnymi źródłami, które powinieneś używać w trakcie tłumaczenia na swój język.*
 
 ### Kompilowanie
@@ -121,7 +121,7 @@ W celu skonfigurowania swojego środowiska wymagana jest instalacja [Bundlera](h
 
 W przypadku aktualizacji kodu (np. git pull), zawsze uruchamiaj `npm update` i `bundle update`, aby mieć pewność, że wszystkie
 narzędzia znajdują się w przyborniku.
- 
+
 ### Budowanie
 Wynik budowania zawiera także pliki tłumaczeń.
 - Uruchom budowanie poleceniem `grunt build`

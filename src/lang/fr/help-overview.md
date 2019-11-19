@@ -1,20 +1,20 @@
 ## Qu'est-ce que Chorus?
 
 Chorus est une interface web pour contrôler [Kodi](http://kodi.tv). Il est hébergé sur votre
-installation de Kodi, ainsi n'importe quel appareil pouvant faire marcher Kodi ne devrait pas avoir 
+installation de Kodi, ainsi n'importe quel appareil pouvant faire marcher Kodi ne devrait pas avoir
 de problème avec Chorus.
 
-Avec une interface web vous pourriez si vous le voulez contrôler un lecteur Kodi de l'autre côté de la planête. 
+Avec une interface web vous pourriez si vous le voulez contrôler un lecteur Kodi de l'autre côté de la planête.
 Mais plus probablement vous allez contrôler un lecteur Kodi sur votre réseau local à la maison ou au bureau.
 
 ### Qui a fait cette chose?
 
-Chorus a été créé par [Jeremy Graham](http://jez.me), un membre de l'équipe Kodi qui est obsédé par 
+Chorus a été créé par [Jeremy Graham](http://jez.me), un membre de l'équipe Kodi qui est obsédé par
 Kodi depuis son lancement original sur Xbox Media Player des années auparavant. Il a investi des milliers
 d'heure pour développer l'interface web parfaite pour Kodi. Tout ceci a abouti à ce que vous utilisez aujourd'hui
 même.
 
-Pour dire merci à Jeremy d'avoir rendu Kodi super à utiliser via un navigateur ou peut-être quelques encouragements 
+Pour dire merci à Jeremy d'avoir rendu Kodi super à utiliser via un navigateur ou peut-être quelques encouragements
 pour le rendre encore meilleur Vous pouvrez lui [payer une bière ou deux](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZCGV976794JHE&lc=AU&item_name=Chorus%20Beer%20Fund&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted).
 
 ### Qui a rendu cela possible?

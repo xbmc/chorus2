@@ -1,7 +1,7 @@
 # Obsługa dodatków
 
 Chorus obsługuje dodatki, ale tylko na poziomie podstawowym. Każdy dodatek działa nieco inaczej, więc nie wszystkie
-funkcje będą dostępne. Na stronie [Dodatki](#addons/all) widoczna jest lista dodatków wykonywalnych oraz dodatków, które 
+funkcje będą dostępne. Na stronie [Dodatki](#addons/all) widoczna jest lista dodatków wykonywalnych oraz dodatków, które
 udostępniają muzykę/wideo (np. YouTube). Dostęp do dodatków, widocznych na tej liście, można uzyskać za pośrednictwem
 [przeglądarki](#browser).
 

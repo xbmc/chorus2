@@ -9,7 +9,7 @@
     className: 'pvr-card card'
     triggers:
       "click .play"       : "recording:play"
-        
+
   class List.RecordingList extends App.Views.CollectionView
     childView: List.RecordingTeaser
     tagName: "ul"

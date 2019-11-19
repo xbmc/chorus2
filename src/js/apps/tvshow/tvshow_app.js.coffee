@@ -1,5 +1,5 @@
 @Kodi.module "TVShowApp", (TVShowApp, App, Backbone, Marionette, $, _) ->
-	
+
   class TVShowApp.Router extends App.Router.Base
     appRoutes:
       "tvshows"   	                        : "list"

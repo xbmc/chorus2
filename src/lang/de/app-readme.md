@@ -8,17 +8,17 @@ oder Medien in deinen Browser streamen. Am Besten funkioniert das mit Chrome, ab
 auch gut mit den meisten anderen aktuellen Browsern.
 
 Chorus2 ist der Nachfolger von [Chorus](https://github.com/jez500/chorus).
-Von Grund auf neuprogrammiert auf Basis von Coffee Script, Backbone, Marionette 
+Von Grund auf neuprogrammiert auf Basis von Coffee Script, Backbone, Marionette
 und vielem, vielem, mehr.
 
 
 ## Autor
-[Jeremy Graham ](http://jez.me) mit Hilfe von 
+[Jeremy Graham ](http://jez.me) mit Hilfe von
 [diesen Typen](https://github.com/xbmc/chorus2/graphs/contributors).
 
 
 ## Aktueller Status
-Ziemlich gut, das Meiste funktioniert richtig gut. Anderes braucht noch 
+Ziemlich gut, das Meiste funktioniert richtig gut. Anderes braucht noch
 [Politur/Abschluss/Korrektur](https://github.com/xbmc/chorus2/issues).
 Es steht beta drauf, also erwarte Fehler, Änderungen, den Atomkrieg usw.
 
@@ -42,9 +42,9 @@ einstellen, um unbefugten Zugriff über die Weboberfläche zu verhinden.**
 
 Es gibt Gründe, Kodi als zip zu installieren. Etwa, wenn Kodi v16 oder älter ist
 oder wenn du direkt die aktuellste Version installieren möchtest. Lade die
-aktuellste Version des `webinterface.default.2.X.X.zip` von der 
+aktuellste Version des `webinterface.default.2.X.X.zip` von der
 [Seite mit den Veröffentlichungen](https://github.com/xbmc/chorus2/releases)
-herunter, dann installiere es [wie hier beschrieben](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file). 
+herunter, dann installiere es [wie hier beschrieben](http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file).
 **Hinweis:** Chorus2 sollte mit der aktuellsten Version von Kodi benutzt werden,
 einiges (oder sogar alles) könnte wegen Änderungen in der API mit älteren Versionen
 nicht funktionieren.
@@ -54,7 +54,7 @@ nicht funktionieren.
 Rufe mit deinem Webbrowser die Adresse `http://localhost:8080` auf - ersetze dabei
 `localhost` mit deiner IP-Adresse, wenn du auf einen anderen Rechner zugreifst. Wenn
 du einen anderen Port als `8080` eingestellt hast, passe ihn bitte auch an.
-Mehr Informationen und Tipps für fortgeschrittene Benutzung ist im 
+Mehr Informationen und Tipps für fortgeschrittene Benutzung ist im
 [Kodi Wiki page](http://kodi.wiki/view/Web_interface) zu finden.
 
 ## Feature requests / Bugs
@@ -63,14 +63,14 @@ Chorus version and any errors that display in the console. For feature requests,
 request is currently possible.
 
 
-## Streaming 
+## Streaming
 Disclaimer: The success of this depends on the file formats vs what the browser supports.  In general most things work.
 
 ### Audio streaming
 In the top right there are some tabs, two of them are named Kodi and Local, this is how you toggle what player the UI
-is controlling.  In Local mode the logo and accents are pinky-red, In Kodi mode the logo is the Kodi blue. When you 
-are in a given mode, actions affect that player, so if you click Play on a track when in Local mode, it will play 
-through the browser, likewise, when in Kodi mode all commands are sent to Kodi.  You can also add media to other 
+is controlling.  In Local mode the logo and accents are pinky-red, In Kodi mode the logo is the Kodi blue. When you
+are in a given mode, actions affect that player, so if you click Play on a track when in Local mode, it will play
+through the browser, likewise, when in Kodi mode all commands are sent to Kodi.  You can also add media to other
 playlists by clicking the menu buttons (three dots vertical) on most media items.
 
 ### Video streaming
@@ -104,7 +104,7 @@ but more can be easily added. More strings are always being added so always cons
 So if you see something in english but want it in your language, I need you! To contribute, send me a PR on a new branch
 against `develop`, or if you don't know git, a link to the language file.
 
-Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
+Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang).
 *English is the only real complete translation file so start with that as your base.*
 
 ### Compiling
@@ -116,7 +116,7 @@ To get your environment setup first install [Bundler](http://bundler.io) and [np
 * Run grunt `grunt`
 
 If you are updating (eg. git pull), always do an `npm update` and `bundle update` to ensure all the tools are in the toolbox.
- 
+
 ### Build
 A build will also include translation files.
 - Run grunt `grunt build`

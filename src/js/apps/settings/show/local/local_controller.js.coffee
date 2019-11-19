@@ -5,7 +5,7 @@
     initialize: ->
 
       ## Get and setup the layout
-      
+
       @layout = @getLayoutView()
       @listenTo @layout, "show", =>
         @getSubNav()

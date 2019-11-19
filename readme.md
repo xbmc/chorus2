@@ -5,7 +5,7 @@ A great modern Web UI for Kodi. Browse your Music, Movies or TV Shows from the c
 own web browser. You can play media via Kodi or stream it in your browser. Works best with Chrome
 but plays well with most modern browsers.
 
-Successor to [Chorus](https://github.com/jez500/chorus). 
+Successor to [Chorus](https://github.com/jez500/chorus).
 A complete rebuild using Coffee Script, Backbone, Marionette and much, much more.
 
 
@@ -14,7 +14,7 @@ A complete rebuild using Coffee Script, Backbone, Marionette and much, much more
 
 
 ## Current state
-Pretty good, most things work really well. Other things need [polish/finishing/fixing](https://github.com/xbmc/chorus2/issues). 
+Pretty good, most things work really well. Other things need [polish/finishing/fixing](https://github.com/xbmc/chorus2/issues).
 Still considered beta software, expect bugs, changes, nuclear war, etc.
 
 ## Getting it working
@@ -48,14 +48,14 @@ Chorus version and any errors that display in the console. For feature requests,
 request is currently possible.
 
 
-## Streaming 
+## Streaming
 Disclaimer: The success of this depends on the file formats vs what the browser supports.  In general most things work.
 
 ### Audio streaming
 In the top right there are some tabs, two of them are named Kodi and Local, this is how you toggle what player the UI
-is controlling.  In Local mode the logo and accents are pinky-red, In Kodi mode the logo is the Kodi blue. When you 
-are in a given mode, actions affect that player, so if you click Play on a track when in Local mode, it will play 
-through the browser, likewise, when in Kodi mode all commands are sent to Kodi.  You can also add media to other 
+is controlling.  In Local mode the logo and accents are pinky-red, In Kodi mode the logo is the Kodi blue. When you
+are in a given mode, actions affect that player, so if you click Play on a track when in Local mode, it will play
+through the browser, likewise, when in Kodi mode all commands are sent to Kodi.  You can also add media to other
 playlists by clicking the menu buttons (three dots vertical) on most media items.
 
 ### Video streaming
@@ -92,7 +92,7 @@ but more can be easily added. More strings are always being added so always cons
 So if you see something in english but want it in your language, I need you! To contribute, send me a PR on a new branch
 against `18.x-dev` and/or `17.x-dev`, or if you don't know git, a link to the language file.
 
-Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang). 
+Language Files [here](https://github.com/xbmc/chorus2/tree/master/src/lang).
 *English is the only real complete translation file so start with that as your base.*
 
 ## Donate
