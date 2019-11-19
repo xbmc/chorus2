@@ -2,8 +2,8 @@
 
   class SearchApp.Router extends App.Router.Base
     appRoutes:
-      "search"   	    : "view"
-      "search/:media/:query"	: "list"
+      "search"        : "view"
+      "search/:media/:query"  : "list"
 
   API =
 

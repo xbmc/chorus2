@@ -2,8 +2,8 @@
 
   class MovieApp.Router extends App.Router.Base
     appRoutes:
-      "movies"   	: "list"
-      "movie/:id"	: "view"
+      "movies"    : "list"
+      "movie/:id" : "view"
 
   API =
 

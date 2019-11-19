@@ -2,7 +2,7 @@
 
   class HelpApp.Router extends App.Router.Base
     appRoutes:
-      "help"   	      : "helpOverview"
+      "help"          : "helpOverview"
       "help/overview" : "helpOverview"
       "help/:id"      : "helpPage"
 

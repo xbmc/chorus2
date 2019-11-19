@@ -2,10 +2,10 @@
 
   class TVShowApp.Router extends App.Router.Base
     appRoutes:
-      "tvshows"   	                        : "list"
-      "tvshow/:tvshowid"	                  : "view"
-      "tvshow/:tvshowid/:season"	          : "season"
-      "tvshow/:tvshowid/:season/:episodeid"	: "episode"
+      "tvshows"                             : "list"
+      "tvshow/:tvshowid"                    : "view"
+      "tvshow/:tvshowid/:season"            : "season"
+      "tvshow/:tvshowid/:season/:episodeid" : "episode"
 
   API =
 

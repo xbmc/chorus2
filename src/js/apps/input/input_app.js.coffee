@@ -3,7 +3,7 @@
 
   class InputApp.Router extends App.Router.Base
     appRoutes:
-      "remote"   	    : "remotePage"
+      "remote"        : "remotePage"
 
 
   API =

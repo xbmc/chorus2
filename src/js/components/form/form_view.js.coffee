@@ -11,13 +11,13 @@
       formResponse:      ".response"
 
     triggers:
-      "click .form-save"  								: "form:submit"
-      "click [data-form-button='cancel']"	: "form:cancel"
+      "click .form-save"                  : "form:submit"
+      "click [data-form-button='cancel']" : "form:cancel"
 
     modelEvents:
-      "change:_errors" 	: "changeErrors"
-      "sync:start"			:	"syncStart"
-      "sync:stop"				:	"syncStop"
+      "change:_errors"  : "changeErrors"
+      "sync:start"      : "syncStart"
+      "sync:stop"       : "syncStop"
 
     initialize: ->
       @config = @options.config

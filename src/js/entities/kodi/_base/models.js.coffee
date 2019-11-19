@@ -1,6 +1,6 @@
 @Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
 
-	class KodiEntities.Model extends App.Entities.Model
+  class KodiEntities.Model extends App.Entities.Model
 
     initialize: () ->
       if @methods
