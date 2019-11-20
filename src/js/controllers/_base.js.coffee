@@ -5,9 +5,9 @@
     params: {}
 
     constructor: (options = {}) ->
+      super options
       @region = options.region or App.request "default:region"
       @params = helpers.url.params()
-      super options
       @_instance_id = _.uniqueId("controller")
       App.execute "register:instance", @, @_instance_id
 
