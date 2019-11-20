@@ -35,6 +35,6 @@ Le clavier contrôle uniquement le navigateur. Si la [télécommande](#remote) e
 
 ## Les deux
 
-Les commandes clavier sont exécutées dans Kodi et dans le navigateur. Si la [télécommande](#remote) 
+Les commandes clavier sont exécutées dans Kodi et dans le navigateur. Si la [télécommande](#remote)
 est ouverte les touches ne contrôlent que Kodi. NOTE: Beaucoup de commandes sont partagées par le navigateur
 et Kodi (par ex Backspace).

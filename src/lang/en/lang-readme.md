@@ -14,7 +14,7 @@ letter code for that language. Eg: en, fr, de
 
 * This is strings used throughout the application. In general, only update `msgstr`.
 * If there is no `msgstr` for the string, then copy from en.po and update, Eg de.po.
-``` 
+```
 msgctxt ""
 msgid "Select a filter"
 msgstr "Filter wählen"
@@ -56,10 +56,10 @@ If **do** you want to test your language in the app with a build, you can:
 3. `npm install` (only the first time)
 4. `grunt lang` (this will rebuild only the languages in the `dist/lang` folder)
 5. Refresh Chorus
-  
+
 ## Fallback
 
-Translations should fallback to English unless the `msgid` is set in a `LANG_CODE.po` file. 
+Translations should fallback to English unless the `msgid` is set in a `LANG_CODE.po` file.
 Or if a page `LANG_CODE/PAGE.md` exists.
 
 ## Submitting an update

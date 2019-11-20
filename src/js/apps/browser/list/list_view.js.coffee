@@ -67,7 +67,7 @@
     initialize: ->
     # Parse title text
       @model.set {labelHtml: @formatText(@model.get('label'))}
-      
+
     onBeforeRender: ->
       if !@model.get('labelHtml')
         @model.set {labelHtml: @model.escape('label')}

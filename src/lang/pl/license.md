@@ -7,7 +7,7 @@ Licencja i informacje prawne o Chorusie - interfejsie webowym Kodi.
 Ten program jest udostępniany na licencji Creative Commons Uznanie autorstwa - Na tych samych warunkach 3.0 Stany Zjednoczone.
 
 [Naciśnij tutaj, aby zobaczyć kopię tej licencji](http://creativecommons.org/licenses/by-sa/3.0/us/) lub wyślij list do
-organizacji Creative Common na adres: 171 Second Street, Suite 300, San Francisco, California, 94105, 
+organizacji Creative Common na adres: 171 Second Street, Suite 300, San Francisco, California, 94105,
 Stany Zjednoczone.
 
 ## Wykorzystane obrazy

@@ -1,8 +1,8 @@
 @Kodi.module "PlaylistApp", (PlaylistApp, App, Backbone, Marionette, $, _) ->
-	
+
   class PlaylistApp.Router extends App.Router.Base
     appRoutes:
-      "playlist"   	: "list"
+      "playlist"    : "list"
 
   API =
 

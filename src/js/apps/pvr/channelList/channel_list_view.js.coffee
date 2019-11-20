@@ -12,7 +12,7 @@
       super
       if @model?
         @model.set subtitle: @model.get('broadcastnow').title
-        
+
   class List.ChannelList extends App.Views.CollectionView
     childView: List.ChannelTeaser
     tagName: "ul"

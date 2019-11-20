@@ -2,8 +2,8 @@
 
   class SettingsApp.Router extends App.Router.Base
     appRoutes:
-      "settings/web"   	: "local"
-      "settings/kodi"	  : "kodi"
+      "settings/web"    : "local"
+      "settings/kodi"   : "kodi"
       "settings/kodi/:section" : "kodi"
       "settings/addons" : "addons"
       "settings/nav" : "navMain"

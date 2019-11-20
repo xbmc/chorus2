@@ -14,9 +14,9 @@ kod dla każdego języka. Np.: en, fr, de, pl
 
 * Powyższe wyrażenia są używane w całej aplikacji. Należy przetłumaczyć tylko tekst
 znajdujący się w cudzysłowie, za słowem kluczowym `msgstr`.
-* W przypadku, gdy brakuje linijki z wyrażeniem `msgstr`, skopiuj ją z pliku en.po 
+* W przypadku, gdy brakuje linijki z wyrażeniem `msgstr`, skopiuj ją z pliku en.po
 i przetłumacz treść w cudzysłowie. Np. pl.po.
-``` 
+```
 msgctxt ""
 msgid "Select a filter"
 msgstr "Wybierz filtr"
@@ -61,7 +61,7 @@ Jeśli naprawdę chcesz przetestować zmiany w aplikacji, możesz to zrobić nas
 3. Uruchom `npm install` (tylko za pierwszym razem)
 4. Wykonaj `grunt lang` (to polecenie przebuduje tylko tłumaczenia w folderze `dist/lang`)
 5. Odśwież interfejs Chorusa
-  
+
 ## Działanie awaryjne
 
 Mechanizm obsługi języków powinien awaryjnie wyświetlać wyrażenia w języku angielskim

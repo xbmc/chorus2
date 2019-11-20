@@ -62,7 +62,7 @@ helpers.global.timeToSec = (time) ->
   minutes = parseInt(time.minutes) * 60
   parseInt(hours) + parseInt(minutes) + parseInt(time.seconds)
 
-  
+
 ## Convert EPG time to JS date
 helpers.global.dateStringToObj = (datetime) ->
   if not datetime

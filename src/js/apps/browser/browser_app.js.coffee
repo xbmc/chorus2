@@ -2,8 +2,8 @@
 
   class BrowserApp.Router extends App.Router.Base
     appRoutes:
-      "browser"   	      : "list"
-      "browser/:media/:id"	: "view"
+      "browser"           : "list"
+      "browser/:media/:id"  : "view"
 
   API =
 

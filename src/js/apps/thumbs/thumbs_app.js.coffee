@@ -2,7 +2,7 @@
 
   class ThumbsApp.Router extends App.Router.Base
     appRoutes:
-      "thumbsup"   	    : "list"
+      "thumbsup"        : "list"
 
   API =
     list: ->

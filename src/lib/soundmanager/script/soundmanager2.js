@@ -376,9 +376,9 @@ function SoundManager(smURL, smID) {
     if (!didSetup && mobileHTML5) {
 
       if (sm2.setupOptions.ignoreMobileRestrictions) {
-        
+
         messages.push(strings.ignoreMobile);
-      
+
       } else {
 
         // prefer HTML5 for mobile + tablet-like devices, probably more reliable vs. flash at this point.
@@ -399,7 +399,7 @@ function SoundManager(smURL, smID) {
           sm2.ignoreFlash = true;
 
         } else if ((isAndroid && !ua.match(/android\s2\.3/i)) || !isAndroid) {
-        
+
           /**
            * Android devices tend to work better with a single audio instance, specifically for chained playback of sounds in sequence.
            * Common use case: exiting sound onfinish() -> createSound() -> play()
@@ -605,10 +605,10 @@ function SoundManager(smURL, smID) {
     var oS = sm2.sounds[sID], i;
 
     oS.stop();
-    
+
     // Disable all callbacks after stop(), when the sound is being destroyed
     oS._iO = {};
-    
+
     oS.unload();
 
     for (i = 0; i < sm2.soundIDs.length; i++) {
@@ -2694,18 +2694,18 @@ function SoundManager(smURL, smID) {
 
         if (nPosition === onPositionItems[i].position) {
           // remove this item if no method was specified, or, if the method matches
-          
+
           if (!oMethod || (oMethod === onPositionItems[i].method)) {
-            
+
             if (onPositionItems[i].fired) {
               // decrement "fired" counter, too
               onPositionFired--;
             }
-            
+
             onPositionItems.splice(i, 1);
-          
+
           }
-        
+
         }
 
       }
@@ -2721,20 +2721,20 @@ function SoundManager(smURL, smID) {
       }
 
       for (i = j - 1; i >= 0; i--) {
-        
+
         item = onPositionItems[i];
-        
+
         if (!item.fired && s.position >= item.position) {
-        
+
           item.fired = true;
           onPositionFired++;
           item.method.apply(item.scope, [item.position]);
-        
+
           //  reset j -- onPositionItems.length can be changed in the item callback above... occasionally breaking the loop.
 		      j = onPositionItems.length;
-        
+
         }
-      
+
       }
 
       return true;
@@ -2751,14 +2751,14 @@ function SoundManager(smURL, smID) {
       }
 
       for (i = j - 1; i >= 0; i--) {
-        
+
         item = onPositionItems[i];
-        
+
         if (item.fired && nPosition <= item.position) {
           item.fired = false;
           onPositionFired--;
         }
-      
+
       }
 
       return true;
@@ -3245,7 +3245,7 @@ function SoundManager(smURL, smID) {
       }
 
       s.isBuffering = (nIsBuffering === 1);
-      
+
       if (s._iO.onbufferchange) {
         sm2._wD(s.id + ': Buffer state change: ' + nIsBuffering);
         s._iO.onbufferchange.apply(s, [nIsBuffering]);
@@ -4238,65 +4238,65 @@ function SoundManager(smURL, smID) {
     }
 
     if (!html5Ext) {
-      
+
       html5Ext = [];
-      
+
       for (item in aF) {
-      
+
         if (aF.hasOwnProperty(item)) {
-      
+
           html5Ext.push(item);
-      
+
           if (aF[item].related) {
             html5Ext = html5Ext.concat(aF[item].related);
           }
-      
+
         }
-      
+
       }
-      
+
       html5Ext = new RegExp('\\.('+html5Ext.join('|')+')(\\?.*)?$','i');
-    
+
     }
 
     // TODO: Strip URL queries, etc.
     fileExt = (url ? url.toLowerCase().match(html5Ext) : null);
 
     if (!fileExt || !fileExt.length) {
-      
+
       if (!mime) {
-      
+
         result = false;
-      
+
       } else {
-      
+
         // audio/mp3 -> mp3, result should be known
         offset = mime.indexOf(';');
-      
+
         // strip "audio/X; codecs..."
         fileExt = (offset !== -1 ? mime.substr(0,offset) : mime).substr(6);
-      
+
       }
-    
+
     } else {
-    
+
       // match the raw extension name - "mp3", for example
       fileExt = fileExt[1];
-    
+
     }
 
     if (fileExt && sm2.html5[fileExt] !== _undefined) {
-    
+
       // result known
       result = (sm2.html5[fileExt] && !preferFlashCheck(fileExt));
-    
+
     } else {
-    
+
       mime = 'audio/' + fileExt;
       result = sm2.html5.canPlayType({type:mime});
-    
+
       sm2.html5[fileExt] = result;
-    
+
       // sm2._wD('canPlayType, found result: ' + result);
       result = (result && sm2.html5[mime] && !preferFlashCheck(mime));
     }
@@ -4313,13 +4313,13 @@ function SoundManager(smURL, smID) {
      */
 
     if (!sm2.useHTML5Audio || !sm2.hasHTML5) {
-    
+
       // without HTML5, we need Flash.
       sm2.html5.usingFlash = true;
       needsFlash = true;
-    
+
       return false;
-    
+
     }
 
     // double-whammy: Opera 9.64 throws WRONG_ARGUMENTS_ERR if no parameter passed to Audio(), and Webkit + iOS happily tries to load "null" as a URL. :/
@@ -4337,30 +4337,30 @@ function SoundManager(smURL, smID) {
       }
 
       if (m instanceof Array) {
-    
+
         // iterate through all mime types, return any successes
-    
+
         for (i = 0, j = m.length; i < j; i++) {
-    
+
           if (sm2.html5[m[i]] || a.canPlayType(m[i]).match(sm2.html5Test)) {
-    
+
             isOK = true;
             sm2.html5[m[i]] = true;
-    
+
             // note flash support, too
             sm2.flash[m[i]] = !!(m[i].match(flashMIME));
-    
+
           }
-    
+
         }
-    
+
         result = isOK;
-    
+
       } else {
-    
+
         canPlay = (a && typeof a.canPlayType === 'function' ? a.canPlayType(m) : false);
         result = !!(canPlay && (canPlay.match(sm2.html5Test)));
-    
+
       }
 
       return result;
@@ -4581,23 +4581,23 @@ function SoundManager(smURL, smID) {
     var urlParams = null, url;
 
     if (smURL) {
-      
+
       if (smURL.match(/\.swf(\?.*)?$/i)) {
-      
+
         urlParams = smURL.substr(smURL.toLowerCase().lastIndexOf('.swf?') + 4);
-      
+
         if (urlParams) {
           // assume user knows what they're doing
           return smURL;
         }
-      
+
       } else if (smURL.lastIndexOf('/') !== smURL.length - 1) {
-      
+
         // append trailing slash, if needed
         smURL += '/';
-      
+
       }
-    
+
     }
 
     url = (smURL && smURL.lastIndexOf('/') !== - 1 ? smURL.substr(0, smURL.lastIndexOf('/') + 1) : './') + sm2.movieURL;
@@ -4634,20 +4634,20 @@ function SoundManager(smURL, smID) {
 
     // set up default options
     if (fV > 8) {
-    
+
       // +flash 9 base options
       sm2.defaultOptions = mixin(sm2.defaultOptions, sm2.flash9Options);
       sm2.features.buffering = true;
-    
+
       // +moviestar support
       sm2.defaultOptions = mixin(sm2.defaultOptions, sm2.movieStarOptions);
       sm2.filePatterns.flash9 = new RegExp('\\.(mp3|' + netStreamTypes.join('|') + ')(\\?.*)?$', 'i');
       sm2.features.movieStar = true;
-    
+
     } else {
-    
+
       sm2.features.movieStar = false;
-    
+
     }
 
     // regExp for flash canPlay(), etc.
@@ -4921,24 +4921,24 @@ function SoundManager(smURL, smID) {
     }
 
     if (queue.length) {
-    
-      // sm2._wD(sm + ': Firing ' + queue.length + ' ' + oOptions.type + '() item' + (queue.length === 1 ? '' : 's')); 
+
+      // sm2._wD(sm + ': Firing ' + queue.length + ' ' + oOptions.type + '() item' + (queue.length === 1 ? '' : 's'));
       for (i = 0, j = queue.length; i < j; i++) {
-      
+
         if (queue[i].scope) {
           queue[i].method.apply(queue[i].scope, args);
         } else {
           queue[i].method.apply(this, args);
         }
-      
+
         if (!canRetry) {
           // useFlashBlock and SWF timeout case doesn't count here.
           queue[i].fired = true;
-      
+
         }
-      
+
       }
-    
+
     }
 
     return true;
@@ -4986,16 +4986,16 @@ function SoundManager(smURL, smID) {
     var hasPlugin = false, n = navigator, nP = n.plugins, obj, type, types, AX = window.ActiveXObject;
 
     if (nP && nP.length) {
-      
+
       type = 'application/x-shockwave-flash';
       types = n.mimeTypes;
-      
+
       if (types && types[type] && types[type].enabledPlugin && types[type].enabledPlugin.description) {
         hasPlugin = true;
       }
-    
+
     } else if (AX !== _undefined && !ua.match(/MSAppHost/i)) {
-    
+
       // Windows 8 Store Apps (MSAppHost) are weird (compatibility?) and won't complain here, but will barf if Flash/ActiveX object is appended to the DOM.
       try {
         obj = new AX('ShockwaveFlash.ShockwaveFlash');
@@ -5003,12 +5003,12 @@ function SoundManager(smURL, smID) {
         // oh well
         obj = null;
       }
-      
+
       hasPlugin = (!!obj);
-      
+
       // cleanup, because it is ActiveX after all
       obj = null;
-    
+
     }
 
     hasFlash = hasPlugin;
@@ -5065,24 +5065,24 @@ featureCheck = function() {
       canIgnoreFlash = true;
 
       for (item in formats) {
-        
+
         if (formats.hasOwnProperty(item)) {
-        
+
           if (formats[item].required) {
-        
+
             if (!sm2.html5.canPlayType(formats[item].type)) {
-        
+
               // 100% HTML5 mode is not possible.
               canIgnoreFlash = false;
               flashNeeded = true;
-        
+
             } else if (sm2.preferFlash && (sm2.flash[item] || sm2.flash[formats[item].type])) {
-        
+
               // flash may be required, or preferred for this format.
               flashNeeded = true;
-        
+
             }
-        
+
           }
 
         }
@@ -6281,7 +6281,7 @@ if (typeof module === 'object' && module && typeof module.exports === 'object') 
    *     soundManager.beginDelayedInit();
    *     return soundManager;
    *   })
-   * }); 
+   * });
    */
 
   define(function() {

@@ -17,7 +17,7 @@
     appRoutes:
       "lab" : "labLanding"
       "lab/api-browser"         : "apiBrowser"
-      "lab/api-browser/:method"	: "apiBrowser"
+      "lab/api-browser/:method" : "apiBrowser"
       "lab/screenshot"          : "screenShot"
       "lab/icon-browser"        : "iconBrowser"
 

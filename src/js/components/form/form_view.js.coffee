@@ -5,20 +5,20 @@
   class Form.FormWrapper extends App.Views.LayoutView
     template: "components/form/form"
     tagName: "form"
-		
+
     regions:
       formContentRegion: ".form-content-region"
       formResponse:      ".response"
 
     triggers:
-      "click .form-save"  								: "form:submit"
-      "click [data-form-button='cancel']"	: "form:cancel"
-		
+      "click .form-save"                  : "form:submit"
+      "click [data-form-button='cancel']" : "form:cancel"
+
     modelEvents:
-      "change:_errors" 	: "changeErrors"
-      "sync:start"			:	"syncStart"
-      "sync:stop"				:	"syncStop"
-		
+      "change:_errors"  : "changeErrors"
+      "sync:start"      : "syncStart"
+      "sync:stop"       : "syncStop"
+
     initialize: ->
       @config = @options.config
       @on "form:save", (msg) =>
@@ -52,7 +52,7 @@
 
     removeErrors: ->
       @$(".error").removeClass("error").find("small").remove()
-		
+
     addErrors: (errors = {}) ->
       for name, array of errors
         @addError name, array[0]

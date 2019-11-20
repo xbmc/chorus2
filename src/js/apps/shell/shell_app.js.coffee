@@ -2,8 +2,8 @@
 
   class Shell.Router extends App.Router.Base
     appRoutes:
-      ""      	: "homePage"
-      "home"   	: "homePage"
+      ""        : "homePage"
+      "home"    : "homePage"
 
 
   API =

@@ -15,7 +15,7 @@ Ces fichiers se trouvent à deux endroits. Le *CODE_LANG* correspond aux deux pr
 * Si il n'y a pas de `msgstr` pour le texte donné, copiez le de en.po et mettez le à jour.
 
 Exemple (fr.po) :
-``` 
+```
 msgctxt ""
 msgid "Select a filter"
 msgstr "Sélectionner un filtre"
@@ -58,7 +58,7 @@ Si vous voulez **vraiment** tester votre langue dans l'application, il faut :
 3. `npm install` (seulement la première fois)
 4. `grunt lang` (cela va reconstruire les dichiers de langue dans le répertoire `dist/lang`)
 5. Rafraîchir Chorus
-  
+
 ## Solution de repli
 
 Les traductions doivent se rabattre sur l'anglais sauf si `msgid` est défini dans le fichier

@@ -7,4 +7,4 @@
 
     getSettingValue: (value, callback) ->
       @sendCommand "getSettingValue", [value], (resp) =>
-	      @doCallback callback, resp.value
+        @doCallback callback, resp.value

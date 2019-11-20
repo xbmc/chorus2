@@ -19,7 +19,7 @@
       @pageView = new Overview.Page
         data: data
       @listenTo @pageView, "show", =>
-	      @getReport()
+        @getReport()
 
       @layout.regionContent.show @pageView
 
@@ -42,9 +42,9 @@
 
       # We might have just called to early, bind to available event just in case.
       App.vent.on "sockets:available", =>
-	      @getReportWebsocketsActive()
+        @getReportWebsocketsActive()
       App.vent.on "state:initialized", =>
-	      @getReportKodiVersion()
+        @getReportKodiVersion()
 
     #
     # Callbacks for getting/setting report values below.
@@ -54,7 +54,7 @@
     # Chorus version.
     getReportChorusVersion: ->
       $.get "addon.xml", (data) =>
-	      $('.report-chorus-version > span', @$pageView).text $('addon', data).attr('version')
+        $('.report-chorus-version > span', @$pageView).text $('addon', data).attr('version')
 
     # Kodi version
     getReportKodiVersion: ->
