@@ -12,7 +12,7 @@
       "click .download"      : "movie:download"
       "click .edit"          : "movie:edit"
     initialize: ->
-      super
+      super arguments...
       @setMeta()
       if @model?
         @model.set( App.request('movie:action:items') )

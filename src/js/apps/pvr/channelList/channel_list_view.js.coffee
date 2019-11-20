@@ -9,7 +9,7 @@
       "click .play"       : "channel:play"
       "click .record"     : "channel:record"
     initialize: ->
-      super
+      super arguments...
       if @model?
         @model.set subtitle: @model.get('broadcastnow').title
 

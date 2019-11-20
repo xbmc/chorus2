@@ -10,7 +10,7 @@
       "click .add"        : "tvshow:add"
       "click .edit"       : "tvshow:edit"
     initialize: ->
-      super
+      super arguments...
       @setMeta()
       @model.set( App.request('tvshow:action:items') )
     attributes: ->

@@ -12,7 +12,7 @@
       "click .dropdown .edit" : "artist:edit"
 
     initialize: ->
-      super
+      super arguments...
       if @model?
         @model.set(App.request('album:action:items'))
 

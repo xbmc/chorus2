@@ -12,7 +12,7 @@
       'click .edit'           : 'musicvideo:edit'
       'click .refresh'        : 'musicvideo:refresh'
     initialize: ->
-      super
+      super arguments...
       if @model?
         @setMeta()
         @model.set(App.request('musicvideo:action:items'))

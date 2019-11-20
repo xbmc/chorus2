@@ -11,7 +11,7 @@
       "click .goto-season" : "episode:goto:season"
       "click .edit"        : "episode:edit"
     initialize: ->
-      super
+      super arguments...
       if @model?
         @setMeta()
         @model.set(App.request('episode:action:items'))
