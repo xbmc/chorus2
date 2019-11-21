@@ -5,7 +5,7 @@
     template: 'apps/song/list/song'
     tagName: "tr"
     initialize: ->
-      super
+      super arguments...
       if @model
         duration = helpers.global.secToTime this.model.get('duration')
         menu =

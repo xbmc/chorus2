@@ -11,7 +11,7 @@
       "click .dropdown .localplay" : "album:localplay"
       "click .dropdown .edit"     : "album:edit"
     initialize: ->
-      super
+      super arguments...
       if @model?
         @setMeta()
         @model.set(App.request('album:action:items'))

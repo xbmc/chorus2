@@ -7,7 +7,7 @@
       "click .watched"    : "season:watched"
       "click .add"        : "season:add"
     initialize: ->
-      super
+      super arguments...
       subtitle = @model.get('episode') + ' ' + tr('episodes')
       @model.set subtitle: subtitle
       @model.set( App.request('tvshow:action:items') )

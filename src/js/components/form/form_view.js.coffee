@@ -199,7 +199,7 @@
     template: 'components/form/form_item_imageselect'
     ## Add the current image and assign as default
     initialize: ->
-      super
+      super arguments...
       thumb = App.request "images:path:get", @model.get('defaultValue'), @model.get('id')
       @model.set({image: {original: @model.get('defaultValue'), thumb: thumb}})
     ## We wait til render to fetch the external images and build the UI
