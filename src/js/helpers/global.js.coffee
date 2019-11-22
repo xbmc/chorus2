@@ -69,7 +69,7 @@ helpers.global.dateStringToObj = (datetime) ->
     new Date 0 # Will equal start of epoch?
   else
     ## This will add the offset which should make the time correct as the EPG date time is UTC
-    new Date(datetime.replace(" ","t"))
+    new Date(datetime.replace(" ","T"))
 
 ## format a nowplaying time object for display
 helpers.global.formatTime = (time) ->
