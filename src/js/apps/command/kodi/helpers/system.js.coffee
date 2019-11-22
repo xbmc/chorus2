@@ -23,5 +23,5 @@
         @doCallback callback, resp
 
     suspend: (callback) ->
-      @singleCommand @getCommand('Shutdown'), [], (resp) =>
+      @singleCommand @getCommand('Suspend'), [], (resp) =>
         @doCallback callback, resp
