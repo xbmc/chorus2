@@ -8,8 +8,8 @@
 
     fields:
       minimal: ['title', 'thumbnail']
-      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa']
-      full: ['fanart', 'plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country', 'tag']
+      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa', 'tag']
+      full: ['fanart', 'plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country']
 
     ## Fetch a single entity
     getEntity: (id, options) ->
