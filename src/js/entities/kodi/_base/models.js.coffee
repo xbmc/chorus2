@@ -46,6 +46,12 @@
           model.start = helpers.global.dateStringToObj(model.starttime)
         if model.endtime
           model.end = helpers.global.dateStringToObj(model.endtime)
+
+        # artwork is in art map since kodi 19. Fallbacks of poster to thumb have been removed
+        if type is 'movie' or type is 'tvshow' or type is 'season'
+          model.fanart = if 'fanart' of model.art then model.art.fanart
+          model.thumbnail = if 'poster' of model.art then model.art.poster else if 'thumb' of model.art then model.art.thumb
+
         if type is 'tvshow' or type is 'season'
           model.progress = helpers.global.round ((model.watchedepisodes / model.episode) * 100), 2
         if type is 'episode' or type is 'movie' and model.progress is 0
