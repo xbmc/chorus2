@@ -7,9 +7,9 @@
   API =
 
     fields:
-      minimal: ['title', 'thumbnail']
+      minimal: ['title', 'art']
       small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa']
-      full: ['fanart', 'plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country', 'tag']
+      full: ['plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country', 'tag']
 
     ## Fetch a single entity
     getEntity: (id, options) ->

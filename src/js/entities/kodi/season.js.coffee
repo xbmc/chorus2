@@ -7,8 +7,8 @@
   API =
 
     fields:
-      minimal: ['season']
-      small: ['showtitle', 'playcount', 'thumbnail', 'tvshowid', 'episode', 'watchedepisodes', 'fanart']
+      minimal: ['season', 'art']
+      small: ['showtitle', 'playcount', 'thumbnail', 'tvshowid', 'episode', 'watchedepisodes']
       full: []
 
     ## Fetch a single entity, requires a season collection passed.
