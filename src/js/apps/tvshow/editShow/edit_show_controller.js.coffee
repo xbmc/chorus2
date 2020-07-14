@@ -13,6 +13,7 @@
           editForm: true
           tabs: true
           callback: (data, formView) =>
+            @setArt(data)
             @saveCallback(data, formView)
       }
       form = App.request "form:popup:wrapper", options
@@ -63,6 +64,16 @@
           ]
         }
       ]
+
+    ## Properly write the art map
+    setArt: (data) ->
+      art = {}
+      if 'fanart' of data
+        art["fanart"] = data.fanart
+      if 'thumbnail' of data
+        art["poster"] = data.thumbnail
+        delete data.thumbnail
+      data["art"] = art
 
     ## Save the settings to Kodi
     saveCallback: (data, formView) ->
