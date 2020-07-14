@@ -18,6 +18,7 @@ helpers.translate.getLanguages = ->
     nl: "Dutch"
     pl: "Polish"
     pt: "Portuguese"
+    sk: "Slovak"
     zh_hans: "Chinese, Simplified"
   }
 
