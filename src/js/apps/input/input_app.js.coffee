@@ -120,8 +120,10 @@
           @doCommand "GoTo", "next"
         when 188 # < (prev)
           @doCommand "GoTo", "previous"
-        when 220 # Backslash (fullscreen)
+        when 220, 160 # Backslash, ^ (firefox) (fullscreen)
           @doAction "fullscreen"
+        when 79 # o (osd)
+          @doAction "osd"
         else # return everything else here
 
 
