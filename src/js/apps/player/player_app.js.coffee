@@ -65,14 +65,14 @@
         ## Kodi Slider Progress change
         $progress.on 'change', ->
           API.timerStop()
-          API.doCommand player, 'Seek', Math.round(@vGet()), ->
+          API.doCommand player, 'Seek', {percentage: Math.round(@vGet())}, ->
             API.timerStart()
         $progress.on 'slide', ->
           API.timerStop()
       else
         ## Local slider progress change
         $progress.on 'change', ->
-          API.doCommand player, 'Seek', Math.round(@vGet())
+          API.doCommand player, 'Seek', {percentage: Math.round(@vGet())}
 
       ## Slider volume
       $volume = $('.volume', $playerCtx)
@@ -174,4 +174,4 @@
 
     ## Handler for changing the kodi progress.
     App.commands.setHandler 'player:kodi:progress:update', (percent, callback) ->
-      API.doCommand 'kodi', 'Seek', percent, callback
+      API.doCommand 'kodi', 'Seek', {percentage: percent}, callback

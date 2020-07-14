@@ -153,11 +153,11 @@
           @localStateUpdate()
 
     ## Seek to a percentage in the song
-    localSeek: (percent) ->
+    localSeek: (param) ->
       stateObj = App.request "state:local"
       localPlay = stateObj.getState 'localPlay'
       if localPlay isnt false
-        newPos = (percent / 100) * localPlay.duration
+        newPos = (param.percentage / 100) * localPlay.duration
         sound = soundManager.getSoundById stateObj.getState('currentPlaybackId')
         sound.setPosition newPos
 
