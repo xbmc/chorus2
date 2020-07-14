@@ -125,6 +125,13 @@
         filterCallback: 'multiple'
       }
       {
+        alias: 'tag'
+        type: 'array'
+        key: 'tag'
+        sortOrder: 'asc',
+        filterCallback: 'multiple'
+      }
+      {
         alias: 'actor'
         type: 'object'
         property: 'name'
