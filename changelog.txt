@@ -13,6 +13,8 @@ Version 19.x-2.4.7
 * Add watched filter to movies list (@claudetete) #366
 * Addon.xml fixes (@kingmdollar enen92) #393 #415
 * Added filter by tag for movies and tvshows (@tazeat) #416
+* Fix music video list not showing (@enen92) #418
+* Multiple style and code cosmetics (mainly @rechi)
 
 Version 18.x-2.4.6
 -------------
