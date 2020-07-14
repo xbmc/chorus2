@@ -106,6 +106,8 @@
         when 109, 189, 173 # - (vol down)
           vol = stateObj.getState('volume') - 5
           @appController().setVolume ((if vol < 0 then 0 else Math.ceil(vol)))
+        when 77 # m (mute)
+          @appController().toggleMute()
         when 32 # spacebar (play/pause)
           @doCommand "PlayPause", "toggle"
         when 88 # x (stop)
