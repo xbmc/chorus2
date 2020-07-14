@@ -8,6 +8,7 @@
                 <li data-sort="none"><%= tr('default') %><i></i></li>
                 <li data-sort="label"><%= tr('title') %><i></i></li>
                 <li data-sort="dateadded"><%= tr('date added') %><i></i></li>
+                <li data-sort="year"><%= tr('year') %><i></i></li>
                 <li data-sort="random"><%= tr('random') %><i></i></li>
             </ul>
         </li>
