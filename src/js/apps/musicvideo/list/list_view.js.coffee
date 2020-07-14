@@ -18,6 +18,7 @@
         @model.set(App.request('musicvideo:action:items'))
     setMeta: ->
       if @model
+        artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
         @model.set subtitleHtml: @themeLink @model.get('artist'), 'search/artist/' + artist
 
   class List.Empty extends App.Views.EmptyViewResults
