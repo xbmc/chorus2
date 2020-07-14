@@ -38,6 +38,15 @@
           unwatched = if model.get('playcount') > 0 then 0 else 1
         unwatched > 0
 
+    filterByWatched: ->
+      @filterBy 'watched', (model) ->
+        watched = 1
+        if model.get('type') is 'tvshow'
+          watched = model.get('watchedepisodes')
+        else if model.get('type') is 'movie' or model.get('type') is 'episode'
+          watched = if model.get('playcount') > 0 then 1 else 0
+        watched > 0
+
     filterByThumbsUp: (key) ->
       @filterBy key, (model) ->
         App.request "thumbsup:check", model

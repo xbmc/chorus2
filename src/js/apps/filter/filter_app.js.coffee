@@ -97,6 +97,13 @@
         filterCallback: 'unwatched'
       }
       {
+        alias: 'watched'
+        type: "boolean"
+        key: 'watched'
+        sortOrder: 'asc',
+        filterCallback: 'watched'
+      }
+      {
         alias: 'in progress'
         type: "boolean"
         key: 'inprogress'
@@ -343,6 +350,8 @@
             collection.filterByMultiple(key, vals) ## data is not array
         when 'unwatched'
           collection.filterByUnwatched()
+        when 'watched'
+          collection.filterByWatched()
         when 'inprogress'
           collection.filterByInProgress()
         when 'thumbsup'
