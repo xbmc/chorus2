@@ -969,7 +969,7 @@ msgstr "aleatorio"
 
 msgctxt ""
 msgid "label"
-msgstr "etiqueta"
+msgstr "discográfica"
 
 msgctxt ""
 msgid "formed"
@@ -1081,7 +1081,7 @@ msgstr "Descripción"
 
 msgctxt ""
 msgid "Label"
-msgstr "Etiqueta"
+msgstr "Discográfica"
 
 msgctxt ""
 msgid "Year"
