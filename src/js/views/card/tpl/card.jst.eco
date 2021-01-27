@@ -1,6 +1,6 @@
 <div class="card-<%= @type %>">
     <div class="artwork">
-        <a href="#<%= @url %>" class="thumb" title="<%= helpers.global.stripTags(@labelHtml) %>" style="background-image: url('<%= @thumbnail %>')"></a>
+        <a href="#<%= @url %>" class="thumb" title="<%= helpers.global.stripTags(@labelHtml) %>" style="background-image: url(<%= '\'' + @thumbnail + '\'' %>)"></a>
         <div class="mdi play" title="<%= tr('Play') %>"></div>
         <% if @type is "channeltv" or @type is "channelradio": %>
           <div class="mdi record"></div>
