@@ -8,7 +8,7 @@
 <% if @type is 'method': %>
     <div class="api-method--execute">
         <h3>Execute <strong><%= @method %></strong> with these params:</h3>
-            <textarea class="api-method--params" placeholder="Eg. [arg, foo, true]"></textarea>
+            <textarea class="api-method--params" placeholder="Eg. [<%= '\"' %>arg<%= '\"' %>, <%= '\"' %>foo<%= '\"' %>, true]"></textarea>
             <p class="description">Parameters get parsed by
                 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse</a>.
                 Check the console for response objects, you will get an 'unexpected token' error if parsing failed.
