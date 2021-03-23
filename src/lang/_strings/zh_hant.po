@@ -1,0 +1,1458 @@
+# Kodi Media Center language file
+# Addon Name: Default Webinterface?
+# Addon id: webinterface.default?
+# Addon Provider: Team Kodi?
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Po-Hsu Lin\n"
+"Language-Team: Chinese, Traditional\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-hant\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt ""
+msgid "Nothing playing"
+msgstr "沒有正在播放中的內容"
+
+msgctxt ""
+msgid "Deselect all"
+msgstr "全不選"
+
+msgctxt ""
+msgid "Filters"
+msgstr "過濾器"
+
+msgctxt ""
+msgid "Sort"
+msgstr "排序"
+
+msgctxt ""
+msgid "Select a filter"
+msgstr "選擇一個過濾條件"
+
+msgctxt ""
+msgid "Select an option"
+msgstr "選擇一個選項"
+
+msgctxt ""
+msgid "filter"
+msgstr "過濾條件"
+
+msgctxt ""
+msgid "Add filter"
+msgstr "增加過濾條件"
+
+msgid "Which player to start with"
+msgstr "用哪個播放器來開始"
+
+msgctxt ""
+msgid "Ignore terms such as 'The' and 'A' when sorting lists"
+msgstr "排序時忽略像是 'The' 和 'A' 這樣的冠詞"
+
+msgctxt ""
+msgid ""
+"When listing artists should we only see artists with albums or all artists "
+"found. Warning: turning this off can impact performance with large libraries"
+msgstr ""
+"當列出演出者時，我們應列出專輯上的演出者或所有找到的演出者。警告：資料庫較為"
+"龐大時關閉此選項可能會影響效能。"
+
+msgctxt ""
+msgid "is the default"
+msgstr "為預設的"
+
+msgctxt ""
+msgid ""
+"The hostname used for websockets connection. Set to 'auto' to use the "
+"current hostname."
+msgstr ""
+"用於 websockets 連線的主機名稱。設定為「自動」(auto) 來使用目前的主機"
+"名稱。"
+
+msgctxt ""
+msgid ""
+"How often do I poll for updates from Kodi (Only applies when websockets "
+"inactive)"
+msgstr ""
+"多久從 Kodi 檢查更新一次（僅當 websockets 關閉時生效）"
+
+msgctxt ""
+msgid "Enable support for reverse proxy."
+msgstr "啟用對反向代理的支援。"
+
+msgctxt ""
+msgid "Web settings saved."
+msgstr "網頁設定已儲存。"
+
+msgctxt ""
+msgid "Just a sec..."
+msgstr "請稍候..."
+
+msgctxt ""
+msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
+msgstr "經過一段時間後仍舊無法與 Kodi 連線。我的天啊，阿尼被掛掉了！"
+
+msgctxt ""
+msgid "Video library scan started"
+msgstr "開始掃描影片庫"
+
+msgctxt ""
+msgid "Video library scan complete"
+msgstr "影片庫掃描完畢"
+
+msgctxt ""
+msgid "Audio library scan started"
+msgstr "開始掃描音樂庫"
+
+msgctxt ""
+msgid "Audio library scan complete"
+msgstr "音樂庫掃描完畢"
+
+msgctxt ""
+msgid "Kodi has quit"
+msgstr "Kodi 已退出"
+
+msgctxt ""
+msgid "Sections"
+msgstr "分類"
+
+msgctxt ""
+msgid "Back"
+msgstr "後退"
+
+msgctxt ""
+msgid "Loading folder..."
+msgstr "載入資料夾中..."
+
+msgctxt ""
+msgid "Show more"
+msgstr "顯示更多"
+
+msgctxt ""
+msgid "to Kodi"
+msgstr "到 Kodi"
+
+msgctxt ""
+msgid "Playlist refreshed"
+msgstr "已更新播放清單"
+
+msgctxt ""
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt ""
+msgid "Local"
+msgstr "本地"
+
+msgctxt ""
+msgid "Playlists"
+msgstr "播放清單"
+
+msgctxt ""
+msgid "Existing playlists"
+msgstr "現有的播放清單"
+
+msgctxt ""
+msgid "Empty playlist, you should probably add something to it?"
+msgstr "播放清單是空的，您該加點東西進去吧？"
+
+msgctxt ""
+msgid "Create a new list"
+msgstr "建立一個新的清單"
+
+msgctxt ""
+msgid "Add to playlist"
+msgstr "新增至播放清單"
+
+msgctxt ""
+msgid "Added to your playlist"
+msgstr "新增到您的播放清單"
+
+msgctxt ""
+msgid "Give your playlist a name"
+msgstr "給您的播放清單取一個名字"
+
+msgctxt ""
+msgid "Recently added"
+msgstr "最近新增"
+
+msgctxt ""
+msgid "Recently played"
+msgstr "最近播放"
+
+msgctxt ""
+msgid "Season"
+msgstr "季"
+
+msgctxt ""
+msgid "Episode"
+msgstr "集"
+
+msgctxt ""
+msgid "Play"
+msgstr "播放"
+
+msgctxt ""
+msgid "Queue"
+msgstr "佇列"
+
+msgctxt ""
+msgid "View on IMDb"
+msgstr "去 IMDb 上查看"
+
+# Video and audio stream, such as 720, x264, AC3, etc.
+msgctxt ""
+msgid "Stream"
+msgstr "串流"
+
+msgctxt ""
+msgid "Download"
+msgstr "下載"
+
+msgctxt ""
+msgid "complete"
+msgstr "完成"
+
+msgctxt ""
+msgid "Synopsis"
+msgstr "故事大綱"
+
+msgctxt ""
+msgid "Full cast"
+msgstr "完整卡司"
+
+msgctxt ""
+msgid "Websockets closed"
+msgstr "Websockets 已關閉"
+
+msgctxt ""
+msgid "Websockets host"
+msgstr "Websockets 主機"
+
+msgctxt ""
+msgid "Websockets port"
+msgstr "Websockets 連接埠"
+
+msgctxt ""
+msgid "Default player"
+msgstr "預設播放器"
+
+msgctxt ""
+msgid "Ignore article"
+msgstr "忽略冠詞"
+
+msgctxt ""
+msgid "Album artists only"
+msgstr "僅專輯演出者"
+
+msgctxt ""
+msgid "Poll interval"
+msgstr "更新間隔"
+
+msgctxt ""
+msgid "Reverse proxy support"
+msgstr "反向代理支援"
+
+msgctxt ""
+msgid "Language"
+msgstr "語言"
+
+msgctxt ""
+msgid "Preferred language"
+msgstr "偏好語言"
+
+msgctxt ""
+msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "在排序列表時忽略冠詞（如 \"The\" 和 \"A\"）"
+
+# Short for "second"
+msgctxt ""
+msgid "sec"
+msgstr "秒"
+
+msgctxt ""
+msgid ""
+"Your browser doesn't support websockets! Get with the times and update your "
+"browser."
+msgstr ""
+"您的瀏覽器不支援 websockets！是時候該與時俱進升級您的瀏覽器了。"
+
+msgctxt ""
+msgid "Failed to connect to websockets"
+msgstr ""
+"無法連線至 websockets。所以我將退一步去檢查更新。這會讓處理速度變慢而且使用"
+"更多資源。請確保您有將 Kodi 設定（系統 > 服務 > 遙控）中的「允許其他系統上"
+"的程式來控制 Kodi」(Allow programs on other systems to control Kodi) 選項啟"
+"用。其他會看到此訊息的原因是您可能使用了代理伺服器，或是透過輸入 IP 位置來"
+"連線（可能輸入 localhost 就可以了）。如果 websockets 一般來說可以正常運作的"
+"話，您可能只需要重新整理頁面即可解決此問題。"
+
+msgctxt ""
+msgid "Video"
+msgstr "影片"
+
+msgctxt ""
+msgid "Audio"
+msgstr "音樂"
+
+msgctxt ""
+msgid "Cast"
+msgstr "卡司"
+
+msgctxt ""
+msgid "Director"
+msgid_plural "Directors"
+msgstr[0] "導演"
+msgstr[1] "導演"
+
+msgctxt ""
+msgid "Writer"
+msgid_plural "Writers"
+msgstr[0] "編劇"
+msgstr[1] "編劇"
+
+msgctxt ""
+msgid "Subtitle"
+msgid_plural "Subtitles"
+msgstr[0] "字幕"
+msgstr[1] "字幕"
+
+msgctxt ""
+msgid "Result"
+msgid_plural "Results"
+msgstr[0] "結果"
+msgstr[1] "結果"
+
+msgctxt ""
+msgid "Loading things..."
+msgstr "載入中..."
+
+msgctxt ""
+msgid "Scan video library"
+msgstr "掃描影片庫"
+
+msgctxt ""
+msgid "Scan audio library"
+msgstr "掃描音樂庫"
+
+msgctxt ""
+msgid "About Chorus"
+msgstr "關於 Chorus"
+
+msgctxt ""
+msgid "Recent"
+msgstr "最近"
+
+msgctxt ""
+msgid "Artists"
+msgstr "演出者"
+
+msgctxt ""
+msgid "Albums"
+msgstr "專輯"
+
+msgctxt ""
+msgid "Recent movies"
+msgstr "最近的電影"
+
+msgctxt ""
+msgid "All movies"
+msgstr "所有電影"
+
+msgctxt ""
+msgid "Recent episodes"
+msgstr "最近的集數"
+
+msgctxt ""
+msgid "All TV shows"
+msgstr "所有電視節目"
+
+msgctxt ""
+msgid "Web settings"
+msgstr "網頁設定"
+
+msgctxt ""
+msgid "Kodi settings"
+msgstr "Kodi 設定"
+
+msgctxt ""
+msgid "Now Playing Playlists"
+msgstr "現正播放中的播放列表"
+
+msgctxt ""
+msgid ""
+"Switch between Kodi and local playback via the tabs. You can toggle "
+"visibility with the arrow in the top right"
+msgstr ""
+"透過頁籤來切換在 Kodi 上或在本地播放媒體。您可以點擊右上角的箭頭來切"
+"換其可見程度"
+
+msgctxt ""
+msgid "Current playlist"
+msgstr "目前的播放清單"
+
+msgctxt ""
+msgid "Clear playlist"
+msgstr "清空播放清單"
+
+msgctxt ""
+msgid "Refresh playlist"
+msgstr "更新播放清單"
+
+msgctxt ""
+msgid "Party mode"
+msgstr "派對模式"
+
+msgctxt ""
+msgid "Save Kodi playlist"
+msgstr "儲存 Kodi 播放清單"
+
+msgctxt ""
+msgid "Preferred language, need to refresh browser to take effect"
+msgstr "偏好的語言，重新整理後生效"
+
+msgctxt ""
+msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr "在排序列表時忽略冠詞（如 \"The\" 和 \"A\"）"
+
+msgctxt ""
+msgid "Vibrant headers"
+msgstr "華麗標題"
+
+msgctxt ""
+msgid "Use colourful headers for media pages"
+msgstr "在媒體頁面上使用彩色標題"
+
+msgctxt ""
+msgid "Enable support for reverse proxying."
+msgstr "啟用反向代理支援。"
+
+msgctxt ""
+msgid "songs"
+msgstr "歌曲"
+
+msgctxt ""
+msgid "artists"
+msgstr "演出者"
+
+msgctxt ""
+msgid "albums"
+msgstr "專輯"
+
+msgctxt ""
+msgid "movies"
+msgstr "電影"
+
+msgctxt ""
+msgid "Searching for"
+msgstr "搜尋"
+
+msgctxt ""
+msgid "and"
+msgstr "和"
+
+msgctxt ""
+msgid "tvshows"
+msgstr "電視節目"
+
+msgctxt ""
+msgid "no media in this folder"
+msgstr "這個資料夾中沒有多媒體檔"
+
+msgctxt ""
+msgid "Browse files and add-ons"
+msgstr "瀏覽檔案與附加元件"
+
+msgctxt ""
+msgid ""
+"This is where you can browse all Kodi content, not just what is in the "
+"library. Browse by source or add-on."
+msgstr ""
+"這裡不僅可以瀏覽媒體庫中的內容，還可以瀏覽所有在 Kodi 上的內容。選擇來"
+"源或附加元件來瀏覽。"
+
+msgctxt ""
+msgid "Send text to Kodi"
+msgstr "傳送文字訊息至 Kodi"
+
+msgctxt ""
+msgid "The lab"
+msgstr "實驗室"
+
+msgctxt ""
+msgid "Chorus lab"
+msgstr "Chorus 實驗室"
+
+msgctxt ""
+msgid "Warning"
+msgstr "警告"
+
+msgctxt ""
+msgid "Experimental code, use at own risk"
+msgstr "這些為實驗性質的程式碼，風險自負"
+
+msgctxt ""
+msgid "Kodi API browser"
+msgstr "Kodi API 瀏覽器"
+
+msgctxt ""
+msgid ""
+"This is a tool to test out the API. Select a method then execute it with "
+"parameters."
+msgstr ""
+"這是用來測試 API 的工具。選擇一個方法然後加上一些參數來執行它。"
+
+msgctxt ""
+msgid ""
+"You could potentially damage your system with this and there are no sanity "
+"checks. Use at own risk."
+msgstr ""
+"這麼做可能會破壞您的系統，而且這沒有經過完整性檢查。風險自負。"
+
+
+msgctxt ""
+msgid "Saved Kodi settings"
+msgstr "儲存的 Kodi 設定"
+
+msgctxt ""
+msgid "General"
+msgstr "通用"
+
+msgctxt ""
+msgid ""
+"Advanced setting level is recommended for those who know what they are doing."
+msgstr ""
+"進階設定只適合那些知道自己在做什麼的使用者。"
+
+msgctxt ""
+msgid "Kodi settings level"
+msgstr "Kodi 設定等級"
+
+msgctxt ""
+msgid "Remove"
+msgstr "刪除"
+
+msgctxt ""
+msgid "cast"
+msgstr "卡司"
+
+msgctxt ""
+msgid "Add-ons"
+msgstr "附加元件"
+
+msgctxt ""
+msgid "Web interface"
+msgstr "網頁介面"
+
+msgctxt ""
+msgid "Readme"
+msgstr "讀我"
+
+msgctxt ""
+msgid "Changelog"
+msgstr "更新日誌"
+
+msgctxt ""
+msgid "Translations"
+msgstr "翻譯"
+
+msgctxt ""
+msgid "Help topics"
+msgstr "幫助主題"
+
+msgctxt ""
+msgid "Overview"
+msgstr "概覽"
+
+msgctxt ""
+msgid "Lab"
+msgstr "實驗室"
+
+msgctxt ""
+msgid "version"
+msgstr "版本"
+
+msgctxt ""
+msgid "Remote control"
+msgstr "遙控"
+
+msgctxt ""
+msgid "Remote control is set up correctly"
+msgstr "成功完成遙控設定"
+
+msgctxt ""
+msgid "About"
+msgstr "關於"
+
+msgctxt ""
+msgid "Local audio"
+msgstr "本地音樂"
+
+msgctxt ""
+msgid "Status report"
+msgstr "狀態報告"
+
+msgctxt ""
+msgid "in"
+msgstr "在"
+
+msgctxt ""
+msgid "Focus playlist on playing"
+msgstr "播放時聚焦在播放清單上"
+
+msgctxt ""
+msgid ""
+"Automatically scroll the playlist to the current playing item. This happens "
+"whenever the playing item is changed"
+msgstr ""
+"自動捲動播放清單至目前播放中的項目。當播放內容改變時生效。"
+
+msgctxt ""
+msgid "Web Settings saved."
+msgstr "已儲存網頁設定。"
+
+msgctxt ""
+msgid "Keyboard controls"
+msgstr "鍵盤控制"
+
+msgctxt ""
+msgid "In Chorus, will you keyboard control Kodi, the browser or both"
+msgstr "在 Chorus 裡面, 您希望透過鍵盤控制 Kodi，瀏覽器或兩者"
+
+msgctxt ""
+msgid "Learn more"
+msgstr "了解更多"
+
+msgctxt ""
+msgid "Resume playback"
+msgstr "繼續播放"
+
+msgctxt ""
+msgid "Resume from"
+msgstr "從這裡繼續"
+
+msgctxt ""
+msgid "Start from the beginning"
+msgstr "從頭開始"
+
+msgctxt ""
+msgid "Click here restore defaults"
+msgstr "點這裡恢復預設值"
+
+msgctxt ""
+msgid "Main Menu Structure"
+msgstr "主選單結構"
+
+msgctxt ""
+msgid ""
+"Here you can change the title, url and %1$s for menu items. You can also "
+"remove, re-order and add new items."
+msgstr ""
+"在這裡您可以修改選單項目的標題、網址以及 %1$s。您也可以刪除，重新排序和新
+增新的項目。"
+
+msgctxt ""
+msgid "Main Nav"
+msgstr "主選單"
+
+msgctxt ""
+msgid "Add a new playlist"
+msgstr "新增一個播放清單"
+
+msgctxt ""
+msgid "Keyboard"
+msgstr "鍵盤"
+
+msgctxt ""
+msgid "Music"
+msgstr "音樂"
+
+msgctxt ""
+msgid "Digital radio"
+msgstr "數位廣播"
+
+msgctxt ""
+msgid "Movies"
+msgstr "電影"
+
+msgctxt ""
+msgid "TV shows"
+msgstr "電視節目"
+
+msgctxt ""
+msgid "TV"
+msgstr "電視"
+
+msgctxt ""
+msgid "Browser"
+msgstr "瀏覽"
+
+msgctxt ""
+msgid "Thumbs up"
+msgstr "讚"
+
+msgctxt ""
+msgid "Settings"
+msgstr "設定"
+
+msgctxt ""
+msgid "Help"
+msgstr "說明"
+
+msgctxt ""
+msgid "Disable Thumbs Up"
+msgstr "停用按讚"
+
+msgctxt ""
+msgid ""
+"Remove the thumbs up button from media. Note: you may also want to remove "
+"the menu item from the %1$s"
+msgstr ""
+"移除按讚按鈕。備註：您可能也會想將選單中的項目自 %1$s 中移除"
+
+msgctxt ""
+msgid "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "您需要在 Kodi 中「允許遙控」(Allow remote control)"
+
+msgctxt ""
+msgid "here"
+msgstr "這裡"
+
+msgctxt ""
+msgid "yes"
+msgstr "是"
+
+msgctxt ""
+msgid "no"
+msgstr "否"
+
+msgctxt ""
+msgid "close"
+msgstr "關閉"
+
+msgctxt ""
+msgid "ok"
+msgstr "ok"
+
+msgctxt ""
+msgid "Are you sure?"
+msgstr "您確定嗎？"
+
+msgctxt ""
+msgid "Set all episodes for this season as"
+msgstr "將本季所有集數設定為"
+
+msgctxt ""
+msgid "Set all episodes for this TV show as"
+msgstr "將此電視節目所有集數設定為"
+
+msgctxt ""
+msgid "watched"
+msgstr "已觀看"
+
+msgctxt ""
+msgid "unwatched"
+msgstr "未觀看"
+
+msgctxt ""
+msgid "genre"
+msgstr "類型"
+
+msgctxt ""
+msgid "studio"
+msgstr "工作室"
+
+msgctxt ""
+msgid "rated"
+msgstr "分級"
+
+msgctxt ""
+msgid "episodes"
+msgstr "集"
+
+msgctxt ""
+msgid "total"
+msgstr "總共"
+
+msgctxt ""
+msgid "set"
+msgstr "設定"
+
+msgctxt ""
+msgid "Show device name"
+msgstr "顯示裝置名稱"
+
+msgctxt ""
+msgid "Show the Kodi device name in the header of Chorus"
+msgstr "在 Chorus 標題中顯示 Kodi 裝置名稱"
+
+msgctxt ""
+msgid "No results found"
+msgstr "沒有找到結果"
+
+msgctxt ""
+msgid "Have you done a library scan?"
+msgstr "您有進行過資料庫掃描了嗎？"
+
+msgctxt ""
+msgid "Play in browser"
+msgstr "在瀏覽器中播放"
+
+msgctxt ""
+msgid "Edit"
+msgstr "編輯"
+
+msgctxt ""
+msgid "Add to Kodi"
+msgstr "新增至 Kodi"
+
+msgctxt ""
+msgid "Watched"
+msgstr "已觀看"
+
+msgctxt ""
+msgid "New playlist"
+msgstr "新播放清單"
+
+msgctxt ""
+msgid "Play in Kodi"
+msgstr "在 Kodi 中播放"
+
+msgctxt ""
+msgid "Export list"
+msgstr "輸出列表"
+
+msgctxt ""
+msgid "Delete playlist"
+msgstr "刪除播放清單"
+
+msgctxt ""
+msgid "title"
+msgstr "標題"
+
+msgctxt ""
+msgid "year"
+msgstr "年份"
+
+msgctxt ""
+msgid "date added"
+msgstr "新增日期"
+
+msgctxt ""
+msgid "rating"
+msgstr "分級"
+
+msgctxt ""
+msgid "actor"
+msgstr "演員"
+
+msgctxt ""
+msgid "mood"
+msgstr "心情"
+
+msgctxt ""
+msgid "writer"
+msgstr "編劇"
+
+msgctxt ""
+msgid "director"
+msgstr "導演"
+
+msgctxt ""
+msgid "mood"
+msgstr "心情"
+
+msgctxt ""
+msgid "style"
+msgstr "風格"
+
+msgctxt ""
+msgid "items selected"
+msgstr "已選項目"
+
+msgctxt ""
+msgid "item selected"
+msgstr "已選項目"
+
+msgctxt ""
+msgid "Video library clean started"
+msgstr "已開始影片庫清理"
+
+msgctxt ""
+msgid "Video library clean finished"
+msgstr "影片庫清理已完成"
+
+msgctxt ""
+msgid "Audio library clean started"
+msgstr "已開始音樂庫清理"
+
+msgctxt ""
+msgid "Audio library clean finished"
+msgstr "音樂庫清理已完成"
+
+msgctxt ""
+msgid "This is a tool to test out the api. Select a method then execute it with parameters."
+msgstr "這是用來測試 API 的工具。選擇一個方法然後加上一些參數來執行它。"
+
+msgctxt ""
+msgid "Go to season"
+msgstr "前往季"
+
+msgctxt ""
+msgid "Queue in Kodi"
+msgstr "佇列於 Kodi 中"
+
+msgctxt ""
+msgid "Adding items to the queue"
+msgstr "新增項目至佇列中"
+
+msgctxt ""
+msgid "Live TV"
+msgstr "電視直播"
+
+msgctxt ""
+msgid "Recently added albums"
+msgstr "最近新增的專輯"
+
+msgctxt ""
+msgid "Random albums"
+msgstr "隨機專輯"
+
+msgctxt ""
+msgid "Recently played albums"
+msgstr "最近播放的專輯"
+
+msgctxt ""
+msgid "Random movies"
+msgstr "隨機電影"
+
+msgctxt ""
+msgid "Continue watching"
+msgstr "繼續觀看"
+
+msgctxt ""
+msgid "More from %1$s"
+msgstr "更多來自 %1$s"
+
+msgctxt ""
+msgid "More %1$s movies"
+msgstr "更多 %1$s 電影"
+
+msgctxt ""
+msgid "More movies staring %1$s"
+msgstr "更多由 %1$s 領銜主演的電影"
+
+msgctxt ""
+msgid "Other movies released in %1$s"
+msgstr "其他在 %1$s 上映的電影"
+
+msgctxt ""
+msgid "artist"
+msgstr "演出者"
+
+msgctxt ""
+msgid "random"
+msgstr "隨機"
+
+msgctxt ""
+msgid "label"
+msgstr "標籤"
+
+msgctxt ""
+msgid "formed"
+msgstr "組成"
+
+msgctxt ""
+msgid "born"
+msgstr "出生"
+
+msgctxt ""
+msgid "died"
+msgstr "逝世"
+
+msgctxt ""
+msgid "disbanded"
+msgstr "解散"
+
+msgctxt ""
+msgid "years active"
+msgstr "活躍年份"
+
+msgctxt ""
+msgid "Click for more"
+msgstr "點擊此處以查看更多"
+
+msgctxt ""
+msgid "Loading albums"
+msgstr "載入專輯中"
+
+msgctxt ""
+msgid ""
+"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
+"To prevent a mainframe implosion, you should probably give me some "
+"text. I don't really care what it is at this point, why not be creative? "
+"Do you have a %2$s? I won't tell..."
+msgstr ""
+"%1$d 秒鐘前，有個輸入對話框在 Kodi 中被開啟了，而且它現在還開著！"
+"為了避免主機出錯，您應該隨便給我一些文字。我不在意您要輸入什麼，所以何不"
+"發揮您的創意呢？"
+"您有 %2$s 嗎？我不會告訴其他人的..."
+
+msgctxt ""
+msgid "all media"
+msgstr "所有媒體"
+
+msgctxt ""
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt ""
+msgid "SoundCloud"
+msgstr "SoundCloud"
+
+msgctxt ""
+msgid "GoogleMusic"
+msgstr "GoogleMusic"
+
+msgctxt ""
+msgid "Radio"
+msgstr "電台"
+
+msgctxt ""
+msgid "MixCloud"
+msgstr "MixCloud"
+
+msgctxt ""
+msgid "First aired"
+msgstr "首播"
+
+msgctxt ""
+msgid "Updated %1$s details"
+msgstr "更新 %1$s 詳細資料"
+
+msgctxt ""
+msgid "Title"
+msgstr "標題"
+
+msgctxt ""
+msgid "Plot"
+msgstr "劇情"
+
+msgctxt ""
+msgid "Rating"
+msgstr "分級"
+
+msgctxt ""
+msgid "Original title"
+msgstr "原始標題"
+
+msgctxt ""
+msgid "Directors"
+msgstr "導演"
+
+msgctxt ""
+msgid "Writers"
+msgstr "編劇"
+
+msgctxt ""
+msgid "File path"
+msgstr "檔案路徑"
+
+msgctxt ""
+msgid "Artist"
+msgstr "演出者"
+
+msgctxt ""
+msgid "Description"
+msgstr "敘述"
+
+msgctxt ""
+msgid "Label"
+msgstr "標籤"
+
+msgctxt ""
+msgid "Year"
+msgstr "年份"
+
+msgctxt ""
+msgid "Genres"
+msgstr "類型"
+
+msgctxt ""
+msgid "Styles"
+msgstr "風格"
+
+msgctxt ""
+msgid "Themes"
+msgstr "主題"
+
+msgctxt ""
+msgid "Moods"
+msgstr "心情"
+
+msgctxt ""
+msgid "Album artist"
+msgstr "專輯演出者"
+
+msgctxt ""
+msgid "Album"
+msgstr "專輯"
+
+msgctxt ""
+msgid "Track"
+msgstr "歌曲"
+
+msgctxt ""
+msgid "Disc"
+msgstr "碟"
+
+msgctxt ""
+msgid "Tagline"
+msgstr "標語"
+
+msgctxt ""
+msgid "Studio"
+msgstr "工作室"
+
+msgctxt ""
+msgid "Content rating"
+msgstr "內容分級"
+
+msgctxt ""
+msgid "Premiered"
+msgstr "首映"
+
+msgctxt ""
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt ""
+msgid "Sort title"
+msgstr "排序標題"
+
+msgctxt ""
+msgid "Country"
+msgstr "國家"
+
+msgctxt ""
+msgid "Set"
+msgstr "設定"
+
+msgctxt ""
+msgid "Tags"
+msgstr "標籤"
+
+msgctxt ""
+msgid "Trailer"
+msgstr "預告片"
+
+msgctxt ""
+msgid "Formed"
+msgstr "組成"
+
+msgctxt ""
+msgid "Disbanded"
+msgstr "解散"
+
+msgctxt ""
+msgid "Years Active"
+msgstr "活躍年份"
+
+msgctxt ""
+msgid "Born"
+msgstr "出生"
+
+msgctxt ""
+msgid "Died"
+msgstr "逝世"
+
+msgctxt ""
+msgid "Instruments"
+msgstr "樂器"
+
+msgctxt ""
+msgid "more"
+msgstr "更多"
+
+msgctxt ""
+msgid "in progress"
+msgstr "處理中"
+
+msgctxt ""
+msgid "URL"
+msgstr "網址"
+
+msgctxt ""
+msgid "Add an image via an external URL"
+msgstr "透過外部網址來新增圖片"
+
+msgctxt ""
+msgid "Searching for more images"
+msgstr "搜尋更多圖片"
+
+msgctxt ""
+msgid "Selector"
+msgstr "選擇器"
+
+msgctxt ""
+msgid "External Search"
+msgstr "外部搜尋"
+
+msgctxt ""
+msgid "Local media"
+msgstr "本地媒體"
+
+msgctxt ""
+msgid "Chorus Search"
+msgstr "Chorus 搜尋"
+
+msgctxt ""
+msgid "YouTube Search"
+msgstr "YouTube 搜尋"
+
+msgctxt ""
+msgid "Executed addon"
+msgstr "已執行的附加元件"
+
+msgctxt ""
+msgid "all"
+msgstr "所有"
+
+msgctxt ""
+msgid "video"
+msgstr "影片"
+
+msgctxt ""
+msgid "audio"
+msgstr "音樂"
+
+msgctxt ""
+msgid "image"
+msgstr "圖片"
+
+msgctxt ""
+msgid "picture"
+msgstr "照片"
+
+msgctxt ""
+msgid "executable"
+msgstr "可執行的"
+
+msgctxt ""
+msgid "settings"
+msgstr "設定"
+
+msgctxt ""
+msgid "Refresh"
+msgstr "重新整理"
+
+msgctxt ""
+msgid "Confirm refresh"
+msgstr ""
+"重新整理 '%1$s' 將會把它從資料庫中移除後重新新增一次，所以它的 ID 可能會"
+"改變。我會嘗試在幾秒內重新載入此頁面來讀取新的 ID。按下 'YES' 來確認你想"
+"進行此操作"
+
+msgctxt ""
+msgid "Refresh Ignore NFO"
+msgstr "更新時忽略 NFO"
+
+msgctxt ""
+msgid "Ignore local NFO files when manually refreshing media."
+msgstr "當手動更新多媒體檔案時忽略本地 NFO 檔。"
+
+msgctxt ""
+msgid "Show only"
+msgstr "僅顯示"
+
+msgctxt ""
+msgid "Show and episodes"
+msgstr "表演與劇集"
+
+msgctxt ""
+msgid "Top music"
+msgstr "音樂排行榜"
+
+msgctxt ""
+msgid "%1$s Artists"
+msgstr "%1$s 演出者"
+
+msgctxt ""
+msgid "%1$s Albums"
+msgstr "%1$s 專輯"
+
+msgctxt ""
+msgid "%1$s Songs"
+msgstr "%1$s 歌曲"
+
+msgctxt ""
+msgid "default"
+msgstr "預設"
+
+msgctxt ""
+msgid "Actions"
+msgstr "動作"
+
+msgctxt ""
+msgid "play files"
+msgstr "播放檔案"
+
+msgctxt ""
+msgid "queue files"
+msgstr "佇列檔案"
+
+msgctxt ""
+msgid "Sent text"
+msgstr "傳送文字"
+
+msgctxt ""
+msgid "License"
+msgstr "授權"
+
+msgctxt ""
+msgid "Main Menu"
+msgstr "主選單"
+
+msgctxt ""
+msgid "Search"
+msgstr "搜尋"
+
+msgctxt ""
+msgid "Custom Add-on search"
+msgstr "自訂附加元件搜尋"
+
+msgctxt ""
+msgid "Add custom add-on searches"
+msgstr ""
+"Chorus 搜尋功能不只可以用在本地多媒體上，也可以搜尋附加元件內容。舉例來說，您可以用搜尋來找 YouTube 上的影"
+"片或 SoundCloud 上的音樂。這個頁面可以讓您新增對附加元件內容的自訂搜尋。請參閱 %1$s 以取得更多資訊。"
+
+msgctxt ""
+msgid "Add-ons help page"
+msgstr "附加元件說明頁"
+
+msgctxt ""
+msgid "No %1$s found"
+msgstr "沒有找到 %1$s"
+
+msgctxt ""
+msgid "results"
+msgstr "結果"
+
+msgctxt ""
+msgid "EPG data"
+msgstr "EPG 資料"
+
+msgctxt ""
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt ""
+msgid "Recordings"
+msgstr "錄製中"
+
+msgctxt ""
+msgid "Channel recording toggled"
+msgstr "已切頻道錄製"
+
+msgctxt ""
+msgid "TV Channels"
+msgstr "電視頻道"
+
+msgctxt ""
+msgid "Radio Stations"
+msgstr "電台"
+
+msgctxt ""
+msgid "Record"
+msgstr "錄製"
+
+msgctxt ""
+msgid "Toggle timer"
+msgstr "切換計時器"
+
+msgctxt ""
+msgid "Now"
+msgstr "現在"
+
+msgctxt ""
+msgid "Rename playlist"
+msgstr "重新命名播放清單"
+
+msgctxt ""
+msgid "album"
+msgstr "專輯"
+
+msgctxt ""
+msgid "Videos"
+msgstr "影片"
+
+msgctxt ""
+msgid "Lost connection to Kodi"
+msgstr "失去與 Kodi 的連線"
+
+msgctxt ""
+msgid "Attempt to reconnect"
+msgstr "嘗試重新連線"
+
+msgctxt ""
+msgid "Attempting reconnect"
+msgstr "嘗試重新連線中"
+
+msgctxt ""
+msgid "Top Songs"
+msgstr "熱門歌曲"
+
+msgctxt ""
+msgid "Top Albums"
+msgstr "熱門專輯"
+
+msgctxt ""
+msgid "Toggle select all"
+msgstr "切換選擇全部"
+
+msgctxt ""
+msgid "More like this"
+msgstr "更多類似的"
+
+msgctxt ""
+msgid "music videos"
+msgstr "音樂錄影帶"
+
+msgctxt ""
+msgid "Related music videos from YouTube"
+msgstr "在 YouTube 上相關的音樂錄影帶"
+
+msgctxt ""
+msgid "Lost websocket connection"
+msgstr "失去 websocket 連線"
+
+msgctxt ""
+msgid "Attempting websockets reconnect"
+msgstr "嘗試重新連線 websockets 中"
+
+msgctxt ""
+msgid "This should be the play path for the trailer. Eg. %1$s"
+msgstr "此處應該是預告片的播放路徑。例 %1$s"
+
+msgctxt ""
+msgid "%1$s party mode toggled"
+msgstr "%1$s 已切換派對模式"
+
+msgctxt ""
+msgid "Set your personal API key"
+msgstr "設定您的個人 API 金鑰"
+
+msgctxt ""
+msgid "The Movie DB"
+msgstr "The Movie DB"
+
+msgctxt ""
+msgid "FanartTV"
+msgstr "FanartTV
