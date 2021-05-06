@@ -1,3 +1,8 @@
+Version 19.x-2.4.8
+-------------
+* Fixed HTML artifacts in displaying album year (@arigit & @nagubal) #439
+* Create translation for Traditional Chinese (zh_hant) (@Cypresslin) #437
+
 Version 19.x-2.4.7
 -------------
 * Fixed posters not displaying for shows and movies in Kodi 19 (@enen92) #392
