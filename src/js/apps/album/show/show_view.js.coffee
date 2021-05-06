@@ -39,7 +39,7 @@
       @model.set(App.request('album:action:items'))
     setMeta: ->
       @model.set
-        subtitle: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
+        subtitleHtml: @themeLink @model.get('year'), 'music/albums?year=' + @model.get('year')
     attributes: ->
       @watchedAttributes 'card-minimal'
 
