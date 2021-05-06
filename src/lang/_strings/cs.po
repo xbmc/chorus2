@@ -239,10 +239,6 @@ msgid "Websockets host"
 msgstr "Websocket host"
 
 msgctxt ""
-msgid "Websockets host"
-msgstr "Websocket host"
-
-msgctxt ""
 msgid "Default player"
 msgstr "Výchozí přehrávač"
 
@@ -870,10 +866,6 @@ msgstr "scénář"
 msgctxt ""
 msgid "director"
 msgstr "režisér"
-
-msgctxt ""
-msgid "mood"
-msgstr "mood"
 
 msgctxt ""
 msgid "style"

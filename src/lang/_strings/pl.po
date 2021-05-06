@@ -823,10 +823,6 @@ msgid "director"
 msgstr "reżyser"
 
 msgctxt ""
-msgid "mood"
-msgstr "nastrój"
-
-msgctxt ""
 msgid "style"
 msgstr "styl"
 

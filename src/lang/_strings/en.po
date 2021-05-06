@@ -873,10 +873,6 @@ msgid "director"
 msgstr "director"
 
 msgctxt ""
-msgid "mood"
-msgstr "mood"
-
-msgctxt ""
 msgid "style"
 msgstr "style"
 
@@ -1464,4 +1460,4 @@ msgstr "The Movie DB"
 
 msgctxt ""
 msgid "FanartTV"
-msgstr "FanartTV
+msgstr "FanartTV"

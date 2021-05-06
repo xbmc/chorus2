@@ -482,20 +482,12 @@ msgid "You could potentially damage your system with this and there are no sanit
 msgstr "Naudodami tai galite sugadinti savo sistemą ir nuo to nėra jokios apsaugos. Naudokite savo pačių rizika."
 
 msgctxt ""
-msgid "Kodi settings"
-msgstr "Kodi nustatymai"
-
-msgctxt ""
 msgid "Saved Kodi settings"
 msgstr "Kodi nustatymai išsaugoti"
 
 msgctxt ""
 msgid "General"
 msgstr "Pagrindiniai"
-
-msgctxt ""
-msgid "Web settings"
-msgstr "Žiniatinklio nustatymai"
 
 msgctxt ""
 msgid "Advanced setting level is recommended for those who know what they are doing."
