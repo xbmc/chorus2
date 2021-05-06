@@ -20,6 +20,7 @@ helpers.translate.getLanguages = ->
     pt: "Portuguese"
     sk: "Slovak"
     zh_hans: "Chinese, Simplified"
+    zh_hant: "Chinese, Traditional"
   }
 
 ## Init language and translations.
