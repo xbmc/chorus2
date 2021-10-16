@@ -27,7 +27,7 @@ msgstr "Déselectionner tout"
 
 msgctxt ""
 msgid "Filters"
-msgstr "Filtrer"
+msgstr "Filtres"
 
 msgctxt ""
 msgid "Sort"
@@ -47,22 +47,22 @@ msgstr "filtrer"
 
 msgctxt ""
 msgid "Add Filter"
-msgstr "Ajouter un filtrer"
+msgstr "Ajouter un filtre"
 
 msgid "Which player to start with"
 msgstr "Lecteur choisi pour la lecture"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "Ignorer les termes tels que 'The' et 'a' en triant les listes"
+msgstr "Ignorer les termes tels que 'The' et 'A' en triant les listes"
 
 msgctxt ""
 msgid ""
 "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can "
 "impact performance with large libraries"
 msgstr ""
-"Lorsque vous lister les artistes, ne voir que les artistes avec albums ou tous les artistes. Attention: désactiver "
-"cette fonctionnalité peut impacter les performance sur les larges libraries."
+"Lorsque vous listez les artistes, ne voir que les artistes avec albums ou tous les artistes. Attention: désactiver "
+"cette fonctionnalité peut impacter les performance sur les libraries de grande taille."
 
 msgctxt ""
 msgid "is the default"
@@ -90,23 +90,23 @@ msgstr "Veuillez patienter ..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "Impossible de se connecter à Kodi depuis un bon bout de temps. Serait-il décédé !?"
+msgstr "Impossible de se connecter à Kodi depuis trop de temps. Est-il en fonction?"
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr "Scan de la librairie Vidéo en cours"
+msgstr "Balayage de la librairie Vidéo en cours"
 
 msgctxt ""
 msgid "Video library scan complete"
-msgstr "Scan de la librairie Vidéo terminé"
+msgstr "Balayage de la librairie Vidéo terminé"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr "Scan de la librairie Audio en cours"
+msgstr "Balayage de la librairie Audio en cours"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr "Scan de la librairie Audio terminé"
+msgstr "Balayage de la librairie Audio terminé"
 
 msgctxt ""
 msgid "Kodi has quit"
@@ -126,7 +126,7 @@ msgstr "Chargement du dossier"
 
 msgctxt ""
 msgid "Show more"
-msgstr "Montrer plus"
+msgstr "En montrer d'avantage"
 
 msgctxt ""
 msgid "to Kodi"
@@ -154,7 +154,7 @@ msgstr "Listes de lecture existantes"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Liste de lecture vide, vous devriez y ajouter quelque chose"
+msgstr "Liste de lecture vide, vous devriez y ajouter quelque chose."
 
 msgctxt ""
 msgid "Create a new list"
@@ -162,15 +162,15 @@ msgstr "Créer un nouvelle liste"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr "Ajouter à la liste"
+msgstr "Ajouter à la liste de lecture"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr "Ajouté à la liste"
+msgstr "Ajouté à la liste de lecture"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "Donner un nom à votre liste de lecture"
+msgstr "Nommez votre liste de lecture"
 
 msgctxt ""
 msgid "Recently added"
@@ -190,7 +190,7 @@ msgstr "Épisode"
 
 msgctxt ""
 msgid "Play"
-msgstr "Jouer"
+msgstr "Lire"
 
 msgctxt ""
 msgid "Queue"
@@ -247,7 +247,7 @@ msgstr "Artistes d'album seulement"
 
 msgctxt ""
 msgid "Poll interval"
-msgstr "Intervalle de Poll "
+msgstr "Intervalle de requête périodique"
 
 msgctxt ""
 msgid "Reverse proxy support"
@@ -272,7 +272,7 @@ msgstr "s"
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr "Votre navigateur ne supporte pas les websockets ! Prenez le temps de mettre à jour votre navigateur."
+msgstr "Votre navigateur ne supporte pas les websockets. Prenez le temps de mettre à jour votre navigateur."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
@@ -324,11 +324,11 @@ msgstr "Chargement..."
 
 msgctxt ""
 msgid "Scan video library"
-msgstr "Scanner la librairie vidéo"
+msgstr "Balayer la librairie vidéo"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr "Scanner la librairie audio"
+msgstr "Balayer la librairie audio"
 
 msgctxt ""
 msgid "About Chorus"
@@ -368,7 +368,7 @@ msgstr "Paramètres Web"
 
 msgctxt ""
 msgid "Kodi settings"
-msgstr "Paramètres de Kodi"
+msgstr "Paramètres Kodi"
 
 msgctxt ""
 msgid "Now Playing Playlists"
@@ -377,7 +377,7 @@ msgstr "Listes de lecture en cours"
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
 msgstr ""
-"Passer de Kodi à la lecture locale en utilisant les tabs. Vous pouvez changer la visibilité avec la flèche en haut "
+"Passer de la lecture sur Kodi à la lecture locale en utilisant les onglets. Vous pouvez changer la visibilité avec la flèche en haut "
 "à droite"
 
 msgctxt ""
@@ -394,7 +394,7 @@ msgstr "Rafraîchir la liste de lecture"
 
 msgctxt ""
 msgid "Party mode"
-msgstr "Mode soirée"
+msgstr "Mode aléatoire"
 
 msgctxt ""
 msgid "Save Kodi playlist"
@@ -462,7 +462,7 @@ msgstr "Parcourez ici tout le contenu Kodi, pas seulement celui de la librairie.
 
 msgctxt ""
 msgid "Send text to Kodi"
-msgstr "Envoyer un texte à Kodi"
+msgstr "Envoyer du texte à Kodi"
 
 msgctxt ""
 msgid "The lab"
@@ -474,7 +474,7 @@ msgstr "Le laboratoire Chorus"
 
 msgctxt ""
 msgid "Warning"
-msgstr "Danger"
+msgstr "Avertissement"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
@@ -486,11 +486,11 @@ msgstr "Navigateur de l'API Kodi"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "Cet ouil permet de tester l'API. Sélectionner une méthode puis exécuter la avec des paramètres."
+msgstr "Cet ouil vous permet de tester l'API. Sélectionnez une méthode puis exécutez celle-ci avec des paramètres."
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
-msgstr "Cela peut potentiellement abimer votre système. Utilisez à vos risques et périls."
+msgstr "Cela peut potentiellement abîmer votre système. Utilisez à vos risques et périls."
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -601,7 +601,7 @@ msgstr "Le clavier contrôle Kodi, le navigateur ou les deux"
 
 msgctxt ""
 msgid "Learn more"
-msgstr "En apprendre plus"
+msgstr "En apprendre d'avantage"
 
 msgctxt ""
 msgid "Resume playback"
@@ -711,7 +711,7 @@ msgstr "ok"
 
 msgctxt ""
 msgid "Are you sure?"
-msgstr "Êtes-vous sûr ?"
+msgstr "Êtes-vous sûr?"
 
 msgctxt ""
 msgid "Set all episodes as"
