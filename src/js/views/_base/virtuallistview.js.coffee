@@ -16,7 +16,7 @@
     animateFrameTrigger: "ui:animate:stop"
     placeHolderViewName: 'CardViewPlaceholder'
 
-    ## Inital render before scrolling
+    ## Initial render before scrolling
     addChild: (child, ChildView, index) ->
       if index > @preload
         ChildView = App.Views[@placeHolderViewName]

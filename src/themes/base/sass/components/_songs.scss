@@ -6,7 +6,7 @@
     cursor: pointer;
     font-size: 13px;
     @include user-select(none);
-    // Placholder row.
+    // Placeholder row.
     &.ph td {
       height: $song-row-height;
     }
