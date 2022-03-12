@@ -653,9 +653,7 @@ msgctxt ""
 msgid ""
 "Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
-msgstr ""
-"在這裡您可以修改選單項目的標題、網址以及 %1$s。您也可以刪除，重新排序和新
-增新的項目。"
+msgstr ""在這裡您可以修改選單項目的標題、網址以及 %1$s。您也可以刪除，重新排序和新增新的項目。"
 
 msgctxt ""
 msgid "Main Nav"
