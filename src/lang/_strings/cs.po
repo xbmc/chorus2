@@ -239,10 +239,6 @@ msgid "Websockets host"
 msgstr "Websocket host"
 
 msgctxt ""
-msgid "Websockets host"
-msgstr "Websocket host"
-
-msgctxt ""
 msgid "Default player"
 msgstr "Výchozí přehrávač"
 
