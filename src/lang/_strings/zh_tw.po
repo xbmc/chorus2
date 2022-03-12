@@ -1453,4 +1453,4 @@ msgstr "The Movie DB"
 
 msgctxt ""
 msgid "FanartTV"
-msgstr "FanartTV
+msgstr "FanartTV"
