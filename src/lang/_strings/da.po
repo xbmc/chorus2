@@ -5,49 +5,49 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-11-21 21:26+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: da_dk\n"
+"PO-Revision-Date: 2022-03-17 10:00+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/da_dk/>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt ""
 msgid "Nothing playing"
-msgstr ""
+msgstr "Intet afspilles"
 
 msgctxt ""
 msgid "Deselect all"
-msgstr ""
+msgstr "Fravælg alle"
 
 msgctxt ""
 msgid "Filters"
-msgstr ""
+msgstr "Filtre"
 
 msgctxt ""
 msgid "Sort"
-msgstr ""
+msgstr "Sorter"
 
 msgctxt ""
 msgid "Select a filter"
-msgstr ""
+msgstr "Vælg et filter"
 
 msgctxt ""
 msgid "Select an option"
-msgstr ""
+msgstr "Vælg en indstilling"
 
 msgctxt ""
 msgid "filter"
-msgstr ""
+msgstr "filter"
 
 msgctxt ""
 msgid "Add filter"
-msgstr ""
+msgstr "Tilføj filter"
 
 msgid "Which player to start with"
 msgstr ""
@@ -192,7 +192,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Play"
-msgstr ""
+msgstr "Afspil"
 
 msgctxt ""
 msgid "Queue"
@@ -340,11 +340,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Artists"
-msgstr ""
+msgstr "Kunstnere"
 
 msgctxt ""
 msgid "Albums"
-msgstr ""
+msgstr "Albummer"
 
 msgctxt ""
 msgid "Recent movies"
@@ -657,7 +657,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Movies"
-msgstr ""
+msgstr "Film"
 
 msgctxt ""
 msgid "TV shows"
@@ -677,7 +677,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Settings"
-msgstr ""
+msgstr "Indstillinger"
 
 msgctxt ""
 msgid "Help"
@@ -895,7 +895,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently added albums"
-msgstr ""
+msgstr "Nyligt tilføjede albummer"
 
 msgctxt ""
 msgid "Random albums"
@@ -903,7 +903,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently played albums"
-msgstr ""
+msgstr "Nyligt afspillede albummer"
 
 msgctxt ""
 msgid "Random movies"
@@ -1027,11 +1027,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Directors"
-msgstr ""
+msgstr "Instruktører"
 
 msgctxt ""
 msgid "Writers"
-msgstr ""
+msgstr "Forfattere"
 
 msgctxt ""
 msgid "File path"
@@ -1051,11 +1051,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Year"
-msgstr ""
+msgstr "År"
 
 msgctxt ""
 msgid "Genres"
-msgstr ""
+msgstr "Genrer"
 
 msgctxt ""
 msgid "Styles"
@@ -1079,7 +1079,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Track"
-msgstr ""
+msgstr "Spor"
 
 msgctxt ""
 msgid "Disc"
@@ -1291,7 +1291,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Search"
-msgstr ""
+msgstr "Søg"
 
 msgctxt ""
 msgid "Custom Add-on search"
