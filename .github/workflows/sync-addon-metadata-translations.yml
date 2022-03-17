@@ -1,0 +1,46 @@
+name: Sync addon metadata translations
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/xml/addon.release.xml'
+      - 'src/lang/_strings**.po'
+
+jobs:
+  default:
+    if: github.repository == 'xbmc/chorus2'
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install git+https://github.com/xbmc/sync_addon_metadata_translations.git
+
+      - name: Run sync-addon-metadata-translations
+        run: |
+          sync-addon-metadata-translations --relative-po-path=src/lang/_strings --addon-xml-filename=addon.release.xml
+        working-directory: ./project
+
+      - name: Create PR for sync-addon-metadata-translations changes
+        uses: peter-evans/create-pull-request@v3.10.0
+        with:
+          commit-message: Sync of addon metadata translations
+          title: Sync of addon metadata translations
+          body: Sync of addon metadata translations triggered by ${{ github.sha }}
+          branch: amt-sync
+          delete-branch: true
+          path: ./project
+          reviewers: gade01
