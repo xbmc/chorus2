@@ -18,6 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 2.0\n"
 
+msgctxt "Addon Summary"
+msgid "Default web interface"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
+msgstr ""
+
 msgctxt ""
 msgid "Nothing playing"
 msgstr "Nada tocando"
@@ -1450,5 +1458,3 @@ msgstr "Este deveria ser o diretório de execução para o trailer. Ex. %1$s"
 msgctxt ""
 msgid "%1$s party mode toggled"
 msgstr "%1$s modo festa ativado"
-
-

@@ -18,6 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.11\n"
 
+msgctxt "Addon Summary"
+msgid "Default web interface"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
+msgstr ""
+
 msgctxt ""
 msgid "Nothing playing"
 msgstr "Nothing playing"
