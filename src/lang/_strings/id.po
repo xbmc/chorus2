@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-11-21 21:26+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: id_id\n"
+"PO-Revision-Date: 2022-03-17 08:45+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Indonesian <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/id_id/>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt ""
 msgid "Nothing playing"
@@ -27,7 +27,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Filters"
-msgstr ""
+msgstr "Saring"
 
 msgctxt ""
 msgid "Sort"
@@ -192,7 +192,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Play"
-msgstr ""
+msgstr "Putar"
 
 msgctxt ""
 msgid "Queue"
@@ -209,7 +209,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 msgctxt ""
 msgid "complete"
@@ -257,7 +257,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Language"
-msgstr ""
+msgstr "Bahasa"
 
 msgctxt ""
 msgid "Preferred language"
@@ -320,11 +320,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Scan video library"
-msgstr ""
+msgstr "Pindai pustaka video"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr ""
+msgstr "Pindai pustaka audio"
 
 msgctxt ""
 msgid "About Chorus"
@@ -336,11 +336,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Artists"
-msgstr ""
+msgstr "Artis"
 
 msgctxt ""
 msgid "Albums"
-msgstr ""
+msgstr "Album"
 
 msgctxt ""
 msgid "Recent movies"
@@ -500,7 +500,7 @@ msgstr ""
 
 msgctxt ""
 msgid "General"
-msgstr ""
+msgstr "Umum"
 
 msgctxt ""
 msgid ""
@@ -513,7 +513,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Remove"
-msgstr ""
+msgstr "Hapus"
 
 msgctxt ""
 msgid "cast"
@@ -645,7 +645,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Music"
-msgstr ""
+msgstr "Musik"
 
 msgctxt ""
 msgid "Digital radio"
@@ -653,7 +653,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Movies"
-msgstr ""
+msgstr "Film"
 
 msgctxt ""
 msgid "TV shows"
@@ -673,7 +673,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Settings"
-msgstr ""
+msgstr "Setelan"
 
 msgctxt ""
 msgid "Help"
@@ -779,7 +779,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Edit"
-msgstr ""
+msgstr "Sunting"
 
 msgctxt ""
 msgid "Add to Kodi"
@@ -787,7 +787,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Watched"
-msgstr ""
+msgstr "Ditonton"
 
 msgctxt ""
 msgid "New playlist"
@@ -891,7 +891,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently added albums"
-msgstr ""
+msgstr "Album yang baru ditambahkan"
 
 msgctxt ""
 msgid "Random albums"
@@ -899,7 +899,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently played albums"
-msgstr ""
+msgstr "Album yang baru diputar"
 
 msgctxt ""
 msgid "Random movies"
@@ -1023,11 +1023,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Directors"
-msgstr ""
+msgstr "Sutradara"
 
 msgctxt ""
 msgid "Writers"
-msgstr ""
+msgstr "Penulis"
 
 msgctxt ""
 msgid "File path"
@@ -1047,11 +1047,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Year"
-msgstr ""
+msgstr "Tahun"
 
 msgctxt ""
 msgid "Genres"
-msgstr ""
+msgstr "Aliran"
 
 msgctxt ""
 msgid "Styles"
@@ -1075,7 +1075,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Track"
-msgstr ""
+msgstr "Trek"
 
 msgctxt ""
 msgid "Disc"
@@ -1119,7 +1119,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Trailer"
-msgstr ""
+msgstr "Trailer"
 
 msgctxt ""
 msgid "Formed"
@@ -1219,7 +1219,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Refresh"
-msgstr ""
+msgstr "Segarkan"
 
 msgctxt ""
 msgid "Confirm refresh"
@@ -1287,7 +1287,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Search"
-msgstr ""
+msgstr "Cari"
 
 msgctxt ""
 msgid "Custom Add-on search"

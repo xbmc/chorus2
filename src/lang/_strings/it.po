@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-11-21 21:26+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: it_it\n"
+"PO-Revision-Date: 2022-03-17 08:45+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/it_it/>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt ""
 msgid "Nothing playing"
@@ -27,7 +27,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 msgctxt ""
 msgid "Sort"
@@ -192,7 +192,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Play"
-msgstr ""
+msgstr "Play"
 
 msgctxt ""
 msgid "Queue"
@@ -209,7 +209,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Download"
-msgstr ""
+msgstr "Scarica"
 
 msgctxt ""
 msgid "complete"
@@ -257,7 +257,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 msgctxt ""
 msgid "Preferred language"
@@ -324,11 +324,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Scan video library"
-msgstr ""
+msgstr "Scansione libreria video"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr ""
+msgstr "Scansione libreria audio"
 
 msgctxt ""
 msgid "About Chorus"
@@ -340,11 +340,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Artists"
-msgstr ""
+msgstr "Artisti"
 
 msgctxt ""
 msgid "Albums"
-msgstr ""
+msgstr "Album"
 
 msgctxt ""
 msgid "Recent movies"
@@ -504,7 +504,7 @@ msgstr ""
 
 msgctxt ""
 msgid "General"
-msgstr ""
+msgstr "Generali"
 
 msgctxt ""
 msgid ""
@@ -649,7 +649,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Music"
-msgstr ""
+msgstr "Musica"
 
 msgctxt ""
 msgid "Digital radio"
@@ -657,7 +657,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Movies"
-msgstr ""
+msgstr "Film"
 
 msgctxt ""
 msgid "TV shows"
@@ -677,7 +677,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 msgctxt ""
 msgid "Help"
@@ -783,7 +783,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 msgctxt ""
 msgid "Add to Kodi"
@@ -791,7 +791,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Watched"
-msgstr ""
+msgstr "Visto"
 
 msgctxt ""
 msgid "New playlist"
@@ -895,7 +895,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently added albums"
-msgstr ""
+msgstr "Album aggiunti di recente"
 
 msgctxt ""
 msgid "Random albums"
@@ -903,7 +903,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Recently played albums"
-msgstr ""
+msgstr "Album ascoltati di recente"
 
 msgctxt ""
 msgid "Random movies"
@@ -1027,11 +1027,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Directors"
-msgstr ""
+msgstr "Registi"
 
 msgctxt ""
 msgid "Writers"
-msgstr ""
+msgstr "Autori"
 
 msgctxt ""
 msgid "File path"
@@ -1051,11 +1051,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Year"
-msgstr ""
+msgstr "Anno"
 
 msgctxt ""
 msgid "Genres"
-msgstr ""
+msgstr "Generi"
 
 msgctxt ""
 msgid "Styles"
@@ -1079,7 +1079,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Track"
-msgstr ""
+msgstr "Brano"
 
 msgctxt ""
 msgid "Disc"
@@ -1123,7 +1123,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Trailer"
-msgstr ""
+msgstr "Trailer"
 
 msgctxt ""
 msgid "Formed"
@@ -1291,7 +1291,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 msgctxt ""
 msgid "Custom Add-on search"
