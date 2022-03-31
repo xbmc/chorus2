@@ -5,25 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-01-31 13:15+0100\n"
-"Last-Translator: Marcin W.\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/teamxbmc/kodi-main/language/pl_PL/)\n"
+"PO-Revision-Date: 2022-03-27 01:19+0000\n"
+"Last-Translator: Marek Adamski <fevbew@wp.pl>\n"
+"Language-Team: Polish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/pl_pl/>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr ""
+msgstr "Domyślny interfejs sieciowy"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
-msgstr ""
+msgstr "Przeglądaj i wchodź w interakcję z muzyką, filmami, programami telewizyjnymi i nie tylko za pomocą przeglądarki internetowej. Przesyłaj muzykę i filmy w przeglądarce. Edytuj i zarządzaj biblioteką multimediów Kodi."
 
 msgctxt ""
 msgid "Nothing playing"
@@ -66,7 +66,7 @@ msgstr "Ignoruj wyrażenia takie, jak 'The' i 'A' podczas sortowania list"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "W trakcie przeglądania listy wykonawców, widoczni będą tylko wykonawcy z własnymi albumami lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć negatywny wpływ na wydajność w przypadku dużych bibliotek."
+msgstr "W trakcie przeglądania listy wykonawców, widoczni będą tylko wykonawcy z własnymi albumami lub wszyscy odnalezieni wykonawcy. Ostrzeżenie: dezaktywowanie tej funkcji może mieć negatywny wpływ na wydajność w przypadku dużych bibliotek"
 
 msgctxt ""
 msgid "is the default"
@@ -158,7 +158,7 @@ msgstr "Istniejące listy odtwarzania"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Lista odtwarzania jest pusta, powinieneś coś do niej dodać."
+msgstr "Pusta lista odtwarzania, chyba powinno być coś do niej dodane?"
 
 msgctxt ""
 msgid "Create a new list"
@@ -280,7 +280,7 @@ msgstr "Twoja przeglądarka nie obsługuje połączeń WebSocket! Idź z duchem 
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Nieudane połączenie WebSocket, awaryjna aktywacja połączenia bezstanowego z cykliczną aktualizacją zawartości. Połączenie tego typu jest wolniejsze i używa więcej zasobów. Upewnij się, że aktywowałeś opcję 'Zezwalaj zdalnym programom na sterowanie aplikacją' w ustawieniach Kodi (System -> Usługi -> Sterowanie). Innym powodem tego problemu może być korzystanie z serwera proxy lub dostęp za pośrednictwem adresu IP, gdy możliwy jest dostęp przy pomocy nazwy localhost. W przypadku poprawnego działania połączenia WebSocket, wystarczy odświeżyć zawartość przeglądarki."
+msgstr "Nieudane połączenie WebSocket"
 
 msgctxt ""
 msgid "Video"
@@ -313,7 +313,7 @@ msgid "Subtitle"
 msgid_plural "Subtitles"
 msgstr[0] "Napisy"
 msgstr[1] "Napisy"
-msgstr[2] "Napisy"
+msgstr[2] "Napisów"
 
 msgctxt ""
 msgid "Result"
@@ -380,7 +380,7 @@ msgstr "Listy Teraz odtwarzane"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "Umożliwia wybór odtwarzacza mediów, pomiędzy Kodi a przeglądarką, przy pomocy zakładek. Możesz zmienić widoczność zakładek przy pomocy strzałki w prawym górnym rogu."
+msgstr "Umożliwia wybór odtwarzacza mediów, pomiędzy Kodi a przeglądarką, przy pomocy zakładek. Możesz zmienić widoczność zakładek przy pomocy strzałki w prawym górnym rogu"
 
 msgctxt ""
 msgid "Current playlist"
@@ -480,7 +480,7 @@ msgstr "Ostrzeżenie"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
-msgstr "Funkcje eksperymentalne, używasz ich na własną odpowiedzialność."
+msgstr "Funkcje eksperymentalne, używasz ich na własną odpowiedzialność"
 
 msgctxt ""
 msgid "Kodi API browser"
@@ -488,7 +488,7 @@ msgstr "Przeglądarka API Kodi"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "Narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami"
+msgstr "Narzędzie do testowania API. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami."
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
@@ -584,7 +584,7 @@ msgstr "Zaznaczaj odtwarzaną pozycję na liście"
 
 msgctxt ""
 msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
-msgstr "Umożliwia automatyczne przewijanie listy do aktualnie odtwarzanej pozycji. Ta operacja jest wykonywana za każdym razem, gdy zmienia się odtwarzana pozycja."
+msgstr "Umożliwia automatyczne przewijanie listy do aktualnie odtwarzanej pozycji. Ta operacja jest wykonywana za każdym razem, gdy zmienia się odtwarzana pozycja"
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -664,7 +664,7 @@ msgstr "Przeglądarka"
 
 msgctxt ""
 msgid "Thumbs up"
-msgstr "Lubię to!"
+msgstr "Kciuki w górę"
 
 msgctxt ""
 msgid "Settings"
@@ -756,7 +756,7 @@ msgstr "Pokazuj nazwę urządzenia"
 
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
-msgstr "Umożliwia wyświetlanie nazwy urządzenia, na którym uruchomiono Kodi, w nagłówku strony Chorusa."
+msgstr "Wyświetlaj nazwę urządzenia Kodi w nagłówku Chorus"
 
 msgctxt ""
 msgid "No results found"
@@ -864,7 +864,7 @@ msgstr "Zakończono czyszczenie biblioteki muzyki"
 
 msgctxt ""
 msgid "This is a tool to test out the api. Select a method then execute it with parameters."
-msgstr "To jest narzędzie do testowania interfejsu programistycznego Kodi. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami"
+msgstr "To jest narzędzie do testowania API. Wybierz metodę, a następnie wykonaj ją z zadanymi parametrami."
 
 msgctxt ""
 msgid "Go to season"
@@ -1288,7 +1288,7 @@ msgstr "Wyszukiwanie zawartości dodatku"
 
 msgctxt ""
 msgid "Add custom add-on searches"
-msgstr "Mechanizm wyszukiwania Chorusa obsługuje nie tylko lokalne media, ale także zawartość dodatków. Dla przykładu, możesz użyć wyszukiwania, aby znaleźć wideo w YouTube lub muzykę w usłudze SoundCloud. Ta strona umożliwia dodanie niestandardowego wyszukiwania w zawartości dodatku, które domyślnie nie jest dostępne. Zobacz %1$s, aby dowiedzieć się więcej."
+msgstr "Dodaj niestandardowe wyszukiwarki dodatków"
 
 msgctxt ""
 msgid "Add-ons help page"

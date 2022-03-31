@@ -5,26 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: 2018-01-06 22:50+0100\n"
-"PO-Revision-Date: 2020-05-01 11:34+0200\n"
-"Last-Translator: XBMC Translation Team\n"
-"Language-Team: Czech"
-"language/en/)\n"
+"PO-Revision-Date: 2022-03-30 06:43+0000\n"
+"Last-Translator: Kryštof Černý <cleverline1mc@gmail.com>\n"
+"Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/cs_cz/>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs_CZ\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr ""
+msgstr "Výchozí rozhraní webu"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
-msgstr ""
+msgstr "Procházejte a interagujte přes prohlížeč se svou hudbou, filmy, televizními pořady a ostatním. Streamujte hudbu a videa do vašeho prohlížeče. Upravujte a spravujte vaši multimediální knihovnu Kodi."
 
 msgctxt ""
 msgid "Nothing playing"
@@ -32,7 +31,7 @@ msgstr "Nic nehraje"
 
 msgctxt ""
 msgid "Deselect all"
-msgstr "Odoznačit vše"
+msgstr "Odznačit vše"
 
 msgctxt ""
 msgid "Filters"
@@ -44,11 +43,11 @@ msgstr "Řazení"
 
 msgctxt ""
 msgid "Select a filter"
-msgstr "Vyber filtr"
+msgstr "Vybrat filtr"
 
 msgctxt ""
 msgid "Select an option"
-msgstr "Vyber možnost"
+msgstr "Vybrat možnost"
 
 msgctxt ""
 msgid "filter"
@@ -56,50 +55,47 @@ msgstr "filtr"
 
 msgctxt ""
 msgid "Add filter"
-msgstr "Přidej filtr"
+msgstr "Přidat filtr"
 
+#, fuzzy
 msgid "Which player to start with"
-msgstr "S jakým přehrávěčem začít"
+msgstr "S jakým přehrávačem začít"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "Ignoruj slova jako 'The' a 'A' při řazení seznamů"
+msgstr "Ignorovat slova jako 'The' nebo 'A' při řazení seznamů"
 
 msgctxt ""
 msgid ""
 "When listing artists should we only see artists with albums or all artists "
 "found. Warning: turning this off can impact performance with large libraries"
-msgstr ""
-"V seznamu zpěváků budou vidět zpěváci s alby nebo všichni zpěváci. "
-"Upozornění : vypnutí této volby může mít dopad na výkon v případě velkých knihoven"
+msgstr "V seznamu umělců budou vidět umělci s alby nebo všichni nalezení umělci. Upozornění: vypnutí této volby může mít dopad na výkon v případě velkých knihoven"
 
 msgctxt ""
 msgid "is the default"
 msgstr "je vychozí"
 
+#, fuzzy
 msgctxt ""
 msgid ""
 "The hostname used for websockets connection. Set to 'auto' to use the "
 "current hostname."
-msgstr ""
-"Jméno hostitele pro webosocket připojení. Nastavením na 'auto' se použije "
-"současné jméno hostile."
+msgstr "Jméno hostitele pro webosocket připojení. Nastavením na 'auto' se použije současné jméno hostitele."
 
 msgctxt ""
 msgid ""
 "How often do I poll for updates from Kodi (Only applies when websockets "
 "inactive)"
-msgstr ""
-"Jak často se mám ptát na aktualizaci stavu z Kodi (platné jen pokud se nepoužívá"
-"technologie websocketů)"
+msgstr "Jak často se dotazovat na aktualizaci stavu z Kodi (platné jen pokud se nepoužívá technologie websocket)"
 
+#, fuzzy
 msgctxt ""
 msgid "Enable support for reverse proxy."
 msgstr "Zapne podporu pro reverzní proxy."
 
 msgctxt ""
 msgid "Web settings saved."
-msgstr "Nastavení uloženo."
+msgstr "Nastavení webu uložena."
 
 msgctxt ""
 msgid "Just a sec..."
@@ -119,11 +115,11 @@ msgstr "Prohledávání video knihovny hotové"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr "Prohledávání audio knihovny spuštěno"
+msgstr "Prohledávání zvukové knihovny spuštěno"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr "Prohledávání audio knihovny hotové"
+msgstr "Prohledávání zvukové knihovny hotové"
 
 msgctxt ""
 msgid "Kodi has quit"
@@ -143,7 +139,7 @@ msgstr "Nahrávám adresář..."
 
 msgctxt ""
 msgid "Show more"
-msgstr "Ukaž víc"
+msgstr "Ukázat víc"
 
 msgctxt ""
 msgid "to Kodi"
@@ -171,23 +167,23 @@ msgstr "Existující playlisty"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
-msgstr "Tento playlist je zcela prázdný. Přidej do něj něco."
+msgstr "Prázdný playlist, možná byste si do něj měli něco přidat?"
 
 msgctxt ""
 msgid "Create a new list"
-msgstr "Vytvoř nový seznam"
+msgstr "Vytvořit nový seznam"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr "Přidej do playlistu"
+msgstr "Přidat do seznamu stop"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr "Přidáno do tvého playlistu"
+msgstr "Přidáno do vašeho seznamu stop"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "Pojmenuj svůj playlist"
+msgstr "Pojmenujte váš seznam stop"
 
 msgctxt ""
 msgid "Recently added"
@@ -215,16 +211,16 @@ msgstr "Fronta"
 
 msgctxt ""
 msgid "View on IMDb"
-msgstr "Ukaž na IMDb"
+msgstr "Ukázat na IMDb"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
 msgid "Stream"
-msgstr "Stream"
+msgstr "Streamovat"
 
 msgctxt ""
 msgid "Download"
-msgstr "Stáhni"
+msgstr "Stáhnout"
 
 msgctxt ""
 msgid "complete"
@@ -252,11 +248,11 @@ msgstr "Výchozí přehrávač"
 
 msgctxt ""
 msgid "Ignore article"
-msgstr "Ignoruj artikl"
+msgstr "Ignorovat členy"
 
 msgctxt ""
 msgid "Album artists only"
-msgstr "Album artists only"
+msgstr "Pouze umělci s alby"
 
 msgctxt ""
 msgid "Poll interval"
@@ -272,35 +268,26 @@ msgstr "Jazyk"
 
 msgctxt ""
 msgid "Preferred language"
-msgstr "Preferovaný jazyk"
+msgstr "Upřednostněný jazyk"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
+msgstr "Ignorovat členy (například \"The\" nebo \"A\") při seřazování seznamů"
 
 # Short for "second"
 msgctxt ""
 msgid "sec"
-msgstr "sec"
+msgstr "sek"
 
 msgctxt ""
 msgid ""
 "Your browser doesn't support websockets! Get with the times and update your "
 "browser."
-msgstr ""
-"Tvůj browser nepodporuje websockety! Najdi si si čas a aktualizuj svůj "
-"browser."
+msgstr "Váš prohlížeč nepodporuje technologii websocket! Jděte s dobou a aktualizujte si svůj prohlížeč."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr ""
-"Failed to connect to websockets, so I am falling back to polling for "
-"updates. Which makes things slower and uses more resources. Please ensure "
-"you have 'Allow programs on other systems to control Kodi' ENABLED in the "
-"Kodi settings (System > Services > Remote control). You may also get this if "
-"you are using proxies or accessing via an IP address when localhost will "
-"suffice. If websockets normally works, you might just need to refresh your "
-"browser."
+msgstr "Nepodařilo se připojit na websocket"
 
 msgctxt ""
 msgid "Video"
@@ -323,14 +310,14 @@ msgstr[1] "Režiséři"
 msgctxt ""
 msgid "Writer"
 msgid_plural "Writers"
-msgstr[0] "Spisovatel"
-msgstr[1] "Spisovatelé"
+msgstr[0] "Scénárista"
+msgstr[1] "Scénáristé"
 
 msgctxt ""
 msgid "Subtitle"
 msgid_plural "Subtitles"
-msgstr[0] "Subtitle"
-msgstr[1] "Subtitles"
+msgstr[0] "Titulky"
+msgstr[1] "Titulky"
 
 msgctxt ""
 msgid "Result"
@@ -340,15 +327,15 @@ msgstr[1] "Výsledky"
 
 msgctxt ""
 msgid "Loading things..."
-msgstr "Nahrávám..."
+msgstr "Nahrávání..."
 
 msgctxt ""
 msgid "Scan video library"
-msgstr "Prohledej video knihovnu"
+msgstr "Prohledat video knihovnu"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr "Prohledej audio knihovnu"
+msgstr "Prohledat audio knihovnu"
 
 msgctxt ""
 msgid "About Chorus"
@@ -380,16 +367,17 @@ msgstr "Nedávné epizody"
 
 msgctxt ""
 msgid "All TV shows"
-msgstr "Všechny Seriály"
+msgstr "Všechny seriály"
 
 msgctxt ""
 msgid "Web settings"
-msgstr "Nastavené webu"
+msgstr "Nastavení webu"
 
 msgctxt ""
 msgid "Kodi settings"
 msgstr "Nastavení Kodi"
 
+#, fuzzy
 msgctxt ""
 msgid "Now Playing Playlists"
 msgstr "Nyné přehrávám playlist"
@@ -398,49 +386,47 @@ msgctxt ""
 msgid ""
 "Switch between Kodi and local playback via the tabs. You can toggle "
 "visibility with the arrow in the top right"
-msgstr ""
-"Switch between Kodi and local playback via the tabs. You can toggle "
-"visibility with the arrow in the top right"
+msgstr "Pomocí karet přepínejte mezi Kodi a místním přehráváním. Můžete přepnout viditelnost pomocí šipky vpravo nahoře"
 
 msgctxt ""
 msgid "Current playlist"
-msgstr "Aktuální playlist"
+msgstr "Aktuální seznam stop"
 
 msgctxt ""
 msgid "Clear playlist"
-msgstr "Vyprázdni playlist"
+msgstr "Vyprázdnit seznam stop"
 
 msgctxt ""
 msgid "Refresh playlist"
-msgstr "Obnov playlist"
+msgstr "Obnovit seznam stop"
 
 msgctxt ""
 msgid "Party mode"
-msgstr "Party mód"
+msgstr "Mejdanový režim"
 
 msgctxt ""
 msgid "Save Kodi playlist"
-msgstr "Ulož playlist do Kodi"
+msgstr "Uložit seznam stop Kodi"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "Preferovaný jazyk. Je potřeba obnovit prohlížeč, aby se nastavení stalo platné"
+msgstr "Upřednostněný jazyk, nutno obnovit prohlížeč pro aplikaci nastavení"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+msgstr "Ignorovat členy (například \"The\" nebo \"A\") při seřazování seznamů"
 
 msgctxt ""
 msgid "Vibrant headers"
-msgstr "Vibrant headers"
+msgstr "Živé hlavičky"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
-msgstr "Use colourful headers for media pages"
+msgstr "Používat pestrobarevné hlavičky pro stránky multimédií"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
-msgstr "Zapni podporu pro reverzní proxy."
+msgstr "Povolit podporu pro reverzní proxy."
 
 msgctxt ""
 msgid "songs"
@@ -472,23 +458,21 @@ msgstr "seriály"
 
 msgctxt ""
 msgid "no media in this folder"
-msgstr "v tomto adresáři není nic k přehrátí"
+msgstr "v tomto adresáři není nic k přehrání"
 
 msgctxt ""
 msgid "Browse files and add-ons"
-msgstr "Browse files and add-ons"
+msgstr "Prohlížet soubory a doplňky"
 
 msgctxt ""
 msgid ""
 "This is where you can browse all Kodi content, not just what is in the "
 "library. Browse by source or add-on."
-msgstr ""
-"This is where you can browse all Kodi content, not just what is in the "
-"library. Browse by source or add-on."
+msgstr "Zde můžete procházet veškerý obsah Kodi, ne jen položky knihovny. Procházejte dle zdroje nebo doplňku."
 
 msgctxt ""
 msgid "Send text to Kodi"
-msgstr "Odešli do Kodi"
+msgstr "Odeslat text do Kodi"
 
 msgctxt ""
 msgid "The lab"
@@ -496,7 +480,7 @@ msgstr "Laboratoř"
 
 msgctxt ""
 msgid "Chorus lab"
-msgstr "Laboratoř Chorusu"
+msgstr "Laboratoř Chorus"
 
 msgctxt ""
 msgid "Warning"
@@ -504,7 +488,7 @@ msgstr "Varování"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
-msgstr "Experimentalní kód, používás na vlastní riziko"
+msgstr "Experimentální kód, používáte na vlastní riziko"
 
 msgctxt ""
 msgid "Kodi API browser"
@@ -514,20 +498,17 @@ msgctxt ""
 msgid ""
 "This is a tool to test out the API. Select a method then execute it with "
 "parameters."
-msgstr ""
-"Toto je nástroj na testování API. Vyber metodu, vlož parametry a pusť ji."
+msgstr "Toto je nástroj na testování API. Vyberte metodu, vložte parametry a pusťte ji."
 
 msgctxt ""
 msgid ""
 "You could potentially damage your system with this and there are no sanity "
 "checks. Use at own risk."
-msgstr ""
-"You could potentially damage your system with this and there are no sanity "
-"checks. Use at own risk."
+msgstr "Tímto můžete teoreticky poškodit váš systém, data se nekontrolují. Použijte na vlastní riziko."
 
 msgctxt ""
 msgid "Saved Kodi settings"
-msgstr "Kodi nastavení uloženo"
+msgstr "Nastavení Kodi uloženo"
 
 msgctxt ""
 msgid "General"
@@ -541,7 +522,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Kodi settings level"
-msgstr "Úroveň Kodi nastavení"
+msgstr "Úroveň nastavení Kodi"
 
 msgctxt ""
 msgid "Remove"
@@ -549,7 +530,7 @@ msgstr "Odstranit"
 
 msgctxt ""
 msgid "cast"
-msgstr "cast"
+msgstr "obsazení"
 
 msgctxt ""
 msgid "Add-ons"
@@ -557,11 +538,11 @@ msgstr "Doplňky"
 
 msgctxt ""
 msgid "Web interface"
-msgstr "Webové rozhraní"
+msgstr "Rozhraní webu"
 
 msgctxt ""
 msgid "Readme"
-msgstr "Čti mě"
+msgstr "Čtěte mě"
 
 msgctxt ""
 msgid "Changelog"
@@ -573,7 +554,7 @@ msgstr "Překlady"
 
 msgctxt ""
 msgid "Help topics"
-msgstr "Help topics"
+msgstr "Témata nápovědy"
 
 msgctxt ""
 msgid "Overview"
@@ -593,7 +574,7 @@ msgstr "Dálkové ovládání"
 
 msgctxt ""
 msgid "Remote control is set up correctly"
-msgstr "Dálkové ovládání je nastaveno korektně."
+msgstr "Dálkové ovládání je správně nastaveno"
 
 msgctxt ""
 msgid "About"
@@ -603,6 +584,7 @@ msgctxt ""
 msgid "Local audio"
 msgstr "Místní audio"
 
+#, fuzzy
 msgctxt ""
 msgid "Status report"
 msgstr "Status report"
@@ -613,19 +595,17 @@ msgstr "v"
 
 msgctxt ""
 msgid "Focus playlist on playing"
-msgstr "Focus playlist on playing"
+msgstr "Při přehrávání rolovat seznam"
 
 msgctxt ""
 msgid ""
 "Automatically scroll the playlist to the current playing item. This happens "
 "whenever the playing item is changed"
-msgstr ""
-"Automatically scroll the playlist to the current playing item. This happens "
-"whenever the playing item is changed"
+msgstr "Automaticky rolovat seznam přehrávaných na současnou položku. Toto nastane při změně přehrávané položky"
 
 msgctxt ""
 msgid "Web Settings saved."
-msgstr "Nastavení uloženo."
+msgstr "Nastavení webu uložena."
 
 msgctxt ""
 msgid "Keyboard controls"
@@ -633,27 +613,27 @@ msgstr "Ovládání pomocí klávesnice"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr "V Chorusu bude klávesnice ovládat Kodi, prohlížeč nebo oboje"
+msgstr "V Chorus bude klávesnice ovládat Kodi, prohlížeč nebo oboje"
 
 msgctxt ""
 msgid "Learn more"
-msgstr "Více"
+msgstr "Dozvědět se více"
 
 msgctxt ""
 msgid "Resume playback"
-msgstr "Resume playback"
+msgstr "Pokračovat v přehrávání"
 
 msgctxt ""
 msgid "Resume from"
-msgstr "Obnov od"
+msgstr "Obnovit od"
 
 msgctxt ""
 msgid "Start from the beginning"
-msgstr "Začni od začátku"
+msgstr "Začít od začátku"
 
 msgctxt ""
 msgid "Click here restore defaults"
-msgstr "Klikni zde pro obnovení výchozích hodnot"
+msgstr "Klikněte zde pro obnovení výchozích hodnot"
 
 msgctxt ""
 msgid "Main Menu Structure"
@@ -663,17 +643,15 @@ msgctxt ""
 msgid ""
 "Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
-msgstr ""
-"Zde můžeš změnit název, URL and %1$s jednotlivých položek menu. Také můžeš"
-"odstranit, změnit nebo přidat polořky menu."
+msgstr "Zde můžete změnit název, URL a %1$s jednotlivých položek menu. Také můžete odstranit, změnit pořadí nebo přidat položky menu."
 
 msgctxt ""
 msgid "Main Nav"
-msgstr "Main Nav"
+msgstr "hlavním menu"
 
 msgctxt ""
 msgid "Add a new playlist"
-msgstr "Přidání nového playlistu"
+msgstr "Přidat nový seznam stop"
 
 msgctxt ""
 msgid "Keyboard"
@@ -685,7 +663,7 @@ msgstr "Hudba"
 
 msgctxt ""
 msgid "Digital radio"
-msgstr "Digitalní radio"
+msgstr "Digitální rádio"
 
 msgctxt ""
 msgid "Movies"
@@ -705,7 +683,7 @@ msgstr "Prohlížeč"
 
 msgctxt ""
 msgid "Thumbs up"
-msgstr "Palec nahoru"
+msgstr "Oblíbené"
 
 msgctxt ""
 msgid "Settings"
@@ -717,19 +695,17 @@ msgstr "Pomoc"
 
 msgctxt ""
 msgid "Disable Thumbs Up"
-msgstr "Disable Thumbs Up"
+msgstr "Zakázat oblíbené"
 
 msgctxt ""
 msgid ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
 "the menu item from the %1$s"
-msgstr ""
-"Remove the thumbs up button from media. Note: you may also want to remove "
-"the menu item from the %1$s"
+msgstr "Odebere tlačítko oblíbených od multimédií. Poznámka: Možná budete také chtít odebrat položku z %1$s"
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
-msgstr "You need to 'Allow remote control' for Kodi. You can do that"
+msgstr "Musíte 'Povolit vzdálené ovládání' v Kodi. Můžete to provést"
 
 msgctxt ""
 msgid "here"
@@ -745,7 +721,7 @@ msgstr "ne"
 
 msgctxt ""
 msgid "close"
-msgstr "zavři"
+msgstr "zavřít"
 
 msgctxt ""
 msgid "ok"
@@ -753,23 +729,23 @@ msgstr "ok"
 
 msgctxt ""
 msgid "Are you sure?"
-msgstr "Jsi si jist?"
+msgstr "Jste si jisti?"
 
 msgctxt ""
 msgid "Set all episodes for this season as"
-msgstr "Nastav všechny epizody z této sezóny jako"
+msgstr "Nastavit všechny epizody z této sezóny jako"
 
 msgctxt ""
 msgid "Set all episodes for this TV show as"
-msgstr "Nastav všechny epizody tohoto seriálu jako shlédnuté"
+msgstr "Nastavit všechny epizody tohoto seriálu jako zhlédnuté"
 
 msgctxt ""
 msgid "watched"
-msgstr "shlédnuto"
+msgstr "zhlédnuto"
 
 msgctxt ""
 msgid "unwatched"
-msgstr "neshlédnuto"
+msgstr "nezhlédnuto"
 
 msgctxt ""
 msgid "genre"
@@ -781,11 +757,11 @@ msgstr "studio"
 
 msgctxt ""
 msgid "rated"
-msgstr "rated"
+msgstr "hodnocení"
 
 msgctxt ""
 msgid "episodes"
-msgstr "episody"
+msgstr "epizody"
 
 msgctxt ""
 msgid "total"
@@ -793,15 +769,15 @@ msgstr "celkem"
 
 msgctxt ""
 msgid "set"
-msgstr "nastav jako"
+msgstr "nastavit jako"
 
 msgctxt ""
 msgid "Show device name"
-msgstr "Show device name"
+msgstr "Zobrazovat název zařízení"
 
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
-msgstr "Ukaž jméno Kodi zařízení v hlavičce Chorusu"
+msgstr "Ukázat jméno zařízení Kodi v hlavičce Chorus"
 
 msgctxt ""
 msgid "No results found"
@@ -809,39 +785,39 @@ msgstr "Nenalezeno"
 
 msgctxt ""
 msgid "Have you done a library scan?"
-msgstr "Už jsi provedl prohledání knihovny?"
+msgstr "Už jste provedl prohledání knihovny?"
 
 msgctxt ""
 msgid "Play in browser"
-msgstr "Spusť v prohlížeči"
+msgstr "Přehrát v prohlížeči"
 
 msgctxt ""
 msgid "Edit"
-msgstr "Uprav"
+msgstr "Upravit"
 
 msgctxt ""
 msgid "Add to Kodi"
-msgstr "Přidej do Kodi"
+msgstr "Přidat do Kodi"
 
 msgctxt ""
 msgid "Watched"
-msgstr "Shlédnuto"
+msgstr "Zhlédnuto"
 
 msgctxt ""
 msgid "New playlist"
-msgstr "Nový playlist"
+msgstr "Nový seznam stop"
 
 msgctxt ""
 msgid "Play in Kodi"
-msgstr "Spusť v Kodi"
+msgstr "Spustit v Kodi"
 
 msgctxt ""
 msgid "Export list"
-msgstr "Exportuj seznam"
+msgstr "Exportovat seznam"
 
 msgctxt ""
 msgid "Delete playlist"
-msgstr "Smaž playlist"
+msgstr "Smazat seznam stop"
 
 msgctxt ""
 msgid "title"
@@ -861,7 +837,7 @@ msgstr "hodnocení"
 
 msgctxt ""
 msgid "actor"
-msgstr "actor"
+msgstr "vystupující"
 
 msgctxt ""
 msgid "mood"
@@ -877,7 +853,7 @@ msgstr "režisér"
 
 msgctxt ""
 msgid "mood"
-msgstr "mood"
+msgstr "nálada"
 
 msgctxt ""
 msgid "style"
@@ -905,15 +881,15 @@ msgstr "Úklid audio knihovny spuštěn"
 
 msgctxt ""
 msgid "Audio library clean finished"
-msgstr "Úklid audio klihovny dokončen"
+msgstr "Úklid audio knihovny dokončen"
 
 msgctxt ""
 msgid "This is a tool to test out the api. Select a method then execute it with parameters."
-msgstr "Toto je nástroj na testování API. Vyber metodu, vyplň její parametry a spusť ji."
+msgstr "Toto je nástroj na testování API. Vyberte metodu, vyplňte její parametry a spusťte ji."
 
 msgctxt ""
 msgid "Go to season"
-msgstr "Jdi na sezónu."
+msgstr "Jít na sezónu"
 
 msgctxt ""
 msgid "Queue in Kodi"
@@ -921,15 +897,15 @@ msgstr "Do fronty v Kodi"
 
 msgctxt ""
 msgid "Adding items to the queue"
-msgstr "Přidávám do fronty"
+msgstr "Přidávání položek do fronty"
 
 msgctxt ""
 msgid "Live TV"
-msgstr "Live TV"
+msgstr "Živá TV"
 
 msgctxt ""
 msgid "Recently added albums"
-msgstr "Nadávno přidaná alba"
+msgstr "Nedávno přidaná alba"
 
 msgctxt ""
 msgid "Random albums"
@@ -945,19 +921,19 @@ msgstr "Náhodné filmy"
 
 msgctxt ""
 msgid "Continue watching"
-msgstr "Pokračuj ve sledování"
+msgstr "Pokračovat ve sledování"
 
 msgctxt ""
 msgid "More from %1$s"
-msgstr "More from %1$s"
+msgstr "Více od %1$s"
 
 msgctxt ""
 msgid "More %1$s movies"
-msgstr "Více %1$s filmů"
+msgstr "Více filmů žánru %1$s"
 
 msgctxt ""
 msgid "More movies staring %1$s"
-msgstr "Více filmů začínajících na %1$s"
+msgstr "Více filmů s obsazením herce %1$s"
 
 msgctxt ""
 msgid "Other movies released in %1$s"
@@ -971,25 +947,26 @@ msgctxt ""
 msgid "random"
 msgstr "náhodně"
 
+#, fuzzy
 msgctxt ""
 msgid "label"
 msgstr "label"
 
 msgctxt ""
 msgid "formed"
-msgstr "formed"
+msgstr "vznik"
 
 msgctxt ""
 msgid "born"
-msgstr "born"
+msgstr "narození"
 
 msgctxt ""
 msgid "died"
-msgstr "zemřel"
+msgstr "úmrtí"
 
 msgctxt ""
 msgid "disbanded"
-msgstr "disbanded"
+msgstr "zánik"
 
 msgctxt ""
 msgid "years active"
@@ -997,11 +974,11 @@ msgstr "aktivních let"
 
 msgctxt ""
 msgid "Click for more"
-msgstr "Klikni pro více"
+msgstr "Klikněte pro více"
 
 msgctxt ""
 msgid "Loading albums"
-msgstr "Nahrávám alba"
+msgstr "Nahrávání alb"
 
 msgctxt ""
 msgid ""
@@ -1033,7 +1010,7 @@ msgstr "GoogleMusic"
 
 msgctxt ""
 msgid "Radio"
-msgstr "Radio"
+msgstr "Rádio"
 
 msgctxt ""
 msgid "MixCloud"
@@ -1053,7 +1030,7 @@ msgstr "Název"
 
 msgctxt ""
 msgid "Plot"
-msgstr "Plot"
+msgstr "Příběh"
 
 msgctxt ""
 msgid "Rating"
@@ -1065,31 +1042,33 @@ msgstr "Původní název"
 
 msgctxt ""
 msgid "Directors"
-msgstr "Directors"
+msgstr "Režie"
 
 msgctxt ""
 msgid "Writers"
-msgstr "Writers"
+msgstr "Scénář"
 
 msgctxt ""
 msgid "File path"
-msgstr "File path"
+msgstr "Cesta souboru"
 
+#, fuzzy
 msgctxt ""
 msgid "Artist"
 msgstr "Artist"
 
 msgctxt ""
 msgid "Description"
-msgstr "Description"
+msgstr "Popis"
 
+#, fuzzy
 msgctxt ""
 msgid "Label"
 msgstr "Label"
 
 msgctxt ""
 msgid "Year"
-msgstr "Year"
+msgstr "Rok"
 
 msgctxt ""
 msgid "Genres"
@@ -1101,12 +1080,13 @@ msgstr "Styly"
 
 msgctxt ""
 msgid "Themes"
-msgstr "Themes"
+msgstr "Náměty"
 
 msgctxt ""
 msgid "Moods"
-msgstr "Moods"
+msgstr "Nálady"
 
+#, fuzzy
 msgctxt ""
 msgid "Album artist"
 msgstr "Album artist"
@@ -1125,7 +1105,7 @@ msgstr "Disk"
 
 msgctxt ""
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 msgctxt ""
 msgid "Studio"
@@ -1145,7 +1125,7 @@ msgstr "IMDb"
 
 msgctxt ""
 msgid "Sort title"
-msgstr "Sort title"
+msgstr "Název pro řazení"
 
 msgctxt ""
 msgid "Country"
@@ -1155,25 +1135,26 @@ msgctxt ""
 msgid "Set"
 msgstr "Nastavení"
 
+#, fuzzy
 msgctxt ""
 msgid "Tags"
 msgstr "Tags"
 
 msgctxt ""
 msgid "Trailer"
-msgstr "Trailer"
+msgstr "Upoutávka"
 
 msgctxt ""
 msgid "Formed"
-msgstr "Formed"
+msgstr "Vznik"
 
 msgctxt ""
 msgid "Disbanded"
-msgstr "Disbanded"
+msgstr "Zánik"
 
 msgctxt ""
 msgid "Years Active"
-msgstr "Years Active"
+msgstr "Aktivních let"
 
 msgctxt ""
 msgid "Born"
@@ -1185,7 +1166,7 @@ msgstr "Zemřel"
 
 msgctxt ""
 msgid "Instruments"
-msgstr "Instruments"
+msgstr "Nástroje"
 
 msgctxt ""
 msgid "more"
@@ -1201,15 +1182,15 @@ msgstr "URL"
 
 msgctxt ""
 msgid "Add an image via an external URL"
-msgstr "Add an image via an external URL"
+msgstr "Přidat obrázek pomocí externí URL"
 
 msgctxt ""
 msgid "Searching for more images"
-msgstr "Searching for more images"
+msgstr "Hledají se další obrázky"
 
 msgctxt ""
 msgid "Selector"
-msgstr "Selector"
+msgstr "Výběr"
 
 msgctxt ""
 msgid "External Search"
@@ -1221,12 +1202,13 @@ msgstr "Místní media"
 
 msgctxt ""
 msgid "Chorus Search"
-msgstr "Vyhledej v Chorusu"
+msgstr "Vyhledat v Chorus"
 
 msgctxt ""
 msgid "YouTube Search"
 msgstr "Vyhledávání na YouTube"
 
+#, fuzzy
 msgctxt ""
 msgid "Executed addon"
 msgstr "Spustitelný addon"
@@ -1247,6 +1229,7 @@ msgctxt ""
 msgid "image"
 msgstr "obrázek"
 
+#, fuzzy
 msgctxt ""
 msgid "picture"
 msgstr "fotka"
@@ -1261,26 +1244,24 @@ msgstr "nastavení"
 
 msgctxt ""
 msgid "Refresh"
-msgstr "Obnov"
+msgstr "Obnovit"
 
 msgctxt ""
 msgid "Confirm refresh"
-msgstr ""
-"Refreshing '%1$s' will remove it from the library then re-add it, so the "
-"ID may change. I'll attempt to reload this page with the new ID in a few "
-"seconds. Click 'YES' to confirm refresh"
+msgstr "Potvrdit obnovení"
 
 msgctxt ""
 msgid "Refresh Ignore NFO"
-msgstr "Refresh Ignore NFO"
+msgstr "Ignorace NFO při obnovení"
 
 msgctxt ""
 msgid "Ignore local NFO files when manually refreshing media."
-msgstr "Ignoruj místní NFO soubory při ručním obnovení."
+msgstr "Ignorovat místní NFO soubory při ručním obnovení multimédií."
 
+#, fuzzy
 msgctxt ""
 msgid "Show only"
-msgstr "Jen Seriál"
+msgstr "Jen seriál"
 
 msgctxt ""
 msgid "Show and episodes"
@@ -1288,7 +1269,7 @@ msgstr "Seriál a epizody"
 
 msgctxt ""
 msgid "Top music"
-msgstr "Nej hudba"
+msgstr "Nejlepší hudba"
 
 msgctxt ""
 msgid "%1$s Artists"
@@ -1312,15 +1293,15 @@ msgstr "Akce"
 
 msgctxt ""
 msgid "play files"
-msgstr "Hraj soubory"
+msgstr "přehrát soubory"
 
 msgctxt ""
 msgid "queue files"
-msgstr "soubory do fronty"
+msgstr "přidat soubory do fronty"
 
 msgctxt ""
 msgid "Sent text"
-msgstr "Pošli text"
+msgstr "Poslat text"
 
 msgctxt ""
 msgid "License"
@@ -1336,18 +1317,15 @@ msgstr "Vyhledávání"
 
 msgctxt ""
 msgid "Custom Add-on search"
-msgstr "Custom Add-on search"
+msgstr "Vlastní doplňkové vyhledávání"
 
 msgctxt ""
 msgid "Add custom add-on searches"
-msgstr ""
-"Chorus search supports searching not only local media but add-on content too. For example, you can use the "
-"search to find videos in YouTube or audio in SoundCloud. This page allows you to add custom add-on searches "
-"that are not included out of the box. See the %1$s for more information."
+msgstr "Přidat vlastní hledání doplňků"
 
 msgctxt ""
 msgid "Add-ons help page"
-msgstr "Add-ons help page"
+msgstr "Stránka pomoci dopňků"
 
 msgctxt ""
 msgid "No %1$s found"
@@ -1359,7 +1337,7 @@ msgstr "výsledky"
 
 msgctxt ""
 msgid "EPG data"
-msgstr "EPG data"
+msgstr "Informace EPG"
 
 msgctxt ""
 msgid "PVR"
@@ -1371,23 +1349,24 @@ msgstr "Nahrávky"
 
 msgctxt ""
 msgid "Channel recording toggled"
-msgstr "Channel recording toggled"
+msgstr "Nahrávání kanálu přepnuto"
 
 msgctxt ""
 msgid "TV Channels"
-msgstr "TV Channels"
+msgstr "TV kanály"
 
 msgctxt ""
 msgid "Radio Stations"
-msgstr "Radio stanice"
+msgstr "Stanice rádia"
 
+#, fuzzy
 msgctxt ""
 msgid "Record"
 msgstr "Nahrávka"
 
 msgctxt ""
 msgid "Toggle timer"
-msgstr "Toggle timer"
+msgstr "Přepnout časovač"
 
 msgctxt ""
 msgid "Now"
@@ -1395,7 +1374,7 @@ msgstr "Nyní"
 
 msgctxt ""
 msgid "Rename playlist"
-msgstr "Přejmenuj playlist"
+msgstr "Přejmenovat seznam stop"
 
 msgctxt ""
 msgid "album"
@@ -1411,48 +1390,49 @@ msgstr "Připojení do Kodi ztraceno"
 
 msgctxt ""
 msgid "Attempt to reconnect"
-msgstr "Zkus se připojit"
+msgstr "Zkusit se znovu připojit"
 
 msgctxt ""
 msgid "Attempting reconnect"
-msgstr "Zkouším se připojit"
+msgstr "Zkoušení opětovného připojení"
 
 msgctxt ""
 msgid "Top Songs"
-msgstr "Nej písně"
+msgstr "Nejlepší písničky"
 
 msgctxt ""
 msgid "Top Albums"
-msgstr "Nej Alba"
+msgstr "Nejlepší Alba"
 
+#, fuzzy
 msgctxt ""
 msgid "Toggle select all"
-msgstr "Vyber/Zruš výběr všech"
+msgstr "Vybrat/zrušit výběr všeho"
 
 msgctxt ""
 msgid "More like this"
-msgstr "Více jako je toto"
+msgstr "Více takových"
 
 msgctxt ""
 msgid "music videos"
-msgstr "hudba z filmů"
+msgstr "Hudební videoklipy"
 
 msgctxt ""
 msgid "Related music videos from YouTube"
-msgstr "Related music videos from YouTube"
+msgstr "Související hudební videoklipy z YouTube"
 
 msgctxt ""
 msgid "Lost websocket connection"
-msgstr "Ztraceno websocket připojení"
+msgstr "Ztraceno připojení websocket"
 
 msgctxt ""
 msgid "Attempting websockets reconnect"
-msgstr "Zkouším se znovu připojit"
+msgstr "Zkoušení se opětovného připojení k websocket"
 
 msgctxt ""
 msgid "This should be the play path for the trailer. Eg. %1$s"
-msgstr "This should be the play path for the trailer. Eg. %1$s"
+msgstr "Toto by měla být cesta pro přehrání upoutávky. Např. %1$s"
 
 msgctxt ""
 msgid "%1$s party mode toggled"
-msgstr "%1$s party mode toggled"
+msgstr "Mejdanový režim %1$s přepnut"
