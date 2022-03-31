@@ -34,7 +34,7 @@
         pluck: false
       }
       {
-        title: 'More movies staring %1$s'
+        title: 'More movies starring %1$s'
         filter: 'actor'
         key: 'cast'
         type: 'array'

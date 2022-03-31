@@ -932,7 +932,7 @@ msgid "More %1$s movies"
 msgstr "Více filmů žánru %1$s"
 
 msgctxt ""
-msgid "More movies staring %1$s"
+msgid "More movies starring %1$s"
 msgstr "Více filmů s obsazením herce %1$s"
 
 msgctxt ""

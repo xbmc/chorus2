@@ -938,7 +938,7 @@ msgid "More %1$s movies"
 msgstr ""
 
 msgctxt ""
-msgid "More movies staring %1$s"
+msgid "More movies starring %1$s"
 msgstr ""
 
 msgctxt ""

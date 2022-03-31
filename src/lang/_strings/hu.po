@@ -905,7 +905,7 @@ msgid "More %1$s movies"
 msgstr "Még több %1$s"
 
 msgctxt ""
-msgid "More movies staring %1$s"
+msgid "More movies starring %1$s"
 msgstr "Még böbb film amelyben %1$s szerepel"
 
 msgctxt ""
