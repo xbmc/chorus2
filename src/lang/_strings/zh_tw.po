@@ -949,7 +949,7 @@ msgid "More %1$s movies"
 msgstr "更多 %1$s 電影"
 
 msgctxt ""
-msgid "More movies staring %1$s"
+msgid "More movies starring %1$s"
 msgstr "更多由 %1$s 領銜主演的電影"
 
 msgctxt ""

@@ -899,7 +899,7 @@ msgid "More %1$s movies"
 msgstr "Viac %1$s filmov"
 
 msgctxt ""
-msgid "More movies staring %1$s"
+msgid "More movies starring %1$s"
 msgstr "Viac filmov začínajúcich na %1$s"
 
 msgctxt ""
