@@ -66,7 +66,7 @@
           title: 'Advanced options'
           id: 'advanced'
           children:[
-            {id: 'socketsPort', title: tr("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + tr("is the default")}
+            {id: 'socketsPort', title: tr("Websockets port"), type: 'textfield', defaultValue: '9090', description: t.sprintf(tr("%s is the default"), 9090)}
             {id: 'socketsHost', title: tr("Websockets host"), type: 'textfield', defaultValue: 'auto', description: tr("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")}
             {id: 'pollInterval', title: tr("Poll interval"), type: 'select', defaultValue: '10000', options: {'5000': "5 " + tr('sec'), '10000': "10 " + tr('sec'), '30000': "30 " + tr('sec'), '60000': "60 " + tr('sec')}, description: tr("How often do I poll for updates from Kodi (Only applies when websockets inactive)")}
             {id: 'kodiSettingsLevel', title: tr("Kodi settings level"), type: 'select', defaultValue: 'standard', options: {'standard': 'Standard', 'advanced': 'Advanced', 'expert': 'Expert'}, description: tr('Advanced setting level is recommended for those who know what they are doing.')}

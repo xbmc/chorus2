@@ -71,8 +71,8 @@ msgid ""
 msgstr "Määrittää näytetäänkö esittäjälistauksissa vain ne esittäjät, joilla on albumeita, vaiko kaikki löydetyt esittäjät. Varoitus: Tämän käytöstä poisto voi suurten kirjastojen kanssa vaikuttaa suorituskykyyn."
 
 msgctxt ""
-msgid "is the default"
-msgstr "on oletus."
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""

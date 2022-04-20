@@ -75,8 +75,8 @@ msgstr ""
 " em bibliotecas grandes"
 
 msgctxt ""
-msgid "is the default"
-msgstr "é o padrão"
+msgid "%s is the default"
+msgstr "%s é o padrão"
 
 msgctxt ""
 msgid ""

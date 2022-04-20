@@ -69,8 +69,8 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "Az előadók listázása során csak azokat a zenészeket listázzuk, akikhez album is tartozik, vagy az összes zenészt. Figyelem: ha ezt kikapcsolja, akkor az nagyméretű katalógus esetén nagy terhet ró a rendszerre"
 
 msgctxt ""
-msgid "is the default"
-msgstr "az alapértelmezett"
+msgid "%s is the default"
+msgstr "%s az alapértelmezett"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."

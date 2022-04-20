@@ -69,7 +69,7 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "Bij het tonen van de artiestenlijst, zouden we enkel artiesten moeten zien met een album of alle gevonden artiesten. Waarschuwing: dit uitschakelen kan een impact hebben op de uitvoering bij omvangrijke bibliotheken."
 
 msgctxt ""
-msgid "is the default"
+msgid "%s is the default"
 msgstr "is standaard"
 
 msgctxt ""

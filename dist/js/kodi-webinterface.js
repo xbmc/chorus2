@@ -19645,7 +19645,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
               title: tr("Websockets port"),
               type: 'textfield',
               defaultValue: '9090',
-              description: "9090 " + tr("is the default")
+              description: t.sprintf(tr("%s is the default"), 9090)
             }, {
               id: 'socketsHost',
               title: tr("Websockets host"),

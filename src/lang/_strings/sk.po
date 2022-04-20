@@ -69,8 +69,8 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "V zozname spevákov zobraziť iba spevákov s albumami alebo všetkých spevákov. Upozornenie: vypnutie tejto voľby bude mať dopad na výkon v prípade veľkých knižníc"
 
 msgctxt ""
-msgid "is the default"
-msgstr "je predvolené"
+msgid "%s is the default"
+msgstr "%s je predvolené"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."

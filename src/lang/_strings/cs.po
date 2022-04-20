@@ -71,8 +71,8 @@ msgid ""
 msgstr "V seznamu umělců budou vidět umělci s alby nebo všichni nalezení umělci. Upozornění: vypnutí této volby může mít dopad na výkon v případě velkých knihoven"
 
 msgctxt ""
-msgid "is the default"
-msgstr "je vychozí"
+msgid "%s is the default"
+msgstr "%s je vychozí"
 
 msgctxt ""
 msgid ""

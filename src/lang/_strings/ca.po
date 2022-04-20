@@ -71,8 +71,8 @@ msgid ""
 msgstr "Al llistar artistes, mostrar només els que tenen àlbums o mostrar tots els trobats. Avís: desactivar-ho pot afectar al rendiment en biblioteques grans"
 
 msgctxt ""
-msgid "is the default"
-msgstr "és el predeterminat"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""

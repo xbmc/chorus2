@@ -73,8 +73,8 @@ msgstr ""
 "found. Warning: turning this off can impact performance with large libraries"
 
 msgctxt ""
-msgid "is the default"
-msgstr "is the default"
+msgid "%s is the default"
+msgstr "%s is the default"
 
 msgctxt ""
 msgid ""

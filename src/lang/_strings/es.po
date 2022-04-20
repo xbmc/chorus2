@@ -73,8 +73,8 @@ msgstr ""
 "o todos. Atención: apagar esto puede impactar en el rendimiento en colecciones grandes"
 
 msgctxt ""
-msgid "is the default"
-msgstr "es lo predeterminado"
+msgid "%s is the default"
+msgstr "%s es lo predeterminado"
 
 msgctxt ""
 msgid ""

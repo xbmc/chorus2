@@ -68,8 +68,8 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "Atvaizduojant atlikėjus rodyti tik atlikėjus su albumais ar visus rastus atlikėjus. Įspėjimas: šios parinkties išjungimas gali įtakoti našumą esant didelėms bibliotekoms"
 
 msgctxt ""
-msgid "is the default"
-msgstr "yra numatytasis"
+msgid "%s is the default"
+msgstr "%s yra numatytasis"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."

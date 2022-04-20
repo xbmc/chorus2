@@ -71,8 +71,8 @@ msgid ""
 msgstr "アーティストをリストアップするとき、アルバムのあるアーティスト、または見つかったすべてのアーティストのみを表示します。警告: これをオフにすると、大規模なライブラリでパフォーマンスにかなりの影響を及ぼす可能性があります"
 
 msgctxt ""
-msgid "is the default"
-msgstr "デフォルトです"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""

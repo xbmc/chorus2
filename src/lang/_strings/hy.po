@@ -71,7 +71,7 @@ msgid ""
 msgstr ""
 
 msgctxt ""
-msgid "is the default"
+msgid "%s is the default"
 msgstr ""
 
 msgctxt ""

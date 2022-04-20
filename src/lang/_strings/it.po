@@ -71,8 +71,8 @@ msgid ""
 msgstr "Quando si elencano gli artisti, dovremmo vedere solo gli artisti con album o tutti gli artisti trovati. Avviso: la disattivazione di questa opzione può influire sulle prestazioni con librerie di grandi dimensioni"
 
 msgctxt ""
-msgid "is the default"
-msgstr "è l'impostazione predefinita"
+msgid "%s is the default"
+msgstr "%s è l'impostazione predefinita"
 
 msgctxt ""
 msgid ""

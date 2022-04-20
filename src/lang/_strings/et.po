@@ -71,8 +71,8 @@ msgid ""
 msgstr "Kas esitajate loetlemisel peaks nägema ainult artiste, kellel on albumid, või kõiki leitud esitajaid. Hoiatus: selle väljalülitamine võib mõjutada suurte teekide toimivust"
 
 msgctxt ""
-msgid "is the default"
-msgstr "on vaikeväärtus"
+msgid "%s is the default"
+msgstr "%s on vaikeväärtus"
 
 msgctxt ""
 msgid ""

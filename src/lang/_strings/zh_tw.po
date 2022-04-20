@@ -72,8 +72,8 @@ msgstr ""
 "龐大時關閉此選項可能會影響效能。"
 
 msgctxt ""
-msgid "is the default"
-msgstr "為預設的"
+msgid "%s is the default"
+msgstr "%s 為預設的"
 
 msgctxt ""
 msgid ""

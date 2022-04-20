@@ -71,8 +71,8 @@ msgid ""
 msgstr ""
 
 msgctxt ""
-msgid "is the default"
-msgstr "за промовчанням"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""

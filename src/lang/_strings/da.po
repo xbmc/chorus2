@@ -71,8 +71,8 @@ msgid ""
 msgstr "Når kunstnere sorteres vises kun kunstnere med album eller alle kunstnere fundet. Advarsel: Hvis dette deaktiveres kan det påvirke ydeevnen ved store biblioteker"
 
 msgctxt ""
-msgid "is the default"
-msgstr "er standard"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""
