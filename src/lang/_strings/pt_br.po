@@ -794,8 +794,12 @@ msgid "total"
 msgstr "total"
 
 msgctxt ""
-msgid "set"
-msgstr "conjunto"
+msgid "Set Watched"
+msgstr "Conjunto assistido"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Conjunto não assistido"
 
 msgctxt ""
 msgid "Show device name"

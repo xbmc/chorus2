@@ -782,7 +782,11 @@ msgid "total"
 msgstr ""
 
 msgctxt ""
-msgid "set"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
 msgstr ""
 
 msgctxt ""

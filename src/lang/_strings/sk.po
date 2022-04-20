@@ -743,8 +743,12 @@ msgid "total"
 msgstr "celkom"
 
 msgctxt ""
-msgid "set"
-msgstr "nastaviť ako"
+msgid "Set Watched"
+msgstr "Nastaviť ako pozreté"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Nastaviť ako nepozreté"
 
 msgctxt ""
 msgid "Show device name"

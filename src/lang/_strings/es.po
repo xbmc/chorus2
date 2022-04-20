@@ -787,8 +787,12 @@ msgid "total"
 msgstr "total"
 
 msgctxt ""
-msgid "set"
-msgstr "poner"
+msgid "Set Watched"
+msgstr "Poner visto"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Poner no visto"
 
 msgctxt ""
 msgid "Show device name"

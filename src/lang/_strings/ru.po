@@ -770,8 +770,12 @@ msgid "total"
 msgstr "всего"
 
 msgctxt ""
-msgid "set"
-msgstr "сделать"
+msgid "Set Watched"
+msgstr "Отметить как просмотренное"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Отметить как непросмотренное"
 
 msgctxt ""
 msgid "Show device name"

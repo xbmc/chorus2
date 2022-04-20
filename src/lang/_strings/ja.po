@@ -762,8 +762,12 @@ msgid "total"
 msgstr "合計"
 
 msgctxt ""
-msgid "set"
-msgstr "セット"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"

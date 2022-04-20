@@ -763,8 +763,12 @@ msgid "total"
 msgstr "celkem"
 
 msgctxt ""
-msgid "set"
-msgstr "nastavit jako"
+msgid "Set Watched"
+msgstr "Nastavit jako zhlédnuto"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Nastavit jako nezhlédnuto"
 
 msgctxt ""
 msgid "Show device name"

@@ -747,8 +747,12 @@ msgid "total"
 msgstr "razem"
 
 msgctxt ""
-msgid "set"
-msgstr "ustaw"
+msgid "Set Watched"
+msgstr "Ustaw obejrzane"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Ustaw nieobejrzane"
 
 msgctxt ""
 msgid "Show device name"

@@ -45,7 +45,6 @@
   cursor: pointer;
   margin: 0 $spacing-half-unit $spacing-half-unit 0;
   color: $color-white;
-  text-transform: capitalize;
   .text {
     @include text-crop($color);
     display: block;

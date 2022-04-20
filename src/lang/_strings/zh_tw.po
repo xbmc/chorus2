@@ -785,8 +785,12 @@ msgid "total"
 msgstr "總共"
 
 msgctxt ""
-msgid "set"
-msgstr "設定"
+msgid "Set Watched"
+msgstr "設定 已觀看"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "設定 未觀看"
 
 msgctxt ""
 msgid "Show device name"

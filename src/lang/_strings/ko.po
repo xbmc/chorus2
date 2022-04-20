@@ -762,8 +762,12 @@ msgid "total"
 msgstr "전체"
 
 msgctxt ""
-msgid "set"
-msgstr "세트"
+msgid "Set Watched"
+msgstr "세트 시청함"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "세트 시청 안 함"
 
 msgctxt ""
 msgid "Show device name"

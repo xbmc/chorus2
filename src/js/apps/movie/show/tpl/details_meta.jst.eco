@@ -60,7 +60,7 @@
         <li class="btn-flat-add add"><%= tr('Queue') %></li>
         <li class="btn-flat-stream stream"><%= t.gettext('Stream') %></li>
         <li class="btn-flat-watched watched">
-            <%= t.gettext('set') %> <span class="action-watched"><%= t.gettext('watched') %></span><span class="action-unwatched"><%= t.gettext('unwatched') %></span>
+            <span class="action-watched"><%= t.gettext('Set Watched') %></span><span class="action-unwatched"><%= t.gettext('Set Unwatched') %></span>
         </li>
         <li class="more-actions dropdown">
             <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>

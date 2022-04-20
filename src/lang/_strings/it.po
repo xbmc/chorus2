@@ -766,8 +766,12 @@ msgid "total"
 msgstr "totale"
 
 msgctxt ""
-msgid "set"
-msgstr "saga"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"

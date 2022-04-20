@@ -770,8 +770,12 @@ msgid "total"
 msgstr "ukupno"
 
 msgctxt ""
-msgid "set"
-msgstr "set"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
