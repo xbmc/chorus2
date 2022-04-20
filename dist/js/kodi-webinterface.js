@@ -19554,7 +19554,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
     Controller.prototype.getStructure = function() {
       return [
         {
-          title: 'General options',
+          title: tr('General options'),
           id: 'general',
           children: [
             {
@@ -19589,7 +19589,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
-          title: 'List options',
+          title: tr('List options'),
           id: 'list',
           children: [
             {
@@ -19613,7 +19613,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
-          title: 'Appearance',
+          title: tr('Appearance'),
           id: 'appearance',
           children: [
             {
@@ -19637,7 +19637,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
-          title: 'Advanced options',
+          title: tr('Advanced options'),
           id: 'advanced',
           children: [
             {
@@ -19690,7 +19690,7 @@ this.Kodi.module("SettingsApp.Show.Local", function(Local, App, Backbone, Marion
             }
           ]
         }, {
-          title: 'API Keys',
+          title: tr('API Keys'),
           id: 'apikeys',
           children: [
             {
