@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-04-14 22:48+0000\n"
-"Last-Translator: AlekSS Lab <alekss881980@gmail.com>\n"
+"PO-Revision-Date: 2022-04-26 15:34+0000\n"
+"Last-Translator: Dmitry Petrov <dimakrm361@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/ru_ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -72,7 +72,7 @@ msgstr "При перечислении исполнителей мы должн
 
 msgctxt ""
 msgid "is the default"
-msgstr ""
+msgstr "по умолчанию"
 
 msgctxt ""
 msgid ""
@@ -204,7 +204,7 @@ msgstr "Воспроизвести"
 
 msgctxt ""
 msgid "Queue"
-msgstr "Очередь"
+msgstr "Добавить в очередь"
 
 msgctxt ""
 msgid "View on IMDb"
@@ -284,7 +284,7 @@ msgctxt ""
 msgid ""
 "Your browser doesn't support websockets! Get with the times and update your "
 "browser."
-msgstr "Твой браузер не поддерживает WebSocket! Идите в ногу со временем и обновите свой браузер."
+msgstr "Ваш браузер не поддерживает WebSocket! Идите в ногу со временем и обновите свой браузер."
 
 msgctxt ""
 msgid "Failed to connect to websockets"
@@ -384,13 +384,13 @@ msgstr "Настройки Kodi"
 
 msgctxt ""
 msgid "Now Playing Playlists"
-msgstr ""
+msgstr "Воспроизводятся плейлисты"
 
 msgctxt ""
 msgid ""
 "Switch between Kodi and local playback via the tabs. You can toggle "
 "visibility with the arrow in the top right"
-msgstr ""
+msgstr "Это позволяет вам выбирать медиаплеер между Kodi и браузером, используя закладки. Вы можете изменить видимость вкладок с помощью стрелки в правом верхнем углу"
 
 msgctxt ""
 msgid "Current playlist"
@@ -458,7 +458,7 @@ msgstr "и"
 
 msgctxt ""
 msgid "tvshows"
-msgstr "тв-передач"
+msgstr "сериалы"
 
 msgctxt ""
 msgid "no media in this folder"
@@ -472,7 +472,7 @@ msgctxt ""
 msgid ""
 "This is where you can browse all Kodi content, not just what is in the "
 "library. Browse by source or add-on."
-msgstr "Здесь, вы можете посмотреть весь контент Kodi, и не только то, что есть в библиотеке. Просмотр по источнику или по дополнению."
+msgstr "Здесь, вы можете посмотреть весь контент Kodi, а не только то, что есть в библиотеке. Просмотр по источнику или по дополнению."
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -649,7 +649,7 @@ msgstr "Здесь вы можете изменить заголовок, ссы
 
 msgctxt ""
 msgid "Main Nav"
-msgstr "Навигационная панель"
+msgstr "навигационной панели"
 
 msgctxt ""
 msgid "Add a new playlist"
@@ -673,7 +673,7 @@ msgstr "Фильмы"
 
 msgctxt ""
 msgid "TV shows"
-msgstr "ТВ-передачи"
+msgstr "Сериалы"
 
 msgctxt ""
 msgid "TV"
@@ -759,7 +759,7 @@ msgstr "студия"
 
 msgctxt ""
 msgid "rated"
-msgstr ""
+msgstr "возрастной рейтинг"
 
 msgctxt ""
 msgid "episodes"
@@ -771,7 +771,7 @@ msgstr "всего"
 
 msgctxt ""
 msgid "set"
-msgstr ""
+msgstr "сделать"
 
 msgctxt ""
 msgid "Show device name"
@@ -831,11 +831,11 @@ msgstr "год"
 
 msgctxt ""
 msgid "date added"
-msgstr ""
+msgstr "дата добавления"
 
 msgctxt ""
 msgid "rating"
-msgstr ""
+msgstr "рейтинг"
 
 msgctxt ""
 msgid "actor"
@@ -895,7 +895,7 @@ msgstr "Перейти к сезону"
 
 msgctxt ""
 msgid "Queue in Kodi"
-msgstr "Очередь в Kodi"
+msgstr "Добавить в очередь Kodi"
 
 msgctxt ""
 msgid "Adding items to the queue"
@@ -955,11 +955,11 @@ msgstr "лейбл"
 
 msgctxt ""
 msgid "formed"
-msgstr ""
+msgstr "дата формирования"
 
 msgctxt ""
 msgid "born"
-msgstr "родился"
+msgstr "родился(-ась)"
 
 msgctxt ""
 msgid "died"
@@ -967,11 +967,11 @@ msgstr "умер"
 
 msgctxt ""
 msgid "disbanded"
-msgstr ""
+msgstr "дата распада"
 
 msgctxt ""
 msgid "years active"
-msgstr ""
+msgstr "годы активности"
 
 msgctxt ""
 msgid "Click for more"
@@ -1013,13 +1013,14 @@ msgctxt ""
 msgid "MixCloud"
 msgstr "MixCloud"
 
+#, fuzzy
 msgctxt ""
 msgid "First aired"
-msgstr ""
+msgstr "Премьера"
 
 msgctxt ""
 msgid "Updated %1$s details"
-msgstr ""
+msgstr "Обновлено %1$s элементов"
 
 msgctxt ""
 msgid "Title"
@@ -1031,7 +1032,7 @@ msgstr "Сюжет"
 
 msgctxt ""
 msgid "Rating"
-msgstr "Оценка"
+msgstr "Рейтинг"
 
 msgctxt ""
 msgid "Original title"
@@ -1099,7 +1100,7 @@ msgstr "Диск"
 
 msgctxt ""
 msgid "Tagline"
-msgstr ""
+msgstr "Слоган"
 
 msgctxt ""
 msgid "Studio"
@@ -1111,7 +1112,7 @@ msgstr "Возрастной рейтинг"
 
 msgctxt ""
 msgid "Premiered"
-msgstr ""
+msgstr "Премьера"
 
 msgctxt ""
 msgid "IMDb"
@@ -1125,9 +1126,10 @@ msgctxt ""
 msgid "Country"
 msgstr "Страна"
 
+#, fuzzy
 msgctxt ""
 msgid "Set"
-msgstr ""
+msgstr "Звукоряд"
 
 msgctxt ""
 msgid "Tags"
@@ -1139,19 +1141,19 @@ msgstr "Трейлер"
 
 msgctxt ""
 msgid "Formed"
-msgstr ""
+msgstr "Дата формирования"
 
 msgctxt ""
 msgid "Disbanded"
-msgstr ""
+msgstr "Дата распада"
 
 msgctxt ""
 msgid "Years Active"
-msgstr ""
+msgstr "Годы активности"
 
 msgctxt ""
 msgid "Born"
-msgstr ""
+msgstr "Родился(-ась)"
 
 msgctxt ""
 msgid "Died"
@@ -1163,11 +1165,11 @@ msgstr "Инструменты"
 
 msgctxt ""
 msgid "more"
-msgstr ""
+msgstr "больше"
 
 msgctxt ""
 msgid "in progress"
-msgstr ""
+msgstr "в процессе"
 
 msgctxt ""
 msgid "URL"
@@ -1179,11 +1181,11 @@ msgstr "Добавить изображение из ссылки"
 
 msgctxt ""
 msgid "Searching for more images"
-msgstr ""
+msgstr "Поиск картинок"
 
 msgctxt ""
 msgid "Selector"
-msgstr ""
+msgstr "Селектор"
 
 msgctxt ""
 msgid "External Search"
@@ -1203,7 +1205,7 @@ msgstr "Поиск YouTube"
 
 msgctxt ""
 msgid "Executed addon"
-msgstr ""
+msgstr "Запущенное дополнение"
 
 msgctxt ""
 msgid "all"
@@ -1239,23 +1241,23 @@ msgstr "Обновить"
 
 msgctxt ""
 msgid "Confirm refresh"
-msgstr ""
+msgstr "Подтвердить обновление"
 
 msgctxt ""
 msgid "Refresh Ignore NFO"
-msgstr ""
+msgstr "Игнорировать NFO при обновлении"
 
 msgctxt ""
 msgid "Ignore local NFO files when manually refreshing media."
-msgstr ""
+msgstr "Игнорировать локальные NFO файлы при ручном обновлении медиа."
 
 msgctxt ""
 msgid "Show only"
-msgstr ""
+msgstr "Только сериалы"
 
 msgctxt ""
 msgid "Show and episodes"
-msgstr ""
+msgstr "Сериалы и серии"
 
 msgctxt ""
 msgid "Top music"
@@ -1263,15 +1265,15 @@ msgstr "Лучшая музыка"
 
 msgctxt ""
 msgid "%1$s Artists"
-msgstr ""
+msgstr "%1$s Артиста(-ов)"
 
 msgctxt ""
 msgid "%1$s Albums"
-msgstr ""
+msgstr "%1$s Альбома(-ов)"
 
 msgctxt ""
 msgid "%1$s Songs"
-msgstr ""
+msgstr "%1$s Песни"
 
 msgctxt ""
 msgid "default"
@@ -1279,15 +1281,15 @@ msgstr "по-умолчанию"
 
 msgctxt ""
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 msgctxt ""
 msgid "play files"
-msgstr ""
+msgstr "воспроизвести файлы"
 
 msgctxt ""
 msgid "queue files"
-msgstr ""
+msgstr "добавить файлы в очередь"
 
 msgctxt ""
 msgid "Sent text"
@@ -1335,11 +1337,11 @@ msgstr "PVR"
 
 msgctxt ""
 msgid "Recordings"
-msgstr ""
+msgstr "Записи"
 
 msgctxt ""
 msgid "Channel recording toggled"
-msgstr ""
+msgstr "Запись канала переключена"
 
 msgctxt ""
 msgid "TV Channels"
@@ -1351,11 +1353,11 @@ msgstr "Радиостанции"
 
 msgctxt ""
 msgid "Record"
-msgstr ""
+msgstr "Запись"
 
 msgctxt ""
 msgid "Toggle timer"
-msgstr ""
+msgstr "Переключить таймер"
 
 msgctxt ""
 msgid "Now"
@@ -1395,11 +1397,11 @@ msgstr "Лучшие альбомы"
 
 msgctxt ""
 msgid "Toggle select all"
-msgstr ""
+msgstr "Выбрать/Убрать все"
 
 msgctxt ""
 msgid "More like this"
-msgstr ""
+msgstr "Найти похожее"
 
 msgctxt ""
 msgid "music videos"
@@ -1419,11 +1421,11 @@ msgstr "Пытаемся переподкючится к WebSocket"
 
 msgctxt ""
 msgid "This should be the play path for the trailer. Eg. %1$s"
-msgstr ""
+msgstr "Здесь нужно указать путь к трейлеру. Например: %1$s"
 
 msgctxt ""
 msgid "%1$s party mode toggled"
-msgstr ""
+msgstr "Режим вечеринки %1$s переключен"
 
 msgctxt ""
 msgid "Set your personal API key"
