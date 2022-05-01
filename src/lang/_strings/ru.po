@@ -1182,7 +1182,7 @@ msgid "Instruments"
 msgstr "Инструменты"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "Ещё"
 
 msgctxt ""

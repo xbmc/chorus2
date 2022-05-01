@@ -1185,7 +1185,7 @@ msgid "Instruments"
 msgstr "樂器"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "更多"
 
 msgctxt ""

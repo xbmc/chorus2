@@ -1133,8 +1133,8 @@ msgid "Instruments"
 msgstr "Hangszerek"
 
 msgctxt ""
-msgid "more"
-msgstr "több"
+msgid "More"
+msgstr "Több"
 
 msgctxt ""
 msgid "in progress"

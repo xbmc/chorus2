@@ -1158,7 +1158,7 @@ msgid "Instruments"
 msgstr "악기"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "더 보기"
 
 msgctxt ""

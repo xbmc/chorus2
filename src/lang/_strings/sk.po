@@ -1131,8 +1131,8 @@ msgid "Instruments"
 msgstr "Nástroje"
 
 msgctxt ""
-msgid "more"
-msgstr "viac"
+msgid "More"
+msgstr "Viac"
 
 msgctxt ""
 msgid "in progress"

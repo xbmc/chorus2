@@ -36,7 +36,7 @@
         <li class="btn-flat-add add"><%= tr('Queue') %></li>
         <li class="btn-flat-stream localplay"><%= tr('Stream') %></li>
         <li class="more-actions dropdown">
-            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('More') %></span>
             <ul class="dropdown-menu pull-right">
                 <li class="download"><%= tr('Download') %></li>
                 <li class="divider"></li>

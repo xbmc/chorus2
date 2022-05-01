@@ -1158,8 +1158,8 @@ msgid "Instruments"
 msgstr "インスルメント"
 
 msgctxt ""
-msgid "more"
-msgstr "さらに"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

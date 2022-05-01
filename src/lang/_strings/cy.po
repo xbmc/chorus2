@@ -1178,7 +1178,7 @@ msgid "Instruments"
 msgstr ""
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr ""
 
 msgctxt ""

@@ -1162,8 +1162,8 @@ msgid "Instruments"
 msgstr "Instruments"
 
 msgctxt ""
-msgid "more"
-msgstr "més"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"
