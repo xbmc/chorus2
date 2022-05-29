@@ -18,11 +18,13 @@ SPATIE BALK = Play/Pauze
 Toets "C" = Context menu
 Toets "+" = Volume Omhoog
 Toets "-" = Volume Omlaag
+Toets "M" = Dempen
 Toets "X" = Stop
 Toets "T" = Schakel Ondertitels
 Toets ">" = Play Volgende
 Toets "<" = Play Vorige
 Toets "\" = Volledig scherm
+Toets "O" = Schermweergave
 ```
 
 [Wil u verbeteringen aanbrengen? klik hier](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)

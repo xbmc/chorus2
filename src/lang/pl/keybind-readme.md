@@ -21,11 +21,13 @@ SPACJA = Odtwarzaj/Wstrzymaj
 Klawisz "C" = Menu kontekstowe
 Klawisz "+" = Zwiększ głośność
 Klawisz "-" = Zmiejsz głośność
+Klawisz "M" = Wyciszać
 Klawisz "X" = Zatrzymaj
 Klawisz "T" = Przełącz napisy
 Klawisz ">" = Odtwarzaj następne
 Klawisz "<" = Odtwarzaj poprzednie
 Klawisz "\" = Pełen ekran
+Klawisz "O" = Wyświetlacz ekranowy
 ```
 
 [Dysponujesz poprawką? Naciśnij tutaj](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
