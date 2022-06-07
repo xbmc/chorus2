@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-03-17 10:00+0000\n"
+"PO-Revision-Date: 2022-06-07 16:34+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/da_dk/>\n"
 "Language: da\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12.2\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -217,7 +217,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Download"
-msgstr ""
+msgstr "Hent"
 
 msgctxt ""
 msgid "complete"
@@ -265,7 +265,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Language"
-msgstr ""
+msgstr "Sprog"
 
 msgctxt ""
 msgid "Preferred language"
@@ -332,11 +332,11 @@ msgstr ""
 
 msgctxt ""
 msgid "Scan video library"
-msgstr ""
+msgstr "Scan videobiblioteket"
 
 msgctxt ""
 msgid "Scan audio library"
-msgstr ""
+msgstr "Scan musikbiblioteket"
 
 msgctxt ""
 msgid "About Chorus"
@@ -512,7 +512,7 @@ msgstr ""
 
 msgctxt ""
 msgid "General"
-msgstr ""
+msgstr "Generel"
 
 msgctxt ""
 msgid ""
@@ -525,7 +525,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 msgctxt ""
 msgid "cast"
@@ -657,7 +657,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Music"
-msgstr ""
+msgstr "Musik"
 
 msgctxt ""
 msgid "Digital radio"
@@ -791,7 +791,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 msgctxt ""
 msgid "Add to Kodi"
@@ -799,7 +799,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Watched"
-msgstr ""
+msgstr "Set"
 
 msgctxt ""
 msgid "New playlist"
@@ -1131,7 +1131,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Trailer"
-msgstr ""
+msgstr "Trailer"
 
 msgctxt ""
 msgid "Formed"
@@ -1231,7 +1231,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Refresh"
-msgstr ""
+msgstr "Opdater"
 
 msgctxt ""
 msgid "Confirm refresh"
