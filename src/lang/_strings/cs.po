@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: 2018-01-06 22:50+0100\n"
-"PO-Revision-Date: 2022-03-30 06:43+0000\n"
-"Last-Translator: Kryštof Černý <cleverline1mc@gmail.com>\n"
+"PO-Revision-Date: 2022-06-22 08:57+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/cs_cz/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.13\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -57,7 +57,6 @@ msgctxt ""
 msgid "Add filter"
 msgstr "Přidat filtr"
 
-#, fuzzy
 msgid "Which player to start with"
 msgstr "S jakým přehrávačem začít"
 
@@ -75,7 +74,6 @@ msgctxt ""
 msgid "is the default"
 msgstr "je vychozí"
 
-#, fuzzy
 msgctxt ""
 msgid ""
 "The hostname used for websockets connection. Set to 'auto' to use the "
@@ -88,7 +86,6 @@ msgid ""
 "inactive)"
 msgstr "Jak často se dotazovat na aktualizaci stavu z Kodi (platné jen pokud se nepoužívá technologie websocket)"
 
-#, fuzzy
 msgctxt ""
 msgid "Enable support for reverse proxy."
 msgstr "Zapne podporu pro reverzní proxy."
@@ -377,7 +374,6 @@ msgctxt ""
 msgid "Kodi settings"
 msgstr "Nastavení Kodi"
 
-#, fuzzy
 msgctxt ""
 msgid "Now Playing Playlists"
 msgstr "Nyné přehrávám playlist"
@@ -584,7 +580,6 @@ msgctxt ""
 msgid "Local audio"
 msgstr "Místní audio"
 
-#, fuzzy
 msgctxt ""
 msgid "Status report"
 msgstr "Status report"
@@ -947,7 +942,6 @@ msgctxt ""
 msgid "random"
 msgstr "náhodně"
 
-#, fuzzy
 msgctxt ""
 msgid "label"
 msgstr "label"
@@ -987,10 +981,6 @@ msgid ""
 "text. I don't really care what it is at this point, why not be creative? "
 "Do you have a %2$s? I won't tell..."
 msgstr ""
-"%1$d seconds ago, an input dialog opened in Kodi and it is still open! "
-"To prevent a mainframe implosion, you should probably give me some "
-"text. I don't really care what it is at this point, why not be creative? "
-"Do you have a %2$s? I won't tell..."
 
 msgctxt ""
 msgid "all media"
@@ -1018,11 +1008,11 @@ msgstr "MixCloud"
 
 msgctxt ""
 msgid "First aired"
-msgstr "First aired"
+msgstr "Premiéra"
 
 msgctxt ""
 msgid "Updated %1$s details"
-msgstr "Updated %1$s details"
+msgstr ""
 
 msgctxt ""
 msgid "Title"
@@ -1052,16 +1042,14 @@ msgctxt ""
 msgid "File path"
 msgstr "Cesta souboru"
 
-#, fuzzy
 msgctxt ""
 msgid "Artist"
-msgstr "Artist"
+msgstr "Interpret"
 
 msgctxt ""
 msgid "Description"
 msgstr "Popis"
 
-#, fuzzy
 msgctxt ""
 msgid "Label"
 msgstr "Label"
@@ -1086,10 +1074,9 @@ msgctxt ""
 msgid "Moods"
 msgstr "Nálady"
 
-#, fuzzy
 msgctxt ""
 msgid "Album artist"
-msgstr "Album artist"
+msgstr "Interpret alba"
 
 msgctxt ""
 msgid "Album"
@@ -1135,10 +1122,9 @@ msgctxt ""
 msgid "Set"
 msgstr "Nastavení"
 
-#, fuzzy
 msgctxt ""
 msgid "Tags"
-msgstr "Tags"
+msgstr "Štítky"
 
 msgctxt ""
 msgid "Trailer"
@@ -1208,7 +1194,6 @@ msgctxt ""
 msgid "YouTube Search"
 msgstr "Vyhledávání na YouTube"
 
-#, fuzzy
 msgctxt ""
 msgid "Executed addon"
 msgstr "Spustitelný addon"
@@ -1229,7 +1214,6 @@ msgctxt ""
 msgid "image"
 msgstr "obrázek"
 
-#, fuzzy
 msgctxt ""
 msgid "picture"
 msgstr "fotka"
@@ -1258,7 +1242,6 @@ msgctxt ""
 msgid "Ignore local NFO files when manually refreshing media."
 msgstr "Ignorovat místní NFO soubory při ručním obnovení multimédií."
 
-#, fuzzy
 msgctxt ""
 msgid "Show only"
 msgstr "Jen seriál"
@@ -1359,10 +1342,9 @@ msgctxt ""
 msgid "Radio Stations"
 msgstr "Stanice rádia"
 
-#, fuzzy
 msgctxt ""
 msgid "Record"
-msgstr "Nahrávka"
+msgstr "Nahrávat"
 
 msgctxt ""
 msgid "Toggle timer"
@@ -1404,7 +1386,6 @@ msgctxt ""
 msgid "Top Albums"
 msgstr "Nejlepší Alba"
 
-#, fuzzy
 msgctxt ""
 msgid "Toggle select all"
 msgstr "Vybrat/zrušit výběr všeho"

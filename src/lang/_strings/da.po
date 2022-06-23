@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-06-07 16:34+0000\n"
+"PO-Revision-Date: 2022-06-14 17:14+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/da_dk/>\n"
 "Language: da\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr ""
+msgstr "Standard web-brugerflade"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
@@ -58,7 +58,7 @@ msgid "Add filter"
 msgstr "Tilføj filter"
 
 msgid "Which player to start with"
-msgstr ""
+msgstr "Hvilken afspiller der startes med"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
@@ -72,7 +72,7 @@ msgstr ""
 
 msgctxt ""
 msgid "is the default"
-msgstr ""
+msgstr "er standard"
 
 msgctxt ""
 msgid ""
@@ -96,7 +96,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Just a sec..."
-msgstr ""
+msgstr "Et øjeblik..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
@@ -104,19 +104,19 @@ msgstr ""
 
 msgctxt ""
 msgid "Video library scan started"
-msgstr ""
+msgstr "Scanning af videobiblioteket er startet"
 
 msgctxt ""
 msgid "Video library scan complete"
-msgstr ""
+msgstr "Scanning af videobiblioteket er afsluttet"
 
 msgctxt ""
 msgid "Audio library scan started"
-msgstr ""
+msgstr "Scanning af musikbiblioteket er startet"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr ""
+msgstr "Scanning af musikbiblioteket er afsluttet"
 
 msgctxt ""
 msgid "Kodi has quit"
