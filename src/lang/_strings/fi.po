@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-07-01 00:16+0000\n"
+"PO-Revision-Date: 2022-07-10 10:14+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/fi_fi/>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr "Oletusarvoinen verkkokäyttöliittymä"
+msgstr "Oletusarvoinen web-käyttöliittymä"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
@@ -72,7 +72,7 @@ msgstr ""
 
 msgctxt ""
 msgid "is the default"
-msgstr ""
+msgstr "on oletus"
 
 msgctxt ""
 msgid ""
@@ -208,7 +208,7 @@ msgstr ""
 
 msgctxt ""
 msgid "View on IMDb"
-msgstr ""
+msgstr "Näytä IMDb:ssä"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
@@ -537,7 +537,7 @@ msgstr ""
 
 msgctxt ""
 msgid "Web interface"
-msgstr ""
+msgstr "Web-käyttöliittymä"
 
 msgctxt ""
 msgid "Readme"
@@ -1111,7 +1111,7 @@ msgstr ""
 
 msgctxt ""
 msgid "IMDb"
-msgstr ""
+msgstr "IMDb"
 
 msgctxt ""
 msgid "Sort title"
