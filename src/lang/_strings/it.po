@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-06-22 08:57+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2022-08-21 07:14+0000\n"
+"Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/it_it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr "Interfaccia web di default"
+msgstr "Interfaccia Web predefinita"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
-msgstr "Sfoglia e interagisci con musica, film, programmi TV e altro tramite un browser web. Riproduci musica e video in streaming sul tuo browser. Gestisci la tua libreria multimediale Kodi."
+msgstr "Sfoglia e interagisci con la tua musica, film, programmi TV e altro tramite un browser web. Riproduci musica e video in streaming sul tuo browser. Modifica e gestisci la tua libreria multimediale Kodi."
 
 msgctxt ""
 msgid "Nothing playing"
@@ -51,24 +51,24 @@ msgstr "Scegli un'opzione"
 
 msgctxt ""
 msgid "filter"
-msgstr "Filtro"
+msgstr "filtro"
 
 msgctxt ""
 msgid "Add filter"
 msgstr "Aggiungi filtro"
 
 msgid "Which player to start with"
-msgstr ""
+msgstr "Con quale lettore inizio"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "Ignora articoli come \"The\" e \"A\" ordinando le liste"
+msgstr "Ignora termini come \"The\" e \"A\" durante l'ordinamento degli elenchi"
 
 msgctxt ""
 msgid ""
 "When listing artists should we only see artists with albums or all artists "
 "found. Warning: turning this off can impact performance with large libraries"
-msgstr "Elencando gli artisti dovremmo vedere solo gli artisti con album o tutti gli artisti trovati. Avviso: la disattivazione può influire sulle prestazioni con librerie di grandi dimensioni"
+msgstr "Quando elenchiamo gli artisti dovremmo vedere solo gli artisti con album o tutti gli artisti trovati. Avviso: la disattivazione può influire sulle prestazioni con librerie di grandi dimensioni"
 
 msgctxt ""
 msgid "is the default"
@@ -78,17 +78,17 @@ msgctxt ""
 msgid ""
 "The hostname used for websockets connection. Set to 'auto' to use the "
 "current hostname."
-msgstr "Il nome host utilizzato per la connessione ai WebSocket. Impostare su “auto” per utilizzare il nome host corrente."
+msgstr "Il nome host utilizzato per la connessione ai WebSocket. Imposta su 'auto' per utilizzare il nome host corrente."
 
 msgctxt ""
 msgid ""
 "How often do I poll for updates from Kodi (Only applies when websockets "
 "inactive)"
-msgstr "Con quale frequenza chiedere aggiornamenti da Kodi (si applica solo quando i websocket sono inattivi)"
+msgstr "Con quale frequenza richiedo gli aggiornamenti da Kodi (si applica solo quando i websocket sono inattivi)"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
-msgstr "Abilita supporto per reverse proxy."
+msgstr "Abilita supporto per proxy inverso."
 
 msgctxt ""
 msgid "Web settings saved."
@@ -96,11 +96,11 @@ msgstr "Impostazioni web salvate."
 
 msgctxt ""
 msgid "Just a sec..."
-msgstr "Un attimo..."
+msgstr "Un secondo..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "Impossibile comunicare con Kodi da molto tempo. Penso che sia andato, Jim!"
+msgstr "Impossibile comunicare con Kodi da molto tempo. Penso che sia morto Jim!"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -116,7 +116,7 @@ msgstr "Scansione libreria audio iniziata"
 
 msgctxt ""
 msgid "Audio library scan complete"
-msgstr "Scansione libreria audio finita"
+msgstr "Scansione libreria audio completata"
 
 msgctxt ""
 msgid "Kodi has quit"
@@ -144,7 +144,7 @@ msgstr "a Kodi"
 
 msgctxt ""
 msgid "Playlist refreshed"
-msgstr "Elenco aggiornato"
+msgstr "Playlist aggiornata"
 
 msgctxt ""
 msgid "Kodi"
@@ -156,11 +156,11 @@ msgstr "Locale"
 
 msgctxt ""
 msgid "Playlists"
-msgstr "Playlists"
+msgstr "Playlist"
 
 msgctxt ""
 msgid "Existing playlists"
-msgstr "Playlists esistenti"
+msgstr "Playlist esistenti"
 
 msgctxt ""
 msgid "Empty playlist, you should probably add something to it?"
@@ -168,27 +168,27 @@ msgstr "Playlist vuota, probabilmente dovresti aggiungerci qualcosa...?"
 
 msgctxt ""
 msgid "Create a new list"
-msgstr "Crea un nuovo elenco"
+msgstr "Crea una nuova lista"
 
 msgctxt ""
 msgid "Add to playlist"
-msgstr "Aggiungi all'elenco"
+msgstr "Aggiungi alla playlist"
 
 msgctxt ""
 msgid "Added to your playlist"
-msgstr "Aggiunto al tuo elenco"
+msgstr "Aggiunto alla tua playlist"
 
 msgctxt ""
 msgid "Give your playlist a name"
-msgstr "Dai un nome al tuo elenco"
+msgstr "Dai un nome alla tua playlist"
 
 msgctxt ""
 msgid "Recently added"
-msgstr "Aggiunti di recente"
+msgstr "Aggiunti recentemente"
 
 msgctxt ""
 msgid "Recently played"
-msgstr "Riprodotti di recente"
+msgstr "Riprodotti recentemente"
 
 msgctxt ""
 msgid "Season"
@@ -245,11 +245,11 @@ msgstr "Porta websocket"
 
 msgctxt ""
 msgid "Default player"
-msgstr "Player predefinito"
+msgstr "Lettore predefinito"
 
 msgctxt ""
 msgid "Ignore article"
-msgstr "Ignore articoli"
+msgstr "Ignora articolo"
 
 msgctxt ""
 msgid "Album artists only"
@@ -257,7 +257,7 @@ msgstr "Solo artisti album"
 
 msgctxt ""
 msgid "Poll interval"
-msgstr "Intervallo richieste"
+msgstr "Intervallo richiesta"
 
 msgctxt ""
 msgid "Reverse proxy support"
@@ -273,7 +273,7 @@ msgstr "Lingua preferita"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Ignora gli articoli (ad es. \"The\" e \"A\") nell'ordinamento delle liste"
+msgstr "Ignora gli articoli (termini come \"The\" e \"A\") durante l'ordinamento degli elenchi"
 
 # Short for "second"
 msgctxt ""
@@ -340,7 +340,7 @@ msgstr "Scansione libreria audio"
 
 msgctxt ""
 msgid "About Chorus"
-msgstr "A mproposito di Chorus"
+msgstr "A proposito del Chorus"
 
 msgctxt ""
 msgid "Recent"
@@ -368,7 +368,7 @@ msgstr "Episodi recenti"
 
 msgctxt ""
 msgid "All TV shows"
-msgstr "Tutti gli show TV"
+msgstr "Tutti i programmi TV"
 
 msgctxt ""
 msgid "Web settings"
@@ -380,25 +380,25 @@ msgstr "Impostazioni di Kodi"
 
 msgctxt ""
 msgid "Now Playing Playlists"
-msgstr ""
+msgstr "Ora sto riproducendo playlist"
 
 msgctxt ""
 msgid ""
 "Switch between Kodi and local playback via the tabs. You can toggle "
 "visibility with the arrow in the top right"
-msgstr "Passa da riproduzione su Kodi a locale con le schede. Puoi impostarne la visibilità con la freccia in alto a destra"
+msgstr "Passa da Kodi alla riproduzione locale tramite le schede. Puoi alternare la visibilità con la freccia in alto a destra"
 
 msgctxt ""
 msgid "Current playlist"
-msgstr "Elenco attuale"
+msgstr "Playlist attuale"
 
 msgctxt ""
 msgid "Clear playlist"
-msgstr "Passa da Kodi alla riproduzione locale usando le schede. Puoi impostare la visibilità con la freccia in alto a destra"
+msgstr "Svuota playlist"
 
 msgctxt ""
 msgid "Refresh playlist"
-msgstr "Aggiorna l'elenco"
+msgstr "Aggiorna playlist"
 
 msgctxt ""
 msgid "Party mode"
@@ -406,23 +406,23 @@ msgstr "Modalità party"
 
 msgctxt ""
 msgid "Save Kodi playlist"
-msgstr ""
+msgstr "Salva playlist di Kodi"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
-msgstr "Lingua preferita, occorre aggiornare il browser perché abbia effetto"
+msgstr "Lingua preferita, è necessario aggiornare il browser per avere effetto"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "Ignora gli articoli (ad es. \"The\" e \"A\") ordinando le liste"
+msgstr "Ignora gli articoli (termini come \"The\" e \"A\") durante l'ordinamento degli elenchi"
 
 msgctxt ""
 msgid "Vibrant headers"
-msgstr ""
+msgstr "Intestazioni vivaci"
 
 msgctxt ""
 msgid "Use colourful headers for media pages"
-msgstr ""
+msgstr "Usa intestazioni colorate per le pagine multimediali"
 
 msgctxt ""
 msgid "Enable support for reverse proxying."
@@ -446,7 +446,7 @@ msgstr "film"
 
 msgctxt ""
 msgid "Searching for"
-msgstr "Ricerca in corso per"
+msgstr "Sto cercando"
 
 msgctxt ""
 msgid "and"
@@ -454,7 +454,7 @@ msgstr "e"
 
 msgctxt ""
 msgid "tvshows"
-msgstr ""
+msgstr "tvshows"
 
 msgctxt ""
 msgid "no media in this folder"
@@ -468,7 +468,7 @@ msgctxt ""
 msgid ""
 "This is where you can browse all Kodi content, not just what is in the "
 "library. Browse by source or add-on."
-msgstr "Da qui poi sfogliare tutti i contenuti di Kodi, non solo le cose che sono nella libreria. Sfoglia per origine o add-on."
+msgstr "Qui è dove puoi sfogliare tutti i contenuti di Kodi, non solo ciò che è nella libreria. Sfoglia per fonte o add-on."
 
 msgctxt ""
 msgid "Send text to Kodi"
@@ -476,15 +476,15 @@ msgstr "Invia testo a Kodi"
 
 msgctxt ""
 msgid "The lab"
-msgstr "Lab"
+msgstr "Il laboratorio"
 
 msgctxt ""
 msgid "Chorus lab"
-msgstr "Chorus lab"
+msgstr "Laboratorio Chorus"
 
 msgctxt ""
 msgid "Warning"
-msgstr "Attenzione"
+msgstr "Avvertimento"
 
 msgctxt ""
 msgid "Experimental code, use at own risk"
@@ -492,19 +492,19 @@ msgstr "Codice sperimentale, usa a tuo rischio"
 
 msgctxt ""
 msgid "Kodi API browser"
-msgstr "Brovser API Kodi"
+msgstr "API del browser Kodi"
 
 msgctxt ""
 msgid ""
 "This is a tool to test out the API. Select a method then execute it with "
 "parameters."
-msgstr "Questo è uno strumento per testare l'API. Selezionare un metodo, quindi eseguirlo con i parametri."
+msgstr "Questo è uno strumento per testare l'API. Seleziona un metodo, quindi esegui con i parametri."
 
 msgctxt ""
 msgid ""
 "You could potentially damage your system with this and there are no sanity "
 "checks. Use at own risk."
-msgstr "Potresti danneggiare il tuo sistema con questo e non ci sono controlli di integrità. Utilizzare a proprio rischio."
+msgstr "Potresti potenzialmente danneggiare il tuo sistema con questo e non ci sono controlli di integrità. Usa a proprio rischio."
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -517,7 +517,7 @@ msgstr "Generali"
 msgctxt ""
 msgid ""
 "Advanced setting level is recommended for those who know what they are doing."
-msgstr "Il livello di impostazione avanzato è consigliato per chi sa cosa sta facendo."
+msgstr "Il livello di impostazione avanzato è consigliato a coloro che sanno cosa stanno facendo."
 
 msgctxt ""
 msgid "Kodi settings level"
@@ -545,7 +545,7 @@ msgstr "Leggimi"
 
 msgctxt ""
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "Registro modifiche"
 
 msgctxt ""
 msgid "Translations"
@@ -553,15 +553,15 @@ msgstr "Traduzioni"
 
 msgctxt ""
 msgid "Help topics"
-msgstr ""
+msgstr "Argomenti di aiuto"
 
 msgctxt ""
 msgid "Overview"
-msgstr ""
+msgstr "Panoramica"
 
 msgctxt ""
 msgid "Lab"
-msgstr "Lab"
+msgstr "Laboratorio"
 
 msgctxt ""
 msgid "version"
@@ -569,15 +569,15 @@ msgstr "versione"
 
 msgctxt ""
 msgid "Remote control"
-msgstr "Controllo remoto"
+msgstr "Telecomando"
 
 msgctxt ""
 msgid "Remote control is set up correctly"
-msgstr "Controllo remoto correttamente impostato"
+msgstr "Il telecomando è impostato correttamente"
 
 msgctxt ""
 msgid "About"
-msgstr ""
+msgstr "A proposito"
 
 msgctxt ""
 msgid "Local audio"
@@ -585,21 +585,21 @@ msgstr "Audio locale"
 
 msgctxt ""
 msgid "Status report"
-msgstr ""
+msgstr "Rapporto sullo stato"
 
 msgctxt ""
 msgid "in"
-msgstr ""
+msgstr "in"
 
 msgctxt ""
 msgid "Focus playlist on playing"
-msgstr ""
+msgstr "Concentra playlist sulla riproduzione"
 
 msgctxt ""
 msgid ""
 "Automatically scroll the playlist to the current playing item. This happens "
 "whenever the playing item is changed"
-msgstr "Scorre automaticamente la playlist fino all'elemento in riproduzione. Ciò accade ogni volta che cambia l'elemento in riproduzione"
+msgstr "Scorre automaticamente la playlist fino all'elemento in riproduzione. Ciò accade ogni volta che si cambia l'elemento in riproduzione"
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -607,53 +607,53 @@ msgstr "Impostazioni web salvate."
 
 msgctxt ""
 msgid "Keyboard controls"
-msgstr ""
+msgstr "Controlli da tastiera"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr ""
+msgstr "In Chorus, controllerai con la tastiera Kodi, il browser o entrambi"
 
 msgctxt ""
 msgid "Learn more"
-msgstr ""
+msgstr "Scopri di più"
 
 msgctxt ""
 msgid "Resume playback"
-msgstr ""
+msgstr "Riprendi riproduzione"
 
 msgctxt ""
 msgid "Resume from"
-msgstr ""
+msgstr "Riprendi da"
 
 msgctxt ""
 msgid "Start from the beginning"
-msgstr ""
+msgstr "Comincia dall'inizio"
 
 msgctxt ""
 msgid "Click here restore defaults"
-msgstr ""
+msgstr "Clic qui per ripristinare impostazioni predefinite"
 
 msgctxt ""
 msgid "Main Menu Structure"
-msgstr ""
+msgstr "Struttura del menu principale"
 
 msgctxt ""
 msgid ""
 "Here you can change the title, url and %1$s for menu items. You can also "
 "remove, re-order and add new items."
-msgstr ""
+msgstr "Qui puoi modificare il titolo, l'URL e %1$s per le voci di menu. Puoi anche rimuovere, riordinare e aggiungere nuove voci."
 
 msgctxt ""
 msgid "Main Nav"
-msgstr ""
+msgstr "Principale"
 
 msgctxt ""
 msgid "Add a new playlist"
-msgstr ""
+msgstr "Aggiungi nuova playlist"
 
 msgctxt ""
 msgid "Keyboard"
-msgstr ""
+msgstr "Tastiera"
 
 msgctxt ""
 msgid "Music"
@@ -661,7 +661,7 @@ msgstr "Musica"
 
 msgctxt ""
 msgid "Digital radio"
-msgstr ""
+msgstr "Radio digitale"
 
 msgctxt ""
 msgid "Movies"
@@ -669,19 +669,19 @@ msgstr "Film"
 
 msgctxt ""
 msgid "TV shows"
-msgstr ""
+msgstr "Programmi TV"
 
 msgctxt ""
 msgid "TV"
-msgstr ""
+msgstr "TV"
 
 msgctxt ""
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 msgctxt ""
 msgid "Thumbs up"
-msgstr ""
+msgstr "Pollice su"
 
 msgctxt ""
 msgid "Settings"
@@ -689,105 +689,105 @@ msgstr "Impostazioni"
 
 msgctxt ""
 msgid "Help"
-msgstr ""
+msgstr "Aiuto"
 
 msgctxt ""
 msgid "Disable Thumbs Up"
-msgstr ""
+msgstr "Disabilita pollici su"
 
 msgctxt ""
 msgid ""
 "Remove the thumbs up button from media. Note: you may also want to remove "
 "the menu item from the %1$s"
-msgstr ""
+msgstr "Rimuovi il pulsante del pollice in su dal media. Nota: potresti anche voler rimuovere la voce di menu da %1$s"
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
-msgstr ""
+msgstr "Ti serve 'Consenti telecomando' su Kodi. Forza, ce la puoi fare"
 
 msgctxt ""
 msgid "here"
-msgstr ""
+msgstr "qui"
 
 msgctxt ""
 msgid "yes"
-msgstr ""
+msgstr "sì"
 
 msgctxt ""
 msgid "no"
-msgstr ""
+msgstr "no"
 
 msgctxt ""
 msgid "close"
-msgstr ""
+msgstr "chiudi"
 
 msgctxt ""
 msgid "ok"
-msgstr ""
+msgstr "ok"
 
 msgctxt ""
 msgid "Are you sure?"
-msgstr ""
+msgstr "Sei sicuro?"
 
 msgctxt ""
 msgid "Set all episodes for this season as"
-msgstr ""
+msgstr "Imposta tutti gli episodi di questa stagione come"
 
 msgctxt ""
 msgid "Set all episodes for this TV show as"
-msgstr ""
+msgstr "Imposta tutti gli episodi di questo programma TV come"
 
 msgctxt ""
 msgid "watched"
-msgstr ""
+msgstr "Visto"
 
 msgctxt ""
 msgid "unwatched"
-msgstr ""
+msgstr "Non visto"
 
 msgctxt ""
 msgid "genre"
-msgstr ""
+msgstr "genere"
 
 msgctxt ""
 msgid "studio"
-msgstr ""
+msgstr "studio"
 
 msgctxt ""
 msgid "rated"
-msgstr ""
+msgstr "valutato"
 
 msgctxt ""
 msgid "episodes"
-msgstr ""
+msgstr "episodi"
 
 msgctxt ""
 msgid "total"
-msgstr ""
+msgstr "totale"
 
 msgctxt ""
 msgid "set"
-msgstr ""
+msgstr "set"
 
 msgctxt ""
 msgid "Show device name"
-msgstr ""
+msgstr "Mostra nome dispositivo"
 
 msgctxt ""
 msgid "Show the Kodi device name in the header of Chorus"
-msgstr ""
+msgstr "Mostra il nome del dispositivo Kodi nell'intestazione di Chorus"
 
 msgctxt ""
 msgid "No results found"
-msgstr ""
+msgstr "Nessun risultato trovato"
 
 msgctxt ""
 msgid "Have you done a library scan?"
-msgstr ""
+msgstr "Hai fatto una scansione della libreria?"
 
 msgctxt ""
 msgid "Play in browser"
-msgstr ""
+msgstr "Riproduci nel browser"
 
 msgctxt ""
 msgid "Edit"
@@ -795,7 +795,7 @@ msgstr "Modifica"
 
 msgctxt ""
 msgid "Add to Kodi"
-msgstr ""
+msgstr "Aggiungi a Kodi"
 
 msgctxt ""
 msgid "Watched"
@@ -803,39 +803,39 @@ msgstr "Visto"
 
 msgctxt ""
 msgid "New playlist"
-msgstr ""
+msgstr "Nuova playlist"
 
 msgctxt ""
 msgid "Play in Kodi"
-msgstr ""
+msgstr "Riproduci in Kodi"
 
 msgctxt ""
 msgid "Export list"
-msgstr ""
+msgstr "Esporta elenco"
 
 msgctxt ""
 msgid "Delete playlist"
-msgstr ""
+msgstr "Elimina playlist"
 
 msgctxt ""
 msgid "title"
-msgstr ""
+msgstr "titolo"
 
 msgctxt ""
 msgid "year"
-msgstr ""
+msgstr "anno"
 
 msgctxt ""
 msgid "date added"
-msgstr ""
+msgstr "data di aggiunta"
 
 msgctxt ""
 msgid "rating"
-msgstr ""
+msgstr "valutazione"
 
 msgctxt ""
 msgid "actor"
-msgstr ""
+msgstr "attore"
 
 msgctxt ""
 msgid "mood"
@@ -843,63 +843,63 @@ msgstr ""
 
 msgctxt ""
 msgid "writer"
-msgstr ""
+msgstr "scrittore"
 
 msgctxt ""
 msgid "director"
-msgstr ""
+msgstr "regista"
 
 msgctxt ""
 msgid "mood"
-msgstr ""
+msgstr "umore"
 
 msgctxt ""
 msgid "style"
-msgstr ""
+msgstr "stile"
 
 msgctxt ""
 msgid "items selected"
-msgstr ""
+msgstr "voci selezionate"
 
 msgctxt ""
 msgid "item selected"
-msgstr ""
+msgstr "voce selezionata"
 
 msgctxt ""
 msgid "Video library clean started"
-msgstr ""
+msgstr "Avvio pulizia libreria video"
 
 msgctxt ""
 msgid "Video library clean finished"
-msgstr ""
+msgstr "Pulizia libreria video terminata"
 
 msgctxt ""
 msgid "Audio library clean started"
-msgstr ""
+msgstr "Avvio pulizia libreria audio"
 
 msgctxt ""
 msgid "Audio library clean finished"
-msgstr ""
+msgstr "Pulizia libreria audio terminata"
 
 msgctxt ""
 msgid "This is a tool to test out the api. Select a method then execute it with parameters."
-msgstr ""
+msgstr "Questo è uno strumento per testare l'API. Scegli un metodo, quindi esegui con i parametri."
 
 msgctxt ""
 msgid "Go to season"
-msgstr ""
+msgstr "Vai alla stagione"
 
 msgctxt ""
 msgid "Queue in Kodi"
-msgstr ""
+msgstr "Coda di Kodi"
 
 msgctxt ""
 msgid "Adding items to the queue"
-msgstr ""
+msgstr "Aggiunta di elementi alla coda"
 
 msgctxt ""
 msgid "Live TV"
-msgstr ""
+msgstr "Live TV"
 
 msgctxt ""
 msgid "Recently added albums"
@@ -907,7 +907,7 @@ msgstr "Album aggiunti di recente"
 
 msgctxt ""
 msgid "Random albums"
-msgstr ""
+msgstr "Album casuali"
 
 msgctxt ""
 msgid "Recently played albums"
@@ -915,67 +915,67 @@ msgstr "Album ascoltati di recente"
 
 msgctxt ""
 msgid "Random movies"
-msgstr ""
+msgstr "Film casuali"
 
 msgctxt ""
 msgid "Continue watching"
-msgstr ""
+msgstr "Continua a guardare"
 
 msgctxt ""
 msgid "More from %1$s"
-msgstr ""
+msgstr "Altro da %1$s"
 
 msgctxt ""
 msgid "More %1$s movies"
-msgstr ""
+msgstr "Altri %1$s film"
 
 msgctxt ""
 msgid "More movies starring %1$s"
-msgstr ""
+msgstr "Altri film con protagonista %1$s"
 
 msgctxt ""
 msgid "Other movies released in %1$s"
-msgstr ""
+msgstr "Altri film usciti nel %1$s"
 
 msgctxt ""
 msgid "artist"
-msgstr ""
+msgstr "artista"
 
 msgctxt ""
 msgid "random"
-msgstr ""
+msgstr "a caso"
 
 msgctxt ""
 msgid "label"
-msgstr ""
+msgstr "etichetta"
 
 msgctxt ""
 msgid "formed"
-msgstr ""
+msgstr "formato"
 
 msgctxt ""
 msgid "born"
-msgstr ""
+msgstr "nato"
 
 msgctxt ""
 msgid "died"
-msgstr ""
+msgstr "morto"
 
 msgctxt ""
 msgid "disbanded"
-msgstr ""
+msgstr "sciolto"
 
 msgctxt ""
 msgid "years active"
-msgstr ""
+msgstr "anni attivi"
 
 msgctxt ""
 msgid "Click for more"
-msgstr ""
+msgstr "Clic per ulteriori informazioni"
 
 msgctxt ""
 msgid "Loading albums"
-msgstr ""
+msgstr "Caricamento album"
 
 msgctxt ""
 msgid ""
@@ -983,55 +983,55 @@ msgid ""
 "To prevent a mainframe implosion, you should probably give me some "
 "text. I don't really care what it is at this point, why not be creative? "
 "Do you have a %2$s? I won't tell..."
-msgstr ""
+msgstr "%1$d secondi fa, una finestra di dialogo di input si è aperta in Kodi ed è ancora aperta! Per prevenire un'implosione del mainframe, dovresti probabilmente darmi del testo. Non mi interessa davvero cosa sia a questo punto, perché non essere creativo? Hai un %2$s? Io non lo dirò..."
 
 msgctxt ""
 msgid "all media"
-msgstr ""
+msgstr "tutti i media"
 
 msgctxt ""
 msgid "YouTube"
-msgstr ""
+msgstr "YouTube"
 
 msgctxt ""
 msgid "SoundCloud"
-msgstr ""
+msgstr "SoundCloud"
 
 msgctxt ""
 msgid "GoogleMusic"
-msgstr ""
+msgstr "GoogleMusic"
 
 msgctxt ""
 msgid "Radio"
-msgstr ""
+msgstr "Radio"
 
 msgctxt ""
 msgid "MixCloud"
-msgstr ""
+msgstr "MixCloud"
 
 msgctxt ""
 msgid "First aired"
-msgstr ""
+msgstr "Prima volta in onda"
 
 msgctxt ""
 msgid "Updated %1$s details"
-msgstr ""
+msgstr "%1$s dettagli aggiornati"
 
 msgctxt ""
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 msgctxt ""
 msgid "Plot"
-msgstr ""
+msgstr "Trama"
 
 msgctxt ""
 msgid "Rating"
-msgstr ""
+msgstr "Valutazione"
 
 msgctxt ""
 msgid "Original title"
-msgstr ""
+msgstr "Titolo originale"
 
 msgctxt ""
 msgid "Directors"
@@ -1043,19 +1043,19 @@ msgstr "Autori"
 
 msgctxt ""
 msgid "File path"
-msgstr ""
+msgstr "Percorso file"
 
 msgctxt ""
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 msgctxt ""
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 msgctxt ""
 msgid "Label"
-msgstr ""
+msgstr "Etichetta"
 
 msgctxt ""
 msgid "Year"
@@ -1067,23 +1067,23 @@ msgstr "Generi"
 
 msgctxt ""
 msgid "Styles"
-msgstr ""
+msgstr "Stili"
 
 msgctxt ""
 msgid "Themes"
-msgstr ""
+msgstr "Temi"
 
 msgctxt ""
 msgid "Moods"
-msgstr ""
+msgstr "Stati d'animo"
 
 msgctxt ""
 msgid "Album artist"
-msgstr ""
+msgstr "Artista album"
 
 msgctxt ""
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 msgctxt ""
 msgid "Track"
@@ -1091,43 +1091,43 @@ msgstr "Brano"
 
 msgctxt ""
 msgid "Disc"
-msgstr ""
+msgstr "Disco"
 
 msgctxt ""
 msgid "Tagline"
-msgstr ""
+msgstr "Slogan"
 
 msgctxt ""
 msgid "Studio"
-msgstr ""
+msgstr "Studio"
 
 msgctxt ""
 msgid "Content rating"
-msgstr ""
+msgstr "Valutazione contenuti"
 
 msgctxt ""
 msgid "Premiered"
-msgstr ""
+msgstr "Presentato in anteprima"
 
 msgctxt ""
 msgid "IMDb"
-msgstr ""
+msgstr "IMDb"
 
 msgctxt ""
 msgid "Sort title"
-msgstr ""
+msgstr "Ordina per titolo"
 
 msgctxt ""
 msgid "Country"
-msgstr ""
+msgstr "Paese"
 
 msgctxt ""
 msgid "Set"
-msgstr ""
+msgstr "Set"
 
 msgctxt ""
 msgid "Tags"
-msgstr ""
+msgstr "Etichette"
 
 msgctxt ""
 msgid "Trailer"
@@ -1135,111 +1135,111 @@ msgstr "Trailer"
 
 msgctxt ""
 msgid "Formed"
-msgstr ""
+msgstr "Formato"
 
 msgctxt ""
 msgid "Disbanded"
-msgstr ""
+msgstr "Sciolto"
 
 msgctxt ""
 msgid "Years Active"
-msgstr ""
+msgstr "Anni attivi"
 
 msgctxt ""
 msgid "Born"
-msgstr ""
+msgstr "Nato"
 
 msgctxt ""
 msgid "Died"
-msgstr ""
+msgstr "Morto"
 
 msgctxt ""
 msgid "Instruments"
-msgstr ""
+msgstr "Strumenti"
 
 msgctxt ""
 msgid "more"
-msgstr ""
+msgstr "di più"
 
 msgctxt ""
 msgid "in progress"
-msgstr ""
+msgstr "in corso"
 
 msgctxt ""
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgctxt ""
 msgid "Add an image via an external URL"
-msgstr ""
+msgstr "Aggiungi immagine tramite URL esterna"
 
 msgctxt ""
 msgid "Searching for more images"
-msgstr ""
+msgstr "Cerca più immagini"
 
 msgctxt ""
 msgid "Selector"
-msgstr ""
+msgstr "Selettore"
 
 msgctxt ""
 msgid "External Search"
-msgstr ""
+msgstr "Ricerca esterna"
 
 msgctxt ""
 msgid "Local media"
-msgstr ""
+msgstr "Media locali"
 
 msgctxt ""
 msgid "Chorus Search"
-msgstr ""
+msgstr "Ricerca Chorus"
 
 msgctxt ""
 msgid "YouTube Search"
-msgstr ""
+msgstr "Ricerca YouTube"
 
 msgctxt ""
 msgid "Executed addon"
-msgstr ""
+msgstr "Addon eseguito"
 
 msgctxt ""
 msgid "all"
-msgstr ""
+msgstr "tutto"
 
 msgctxt ""
 msgid "video"
-msgstr ""
+msgstr "video"
 
 msgctxt ""
 msgid "audio"
-msgstr ""
+msgstr "audio"
 
 msgctxt ""
 msgid "image"
-msgstr ""
+msgstr "immagine"
 
 msgctxt ""
 msgid "picture"
-msgstr ""
+msgstr "immagine"
 
 msgctxt ""
 msgid "executable"
-msgstr ""
+msgstr "eseguibile"
 
 msgctxt ""
 msgid "settings"
-msgstr ""
+msgstr "impostazioni"
 
 msgctxt ""
 msgid "Refresh"
-msgstr ""
+msgstr "Ricarica"
 
 msgctxt ""
 msgid "Confirm refresh"
-msgstr ""
+msgstr "Conferma ricarica"
 
 msgctxt ""
 msgid "Refresh Ignore NFO"
-msgstr ""
+msgstr "Ricarica Ignora NFO"
 
 msgctxt ""
 msgid "Ignore local NFO files when manually refreshing media."
@@ -1307,15 +1307,15 @@ msgstr "Ricerca Add-on personalizzati"
 
 msgctxt ""
 msgid "Add custom add-on searches"
-msgstr ""
+msgstr "Aggiungi ricerca add-on personalizzata"
 
 msgctxt ""
 msgid "Add-ons help page"
-msgstr ""
+msgstr "Pagina della guida degli add-on"
 
 msgctxt ""
 msgid "No %1$s found"
-msgstr ""
+msgstr "Nessun %1$s trovato"
 
 msgctxt ""
 msgid "results"
@@ -1335,7 +1335,7 @@ msgstr "Registrazioni"
 
 msgctxt ""
 msgid "Channel recording toggled"
-msgstr ""
+msgstr "Registrazione canale attivata"
 
 msgctxt ""
 msgid "TV Channels"
@@ -1375,7 +1375,7 @@ msgstr "Connessione con Kodi persa"
 
 msgctxt ""
 msgid "Attempt to reconnect"
-msgstr ""
+msgstr "Tentativo di riconnessione"
 
 msgctxt ""
 msgid "Attempting reconnect"
