@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-08-21 07:14+0000\n"
+"PO-Revision-Date: 2022-08-30 07:14+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/fi_fi/>\n"
 "Language: fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 4.14\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -637,7 +637,6 @@ msgctxt ""
 msgid "Main Menu Structure"
 msgstr "Päävalikon rakenne"
 
-#, fuzzy
 msgctxt ""
 msgid ""
 "Here you can change the title, url and %1$s for menu items. You can also "
@@ -922,7 +921,6 @@ msgctxt ""
 msgid "Continue watching"
 msgstr "Jatka katselua"
 
-#, fuzzy
 msgctxt ""
 msgid "More from %1$s"
 msgstr "Lisää vuodelta %1$s"
@@ -1263,7 +1261,6 @@ msgctxt ""
 msgid "%1$s Artists"
 msgstr "%1$s esittäjää"
 
-#, fuzzy
 msgctxt ""
 msgid "%1$s Albums"
 msgstr "%1$s albumia"
@@ -1316,7 +1313,6 @@ msgctxt ""
 msgid "Add-ons help page"
 msgstr "Lisäosan ohjesivu"
 
-#, fuzzy
 msgctxt ""
 msgid "No %1$s found"
 msgstr "%1$s ei löytynyt"
@@ -1421,7 +1417,6 @@ msgctxt ""
 msgid "This should be the play path for the trailer. Eg. %1$s"
 msgstr "Tämän tulisi olla trailerin toistosijainti. Esim. \"%1$s\"."
 
-#, fuzzy
 msgctxt ""
 msgid "%1$s party mode toggled"
 msgstr "%1$s jukeboksitila kytketty"
