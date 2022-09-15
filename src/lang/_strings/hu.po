@@ -10,10 +10,10 @@ msgstr ""
 "PO-Revision-Date: 2017-09-15 13:47+0200\n"
 "Last-Translator: bcs78 <bcs78@protonmail.com>\n"
 "Language-Team: \n"
+"Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.3\n"
 
@@ -815,16 +815,16 @@ msgid "actor"
 msgstr "színész"
 
 msgctxt ""
-msgid "mood"
-msgstr "hangulat"
-
-msgctxt ""
 msgid "writer"
 msgstr "forgatókönyvíró"
 
 msgctxt ""
 msgid "director"
 msgstr "rendező"
+
+msgctxt ""
+msgid "mood"
+msgstr "hangulat"
 
 msgctxt ""
 msgid "style"
@@ -1392,3 +1392,15 @@ msgstr "Ez az előzetesre mutató elérési útvonal. Pl. %1$s"
 msgctxt ""
 msgid "%1$s party mode toggled"
 msgstr "%1$s buli üzemmód beállítva"
+
+msgctxt ""
+msgid "Set your personal API key"
+msgstr "Set your personal API key"
+
+msgctxt ""
+msgid "The Movie DB"
+msgstr "The Movie DB"
+
+msgctxt ""
+msgid "FanartTV"
+msgstr "FanartTV"
