@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-08-30 07:14+0000\n"
+"PO-Revision-Date: 2022-09-15 00:02+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/fi_fi/>\n"
 "Language: fi\n"
@@ -39,7 +39,7 @@ msgstr "Suodattimet"
 
 msgctxt ""
 msgid "Sort"
-msgstr "Järjestä"
+msgstr "Lajittele"
 
 msgctxt ""
 msgid "Select a filter"
@@ -62,7 +62,7 @@ msgstr "Millä soittimella aloitetaan."
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "Älä huomioi etuliitteitä (kuten \"The\" ja \"A\") järjestettäessä listauksia."
+msgstr "Älä huomioi listauksia lajiteltaessa etuliitteitä, kuten \"The\" ja \"A\"."
 
 msgctxt ""
 msgid ""
@@ -273,7 +273,7 @@ msgstr "Ensisijainen kieli"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "Älä huomioi etuliitteitä (kuten \"The\" ja \"A\") järjestettäessä listauksia."
+msgstr "Älä huomioi listauksia lajiteltaessa etuliitteitä, kuten \"The\" ja \"A\"."
 
 # Short for "second"
 msgctxt ""
@@ -414,7 +414,7 @@ msgstr "Ensisijainen kieli. Käyttöönotto vaatii selaimen sivupäivityksen."
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "Älä huomioi etuliitteitä (kuten \"The\" ja \"A\") järjestettäessä listauksia."
+msgstr "Älä huomioi listauksia lajiteltaessa etuliitteitä, kuten \"The\" ja \"A\"."
 
 msgctxt ""
 msgid "Vibrant headers"
@@ -1115,7 +1115,7 @@ msgstr "IMDb"
 
 msgctxt ""
 msgid "Sort title"
-msgstr "Järjestysnimi"
+msgstr "Lajittelunimi"
 
 msgctxt ""
 msgid "Country"
@@ -1327,7 +1327,7 @@ msgstr "Ohjelmaoppaan tiedot"
 
 msgctxt ""
 msgid "PVR"
-msgstr "Tallennin"
+msgstr "PVR"
 
 msgctxt ""
 msgid "Recordings"
