@@ -29,7 +29,7 @@ Kodi > Settings (cog) > Services > Control
 * Enable "Allow programs on this system to control Kodi"
 * Enable "Allow programs on other systems to control Kodi"
 
-**For security reasons you should set a username and password to prevent unauthorised access**
+**For security reasons you should set a username and password to prevent unauthorized access**
 
 ### Manual install
 For Kodi v16 and below or if you want to get the latest version ASAP, an install via zip is the easiest way to go. Grab the
@@ -83,7 +83,7 @@ Leia (v18) dev branch is `18.x-dev`, Krypton (v17) dev branch is `17.x-dev`. See
 getting a dev environment up and running then compiling the project using docker.
 
 ### Translations
-I only know English so definitely need help with this. I also don't know heaps about javascript multilingual stuff but
+I only know English so definitely need help with this. I also don't know heaps about JavaScript multilingual stuff but
 thanks to [@mizaki](https://github.com/mizaki) we have a structure ready to go. So it should be nice and easy to translate the UI.
 
 At the moment, there are [a handful](https://github.com/xbmc/chorus2/tree/master/src/lang/_strings) of languages available
