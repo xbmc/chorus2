@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-10-01 15:39+0000\n"
+"PO-Revision-Date: 2022-10-11 08:15+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Dutch <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/nl_nl/>\n"
 "Language: nl\n"
@@ -219,7 +219,7 @@ msgstr "afgerond"
 
 msgctxt ""
 msgid "Synopsis"
-msgstr "Synopsis"
+msgstr "Korte inhoud"
 
 msgctxt ""
 msgid "Full cast"
@@ -292,7 +292,7 @@ msgstr "Audio"
 
 msgctxt ""
 msgid "Cast"
-msgstr "Cast"
+msgstr "Acteurs"
 
 msgctxt ""
 msgid "Director"
@@ -497,7 +497,7 @@ msgstr "Saved Kodi settings"
 
 msgctxt ""
 msgid "General"
-msgstr "General"
+msgstr "Algemeen"
 
 msgctxt ""
 msgid "Advanced setting level is recommended for those who know what they are doing."
@@ -509,11 +509,11 @@ msgstr "Kodi settings level"
 
 msgctxt ""
 msgid "Remove"
-msgstr "Remove"
+msgstr "Verwijder"
 
 msgctxt ""
 msgid "cast"
-msgstr "cast"
+msgstr "acteurs"
 
 msgctxt ""
 msgid "Add-ons"
@@ -529,7 +529,7 @@ msgstr "Readme"
 
 msgctxt ""
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "Wijzigingsoverzicht"
 
 msgctxt ""
 msgid "Translations"
@@ -637,7 +637,7 @@ msgstr "Keyboard"
 
 msgctxt ""
 msgid "Music"
-msgstr "Music"
+msgstr "Muziek"
 
 msgctxt ""
 msgid "Digital radio"
@@ -645,11 +645,11 @@ msgstr "Digital radio"
 
 msgctxt ""
 msgid "Movies"
-msgstr "Movies"
+msgstr "Films"
 
 msgctxt ""
 msgid "TV shows"
-msgstr "TV shows"
+msgstr "Series"
 
 msgctxt ""
 msgid "TV"
@@ -665,11 +665,11 @@ msgstr "Thumbs up"
 
 msgctxt ""
 msgid "Settings"
-msgstr "Settings"
+msgstr "Instellingen"
 
 msgctxt ""
 msgid "Help"
-msgstr "Help"
+msgstr "Hulp"
 
 msgctxt ""
 msgid "Disable Thumbs Up"
@@ -697,7 +697,7 @@ msgstr "no"
 
 msgctxt ""
 msgid "close"
-msgstr "close"
+msgstr "sluiten"
 
 msgctxt ""
 msgid "ok"
@@ -769,7 +769,7 @@ msgstr "Play in browser"
 
 msgctxt ""
 msgid "Edit"
-msgstr "Edit"
+msgstr "Wijzig"
 
 msgctxt ""
 msgid "Add to Kodi"
@@ -777,11 +777,11 @@ msgstr "Add to Kodi"
 
 msgctxt ""
 msgid "Watched"
-msgstr "Watched"
+msgstr "Bekeken"
 
 msgctxt ""
 msgid "New playlist"
-msgstr "New playlist"
+msgstr "Nieuwe afspeellijst"
 
 msgctxt ""
 msgid "Play in Kodi"
@@ -877,23 +877,23 @@ msgstr "Live TV"
 
 msgctxt ""
 msgid "Recently added albums"
-msgstr "Recently added albums"
+msgstr "Recent toegevoegde albums"
 
 msgctxt ""
 msgid "Random albums"
-msgstr "Random albums"
+msgstr "Willekeurige albums"
 
 msgctxt ""
 msgid "Recently played albums"
-msgstr "Recently played albums"
+msgstr "Laatst afgespeelde albums"
 
 msgctxt ""
 msgid "Random movies"
-msgstr "Random movies"
+msgstr "Willekeurige films"
 
 msgctxt ""
 msgid "Continue watching"
-msgstr "Continue watching"
+msgstr "Verder kijken"
 
 msgctxt ""
 msgid "More from %1$s"
@@ -1005,23 +1005,23 @@ msgstr "Original title"
 
 msgctxt ""
 msgid "Directors"
-msgstr "Directors"
+msgstr "Regisseurs"
 
 msgctxt ""
 msgid "Writers"
-msgstr "Writers"
+msgstr "Schrijvers"
 
 msgctxt ""
 msgid "File path"
-msgstr "File path"
+msgstr "Pad"
 
 msgctxt ""
 msgid "Artist"
-msgstr "Artist"
+msgstr "Artiest"
 
 msgctxt ""
 msgid "Description"
-msgstr "Description"
+msgstr "Omschrijving"
 
 msgctxt ""
 msgid "Label"
@@ -1029,7 +1029,7 @@ msgstr "Label"
 
 msgctxt ""
 msgid "Year"
-msgstr "Year"
+msgstr "Jaar"
 
 msgctxt ""
 msgid "Genres"
@@ -1037,19 +1037,19 @@ msgstr "Genres"
 
 msgctxt ""
 msgid "Styles"
-msgstr "Styles"
+msgstr "Stijlen"
 
 msgctxt ""
 msgid "Themes"
-msgstr "Themes"
+msgstr "Thema's"
 
 msgctxt ""
 msgid "Moods"
-msgstr "Moods"
+msgstr "Stemmingen"
 
 msgctxt ""
 msgid "Album artist"
-msgstr "Album artist"
+msgstr "Album artiest"
 
 msgctxt ""
 msgid "Album"
@@ -1057,19 +1057,19 @@ msgstr "Album"
 
 msgctxt ""
 msgid "Track"
-msgstr "Track"
+msgstr "Nummer"
 
 msgctxt ""
 msgid "Disc"
-msgstr "Disc"
+msgstr "Schijf"
 
 msgctxt ""
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slagzin"
 
 msgctxt ""
 msgid "Studio"
-msgstr "Studio"
+msgstr "Filmstudio"
 
 msgctxt ""
 msgid "Content rating"
@@ -1201,7 +1201,7 @@ msgstr "settings"
 
 msgctxt ""
 msgid "Refresh"
-msgstr "Refresh"
+msgstr "Vernieuwen"
 
 msgctxt ""
 msgid "Confirm refresh"
@@ -1269,7 +1269,7 @@ msgstr "Main Menu"
 
 msgctxt ""
 msgid "Search"
-msgstr "Search"
+msgstr "Zoeken"
 
 msgctxt ""
 msgid "Custom Add-on search"
