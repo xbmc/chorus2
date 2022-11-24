@@ -5,25 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-02-01 16:42+0100\n"
-"Last-Translator: XBMC Translation Team\n"
-"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"PO-Revision-Date: 2022-11-24 22:11+0000\n"
+"Last-Translator: Kai Sommerfeld <kai.sommerfeld@gmx.com>\n"
+"Language-Team: German <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/de_de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.2\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
-msgstr ""
+msgstr "Standard Web Interface"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
-msgstr ""
+msgstr "Musik, Filme, Serien und mehr mit dem Webbrowser durchsuchen und steuern, Musik und Videos im Browser streamen. Die Kodi Medienbibliothek ändern und verwalten."
 
 msgctxt ""
 msgid "Nothing playing"
@@ -66,7 +66,7 @@ msgstr "Artikel wie 'The' und 'A' in sortierten Listen ignorieren"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
-msgstr "In Listen nur Künstler mit Alben oder alle Künstler anzeigen? Achtung: Kann große Bibliotheken verlangsamen."
+msgstr "In Listen nur Künstler mit Alben oder alle Künstler anzeigen? Achtung: Das auszuschalten, kann große Bibliotheken verlangsamen"
 
 msgctxt ""
 msgid "is the default"
@@ -94,7 +94,7 @@ msgstr "Momentchen..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "Kodi gibt uns keine Antwort. Ich denke, es ist tot, Jim! (Verbindungs-timeout)"
+msgstr "Kodi gibt uns keine Antwort. Ich denke, es ist tot, Jim!"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -280,7 +280,7 @@ msgstr "Dein Browser unterstützt keine Websockets, geh mit der Zeit und aktuali
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Websockets sind nicht erreichbar, daher wird nach Updates gesucht. Das macht die Sache langsamer und verbraucht mehr Ressourcen. Kontrolliere bitte, ob anderen Programmen die Fernbedienung von Kodi erlaubt ist (Einstellungen > System > Fernbedienung). Diese Meldung könnte außerdem daher kommen, dass du Proxies benutzt oder über eine IP-Adresse auf localhost zugreifst. Falls Websockets im Allgemeinen funktionieren, könnte auch ein Browser-refresh weiterhelfen (Seite neu laden)."
+msgstr "Websockets sind nicht erreichbar"
 
 msgctxt ""
 msgid "Video"
@@ -376,7 +376,7 @@ msgstr "Spiele Wiedergabelisten ab"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "Zwischen Kodi und lokaler Wiedergabe wechseln. Die Anzeige kann mit dem Pfeil oben rechts umgeschaltet werden."
+msgstr "Zwischen Kodi und lokaler Wiedergabe wechseln. Die Anzeige kann mit dem Pfeil oben rechts umgeschaltet werden"
 
 msgctxt ""
 msgid "Current playlist"
@@ -556,7 +556,7 @@ msgstr "Fernbedienung"
 
 msgctxt ""
 msgid "Remote control is set up correctly"
-msgstr "Die Fernbedienung funktioniert."
+msgstr "Die Fernbedienung funktioniert"
 
 msgctxt ""
 msgid "About"
@@ -580,7 +580,7 @@ msgstr "Wiedergabeliste bei der Wiedergabe nach vorne holen"
 
 msgctxt ""
 msgid "Automatically scroll the playlist to the current playing item. This happens whenever the playing item is changed"
-msgstr "In der Wiedergabeliste zum aktuellen Stück springen, wenn Einträge geändert wurden."
+msgstr "In der Wiedergabeliste zum aktuellen Stück springen, wenn Einträge geändert wurden"
 
 msgctxt ""
 msgid "Web Settings saved."
@@ -685,7 +685,7 @@ msgstr "Du must die \"Fernbedienung\" für Kodi erlauben. Du findest diese Optio
 
 msgctxt ""
 msgid "here"
-msgstr "hier "
+msgstr "hier"
 
 msgctxt ""
 msgid "yes"
@@ -709,11 +709,11 @@ msgstr "Bist du sicher?"
 
 msgctxt ""
 msgid "Set all episodes for this season as"
-msgstr "Alle Folgen dieser Staffel markieren als "
+msgstr "Alle Folgen dieser Staffel markieren als"
 
 msgctxt ""
 msgid "Set all episodes for this TV show as"
-msgstr "Alle Folgen dieser Serie markieren als "
+msgstr "Alle Folgen dieser Serie markieren als"
 
 msgctxt ""
 msgid "watched"
