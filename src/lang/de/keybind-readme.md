@@ -18,11 +18,13 @@ LEERTASTE = Abspielen/Pause
 Taste "C" = Kontextmenü
 Taste "+" = Lauter
 Taste "-" = Leiser
+Taste "M" = Stummschalten
 Taste "X" = Stopp
 Taste "T" = Untertitel umschalten
 Taste ">" = Nächster
 Taste "<" = Vorheriger
 Taste "\" = Vollbild
+Taste "O" = Bildschirmanzeige
 ```
 
 [Verbesserungsverschläge? Klicke hier.](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)

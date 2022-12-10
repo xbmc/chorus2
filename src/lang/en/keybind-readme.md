@@ -20,11 +20,13 @@ SPACE BAR = Play/Pause
 Key "C" = Context menu
 Key "+" = Volume Up
 Key "-" = Volume Down
+Key "M" = Mute
 Key "X" = Stop
 Key "T" = Toggle subtitles
 Key ">" = Play Next
 Key "<" = Play Prev
 Key "\" = Full screen
+Key "O" = On-Screen Display
 ```
 
 [Got improvements to add? click here](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
