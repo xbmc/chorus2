@@ -20,13 +20,13 @@ BARRE ESPACE = Jouer/Pause
 Touche "C" = Menu contextuel
 Touche "+" = Agumenter le volume
 Touche "-" = Baisser le volume
-Touche "M" = Assourdir
+Touche "M" = Couper le son
 Touche "X" = Arrêter
 Touche "T" = Activer/désactiver les sous-titres
 Touche ">" = Jouer le prochain
 Touche "<" = Jouer le précédent
 Touche "\" = Plein écran
-Touche "O" = Affichage à l'écran
+Touche "O" = Affichage sur écran (OSD)
 ```
 
 [Des améliorations à rajouter? cliquez ici](https://github.com/xbmc/chorus2/blob/master/src/js/apps/input/input_app.js.coffee)
