@@ -157,10 +157,19 @@ helpers.stream.audioFormat = (audioStreams) ->
 
 ## Format an array of subtitles
 helpers.stream.subtitleFormat = (subtitleStreams) ->
+  distinctLanguages = []
+  uniqueStreams = []
+
   for i, stream of subtitleStreams
-    subtitleStreams[i].label = helpers.stream.formatLanguage(stream.language)
-    subtitleStreams[i].shortlabel = helpers.stream.formatLanguage(stream.language)
-  subtitleStreams
+    if (distinctLanguages.indexOf(subtitleStreams[i].language) is -1)
+      distinctLanguages.push(subtitleStreams[i].language)
+      uniqueStreams.push(subtitleStreams[i])
+
+  for i, stream of uniqueStreams
+    uniqueStreams[i].label = helpers.stream.formatLanguage(stream.language)
+    uniqueStreams[i].shortlabel = helpers.stream.formatLanguage(stream.language)
+		
+  uniqueStreams
 
 
 ## Format ALL streams
