@@ -96,25 +96,25 @@ helpers.stream.aspectRatio = (rawAspect) ->
     return '1.33:1'
 
   if (rawAspect < 1.5080)
-	return '1.37:1'
+    return '1.37:1'
 
   if (rawAspect < 1.719)
-	return '1.66:1'
+    return '1.66:1'
 
   if (rawAspect < 1.8147)
-	return '16:9'
+    return '16:9'
 
   if (rawAspect < 2.0174)
-	return '1.85:1'
+    return '1.85:1'
 
   if (rawAspect < 2.2738)
-	return '2.20:1'
+    return '2.20:1'
 
   if (rawAspect < 2.3749)
-	return '2.35:1'
+    return '2.35:1'
 
   if (rawAspect < 2.4739)
-	return '2.40:1'
+    return '2.40:1'
 
   if (rawAspect < 2.6529)
     return '2.55:1'
