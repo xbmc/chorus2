@@ -71,7 +71,7 @@ helpers.translate.getLanguages = ->
     sl: "Slovenian"
     sq: "Albanian"
     sr: "Serbian"
-    sr_rs@latin: "Serbian (latin)"
+    "sr_rs@latin": "Serbian (latin)"
     sv: "Swedish"
     szl: "Silesian"
     ta: "Tamil (India)"
