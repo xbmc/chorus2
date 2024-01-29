@@ -27,7 +27,7 @@
         for item in items
           $el = $('<span>')
           .attr('data-percent', item.percent)
-          .text(item.title)
+          .html(item.title)
           .click (e)->
             # Callback for option click
             App.execute "command:video:play", model, idKey, $(@).data('percent')
