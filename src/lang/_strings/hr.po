@@ -71,8 +71,8 @@ msgid ""
 msgstr "Kada se prikazuju izvođači, trebaju li se prikazati izvođači s albumima ili svi pronađeni izvođači. Upozorenje: isključivanje ovog može imati utjecati na performanse s velikim fonotekama"
 
 msgctxt ""
-msgid "is the default"
-msgstr "je zadan"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""
@@ -770,8 +770,12 @@ msgid "total"
 msgstr "ukupno"
 
 msgctxt ""
-msgid "set"
-msgstr "set"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
@@ -1162,8 +1166,8 @@ msgid "Instruments"
 msgstr "Instrumenti"
 
 msgctxt ""
-msgid "more"
-msgstr "više"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

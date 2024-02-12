@@ -71,8 +71,8 @@ msgid ""
 msgstr "Määrittää näytetäänkö esittäjälistauksissa vain ne esittäjät, joilla on albumeita, vaiko kaikki löydetyt esittäjät. Varoitus: Tämän käytöstä poisto voi suurten kirjastojen kanssa vaikuttaa suorituskykyyn."
 
 msgctxt ""
-msgid "is the default"
-msgstr "on oletus."
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""
@@ -766,8 +766,12 @@ msgid "total"
 msgstr "yhteensä"
 
 msgctxt ""
-msgid "set"
-msgstr "kokoelma"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
@@ -1158,8 +1162,8 @@ msgid "Instruments"
 msgstr "Instrumentit"
 
 msgctxt ""
-msgid "more"
-msgstr "lisää"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

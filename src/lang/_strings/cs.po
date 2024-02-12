@@ -71,8 +71,8 @@ msgid ""
 msgstr "V seznamu umělců budou vidět umělci s alby nebo všichni nalezení umělci. Upozornění: vypnutí této volby může mít dopad na výkon v případě velkých knihoven"
 
 msgctxt ""
-msgid "is the default"
-msgstr "je vychozí"
+msgid "%s is the default"
+msgstr "%s je vychozí"
 
 msgctxt ""
 msgid ""
@@ -763,8 +763,12 @@ msgid "total"
 msgstr "celkem"
 
 msgctxt ""
-msgid "set"
-msgstr "nastavit jako"
+msgid "Set Watched"
+msgstr "Nastavit jako zhlédnuto"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Nastavit jako nezhlédnuto"
 
 msgctxt ""
 msgid "Show device name"
@@ -1155,7 +1159,7 @@ msgid "Instruments"
 msgstr "Nástroje"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "více"
 
 msgctxt ""

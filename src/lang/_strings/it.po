@@ -71,8 +71,8 @@ msgid ""
 msgstr "Quando si elencano gli artisti, dovremmo vedere solo gli artisti con album o tutti gli artisti trovati. Avviso: la disattivazione di questa opzione può influire sulle prestazioni con librerie di grandi dimensioni"
 
 msgctxt ""
-msgid "is the default"
-msgstr "è l'impostazione predefinita"
+msgid "%s is the default"
+msgstr "%s è l'impostazione predefinita"
 
 msgctxt ""
 msgid ""
@@ -766,8 +766,12 @@ msgid "total"
 msgstr "totale"
 
 msgctxt ""
-msgid "set"
-msgstr "saga"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
@@ -1158,8 +1162,8 @@ msgid "Instruments"
 msgstr "Strumenti"
 
 msgctxt ""
-msgid "more"
-msgstr "di più"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

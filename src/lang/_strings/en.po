@@ -73,8 +73,12 @@ msgstr ""
 "found. Warning: turning this off can impact performance with large libraries"
 
 msgctxt ""
-msgid "is the default"
-msgstr "is the default"
+msgid "Advanced options"
+msgstr "Advanced options"
+
+msgctxt ""
+msgid "%s is the default"
+msgstr "%s is the default"
 
 msgctxt ""
 msgid ""
@@ -254,6 +258,10 @@ msgid "Default player"
 msgstr "Default player"
 
 msgctxt ""
+msgid "List options"
+msgstr "List options"
+
+msgctxt ""
 msgid "Ignore article"
 msgstr "Ignore article"
 
@@ -268,6 +276,10 @@ msgstr "Poll interval"
 msgctxt ""
 msgid "Reverse proxy support"
 msgstr "Reverse proxy support"
+
+msgctxt ""
+msgid "General options"
+msgstr "General options"
 
 msgctxt ""
 msgid "Language"
@@ -432,6 +444,10 @@ msgstr "Preferred language, need to refresh browser to take effect"
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
 msgstr "Ignore articles (terms such as 'The' and 'A') when sorting lists"
+
+msgctxt ""
+msgid "Appearance"
+msgstr "Appearance"
 
 msgctxt ""
 msgid "Vibrant headers"
@@ -796,8 +812,12 @@ msgid "total"
 msgstr "total"
 
 msgctxt ""
-msgid "set"
-msgstr "set"
+msgid "Set Watched"
+msgstr "Set Watched"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Set Unwatched"
 
 msgctxt ""
 msgid "Show device name"
@@ -1188,8 +1208,8 @@ msgid "Instruments"
 msgstr "Instruments"
 
 msgctxt ""
-msgid "more"
-msgstr "more"
+msgid "More"
+msgstr "More"
 
 msgctxt ""
 msgid "in progress"
@@ -1456,6 +1476,10 @@ msgstr "This should be the play path for the trailer. Eg. %1$s"
 msgctxt ""
 msgid "%1$s party mode toggled"
 msgstr "%1$s party mode toggled"
+
+msgctxt ""
+msgid "API Keys"
+msgstr "API Keys"
 
 msgctxt ""
 msgid "Set your personal API key"

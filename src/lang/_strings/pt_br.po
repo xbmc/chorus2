@@ -75,8 +75,8 @@ msgstr ""
 " em bibliotecas grandes"
 
 msgctxt ""
-msgid "is the default"
-msgstr "é o padrão"
+msgid "%s is the default"
+msgstr "%s é o padrão"
 
 msgctxt ""
 msgid ""
@@ -794,8 +794,12 @@ msgid "total"
 msgstr "total"
 
 msgctxt ""
-msgid "set"
-msgstr "conjunto"
+msgid "Set Watched"
+msgstr "Conjunto assistido"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Conjunto não assistido"
 
 msgctxt ""
 msgid "Show device name"
@@ -1188,8 +1192,8 @@ msgid "Instruments"
 msgstr "Instrumentos"
 
 msgctxt ""
-msgid "more"
-msgstr "mais"
+msgid "More"
+msgstr "Mais"
 
 msgctxt ""
 msgid "in progress"

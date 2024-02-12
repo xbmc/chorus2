@@ -36,7 +36,7 @@
     getStructure: ->
       [
         {
-          title: 'General options'
+          title: tr('General options')
           id: 'general'
           children:[
             {id: 'lang', title: tr("Language"), type: 'select', options: helpers.translate.getLanguages(), defaultValue: 'en', description: tr('Preferred language, need to refresh browser to take effect')}
@@ -45,7 +45,7 @@
           ]
         }
         {
-          title: 'List options'
+          title: tr('List options')
           id: 'list'
           children:[
             {id: 'ignoreArticle', title: tr("Ignore article"), type: 'checkbox', defaultValue: true, description: tr("Ignore articles (terms such as 'The' and 'A') when sorting lists")}
@@ -54,7 +54,7 @@
           ]
         }
         {
-          title: 'Appearance'
+          title: tr('Appearance')
           id: 'appearance'
           children:[
             {id: 'vibrantHeaders', title: tr("Vibrant headers"), type: 'checkbox', defaultValue: true, description: tr("Use colourful headers for media pages")}
@@ -63,10 +63,10 @@
           ]
         }
         {
-          title: 'Advanced options'
+          title: tr('Advanced options')
           id: 'advanced'
           children:[
-            {id: 'socketsPort', title: tr("Websockets port"), type: 'textfield', defaultValue: '9090', description: "9090 " + tr("is the default")}
+            {id: 'socketsPort', title: tr("Websockets port"), type: 'textfield', defaultValue: '9090', description: t.sprintf(tr("%s is the default"), 9090)}
             {id: 'socketsHost', title: tr("Websockets host"), type: 'textfield', defaultValue: 'auto', description: tr("The hostname used for websockets connection. Set to 'auto' to use the current hostname.")}
             {id: 'pollInterval', title: tr("Poll interval"), type: 'select', defaultValue: '10000', options: {'5000': "5 " + tr('sec'), '10000': "10 " + tr('sec'), '30000': "30 " + tr('sec'), '60000': "60 " + tr('sec')}, description: tr("How often do I poll for updates from Kodi (Only applies when websockets inactive)")}
             {id: 'kodiSettingsLevel', title: tr("Kodi settings level"), type: 'select', defaultValue: 'standard', options: {'standard': 'Standard', 'advanced': 'Advanced', 'expert': 'Expert'}, description: tr('Advanced setting level is recommended for those who know what they are doing.')}
@@ -75,7 +75,7 @@
           ]
         }
         {
-          title: 'API Keys'
+          title: tr('API Keys')
           id: 'apikeys'
           children:[
             {id: 'apiKeyTMDB', title: tr("The Movie DB"), type: 'textfield', defaultValue: '', description: tr("Set your personal API key")}

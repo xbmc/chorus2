@@ -69,8 +69,8 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "In Listen nur Interpreten mit Alben oder alle Interpreten anzeigen? Achtung: Das auszuschalten, kann große Bibliotheken verlangsamen"
 
 msgctxt ""
-msgid "is the default"
-msgstr "ist der Standard"
+msgid "%s is the default"
+msgstr "%s ist der Standard"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
@@ -744,8 +744,12 @@ msgid "total"
 msgstr "gesamt"
 
 msgctxt ""
-msgid "set"
-msgstr "einstellen"
+msgid "Set Watched"
+msgstr "Einstellen gesehen"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "Einstellen ungesehen"
 
 msgctxt ""
 msgid "Show device name"
@@ -1128,7 +1132,7 @@ msgid "Instruments"
 msgstr "Instumente"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "mehr"
 
 msgctxt ""

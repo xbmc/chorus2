@@ -71,7 +71,7 @@ msgid ""
 msgstr ""
 
 msgctxt ""
-msgid "is the default"
+msgid "%s is the default"
 msgstr ""
 
 msgctxt ""
@@ -774,7 +774,11 @@ msgid "total"
 msgstr ""
 
 msgctxt ""
-msgid "set"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
 msgstr ""
 
 msgctxt ""
@@ -1166,7 +1170,7 @@ msgid "Instruments"
 msgstr ""
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr ""
 
 msgctxt ""

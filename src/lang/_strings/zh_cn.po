@@ -69,8 +69,8 @@ msgid "When listing artists should we only see artists with albums or all artist
 msgstr "当列出艺术家的时候，我们仅列出专辑上的艺术家或者能找到的所有艺术家。警告：库比较大的时候关闭此项可能会影响性能。"
 
 msgctxt ""
-msgid "is the default"
-msgstr "是默认的"
+msgid "%s is the default"
+msgstr "%s 是默认的"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."

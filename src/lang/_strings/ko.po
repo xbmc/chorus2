@@ -71,8 +71,8 @@ msgid ""
 msgstr "아티스트를 나열할 때 앨범이 있는 아티스트 또는 찾은 모든 아티스트만 표시해야 합니다. 경고: 이 기능을 끄면 대용량 라이브러리의 성능에 영향을 미칠 수 있습니다"
 
 msgctxt ""
-msgid "is the default"
-msgstr "기본값입니다"
+msgid "%s is the default"
+msgstr "%s 기본값입니다"
 
 msgctxt ""
 msgid ""
@@ -762,8 +762,12 @@ msgid "total"
 msgstr "전체"
 
 msgctxt ""
-msgid "set"
-msgstr "세트"
+msgid "Set Watched"
+msgstr "세트 시청함"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "세트 시청 안 함"
 
 msgctxt ""
 msgid "Show device name"
@@ -1154,7 +1158,7 @@ msgid "Instruments"
 msgstr "악기"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "더 보기"
 
 msgctxt ""

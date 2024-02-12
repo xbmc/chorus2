@@ -71,8 +71,8 @@ msgid ""
 msgstr "Al llistar artistes, mostrar només els que tenen àlbums o mostrar tots els trobats. Avís: desactivar-ho pot afectar al rendiment en biblioteques grans"
 
 msgctxt ""
-msgid "is the default"
-msgstr "és el predeterminat"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""
@@ -766,8 +766,12 @@ msgid "total"
 msgstr "total"
 
 msgctxt ""
-msgid "set"
-msgstr "decorat"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
@@ -1158,8 +1162,8 @@ msgid "Instruments"
 msgstr "Instruments"
 
 msgctxt ""
-msgid "more"
-msgstr "més"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

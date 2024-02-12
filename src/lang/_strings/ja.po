@@ -71,8 +71,8 @@ msgid ""
 msgstr "アーティストをリストアップするとき、アルバムのあるアーティスト、または見つかったすべてのアーティストのみを表示します。警告: これをオフにすると、大規模なライブラリでパフォーマンスにかなりの影響を及ぼす可能性があります"
 
 msgctxt ""
-msgid "is the default"
-msgstr "デフォルトです"
+msgid "%s is the default"
+msgstr ""
 
 msgctxt ""
 msgid ""
@@ -762,8 +762,12 @@ msgid "total"
 msgstr "合計"
 
 msgctxt ""
-msgid "set"
-msgstr "セット"
+msgid "Set Watched"
+msgstr ""
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr ""
 
 msgctxt ""
 msgid "Show device name"
@@ -1154,8 +1158,8 @@ msgid "Instruments"
 msgstr "インスルメント"
 
 msgctxt ""
-msgid "more"
-msgstr "さらに"
+msgid "More"
+msgstr ""
 
 msgctxt ""
 msgid "in progress"

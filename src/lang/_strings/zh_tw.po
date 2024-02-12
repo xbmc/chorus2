@@ -72,8 +72,8 @@ msgstr ""
 "龐大時關閉此選項可能會影響效能。"
 
 msgctxt ""
-msgid "is the default"
-msgstr "為預設的"
+msgid "%s is the default"
+msgstr "%s 為預設的"
 
 msgctxt ""
 msgid ""
@@ -785,8 +785,12 @@ msgid "total"
 msgstr "總共"
 
 msgctxt ""
-msgid "set"
-msgstr "設定"
+msgid "Set Watched"
+msgstr "設定 已觀看"
+
+msgctxt ""
+msgid "Set Unwatched"
+msgstr "設定 未觀看"
 
 msgctxt ""
 msgid "Show device name"
@@ -1181,7 +1185,7 @@ msgid "Instruments"
 msgstr "樂器"
 
 msgctxt ""
-msgid "more"
+msgid "More"
 msgstr "更多"
 
 msgctxt ""

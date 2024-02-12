@@ -30,10 +30,10 @@
         <li class="btn-flat-play play"><%= tr('Play') %></li>
         <li class="btn-flat-add add"><%= tr('Queue') %></li>
         <li class="btn-flat-watched watched">
-            <%= tr('set') %> <span class="action-watched"><%= tr('watched') %></span><span class="action-unwatched"><%= tr('unwatched') %></span>
+            <span class="action-watched"><%= tr('Set Watched') %></span><span class="action-unwatched"><%= tr('Set Unwatched') %></span>
         </li>
         <li class="more-actions dropdown">
-            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('more') %></span>
+            <span class="btn-flat-more" data-toggle="dropdown" aria-expanded="true"><%= tr('More') %></span>
             <ul class="dropdown-menu pull-right">
                 <li class="dropdown-submenu internal-search"><%= tr('Chorus Search') %>
                     <ul class="dropdown-menu">
