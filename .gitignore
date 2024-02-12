@@ -6,7 +6,13 @@
 npm-debug.log
 /tutorial
 atlassian-ide-plugin.xml
-dist/js/build/*
 *.mo
 .vscode
 webinterface.default*.zip
+
+dist/addon.xml
+dist/js/build/
+dist/js/kodi-webinterface.js
+dist/lang/
+src/lang/en/app-changelog.md
+src/lang/en/app-readme.md
