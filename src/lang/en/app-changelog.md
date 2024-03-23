@@ -1,3 +1,34 @@
+Version 21.x-1.0.1
+-------------
+Fix translation files order
+
+Version 21.x-1.0.0
+-------------
+Assorted fixes for Omega Release
+
+Version 19.x-2.4.8
+-------------
+* Fixed HTML artifacts in displaying album year (@arigit & @nagubal) #439
+* Create translation for Traditional Chinese (zh_hant) (@Cypresslin) #437
+
+Version 19.x-2.4.7
+-------------
+* Fixed posters not displaying for shows and movies in Kodi 19 (@enen92) #392
+* Fixed updating artwork for movies and shows in Kodi 19 (@enen92) #413
+* Fixed player seek in Kodi 19 (@sigmaris) #412
+* Rename xbmc.pvrclient to new kodi.pvrclient for kodi 19 (@AlwinEsch) #409
+* Add Slovak translation (@jose1711) #404
+* Add option to sort by year (@edgardmessias) #387
+* Add keyboard shortcut for 'mute' (@jmbreuer) #388
+* Update jquery to 3.5.1 (@peak3d) #414
+* Fix typo in Czech translation (@jose1711) #403
+* Fix incorrect reference to icon file (@jfly) #401
+* Add watched filter to movies list (@claudetete) #366
+* Addon.xml fixes (@kingmdollar enen92) #393 #415
+* Added filter by tag for movies and tvshows (@tazeat) #416
+* Fix music video list not showing (@enen92) #418
+* Multiple style and code cosmetics (mainly @rechi)
+
 Version 18.x-2.4.6
 -------------
 * Added developer documentation and Dockerfile #331

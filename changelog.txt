@@ -1,3 +1,7 @@
+Version 21.x-1.0.1
+-------------
+Fix translation files order
+
 Version 21.x-1.0.0
 -------------
 Assorted fixes for Omega Release
