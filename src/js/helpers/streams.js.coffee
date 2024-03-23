@@ -185,7 +185,7 @@ helpers.stream.langMap =
   'ndo': 'Ndonga'
   'nep': 'Nepali'
   'nno': 'Norwegian Nynorsk'
-  'nob': 'Norwegian Bokmål'
+  'nob': 'Norwegian BokmÃ¥l'
   'nor': 'Norwegian'
   'nya': 'Chichewa'
   'oci': 'Occitan'
@@ -243,7 +243,7 @@ helpers.stream.langMap =
   'uzb': 'Uzbek'
   'ven': 'Venda'
   'vie': 'Vietnamese'
-  'vol': 'Volapük'
+  'vol': 'VolapÃ¼k'
   'wel': 'Welsh'
   'wln': 'Walloon'
   'wol': 'Wolof'
@@ -253,11 +253,40 @@ helpers.stream.langMap =
   'zha': 'Zhuang'
   'zul': 'Zulu'
 
-
 ###
   Formatters.
 ###
 
+## Textual representation of aspect ratio
+helpers.stream.aspectRatio = (rawAspect) ->
+  if (rawAspect < 1.3499)
+    return '1.33:1'
+
+  if (rawAspect < 1.5080)
+    return '1.37:1'
+
+  if (rawAspect < 1.719)
+    return '1.66:1'
+
+  if (rawAspect < 1.8147)
+    return '16:9'
+
+  if (rawAspect < 2.0174)
+    return '1.85:1'
+
+  if (rawAspect < 2.2738)
+    return '2.20:1'
+
+  if (rawAspect < 2.3749)
+    return '2.35:1'
+
+  if (rawAspect < 2.4739)
+    return '2.40:1'
+
+  if (rawAspect < 2.6529)
+    return '2.55:1'
+
+  return 'Unknown Aspect Ratio'
 
 ## Format an array of video streams.
 helpers.stream.videoFormat = (videoStreams) ->
@@ -265,7 +294,7 @@ helpers.stream.videoFormat = (videoStreams) ->
     match = {label: 'SD'}
     if stream.height and stream.height > 0
        match = _.find( helpers.stream.videoSizeMap, (res) -> (if res.min < stream.height <= res.max then true else false) )
-    videoStreams[i].label = stream.codec + ' ' + match.label + ' (' + stream.width + ' x ' + stream.height + ')'
+    videoStreams[i].label = stream.codec + ' ' + match.label + ' (' + stream.width + ' x ' + stream.height + ') [' + helpers.stream.aspectRatio(stream.aspect) + ']'
     videoStreams[i].shortlabel = stream.codec + ' ' + match.label
     videoStreams[i].res = match.label
   videoStreams
@@ -285,7 +314,7 @@ helpers.stream.audioFormat = (audioStreams) ->
     ch = _.findWhere helpers.stream.audioChannelMap, {channels: stream.channels}
     ch = if ch then ch.label else stream.channels
     lang = ''
-    if stream.language isnt ''
+    if stream.language isnt '' and stream.language isnt 'und'
       lang = ' (' + helpers.stream.formatLanguage(stream.language) + ')'
     audioStreams[i].label = stream.codec + ' ' + ch + lang
     audioStreams[i].shortlabel = stream.codec + ' ' + ch
@@ -295,10 +324,19 @@ helpers.stream.audioFormat = (audioStreams) ->
 
 ## Format an array of subtitles
 helpers.stream.subtitleFormat = (subtitleStreams) ->
+  distinctLanguages = []
+  uniqueStreams = []
+
   for i, stream of subtitleStreams
-    subtitleStreams[i].label = helpers.stream.formatLanguage(stream.language)
-    subtitleStreams[i].shortlabel = helpers.stream.formatLanguage(stream.language)
-  subtitleStreams
+    if (distinctLanguages.indexOf(subtitleStreams[i].language) is -1)
+      distinctLanguages.push(subtitleStreams[i].language)
+      uniqueStreams.push(subtitleStreams[i])
+
+  for i, stream of uniqueStreams
+    uniqueStreams[i].label = helpers.stream.formatLanguage(stream.language)
+    uniqueStreams[i].shortlabel = helpers.stream.formatLanguage(stream.language)
+		
+  uniqueStreams
 
 
 ## Format ALL streams

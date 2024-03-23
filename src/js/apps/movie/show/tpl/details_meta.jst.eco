@@ -19,7 +19,7 @@
 
     <ul class="meta">
         <% if @genre.length > 0: %>
-            <li><label><%= t.gettext("genre") %>:</label> <span><%- helpers.url.filterLinks 'tvshows', 'genre', @genre %></span></li>
+            <li><label><%= t.gettext("genre") %>:</label> <span><%- helpers.url.filterLinks 'movies', 'genre', @genre %></span></li>
         <% end %>
         <% if @director.length > 0: %>
             <li><label><%= t.ngettext("Director", "Directors", @director.length) %>:</label> <span><%- helpers.url.filterLinks 'movies', 'director', @director %></span></li>

@@ -21,6 +21,7 @@
     setMeta: ->
       if @model
         @model.set
+          labelHtml: @model.get('label')
           subtitleHtml: @themeLink @model.get('year'), 'movies?year=' + @model.get('year')
 
   class List.Empty extends App.Views.EmptyViewResults

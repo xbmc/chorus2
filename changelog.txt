@@ -1,3 +1,7 @@
+Version 21.x-1.0.0
+-------------
+Assorted fixes for Omega Release
+
 Version 19.x-2.4.8
 -------------
 * Fixed HTML artifacts in displaying album year (@arigit & @nagubal) #439
