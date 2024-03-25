@@ -82,8 +82,8 @@ helpers.translate.getLanguages = ->
     uk: "Ukrainian"
     uz: "Uzbek"
     vi: "Vietnamese"
-    zh_cn: "Chinese (Simplified)"
-    zh_tw: "Chinese (Traditional)"
+    zh_cn: "Chinese, Simplified"
+    zh_tw: "Chinese, Traditional"
   }
 
 ## Init language and translations.

@@ -3,12 +3,7 @@
         <div class="set__header">
             <h2 class="set__title"><%= @title %></h2>
             <div class="set__actions">
-                <% if @menu: %>
-                <div class="dropdown">
-                    <i data-toggle="dropdown" class="mdi"></i>
-                    <ul class="dropdown-menu pull-right"></ul>
-                </div>
-                <% end %>
+                <% if @menu: %> <div class="dropdown"> <i data-toggle="dropdown" class="mdi"> </i> <ul class="dropdown-menu pull-right"> </ul> </div> <% end %>
             </div>
         </div>
     <% end %>
