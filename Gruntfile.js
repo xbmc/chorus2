@@ -150,12 +150,12 @@ module.exports = function (grunt) {
         files: [ggp('themeDist') + 'css/{,**/}*.css']
       },
       eco: {
-        files: [ggp('jsSrc') + '/**/*.eco'],
+        files: [ggp('jsSrc') + '**/*.eco'],
         tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
       },
       js: {
         files: [ggp('jsSrc') + '{,**/}*.js'],
-        tasks: ['concat:js', 'concat:dev']
+        tasks: ['concat:app', 'concat:dev']
       },
       po2json: {
         files: [ggp('langSrcStrings')],
@@ -175,44 +175,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Compile compass.
-    // compass: {
-    //   options: {
-    //     config: ggp('themeSrc') + 'config.rb',
-    //     bundleExec: true,
-    //     force: true
-    //   },
-    //   dev: {
-    //     options: {
-    //       environment: 'development'
-    //     }
-    //   },
-    //   dist: {
-    //     options: {
-    //       environment: 'production',
-    //       outputStyle: 'compressed'
-    //     }
-    //   }
-    // },
-
-    // Compile coffee.
-    // coffee: {
-    //   options: {
-    //     bare: true,
-    //     join: true
-    //   },
-    //   files: {
-    //     expand: true,
-    //     flatten: true,
-    //     cwd: ggp('jsSrc'),
-    //     src: ggs('coffeeStack'),
-    //     dest: ggp('jsBuild'),
-    //     rename: function (dest, src) {
-    //       return dest + 'app.js';
-    //     }
-    //   }
-    // },
-
     // Compile all the *.eco templates into a single tpl.js
     eco: {
       app: {
@@ -227,11 +189,12 @@ module.exports = function (grunt) {
     },
 
     // Injects css changes automatically and sync interaction between browsers.
-    // TODO: Move proxy details to envvar file or similar.
     browserSync: {
       dev: {
         bsFiles: {
-          src: ggp('themeDist') + 'css/{,**/}*.css'
+          src: [
+            ggp('dist') + '**/*',
+          ]
         },
         options: {
           watchTask: true,
@@ -446,8 +409,8 @@ module.exports = function (grunt) {
     'po2json',
     'copy:lang',
     'marked',
-    'eco',
     'concat:app',
+    'eco',
     'concat:libs',
     'uglify:libs',
     // 'uglify:app', // Uncomment if concat:dist is used.
