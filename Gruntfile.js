@@ -139,7 +139,7 @@ module.exports = function (grunt) {
       },
       sass: {
         files: [ggp('themeSrc') + 'sass/{,**/}*.{scss,sass}'],
-        tasks: ['compass:dev'],
+        tasks: ['sass:dev'],
         options: {}
       },
       images: {
@@ -175,24 +175,24 @@ module.exports = function (grunt) {
     },
 
     // Compile compass.
-    compass: {
-      options: {
-        config: ggp('themeSrc') + 'config.rb',
-        bundleExec: true,
-        force: true
-      },
-      dev: {
-        options: {
-          environment: 'development'
-        }
-      },
-      dist: {
-        options: {
-          environment: 'production',
-          outputStyle: 'compressed'
-        }
-      }
-    },
+    // compass: {
+    //   options: {
+    //     config: ggp('themeSrc') + 'config.rb',
+    //     bundleExec: true,
+    //     force: true
+    //   },
+    //   dev: {
+    //     options: {
+    //       environment: 'development'
+    //     }
+    //   },
+    //   dist: {
+    //     options: {
+    //       environment: 'production',
+    //       outputStyle: 'compressed'
+    //     }
+    //   }
+    // },
 
     // Compile coffee.
     // coffee: {
@@ -252,7 +252,7 @@ module.exports = function (grunt) {
               dir: ggp('langDist')
             },
             {
-              route: '/themes',
+              route: '/themes/base',
               dir: ggp('themeDist')
             },
             {
@@ -391,7 +391,8 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-dart-sass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -410,6 +411,30 @@ module.exports = function (grunt) {
    * Eg "grunt lang" will rebuild languages.
    */
 
+  grunt.registerTask('sass', function() {
+    const done = this.async();
+    const sass = require('sass');
+    const globImporter = require('node-sass-glob-importer');
+    const sassOptions = {
+      importer: globImporter(),
+      pkgImporter: new sass.NodePackageImporter(),
+      file: ggp('themeSrc') + 'sass/base.scss',
+      outFile: ggp('themeDist') + 'css/base.css',
+      outputStyle: this.args && this.args[0] === 'dist' ? 'compressed' : 'expanded',
+    };
+
+    sass.render(sassOptions, (err, result) => {
+      if (err) {
+        grunt.log.error(err);
+        done(false);
+      } else {
+        grunt.file.write(sassOptions.outFile, result.css);
+        grunt.log.ok(`Compiled ${sassOptions.file} to ${sassOptions.outFile}`);
+        done(true);
+      }
+    });
+  })
+
     // Development watch task.
   grunt.registerTask('default', ['browserSync:dev', 'watch']);
 
@@ -427,7 +452,7 @@ module.exports = function (grunt) {
     'uglify:libs',
     // 'uglify:app', // Uncomment if concat:dist is used.
     'concat:dev', // App is not minified for in the wild debugging. Change to concat:dist to save ~200K
-    'compass:dist'
+    'sass:dist'
   ]);
 
 };

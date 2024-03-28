@@ -9,11 +9,12 @@
     "url": "git@github.com:xbmc/chorus2.git"
   },
   "devDependencies": {
+    "bootstrap-sass": "^3.4.3",
+    "breakpoint-sass": "^2.7.1",
+    "compass-mixins": "^0.12.12",
     "grunt": "~0.4.5",
     "grunt-browser-sync": "~2.2.0",
     "grunt-cli": "^1.4.3",
-    "grunt-contrib-coffee": "~1.0.0",
-    "grunt-contrib-compass": "~1.1.1",
     "grunt-contrib-concat": "~1.0.1",
     "grunt-contrib-copy": "~1.0.0",
     "grunt-contrib-jshint": "~2.0.0",
@@ -23,7 +24,12 @@
     "grunt-execute": "~0.2.2",
     "grunt-marked": "~0.1.3",
     "grunt-po2json": "~0.3.0",
-    "grunt-shell": "2.1.0"
+    "grunt-shell": "2.1.0",
+    "node-sass-glob-importer": "^5.3.3",
+    "normalize-scss": "^8.0.0",
+    "sass": "^1.72.0",
+    "sass-toolkit": "^2.10.2",
+    "susy": "^2.2.14"
   },
   "engines": {
     "node": ">=0.8.0"

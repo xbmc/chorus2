@@ -1,10 +1,12 @@
 // Import external libraries.
-@import "compass";
-@import "breakpoint";
-@import "susy";
-@import "toolkit";
-@import "bootstrap-compass";
-@import "bootstrap";
+@import "pkg:normalize-scss/sass/normalize/import-now";
+@import "pkg:compass-mixins/lib/compass";
+@import "pkg:compass-mixins/lib/animate";
+@import "pkg:breakpoint-sass/stylesheets/breakpoint";
+@import "pkg:susy/sass/susy";
+@import "pkg:sass-toolkit/stylesheets/toolkit";
+@import "pkg:bootstrap-sass/assets/stylesheets/bootstrap";
+@import "pkg:bootstrap-sass/assets/stylesheets/bootstrap-compass";
 
 // Het our helper tools.
 @import "tools/**/*";
@@ -16,7 +18,7 @@
 @import "libs/misc/**/*";
 
 // Use 'border-box' for the box model.
-@import "toolkit/kickstart";
+@import "pkg:sass-toolkit/stylesheets/toolkit/kickstart";
 
 // The theme components.
 @import "abstractions/**/*";
@@ -24,4 +26,4 @@
 @import "components/**/*";
 
 // Lab styles.
-@import "lab/**/*";
+@import "lab/**/*.scss";
