@@ -13,17 +13,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 8
+          node-version: 21
 
       - name: Install dependencies
         run: |
           sudo gem install bundler && bundle config path vendor/bundle
-          npm install
+          npm clean-install
           bundle install
 
       - name: Build
         run: |
-          grunt build --force
+          npx grunt build --force
 
       - name: Prepare for uploading
         run: |
