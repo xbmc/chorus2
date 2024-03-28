@@ -1,82 +1,122 @@
-@Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
 
-  Backbone.fetchCache.localStorage = false
+  Backbone.fetchCache.localStorage = false;
 
-  class KodiEntities.Collection extends App.Entities.Collection
+  return (function() {
+    const Cls = (KodiEntities.Collection = class Collection extends App.Entities.Collection {
+      static initClass() {
+        this.prototype.rpc = new Backbone.Rpc({
+          namespaceDelimiter: ''
+        });
+      }
 
-    ## Common jsonrpc settings.
-    url: -> helpers.url.baseKodiUrl @constructor.name
-    rpc: new Backbone.Rpc({
-      namespaceDelimiter: ''
-    })
+      //# Common jsonrpc settings.
+      url() { return helpers.url.baseKodiUrl(this.constructor.name); }
 
-    ## Add the options to the collection so we can use their args with rpc calls.
-    sync: (method, model, options) ->
-      if method is 'read'
-        this.options = options
-      Backbone.sync method, model, options
+      //# Add the options to the collection so we can use their args with rpc calls.
+      sync(method, model, options) {
+        if (method === 'read') {
+          this.options = options;
+        }
+        return Backbone.sync(method, model, options);
+      }
 
-    ## Set our custom cache keys.
-    getCacheKey: (options) ->
-      this.options = options
-      key = this.constructor.name
-      for k in ['filter', 'sort', 'limit', 'file']
-        if options[k]
-          for prop, val of options[k]
-            key += ':' + prop + ':' + val
-      key
+      //# Set our custom cache keys.
+      getCacheKey(options) {
+        this.options = options;
+        let key = this.constructor.name;
+        for (var k of ['filter', 'sort', 'limit', 'file']) {
+          if (options[k]) {
+            for (var prop in options[k]) {
+              var val = options[k][prop];
+              key += ':' + prop + ':' + val;
+            }
+          }
+        }
+        return key;
+      }
 
-    ## When using cache, it doesn't respect the jsonrpc parsing
-    ## so we use this to parse all collection results using cache.
-    getResult: (response, key) ->
-      @responseKey = key
-      result = if response.jsonrpc and response.result then response.result else response
-      result[key]
+      //# When using cache, it doesn't respect the jsonrpc parsing
+      //# so we use this to parse all collection results using cache.
+      getResult(response, key) {
+        this.responseKey = key;
+        const result = response.jsonrpc && response.result ? response.result : response;
+        return result[key];
+      }
 
-    ## Common arg patterns all checking if the params exist in options first.
-    argCheckOption: (option, fallback) ->
-      if @options? and @options[option]?
-        @options[option]
-      else
-        fallback
+      //# Common arg patterns all checking if the params exist in options first.
+      argCheckOption(option, fallback) {
+        if ((this.options != null) && (this.options[option] != null)) {
+          return this.options[option];
+        } else {
+          return fallback;
+        }
+      }
 
-    ## Sort.
-    argSort: (method, order = 'ascending') ->
-      arg = {method: method, order: order, ignorearticle: @isIgnoreArticle()}
-      @argCheckOption 'sort', arg
+      //# Sort.
+      argSort(method, order = 'ascending') {
+        const arg = {method, order, ignorearticle: this.isIgnoreArticle()};
+        return this.argCheckOption('sort', arg);
+      }
 
-    ## Limit.
-    argLimit: (start = 0, end = 'all') ->
-      arg = {start: start}
-      if end isnt 'all'
-        arg.end = end
-      @argCheckOption 'limit', arg
+      //# Limit.
+      argLimit(start = 0, end = 'all') {
+        const arg = {start};
+        if (end !== 'all') {
+          arg.end = end;
+        }
+        return this.argCheckOption('limit', arg);
+      }
 
-    ## Filter.
-    argFilter: (name, value) ->
-      arg = {}
-      if name?
-        arg[name] = value
-      else
-        arg = undefined
-      @argCheckOption 'filter', arg
+      //# Filter.
+      argFilter(name, value) {
+        let arg = {};
+        if (name != null) {
+          arg[name] = value;
+        } else {
+          arg = undefined;
+        }
+        return this.argCheckOption('filter', arg);
+      }
 
-    ## Allow replacing fields (fields) or adding additional fields (addFields) via options.
-    ## Both expect an array.
-    argFields: (fields) ->
-      if @options? and @options.fields?
-        fields = @options.fields
-      if @options? and @options.addFields?
-        for field in @options.addFields
-          if not helpers.global.inArray field, fields
-            fields.push field
-      fields
+      //# Allow replacing fields (fields) or adding additional fields (addFields) via options.
+      //# Both expect an array.
+      argFields(fields) {
+        if ((this.options != null) && (this.options.fields != null)) {
+          ({
+            fields
+          } = this.options);
+        }
+        if ((this.options != null) && (this.options.addFields != null)) {
+          for (var field of this.options.addFields) {
+            if (!helpers.global.inArray(field, fields)) {
+              fields.push(field);
+            }
+          }
+        }
+        return fields;
+      }
 
-    ## Should we ignore article when sorting?
-    isIgnoreArticle: ->
-      config.getLocal 'ignoreArticle', true
+      //# Should we ignore article when sorting?
+      isIgnoreArticle() {
+        return config.getLocal('ignoreArticle', true);
+      }
 
-    ## Get Args
-    getArgs: (defaults) ->
-      args = if @options? then _.extend(defaults, @options) else defaults
-      args
+      //# Get Args
+      getArgs(defaults) {
+        const args = (this.options != null) ? _.extend(defaults, this.options) : defaults;
+        return args;
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

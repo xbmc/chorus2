@@ -1,12 +1,22 @@
-@Kodi.module "PlaylistApp.M3u", (M3u, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("PlaylistApp.M3u", function(M3u, App, Backbone, Marionette, $, _) {
 
-  class M3u.Controller extends App.Controllers.Base
+  return M3u.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: (options) ->
-      List = @getList options.collection
-      App.regionOffscreen.show List
+    initialize(options) {
+      const List = this.getList(options.collection);
+      return App.regionOffscreen.show(List);
+    }
 
-    ## Get the list
-    getList: (collection) ->
-      new M3u.List
-        collection: collection
+    //# Get the list
+    getList(collection) {
+      return new M3u.List({
+        collection});
+    }
+  };
+});

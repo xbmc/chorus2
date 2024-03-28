@@ -1,141 +1,224 @@
-@Kodi.module "BrowserApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("BrowserApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "browser-page"
+  let Cls = (List.ListLayout = class ListLayout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "browser-page";
+    }
+  });
+  Cls.initClass();
 
 
-  ###
+  /*
     Sources
-  ###
+  */
 
-  class List.Source extends App.Views.ItemView
-    template: 'apps/browser/list/source'
-    tagName: 'li'
-    triggers:
-      'click .source' : 'source:open'
-    attributes: ->
-      {
-        class: 'type-' + @model.get('sourcetype')
-      }
+  Cls = (List.Source = class Source extends App.Views.ItemView {
+    static initClass() {
+      this.prototype.template = 'apps/browser/list/source';
+      this.prototype.tagName = 'li';
+      this.prototype.triggers =
+        {'click .source' : 'source:open'};
+    }
+    attributes() {
+      return {
+        class: 'type-' + this.model.get('sourcetype')
+      };
+    }
+  });
+  Cls.initClass();
 
-  ## Our composite view allows adding another view via the 'childViewContainer' el
-  ## which is in the template
-  class List.Sources extends App.Views.CompositeView
-    template: 'apps/browser/list/source_set'
-    childView: List.Source
-    tagName: "div"
-    childViewContainer: 'ul.sources'
-    className: "source-set"
-    initialize: ->
-      ## We need to tell the child view where to get its collection
-      @collection = @model.get('sources')
+  //# Our composite view allows adding another view via the 'childViewContainer' el
+  //# which is in the template
+  Cls = (List.Sources = class Sources extends App.Views.CompositeView {
+    static initClass() {
+      this.prototype.template = 'apps/browser/list/source_set';
+      this.prototype.childView = List.Source;
+      this.prototype.tagName = "div";
+      this.prototype.childViewContainer = 'ul.sources';
+      this.prototype.className = "source-set";
+    }
+    initialize() {
+      //# We need to tell the child view where to get its collection
+      return this.collection = this.model.get('sources');
+    }
+  });
+  Cls.initClass();
 
-  class List.SourcesSet extends App.Views.CollectionView
-    childView: List.Sources
-    tagName: "div"
-    className: "sources-sets"
+  Cls = (List.SourcesSet = class SourcesSet extends App.Views.CollectionView {
+    static initClass() {
+      this.prototype.childView = List.Sources;
+      this.prototype.tagName = "div";
+      this.prototype.className = "sources-sets";
+    }
+  });
+  Cls.initClass();
 
 
-  ###
+  /*
     Folder
-  ###
+  */
 
-  class List.FolderLayout extends App.Views.LayoutView
-    template: 'apps/browser/list/folder_layout'
-    className: "folder-page-wrapper"
-    regions:
-      regionPath: '.path'
-      regionFolders: '.folders'
-      regionFiles: '.files'
-      regionBack: '.back'
-    triggers:
-      'click .play' : 'browser:play'
-      'click .queue' : 'browser:queue'
-    events:
-      'click .sorts li' : 'sortList'
-    sortList: (e) ->
-      $('.sorts li', @$el).removeClass 'active'
-      @trigger 'browser:sort', $(e.target).data('sort'), $(e.target)
-    onRender: ->
-      $('.sorts li', @$el).addClass 'order-' + @options.sortSettings.order
-      $('.sorts li[data-sort=' + @options.sortSettings.method + ']', @$el).addClass 'active'
-
-
-  class List.Item extends App.Views.ItemView
-    template: 'apps/browser/list/file'
-    tagName: 'li'
-    initialize: ->
-    # Parse title text
-      @model.set {labelHtml: @formatText(@model.get('label'))}
-
-    onBeforeRender: ->
-      if !@model.get('labelHtml')
-        @model.set {labelHtml: @model.escape('label')}
-
-  class List.Folder extends List.Item
-    className: 'folder'
-    triggers:
-      'click .title' : 'folder:open'
-      'dblclick .title' : 'file:play'
-      'click .play' : 'folder:play'
-      'click .queue' : 'folder:queue'
-    events:
-      "click .dropdown > i": "populateModelMenu"
-    initialize: ->
-      menu = {queue: tr('Queue in Kodi')}
-      @model.set({menu: menu})
-
-  class List.EmptyFiles extends App.Views.EmptyViewPage
-    tagName: 'li'
-    initialize: ->
-      @model.set({id: 'empty', content: t.gettext('no media in this folder')})
-
-  class List.File extends List.Item
-    className: 'file'
-    triggers:
-      'click .play' : 'file:play'
-      'dblclick .title' : 'file:play'
-      'click .queue' : 'file:queue'
-      'click .download' : 'file:download'
-    events:
-      "click .dropdown > i": "populateModelMenu"
-    initialize: ->
-      menu = {queue: tr('Queue in Kodi')}
-      if @model.get('filetype') is 'file' and @model.get('file').lastIndexOf('plugin://', 0) isnt 0
-        menu.download = tr('Download')
-      @model.set({menu: menu})
+  Cls = (List.FolderLayout = class FolderLayout extends App.Views.LayoutView {
+    static initClass() {
+      this.prototype.template = 'apps/browser/list/folder_layout';
+      this.prototype.className = "folder-page-wrapper";
+      this.prototype.regions = {
+        regionPath: '.path',
+        regionFolders: '.folders',
+        regionFiles: '.files',
+        regionBack: '.back'
+      };
+      this.prototype.triggers = {
+        'click .play' : 'browser:play',
+        'click .queue' : 'browser:queue'
+      };
+      this.prototype.events =
+        {'click .sorts li' : 'sortList'};
+    }
+    sortList(e) {
+      $('.sorts li', this.$el).removeClass('active');
+      return this.trigger('browser:sort', $(e.target).data('sort'), $(e.target));
+    }
+    onRender() {
+      $('.sorts li', this.$el).addClass('order-' + this.options.sortSettings.order);
+      return $('.sorts li[data-sort=' + this.options.sortSettings.method + ']', this.$el).addClass('active');
+    }
+  });
+  Cls.initClass();
 
 
-  class List.FolderList extends App.Views.CollectionView
-    tagName: 'ul'
-    className: 'browser-folder-list'
-    childView: List.Folder
+  Cls = (List.Item = class Item extends App.Views.ItemView {
+    static initClass() {
+      this.prototype.template = 'apps/browser/list/file';
+      this.prototype.tagName = 'li';
+    }
+    initialize() {
+    // Parse title text
+      return this.model.set({labelHtml: this.formatText(this.model.get('label'))});
+    }
 
-  class List.FileList extends App.Views.CollectionView
-    tagName: 'ul'
-    className: 'browser-file-list'
-    childView: List.File
-    emptyView: List.EmptyFiles
+    onBeforeRender() {
+      if (!this.model.get('labelHtml')) {
+        return this.model.set({labelHtml: this.model.escape('label')});
+      }
+    }
+  });
+  Cls.initClass();
 
-  ###
+  Cls = (List.Folder = class Folder extends List.Item {
+    static initClass() {
+      this.prototype.className = 'folder';
+      this.prototype.triggers = {
+        'click .title' : 'folder:open',
+        'dblclick .title' : 'file:play',
+        'click .play' : 'folder:play',
+        'click .queue' : 'folder:queue'
+      };
+      this.prototype.events =
+        {"click .dropdown > i": "populateModelMenu"};
+    }
+    initialize() {
+      const menu = {queue: tr('Queue in Kodi')};
+      return this.model.set({menu});
+    }
+  });
+  Cls.initClass();
+
+  Cls = (List.EmptyFiles = class EmptyFiles extends App.Views.EmptyViewPage {
+    static initClass() {
+      this.prototype.tagName = 'li';
+    }
+    initialize() {
+      return this.model.set({id: 'empty', content: t.gettext('no media in this folder')});
+    }
+  });
+  Cls.initClass();
+
+  Cls = (List.File = class File extends List.Item {
+    static initClass() {
+      this.prototype.className = 'file';
+      this.prototype.triggers = {
+        'click .play' : 'file:play',
+        'dblclick .title' : 'file:play',
+        'click .queue' : 'file:queue',
+        'click .download' : 'file:download'
+      };
+      this.prototype.events =
+        {"click .dropdown > i": "populateModelMenu"};
+    }
+    initialize() {
+      const menu = {queue: tr('Queue in Kodi')};
+      if ((this.model.get('filetype') === 'file') && (this.model.get('file').lastIndexOf('plugin://', 0) !== 0)) {
+        menu.download = tr('Download');
+      }
+      return this.model.set({menu});
+    }
+  });
+  Cls.initClass();
+
+
+  Cls = (List.FolderList = class FolderList extends App.Views.CollectionView {
+    static initClass() {
+      this.prototype.tagName = 'ul';
+      this.prototype.className = 'browser-folder-list';
+      this.prototype.childView = List.Folder;
+    }
+  });
+  Cls.initClass();
+
+  Cls = (List.FileList = class FileList extends App.Views.CollectionView {
+    static initClass() {
+      this.prototype.tagName = 'ul';
+      this.prototype.className = 'browser-file-list';
+      this.prototype.childView = List.File;
+      this.prototype.emptyView = List.EmptyFiles;
+    }
+  });
+  Cls.initClass();
+
+  /*
     Path
-  ###
+  */
 
-  class List.Path extends App.Views.ItemView
-    template: 'apps/browser/list/path'
-    tagName: 'li'
-    triggers:
-      'click .title' : 'folder:open'
+  Cls = (List.Path = class Path extends App.Views.ItemView {
+    static initClass() {
+      this.prototype.template = 'apps/browser/list/path';
+      this.prototype.tagName = 'li';
+      this.prototype.triggers =
+        {'click .title' : 'folder:open'};
+    }
+  });
+  Cls.initClass();
 
-  class List.PathList extends App.Views.CollectionView
-    tagName: 'ul'
-    childView: List.Path
+  Cls = (List.PathList = class PathList extends App.Views.CollectionView {
+    static initClass() {
+      this.prototype.tagName = 'ul';
+      this.prototype.childView = List.Path;
+    }
+  });
+  Cls.initClass();
 
-  class List.Back extends App.Views.ItemView
-    template: 'apps/browser/list/back_button'
-    tagName: 'div'
-    className: 'back-button'
-    triggers:
-      'click .title' : 'folder:open'
-      'click i' : 'folder:open'
+  return (function() {
+    Cls = (List.Back = class Back extends App.Views.ItemView {
+      static initClass() {
+        this.prototype.template = 'apps/browser/list/back_button';
+        this.prototype.tagName = 'div';
+        this.prototype.className = 'back-button';
+        this.prototype.triggers = {
+          'click .title' : 'folder:open',
+          'click i' : 'folder:open'
+        };
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});
 

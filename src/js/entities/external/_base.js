@@ -1,14 +1,34 @@
-@Kodi.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
-  class Entities.ExternalEntity extends Entities.Model
-    defaults:
-      id: ''
-      title: ''
-      desc: ''
-      thumbnail: ''
-      url: ''
-      type: ''
-      provider: ''
+  let Cls = (Entities.ExternalEntity = class ExternalEntity extends Entities.Model {
+    static initClass() {
+      this.prototype.defaults = {
+        id: '',
+        title: '',
+        desc: '',
+        thumbnail: '',
+        url: '',
+        type: '',
+        provider: ''
+      };
+    }
+  });
+  Cls.initClass();
 
-  class Entities.ExternalCollection extends Entities.Collection
-    model: Entities.ExternalEntity
+  return (function() {
+    Cls = (Entities.ExternalCollection = class ExternalCollection extends Entities.Collection {
+      static initClass() {
+        this.prototype.model = Entities.ExternalEntity;
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

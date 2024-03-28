@@ -1,158 +1,212 @@
-@Kodi.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("SearchApp.List", (List, App, Backbone, Marionette, $, _) => //# Main controller
+(function() {
+  const Cls = (List.Controller = class Controller extends App.Controllers.Base {
+    constructor(...args) {
+      super(...args);
+      this.getLoader = this.getLoader.bind(this);
+      this.updateProgress = this.updateProgress.bind(this);
+    }
 
-  ## Main controller
-  class List.Controller extends App.Controllers.Base
+    static initClass() {
 
-    maxItemsCombinedSearch: 21
+      this.prototype.maxItemsCombinedSearch = 21;
 
-    allEntities: ['movie', 'tvshow', 'artist', 'album', 'song', 'musicvideo']
+      this.prototype.allEntities = ['movie', 'tvshow', 'artist', 'album', 'song', 'musicvideo'];
 
-    searchFieldMap:
-      artist: 'artist'
-      album: 'album'
-      song: 'title'
-      movie: 'title'
-      tvshow: 'title'
-      musicvideo: 'title'
+      this.prototype.searchFieldMap = {
+        artist: 'artist',
+        album: 'album',
+        song: 'title',
+        movie: 'title',
+        tvshow: 'title',
+        musicvideo: 'title'
+      };
 
-    entityTitles:
-      musicvideo: 'music video'
+      this.prototype.entityTitles =
+        {musicvideo: 'music video'};
 
-    entityPreventSelect:
-      ['tvshow']
+      this.prototype.entityPreventSelect =
+        ['tvshow'];
+    }
 
-    initialize: ->
-      @pageLayout = @getPageLayout()
-      @layout = @getLayout()
-      @processed = [];
-      @processedItems = 0;
-      @addonSearches = App.request "addon:search:enabled"
-      App.execute "selected:clear:items"
-      media = @getOption('media')
-      if media is 'all'
-        @entities = @allEntities
-      else
-        @entities = [media]
-      @listenTo @layout, "show", =>
-        ## Add the loader
-        @getLoader()
-        ## Do a search for each entity
-        for entity in @entities
-          if helpers.global.inArray(entity, @allEntities)
-            @getResultMedia entity
-          else
-            @getResultAddon entity
-      @listenTo @pageLayout, "show", =>
-        @pageLayout.regionContent.show @layout
-        @pageLayout.regionSidebarFirst.show @getSidebar()
-      App.regionContent.show @pageLayout
+    initialize() {
+      this.pageLayout = this.getPageLayout();
+      this.layout = this.getLayout();
+      this.processed = [];
+      this.processedItems = 0;
+      this.addonSearches = App.request("addon:search:enabled");
+      App.execute("selected:clear:items");
+      const media = this.getOption('media');
+      if (media === 'all') {
+        this.entities = this.allEntities;
+      } else {
+        this.entities = [media];
+      }
+      this.listenTo(this.layout, "show", () => {
+        //# Add the loader
+        this.getLoader();
+        //# Do a search for each entity
+        return this.entities.map((entity) =>
+          helpers.global.inArray(entity, this.allEntities) ?
+            this.getResultMedia(entity)
+          :
+            this.getResultAddon(entity));
+      });
+      this.listenTo(this.pageLayout, "show", () => {
+        this.pageLayout.regionContent.show(this.layout);
+        return this.pageLayout.regionSidebarFirst.show(this.getSidebar());
+      });
+      return App.regionContent.show(this.pageLayout);
+    }
 
-    getPageLayout: ->
-      new List.PageLayout()
+    getPageLayout() {
+      return new List.PageLayout();
+    }
 
-    getLayout: ->
-      new List.ListLayout()
+    getLayout() {
+      return new List.ListLayout();
+    }
 
-    ## Get and build the sidebar links
-    getSidebar: ->
-      medias = [{id: 'all', title: 'all media'}]
-      for media in @allEntities
-        medias.push
-          id: media
-          title: @getTitle(media) + 's'
-      opts =
-        links: {media: medias, addon: @addonSearches}
-        query: @getOption('query')
-      new List.Sidebar opts
+    //# Get and build the sidebar links
+    getSidebar() {
+      let media;
+      const medias = [{id: 'all', title: 'all media'}];
+      for (media of this.allEntities) {
+        medias.push({
+          id: media,
+          title: this.getTitle(media) + 's'
+        });
+      }
+      const opts = {
+        links: {media: medias, addon: this.addonSearches},
+        query: this.getOption('query')
+      };
+      return new List.Sidebar(opts);
+    }
 
-    ## Get the loader which indicates remaining sets to search
-    getLoader: =>
-      # Get items left to process
-      toProcess = _.difference(@entities, @processed)
-      # Replace addon ids with title
-      for i, name of toProcess
-        addon = _.findWhere @addonSearches, {id: name}
-        toProcess[parseInt(i)] = if addon then addon.title else name + 's'
-      # Build the loading search text
-      searchNames = helpers.global.arrayToSentence(toProcess, false)
-      query = helpers.global.arrayToSentence([@getOption('query')], false)
-      text = t.gettext('Searching for') + ' ' + query + ' ' + t.gettext('in') + ' ' + searchNames
-      App.execute "loading:show:view", @layout.loadingSet, text;
+    //# Get the loader which indicates remaining sets to search
+    getLoader() {
+      // Get items left to process
+      const toProcess = _.difference(this.entities, this.processed);
+      // Replace addon ids with title
+      for (var i in toProcess) {
+        var name = toProcess[i];
+        var addon = _.findWhere(this.addonSearches, {id: name});
+        toProcess[parseInt(i)] = addon ? addon.title : name + 's';
+      }
+      // Build the loading search text
+      const searchNames = helpers.global.arrayToSentence(toProcess, false);
+      const query = helpers.global.arrayToSentence([this.getOption('query')], false);
+      const text = t.gettext('Searching for') + ' ' + query + ' ' + t.gettext('in') + ' ' + searchNames;
+      return App.execute("loading:show:view", this.layout.loadingSet, text);
+    }
 
-    ## Get local library results
-    getResultMedia: (entity) ->
-      query = @getOption('query')
-      limit = {start: 0}
-      if @getOption('media') is 'all'
-        limit.end = @maxItemsCombinedSearch
-      opts =
-        limits: limit
-        filter: {'operator': 'contains', 'field': @searchFieldMap[entity], 'value': query}
-        success: (loaded) =>
-          # If result
-          if loaded.length > 0
-            @processedItems = @processedItems + loaded.length
-            # See if we need more
-            more = false
-            if loaded.length is @maxItemsCombinedSearch
-              more = true
-              loaded.first(20)
-            # Get the result view
-            view = App.request "#{entity}:list:view", loaded, true
-            # Wrap it in a set view container and add a title
-            setView = new List.ListSet
-              entity: entity
-              more: more
-              query: query
-              title: @getTitle(entity) + 's'
-              noMenuDefault: helpers.global.inArray entity, @entityPreventSelect
-            App.listenTo setView, "show", =>
-              setView.regionCollection.show view
-            ## Add to layout
-            @layout["#{entity}Set"].show setView
-          @updateProgress entity
-      App.request "#{entity}:entities", opts
+    //# Get local library results
+    getResultMedia(entity) {
+      const query = this.getOption('query');
+      const limit = {start: 0};
+      if (this.getOption('media') === 'all') {
+        limit.end = this.maxItemsCombinedSearch;
+      }
+      const opts = {
+        limits: limit,
+        filter: {'operator': 'contains', 'field': this.searchFieldMap[entity], 'value': query},
+        success: loaded => {
+          // If result
+          if (loaded.length > 0) {
+            this.processedItems = this.processedItems + loaded.length;
+            // See if we need more
+            let more = false;
+            if (loaded.length === this.maxItemsCombinedSearch) {
+              more = true;
+              loaded.first(20);
+            }
+            // Get the result view
+            const view = App.request(`${entity}:list:view`, loaded, true);
+            // Wrap it in a set view container and add a title
+            const setView = new List.ListSet({
+              entity,
+              more,
+              query,
+              title: this.getTitle(entity) + 's',
+              noMenuDefault: helpers.global.inArray(entity, this.entityPreventSelect)
+            });
+            App.listenTo(setView, "show", () => {
+              return setView.regionCollection.show(view);
+            });
+            //# Add to layout
+            this.layout[`${entity}Set`].show(setView);
+          }
+          return this.updateProgress(entity);
+        }
+      };
+      return App.request(`${entity}:entities`, opts);
+    }
 
-    ## Get addon results
-    getResultAddon: (addonId) ->
-      addonSearch = _.findWhere @addonSearches, {id: addonId}
-      opts =
-        file: addonSearch.url.replace('[QUERY]', @getOption('query'))
-        media: addonSearch.media
-        addonId: addonSearch.id
-        success: (fullCollection) =>
-          i = 0
-          typeCollection = App.request "file:parsed:entities", fullCollection
-          for type in ['file', 'directory']
-            collection = typeCollection[type]
-            # If result
-            if collection.length > 0
-              i++
-              @processedItems = @processedItems + collection.length
-              filesView = App.request "browser:" + type + ":view", collection
-              setView = new List.ListSet
-                entity: addonSearch.title
-                title: if i is 1 then addonSearch.title else ''
-                more: false
-                query: @getOption('query')
+    //# Get addon results
+    getResultAddon(addonId) {
+      const addonSearch = _.findWhere(this.addonSearches, {id: addonId});
+      const opts = {
+        file: addonSearch.url.replace('[QUERY]', this.getOption('query')),
+        media: addonSearch.media,
+        addonId: addonSearch.id,
+        success: fullCollection => {
+          let i = 0;
+          const typeCollection = App.request("file:parsed:entities", fullCollection);
+          for (var type of ['file', 'directory']) {
+            var collection = typeCollection[type];
+            // If result
+            if (collection.length > 0) {
+              i++;
+              this.processedItems = this.processedItems + collection.length;
+              var filesView = App.request("browser:" + type + ":view", collection);
+              var setView = new List.ListSet({
+                entity: addonSearch.title,
+                title: i === 1 ? addonSearch.title : '',
+                more: false,
+                query: this.getOption('query'),
                 noMenuDefault: true
-              App.listenTo setView, "show", =>
-                setView.regionResult.show filesView
-              @layout.appendAddonView addonId + type, setView
-          @updateProgress addonId
-      App.request "file:entities", opts
+              });
+              App.listenTo(setView, "show", () => {
+                return setView.regionResult.show(filesView);
+              });
+              this.layout.appendAddonView(addonId + type, setView);
+            }
+          }
+          return this.updateProgress(addonId);
+        }
+      };
+      return App.request("file:entities", opts);
+    }
 
-    ## Get title for an entity
-    getTitle: (entity) ->
-      title = if @entityTitles[entity] then @entityTitles[entity] else entity
-      title
+    //# Get title for an entity
+    getTitle(entity) {
+      const title = this.entityTitles[entity] ? this.entityTitles[entity] : entity;
+      return title;
+    }
 
-    ## Update the progress of the search
-    updateProgress: (done) =>
-      if done?
-        @processed.push done
-      @getLoader()
-      if @processed.length is @entities.length
-        @layout.loadingSet.$el.empty()
-        if @processedItems is 0
-          @pageLayout.regionContent.$el.html '<h2 class="search-no-result">' + tr('No results found') + '</h2>'
+    //# Update the progress of the search
+    updateProgress(done) {
+      if (done != null) {
+        this.processed.push(done);
+      }
+      this.getLoader();
+      if (this.processed.length === this.entities.length) {
+        this.layout.loadingSet.$el.empty();
+        if (this.processedItems === 0) {
+          return this.pageLayout.regionContent.$el.html('<h2 class="search-no-result">' + tr('No results found') + '</h2>');
+        }
+      }
+    }
+  });
+  Cls.initClass();
+  return Cls;
+})());

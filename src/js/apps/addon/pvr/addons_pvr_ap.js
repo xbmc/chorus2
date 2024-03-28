@@ -1,10 +1,18 @@
-@Kodi.module "AddonApp.Pvr", (Pvr, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("AddonApp.Pvr", function(Pvr, App, Backbone, Marionette, $, _) {
 
-  API =
+  const API = {
 
-    isEnabled: ->
-      App.request "addon:isEnabled", {type: 'kodi.pvrclient'}
+    isEnabled() {
+      return App.request("addon:isEnabled", {type: 'kodi.pvrclient'});
+    }
+  };
 
-  ## Is a pvr client enabled (used for menu visibility).
-  App.reqres.setHandler "addon:pvr:enabled", ->
-    API.isEnabled()
+  //# Is a pvr client enabled (used for menu visibility).
+  return App.reqres.setHandler("addon:pvr:enabled", () => API.isEnabled());
+});

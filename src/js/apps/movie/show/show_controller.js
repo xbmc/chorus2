@@ -1,137 +1,167 @@
-@Kodi.module "MovieApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("MovieApp.Show", function(Show, App, Backbone, Marionette, $, _) {
 
-  API =
+  const API = {
 
-    bindTriggers: (view) ->
-      App.listenTo view, 'movie:play', (viewItem) ->
-        App.execute 'movie:action', 'play', viewItem
-      App.listenTo view, 'movie:add', (viewItem) ->
-        App.execute 'movie:action', 'add', viewItem
-      App.listenTo view, 'movie:localplay', (viewItem) ->
-        App.execute 'movie:action', 'localplay', viewItem
-      App.listenTo view, 'movie:download', (viewItem) ->
-        App.execute 'movie:action', 'download', viewItem
-      App.listenTo view, 'toggle:watched', (viewItem) ->
-        App.execute 'movie:action:watched', viewItem.view, viewItem.view
-      App.listenTo view, 'movie:refresh', (viewItem) ->
-        App.execute 'movie:action', 'refresh', viewItem
-      App.listenTo view, 'movie:edit', (viewItem) ->
-        App.execute 'movie:edit', viewItem.model
+    bindTriggers(view) {
+      App.listenTo(view, 'movie:play', viewItem => App.execute('movie:action', 'play', viewItem));
+      App.listenTo(view, 'movie:add', viewItem => App.execute('movie:action', 'add', viewItem));
+      App.listenTo(view, 'movie:localplay', viewItem => App.execute('movie:action', 'localplay', viewItem));
+      App.listenTo(view, 'movie:download', viewItem => App.execute('movie:action', 'download', viewItem));
+      App.listenTo(view, 'toggle:watched', viewItem => App.execute('movie:action:watched', viewItem.view, viewItem.view));
+      App.listenTo(view, 'movie:refresh', viewItem => App.execute('movie:action', 'refresh', viewItem));
+      return App.listenTo(view, 'movie:edit', viewItem => App.execute('movie:edit', viewItem.model));
+    },
 
     moreContent: [
       {
-        title: 'More from %1$s'
-        filter: 'set'
-        key: 'set'
-        type: 'string'
+        title: 'More from %1$s',
+        filter: 'set',
+        key: 'set',
+        type: 'string',
         pluck: false
-      }
+      },
       {
-        title: 'More %1$s movies'
-        filter: 'genre'
-        key: 'genre'
-        type: 'array'
+        title: 'More %1$s movies',
+        filter: 'genre',
+        key: 'genre',
+        type: 'array',
         pluck: false
-      }
+      },
       {
-        title: 'More movies starring %1$s'
-        filter: 'actor'
-        key: 'cast'
-        type: 'array'
+        title: 'More movies starring %1$s',
+        filter: 'actor',
+        key: 'cast',
+        type: 'array',
         pluck: 'name'
-      }
+      },
       {
-        title: 'Other movies released in %1$s'
-        filter: 'year'
-        key: 'year'
-        type: 'string'
+        title: 'Other movies released in %1$s',
+        filter: 'year',
+        key: 'year',
+        type: 'string',
         pluck: false
       }
     ]
+  };
 
-  class Show.Controller extends App.Controllers.Base
+  return Show.Controller = class Controller extends App.Controllers.Base {
 
-    ## The Movie page.
-    initialize: (options) ->
-      id = parseInt options.id
-      movie = App.request "movie:entity", id
-      ## Fetch the movie
-      App.execute "when:entity:fetched", movie, =>
-        ## Get the layout.
-        @layout = @getLayoutView movie
-        ## Listen to the show of our layout.
-        @listenTo @layout, "show", =>
-          @getDetailsLayoutView movie
-          @getContentView movie
-        ## Add the layout to content.
-        App.regionContent.show @layout
+    //# The Movie page.
+    initialize(options) {
+      const id = parseInt(options.id);
+      const movie = App.request("movie:entity", id);
+      //# Fetch the movie
+      return App.execute("when:entity:fetched", movie, () => {
+        //# Get the layout.
+        this.layout = this.getLayoutView(movie);
+        //# Listen to the show of our layout.
+        this.listenTo(this.layout, "show", () => {
+          this.getDetailsLayoutView(movie);
+          return this.getContentView(movie);
+        });
+        //# Add the layout to content.
+        return App.regionContent.show(this.layout);
+      });
+    }
 
-    ## Get the base layout
-    getLayoutView: (movie) ->
-      new Show.PageLayout
-        model: movie
+    //# Get the base layout
+    getLayoutView(movie) {
+      return new Show.PageLayout({
+        model: movie});
+    }
 
-    getContentView: (movie) ->
-      @contentLayout = new Show.Content model: movie
-      @listenTo @contentLayout, "movie:youtube", (view) ->
-        trailer = movie.get('mediaTrailer')
-        App.execute "ui:modal:youtube", movie.escape('title') + ' Trailer', trailer.id
-      @listenTo @contentLayout, 'show', =>
-        if movie.get('cast').length > 0
-          @contentLayout.regionCast.show @getCast(movie)
-        @getMoreContent movie
-      @layout.regionContent.show @contentLayout
+    getContentView(movie) {
+      this.contentLayout = new Show.Content({model: movie});
+      this.listenTo(this.contentLayout, "movie:youtube", function(view) {
+        const trailer = movie.get('mediaTrailer');
+        return App.execute("ui:modal:youtube", movie.escape('title') + ' Trailer', trailer.id);
+      });
+      this.listenTo(this.contentLayout, 'show', () => {
+        if (movie.get('cast').length > 0) {
+          this.contentLayout.regionCast.show(this.getCast(movie));
+        }
+        return this.getMoreContent(movie);
+      });
+      return this.layout.regionContent.show(this.contentLayout);
+    }
 
-    getCast: (movie) ->
-      App.request 'cast:list:view', movie.get('cast'), 'movies'
+    getCast(movie) {
+      return App.request('cast:list:view', movie.get('cast'), 'movies');
+    }
 
 
-    ## Build the details layout.
-    getDetailsLayoutView: (movie) ->
-      headerLayout = new Show.HeaderLayout model: movie
-      @listenTo headerLayout, "show", =>
-        teaser = new Show.MovieTeaser model: movie
-        API.bindTriggers teaser
-        detail = new Show.Details model: movie
-        API.bindTriggers detail
-        headerLayout.regionSide.show teaser
-        headerLayout.regionMeta.show detail
-      @layout.regionHeader.show headerLayout
+    //# Build the details layout.
+    getDetailsLayoutView(movie) {
+      const headerLayout = new Show.HeaderLayout({model: movie});
+      this.listenTo(headerLayout, "show", () => {
+        const teaser = new Show.MovieTeaser({model: movie});
+        API.bindTriggers(teaser);
+        const detail = new Show.Details({model: movie});
+        API.bindTriggers(detail);
+        headerLayout.regionSide.show(teaser);
+        return headerLayout.regionMeta.show(detail);
+      });
+      return this.layout.regionHeader.show(headerLayout);
+    }
 
-    getMoreContent: (movie) ->
-      idx = 0
-      for i, more of API.moreContent
-        # Get the correct value to filter by
-        filterVal = false
-        if more.type is 'array'
-          filterVals = if more.pluck then _.pluck(movie.get(more.key), more.pluck) else movie.get(more.key)
-          filterVals = _.shuffle filterVals.slice(0, 4)
-          filterVal = _.first filterVals
-        else
-          filterVal = movie.get(more.key)
+    getMoreContent(movie) {
+      let idx = 0;
+      return (() => {
+        const result = [];
+        for (var i in API.moreContent) {
+        // Get the correct value to filter by
+          var more = API.moreContent[i];
+          var filterVal = false;
+          if (more.type === 'array') {
+            var filterVals = more.pluck ? _.pluck(movie.get(more.key), more.pluck) : movie.get(more.key);
+            filterVals = _.shuffle(filterVals.slice(0, 4));
+            filterVal = _.first(filterVals);
+          } else {
+            filterVal = movie.get(more.key);
+          }
 
-        # Built req options
-        if filterVal and filterVal isnt ''
-          idx++
-          opts =
-            limit: {start: 0, end: 6}
-            cache: false
-            sort: {method: 'random', order: 'ascending'}
-            filter: {}
-            title: t.sprintf(tr(more.title), '<a href="#movies?' + more.key + '=' + _.escape(filterVal) + '">' + _.escape(filterVal) + '</a>')
-            idx: idx
-          opts.filter[more.filter] = filterVal
+          // Built req options
+          if (filterVal && (filterVal !== '')) {
+            idx++;
+            var opts = {
+              limit: {start: 0, end: 6},
+              cache: false,
+              sort: {method: 'random', order: 'ascending'},
+              filter: {},
+              title: t.sprintf(tr(more.title), '<a href="#movies?' + more.key + '=' + _.escape(filterVal) + '">' + _.escape(filterVal) + '</a>'),
+              idx
+            };
+            opts.filter[more.filter] = filterVal;
 
-          # On get results
-          opts.success = (collection) =>
-            collection.remove(movie);
-            if collection.length > 0
-              view = new Show.Set
-                set: collection.options.title
-              App.listenTo view, "show", =>
-                listview = App.request "movie:list:view", collection
-                view.regionCollection.show listview
-              @contentLayout["regionMore#{collection.options.idx}"].show view
+            // On get results
+            opts.success = collection => {
+              collection.remove(movie);
+              if (collection.length > 0) {
+                const view = new Show.Set({
+                  set: collection.options.title});
+                App.listenTo(view, "show", () => {
+                  const listview = App.request("movie:list:view", collection);
+                  return view.regionCollection.show(listview);
+                });
+                return this.contentLayout[`regionMore${collection.options.idx}`].show(view);
+              }
+            };
 
-          # Fetch
-          App.request "movie:entities", opts
+            // Fetch
+            result.push(App.request("movie:entities", opts));
+          } else {
+            result.push(undefined);
+          }
+        }
+        return result;
+      })();
+    }
+  };
+});

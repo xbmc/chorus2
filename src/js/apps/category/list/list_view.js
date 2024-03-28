@@ -1,14 +1,37 @@
-@Kodi.module "CategoryApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("CategoryApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.Layout extends App.Views.LayoutWithSidebarFirstView
-    className: "category-list"
+  let Cls = (List.Layout = class Layout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "category-list";
+    }
+  });
+  Cls.initClass();
 
-  class List.Item extends App.Views.CardView
-    template: 'apps/category/list/item'
-    tagName: "li"
-    className: "card category"
+  Cls = (List.Item = class Item extends App.Views.CardView {
+    static initClass() {
+      this.prototype.template = 'apps/category/list/item';
+      this.prototype.tagName = "li";
+      this.prototype.className = "card category";
+    }
+  });
+  Cls.initClass();
 
-  class List.CategoryList extends App.Views.CollectionView
-    childView: List.Item
-    tagName: "ul"
-    className: "card-grid--square"
+  return (function() {
+    Cls = (List.CategoryList = class CategoryList extends App.Views.CollectionView {
+      static initClass() {
+        this.prototype.childView = List.Item;
+        this.prototype.tagName = "ul";
+        this.prototype.className = "card-grid--square";
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

@@ -1,23 +1,46 @@
-@Kodi.module "ThumbsApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("ThumbsApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.ListLayout extends App.Views.LayoutView
-    template: 'apps/thumbs/list/thumbs_layout'
-    className: "thumbs-page set-page"
-    regions:
-      artistSet: '.entity-set-artist'
-      albumSet:  '.entity-set-album'
-      songSet:   '.entity-set-song'
-      movieSet:  '.entity-set-movie'
-      tvshowSet: '.entity-set-tvshow'
-      episodeSet: '.entity-set-episode'
-      musicvideoSet: '.entity-set-musicvideo'
+  let Cls = (List.ListLayout = class ListLayout extends App.Views.LayoutView {
+    static initClass() {
+      this.prototype.template = 'apps/thumbs/list/thumbs_layout';
+      this.prototype.className = "thumbs-page set-page";
+      this.prototype.regions = {
+        artistSet: '.entity-set-artist',
+        albumSet:  '.entity-set-album',
+        songSet:   '.entity-set-song',
+        movieSet:  '.entity-set-movie',
+        tvshowSet: '.entity-set-tvshow',
+        episodeSet: '.entity-set-episode',
+        musicvideoSet: '.entity-set-musicvideo'
+      };
+    }
+  });
+  Cls.initClass();
 
-  class List.ListSet extends App.Views.LayoutView
-    template: 'apps/thumbs/list/thumbs_set'
-    className: "thumbs-set"
-    onRender: ->
-      if @options
-        if @options.entity
-          $('h2.set-header', @$el).text( t.gettext( @options.entity + 's'  ) )
-    regions:
-      regionResult: '.set-results'
+  return (function() {
+    Cls = (List.ListSet = class ListSet extends App.Views.LayoutView {
+      static initClass() {
+        this.prototype.template = 'apps/thumbs/list/thumbs_set';
+        this.prototype.className = "thumbs-set";
+        this.prototype.regions =
+          {regionResult: '.set-results'};
+      }
+      onRender() {
+        if (this.options) {
+          if (this.options.entity) {
+            return $('h2.set-header', this.$el).text( t.gettext( this.options.entity + 's'  ) );
+          }
+        }
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

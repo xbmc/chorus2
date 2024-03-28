@@ -1,23 +1,35 @@
-@Kodi.module "StateApp.Local", (StateApp, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("StateApp.Local", function(StateApp, App, Backbone, Marionette, $, _) {
 
-  ## Local state object.
-  class StateApp.State extends App.StateApp.Base
+  //# Local state object.
+  return (StateApp.State = class State extends App.StateApp.Base {
 
-    initialize: ->
-      @state = _.extend {}, @state
-      @playing = _.extend {}, @playing
-      @setState 'player', 'local'
-      @setState 'currentPlaybackId', 'browser-none'
-      @setState 'localPlay', false
+    initialize() {
+      this.state = _.extend({}, this.state);
+      this.playing = _.extend({}, this.playing);
+      this.setState('player', 'local');
+      this.setState('currentPlaybackId', 'browser-none');
+      this.setState('localPlay', false);
 
-      ## Add a listener for others to trigger an update
-      App.reqres.setHandler "state:local:update", (callback) =>
-        @getCurrentState callback
-      ## Add a listener for others to trigger an update
-      App.reqres.setHandler "state:local:get", =>
-        @getCachedState()
+      //# Add a listener for others to trigger an update
+      App.reqres.setHandler("state:local:update", callback => {
+        return this.getCurrentState(callback);
+      });
+      //# Add a listener for others to trigger an update
+      return App.reqres.setHandler("state:local:get", () => {
+        return this.getCachedState();
+      });
+    }
 
-    getCurrentState: (callback) ->
-      ## Update from local player.
+    getCurrentState(callback) {
+      //# Update from local player.
 
-      @doCallback callback, @getCachedState()
+      return this.doCallback(callback, this.getCachedState());
+    }
+  });
+});

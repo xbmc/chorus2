@@ -1,19 +1,33 @@
-do (Backbone) ->
-  _sync = Backbone.sync
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+(function(Backbone) {
+  let methods;
+  const _sync = Backbone.sync;
 
-  Backbone.sync = (method, entity, options = {}) ->
-    _.defaults options,
-    beforeSend: _.bind(methods.beforeSend,  entity)
+  Backbone.sync = function(method, entity, options = {}) {
+    _.defaults(options, {
+    beforeSend: _.bind(methods.beforeSend,  entity),
     complete:   _.bind(methods.complete,    entity)
+  }
+    );
 
-    sync = _sync(method, entity, options)
+    const sync = _sync(method, entity, options);
 
-    if !entity._fetch and method is "read"
-      entity._fetch = sync
+    if (!entity._fetch && (method === "read")) {
+      return entity._fetch = sync;
+    }
+  };
 
-  methods =
-    beforeSend: ->
-      @trigger "sync:start", @
+  return methods = {
+    beforeSend() {
+      return this.trigger("sync:start", this);
+    },
 
-    complete: ->
-      @trigger "sync:stop", @
+    complete() {
+      return this.trigger("sync:stop", this);
+    }
+  };
+})(Backbone);

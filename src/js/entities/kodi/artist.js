@@ -1,71 +1,96 @@
-@Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
 
-  API =
+  var API = {
 
-    fields:
-      minimal: []
-      small: ['thumbnail', 'mood', 'genre', 'style']
+    fields: {
+      minimal: [],
+      small: ['thumbnail', 'mood', 'genre', 'style'],
       full: ['fanart', 'born', 'formed', 'description', 'died', 'disbanded', 'yearsactive', 'instrument', 'musicbrainzartistid']
+    },
 
-    ## Fetch a single artist
-    getArtist: (id, options) ->
-      artist = new App.KodiEntities.Artist()
-      artist.set({artistid: parseInt(id), properties: helpers.entities.getFields(API.fields, 'full')})
-      artist.fetch options
-      artist
+    //# Fetch a single artist
+    getArtist(id, options) {
+      const artist = new App.KodiEntities.Artist();
+      artist.set({artistid: parseInt(id), properties: helpers.entities.getFields(API.fields, 'full')});
+      artist.fetch(options);
+      return artist;
+    },
 
-    ## Fetch an artist collection.
-    getArtists: (options) ->
-      collection = new KodiEntities.ArtistCollection()
-      collection.fetch helpers.entities.buildOptions(options)
-      collection
-
-  ###
-   Models and collections.
-  ###
-
-  ## Single artist model.
-  class KodiEntities.Artist extends App.KodiEntities.Model
-    defaults: ->
-      fields = _.extend(@modelDefaults, {artistid: 1, artist: ''})
-      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
-    methods: {
-      read: ['AudioLibrary.GetArtistDetails', 'artistid', 'properties']
+    //# Fetch an artist collection.
+    getArtists(options) {
+      const collection = new KodiEntities.ArtistCollection();
+      collection.fetch(helpers.entities.buildOptions(options));
+      return collection;
     }
-    parse: (resp, xhr) ->
-      ## If fetched directly, look in artist details and mark as fully loaded
-      obj = if resp.artistdetails? then resp.artistdetails else resp
-      if resp.artistdetails?
-        obj.fullyloaded = true
-      @parseModel 'artist', obj, obj.artistid
+  };
 
-  ## Artists collection
-  class KodiEntities.ArtistCollection extends App.KodiEntities.Collection
-    model: KodiEntities.Artist
-    methods: read: ['AudioLibrary.GetArtists', 'albumartistsonly', 'properties', 'limits', 'sort', 'filter']
-    args: -> @getArgs
-      albumartistsonly: config.getLocal 'albumArtistsOnly', true
-      properties: @argFields helpers.entities.getFields(API.fields, 'small')
-      limits: @argLimit()
-      sort: @argSort('title', 'ascending')
-      filter: @argFilter()
-    parse: (resp, xhr) -> @getResult resp, 'artists'
+  /*
+   Models and collections.
+  */
 
-  ###
+  //# Single artist model.
+  let Cls = (KodiEntities.Artist = class Artist extends App.KodiEntities.Model {
+    static initClass() {
+      this.prototype.methods = {
+        read: ['AudioLibrary.GetArtistDetails', 'artistid', 'properties']
+      };
+    }
+    defaults() {
+      const fields = _.extend(this.modelDefaults, {artistid: 1, artist: ''});
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    }
+    parse(resp, xhr) {
+      //# If fetched directly, look in artist details and mark as fully loaded
+      const obj = (resp.artistdetails != null) ? resp.artistdetails : resp;
+      if (resp.artistdetails != null) {
+        obj.fullyloaded = true;
+      }
+      return this.parseModel('artist', obj, obj.artistid);
+    }
+  });
+  Cls.initClass();
+
+  //# Artists collection
+  Cls = (KodiEntities.ArtistCollection = class ArtistCollection extends App.KodiEntities.Collection {
+    static initClass() {
+      this.prototype.model = KodiEntities.Artist;
+      this.prototype.methods = {read: ['AudioLibrary.GetArtists', 'albumartistsonly', 'properties', 'limits', 'sort', 'filter']};
+    }
+    args() { return this.getArgs({
+      albumartistsonly: config.getLocal('albumArtistsOnly', true),
+      properties: this.argFields(helpers.entities.getFields(API.fields, 'small')),
+      limits: this.argLimit(),
+      sort: this.argSort('title', 'ascending'),
+      filter: this.argFilter()
+    }); }
+    parse(resp, xhr) { return this.getResult(resp, 'artists'); }
+  });
+  Cls.initClass();
+
+  /*
    Request Handlers.
-  ###
+  */
 
-  ## Get a single artist
-  App.reqres.setHandler "artist:entity", (id, options = {}) ->
-    API.getArtist id, options
+  //# Get a single artist
+  App.reqres.setHandler("artist:entity", (id, options = {}) => API.getArtist(id, options));
 
-  ## Get an artist collection
-  App.reqres.setHandler "artist:entities", (options = {}) ->
-    # If using filters, search all artists
-    if options.filter and options.albumartistsonly isnt true
-      options.albumartistsonly = false
-    API.getArtists options
+  //# Get an artist collection
+  App.reqres.setHandler("artist:entities", function(options = {}) {
+    // If using filters, search all artists
+    if (options.filter && (options.albumartistsonly !== true)) {
+      options.albumartistsonly = false;
+    }
+    return API.getArtists(options);
+  });
 
-  ## Get full field/property list for entity
-  App.reqres.setHandler "artist:fields", (type = 'full') ->
-    helpers.entities.getFields(API.fields, type)
+  //# Get full field/property list for entity
+  return App.reqres.setHandler("artist:fields", (type = 'full') => helpers.entities.getFields(API.fields, type));
+});

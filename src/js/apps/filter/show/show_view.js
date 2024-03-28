@@ -1,130 +1,207 @@
-@Kodi.module "FilterApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("FilterApp.Show", function(Show, App, Backbone, Marionette, $, _) {
 
-  ###
+  /*
     Base.
-  ###
+  */
 
-  class Show.FilterLayout extends App.Views.LayoutView
-    template: 'apps/filter/show/filters_ui'
-    className: "side-bar"
-    regions:
-      regionSort: '.sort-options'
-      regionFiltersActive: '.filters-active'
-      regionFiltersList: '.filters-list'
-      regionFiltersOptions: '.filter-options-list'
-      regionNavSection: '.nav-section'
-    triggers:
-      'click .close-filters' : 'filter:layout:close:filters'
-      'click .close-options' : 'filter:layout:close:options'
-      'click .open-filters' : 'filter:layout:open:filters'
+  let Cls = (Show.FilterLayout = class FilterLayout extends App.Views.LayoutView {
+    static initClass() {
+      this.prototype.template = 'apps/filter/show/filters_ui';
+      this.prototype.className = "side-bar";
+      this.prototype.regions = {
+        regionSort: '.sort-options',
+        regionFiltersActive: '.filters-active',
+        regionFiltersList: '.filters-list',
+        regionFiltersOptions: '.filter-options-list',
+        regionNavSection: '.nav-section'
+      };
+      this.prototype.triggers = {
+        'click .close-filters' : 'filter:layout:close:filters',
+        'click .close-options' : 'filter:layout:close:options',
+        'click .open-filters' : 'filter:layout:open:filters'
+      };
+    }
+  });
+  Cls.initClass();
 
-  class Show.ListItem extends App.Views.ItemView
-    template: 'apps/filter/show/list_item'
-    tagName: 'li'
+  Cls = (Show.ListItem = class ListItem extends App.Views.ItemView {
+    static initClass() {
+      this.prototype.template = 'apps/filter/show/list_item';
+      this.prototype.tagName = 'li';
+    }
+  });
+  Cls.initClass();
 
-  class Show.List extends App.Views.CollectionView
-    childView: Show.ListItem
-    tagName: "ul"
-    className: "selection-list"
+  Cls = (Show.List = class List extends App.Views.CollectionView {
+    static initClass() {
+      this.prototype.childView = Show.ListItem;
+      this.prototype.tagName = "ul";
+      this.prototype.className = "selection-list";
+    }
+  });
+  Cls.initClass();
 
 
-  ###
+  /*
     Extends.
-  ###
+  */
 
 
-  ## Sort.
+  //# Sort.
 
-  class Show.SortListItem extends Show.ListItem
-    triggers:
-      "click .sortable": "filter:sortable:select"
-    initialize: ->
-      classes = ['option', 'sortable']
-      if @model.get('active') is true
-        classes.push 'active'
-      classes.push 'order-' + @model.get('order')
-      tag = @themeTag('span', {'class': classes.join(' ')}, t.gettext(@model.get('alias')))
-      @model.set(title: tag)
+  Cls = (Show.SortListItem = class SortListItem extends Show.ListItem {
+    static initClass() {
+      this.prototype.triggers =
+        {"click .sortable": "filter:sortable:select"};
+    }
+    initialize() {
+      const classes = ['option', 'sortable'];
+      if (this.model.get('active') === true) {
+        classes.push('active');
+      }
+      classes.push('order-' + this.model.get('order'));
+      const tag = this.themeTag('span', {'class': classes.join(' ')}, t.gettext(this.model.get('alias')));
+      return this.model.set({title: tag});
+    }
+  });
+  Cls.initClass();
 
-  class Show.SortList extends Show.List
-    childView: Show.SortListItem
-
-
-  ## Filter
-
-  class Show.FilterListItem extends Show.ListItem
-    triggers:
-      "click .filterable": "filter:filterable:select"
-    initialize: ->
-      classes = ['option', 'option filterable']
-      if @model.get('active')
-        classes.push 'active'
-      tag = @themeTag('span', {'class': classes.join(' ')}, t.gettext(@model.get('alias')))
-      @model.set(title: tag)
+  Cls = (Show.SortList = class SortList extends Show.List {
+    static initClass() {
+      this.prototype.childView = Show.SortListItem;
+    }
+  });
+  Cls.initClass();
 
 
-  class Show.FilterList extends Show.List
-    childView: Show.FilterListItem
+  //# Filter
+
+  Cls = (Show.FilterListItem = class FilterListItem extends Show.ListItem {
+    static initClass() {
+      this.prototype.triggers =
+        {"click .filterable": "filter:filterable:select"};
+    }
+    initialize() {
+      const classes = ['option', 'option filterable'];
+      if (this.model.get('active')) {
+        classes.push('active');
+      }
+      const tag = this.themeTag('span', {'class': classes.join(' ')}, t.gettext(this.model.get('alias')));
+      return this.model.set({title: tag});
+    }
+  });
+  Cls.initClass();
 
 
-  ## Filter option.
-
-  class Show.OptionListItem extends Show.ListItem
-    triggers:
-      "click .filterable-option" : "filter:option:select"
-    initialize: ->
-      classes = ['option', 'option filterable-option']
-      if @model.get('active')
-        classes.push 'active'
-      tag = @themeTag('span', {'class': classes.join(' ')}, @model.get('value'))
-      @model.set(title: tag)
-
-  class Show.OptionList extends App.Views.CompositeView
-    template: 'apps/filter/show/filter_options'
-    activeValues: []
-    childView: Show.OptionListItem
-    childViewContainer: 'ul.selection-list'
-    onRender: ->
-      ## hide filter search if < 10 items
-      if @collection.length <= 10
-        $('.options-search-wrapper', @$el).addClass('hidden')
-      ## Filter options via search box.
-      $('.options-search', @$el).filterList()
-    triggers:
-      'click .deselect-all': 'filter:option:deselectall'
+  Cls = (Show.FilterList = class FilterList extends Show.List {
+    static initClass() {
+      this.prototype.childView = Show.FilterListItem;
+    }
+  });
+  Cls.initClass();
 
 
-  ## Active Filters.
+  //# Filter option.
 
-  class Show.ActiveListItem extends Show.ListItem
-    triggers:
-      "click .filterable-remove" : "filter:option:remove"
-    initialize: ->
-      tooltip = t.gettext('Remove') + ' ' + @model.escape('key') + ' ' + t.gettext('filter')
-      text = @themeTag('span', {'class': 'text'}, @model.get('values').join(', '))
-      tag = @themeTag('span', {'class': 'filter-btn filterable-remove', title: tooltip}, text)
-      @model.set(title: tag)
+  Cls = (Show.OptionListItem = class OptionListItem extends Show.ListItem {
+    static initClass() {
+      this.prototype.triggers =
+        {"click .filterable-option" : "filter:option:select"};
+    }
+    initialize() {
+      const classes = ['option', 'option filterable-option'];
+      if (this.model.get('active')) {
+        classes.push('active');
+      }
+      const tag = this.themeTag('span', {'class': classes.join(' ')}, this.model.get('value'));
+      return this.model.set({title: tag});
+    }
+  });
+  Cls.initClass();
 
-  class Show.ActiveNewListItem extends Show.ListItem
-    triggers:
-      "click .filterable-add" : "filter:add"
-    initialize: ->
-      tag = @themeTag('span', {'class': 'filter-btn filterable-add'}, t.gettext('Add filter'))
-      @model.set(title: tag)
+  Cls = (Show.OptionList = class OptionList extends App.Views.CompositeView {
+    static initClass() {
+      this.prototype.template = 'apps/filter/show/filter_options';
+      this.prototype.activeValues = [];
+      this.prototype.childView = Show.OptionListItem;
+      this.prototype.childViewContainer = 'ul.selection-list';
+      this.prototype.triggers =
+        {'click .deselect-all': 'filter:option:deselectall'};
+    }
+    onRender() {
+      //# hide filter search if < 10 items
+      if (this.collection.length <= 10) {
+        $('.options-search-wrapper', this.$el).addClass('hidden');
+      }
+      //# Filter options via search box.
+      return $('.options-search', this.$el).filterList();
+    }
+  });
+  Cls.initClass();
 
-  class Show.ActiveList extends Show.List
-    childView: Show.ActiveListItem
-    emptyView: Show.ActiveNewListItem
-    className: "active-list"
+
+  //# Active Filters.
+
+  Cls = (Show.ActiveListItem = class ActiveListItem extends Show.ListItem {
+    static initClass() {
+      this.prototype.triggers =
+        {"click .filterable-remove" : "filter:option:remove"};
+    }
+    initialize() {
+      const tooltip = t.gettext('Remove') + ' ' + this.model.escape('key') + ' ' + t.gettext('filter');
+      const text = this.themeTag('span', {'class': 'text'}, this.model.get('values').join(', '));
+      const tag = this.themeTag('span', {'class': 'filter-btn filterable-remove', title: tooltip}, text);
+      return this.model.set({title: tag});
+    }
+  });
+  Cls.initClass();
+
+  Cls = (Show.ActiveNewListItem = class ActiveNewListItem extends Show.ListItem {
+    static initClass() {
+      this.prototype.triggers =
+        {"click .filterable-add" : "filter:add"};
+    }
+    initialize() {
+      const tag = this.themeTag('span', {'class': 'filter-btn filterable-add'}, t.gettext('Add filter'));
+      return this.model.set({title: tag});
+    }
+  });
+  Cls.initClass();
+
+  Cls = (Show.ActiveList = class ActiveList extends Show.List {
+    static initClass() {
+      this.prototype.childView = Show.ActiveListItem;
+      this.prototype.emptyView = Show.ActiveNewListItem;
+      this.prototype.className = "active-list";
+    }
+  });
+  Cls.initClass();
 
 
-  ## Filters bar
+  //# Filters bar
 
-  class Show.FilterBar extends App.Views.ItemView
-    template: 'apps/filter/show/filters_bar'
-    className: "filters-active-bar"
-    onRender: ->
-      if @options.filters
-        $('.filters-active-all', @$el).text( @options.filters.join(', ') )
-    triggers:
-      'click .remove': 'filter:remove:all'
+  return (function() {
+    Cls = (Show.FilterBar = class FilterBar extends App.Views.ItemView {
+      static initClass() {
+        this.prototype.template = 'apps/filter/show/filters_bar';
+        this.prototype.className = "filters-active-bar";
+        this.prototype.triggers =
+          {'click .remove': 'filter:remove:all'};
+      }
+      onRender() {
+        if (this.options.filters) {
+          return $('.filters-active-all', this.$el).text( this.options.filters.join(', ') );
+        }
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

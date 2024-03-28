@@ -1,32 +1,51 @@
-do (Backbone) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+(function(Backbone) {
 
-  _.extend Backbone.Marionette.Application::,
+  return _.extend(Backbone.Marionette.Application.prototype, {
 
-    navigate: (route, options = {}) ->
-      # route = "#" + route if route.charAt(0) is "/"
-      Backbone.history.navigate route, options
+    navigate(route, options = {}) {
+      // route = "#" + route if route.charAt(0) is "/"
+      return Backbone.history.navigate(route, options);
+    },
 
-    getCurrentRoute: ->
-      frag = Backbone.history.fragment
-      if _.isEmpty(frag) then null else frag
+    getCurrentRoute() {
+      const frag = Backbone.history.fragment;
+      if (_.isEmpty(frag)) { return null; } else { return frag; }
+    },
 
-    startHistory: ->
-      if Backbone.history
-        Backbone.history.start()
+    startHistory() {
+      if (Backbone.history) {
+        return Backbone.history.start();
+      }
+    },
 
-    register: (instance, id) ->
-      @_registry ?= {}
-      @_registry[id] = instance
+    register(instance, id) {
+      if (this._registry == null) { this._registry = {}; }
+      return this._registry[id] = instance;
+    },
 
-    unregister: (instance, id) ->
-      delete @_registry[id]
+    unregister(instance, id) {
+      return delete this._registry[id];
+    },
 
-    resetRegistry: ->
-      oldCount = @getRegistrySize()
-      for key, controller of @_registry
-        controller.region.close()
-      msg = "There were #{oldCount} controllers in the registry, there are now #{@getRegistrySize()}"
-      if @getRegistrySize() > 0 then console.warn(msg, @_registry) else console.log(msg)
+    resetRegistry() {
+      const oldCount = this.getRegistrySize();
+      for (var key in this._registry) {
+        var controller = this._registry[key];
+        controller.region.close();
+      }
+      const msg = `There were ${oldCount} controllers in the registry, there are now ${this.getRegistrySize()}`;
+      if (this.getRegistrySize() > 0) { return console.warn(msg, this._registry); } else { return console.log(msg); }
+    },
 
-    getRegistrySize: ->
-      _.size @_registry
+    getRegistrySize() {
+      return _.size(this._registry);
+    }
+  }
+  );
+})(Backbone);

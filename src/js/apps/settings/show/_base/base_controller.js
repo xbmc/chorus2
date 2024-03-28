@@ -1,60 +1,80 @@
-@Kodi.module "SettingsApp.Show.Base", (SettingsBase, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("SettingsApp.Show.Base", function(SettingsBase, App, Backbone, Marionette, $, _) {
 
-  class SettingsBase.Controller extends App.Controllers.Base
+  return SettingsBase.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: ->
+    initialize() {
 
-      ## Get and setup the layout
-      @layout = @getLayoutView()
-      @listenTo @layout, "show", =>
-        @getSubNav()
-        @getForm()
+      //# Get and setup the layout
+      this.layout = this.getLayoutView();
+      this.listenTo(this.layout, "show", () => {
+        this.getSubNav();
+        return this.getForm();
+      });
 
-      ## Render the layout
-      App.regionContent.show @layout
+      //# Render the layout
+      return App.regionContent.show(this.layout);
+    }
 
-    getLayoutView: ->
-      new App.SettingsApp.Show.Layout()
+    getLayoutView() {
+      return new App.SettingsApp.Show.Layout();
+    }
 
-    getSubNav: ->
-      subNav = App.request 'settings:subnav'
-      @layout.regionSidebarFirst.show subNav
+    getSubNav() {
+      const subNav = App.request('settings:subnav');
+      return this.layout.regionSidebarFirst.show(subNav);
+    }
 
-    # Builds the form and adds it to the layout
-    getForm: ->
-      @getCollection (collection) =>
-        options = {
-          form: @getStructure(collection)
-          formState: []
-          config:
-            attributes: {class: 'settings-form'}
-            callback: (formState, formView) =>
-              @saveCallback(formState, formView)
-            onShow: () =>
-              @onReady()
-        }
-        form = App.request "form:wrapper", options
-        @layout.regionContent.show form
+    // Builds the form and adds it to the layout
+    getForm() {
+      return this.getCollection(collection => {
+        const options = {
+          form: this.getStructure(collection),
+          formState: [],
+          config: {
+            attributes: {class: 'settings-form'},
+            callback: (formState, formView) => {
+              return this.saveCallback(formState, formView);
+            },
+            onShow: () => {
+              return this.onReady();
+            }
+          }
+        };
+        const form = App.request("form:wrapper", options);
+        return this.layout.regionContent.show(form);
+      });
+    }
 
 
-    ## Override the following methods in your sub class ##
+    //# Override the following methods in your sub class ##
 
-    # Callback gets passed the collection to process
-    getCollection: (callback) ->
-      # Return a collection of items
-      res = {}
-      callback res
+    // Callback gets passed the collection to process
+    getCollection(callback) {
+      // Return a collection of items
+      const res = {};
+      return callback(res);
+    }
 
-    # Passed the collection and returns form structure
-    getStructure: (collection) ->
-      # Return a form structure
-      []
+    // Passed the collection and returns form structure
+    getStructure(collection) {
+      // Return a form structure
+      return [];
+    }
 
-    # Save only changed values
-    saveCallback: (formState, formView) ->
-      # Processes the form state and save the changes
+    // Save only changed values
+    saveCallback(formState, formView) {}
+      // Processes the form state and save the changes
 
-    # Called when form is rendered
-    onReady: ->
-      # Bind onto any form elements added.
-      @layout
+    // Called when form is rendered
+    onReady() {
+      // Bind onto any form elements added.
+      return this.layout;
+    }
+  };
+});

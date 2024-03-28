@@ -1,16 +1,39 @@
-@Kodi.module "PVR.RecordingList", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("PVR.RecordingList", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.Layout extends App.Views.LayoutWithSidebarFirstView
-    className: "pvr-page"
+  let Cls = (List.Layout = class Layout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "pvr-page";
+    }
+  });
+  Cls.initClass();
 
-  class List.RecordingTeaser extends App.Views.ItemView
-    template: 'apps/pvr/recordingList/recording'
-    tagName: "li"
-    className: 'pvr-card card'
-    triggers:
-      "click .play"       : "recording:play"
+  Cls = (List.RecordingTeaser = class RecordingTeaser extends App.Views.ItemView {
+    static initClass() {
+      this.prototype.template = 'apps/pvr/recordingList/recording';
+      this.prototype.tagName = "li";
+      this.prototype.className = 'pvr-card card';
+      this.prototype.triggers =
+        {"click .play"       : "recording:play"};
+    }
+  });
+  Cls.initClass();
 
-  class List.RecordingList extends App.Views.CollectionView
-    childView: List.RecordingTeaser
-    tagName: "ul"
-    className: "recordings"
+  return (function() {
+    Cls = (List.RecordingList = class RecordingList extends App.Views.CollectionView {
+      static initClass() {
+        this.prototype.childView = List.RecordingTeaser;
+        this.prototype.tagName = "ul";
+        this.prototype.className = "recordings";
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

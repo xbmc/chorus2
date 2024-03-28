@@ -1,77 +1,102 @@
-@Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
 
-  ###
+  /*
     API Helpers
-  ###
+  */
 
-  API =
+  var API = {
 
-    fields:
-      minimal: ['title', 'art']
-      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa', 'tag']
+    fields: {
+      minimal: ['title', 'art'],
+      small: ['playcount', 'lastplayed', 'dateadded', 'resume', 'rating', 'year', 'file', 'genre', 'writer', 'director', 'cast', 'set', 'studio', 'mpaa', 'tag'],
       full: ['plotoutline', 'imdbnumber', 'runtime', 'streamdetails', 'plot', 'trailer', 'sorttitle', 'originaltitle', 'country']
+    },
 
-    ## Fetch a single entity
-    getEntity: (id, options) ->
-      entity = new App.KodiEntities.Movie()
-      entity.set({movieid: parseInt(id), properties:  helpers.entities.getFields(API.fields, 'full')})
-      entity.fetch options
-      entity
+    //# Fetch a single entity
+    getEntity(id, options) {
+      const entity = new App.KodiEntities.Movie();
+      entity.set({movieid: parseInt(id), properties:  helpers.entities.getFields(API.fields, 'full')});
+      entity.fetch(options);
+      return entity;
+    },
 
-    ## Fetch an entity collection.
-    getCollection: (options) ->
-      collection = new KodiEntities.MovieCollection()
-      collection.fetch helpers.entities.buildOptions(options)
-      collection
+    //# Fetch an entity collection.
+    getCollection(options) {
+      const collection = new KodiEntities.MovieCollection();
+      collection.fetch(helpers.entities.buildOptions(options));
+      return collection;
+    }
+  };
 
-  ###
+  /*
    Models and collections.
-  ###
+  */
 
-  ## Single Movie model.
-  class KodiEntities.Movie extends App.KodiEntities.Model
-    defaults: ->
-      fields = _.extend(@modelDefaults, {movieid: 1, movie: ''})
-      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
-    methods: read: ['VideoLibrary.GetMovieDetails', 'movieid', 'properties']
-    parse: (resp, xhr) ->
-      obj = if resp.moviedetails? then resp.moviedetails else resp
-      if resp.moviedetails?
-        obj.fullyloaded = true
-      obj.unwatched = if obj.playcount > 0 then 0 else 1
-      @parseModel 'movie', obj, obj.movieid
+  //# Single Movie model.
+  let Cls = (KodiEntities.Movie = class Movie extends App.KodiEntities.Model {
+    static initClass() {
+      this.prototype.methods = {read: ['VideoLibrary.GetMovieDetails', 'movieid', 'properties']};
+    }
+    defaults() {
+      const fields = _.extend(this.modelDefaults, {movieid: 1, movie: ''});
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    }
+    parse(resp, xhr) {
+      const obj = (resp.moviedetails != null) ? resp.moviedetails : resp;
+      if (resp.moviedetails != null) {
+        obj.fullyloaded = true;
+      }
+      obj.unwatched = obj.playcount > 0 ? 0 : 1;
+      return this.parseModel('movie', obj, obj.movieid);
+    }
+  });
+  Cls.initClass();
 
-  ## Movies collection
-  class KodiEntities.MovieCollection extends App.KodiEntities.Collection
-    model: KodiEntities.Movie
-    methods: read: ['VideoLibrary.GetMovies', 'properties', 'limits', 'sort', 'filter']
-    args: -> @getArgs
-      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
-      limits: @argLimit()
-      sort: @argSort('title', 'ascending')
-      filter: @argFilter()
-    parse: (resp, xhr) -> @getResult resp, 'movies'
+  //# Movies collection
+  Cls = (KodiEntities.MovieCollection = class MovieCollection extends App.KodiEntities.Collection {
+    static initClass() {
+      this.prototype.model = KodiEntities.Movie;
+      this.prototype.methods = {read: ['VideoLibrary.GetMovies', 'properties', 'limits', 'sort', 'filter']};
+    }
+    args() { return this.getArgs({
+      properties: this.argFields(helpers.entities.getFields(API.fields, 'small')),
+      limits: this.argLimit(),
+      sort: this.argSort('title', 'ascending'),
+      filter: this.argFilter()
+    }); }
+    parse(resp, xhr) { return this.getResult(resp, 'movies'); }
+  });
+  Cls.initClass();
 
-  ## Movie Custom collection, assumed passed an array of raw entity data.
-  class KodiEntities.MovieCustomCollection extends App.KodiEntities.Collection
-    model: KodiEntities.Movie
+  //# Movie Custom collection, assumed passed an array of raw entity data.
+  Cls = (KodiEntities.MovieCustomCollection = class MovieCustomCollection extends App.KodiEntities.Collection {
+    static initClass() {
+      this.prototype.model = KodiEntities.Movie;
+    }
+  });
+  Cls.initClass();
 
-  ###
+  /*
    Request Handlers.
-  ###
+  */
 
-  # Get a single movie
-  App.reqres.setHandler "movie:entity", (id, options = {}) ->
-    API.getEntity id, options
+  // Get a single movie
+  App.reqres.setHandler("movie:entity", (id, options = {}) => API.getEntity(id, options));
 
-  ## Get an movie collection
-  App.reqres.setHandler "movie:entities", (options = {}) ->
-    API.getCollection options
+  //# Get an movie collection
+  App.reqres.setHandler("movie:entities", (options = {}) => API.getCollection(options));
 
-  ## Given an array of models, return as collection.
-  App.reqres.setHandler "movie:build:collection", (items) ->
-    new KodiEntities.MovieCustomCollection items
+  //# Given an array of models, return as collection.
+  App.reqres.setHandler("movie:build:collection", items => new KodiEntities.MovieCustomCollection(items));
 
-  ## Get full field/property list for entity
-  App.reqres.setHandler "movie:fields", (type = 'full') ->
-    helpers.entities.getFields(API.fields, type)
+  //# Get full field/property list for entity
+  return App.reqres.setHandler("movie:fields", (type = 'full') => helpers.entities.getFields(API.fields, type));
+});

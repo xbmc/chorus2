@@ -1,27 +1,49 @@
-@Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) => //# Application commander.
+(function() {
+  const Cls = (Api.System = class System extends Api.Commander {
+    static initClass() {
 
-  ## Application commander.
-  class Api.System extends Api.Commander
+      this.prototype.commandNameSpace = 'System';
+    }
 
-    commandNameSpace: 'System'
+    getProperties(callback) {
+      const properties = ["canshutdown", "cansuspend", "canhibernate", "canreboot"];
+      return this.singleCommand(this.getCommand('GetProperties'), [properties], resp => {
+        return this.doCallback(callback, resp);
+      });
+    }
 
-    getProperties: (callback) ->
-      properties = ["canshutdown", "cansuspend", "canhibernate", "canreboot"]
-      @singleCommand @getCommand('GetProperties'), [properties], (resp) =>
-        @doCallback callback, resp
+    hibernate(callback) {
+      return this.singleCommand(this.getCommand('Hibernate'), [], resp => {
+        return this.doCallback(callback, resp);
+      });
+    }
 
-    hibernate: (callback) ->
-      @singleCommand @getCommand('Hibernate'), [], (resp) =>
-        @doCallback callback, resp
+    reboot(callback) {
+      return this.singleCommand(this.getCommand('Reboot'), [], resp => {
+        return this.doCallback(callback, resp);
+      });
+    }
 
-    reboot: (callback) ->
-      @singleCommand @getCommand('Reboot'), [], (resp) =>
-        @doCallback callback, resp
+    shutdown(callback) {
+      return this.singleCommand(this.getCommand('Shutdown'), [], resp => {
+        return this.doCallback(callback, resp);
+      });
+    }
 
-    shutdown: (callback) ->
-      @singleCommand @getCommand('Shutdown'), [], (resp) =>
-        @doCallback callback, resp
-
-    suspend: (callback) ->
-      @singleCommand @getCommand('Suspend'), [], (resp) =>
-        @doCallback callback, resp
+    suspend(callback) {
+      return this.singleCommand(this.getCommand('Suspend'), [], resp => {
+        return this.doCallback(callback, resp);
+      });
+    }
+  });
+  Cls.initClass();
+  return Cls;
+})());

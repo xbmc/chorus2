@@ -1,48 +1,97 @@
-@Kodi.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.PageLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "search-page-layout"
+  let Cls = (List.PageLayout = class PageLayout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "search-page-layout";
+    }
+  });
+  Cls.initClass();
 
-  class List.ListLayout extends App.Views.LayoutView
-    template: 'apps/search/list/search_layout'
-    className: "search-page"
-    regions:
-      artistSet: '.entity-set-artist'
-      albumSet:  '.entity-set-album'
-      songSet:   '.entity-set-song'
-      movieSet:  '.entity-set-movie'
-      tvshowSet: '.entity-set-tvshow'
-      musicvideoSet: '.entity-set-musicvideo'
-      loadingSet: '.entity-set-loading'
-    # Allow dynamically adding multiple addon views to a region
-    appendAddonView: (addonId, addonView) ->
-      addonViewId = 'addonSet_' + addonId.split('.').join('_')
-      $('.entity-set-addons', @$el).append '<div id="' + addonViewId+ '">'
-      @regionManager.addRegion addonViewId, '#' + addonViewId
-      this[addonViewId].show addonView
+  Cls = (List.ListLayout = class ListLayout extends App.Views.LayoutView {
+    static initClass() {
+      this.prototype.template = 'apps/search/list/search_layout';
+      this.prototype.className = "search-page";
+      this.prototype.regions = {
+        artistSet: '.entity-set-artist',
+        albumSet:  '.entity-set-album',
+        songSet:   '.entity-set-song',
+        movieSet:  '.entity-set-movie',
+        tvshowSet: '.entity-set-tvshow',
+        musicvideoSet: '.entity-set-musicvideo',
+        loadingSet: '.entity-set-loading'
+      };
+  
+      (function() {
+        Cls = (List.ListSet = class ListSet extends App.Views.SetLayoutView {
+          static initClass() {
+            this.prototype.className = "search-set landing-set";
+          }
+          initialize() {
+            this.setOptions();
+            return this.createModel();
+          }
+          setOptions() {
+            if (this.options.more && this.options.query) {
+              return this.options.more = this.themeLink(t.gettext('Show more'), 'search/' + this.options.entity + '/' + this.options.query);
+            }
+          }
+        });
+        Cls.initClass();
+        return Cls;
+      })();
+    }
+    // Allow dynamically adding multiple addon views to a region
+    appendAddonView(addonId, addonView) {
+      const addonViewId = 'addonSet_' + addonId.split('.').join('_');
+      $('.entity-set-addons', this.$el).append('<div id="' + addonViewId+ '">');
+      this.regionManager.addRegion(addonViewId, '#' + addonViewId);
+      return this[addonViewId].show(addonView);
+    }
+  });
+  Cls.initClass();
 
-    class List.ListSet extends App.Views.SetLayoutView
-      className: "search-set landing-set"
-      initialize: () ->
-        @setOptions()
-        @createModel()
-      setOptions: () ->
-        if @options.more and @options.query
-          @options.more = @themeLink t.gettext('Show more'), 'search/' + @options.entity + '/' + @options.query
 
-
-  ## List of sidebar links for media and addons
-  class List.Sidebar extends App.Views.LayoutView
-    template: 'apps/search/list/search_sidebar'
-    className: "search-sidebar"
-    onRender: ->
-      query = encodeURIComponent @options.query
-      for type, links of @options.links
-        if links.length is 0
-          $('.sidebar-section-' + type, @$el).remove()
-        else
-          $list = $('.search-' + type + '-links', @$el)
-          for item in links
-            active = if helpers.url.arg(1) is item.id then 'active' else ''
-            link = @themeLink t.gettext(item.title), 'search/' + item.id + '/' + query, {className: active}
-            $list.append @themeTag 'li', {}, link
+  //# List of sidebar links for media and addons
+  return (function() {
+    Cls = (List.Sidebar = class Sidebar extends App.Views.LayoutView {
+      static initClass() {
+        this.prototype.template = 'apps/search/list/search_sidebar';
+        this.prototype.className = "search-sidebar";
+      }
+      onRender() {
+        const query = encodeURIComponent(this.options.query);
+        return (() => {
+          const result = [];
+          for (var type in this.options.links) {
+            var links = this.options.links[type];
+            if (links.length === 0) {
+              result.push($('.sidebar-section-' + type, this.$el).remove());
+            } else {
+              var $list = $('.search-' + type + '-links', this.$el);
+              result.push((() => {
+                const result1 = [];
+                for (var item of links) {
+                  var active = helpers.url.arg(1) === item.id ? 'active' : '';
+                  var link = this.themeLink(t.gettext(item.title), 'search/' + item.id + '/' + query, {className: active});
+                  result1.push($list.append(this.themeTag('li', {}, link)));
+                }
+                return result1;
+              })());
+            }
+          }
+          return result;
+        })();
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

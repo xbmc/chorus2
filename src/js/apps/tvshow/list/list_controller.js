@@ -1,79 +1,95 @@
-@Kodi.module "TVShowApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("TVShowApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  API =
+  var API = {
 
-    getTVShowsList: (tvshows, set = false) ->
-      viewName = if set then 'TVShowsSet' else 'TVShows'
-      view = new List[viewName]
-        collection: tvshows
-      API.bindTriggers view
-      view
+    getTVShowsList(tvshows, set = false) {
+      const viewName = set ? 'TVShowsSet' : 'TVShows';
+      const view = new (List[viewName])({
+        collection: tvshows});
+      API.bindTriggers(view);
+      return view;
+    },
 
-    bindTriggers: (view) ->
-      App.listenTo view, 'childview:tvshow:play', (parent, viewItem) ->
-        App.execute 'tvshow:action', 'play', viewItem
-      App.listenTo view, 'childview:tvshow:add', (parent, viewItem) ->
-        App.execute 'tvshow:action', 'add', viewItem
-      App.listenTo view, 'childview:tvshow:watched', (parent, viewItem) ->
-        App.execute 'tvshow:action:watched', parent, viewItem
-      App.listenTo view, 'childview:tvshow:edit', (parent, viewItem) ->
-        App.execute 'tvshow:edit', viewItem.model
+    bindTriggers(view) {
+      App.listenTo(view, 'childview:tvshow:play', (parent, viewItem) => App.execute('tvshow:action', 'play', viewItem));
+      App.listenTo(view, 'childview:tvshow:add', (parent, viewItem) => App.execute('tvshow:action', 'add', viewItem));
+      App.listenTo(view, 'childview:tvshow:watched', (parent, viewItem) => App.execute('tvshow:action:watched', parent, viewItem));
+      return App.listenTo(view, 'childview:tvshow:edit', (parent, viewItem) => App.execute('tvshow:edit', viewItem.model));
+    }
+  };
 
-  ## Main controller
-  class List.Controller extends App.Controllers.Base
+  //# Main controller
+  List.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: ->
-      collection = App.request "tvshow:entities"
+    initialize() {
+      const collection = App.request("tvshow:entities");
 
-      ## Set available filters
-      collection.availableFilters = @getAvailableFilters()
+      //# Set available filters
+      collection.availableFilters = this.getAvailableFilters();
 
-      ## Top level menu path for filters
-      collection.sectionId = 'tvshows/recent'
+      //# Top level menu path for filters
+      collection.sectionId = 'tvshows/recent';
 
-      ## If present set initial filter via url
-      App.request 'filter:init', @getAvailableFilters()
+      //# If present set initial filter via url
+      App.request('filter:init', this.getAvailableFilters());
 
-      ## When fetched.
-      App.execute "when:entity:fetched", collection, =>
-
-
-        ## Get and setup the layout
-        @layout = @getLayoutView collection
-        @listenTo @layout, "show", =>
-          @getFiltersView collection
-          @renderList collection
-
-        ## Render the layout
-        App.regionContent.show @layout
-
-    getLayoutView: (tvshows) ->
-      new List.ListLayout
-        collection: tvshows
+      //# When fetched.
+      return App.execute("when:entity:fetched", collection, () => {
 
 
-    ## Available sort and filter options
-    ## See filter_app.js for available options
-    getAvailableFilters: ->
-      sort: ['title', 'year', 'dateadded', 'rating', 'random']
-      filter: ['year', 'genre', 'unwatched', 'inprogress', 'cast', 'mpaa', 'studio', 'thumbsUp', 'tag']
+        //# Get and setup the layout
+        this.layout = this.getLayoutView(collection);
+        this.listenTo(this.layout, "show", () => {
+          this.getFiltersView(collection);
+          return this.renderList(collection);
+        });
 
-    ## Apply filter view and provide a handler for applying changes
-    getFiltersView: (collection) ->
-      filters = App.request 'filter:show', collection
-      @layout.regionSidebarFirst.show filters
-      ## Listen to when the filters change and re-render.
-      @listenTo filters, "filter:changed", =>
-        @renderList collection
+        //# Render the layout
+        return App.regionContent.show(this.layout);
+      });
+    }
 
-    ## Get the list view with filters applied.
-    renderList: (collection) ->
-      App.execute "loading:show:view", @layout.regionContent
-      filteredCollection = App.request 'filter:apply:entities', collection
-      view = API.getTVShowsList filteredCollection
-      @layout.regionContent.show view
+    getLayoutView(tvshows) {
+      return new List.ListLayout({
+        collection: tvshows});
+    }
 
 
-  ## handler for other modules to get a list view.
-  App.reqres.setHandler "tvshow:list:view", (collection) ->
-    API.getTVShowsList collection, true
+    //# Available sort and filter options
+    //# See filter_app.js for available options
+    getAvailableFilters() {
+      return {
+        sort: ['title', 'year', 'dateadded', 'rating', 'random'],
+        filter: ['year', 'genre', 'unwatched', 'inprogress', 'cast', 'mpaa', 'studio', 'thumbsUp', 'tag']
+      };
+    }
+
+    //# Apply filter view and provide a handler for applying changes
+    getFiltersView(collection) {
+      const filters = App.request('filter:show', collection);
+      this.layout.regionSidebarFirst.show(filters);
+      //# Listen to when the filters change and re-render.
+      return this.listenTo(filters, "filter:changed", () => {
+        return this.renderList(collection);
+      });
+    }
+
+    //# Get the list view with filters applied.
+    renderList(collection) {
+      App.execute("loading:show:view", this.layout.regionContent);
+      const filteredCollection = App.request('filter:apply:entities', collection);
+      const view = API.getTVShowsList(filteredCollection);
+      return this.layout.regionContent.show(view);
+    }
+  };
+
+
+  //# handler for other modules to get a list view.
+  return App.reqres.setHandler("tvshow:list:view", collection => API.getTVShowsList(collection, true));
+});

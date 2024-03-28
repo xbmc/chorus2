@@ -1,26 +1,42 @@
-@Kodi.module "PVR", (PVR, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("PVR", function(PVR, App, Backbone, Marionette, $, _) {
 
-  class PVR.Router extends App.Router.Base
-    appRoutes:
-      "pvr/tv"          : "tv"
-      "pvr/radio"       : "radio"
-      "pvr/recordings"  : "recordings"
+  const Cls = (PVR.Router = class Router extends App.Router.Base {
+    static initClass() {
+      this.prototype.appRoutes = {
+        "pvr/tv"          : "tv",
+        "pvr/radio"       : "radio",
+        "pvr/recordings"  : "recordings"
+      };
+    }
+  });
+  Cls.initClass();
 
-  API =
+  const API = {
 
-    tv: ->
-      new PVR.ChannelList.Controller
-        group: 'alltv'
+    tv() {
+      return new PVR.ChannelList.Controller({
+        group: 'alltv'});
+    },
 
-    radio: ->
-      new PVR.ChannelList.Controller
-        group: 'allradio'
+    radio() {
+      return new PVR.ChannelList.Controller({
+        group: 'allradio'});
+    },
 
-    recordings: ->
-      new PVR.RecordingList.Controller()
+    recordings() {
+      return new PVR.RecordingList.Controller();
+    }
+  };
 
 
-  App.on "before:start", ->
-    new PVR.Router
-      controller: API
+  return App.on("before:start", () => new PVR.Router({
+    controller: API}));
+});
 

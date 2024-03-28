@@ -1,15 +1,23 @@
-@Kodi.module "NotificationsApp", (NotificationApp, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("NotificationsApp", function(NotificationApp, App, Backbone, Marionette, $, _) {
 
-  API =
+  const API =
 
-    notificationMinTimeOut: 5000
+    {notificationMinTimeOut: 5000};
 
-  App.commands.setHandler "notification:show", (msg, severity = 'normal') ->
-    ## Average 100 characters takes 10 sec to read
-    timeout = if msg.length < 50 then API.notificationMinTimeOut else (msg.length * 100)
-    ## Trigger a ui notification.
-    $.snackbar({
-      content: msg
-      style: 'type-' + severity
-      timeout: timeout
-    })
+  return App.commands.setHandler("notification:show", function(msg, severity = 'normal') {
+    //# Average 100 characters takes 10 sec to read
+    const timeout = msg.length < 50 ? API.notificationMinTimeOut : (msg.length * 100);
+    //# Trigger a ui notification.
+    return $.snackbar({
+      content: msg,
+      style: 'type-' + severity,
+      timeout
+    });
+  });
+});

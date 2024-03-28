@@ -1,116 +1,172 @@
-@Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("CommandApp.Kodi", function(Api, App, Backbone, Marionette, $, _) {
 
 
-  ## Base commander with shared functionality.
-  class Api.Commander extends Api.Base
+  //# Base commander with shared functionality.
+  let Cls = (Api.Commander = class Commander extends Api.Base {
+    static initClass() {
+  
+      this.prototype.playerActive = 0; //# default to audio
+      this.prototype.playerName = 'music';
+      this.prototype.playerForced = false; //# If false will check active player before a command
+  
+      //# Applies to player and playlists.
+      this.prototype.playerIds = {
+        audio: 0,
+        video: 1
+      };
+  
+  
+      //# Namespace should be added in each extending class
+      this.prototype.commandNameSpace = 'JSONRPC';
+    }
 
-    playerActive: 0 ## default to audio
-    playerName: 'music'
-    playerForced: false ## If false will check active player before a command
+    setPlayer(player) {
+      if ((player === 'audio') || (player === 'video')) {
+        this.playerActive = this.playerIds[player];
+        this.playerName = player;
+        return this.playerForced = true;
+      }
+    }
 
-    ## Applies to player and playlists.
-    playerIds:
-      audio: 0
-      video: 1
+    getPlayer() {
+      return this.playerActive;
+    }
 
-    setPlayer: (player) ->
-      if player is 'audio' or player is 'video'
-        @playerActive = @playerIds[player]
-        @playerName = player
-        @playerForced = true
+    getPlayerName() {
+      return this.playerName;
+    }
 
-    getPlayer: ->
-      @playerActive
+    //# get the player name via the id (eg return audio, video)
+    playerIdToName(playerId) {
+      let playerName;
+      playerName;
+      for (var name in this.playerIds) {
+        var id = this.playerIds[name];
+        if (id === playerId) {
+          playerName = name;
+        }
+      }
+      return playerName;
+    }
 
-    getPlayerName: ->
-      @playerName
+    //# Namespace can be overridden when called
+    getCommand(command, namespace = this.commandNameSpace) {
+      return namespace + '.' + command;
+    }
 
-    ## get the player name via the id (eg return audio, video)
-    playerIdToName: (playerId) ->
-      playerName
-      for name, id of @playerIds when id is playerId
-        playerName = name
-      playerName
-
-
-    ## Namespace should be added in each extending class
-    commandNameSpace: 'JSONRPC'
-
-    ## Namespace can be overridden when called
-    getCommand: (command, namespace = @commandNameSpace) ->
-      namespace + '.' + command
-
-    ## Send a command
-    sendCommand: (command, params, callback, fail) ->
-      @singleCommand @getCommand(command), params, ((resp) =>
-        @doCallback callback, resp
-      ), (err) =>
-        @doCallback fail, err
+    //# Send a command
+    sendCommand(command, params, callback, fail) {
+      return this.singleCommand(this.getCommand(command), params, (resp => {
+        return this.doCallback(callback, resp);
+      }
+      ), err => {
+        return this.doCallback(fail, err);
+      });
+    }
+  });
+  Cls.initClass();
 
 
-  ## Player commander.
-  class Api.Player extends Api.Commander
+  //# Player commander.
+  return (function() {
+    Cls = (Api.Player = class Player extends Api.Commander {
+      static initClass() {
+  
+        this.prototype.commandNameSpace = 'Player';
+        this.prototype.playlistApi = {};
+      }
 
-    commandNameSpace: 'Player'
-    playlistApi: {}
+      initialize(media = 'audio') {
+        this.setPlayer(media);
+        return this.playlistApi = App.request("playlist:kodi:entity:api");
+      }
 
-    initialize: (media = 'audio') ->
-      @setPlayer media
-      @playlistApi = App.request "playlist:kodi:entity:api"
+      getParams(params = [], callback) {
+        let defaultParams;
+        if (this.playerForced) {
+          defaultParams = [this.playerActive];
+          return this.doCallback(callback, defaultParams.concat(params));
+        } else {
+          return this.getActivePlayers(activeId => {
+            defaultParams = [activeId];
+            return this.doCallback(callback, defaultParams.concat(params));
+          });
+        }
+      }
 
-    getParams: (params = [], callback) ->
-      if @playerForced
-        defaultParams = [@playerActive]
-        @doCallback callback, defaultParams.concat(params)
-      else
-        @getActivePlayers (activeId) =>
-          defaultParams = [activeId]
-          @doCallback callback, defaultParams.concat(params)
+      getActivePlayers(callback) {
+        return this.singleCommand(this.getCommand("GetActivePlayers"), {}, resp => {
+          if (resp.length > 0) {
+            this.playerActive = resp[0].playerid;
+            this.playerName = this.playerIdToName(this.playerActive);
+            this.triggerMethod("player:ready", this.playerActive);
+            return this.doCallback(callback, this.playerActive);
+          } else {
+            return this.doCallback(callback, this.playerActive);
+          }
+        });
+      }
 
-    getActivePlayers: (callback) ->
-      @singleCommand @getCommand("GetActivePlayers"), {}, (resp) =>
-        if resp.length > 0
-          @playerActive = resp[0].playerid
-          @playerName = @playerIdToName(@playerActive)
-          @triggerMethod "player:ready", @playerActive
-          @doCallback callback, @playerActive
-        else
-          @doCallback callback, @playerActive
+      sendCommand(command, params = [], callback, fail) {
+        return this.getParams(params, playerParams => {
+          return this.singleCommand(this.getCommand(command), playerParams, (resp => {
+            return this.doCallback(callback, resp);
+          }
+          ), err => {
+            return this.doCallback(fail, err);
+          });
+        });
+      }
 
-    sendCommand: (command, params = [], callback, fail) ->
-      @getParams params, (playerParams) =>
-        @singleCommand @getCommand(command), playerParams, ((resp) =>
-          @doCallback callback, resp
-        ), (err) =>
-          @doCallback fail, err
+      playEntity(type, value, options = {}, callback) {
+        const params = {'item': this.paramObj(type, value), 'options': options};
+        if (type === 'position') {
+          params.item.playlistid = this.getPlayer();
+        }
+        return this.singleCommand(this.getCommand('Open', 'Player'), params, resp => {
+          if (!App.request('sockets:active')) {
+            // App.request 'player:kodi:timer', 'start'
+            App.request('state:kodi:update');
+          }
+          return this.doCallback(callback, resp);
+        });
+      }
 
-    playEntity: (type, value, options = {}, callback) ->
-      params = {'item': @paramObj(type, value), 'options': options}
-      if type is 'position'
-        params.item.playlistid = @getPlayer()
-      @singleCommand @getCommand('Open', 'Player'), params, (resp) =>
-        if not App.request 'sockets:active'
-          # App.request 'player:kodi:timer', 'start'
-          App.request 'state:kodi:update'
-        @doCallback callback, resp
+      setPartyMode(op = 'toggle', callback) {
+        return this.sendCommand('SetPartymode', [op], resp => {
+          return this.doCallback(callback, resp);
+        });
+      }
 
-    setPartyMode: (op = 'toggle', callback) ->
-      @sendCommand 'SetPartymode', [op], (resp) =>
-        @doCallback callback, resp
-
-    getPlaying: (callback) ->
-      obj = {active: false, properties: false, item: false}
-      @singleCommand @getCommand('GetActivePlayers'), {}, (resp) =>
-        if resp.length > 0
-          obj.active = resp[0] ## Only use the first active player (cant think of 2 running at the same time?)
-          commands = []
-          itemFields = helpers.entities.getFields(@playlistApi.fields, 'full')
-          playerFields = ["playlistid", "speed", "position", "totaltime", "time", "percentage", "shuffled", "repeat", "canrepeat", "canshuffle", "canseek", "partymode"]
-          commands.push {method: @getCommand('GetProperties'), params: [obj.active.playerid, playerFields]}
-          commands.push {method: @getCommand('GetItem'), params: [obj.active.playerid, itemFields]}
-          @multipleCommands commands, (playing) =>
-            obj.properties = playing[0]
-            obj.item = playing[1].item
-            @doCallback callback, obj
-        else
-          @doCallback callback, false ## nothing playing
+      getPlaying(callback) {
+        const obj = {active: false, properties: false, item: false};
+        return this.singleCommand(this.getCommand('GetActivePlayers'), {}, resp => {
+          if (resp.length > 0) {
+            obj.active = resp[0]; //# Only use the first active player (cant think of 2 running at the same time?)
+            const commands = [];
+            const itemFields = helpers.entities.getFields(this.playlistApi.fields, 'full');
+            const playerFields = ["playlistid", "speed", "position", "totaltime", "time", "percentage", "shuffled", "repeat", "canrepeat", "canshuffle", "canseek", "partymode"];
+            commands.push({method: this.getCommand('GetProperties'), params: [obj.active.playerid, playerFields]});
+            commands.push({method: this.getCommand('GetItem'), params: [obj.active.playerid, itemFields]});
+            return this.multipleCommands(commands, playing => {
+              obj.properties = playing[0];
+              obj.item = playing[1].item;
+              return this.doCallback(callback, obj);
+            });
+          } else {
+            return this.doCallback(callback, false);
+          }
+        });
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+}); //# nothing playing

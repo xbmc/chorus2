@@ -1,32 +1,65 @@
-@Kodi.module "MusicVideoApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("MusicVideoApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "musicvideo-list with-filters"
+  let Cls = (List.ListLayout = class ListLayout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "musicvideo-list with-filters";
+    }
+  });
+  Cls.initClass();
 
-  class List.Teaser extends App.Views.CardView
-    triggers:
-      "click .play"           : "musicvideo:play"
-      "click .add"            : "musicvideo:add"
-      'click .stream'         : 'musicvideo:localplay'
-      'click .download'       : 'musicvideo:download'
-      'click .edit'           : 'musicvideo:edit'
-      'click .refresh'        : 'musicvideo:refresh'
-    initialize: ->
-      super arguments...
-      if @model?
-        @setMeta()
-        @model.set(App.request('musicvideo:action:items'))
-    setMeta: ->
-      if @model
-        artist = if @model.get('artist') != '' then @model.get('artist') else '&nbsp;'
-        @model.set subtitleHtml: @themeLink @model.get('artist'), 'search/artist/' + artist
+  Cls = (List.Teaser = class Teaser extends App.Views.CardView {
+    static initClass() {
+      this.prototype.triggers = {
+        "click .play"           : "musicvideo:play",
+        "click .add"            : "musicvideo:add",
+        'click .stream'         : 'musicvideo:localplay',
+        'click .download'       : 'musicvideo:download',
+        'click .edit'           : 'musicvideo:edit',
+        'click .refresh'        : 'musicvideo:refresh'
+      };
+    }
+    initialize() {
+      super.initialize(...arguments);
+      if (this.model != null) {
+        this.setMeta();
+        return this.model.set(App.request('musicvideo:action:items'));
+      }
+    }
+    setMeta() {
+      if (this.model) {
+        const artist = this.model.get('artist') !== '' ? this.model.get('artist') : '&nbsp;';
+        return this.model.set({subtitleHtml: this.themeLink(this.model.get('artist'), 'search/artist/' + artist)});
+      }
+    }
+  });
+  Cls.initClass();
 
-  class List.Empty extends App.Views.EmptyViewResults
-    tagName: "li"
-    className: "musicvideo-empty-result"
+  Cls = (List.Empty = class Empty extends App.Views.EmptyViewResults {
+    static initClass() {
+      this.prototype.tagName = "li";
+      this.prototype.className = "musicvideo-empty-result";
+    }
+  });
+  Cls.initClass();
 
-  class List.Videos extends App.Views.VirtualListView
-    childView: List.Teaser
-    emptyView: List.Empty
-    tagName: "ul"
-    className: "card-grid--musicvideo"
+  return (function() {
+    Cls = (List.Videos = class Videos extends App.Views.VirtualListView {
+      static initClass() {
+        this.prototype.childView = List.Teaser;
+        this.prototype.emptyView = List.Empty;
+        this.prototype.tagName = "ul";
+        this.prototype.className = "card-grid--musicvideo";
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

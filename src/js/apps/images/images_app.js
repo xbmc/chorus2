@@ -1,78 +1,101 @@
-@Kodi.module "Images", (Images, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("Images", function(Images, App, Backbone, Marionette, $, _) {
 
-  API =
+  var API = {
 
-    imagesPath: 'images/'
+    imagesPath: 'images/',
 
-    defaultFanartPath: 'fanart_default/'
+    defaultFanartPath: 'fanart_default/',
 
     defaultFanartFiles: [
-      'cans.jpg'
-      'guitar.jpg'
-      'speaker.jpg'
+      'cans.jpg',
+      'guitar.jpg',
+      'speaker.jpg',
       'turntable.jpg',
       'amp.jpg',
       'concert.jpg',
       'tweeter.jpg',
-    ]
+    ],
 
-    getDefaultThumbnail: ->
-      API.imagesPath + 'thumbnail_default.png'
+    getDefaultThumbnail() {
+      return API.imagesPath + 'thumbnail_default.png';
+    },
 
-    getRandomFanart: ->
-      rand = helpers.global.getRandomInt(0, API.defaultFanartFiles.length - 1)
-      file = API.defaultFanartFiles[rand]
-      path = API.imagesPath + API.defaultFanartPath + file
-      path
+    getRandomFanart() {
+      const rand = helpers.global.getRandomInt(0, API.defaultFanartFiles.length - 1);
+      const file = API.defaultFanartFiles[rand];
+      const path = API.imagesPath + API.defaultFanartPath + file;
+      return path;
+    },
 
-    parseRawPath: (rawPath) ->
-      path = if config.getLocal 'reverseProxy' then 'image/' + encodeURIComponent(rawPath) else '/image/' + encodeURIComponent(rawPath)
-      path
+    parseRawPath(rawPath) {
+      const path = config.getLocal('reverseProxy') ? 'image/' + encodeURIComponent(rawPath) : '/image/' + encodeURIComponent(rawPath);
+      return path;
+    },
 
-    ## set background fanart, string to 'none' removes fanart
-    setFanartBackground: (path, region) ->
-      $body = App.getRegion(region).$el
-      if path isnt 'none'
-        if not path
-          path = @getRandomFanart()
-        $body.css('background-image', 'url(' +  path + ')')
-      else
-        $body.removeAttr('style')
+    //# set background fanart, string to 'none' removes fanart
+    setFanartBackground(path, region) {
+      const $body = App.getRegion(region).$el;
+      if (path !== 'none') {
+        if (!path) {
+          path = this.getRandomFanart();
+        }
+        return $body.css('background-image', 'url(' +  path + ')');
+      } else {
+        return $body.removeAttr('style');
+      }
+    },
 
-    getImageUrl: (rawPath, type = 'thumbnail', useFallback = true) ->
-      path = ''
-      if not rawPath? or rawPath is ''
-        switch type
-          when 'fanart' then path = API.getRandomFanart()
-          else path = API.getDefaultThumbnail()
-      else if type is 'trailer'
-        path = API.getTrailerUrl(rawPath)
-      else
-        path = API.parseRawPath(rawPath)
-      path
+    getImageUrl(rawPath, type = 'thumbnail', useFallback = true) {
+      let path = '';
+      if ((rawPath == null) || (rawPath === '')) {
+        switch (type) {
+          case 'fanart': path = API.getRandomFanart(); break;
+          default: path = API.getDefaultThumbnail();
+        }
+      } else if (type === 'trailer') {
+        path = API.getTrailerUrl(rawPath);
+      } else {
+        path = API.parseRawPath(rawPath);
+      }
+      return path;
+    },
 
-    getTrailerUrl: (rawpath) ->
-      trailer = helpers.url.parseTrailerUrl (rawpath)
-      trailer.img
+    getTrailerUrl(rawpath) {
+      const trailer = helpers.url.parseTrailerUrl((rawpath));
+      return trailer.img;
+    }
+  };
 
-  ## Handler to set the background fanart pic.
-  App.commands.setHandler "images:fanart:set", (path, region = 'regionFanart') ->
-    API.setFanartBackground path, region
+  //# Handler to set the background fanart pic.
+  App.commands.setHandler("images:fanart:set", (path, region = 'regionFanart') => API.setFanartBackground(path, region));
 
-  ## Handler to return a parsed image path.
-  App.reqres.setHandler "images:path:get", (rawPath = '', type = 'thumbnail') ->
-    API.getImageUrl(rawPath, type)
+  //# Handler to return a parsed image path.
+  App.reqres.setHandler("images:path:get", (rawPath = '', type = 'thumbnail') => API.getImageUrl(rawPath, type));
 
-  ## Handler to apply correct paths to a model, expects to be called
-  ## on the model attributes, typically during a model.parse()
-  App.reqres.setHandler "images:path:entity", (model) ->
-    if model.thumbnail?
-      model.thumbnailOriginal = model.thumbnail
-      model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail')
-    if model.fanart?
-      model.fanartOriginal = model.fanart
-      model.fanart = API.getImageUrl(model.fanart, 'fanart')
-    if model.cast? and model.cast.length > 0
-      for i, person of model.cast
-        model.cast[i].thumbnail = API.getImageUrl(person.thumbnail, 'thumbnail')
-    model
+  //# Handler to apply correct paths to a model, expects to be called
+  //# on the model attributes, typically during a model.parse()
+  return App.reqres.setHandler("images:path:entity", function(model) {
+    if (model.thumbnail != null) {
+      model.thumbnailOriginal = model.thumbnail;
+      model.thumbnail = API.getImageUrl(model.thumbnail, 'thumbnail');
+    }
+    if (model.fanart != null) {
+      model.fanartOriginal = model.fanart;
+      model.fanart = API.getImageUrl(model.fanart, 'fanart');
+    }
+    if ((model.cast != null) && (model.cast.length > 0)) {
+      for (var i in model.cast) {
+        var person = model.cast[i];
+        model.cast[i].thumbnail = API.getImageUrl(person.thumbnail, 'thumbnail');
+      }
+    }
+    return model;
+  });
+});

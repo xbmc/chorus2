@@ -1,23 +1,53 @@
-@Kodi.module "ArtistApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("ArtistApp.Show", function(Show, App, Backbone, Marionette, $, _) {
 
-  class Show.PageLayout extends App.Views.LayoutWithHeaderView
-    className: 'artist-show detail-container'
+  let Cls = (Show.PageLayout = class PageLayout extends App.Views.LayoutWithHeaderView {
+    static initClass() {
+      this.prototype.className = 'artist-show detail-container';
+    }
+  });
+  Cls.initClass();
 
-  class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
-    className: 'artist-details'
+  Cls = (Show.HeaderLayout = class HeaderLayout extends App.Views.LayoutDetailsHeaderView {
+    static initClass() {
+      this.prototype.className = 'artist-details';
+    }
+  });
+  Cls.initClass();
 
-  class Show.Details extends App.Views.DetailsItem
-    template: 'apps/artist/show/details_meta'
-    triggers:
-      "click .play"       : "artist:play"
-      "click .add"        : "artist:add"
-      "click .localadd"   : "artist:localadd"
-      "click .localplay"  : "artist:localplay"
-      "click .edit"       : "artist:edit"
+  Cls = (Show.Details = class Details extends App.Views.DetailsItem {
+    static initClass() {
+      this.prototype.template = 'apps/artist/show/details_meta';
+      this.prototype.triggers = {
+        "click .play"       : "artist:play",
+        "click .add"        : "artist:add",
+        "click .localadd"   : "artist:localadd",
+        "click .localplay"  : "artist:localplay",
+        "click .edit"       : "artist:edit"
+      };
+    }
+  });
+  Cls.initClass();
 
-  class Show.ArtistTeaser extends App.ArtistApp.List.ArtistTeaser
-    tagName: "div"
-    initialize: ->
-      @model.set(actions: {thumbs: tr('Thumbs up')})
-    attributes: ->
-      @watchedAttributes 'card-detail'
+  return (function() {
+    Cls = (Show.ArtistTeaser = class ArtistTeaser extends App.ArtistApp.List.ArtistTeaser {
+      static initClass() {
+        this.prototype.tagName = "div";
+      }
+      initialize() {
+        return this.model.set({actions: {thumbs: tr('Thumbs up')}});
+      }
+      attributes() {
+        return this.watchedAttributes('card-detail');
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

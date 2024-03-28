@@ -1,70 +1,91 @@
-@Kodi.module "KodiEntities", (KodiEntities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("KodiEntities", function(KodiEntities, App, Backbone, Marionette, $, _) {
 
-  ###
+  /*
     API Helpers
-  ###
+  */
 
-  API =
+  var API = {
 
-    fields:
-      minimal: ['title', 'art']
-      small: ['playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes', 'cast', 'studio', 'mpaa', 'tag']
+    fields: {
+      minimal: ['title', 'art'],
+      small: ['playcount', 'lastplayed', 'dateadded', 'episode', 'rating', 'year', 'file', 'genre', 'watchedepisodes', 'cast', 'studio', 'mpaa', 'tag'],
       full: ['imdbnumber', 'episodeguide', 'plot', 'sorttitle', 'originaltitle', 'premiered']
+    },
 
-    ## Fetch a single entity
-    getEntity: (id, options) ->
-      entity = new App.KodiEntities.TVShow()
-      entity.set({tvshowid: parseInt(id), properties:  helpers.entities.getFields(API.fields, 'full')})
-      entity.fetch options
-      entity
+    //# Fetch a single entity
+    getEntity(id, options) {
+      const entity = new App.KodiEntities.TVShow();
+      entity.set({tvshowid: parseInt(id), properties:  helpers.entities.getFields(API.fields, 'full')});
+      entity.fetch(options);
+      return entity;
+    },
 
-    ## Fetch an entity collection.
-    getCollection: (options) ->
-      collection = new KodiEntities.TVShowCollection()
-      collection.fetch helpers.entities.buildOptions(options)
-      collection
+    //# Fetch an entity collection.
+    getCollection(options) {
+      const collection = new KodiEntities.TVShowCollection();
+      collection.fetch(helpers.entities.buildOptions(options));
+      return collection;
+    }
+  };
 
-  ###
+  /*
    Models and collections.
-  ###
+  */
 
-  ## Single TVShows model.
-  class KodiEntities.TVShow extends App.KodiEntities.Model
-    defaults: ->
-      fields = _.extend(@modelDefaults, {tvshowid: 1, tvshow: ''})
-      @parseFieldsToDefaults helpers.entities.getFields(API.fields, 'full'), fields
-    methods: read: ['VideoLibrary.GetTVShowDetails', 'tvshowid', 'properties']
-    parse: (resp, xhr) ->
-      obj = if resp.tvshowdetails? then resp.tvshowdetails else resp
-      if resp.tvshowdetails?
-        obj.fullyloaded = true
-      obj.unwatched = obj.episode - obj.watchedepisodes
-      @parseModel 'tvshow', obj, obj.tvshowid
+  //# Single TVShows model.
+  let Cls = (KodiEntities.TVShow = class TVShow extends App.KodiEntities.Model {
+    static initClass() {
+      this.prototype.methods = {read: ['VideoLibrary.GetTVShowDetails', 'tvshowid', 'properties']};
+    }
+    defaults() {
+      const fields = _.extend(this.modelDefaults, {tvshowid: 1, tvshow: ''});
+      return this.parseFieldsToDefaults(helpers.entities.getFields(API.fields, 'full'), fields);
+    }
+    parse(resp, xhr) {
+      const obj = (resp.tvshowdetails != null) ? resp.tvshowdetails : resp;
+      if (resp.tvshowdetails != null) {
+        obj.fullyloaded = true;
+      }
+      obj.unwatched = obj.episode - obj.watchedepisodes;
+      return this.parseModel('tvshow', obj, obj.tvshowid);
+    }
+  });
+  Cls.initClass();
 
-  ## TVShows collection
-  class KodiEntities.TVShowCollection extends App.KodiEntities.Collection
-    model: KodiEntities.TVShow
-    methods: read: ['VideoLibrary.GetTVShows', 'properties', 'limits', 'sort', 'filter']
-    args: -> @getArgs({
-      properties: @argFields(helpers.entities.getFields(API.fields, 'small'))
-      limits: @argLimit()
-      sort: @argSort('title', 'ascending')
-      filter: @argFilter()
-    })
-    parse: (resp, xhr) -> @getResult resp, 'tvshows'
+  //# TVShows collection
+  Cls = (KodiEntities.TVShowCollection = class TVShowCollection extends App.KodiEntities.Collection {
+    static initClass() {
+      this.prototype.model = KodiEntities.TVShow;
+      this.prototype.methods = {read: ['VideoLibrary.GetTVShows', 'properties', 'limits', 'sort', 'filter']};
+    }
+    args() { return this.getArgs({
+      properties: this.argFields(helpers.entities.getFields(API.fields, 'small')),
+      limits: this.argLimit(),
+      sort: this.argSort('title', 'ascending'),
+      filter: this.argFilter()
+    }); }
+    parse(resp, xhr) { return this.getResult(resp, 'tvshows'); }
+  });
+  Cls.initClass();
 
-  ###
+  /*
    Request Handlers.
-  ###
+  */
 
-  # Get a single tvshow
-  App.reqres.setHandler "tvshow:entity", (id, options = {}) ->
-    API.getEntity id, options
+  // Get a single tvshow
+  App.reqres.setHandler("tvshow:entity", (id, options = {}) => API.getEntity(id, options));
 
-  ## Get an tvshow collection
-  App.reqres.setHandler "tvshow:entities", (options = {}) ->
-    API.getCollection options
+  //# Get an tvshow collection
+  App.reqres.setHandler("tvshow:entities", (options = {}) => API.getCollection(options));
 
-  ## Get full field/property list for entity
-  App.reqres.setHandler "tvshow:fields", (type = 'full') ->
-    helpers.entities.getFields(API.fields, type)
+  //# Get full field/property list for entity
+  return App.reqres.setHandler("tvshow:fields", (type = 'full') => helpers.entities.getFields(API.fields, type));
+});

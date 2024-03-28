@@ -1,27 +1,58 @@
-@Kodi.module "ArtistApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("ArtistApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  class List.ListLayout extends App.Views.LayoutWithSidebarFirstView
-    className: "artist-list with-filters"
+  let Cls = (List.ListLayout = class ListLayout extends App.Views.LayoutWithSidebarFirstView {
+    static initClass() {
+      this.prototype.className = "artist-list with-filters";
+    }
+  });
+  Cls.initClass();
 
-  class List.ArtistTeaser extends App.Views.CardView
-    triggers:
-      "click .play" : "artist:play"
-      "click .dropdown .add" : "artist:add"
-      "click .dropdown .localadd" : "artist:localadd"
-      "click .dropdown .localplay" : "artist:localplay"
-      "click .dropdown .edit" : "artist:edit"
+  Cls = (List.ArtistTeaser = class ArtistTeaser extends App.Views.CardView {
+    static initClass() {
+      this.prototype.triggers = {
+        "click .play" : "artist:play",
+        "click .dropdown .add" : "artist:add",
+        "click .dropdown .localadd" : "artist:localadd",
+        "click .dropdown .localplay" : "artist:localplay",
+        "click .dropdown .edit" : "artist:edit"
+      };
+    }
 
-    initialize: ->
-      super arguments...
-      if @model?
-        @model.set(App.request('album:action:items'))
+    initialize() {
+      super.initialize(...arguments);
+      if (this.model != null) {
+        return this.model.set(App.request('album:action:items'));
+      }
+    }
+  });
+  Cls.initClass();
 
-  class List.Empty extends App.Views.EmptyViewResults
-    tagName: "li"
-    className: "artist-empty-result"
+  Cls = (List.Empty = class Empty extends App.Views.EmptyViewResults {
+    static initClass() {
+      this.prototype.tagName = "li";
+      this.prototype.className = "artist-empty-result";
+    }
+  });
+  Cls.initClass();
 
-  class List.Artists extends App.Views.VirtualListView
-    childView: List.ArtistTeaser
-    emptyView: List.Empty
-    tagName: "ul"
-    className: "card-grid--wide"
+  return (function() {
+    Cls = (List.Artists = class Artists extends App.Views.VirtualListView {
+      static initClass() {
+        this.prototype.childView = List.ArtistTeaser;
+        this.prototype.emptyView = List.Empty;
+        this.prototype.tagName = "ul";
+        this.prototype.className = "card-grid--wide";
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

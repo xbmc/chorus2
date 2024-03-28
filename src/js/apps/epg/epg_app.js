@@ -1,41 +1,60 @@
-@Kodi.module "EPGApp", (EPGApp, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("EPGApp", function(EPGApp, App, Backbone, Marionette, $, _) {
 
-  class EPGApp.Router extends App.Router.Base
-    appRoutes:
-      "pvr/tv/:channelid"       : "tv"
-      "pvr/radio/:channelid"    : "radio"
+  const Cls = (EPGApp.Router = class Router extends App.Router.Base {
+    static initClass() {
+      this.prototype.appRoutes = {
+        "pvr/tv/:channelid"       : "tv",
+        "pvr/radio/:channelid"    : "radio"
+      };
+    }
+  });
+  Cls.initClass();
 
-  API =
+  const API = {
 
-    tv: (channelid) ->
-      new EPGApp.List.Controller
-        channelid: channelid
+    tv(channelid) {
+      return new EPGApp.List.Controller({
+        channelid,
         type: "tv"
+      });
+    },
 
-    radio: (channelid) ->
-      new EPGApp.List.Controller
-        channelid: channelid
+    radio(channelid) {
+      return new EPGApp.List.Controller({
+        channelid,
         type: "radio"
+      });
+    },
 
-    action: (op, view) ->
-      model = view.model
-      player = App.request "command:kodi:controller", 'auto', 'Player'
-      pvr = App.request "command:kodi:controller", 'auto', 'PVR'
-      switch op
-        when 'play'
-          player.playEntity 'channelid', model.get('channelid')
-        when 'record'
-          pvr.setRecord model.get('channelid'), {}, ->
-            App.execute "notification:show", tr("Channel recording toggled")
-        when 'timer'
-          pvr.toggleTimer model.get('id')
-        else
-          # nothing
+    action(op, view) {
+      const {
+        model
+      } = view;
+      const player = App.request("command:kodi:controller", 'auto', 'Player');
+      const pvr = App.request("command:kodi:controller", 'auto', 'PVR');
+      switch (op) {
+        case 'play':
+          return player.playEntity('channelid', model.get('channelid'));
+        case 'record':
+          return pvr.setRecord(model.get('channelid'), {}, () => App.execute("notification:show", tr("Channel recording toggled")));
+        case 'timer':
+          return pvr.toggleTimer(model.get('id'));
+        default:
+      }
+    }
+  };
+          // nothing
 
-  ## This is shared with a channel action (sidebar)
-  App.commands.setHandler 'broadcast:action', (op, view) ->
-    API.action op, view
+  //# This is shared with a channel action (sidebar)
+  App.commands.setHandler('broadcast:action', (op, view) => API.action(op, view));
 
-  App.on "before:start", ->
-    new EPGApp.Router
-      controller: API
+  return App.on("before:start", () => new EPGApp.Router({
+    controller: API}));
+});

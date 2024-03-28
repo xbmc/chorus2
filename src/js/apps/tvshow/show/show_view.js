@@ -1,27 +1,58 @@
-@Kodi.module "TVShowApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("TVShowApp.Show", function(Show, App, Backbone, Marionette, $, _) {
 
-  class Show.PageLayout extends App.Views.LayoutWithHeaderView
-    className: 'tvshow-show tv-collection detail-container'
+  let Cls = (Show.PageLayout = class PageLayout extends App.Views.LayoutWithHeaderView {
+    static initClass() {
+      this.prototype.className = 'tvshow-show tv-collection detail-container';
+    }
+  });
+  Cls.initClass();
 
-  class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
-    className: 'tvshow-details'
+  Cls = (Show.HeaderLayout = class HeaderLayout extends App.Views.LayoutDetailsHeaderView {
+    static initClass() {
+      this.prototype.className = 'tvshow-details';
+    }
+  });
+  Cls.initClass();
 
-  class Show.Details extends App.Views.DetailsItem
-    template: 'apps/tvshow/show/details_meta'
-    triggers:
-      "click .play"               : "tvshow:play"
-      "click .add"                : "tvshow:add"
-      "click .edit"               : "tvshow:edit"
-      "click .refresh"            : "tvshow:refresh"
-      "click .refresh-episodes"   : "tvshow:refresh:episodes"
-    attributes: ->
-      @watchedAttributes 'details-meta'
+  Cls = (Show.Details = class Details extends App.Views.DetailsItem {
+    static initClass() {
+      this.prototype.template = 'apps/tvshow/show/details_meta';
+      this.prototype.triggers = {
+        "click .play"               : "tvshow:play",
+        "click .add"                : "tvshow:add",
+        "click .edit"               : "tvshow:edit",
+        "click .refresh"            : "tvshow:refresh",
+        "click .refresh-episodes"   : "tvshow:refresh:episodes"
+      };
+    }
+    attributes() {
+      return this.watchedAttributes('details-meta');
+    }
+  });
+  Cls.initClass();
 
-  class Show.TVShowTeaser extends App.Views.CardView
-    tagName: "div"
-    triggers:
-      "click .play"       : "tvshow:play"
-    initialize: ->
-        @model.set(actions: {thumbs: tr('Thumbs up')})
-    attributes: ->
-      @watchedAttributes 'card-detail'
+  return (function() {
+    Cls = (Show.TVShowTeaser = class TVShowTeaser extends App.Views.CardView {
+      static initClass() {
+        this.prototype.tagName = "div";
+        this.prototype.triggers =
+          {"click .play"       : "tvshow:play"};
+      }
+      initialize() {
+          return this.model.set({actions: {thumbs: tr('Thumbs up')}});
+        }
+      attributes() {
+        return this.watchedAttributes('card-detail');
+      }
+    });
+    Cls.initClass();
+    return Cls;
+  })();
+});

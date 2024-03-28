@@ -1,79 +1,103 @@
-@Kodi.module "HelpApp.Overview", (Overview, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("HelpApp.Overview", function(Overview, App, Backbone, Marionette, $, _) {
 
-  class Overview.Controller extends App.Controllers.Base
+  return Overview.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: (options) ->
+    initialize(options) {
 
-      # Load the page
-      App.request "help:page", 'help-overview', (data) =>
+      // Load the page
+      return App.request("help:page", 'help-overview', data => {
 
-        @layout = @getLayoutView data
-        @listenTo @layout, "show", =>
-          @getSideBar()
-          @getPage data
+        this.layout = this.getLayoutView(data);
+        this.listenTo(this.layout, "show", () => {
+          this.getSideBar();
+          return this.getPage(data);
+        });
 
-        # Render layout
-        App.regionContent.show @layout
+        // Render layout
+        return App.regionContent.show(this.layout);
+      });
+    }
 
-    getPage: (data) ->
-      @pageView = new Overview.Page
-        data: data
-      @listenTo @pageView, "show", =>
-        @getReport()
+    getPage(data) {
+      this.pageView = new Overview.Page({
+        data});
+      this.listenTo(this.pageView, "show", () => {
+        return this.getReport();
+      });
 
-      @layout.regionContent.show @pageView
+      return this.layout.regionContent.show(this.pageView);
+    }
 
-    getSideBar: ->
-      subNav = App.request "help:subnav"
-      @layout.regionSidebarFirst.show subNav
+    getSideBar() {
+      const subNav = App.request("help:subnav");
+      return this.layout.regionSidebarFirst.show(subNav);
+    }
 
-    getLayoutView: ->
-      new Overview.Layout()
+    getLayoutView() {
+      return new Overview.Layout();
+    }
 
-    getReport: ->
+    getReport() {
 
-      # jQuery obj for page view
-      @$pageView = @pageView.$el
+      // jQuery obj for page view
+      this.$pageView = this.pageView.$el;
 
-      @getReportChorusVersion()
-      @getReportKodiVersion()
-      @getReportWebsocketsActive()
-      @getReportLocalAudio()
+      this.getReportChorusVersion();
+      this.getReportKodiVersion();
+      this.getReportWebsocketsActive();
+      this.getReportLocalAudio();
 
-      # We might have just called to early, bind to available event just in case.
-      App.vent.on "sockets:available", =>
-        @getReportWebsocketsActive()
-      App.vent.on "state:initialized", =>
-        @getReportKodiVersion()
+      // We might have just called to early, bind to available event just in case.
+      App.vent.on("sockets:available", () => {
+        return this.getReportWebsocketsActive();
+      });
+      return App.vent.on("state:initialized", () => {
+        return this.getReportKodiVersion();
+      });
+    }
 
-    #
-    # Callbacks for getting/setting report values below.
-    # TODO: Refactor... Shouldn't be using jQuery to insert content
-    #
+    //
+    // Callbacks for getting/setting report values below.
+    // TODO: Refactor... Shouldn't be using jQuery to insert content
+    //
 
-    # Chorus version.
-    getReportChorusVersion: ->
-      $.get "addon.xml", (data) =>
-        $('.report-chorus-version > span', @$pageView).text $('addon', data).attr('version')
+    // Chorus version.
+    getReportChorusVersion() {
+      return $.get("addon.xml", data => {
+        return $('.report-chorus-version > span', this.$pageView).text($('addon', data).attr('version'));
+      });
+    }
 
-    # Kodi version
-    getReportKodiVersion: ->
-      state = App.request "state:kodi"
-      kodiVersion = state.getState('version')
-      $('.report-kodi-version > span', @$pageView).text kodiVersion.major + '.' + kodiVersion.minor
+    // Kodi version
+    getReportKodiVersion() {
+      const state = App.request("state:kodi");
+      const kodiVersion = state.getState('version');
+      return $('.report-kodi-version > span', this.$pageView).text(kodiVersion.major + '.' + kodiVersion.minor);
+    }
 
-    # Web sockets.
-    getReportWebsocketsActive: ->
-      wsActive = App.request "sockets:active"
-      $ws = $('.report-websockets', @$pageView)
-      if wsActive
-        $('span', $ws).text tr("Remote control is set up correctly")
-        $ws.removeClass 'warning'
-      else
-        $('span', $ws).html tr("You need to 'Allow remote control' for Kodi. You can do that") + ' <a href="#settings/kodi/services">' + tr('here') + '</a>'
-        $ws.addClass 'warning'
+    // Web sockets.
+    getReportWebsocketsActive() {
+      const wsActive = App.request("sockets:active");
+      const $ws = $('.report-websockets', this.$pageView);
+      if (wsActive) {
+        $('span', $ws).text(tr("Remote control is set up correctly"));
+        return $ws.removeClass('warning');
+      } else {
+        $('span', $ws).html(tr("You need to 'Allow remote control' for Kodi. You can do that") + ' <a href="#settings/kodi/services">' + tr('here') + '</a>');
+        return $ws.addClass('warning');
+      }
+    }
 
-    # Local audio
-    getReportLocalAudio: ->
-      localAudio = if soundManager.useHTML5Audio then "HTML 5" else "Flash"
-      $('.report-local-audio > span', @$pageView) .text localAudio
+    // Local audio
+    getReportLocalAudio() {
+      const localAudio = soundManager.useHTML5Audio ? "HTML 5" : "Flash";
+      return $('.report-local-audio > span', this.$pageView) .text(localAudio);
+    }
+  };
+});

@@ -1,4 +1,11 @@
-###
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+/*
   Entities mixins, all the common things we do/need on almost every collection
 
   example of usage:
@@ -14,202 +21,236 @@
     .setArgHelper 'sort'
     .applySettings()
 
-###
-@KodiMixins ?= {}
+*/
+if (this.KodiMixins == null) { this.KodiMixins = {}; }
 
 
-KodiMixins.Entities =
+KodiMixins.Entities = {
 
-  url: -> helpers.url.baseKodiUrl "Mixins"
+  url() { return helpers.url.baseKodiUrl("Mixins"); },
   rpc: new Backbone.Rpc({
     useNamedParameters: true,
     namespaceDelimiter: ''
-  })
+  }),
 
 
-  ###
+  /*
     Overrides!
-  ###
+  */
 
-#  ## Add the options to the collection so we can use their args with rpc calls.
-#  sync: (method, model, options) ->
-#    if method is 'read'
-#      this.options = options
-#    Backbone.sync method, model, options
-#
-#  ## Parse the response.
-#  parse: (resp, xhr) ->
-#    respProp = @getEntityKey(@entityType + 'ResponseProperty')
-#    if @entityType is 'model'
-#      ## If fetched directly, look in movie details and mark as fully loaded
-#      obj = if resp[respProp]? then resp[respProp] else resp
-#      if resp[respProp]?
-#        obj.fullyloaded = true
-#      @parseModel @getEntityKey('type'), obj, obj[@getEntityKey('idProperty')]
-#    else
-#      ## collection
-#      resp[respProp]
-
-
-
-#  ###
-#    Parse the model before adding to the collection
-#    Here we can add generic goodies to all models.
-#  ###
-#  parseModel: (type, model, id) ->
-#    model.id = id
-#    model = App.request "images:path:entity", model
-#    model.url = helpers.url.get type, id
-#    model.type = type
-#    model
+//  ## Add the options to the collection so we can use their args with rpc calls.
+//  sync: (method, model, options) ->
+//    if method is 'read'
+//      this.options = options
+//    Backbone.sync method, model, options
+//
+//  ## Parse the response.
+//  parse: (resp, xhr) ->
+//    respProp = @getEntityKey(@entityType + 'ResponseProperty')
+//    if @entityType is 'model'
+//      ## If fetched directly, look in movie details and mark as fully loaded
+//      obj = if resp[respProp]? then resp[respProp] else resp
+//      if resp[respProp]?
+//        obj.fullyloaded = true
+//      @parseModel @getEntityKey('type'), obj, obj[@getEntityKey('idProperty')]
+//    else
+//      ## collection
+//      resp[respProp]
 
 
-  ###
+
+//  ###
+//    Parse the model before adding to the collection
+//    Here we can add generic goodies to all models.
+//  ###
+//  parseModel: (type, model, id) ->
+//    model.id = id
+//    model = App.request "images:path:entity", model
+//    model.url = helpers.url.get type, id
+//    model.type = type
+//    model
+
+
+  /*
     Apply all the defined settings.
-  ###
-  applySettings: ->
-    ## @buildRpcRequest()
-    if @entityType is 'model'
-      @setModelDefaultFields()
+  */
+  applySettings() {
+    //# @buildRpcRequest()
+    if (this.entityType === 'model') {
+      return this.setModelDefaultFields();
+    }
+  },
 
 
-  ###
+  /*
     What kind of entity are we dealing with. collection or model
-  ###
-  entityType: 'model'
-  setEntityType: (type) ->
-    @entityType = type
-    @
+  */
+  entityType: 'model',
+  setEntityType(type) {
+    this.entityType = type;
+    return this;
+  },
 
 
-  ###
+  /*
     Entity Keys, properties that change between the entities
-  ###
-  entityKeys:
-    type: ''
-    modelResponseProperty: ''
-    collectionResponseProperty: ''
+  */
+  entityKeys: {
+    type: '',
+    modelResponseProperty: '',
+    collectionResponseProperty: '',
     idProperty: ''
+  },
 
-  setEntityKey: (key, value) ->
-    @entityKeys[key] = value
-    @
+  setEntityKey(key, value) {
+    this.entityKeys[key] = value;
+    return this;
+  },
 
-  ## Type is the only required, autodetect others.
-  getEntityKey: (key) ->
-    type = @entityKeys.type
-    switch key
-      when 'modelResponseProperty'
-        ret = if @entityKeys[key]? then @entityKeys[key] else type + 'details'
-      when 'collectionResponseProperty'
-        ret = if @entityKeys[key]? then @entityKeys[key] else type + 's'
-      when 'idProperty'
-        ret = if @entityKeys[key]? then @entityKeys[key] else type + 'id'
-      else
-        ret = type
-    ret
+  //# Type is the only required, autodetect others.
+  getEntityKey(key) {
+    let ret;
+    const {
+      type
+    } = this.entityKeys;
+    switch (key) {
+      case 'modelResponseProperty':
+        ret = (this.entityKeys[key] != null) ? this.entityKeys[key] : type + 'details';
+        break;
+      case 'collectionResponseProperty':
+        ret = (this.entityKeys[key] != null) ? this.entityKeys[key] : type + 's';
+        break;
+      case 'idProperty':
+        ret = (this.entityKeys[key] != null) ? this.entityKeys[key] : type + 'id';
+        break;
+      default:
+        ret = type;
+    }
+    return ret;
+  },
 
 
-  ###
+  /*
     The types of fields we request, minimal for search, small for list, full for page.
-  ###
-  entityFields:
-    minimal: []
-    small: []
+  */
+  entityFields: {
+    minimal: [],
+    small: [],
     full: []
+  },
 
-  setEntityFields: (type, fields = []) ->
-    @entityFields[type] = fields
-    @
+  setEntityFields(type, fields = []) {
+    this.entityFields[type] = fields;
+    return this;
+  },
 
-  getEntityFields: (type) ->
-    fields = @entityFields.minimal
-    if type is 'full'
-      fields.concat(@entityFields.small).concat(@entityFields.full)
-    else if type is 'small'
-      fields.concat(@entityFields.small)
-    else
-      fields
+  getEntityFields(type) {
+    const fields = this.entityFields.minimal;
+    if (type === 'full') {
+      return fields.concat(this.entityFields.small).concat(this.entityFields.full);
+    } else if (type === 'small') {
+      return fields.concat(this.entityFields.small);
+    } else {
+      return fields;
+    }
+  },
 
-  ## Common model fields (not valid kodi response properties)
-  modelDefaults:
-    id: 0
-    fullyloaded: false
-    thumbnail: ''
+  //# Common model fields (not valid kodi response properties)
+  modelDefaults: {
+    id: 0,
+    fullyloaded: false,
+    thumbnail: '',
     thumbsUp: false
+  },
 
-  ## Define the model fields using a null default.
-  setModelDefaultFields: (defaultFields = {}) ->
-    defaultFields = _.extend @modelDefaults, defaultFields
-    for field in @getEntityFields('full')
-      @defaults[field] = ''
+  //# Define the model fields using a null default.
+  setModelDefaultFields(defaultFields = {}) {
+    defaultFields = _.extend(this.modelDefaults, defaultFields);
+    return this.getEntityFields('full').map((field) =>
+      (this.defaults[field] = ''));
+  },
 
 
-  ###
+  /*
     JsonRPC common patterns and helpers.
-  ###
-  callMethodName: ''
-  callArgs: []
-  callIgnoreArticle: true
+  */
+  callMethodName: '',
+  callArgs: [],
+  callIgnoreArticle: true,
 
-  ## Set method
-  setMethod: (method) ->
-    @callMethodName = method
-    @
+  //# Set method
+  setMethod(method) {
+    this.callMethodName = method;
+    return this;
+  },
 
-  ## Args must be set in the correct order!
+  //# Args must be set in the correct order!
 
-  ## Set a static argument
-  setArgStatic: (callback) ->
-    @callArgs.push( callback )
-    @
+  //# Set a static argument
+  setArgStatic(callback) {
+    this.callArgs.push( callback );
+    return this;
+  },
 
-  ## Set a helper argument
-  setArgHelper: (helper, param1, param2) ->
-    func = 'argHelper' + helper
-    @callArgs.push( this[func](param1, param2) )
-    @
+  //# Set a helper argument
+  setArgHelper(helper, param1, param2) {
+    const func = 'argHelper' + helper;
+    this.callArgs.push( this[func](param1, param2) );
+    return this;
+  },
 
-  ## Common arg patterns all checking if the params exist in options first.
-  argCheckOption: (option, fallback) ->
-    if this.options? and this.options[option]?
-      this.options[option]
-    else
-      fallback
+  //# Common arg patterns all checking if the params exist in options first.
+  argCheckOption(option, fallback) {
+    if ((this.options != null) && (this.options[option] != null)) {
+      return this.options[option];
+    } else {
+      return fallback;
+    }
+  },
 
-  ## Our arg helpers
-  argHelperfields: (type = 'small') ->
-    arg = @getEntityFields type
-    @argCheckOption 'fields', arg
+  //# Our arg helpers
+  argHelperfields(type = 'small') {
+    const arg = this.getEntityFields(type);
+    return this.argCheckOption('fields', arg);
+  },
 
-  argHelpersort: (method, order = 'ascending') ->
-    arg = {method: method, order: order, ignorearticle: @callIgnoreArticle}
-    @argCheckOption 'sort', arg
+  argHelpersort(method, order = 'ascending') {
+    const arg = {method, order, ignorearticle: this.callIgnoreArticle};
+    return this.argCheckOption('sort', arg);
+  },
 
-  argHelperlimit: (start = 0, end = 'all') ->
-    arg = {start: start}
-    if end isnt 'all'
-      arg.end = end
-    @argCheckOption 'limit', arg
+  argHelperlimit(start = 0, end = 'all') {
+    const arg = {start};
+    if (end !== 'all') {
+      arg.end = end;
+    }
+    return this.argCheckOption('limit', arg);
+  },
 
-  argHelperfilter: (name, value) ->
-    arg = {}
-    if name?
-      arg[name] = value
-    @argCheckOption 'filter', arg
+  argHelperfilter(name, value) {
+    const arg = {};
+    if (name != null) {
+      arg[name] = value;
+    }
+    return this.argCheckOption('filter', arg);
+  },
 
-  ## Apply the methods + args to entity (build request)
-  buildRpcRequest: (type = 'read') ->
-    req = [@callMethodName]
-    for arg in @callArgs
-      func = 'argHelper' + arg
-      ## if a callback (collection)
-      if typeof func is 'function'
-        key = 'arg' + req.length
-        req.push key
-        this[key] = func
-      else
-        ## if a string (model)
-        req.push arg
-    ## Set the method
-    req
+  //# Apply the methods + args to entity (build request)
+  buildRpcRequest(type = 'read') {
+    const req = [this.callMethodName];
+    for (var arg of this.callArgs) {
+      var func = 'argHelper' + arg;
+      //# if a callback (collection)
+      if (typeof func === 'function') {
+        var key = 'arg' + req.length;
+        req.push(key);
+        this[key] = func;
+      } else {
+        //# if a string (model)
+        req.push(arg);
+      }
+    }
+    //# Set the method
+    return req;
+  }
+};

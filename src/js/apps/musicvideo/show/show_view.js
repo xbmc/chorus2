@@ -1,20 +1,43 @@
-@Kodi.module "MusicVideoApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("MusicVideoApp.Show", function(Show, App, Backbone, Marionette, $, _) {
 
-  class Show.PageLayout extends App.Views.LayoutWithHeaderView
-    className: 'musicvideo-show detail-container'
+  let Cls = (Show.PageLayout = class PageLayout extends App.Views.LayoutWithHeaderView {
+    static initClass() {
+      this.prototype.className = 'musicvideo-show detail-container';
+    }
+  });
+  Cls.initClass();
 
-  class Show.HeaderLayout extends App.Views.LayoutDetailsHeaderView
-    className: 'musicvideo-details'
+  Cls = (Show.HeaderLayout = class HeaderLayout extends App.Views.LayoutDetailsHeaderView {
+    static initClass() {
+      this.prototype.className = 'musicvideo-details';
+    }
+  });
+  Cls.initClass();
 
-  class Show.Details extends App.Views.DetailsItem
-    template: 'apps/musicvideo/show/details_meta'
-    triggers:
-      "click .play"       : "musicvideo:play"
-      "click .add"        : "musicvideo:add"
-      "click .download"   : "musicvideo:download"
-      "click .localplay"  : "musicvideo:localplay"
-      "click .edit"       : "musicvideo:edit"
+  Cls = (Show.Details = class Details extends App.Views.DetailsItem {
+    static initClass() {
+      this.prototype.template = 'apps/musicvideo/show/details_meta';
+      this.prototype.triggers = {
+        "click .play"       : "musicvideo:play",
+        "click .add"        : "musicvideo:add",
+        "click .download"   : "musicvideo:download",
+        "click .localplay"  : "musicvideo:localplay",
+        "click .edit"       : "musicvideo:edit"
+      };
+    }
+  });
+  Cls.initClass();
 
-  class Show.DetailTeaser extends App.MusicVideoApp.List.Teaser
-    attributes: ->
-      @watchedAttributes 'card-detail'
+  return (Show.DetailTeaser = class DetailTeaser extends App.MusicVideoApp.List.Teaser {
+    attributes() {
+      return this.watchedAttributes('card-detail');
+    }
+  });
+});

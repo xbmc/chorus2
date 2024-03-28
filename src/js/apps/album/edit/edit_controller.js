@@ -1,27 +1,37 @@
-@Kodi.module "AlbumApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("AlbumApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
 
-  class Edit.Controller extends App.Controllers.Base
+  return Edit.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: ->
-      @model = @getOption('model')
-      options = {
-        titleHtml: '<span>' + tr('Edit') + '</span>' + @model.escape('title')
-        form: @getStructure()
-        formState: @model.attributes
-        config:
-          attributes: {class: 'edit-form'}
-          editForm: true
-          tabs: true
-          callback: (data, formView) =>
-            @saveCallback(data, formView)
-      }
-      form = App.request "form:popup:wrapper", options
+    initialize() {
+      let form;
+      this.model = this.getOption('model');
+      const options = {
+        titleHtml: '<span>' + tr('Edit') + '</span>' + this.model.escape('title'),
+        form: this.getStructure(),
+        formState: this.model.attributes,
+        config: {
+          attributes: {class: 'edit-form'},
+          editForm: true,
+          tabs: true,
+          callback: (data, formView) => {
+            return this.saveCallback(data, formView);
+          }
+        }
+      };
+      return form = App.request("form:popup:wrapper", options);
+    }
 
-    getStructure: ->
-      [
+    getStructure() {
+      return [
         {
-          title: 'General'
-          id: 'general'
+          title: 'General',
+          id: 'general',
           children:[
             {id: 'title', title: tr('Title'), type: 'textfield'},
             {id: 'artist', title: tr('Artist'), type: 'textfield', format: 'array.string'},
@@ -30,10 +40,10 @@
             {id: 'year', title: tr('Year'), type: 'number', format: 'integer', attributes: {class: 'half-width', step: 1, min: 0, max: 9999}},
             {id: 'rating', title: tr('Rating'), type: 'number', format: 'float', attributes: {class: 'half-width', step: 0.1, min: 0, max: 10}, suffix: '<div class="clearfix"></div>'},
           ]
-        }
+        },
         {
-          title: 'Tags'
-          id: 'tags'
+          title: 'Tags',
+          id: 'tags',
           children:[
             {id: 'genre', title: tr('Genres'), type: 'textfield', format: 'array.string'},
             {id: 'style', title: tr('Styles'), type: 'textfield', format: 'array.string'},
@@ -41,11 +51,16 @@
             {id: 'mood', title: tr('Moods'), type: 'textarea', format: 'array.string'},
           ]
         }
-      ]
+      ];
+    }
 
-    ## Save the settings to Kodi
-    saveCallback: (data, formView) ->
-      controller = App.request "command:kodi:controller", 'audio', 'AudioLibrary'
-      controller.setAlbumDetails @model.get('id'), data, =>
-        Kodi.vent.trigger 'entity:kodi:update', @model.get('uid')
-        Kodi.execute "notification:show", t.sprintf(tr("Updated %1$s details"), 'album')
+    //# Save the settings to Kodi
+    saveCallback(data, formView) {
+      const controller = App.request("command:kodi:controller", 'audio', 'AudioLibrary');
+      return controller.setAlbumDetails(this.model.get('id'), data, () => {
+        Kodi.vent.trigger('entity:kodi:update', this.model.get('uid'));
+        return Kodi.execute("notification:show", t.sprintf(tr("Updated %1$s details"), 'album'));
+      });
+    }
+  };
+});

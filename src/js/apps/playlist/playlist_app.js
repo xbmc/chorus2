@@ -1,55 +1,71 @@
-@Kodi.module "PlaylistApp", (PlaylistApp, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("PlaylistApp", function(PlaylistApp, App, Backbone, Marionette, $, _) {
 
-  class PlaylistApp.Router extends App.Router.Base
-    appRoutes:
-      "playlist"    : "list"
+  const Cls = (PlaylistApp.Router = class Router extends App.Router.Base {
+    static initClass() {
+      this.prototype.appRoutes =
+        {"playlist"    : "list"};
+    }
+  });
+  Cls.initClass();
 
-  API =
+  const API = {
 
-    list: ->
-      ## Show the search form (for mobile)
-      new PlaylistApp.Show.Controller();
+    list() {
+      //# Show the search form (for mobile)
+      return new PlaylistApp.Show.Controller();
+    },
 
-    export: (collection) ->
-      new PlaylistApp.M3u.Controller
-        collection: collection
+    export(collection) {
+      return new PlaylistApp.M3u.Controller({
+        collection});
+    },
 
-    type: 'kodi'
-    media: 'audio'
+    type: 'kodi',
+    media: 'audio',
 
-    setContext: (type = 'kodi', media = 'audio') ->
-      @type = type
-      @media = media
+    setContext(type = 'kodi', media = 'audio') {
+      this.type = type;
+      return this.media = media;
+    },
 
-    getController: ->
-      App.request "command:#{@type}:controller", @media, 'PlayList'
+    getController() {
+      return App.request(`command:${this.type}:controller`, this.media, 'PlayList');
+    },
 
-    getPlaylistItems: ->
-      App.request "playlist:#{@type}:entities", @media
-
-
-  App.reqres.setHandler "playlist:list", (type, media) ->
-    API.setContext(type, media)
-    API.getPlaylistItems()
-
-  App.commands.setHandler "playlist:export", (collection) ->
-    API.export collection
-
-
-
-  App.on "before:start", ->
-    new PlaylistApp.Router
-      controller: API
+    getPlaylistItems() {
+      return App.request(`playlist:${this.type}:entities`, this.media);
+    }
+  };
 
 
-  App.addInitializer ->
-    controller = new PlaylistApp.List.Controller()
+  App.reqres.setHandler("playlist:list", function(type, media) {
+    API.setContext(type, media);
+    return API.getPlaylistItems();
+  });
 
-    ## Triggers for other modules to refresh th playlist
-    App.commands.setHandler "playlist:refresh", (type, media) ->
-      controller.renderList type, media
+  App.commands.setHandler("playlist:export", collection => API.export(collection));
 
-    # Trigger on item changed
-    App.vent.on "state:kodi:playing:updated", (stateObj) ->
-      controller.focusPlaying stateObj.getState('player'), stateObj.getPlaying()
+
+
+  App.on("before:start", () => new PlaylistApp.Router({
+    controller: API}));
+
+
+  return App.addInitializer(function() {
+    const controller = new PlaylistApp.List.Controller();
+
+    //# Triggers for other modules to refresh th playlist
+    App.commands.setHandler("playlist:refresh", (type, media) => controller.renderList(type, media));
+
+    // Trigger on item changed
+    return App.vent.on("state:kodi:playing:updated", stateObj => controller.focusPlaying(stateObj.getState('player'), stateObj.getPlaying()));
+  });
+});
 

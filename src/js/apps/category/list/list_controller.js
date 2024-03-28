@@ -1,29 +1,43 @@
-@Kodi.module "CategoryApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("CategoryApp.List", function(List, App, Backbone, Marionette, $, _) {
 
 
-  ## Main controller
-  class List.Controller extends App.Controllers.Base
+  //# Main controller
+  return List.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: (options) ->
-      collection = App.request @getOption('entityKey'), @getOption('media')
-      App.execute "when:entity:fetched", collection, =>
+    initialize(options) {
+      const collection = App.request(this.getOption('entityKey'), this.getOption('media'));
+      return App.execute("when:entity:fetched", collection, () => {
 
-        @layout = @getLayoutView collection
-        @listenTo @layout, "show", =>
-          @renderList collection
-          @getSubNav()
+        this.layout = this.getLayoutView(collection);
+        this.listenTo(this.layout, "show", () => {
+          this.renderList(collection);
+          return this.getSubNav();
+        });
 
-        App.regionContent.show @layout
+        return App.regionContent.show(this.layout);
+      });
+    }
 
-    getLayoutView: (collection) ->
-      new List.Layout
-        collection: collection
+    getLayoutView(collection) {
+      return new List.Layout({
+        collection});
+    }
 
-    renderList: (collection) ->
-      view = new List.CategoryList
-        collection: collection
-      @layout.regionContent.show view
+    renderList(collection) {
+      const view = new List.CategoryList({
+        collection});
+      return this.layout.regionContent.show(view);
+    }
 
-    getSubNav: ->
-      subNav = App.request "navMain:children:show", @getOption('subNavParent'), 'Sections'
-      @layout.regionSidebarFirst.show subNav
+    getSubNav() {
+      const subNav = App.request("navMain:children:show", this.getOption('subNavParent'), 'Sections');
+      return this.layout.regionSidebarFirst.show(subNav);
+    }
+  };
+});

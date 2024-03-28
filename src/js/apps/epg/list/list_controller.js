@@ -1,60 +1,73 @@
-@Kodi.module "EPGApp.List", (List, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("EPGApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  API =
+  const API = {
 
-    bindTriggers: (view) ->
-      App.listenTo view, 'childview:broadcast:play', (parent, child) ->
-        App.execute 'broadcast:action', 'play', child
-      App.listenTo view, 'childview:broadcast:record', (parent, child) ->
-        App.execute 'broadcast:action', 'record', child
-      App.listenTo view, 'childview:broadcast:timer', (parent, child) ->
-        App.execute 'broadcast:action', 'timer', child
+    bindTriggers(view) {
+      App.listenTo(view, 'childview:broadcast:play', (parent, child) => App.execute('broadcast:action', 'play', child));
+      App.listenTo(view, 'childview:broadcast:record', (parent, child) => App.execute('broadcast:action', 'record', child));
+      return App.listenTo(view, 'childview:broadcast:timer', (parent, child) => App.execute('broadcast:action', 'timer', child));
+    },
 
-    bindChannelTriggers: (view) ->
-      App.listenTo view, 'broadcast:play', (child) ->
-        App.execute 'broadcast:action', 'play', child
-      App.listenTo view, 'broadcast:record', (child) ->
-        App.execute 'broadcast:action', 'record', child
-      App.listenTo view, 'broadcast:timer', (child) ->
-        App.execute 'broadcast:action', 'timer', child
+    bindChannelTriggers(view) {
+      App.listenTo(view, 'broadcast:play', child => App.execute('broadcast:action', 'play', child));
+      App.listenTo(view, 'broadcast:record', child => App.execute('broadcast:action', 'record', child));
+      return App.listenTo(view, 'broadcast:timer', child => App.execute('broadcast:action', 'timer', child));
+    }
+  };
 
-  ## Main controller
-  class List.Controller extends App.Controllers.Base
+  //# Main controller
+  return List.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: (options) ->
-      model = App.request 'channel:entity', options.channelid
-      App.execute "when:entity:fetched", model, =>
-        collection = App.request "broadcast:entities", options.channelid
+    initialize(options) {
+      const model = App.request('channel:entity', options.channelid);
+      return App.execute("when:entity:fetched", model, () => {
+        const collection = App.request("broadcast:entities", options.channelid);
 
-        ## When fetched.
-        App.execute "when:entity:fetched", collection, =>
+        //# When fetched.
+        return App.execute("when:entity:fetched", collection, () => {
 
-          ## Get and setup the layout
-          @layout = @getLayoutView collection
-          @listenTo @layout, "show", =>
-            @getSubNav model
-            @getChannelActions model
-            @renderProgrammes collection
+          //# Get and setup the layout
+          this.layout = this.getLayoutView(collection);
+          this.listenTo(this.layout, "show", () => {
+            this.getSubNav(model);
+            this.getChannelActions(model);
+            return this.renderProgrammes(collection);
+          });
 
-          ## Render the layout
-          App.regionContent.show @layout
+          //# Render the layout
+          return App.regionContent.show(this.layout);
+        });
+      });
+    }
 
-    getLayoutView: (collection) ->
-      new List.Layout
-        collection: collection
+    getLayoutView(collection) {
+      return new List.Layout({
+        collection});
+    }
 
-    renderProgrammes: (collection) ->
-      view = new List.EPGList
-        collection: collection
-      API.bindTriggers view
-      @layout.regionContent.show view
+    renderProgrammes(collection) {
+      const view = new List.EPGList({
+        collection});
+      API.bindTriggers(view);
+      return this.layout.regionContent.show(view);
+    }
 
-    getSubNav: (model) ->
-      subNav = App.request "navMain:children:show", 'pvr/tv', 'PVR'
-      @layout.regionSidebarFirst.show subNav
+    getSubNav(model) {
+      const subNav = App.request("navMain:children:show", 'pvr/tv', 'PVR');
+      return this.layout.regionSidebarFirst.show(subNav);
+    }
 
-    getChannelActions: (model) ->
-      view = new List.ChannelActions
-        model: model
-      API.bindChannelTriggers view
-      @layout.appendSidebarView 'channel-actions', view
+    getChannelActions(model) {
+      const view = new List.ChannelActions({
+        model});
+      API.bindChannelTriggers(view);
+      return this.layout.appendSidebarView('channel-actions', view);
+    }
+  };
+});

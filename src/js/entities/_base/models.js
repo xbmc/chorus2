@@ -1,44 +1,75 @@
-@Kodi.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS103: Rewrite code to no longer use __guard__, or convert again using --optional-chaining
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
-  class Entities.Model extends Backbone.Model
+  return Entities.Model = class Model extends Backbone.Model {
 
-    ## Set our custom cache keys.
-    getCacheKey: (options) ->
-      key = this.constructor.name
-      key
+    //# Set our custom cache keys.
+    constructor(...args) {
+      super(...args);
+      this.saveSuccess = this.saveSuccess.bind(this);
+      this.saveError = this.saveError.bind(this);
+    }
 
-    destroy: (options = {}) ->
-      _.defaults options,
-        wait: true
+    getCacheKey(options) {
+      const key = this.constructor.name;
+      return key;
+    }
 
-      @set _destroy: true
-      super options
+    destroy(options = {}) {
+      _.defaults(options,
+        {wait: true});
 
-    isDestroyed: ->
-      @get "_destroy"
+      this.set({_destroy: true});
+      return super.destroy(options);
+    }
 
-    save: (data, options = {}) ->
-      isNew = @isNew()
+    isDestroyed() {
+      return this.get("_destroy");
+    }
 
-      _.defaults options,
-        wait: true
-        success:  _.bind(@saveSuccess, @, isNew, options.collection)
-        error:    _.bind(@saveError, @)
+    save(data, options = {}) {
+      const isNew = this.isNew();
 
-      @unset "_errors"
-      super data, options
+      _.defaults(options, {
+        wait: true,
+        success:  _.bind(this.saveSuccess, this, isNew, options.collection),
+        error:    _.bind(this.saveError, this)
+      }
+      );
 
-    saveSuccess: (isNew, collection) =>
-      if isNew ## model is being created
-        collection.add @ if collection
-        collection.trigger "model:created", @ if collection
-        @trigger "created", @
-      else ## model is being updated
-        collection ?= @collection ## if model has collection property defined, use that if no collection option exists
-        collection.trigger "model:updated", @ if collection
-        @trigger "updated", @
+      this.unset("_errors");
+      return super.save(data, options);
+    }
 
-    saveError: (model, xhr, options) =>
-      ## set errors directly on the model unless status returned was 500 or 404
-      @set _errors: $.parseJSON(xhr.responseText)?.errors unless xhr.status is 500 or xhr.status is 404
+    saveSuccess(isNew, collection) {
+      if (isNew) { //# model is being created
+        if (collection) { collection.add(this); }
+        if (collection) { collection.trigger("model:created", this); }
+        return this.trigger("created", this);
+      } else { //# model is being updated
+        if (collection == null) { ({
+          collection
+        } = this); } //# if model has collection property defined, use that if no collection option exists
+        if (collection) { collection.trigger("model:updated", this); }
+        return this.trigger("updated", this);
+      }
+    }
 
+    saveError(model, xhr, options) {
+      //# set errors directly on the model unless status returned was 500 or 404
+      if ((xhr.status !== 500) && (xhr.status !== 404)) { return this.set({_errors: __guard__($.parseJSON(xhr.responseText), x => x.errors)}); }
+    }
+  };
+});
+
+
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}

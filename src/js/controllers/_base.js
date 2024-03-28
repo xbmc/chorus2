@@ -1,22 +1,37 @@
-@Kodi.module "Controllers", (Controllers, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("Controllers", (Controllers, App, Backbone, Marionette, $, _) => (function() {
+  const Cls = (Controllers.Base = class Base extends Backbone.Marionette.Controller {
+    static initClass() {
 
-  class Controllers.Base extends Backbone.Marionette.Controller
+      this.prototype.params = {};
+    }
 
-    params: {}
+    constructor(options = {}) {
+      super(options);
+      this.region = options.region || App.request("default:region");
+      this.params = helpers.url.params();
+      this._instance_id = _.uniqueId("controller");
+      App.execute("register:instance", this, this._instance_id);
+    }
 
-    constructor: (options = {}) ->
-      super options
-      @region = options.region or App.request "default:region"
-      @params = helpers.url.params()
-      @_instance_id = _.uniqueId("controller")
-      App.execute "register:instance", @, @_instance_id
+    close(...args) {
+      delete this.region;
+      delete this.options;
+      super.close(args);
+      return App.execute("unregister:instance", this, this._instance_id);
+    }
 
-    close: (args...) ->
-      delete @region
-      delete @options
-      super args
-      App.execute "unregister:instance", @, @_instance_id
-
-    show: (view) ->
-      @listenTo view, "close", @close
-      @region.show view
+    show(view) {
+      this.listenTo(view, "close", this.close);
+      return this.region.show(view);
+    }
+  });
+  Cls.initClass();
+  return Cls;
+})());

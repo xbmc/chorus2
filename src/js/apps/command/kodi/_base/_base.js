@@ -1,52 +1,82 @@
-@Kodi.module "CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("CommandApp.Kodi", (Api, App, Backbone, Marionette, $, _) => (function() {
+  const Cls = (Api.Base = class Base extends Marionette.Object {
+    static initClass() {
 
-  class Api.Base extends Marionette.Object
+      this.prototype.ajaxOptions = {};
+    }
 
-    ajaxOptions: {}
+    initialize(options = {}) {
+      $.jsonrpc.defaultUrl = helpers.url.baseKodiUrl("Base");
+      return this.setOptions(options);
+    }
 
-    initialize: (options = {}) ->
-      $.jsonrpc.defaultUrl = helpers.url.baseKodiUrl "Base"
-      @setOptions(options)
+    setOptions(options) {
+      return this.ajaxOptions = options;
+    }
 
-    setOptions: (options) ->
-      @ajaxOptions = options
+    multipleCommands(commands, callback, fail) {
+      const obj = $.jsonrpc(commands, this.ajaxOptions);
+      obj.fail(error => {
+        this.doCallback(fail, error);
+        return this.onError(commands, error);
+      });
+      obj.done(response => {
+        response = this.parseResponse(commands, response);
+        this.triggerMethod("response:ready", response);
+        if (callback != null) {
+          return this.doCallback(callback, response);
+        }
+      });
+      return obj;
+    }
 
-    multipleCommands: (commands, callback, fail) ->
-      obj = $.jsonrpc commands, @ajaxOptions
-      obj.fail (error) =>
-        @doCallback fail, error
-        @onError commands, error
-      obj.done (response) =>
-        response = @parseResponse commands, response
-        @triggerMethod "response:ready", response
-        if callback?
-          @doCallback callback, response
-      obj
+    singleCommand(command, params, callback, fail) {
+      command = {method: command, url: helpers.url.baseKodiUrl(command)};
+      if ((params != null) && ((params.length > 0) || _.isObject(params))) {
+        command.params = params;
+      }
+      const obj = this.multipleCommands([command], callback, fail);
+      return obj;
+    }
 
-    singleCommand: (command, params, callback, fail) ->
-      command = {method: command, url: helpers.url.baseKodiUrl(command)}
-      if params? and (params.length > 0 or _.isObject(params))
-        command.params = params
-      obj = @multipleCommands [command], callback, fail
-      obj
+    parseResponse(commands, response) {
+      let results = [];
+      for (var i in response) {
+        var result = response[i];
+        if (result.result || (result.result === false)) {
+          results.push(result.result);
+        } else {
+          this.onError(commands[i], result);
+        }
+      }
+      if ((commands.length === 1) && (results.length === 1)) {
+        results = results[0];
+      }
+      return results;
+    }
 
-    parseResponse: (commands, response) ->
-      results = []
-      for i, result of response
-        if result.result or result.result is false
-          results.push result.result
-        else
-          @onError commands[i], result
-      if commands.length is 1 and results.length is 1
-        results = results[0]
-      results
+    paramObj(key, val) {
+      return helpers.global.paramObj(key, val);
+    }
 
-    paramObj: (key, val) ->
-      helpers.global.paramObj key, val
+    doCallback(callback, response) {
+      if (callback != null) {
+        return callback(response);
+      }
+    }
 
-    doCallback: (callback, response) ->
-      if callback?
-        callback response
-
-    onError: (commands, error) ->
-      helpers.debug.rpcError commands, error
+    onError(commands, error) {
+      return helpers.debug.rpcError(commands, error);
+    }
+  });
+  Cls.initClass();
+  return Cls;
+})());

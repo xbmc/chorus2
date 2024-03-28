@@ -1,61 +1,83 @@
-@Kodi.module "Components.Form", (Form, App, Backbone, Marionette, $, _) ->
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+this.Kodi.module("Components.Form", function(Form, App, Backbone, Marionette, $, _) {
 
-  class Form.Controller extends App.Controllers.Base
+  Form.Controller = class Controller extends App.Controllers.Base {
 
-    initialize: (options = {}) ->
-      config = if options.config then options.config else {}
+    initialize(options = {}) {
+      const config = options.config ? options.config : {};
 
-      @formLayout = @getFormLayout config
+      this.formLayout = this.getFormLayout(config);
 
-      @listenTo @formLayout, "show", =>
-        @formBuild(options.form, options.formState, config)
-        $.material.init()
-        if config and typeof config.onShow is 'function'
-          config.onShow options
+      this.listenTo(this.formLayout, "show", () => {
+        this.formBuild(options.form, options.formState, config);
+        $.material.init();
+        if (config && (typeof config.onShow === 'function')) {
+          return config.onShow(options);
+        }
+      });
 
-      @listenTo @formLayout, "form:submit", =>
-        @formSubmit(options)
+      this.listenTo(this.formLayout, "form:submit", () => {
+        return this.formSubmit(options);
+      });
 
-      @
+      return this;
+    }
 
-    formSubmit: (options) ->
-      data = Backbone.Syphon.serialize @formLayout
-      data = App.request "form:value:entities", options.form, data
-      @processFormSubmit data, options
+    formSubmit(options) {
+      let data = Backbone.Syphon.serialize(this.formLayout);
+      data = App.request("form:value:entities", options.form, data);
+      return this.processFormSubmit(data, options);
+    }
 
-    processFormSubmit: (data, options) ->
-      if options.config and typeof options.config.callback is 'function'
-        options.config.callback data, @formLayout
+    processFormSubmit(data, options) {
+      if (options.config && (typeof options.config.callback === 'function')) {
+        return options.config.callback(data, this.formLayout);
+      }
+    }
 
-    getFormLayout: (options = {}) ->
-      new Form.FormWrapper
-        config: options
+    getFormLayout(options = {}) {
+      return new Form.FormWrapper({
+        config: options});
+    }
 
-    formBuild: (form = [], formState = {}, options = {}) ->
-      collection = App.request "form:item:entities", form, formState
-      buildView = new Form.Groups
-        collection: collection
-      @formLayout.formContentRegion.show buildView
+    formBuild(form = [], formState = {}, options = {}) {
+      const collection = App.request("form:item:entities", form, formState);
+      const buildView = new Form.Groups({
+        collection});
+      return this.formLayout.formContentRegion.show(buildView);
+    }
+  };
 
 
-  App.reqres.setHandler "form:render:items", (form, formState, options = {}) ->
-    collection = App.request "form:item:entities", form, formState
-    new Form.Groups
-      collection: collection
+  App.reqres.setHandler("form:render:items", function(form, formState, options = {}) {
+    const collection = App.request("form:item:entities", form, formState);
+    return new Form.Groups({
+      collection});
+  });
 
-  App.reqres.setHandler "form:wrapper", (options = {}) ->
-    formController = new Form.Controller options
-    formController.formLayout
+  App.reqres.setHandler("form:wrapper", function(options = {}) {
+    const formController = new Form.Controller(options);
+    return formController.formLayout;
+  });
 
-  App.reqres.setHandler "form:popup:wrapper", (options = {}) ->
-    originalCallback = options.config.callback
-    options.config.callback = (data, layout) ->
-      App.execute "ui:modal:close"
-      originalCallback data, layout
-    formController = new Form.Controller options
-    formContent = formController.formLayout.render().$el
-    formController.formLayout.trigger 'show'
-    popupStyle = if options.config.editForm then 'edit-form' else 'form'
-    titleHtml = options.titleHtml ? _.escape(options.title)
-    App.execute "ui:modal:form:show", titleHtml, formContent, popupStyle
+  return App.reqres.setHandler("form:popup:wrapper", function(options = {}) {
+    const originalCallback = options.config.callback;
+    options.config.callback = function(data, layout) {
+      App.execute("ui:modal:close");
+      return originalCallback(data, layout);
+    };
+    const formController = new Form.Controller(options);
+    const formContent = formController.formLayout.render().$el;
+    formController.formLayout.trigger('show');
+    const popupStyle = options.config.editForm ? 'edit-form' : 'form';
+    const titleHtml = options.titleHtml != null ? options.titleHtml : _.escape(options.title);
+    return App.execute("ui:modal:form:show", titleHtml, formContent, popupStyle);
+  });
+});
 
