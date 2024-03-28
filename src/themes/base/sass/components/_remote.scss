@@ -1,4 +1,6 @@
 
+@use "sass:math";
+
 #remote {
   display: none;
   .section-remote & {
@@ -78,14 +80,14 @@ $color-remote-background-button: #222324;
         width: 80px;
         font-size: 125%;
         &.up, &.down, &.ok {
-          height: $pad-height / 3;
-          line-height: $pad-height / 3;
+          height: math.div($pad-height, 3);
+          line-height: math.div($pad-height, 3);
         }
         &.down {
-          top: ($pad-height / 3) * 2;
+          top: math.div($pad-height, 3) * 2;
         }
         &.ok {
-          top: $pad-height / 3;
+          top: math.div($pad-height, 3);
           font-size: 12px;
         }
         &.left {

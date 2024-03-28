@@ -6,7 +6,7 @@
   color: $color-playlist-text;
   border-radius: 0;
   li {
-    padding: $spacing-half-unit / 2 $spacing-base-unit;
+    padding: $spacing-half-unit * 0.5 $spacing-base-unit;
     &:hover {
       background: rgba($color-white, 0.1);
       color: $color-white;
@@ -18,7 +18,7 @@
     }
     &.divider {
       padding: 0;
-      margin: $spacing-half-unit /2 0;
+      margin: $spacing-half-unit *0.5 0;
     }
     &.dropdown-submenu {
       position: relative;
