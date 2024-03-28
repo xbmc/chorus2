@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function (grunt) {
+  require('dotenv').config();
 
   var cwd = process.cwd();
 
@@ -235,8 +236,7 @@ module.exports = function (grunt) {
         options: {
           watchTask: true,
           injectChanges: true,
-          hostname: "elec",
-          proxy: "elec",
+          proxy: process.env.PROXY_TARGET || '192.168.0.10:8080',
           open: false,
           ports: {
             min: 3102,

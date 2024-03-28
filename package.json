@@ -12,6 +12,7 @@
     "bootstrap-sass": "^3.4.3",
     "breakpoint-sass": "^2.7.1",
     "compass-mixins": "^0.12.12",
+    "dotenv": "^16.4.5",
     "grunt": "~0.4.5",
     "grunt-browser-sync": "~2.2.0",
     "grunt-cli": "^1.4.3",

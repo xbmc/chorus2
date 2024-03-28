@@ -10,3 +10,4 @@ dist/js/build/*
 *.mo
 .vscode
 webinterface.default*.zip
+.env
