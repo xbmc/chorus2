@@ -242,7 +242,13 @@ module.exports = function (grunt) {
           ports: {
             min: 3102,
             max: 3103
-          }
+          },
+          serveStatic: [
+            {
+              route: '/js',
+              dir: ggp('jsDist')
+            }
+          ],
         }
       }
     },
