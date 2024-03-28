@@ -235,8 +235,8 @@ module.exports = function (grunt) {
         options: {
           watchTask: true,
           injectChanges: true,
-          hostname: "192.168.0.5",
-          proxy: "192.168.0.10:8080",
+          hostname: "elec",
+          proxy: "elec",
           open: false,
           ports: {
             min: 3102,
@@ -246,6 +246,18 @@ module.exports = function (grunt) {
             {
               route: '/js',
               dir: ggp('jsDist')
+            },
+            {
+              route: '/lang',
+              dir: ggp('langDist')
+            },
+            {
+              route: '/themes',
+              dir: ggp('themeDist')
+            },
+            {
+              route: '/lib',
+              dir: './dist/lib'
             }
           ],
         }
