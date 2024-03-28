@@ -17,9 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo gem install bundler && bundle config path vendor/bundle
           npm clean-install
-          bundle install
 
       - name: Build
         run: |

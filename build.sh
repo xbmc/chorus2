@@ -6,8 +6,7 @@ fi
 
 if [ "$1" == "install" ]; then
   echo "Installing dev dependencies"
-  npm install
-  bundle install
+  npm clean-install
   exit 1
 fi
 
