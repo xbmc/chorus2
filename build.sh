@@ -32,7 +32,7 @@ cp src/xml/addon.release.xml dist/addon.xml
 
 echo "Running Grunt"
 echo "=============================================="
-grunt build
+npx grunt build
 
 echo "removing old zip and build files"
 echo "=============================================="
