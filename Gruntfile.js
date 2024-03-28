@@ -43,20 +43,19 @@ module.exports = function (grunt) {
 
     },
 
-    // Includes and order of compiling coffee.
-    coffeeStack: [
-      '*.coffee',
-      'helpers/{,**}/*.coffee',
-      'config/{,**}/*.coffee',
-      'entities/{,**}/*.coffee',
-      'controllers/{,**}/*.coffee',
-      'views/{,**}/*.coffee',
-      'components/{,**}/*.coffee',
-      'apps/{,**}/*.coffee'
-    ],
-
     // Joins all libraries and complied app into a single js file.
     concatStack: {
+      // Includes and order of compiling the app.
+      app: [
+        'src/js/*.js',
+        'src/js/helpers/{,**}/*.js',
+        'src/js/config/{,**}/*.js',
+        'src/js/entities/{,**}/*.js',
+        'src/js/controllers/{,**}/*.js',
+        'src/js/views/{,**}/*.js',
+        'src/js/components/{,**}/*.js',
+        'src/js/apps/{,**}/*.js'
+      ],
       src: [
         // Core dependencies.
         'src/lib/core/jquery.js',
@@ -153,9 +152,9 @@ module.exports = function (grunt) {
         files: [ggp('jsSrc') + '/**/*.eco'],
         tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
       },
-      coffee: {
-        files: [ggp('jsSrc') + '{,**/}*.coffee'],
-        tasks: ['coffee', 'concat:dev']
+      js: {
+        files: [ggp('jsSrc') + '{,**/}*.js'],
+        tasks: ['concat:js', 'concat:dev']
       },
       po2json: {
         files: [ggp('langSrcStrings')],
@@ -196,22 +195,22 @@ module.exports = function (grunt) {
     },
 
     // Compile coffee.
-    coffee: {
-      options: {
-        bare: true,
-        join: true
-      },
-      files: {
-        expand: true,
-        flatten: true,
-        cwd: ggp('jsSrc'),
-        src: ggs('coffeeStack'),
-        dest: ggp('jsBuild'),
-        rename: function (dest, src) {
-          return dest + 'app.js';
-        }
-      }
-    },
+    // coffee: {
+    //   options: {
+    //     bare: true,
+    //     join: true
+    //   },
+    //   files: {
+    //     expand: true,
+    //     flatten: true,
+    //     cwd: ggp('jsSrc'),
+    //     src: ggs('coffeeStack'),
+    //     dest: ggp('jsBuild'),
+    //     rename: function (dest, src) {
+    //       return dest + 'app.js';
+    //     }
+    //   }
+    // },
 
     // Compile all the *.eco templates into a single tpl.js
     eco: {
@@ -273,6 +272,10 @@ module.exports = function (grunt) {
     concat: {
       options: {
         separator: ';'
+      },
+      app: {
+        src: ggs('concatStack', 'app'),
+        dest: ggp('jsBuild') + 'app.js'
       },
       libs: {
         src: ggs('concatStack', 'src'),
@@ -382,7 +385,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-browser-sync');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
+  // grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-eco');
   grunt.loadNpmTasks('grunt-po2json');
   grunt.loadNpmTasks('grunt-marked');
@@ -407,7 +410,7 @@ module.exports = function (grunt) {
     'copy:lang',
     'marked',
     'eco',
-    'coffee',
+    'concat:app',
     'concat:libs',
     'uglify:libs',
     // 'uglify:app', // Uncomment if concat:dist is used.
