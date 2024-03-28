@@ -8,10 +8,10 @@
     "type": "git",
     "url": "git@github.com:xbmc/chorus2.git"
   },
-  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-browser-sync": "~2.2.0",
+    "grunt-cli": "^1.4.3",
     "grunt-contrib-coffee": "~1.0.0",
     "grunt-contrib-compass": "~1.1.1",
     "grunt-contrib-concat": "~1.0.1",
