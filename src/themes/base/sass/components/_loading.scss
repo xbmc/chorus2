@@ -1,3 +1,5 @@
+@use "sass:math";
+
 //colors
 $color_woodsmoke_approx: #111;
 $color_royal_blue_approx: #3369e8;
@@ -15,7 +17,7 @@ $orbit-color: #ddd;
   @include set-layout('width-playlist', 'right');
   &.init {
     left: 0 !important;
-    right: 0 !important;
+    right: 0 !important;  
   }
   .shell-playlist-closed & {
     @include set-layout('width-playlist-closed', 'right');
@@ -188,7 +190,7 @@ $inactive: #aaa;
 $active: $front-color;
 $speed: 3s;
 $size: 80px;
-$unit: $size / 20;
+$unit: math.div($size, 20);
 
 %spinner {
   @include set-position-absolute(left 0 right 0 top 20em bottom 0);

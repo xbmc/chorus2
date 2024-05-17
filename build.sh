@@ -2,12 +2,12 @@
 
 if [ "$1" == "" ]; then
   echo "Missing version number. I did nothing"
+  exit 1
 fi
 
 if [ "$1" == "install" ]; then
   echo "Installing dev dependencies"
-  npm install
-  bundle install
+  npm clean-install
   exit 1
 fi
 
@@ -33,7 +33,7 @@ cp src/xml/addon.release.xml dist/addon.xml
 
 echo "Running Grunt"
 echo "=============================================="
-grunt build
+npx grunt build
 
 echo "removing old zip and build files"
 echo "=============================================="

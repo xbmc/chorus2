@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function (grunt) {
+  require('dotenv').config();
 
   var cwd = process.cwd();
 
@@ -43,20 +44,19 @@ module.exports = function (grunt) {
 
     },
 
-    // Includes and order of compiling coffee.
-    coffeeStack: [
-      '*.coffee',
-      'helpers/{,**}/*.coffee',
-      'config/{,**}/*.coffee',
-      'entities/{,**}/*.coffee',
-      'controllers/{,**}/*.coffee',
-      'views/{,**}/*.coffee',
-      'components/{,**}/*.coffee',
-      'apps/{,**}/*.coffee'
-    ],
-
     // Joins all libraries and complied app into a single js file.
     concatStack: {
+      // Includes and order of compiling the app.
+      app: [
+        'src/js/*.js',
+        'src/js/helpers/{,**}/*.js',
+        'src/js/config/{,**}/*.js',
+        'src/js/entities/{,**}/*.js',
+        'src/js/controllers/{,**}/*.js',
+        'src/js/views/{,**}/*.js',
+        'src/js/components/{,**}/*.js',
+        'src/js/apps/{,**}/*.js'
+      ],
       src: [
         // Core dependencies.
         'src/lib/core/jquery.js',
@@ -140,7 +140,7 @@ module.exports = function (grunt) {
       },
       sass: {
         files: [ggp('themeSrc') + 'sass/{,**/}*.{scss,sass}'],
-        tasks: ['compass:dev'],
+        tasks: ['sass:dev'],
         options: {}
       },
       images: {
@@ -150,12 +150,12 @@ module.exports = function (grunt) {
         files: [ggp('themeDist') + 'css/{,**/}*.css']
       },
       eco: {
-        files: [ggp('jsSrc') + '/**/*.eco'],
+        files: [ggp('jsSrc') + '**/*.eco'],
         tasks: ['eco', 'concat:libs', 'uglify:libs', 'concat:dev']
       },
-      coffee: {
-        files: [ggp('jsSrc') + '{,**/}*.coffee'],
-        tasks: ['coffee', 'concat:dev']
+      js: {
+        files: [ggp('jsSrc') + '{,**/}*.js'],
+        tasks: ['concat:app', 'concat:dev']
       },
       po2json: {
         files: [ggp('langSrcStrings')],
@@ -175,44 +175,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Compile compass.
-    compass: {
-      options: {
-        config: ggp('themeSrc') + 'config.rb',
-        bundleExec: true,
-        force: true
-      },
-      dev: {
-        options: {
-          environment: 'development'
-        }
-      },
-      dist: {
-        options: {
-          environment: 'production',
-          outputStyle: 'compressed'
-        }
-      }
-    },
-
-    // Compile coffee.
-    coffee: {
-      options: {
-        bare: true,
-        join: true
-      },
-      files: {
-        expand: true,
-        flatten: true,
-        cwd: ggp('jsSrc'),
-        src: ggs('coffeeStack'),
-        dest: ggp('jsBuild'),
-        rename: function (dest, src) {
-          return dest + 'app.js';
-        }
-      }
-    },
-
     // Compile all the *.eco templates into a single tpl.js
     eco: {
       app: {
@@ -227,22 +189,40 @@ module.exports = function (grunt) {
     },
 
     // Injects css changes automatically and sync interaction between browsers.
-    // TODO: Move proxy details to envvar file or similar.
     browserSync: {
       dev: {
         bsFiles: {
-          src: ggp('themeDist') + 'css/{,**/}*.css'
+          src: [
+            ggp('dist') + '**/*',
+          ]
         },
         options: {
           watchTask: true,
           injectChanges: true,
-          hostname: "192.168.0.5",
-          proxy: "192.168.0.10:8080",
+          proxy: process.env.PROXY_TARGET || '192.168.0.10:8080',
           open: false,
           ports: {
             min: 3102,
             max: 3103
-          }
+          },
+          serveStatic: [
+            {
+              route: '/js',
+              dir: ggp('jsDist')
+            },
+            {
+              route: '/lang',
+              dir: ggp('langDist')
+            },
+            {
+              route: '/themes/base',
+              dir: ggp('themeDist')
+            },
+            {
+              route: '/lib',
+              dir: './dist/lib'
+            }
+          ],
         }
       }
     },
@@ -267,6 +247,10 @@ module.exports = function (grunt) {
     concat: {
       options: {
         separator: ';'
+      },
+      app: {
+        src: ggs('concatStack', 'app'),
+        dest: ggp('jsBuild') + 'app.js'
       },
       libs: {
         src: ggs('concatStack', 'src'),
@@ -370,13 +354,14 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-dart-sass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-browser-sync');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
+  // grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-eco');
   grunt.loadNpmTasks('grunt-po2json');
   grunt.loadNpmTasks('grunt-marked');
@@ -389,6 +374,30 @@ module.exports = function (grunt) {
    * Eg "grunt lang" will rebuild languages.
    */
 
+  grunt.registerTask('sass', function() {
+    const done = this.async();
+    const sass = require('sass');
+    const globImporter = require('node-sass-glob-importer');
+    const sassOptions = {
+      importer: globImporter(),
+      pkgImporter: new sass.NodePackageImporter(),
+      file: ggp('themeSrc') + 'sass/base.scss',
+      outFile: ggp('themeDist') + 'css/base.css',
+      outputStyle: this.args && this.args[0] === 'dist' ? 'compressed' : 'expanded',
+    };
+
+    sass.render(sassOptions, (err, result) => {
+      if (err) {
+        grunt.log.error(err);
+        done(false);
+      } else {
+        grunt.file.write(sassOptions.outFile, result.css);
+        grunt.log.ok(`Compiled ${sassOptions.file} to ${sassOptions.outFile}`);
+        done(true);
+      }
+    });
+  })
+
     // Development watch task.
   grunt.registerTask('default', ['browserSync:dev', 'watch']);
 
@@ -400,13 +409,13 @@ module.exports = function (grunt) {
     'po2json',
     'copy:lang',
     'marked',
+    'concat:app',
     'eco',
-    'coffee',
     'concat:libs',
     'uglify:libs',
     // 'uglify:app', // Uncomment if concat:dist is used.
     'concat:dev', // App is not minified for in the wild debugging. Change to concat:dist to save ~200K
-    'compass:dist'
+    'sass:dist'
   ]);
 
 };

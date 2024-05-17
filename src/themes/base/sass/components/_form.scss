@@ -1,7 +1,7 @@
 form .form-control-wrapper {
   .form-control:focus,
   .form-control {
-    padding: $spacing-half-unit $spacing-half-unit / 2;
+    padding: $spacing-half-unit $spacing-half-unit * 0.5;
     height: auto;
     margin-bottom: $spacing-half-unit;
   }
