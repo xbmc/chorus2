@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-10-22 11:11+0000\n"
+"PO-Revision-Date: 2024-06-07 02:04+0000\n"
 "Last-Translator: rimasx <riks_12@hot.ee>\n"
 "Language-Team: Estonian <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/et_ee/>\n"
 "Language: et\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.5.4\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -100,7 +100,7 @@ msgstr "Üks hetk..."
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr ""
+msgstr "Kodiga ei saa pikka aega ühendust. Paistab, et see on hangunud!"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -213,7 +213,7 @@ msgstr "Vaata IMDb-st"
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
 msgid "Stream"
-msgstr ""
+msgstr "Voog"
 
 msgctxt ""
 msgid "Download"
@@ -504,7 +504,7 @@ msgctxt ""
 msgid ""
 "You could potentially damage your system with this and there are no sanity "
 "checks. Use at own risk."
-msgstr ""
+msgstr "Sellega võid süsteemi kahjustada ja mingigi kontroll puudub täielikult. Kasutamine omal riisikol."
 
 msgctxt ""
 msgid "Saved Kodi settings"
@@ -541,7 +541,7 @@ msgstr "Veebiliides"
 
 msgctxt ""
 msgid "Readme"
-msgstr ""
+msgstr "Loe-mind"
 
 msgctxt ""
 msgid "Changelog"
@@ -603,11 +603,11 @@ msgstr "Keri esitusloend automaatselt esitatava üksuseni. See juhtub alati, kui
 
 msgctxt ""
 msgid "Web Settings saved."
-msgstr ""
+msgstr "Veebi seaded salvestati."
 
 msgctxt ""
 msgid "Keyboard controls"
-msgstr ""
+msgstr "Klaviatuuri käsud"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
@@ -645,7 +645,7 @@ msgstr "Siin saab muuta menüüelementide pealkirja, URL-i ja %1$s. Samuti saab 
 
 msgctxt ""
 msgid "Main Nav"
-msgstr ""
+msgstr "Peamenüü"
 
 msgctxt ""
 msgid "Add a new playlist"
@@ -703,7 +703,7 @@ msgstr "Ära näita pöial üles nuppu. Pane tähele, et saad kustutada ka üksu
 
 msgctxt ""
 msgid "You need to 'Allow remote control' for Kodi. You can do that"
-msgstr ""
+msgstr "Kodi jaoks tuleb lubada kaugjuhtimine. Seda saab teha"
 
 msgctxt ""
 msgid "here"
@@ -755,7 +755,7 @@ msgstr "stuudio"
 
 msgctxt ""
 msgid "rated"
-msgstr ""
+msgstr "vanusepiirang"
 
 msgctxt ""
 msgid "episodes"
@@ -767,7 +767,7 @@ msgstr "kokku"
 
 msgctxt ""
 msgid "set"
-msgstr ""
+msgstr "kogumik"
 
 msgctxt ""
 msgid "Show device name"
@@ -1103,7 +1103,7 @@ msgstr "Stuudio"
 
 msgctxt ""
 msgid "Content rating"
-msgstr ""
+msgstr "Vanusesoovitus"
 
 msgctxt ""
 msgid "Premiered"
@@ -1123,7 +1123,7 @@ msgstr "Riik"
 
 msgctxt ""
 msgid "Set"
-msgstr ""
+msgstr "Kogumik"
 
 msgctxt ""
 msgid "Tags"
