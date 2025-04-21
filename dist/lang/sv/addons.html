@@ -1,0 +1,36 @@
+<h1 id=”add-on-support”>Stöd för tillägg</h1>
+<p>Chorus stöder tillägg, men på en generisk nivå. Eftersom varje tillägg gör saker på olika sätt kommer inte all funktionalitet att vara
+tillgänglig. På sidan <a href=”#addons/all”>Add-Ons</a> listas tillägg som är körbara (t.ex. Global Search) eller tillägg som tillhandahåller
+en lista över ljud- och videoinnehåll (t.ex. YouTube). Tillägg som tillhandahåller listor kan också nås via <a href=”#browser”>webbläsaren</a>.</p>
+<h2 id=”custom-add-on-search”>Sökning med anpassade tillägg</h2>
+<p>Out of the box innehåller Chorus sökfunktionalitet för några av de mer populära tilläggen, vilket gör att du kan söka
+innehåll som tillhandahålls av det tillägget via söksidan. Du kan till exempel skriva in &quot;galna kattvideor&quot; i sökrutan
+och sedan på söksidan klicka på &quot;YouTube&quot; för att få en lista över videor som tillhandahålls av YouTube i det ämnet.</p>
+<p>Om du vill söka innehåll som tillhandahålls av ett tillägg som inte ingår i Chorus, kan du lägga till din egen
+<a href=”#settings/search”>egna sökningar för tillägg</a> som talar om för Chorus hur den kan söka efter innehåll som tillhandahålls av det tillägget.</p>
+<p>För att lägga till en anpassad sökning måste du veta vilken webbadress tillägget använder internt för att tillhandahålla sökresultaten. Detta
+är inte alltid lätt eller självklart att ta reda på och kan innebära att man tittar igenom tilläggskoden eller kodi-loggar för att bestämma
+korrekt webbadress att använda. Chorus kommer att ersätta token <code>[QUERY]</code> med söktermen.</p>
+<h3 id=”examples-of-add-on-search-urls”>Exempel på sökadresser för tillägg</h3>
+<ul>
+<li>YouTube: <code>plugin://plugin.video.youtube/search/?q=[QUERY]</code></li>
+<li>SoundCloud: <code>plugin://plugin.audio.soundcloud/search/query/?q=[QUERY]</code></li>
+<li>Radio: <code>plugin://plugin.audio.radio_de/stations/search/[QUERY]</code></li>
+<li>MixCloud: <code>plugin://plugin.audio.mixcloud/?mode=30&amp;key=cloudcast&amp;offset=0&amp;query=[QUERY]</code></li>
+</ul> </ul>
+<h3 id=”bidragande”>Bidragande</h3>
+<p>Om du hittar en bra anpassad tilläggssökning som bör ingå i Chorus ur lådan, bör du överväga att
+skicka in en <a href=”https://github.com/xbmc/chorus2/pulls”>pull request</a> för den. Titta på <a href=”https://github.com/xbmc/chorus2/blob/master/src/js/apps/addon/soundcloud/addon_soundcloud_app.js.coffee”>SoundCloud-modulen</a>
+som ett exempel på kodstrukturen. OBS: Endast tillägg som finns i det officiella arkivet kommer att accepteras.</p>
+<h2 id=”aktivera-och-inaktivera-tillägg”>Aktivera och inaktivera tillägg</h2>
+<p>Chorus tillhandahåller en <a href=”#settings/addons”>inställningssida</a> för att aktivera och inaktivera tillägg, var medveten om att inaktivering av vissa
+tillägg kan ha negativa effekter så använd med försiktighet.</p>
+<h2 id=”kända-frågor-och-begränsningar”>Kända frågor och begränsningar</h2>
+<p>Några saker som har observerats med att använda tillägg i Chorus</p>
+<ul>
+<li>Det går inte att göra hämtningar av tilläggsinnehåll </li>.
+<li>Du kan bara spela upp tilläggsinnehåll via Kodi, det kan inte strömmas till webbläsaren.</li>
+<li>Att lägga till ett enda tilläggsmedium till spellistan resulterar ofta i att spellistans post har en konstig titel eller saknar en
+titel helt och hållet. Om du lägger till en tilläggsmapp verkar den fyllas i korrekt. Detta verkar vara ett problem med Kodi API.</li>
+<li>Vissa tillägg fungerar inte alls, detta bör tas upp med tilläggets författare.</li>
+</ul> </ul>

@@ -51,6 +51,7 @@
     <summary lang="ru">Веб-интерфейс по умолчанию</summary>
     <summary lang="ru_RU">Веб-интерфейс по умолчанию</summary>
     <summary lang="sk">Predvolené webové rozhranie</summary>
+    <summary lang="sv">Standardwebbgränssnitt</summary>
     <summary lang="uk">Типовий веб-інтерфейс</summary>
     <summary lang="uk_UA">Типовий веб-інтерфейс</summary>
     <summary lang="zh_CN">默认的网络界面</summary>
@@ -78,6 +79,7 @@
     <description lang="pl_PL">Przeglądaj i wchodź w interakcję z muzyką, filmami, programami telewizyjnymi i nie tylko za pomocą przeglądarki internetowej. Przesyłaj muzykę i filmy w przeglądarce. Edytuj i zarządzaj biblioteką multimediów Kodi.</description>
     <description lang="ru">Смотрите и взаимодействуйте с музыкой, с фильмами, с ТВ-передачами и с многим другим через веб-браузер. Транслируйте музыку и видео в своём браузере. Управляйте и изменяйте свою медиатеку Kodi.</description>
     <description lang="ru_RU">Смотрите и взаимодействуйте с музыкой, с фильмами, с ТВ-передачами и с многим другим через веб-браузер. Транслируйте музыку и видео в своём браузере. Управляйте и изменяйте свою медиатеку Kodi.</description>
+    <description lang="sv">Bläddra bland och interagera med din musik, dina filmer, dina TV-serier och mycket mer via en webbläsare. Strömma musik och videor i din webbläsare. Redigera och hantera ditt Kodi-mediebibliotek.</description>
     <description lang="zh_CN">通过网络浏览器浏览并与您的音乐、电影、电视节目等互动。在您的浏览器上播放音乐和视频。编辑和管理您的Kodi媒体库。</description>
   </extension>
 </addon>

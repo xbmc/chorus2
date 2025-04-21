@@ -1,0 +1,50 @@
+<h1 id=”översättningar”>Översättningar</h1>
+<p>För att uppdatera språkfilerna behöver du bara kunna lite GIT. Den här sidan bör hjälpa dig
+med strukturen för språkfiler.</p>
+<h2 id=”var-finns-språkfilerna-”>Var finns språkfilerna?</h2>
+<p>Det finns två platser där språkfiler lagras. LANG_CODE är den tvåbokstaviga koden
+tvåbokstavskoden för det aktuella språket. T.ex.: en, fr, de</p>
+<h3 id=”strängar”>Strängar</h3>
+<p><code>src/lang/_strings/LANG_CODE.po</code></p>
+<ul> Strängar
+<li>Det här är strängar som används i hela programmet. I allmänhet ska du bara uppdatera <code>msgstr</code>.</li>
+<li>Om det inte finns någon <code>msgstr</code> för strängen, kopiera då från en.po och uppdatera, t.ex. de.po.<pre><code>msgctxt <span class=”hljs-string”>””</span>
+msgid <span class=”hljs-string”>”Choose a filter”</span>
+msgstr <span class=”hljs-string”>”Välj ett filter”</span>
+</code></pre></li>
+</ul>
+<h3 id=”pages”>Sidor</h3>
+<p><code>src/lang/LANG_CODE/PAGE.md</code></p>
+<ul>Sidor
+<li>Detta är fullständiga sidor som kan åsidosättas med ett annat språk.</li>
+<li>Sidorna är i <a href=”https://en.wikipedia.org/wiki/Markdown”>markdown</a>.</li>
+<li>Om det inte finns någon <em>PAGE</em>.md för ditt språk, kopiera från en-mappen och redigera.</li>
+<li>Skapa endast en <em>PAGE</em>.md för en fullständig översättning</li>
+</ul> </ul>
+<h2 id=”adding-a-new-language”>Lägga till ett nytt språk</h2>
+<p><strong>Exempel:</strong> Om ditt nya språk är <code>franska</code> skulle det ha en <em>LANG_KEY</em> på <code>fr</code>.</p>
+<h3 id=”tell-the-app-about-it”>Tala om det för appen</h3>
+<p>Du måste också berätta för applikationen att den ska ha det som ett alternativ. Så du redigerar den här filen:
+<code>/src/js/helpers/translate.js.coffee</code> och lägger till <code>fr: &quot;French&quot;</code> till språken i <code>getLanguages</code></p>
+<h3 id=”duplicate-the-folder-file-structure-of-en”>Duplicera mapp-/filstrukturen för en</h3>
+<p>Kopiera de filer som du vill åsidosätta med det nya språket:</p>
+<ul>
+<li><strong>Strings:</strong> kopiera <code>/src/_strings/en.po</code> till <code>/src/_strings/sv.po</code></li>
+<li><strong>Sidor:</strong> kopiera <code>/src/en/readme.md</code> till <code>/src/sv/readme.md</code></li>
+</ul> </ul>
+<h2 id=”testing”>Testning</h2>
+<p>För att testa måste du göra en build, men om du följer den befintliga strukturen ska du inte behöva göra det.</p>
+<p>Om du vill testa ditt språk i appen med en build kan du göra följande:</p> <p>
+<ol>
+<li>Se till att <code>nodejs</code>, <code>npm</code> är installerade</li>
+<li><code>cd /chorus/folder</code></li>
+<li><code>npm install</code> (bara första gången)</li>
+<li><code>grunt lang</code> (detta kommer endast att bygga om språken i mappen <code>dist/lang</code>)</li>
+<li> Uppdatera Chorus</li>
+</ol>
+<h2 id=”fallback”>Fall tillbaka</h2>
+<p>Översättningar bör falla tillbaka till engelska om inte <code>msgid</code> anges i en <code>LANG_CODE.po</code>-fil.
+Eller om det finns en sida <code>LANG_CODE/PAGE.md</code>.</p>
+<h2 id=”skicka in en uppdatering”>Ska skicka in en uppdatering</h2>
+<p>Skicka en pull request via <a href=”https://github.com/jez500/chorus2”>GitHub</a> på en ny gren är det bästa sättet.
+Skulle överväga uppdateringar via andra metoder.</p>

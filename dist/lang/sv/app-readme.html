@@ -1,0 +1,108 @@
+<h1 id=”kodi-webbgränssnitt-chorus2”>Kodi-webbgränssnitt - Chorus2</h1>
+<p> Standardwebbgränssnittet för Kodi.</p>
+<p>Ett fantastiskt modernt webbgränssnitt för Kodi. Bläddra bland din musik, filmer eller TV-program från bekvämligheten av din
+egen webbläsare. Du kan spela upp media via Kodi eller streama det i din webbläsare. Fungerar bäst med Chrome
+men spelar bra med de flesta moderna webbläsare.</p>
+<p>Efterföljare till <a href=”https://github.com/jez500/chorus”>Chorus</a>.
+En fullständig ombyggnad med hjälp av Coffee Script, Backbone, Marionette och mycket, mycket mer.</p> <p>
+<h2 id=”author”>Author</h2>
+<p><a href=”http://jez.me”>Jeremy Graham </a> med hjälp av <a href=”https://github.com/xbmc/chorus2/graphs/contributors”>dessa snälla människor</a></p>
+<h2 id=”current-state”>Nuvarande tillstånd</h2>
+<p>Ganska bra, de flesta saker fungerar riktigt bra. Andra saker behöver <a href=”https://github.com/xbmc/chorus2/issues”>poleras/avslutas/fixas</a>.
+Anses fortfarande vara beta-programvara, förvänta dig buggar, förändringar, kärnvapenkrig etc.</p>
+<h2 id=”att få det att fungera”>Att få det att fungera</h2>
+<p>Från och med Kodi v17 kommer Chorus2 förinstallerat ur lådan, du behöver bara aktivera det och kryssa i några rutor.</p>
+<h3 id=”enabling-configuring”>Aktivering &amp; Konfiguration</h3>
+<p>Kodi & gt; Inställningar (cog) & gt; Tjänster & gt; Kontroll</p>
+<ul>
+<li> Aktivera &quot;Tillåt kontroll av Kodi via HTTP&quot;</li>
+<li>Välj webbgränssnitt</li>
+<li>Välj &quot;Kodis webbgränssnitt - Chorus2&quot;</li>
+<li>Aktivera &quot;Tillåt program på det här systemet att styra Kodi&quot;</li>
+<li>Aktivera &quot;Tillåt program på andra system att styra Kodi&quot;</li>
+</ul> </ul>
+<p><strong>Av säkerhetsskäl bör du ange ett användarnamn och lösenord för att förhindra obehörig åtkomst</strong></p>
+<h3 id=”manuell-installation”>Manuell installation</h3>
+<p> För Kodi v16 och nedan eller om du vill få den senaste versionen ASAP är en installation via zip det enklaste sättet att gå. Ta tag i
+senaste versionen av <code>webinterface.default.2.X.X.zip</code> från <a href=”https://github.com/xbmc/chorus2/releases”>releases-sidan</a> sedan
+installera det <a href=”http://kodi.wiki/view/Add-on_manager#How_to_install_from_a_ZIP_file”>så här</a>. <strong>NOTE:</strong> Chorus2 är avsedd att användas
+användas med den senaste versionen av Kodi och vissa (eller alla) saker kanske inte fungerar i äldre versioner på grund av API-förändringar.</p>
+<h3 id=”använder-det”>Använder det</h3>
+<p> Rikta webbläsaren mot <code>http://localhost:8080</code> - ersätt <code>localhost</code> med din IP-adress om du använder den på distans och om
+om du har ändrat din port till något annat än <code>8080</code>, se till att ändra den också. Mer information och avancerad
+användning kan hittas på <a href=”http://kodi.wiki/view/Web_interface”>Kodi Wiki-sidan</a>.</p>
+<h2 id=”feature-requests-bugs”>Funktionsförfrågningar / Buggar</h2>
+<p>Lägg till dem i <a href=”https://github.com/xbmc/chorus2/issues”>listan</a>. För buggar, vänligen inkludera Kodi-version, webbläsarversion,
+Chorus-version och eventuella fel som visas i konsolen. För funktionsförfrågningar, kolla in API-webbläsaren för att se om din
+begäran för närvarande är möjlig.</p>
+<h2 id=”streaming”>Streaming</h2>
+<p>Disclaimer: Framgången för detta beror på filformaten jämfört med vad webbläsaren stöder. I allmänhet fungerar det mesta.</p>
+<h3 id=”audio-streaming”>Audio-streaming</h3>
+<p>Övre till höger finns det några flikar, två av dem heter Kodi och Local, så här växlar du vilken spelare användargränssnittet
+kontrollerar. I lokalt läge är logotypen och accenterna rosa-röda, i Kodi-läge är logotypen Kodi-blå. När du
+är i ett visst läge påverkar åtgärder den spelaren, så om du klickar på Spela på ett spår när du är i lokalt läge, kommer det att spela
+genom webbläsaren, på samma sätt skickas alla kommandon till Kodi när du är i Kodi-läge. Du kan också lägga till media i andra
+spellistor genom att klicka på menyknapparna (tre vertikala prickar) på de flesta medieobjekt.</p>
+<h3 id=”video-streaming”>Videostreaming</h3>
+<p>Videostreaming via HTML5 &quot;typ av &quot; fungerar, det beror verkligen på vilken kodek som används. En inbäddad VLC-spelare finns också tillgänglig med bättre stöd för kodek.
+Det här ser ut att vara det bästa vi kan få tills Kodi stöder omkodning.
+<strong>Chrome-användare</strong>: Chrome har tagit bort stödet för tillägg för vlc/divx så att strömma en video kräver en <a href=”https://en.wikipedia.org/wiki/HTML5_video#Browser_support”>Chrome-vänlig kodek</a>.
+För bästa resultat använder du Chrome med mp4-video som har 2-kanalsljud (5.1-ljud verkar inte fungera).</p>
+<h2 id=”kodi-inställningar-via-webbgränssnittet”>Kodi-inställningar via webbgränssnittet</h2>
+<p>Du kan ändra de flesta inställningar som du hittar i Kodi via inställningssidan i webbgränssnittet.
+Vissa inställningar har utelämnats eftersom de kräver interaktion med GUI och andra är bara ett grundläggande textfält utan alternativ.</p>
+<h2 id=”kodi-api-browser”>Kodi API-webbläsare</h2>
+<p>Det finns en dold funktion i Chorus som gör att du kan leka med Kodi API och se vad som är möjligt via JSON-RPC
+gränssnittet. Om du bygger en app eller ett tillägg som använder API:et kan detta vara mycket användbart för att både hitta och testa
+alla tillgängliga metoder och typer. Om du funderar på en ny funktion för Chorus är det här också ett bra ställe att
+testa om det är möjligt (och snabba på utvecklingen genom att lägga till ett fungerande exempel i en fråga). Du kan hitta API-webbläsaren
+via &quot;Chorus Lab&quot; (längst ner till höger 3 vertikala prickar &gt; &quot;The Lab&quot;) eller direkt via <code>http://localhost:8080/#lab/api-browser</code>.</p>
+<h2 id=”bidragande”>Bidra</h2>
+<p>Om du vill göra det här projektet bättre skulle jag uppskatta all hjälp. Det finns en utvecklingsgren för varje version av
+Kodi. Vänligen gör pull requests mot <code>dev</code>-grenen för rätt version (ännu bättre om du kan göra en PR för båda).
+Leia (v18) dev-grenen är <code>18.x-dev</code>, Krypton (v17) dev-grenen är <code>17.x-dev</code>. Se dokumentationen
+<a href=”https://github.com/xbmc/chorus2/tree/master/src/lang/en/developers.md”>dokumentationen för utvecklare</a> för information om hur du
+att få igång en utvecklingsmiljö och sedan kompilera projektet med hjälp av docker.</p>
+<h3 id=”översättningar”>Översättningar</h3>
+<p>Jag kan bara engelska så jag behöver definitivt hjälp med det här. Jag vet inte heller så mycket om flerspråkiga JavaScript-grejer, men
+tack vare <a href=”https://github.com/mizaki”>@mizaki</a> har vi en struktur redo att gå. Så det borde vara trevligt och enkelt att översätta UI.</p>
+<p>För närvarande finns det <a href=”https://github.com/xbmc/chorus2/tree/master/src/lang/_strings”>en handfull</a> språk tillgängliga
+men fler kan enkelt läggas till. Fler strängar läggs alltid till så betrakta alltid engelska som sanningens källa.</p>
+<p>Så om du ser något på engelska men vill ha det på ditt språk, behöver jag dig! För att bidra, skicka mig en PR på en ny gren
+mot <code>18.x-dev</code> och/eller <code>17.x-dev</code>, eller om du inte kan git, en länk till språkfilen.</p>
+<p>Språksfiler <a href=”https://github.com/xbmc/chorus2/tree/master/src/lang”>här</a>.
+<em>Engelska är den enda riktiga kompletta översättningsfilen så börja med den som din bas.</em></p>
+<h2 id=”donera”>Donera</h2>
+<p>Är du ett fan av Chorus? Du kan <a href=”https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ZCGV976794JHE&amp;lc=AU&amp;item_name=Chorus%20Beer%20Fund&amp;currency_code=AUD&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted”>köpa en öl till Jeremy</a> för att säga tack :)</p>
+<h2 id=”license”>Licens</h2>
+<p>Detta program är fri programvara; du kan vidaredistribuera det och / eller modifiera
+det enligt villkoren i GNU General Public License som publiceras av
+Free Software Foundation; antingen version 2 av licensen, eller
+(efter eget val) någon senare version.</p>
+<p>Det här programmet distribueras i hopp om att det kommer att vara användbart,
+men UTAN NÅGON GARANTI; utan ens den underförstådda garantin om
+SÄLJBARHET eller LÄMPLIGHET FÖR ETT BESTÄMMT SYFTE. Se
+GNU General Public License för mer information.</p>
+<p>Du bör ha fått en kopia av GNU General Public License
+<a href=”https://github.com/xbmc/chorus2/blob/master/LICENSE”>tillsammans med det här programmet</a>;
+Om inte, skriv till Free Software Foundation, Inc, 51 Franklin Street,
+Fifth Floor, Boston, MA 02110-1301 USA.</p>
+<p><a href=”https://github.com/xbmc/chorus2/blob/master/src/lang/en/license.md”>Klicka här för mer information </a>.</p>
+<h2 id=”skärmdumpar”>Skärmdumpar</h2>
+<h3 id=”hemsida-nu-spelas-”>Hemsidan (spelas upp nu)</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/now-playing.jpg” alt=”alt text” title=”Hemsida/Nu spelas”></p>
+<h3 id=”sökresultat”>Sökresultat</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/search.jpg” alt=”alt text” title=”Sök”></p>
+<h3 id=”artister”>Artister</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/artists.jpg” alt=”alt text” title=”Artister”></p>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist//screenshots/artist.jpg” alt=”alt text” title=”Artist”></p>
+<h3 id=”video-library”>Videobibliotek</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/tv.jpg” alt=”alt text” title=”TV”></p>
+<h3 id=”filtrering”>Filtrering</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/movie.jpg” alt=”alt text” title=”Filmer”></p>
+<h3 id=”inställningar”>Inställningar</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/settings.jpg” alt=”alt text” title=”Inställningar”></p>
+<h3 id=”tillägg”>Tillägg</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/addons.jpg” alt=”alt text” title=”Tillägg”></p>
+<h3 id=”redigering-media”>Redigering av media</h3>
+<p><img src=”https://raw.githubusercontent.com/xbmc/chorus2/master/dist/screenshots/edit-media.jpg” alt=”alt text” title=”Redigera media”></p>
