@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-08-03 07:14+0000\n"
-"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
-"Language-Team: Chinese (China) <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/zh_cn/>\n"
+"PO-Revision-Date: 2026-08-09 19:21+0000\n"
+"Last-Translator: wabisabi926 <wabisabi926@foxmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://kodi.weblate.cloud/projects/kodi-web-interfaces/chorus2/zh_Hans/>\n"
 "Language: zh_cn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 msgctxt "Addon Summary"
 msgid "Default web interface"
@@ -23,7 +23,7 @@ msgstr "默认的网络界面"
 
 msgctxt "Addon Description"
 msgid "Browse and interact with your Music, Movies, TV Shows and more via a web browser. Stream music and videos on your browser. Edit and manage your Kodi media library."
-msgstr "通过网络浏览器浏览并与您的音乐、电影、电视节目等互动。在您的浏览器上播放音乐和视频。编辑和管理您的Kodi媒体库。"
+msgstr "通过网络浏览器浏览并与您的音乐、电影、电视剧等互动。在您的浏览器上播放音乐和视频。编辑和管理您的 Kodi 媒体库。"
 
 msgctxt ""
 msgid "Nothing playing"
@@ -62,7 +62,7 @@ msgstr "用哪一个播放器来开始"
 
 msgctxt ""
 msgid "Ignore terms such as 'The' and 'A' when sorting lists"
-msgstr "排序时忽略像'The'和'A'这样的冠词"
+msgstr "排序时忽略像 'The' 和 'A' 这样的冠词"
 
 msgctxt ""
 msgid "When listing artists should we only see artists with albums or all artists found. Warning: turning this off can impact performance with large libraries"
@@ -74,11 +74,11 @@ msgstr "是默认的"
 
 msgctxt ""
 msgid "The hostname used for websockets connection. Set to 'auto' to use the current hostname."
-msgstr "用于websockets连接的服务器名字。设置为‘auto’(自动)来使用当前的服务器的名字。"
+msgstr "用于 websockets 连接的服务器名字。设置为“auto”(自动)来使用当前的服务器的名字。"
 
 msgctxt ""
 msgid "How often do I poll for updates from Kodi (Only applies when websockets inactive)"
-msgstr "多久从Kodi更新一次（仅当websockets关闭时生效）"
+msgstr "多久从 Kodi 更新一次（仅当 websockets 关闭时生效）"
 
 msgctxt ""
 msgid "Enable support for reverse proxy."
@@ -94,7 +94,7 @@ msgstr "请稍候......"
 
 msgctxt ""
 msgid "Unable to communicate with Kodi in a long time. I think it's dead Jim!"
-msgstr "现在还仍然无法与Kodi建立连接，怪我咯。"
+msgstr "现在还仍然无法与 Kodi 建立连接，怪我咯！"
 
 msgctxt ""
 msgid "Video library scan started"
@@ -114,7 +114,7 @@ msgstr "音频库扫描完毕"
 
 msgctxt ""
 msgid "Kodi has quit"
-msgstr "Kodi已退出"
+msgstr "Kodi 已退出"
 
 msgctxt ""
 msgid "Sections"
@@ -134,7 +134,7 @@ msgstr "显示更多"
 
 msgctxt ""
 msgid "to Kodi"
-msgstr "到Kodi"
+msgstr "到 Kodi"
 
 msgctxt ""
 msgid "Playlist refreshed"
@@ -202,7 +202,7 @@ msgstr "队列"
 
 msgctxt ""
 msgid "View on IMDb"
-msgstr "去IMDb查看"
+msgstr "去 IMDb 查看"
 
 # Video and audio stream, such as 720, x264, AC3, etc.
 msgctxt ""
@@ -227,15 +227,15 @@ msgstr "演员表"
 
 msgctxt ""
 msgid "Websockets closed"
-msgstr "Websockets已关闭"
+msgstr "Websockets 已关闭"
 
 msgctxt ""
 msgid "Websockets host"
-msgstr "Websockets服务器"
+msgstr "Websockets 服务器"
 
 msgctxt ""
 msgid "Websockets port"
-msgstr "Websockets端口"
+msgstr "Websockets 端口"
 
 msgctxt ""
 msgid "Default player"
@@ -267,7 +267,7 @@ msgstr "首选语言"
 
 msgctxt ""
 msgid "Ignore articles (terms such as \"The\" and \"A\") when sorting lists"
-msgstr "排序时忽略类似'The'和'A'这样的冠词字段"
+msgstr "排序时忽略类似 'The' 和 'A' 这样的冠词字段"
 
 # Short for "second"
 msgctxt ""
@@ -276,11 +276,11 @@ msgstr "秒"
 
 msgctxt ""
 msgid "Your browser doesn't support websockets! Get with the times and update your browser."
-msgstr "你的浏览器不支持websockets！该升级浏览器了。"
+msgstr "你的浏览器不支持 websockets！该升级浏览器了。"
 
 msgctxt ""
 msgid "Failed to connect to websockets"
-msgstr "Failed to connect to websockets, so I am falling back to polling for updates. Which makes things slower and uses more resources. Please ensure you have 'Allow programs on other systems to control Kodi' ENABLED in the Kodi settings (System > Services > Remote control). You may also get this if you are using proxies or accessing via an IP addess when localhost will suffice. If websockets normally works, you might just need to refresh your browser."
+msgstr "无法连接 websockets"
 
 msgctxt ""
 msgid "Video"
@@ -332,7 +332,7 @@ msgstr "扫描音频库"
 
 msgctxt ""
 msgid "About Chorus"
-msgstr "关于Chorus"
+msgstr "关于 Chorus"
 
 msgctxt ""
 msgid "Recent"
@@ -360,7 +360,7 @@ msgstr "最近的电视节目"
 
 msgctxt ""
 msgid "All TV shows"
-msgstr "所有电视节目"
+msgstr "所有电视剧"
 
 msgctxt ""
 msgid "Web settings"
@@ -376,7 +376,7 @@ msgstr "现在正在播放播放列表"
 
 msgctxt ""
 msgid "Switch between Kodi and local playback via the tabs. You can toggle visibility with the arrow in the top right"
-msgstr "在这个标签上切换在Kodi或本计算机上播放媒体。你可以点击右上角的箭头来显示或隐藏它。"
+msgstr "在这个标签上切换在 Kodi 或本计算机上播放媒体。你可以点击右上角的箭头来显示或隐藏它。"
 
 msgctxt ""
 msgid "Current playlist"
@@ -396,7 +396,7 @@ msgstr "派对模式"
 
 msgctxt ""
 msgid "Save Kodi playlist"
-msgstr "保存Kodi播放列表"
+msgstr "保存 Kodi 播放列表"
 
 msgctxt ""
 msgid "Preferred language, need to refresh browser to take effect"
@@ -404,7 +404,7 @@ msgstr "这是你喜欢的语言，在刷新浏览器后生效"
 
 msgctxt ""
 msgid "Ignore articles (terms such as 'The' and 'A') when sorting lists"
-msgstr "当排序时忽略类似'The'和'A'的冠词字段"
+msgstr "当排序时忽略类似 'The' 和 'A' 的冠词字段"
 
 msgctxt ""
 msgid "Vibrant headers"
@@ -444,7 +444,7 @@ msgstr "和"
 
 msgctxt ""
 msgid "tvshows"
-msgstr "电视节目"
+msgstr "电视剧"
 
 msgctxt ""
 msgid "no media in this folder"
@@ -452,15 +452,15 @@ msgstr "这个文件夹里没有媒体文件"
 
 msgctxt ""
 msgid "Browse files and add-ons"
-msgstr "浏览文件和Kodi插件"
+msgstr "浏览文件和插件"
 
 msgctxt ""
 msgid "This is where you can browse all Kodi content, not just what is in the library. Browse by source or add-on."
-msgstr "这里不仅可以浏览媒体库中的内容，还可以浏览所有的在Kodi上的内容。选择Source(源)或插件来浏览。"
+msgstr "这里不仅可以浏览媒体库中的内容，还可以浏览所有的在 Kodi 上的内容。选择 Source (源)或插件来浏览。"
 
 msgctxt ""
 msgid "Send text to Kodi"
-msgstr "像Kodi发送文字消息"
+msgstr "像 Kodi 发送文字消息"
 
 msgctxt ""
 msgid "The lab"
@@ -468,7 +468,7 @@ msgstr "实验室"
 
 msgctxt ""
 msgid "Chorus lab"
-msgstr "Chorus的实验功能"
+msgstr "Chorus 实验功能"
 
 msgctxt ""
 msgid "Warning"
@@ -480,11 +480,11 @@ msgstr "这些不稳定的代码还在试验中，请谨慎使用"
 
 msgctxt ""
 msgid "Kodi API browser"
-msgstr "浏览Kodi的API"
+msgstr "浏览 Kodi 的 API"
 
 msgctxt ""
 msgid "This is a tool to test out the API. Select a method then execute it with parameters."
-msgstr "这是用于测试API的工具。选择一个API，并添加一些参数来执行它。"
+msgstr "这是用于测试 API 的工具。选择一个 API，并添加一些参数来执行它。"
 
 msgctxt ""
 msgid "You could potentially damage your system with this and there are no sanity checks. Use at own risk."
@@ -492,11 +492,11 @@ msgstr "这么做你可能会破坏你的系统。风险自担。"
 
 msgctxt ""
 msgid "Kodi settings"
-msgstr "Kodi设置"
+msgstr "Kodi 播放器设置"
 
 msgctxt ""
 msgid "Saved Kodi settings"
-msgstr "保存的Kodi设置"
+msgstr "保存的 Kodi 设置"
 
 msgctxt ""
 msgid "General"
@@ -504,7 +504,7 @@ msgstr "通用"
 
 msgctxt ""
 msgid "Web settings"
-msgstr "Web设置"
+msgstr "设置 Chorus 网页"
 
 msgctxt ""
 msgid "Advanced setting level is recommended for those who know what they are doing."
@@ -516,7 +516,7 @@ msgstr "Web设置已保存"
 
 msgctxt ""
 msgid "Kodi settings level"
-msgstr "Kodi设置级别"
+msgstr "Kodi 设置级别"
 
 msgctxt ""
 msgid "Remove"
@@ -532,7 +532,7 @@ msgstr "插件"
 
 msgctxt ""
 msgid "Web interface"
-msgstr "Web界面"
+msgstr "Web 界面"
 
 msgctxt ""
 msgid "Readme"
@@ -604,7 +604,7 @@ msgstr "键盘控制"
 
 msgctxt ""
 msgid "In Chorus, will you keyboard control Kodi, the browser or both"
-msgstr "在Chorus里, 你希望用键盘控制Kodi，浏览器或是两者"
+msgstr "在 Chorus 里, 你希望用键盘控制 Kodi，浏览器或是两者"
 
 msgctxt ""
 msgid "Learn more"
@@ -632,7 +632,7 @@ msgstr "主菜单结构"
 
 msgctxt ""
 msgid "Here you can change the title, url and icons for menu items. You can also remove, re-order and add new items."
-msgstr "在这里你可以改变菜单项的标题，url和图标。你也可以删除，排序和添加新的菜单项。"
+msgstr "在这里你可以改变菜单项的标题，url 和图标。你也可以删除，排序和添加新的菜单项。"
 
 msgctxt ""
 msgid "Main Nav"
@@ -660,7 +660,7 @@ msgstr "电影"
 
 msgctxt ""
 msgid "TV shows"
-msgstr "电视节目"
+msgstr "电视剧"
 
 msgctxt ""
 msgid "TV"
